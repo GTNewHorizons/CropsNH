@@ -2,22 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:15:28 PM (GMT)]
  */
 package vazkii.botania.api;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -52,39 +47,42 @@ import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.SimpleWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-
-import cpw.mods.fml.common.Loader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public final class BotaniaAPI {
 
-	private static List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
-	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
+	private static final List<LexiconCategory> categories = new ArrayList<>();
+	private static final List<LexiconEntry> allEntries = new ArrayList<>();
 
-	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
+	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<>();
 
-	public static Map<String, Brew> brewMap = new LinkedHashMap<String, Brew>();
+	public static Map<String, Brew> brewMap = new LinkedHashMap<>();
 
-	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
-	public static List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<RecipePureDaisy>();
-	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
-	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
-	public static List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<RecipeElvenTrade>();
-	public static List<RecipeBrew> brewRecipes = new ArrayList<RecipeBrew>();
-	public static List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<RecipeManaInfusion>();
+	public static List<RecipePetals> petalRecipes = new ArrayList<>();
+	public static List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<>();
+	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<>();
+	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<>();
+	public static List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<>();
+	public static List<RecipeBrew> brewRecipes = new ArrayList<>();
+	public static List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<>();
 
-	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
-	private static Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<Class<? extends SubTileEntity>, SubTileSignature>();
+	private static final BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
+	private static final Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<>();
 	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
-	public static Map<String, String> subTileMods = new HashMap<String, String>();
+	public static Map<String, String> subTileMods = new HashMap<>();
 	public static BiMap<String, String> miniFlowers = HashBiMap.<String, String> create();
 
-	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
-	public static Map<String, Integer> oreWeightsNether = new HashMap<String, Integer>();
+	public static Map<String, Integer> oreWeights = new HashMap<>();
+	public static Map<String, Integer> oreWeightsNether = new HashMap<>();
 	public static Map<Item, Block> seeds = new HashMap();
 	public static Set<Item> looniumBlacklist = new LinkedHashSet();
-	public static Set<Block> paintableBlocks = new LinkedHashSet<Block>();
+	public static Set<Block> paintableBlocks = new LinkedHashSet<>();
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);

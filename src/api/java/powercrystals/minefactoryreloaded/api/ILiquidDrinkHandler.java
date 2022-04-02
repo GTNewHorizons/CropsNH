@@ -4,5 +4,5 @@ import net.minecraft.entity.EntityLivingBase;
 
 public interface ILiquidDrinkHandler
 {
-	public void onDrink(EntityLivingBase player);
+	void onDrink(EntityLivingBase player);
 }

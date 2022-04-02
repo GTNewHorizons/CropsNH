@@ -1,23 +1,20 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.arboriculture;
 
-import java.util.EnumSet;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
-
 import com.mojang.authlib.GameProfile;
-
-import net.minecraftforge.common.EnumPlantType;
-
 import forestry.api.genetics.IEffectData;
 import forestry.api.genetics.IIndividual;
 import forestry.api.world.ITreeGenData;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.common.EnumPlantType;
+
+import java.util.EnumSet;
 
 public interface ITree extends IIndividual, ITreeGenData {
 
@@ -63,7 +60,7 @@ public interface ITree extends IIndividual, ITreeGenData {
 	 * @return Integer denoting how resilient leaf blocks are against adverse influences (i.e. caterpillars).
 	 */
 	int getResilience();
-	
+
 	/**
 	 * @return Integer denoting the size of the tree trunk.
 	 */

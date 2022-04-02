@@ -1,24 +1,24 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.genetics;
 
 /**
  * Biological classifications from domain down to genus.
- * 
+ *
  * Used by the *alyzers to display hierarchies.
  */
 public interface IClassification {
 
-	public enum EnumClassLevel {
+	enum EnumClassLevel {
 
 		DOMAIN(0x777fff, true), KINGDOM(0x77c3ff), PHYLUM(0x77ffb6, true), DIVISION(0x77ffb6, true), CLASS(0x7bff77), ORDER(0xbeff77), FAMILY(0xfffd77),
 		SUBFAMILY(0xfffd77), TRIBE(0xfffd77), GENUS(0xffba77);
 
-		private int colour;
-		private boolean isDroppable;
+		private final int colour;
+		private final boolean isDroppable;
 
 		private EnumClassLevel(int colour) {
 			this(colour, false);
@@ -61,7 +61,7 @@ public interface IClassification {
 
 	/**
 	 * A branch approximates a "genus" in real life. Real life examples: "Micrapis", "Megapis"
-	 * 
+	 *
 	 * @return flavour text (may be null)
 	 */
 	String getScientific();
@@ -88,7 +88,7 @@ public interface IClassification {
 
 	/**
 	 * Used by the allele registry to populate internal collection of branch members on the fly.
-	 * 
+	 *
 	 * @param species
 	 */
 	void addMemberSpecies(IAlleleSpecies species);
@@ -100,7 +100,7 @@ public interface IClassification {
 
 	/**
 	 * Only used internally by the AlleleRegistry if this classification has been added to another one.
-	 * 
+	 *
 	 * @param parent
 	 */
 	void setParent(IClassification parent);

@@ -5,9 +5,9 @@
  ******************************************************************************/
 package forestry.api.arboriculture;
 
-import java.awt.Color;
-
 import forestry.api.genetics.IClassification;
+
+import java.awt.Color;
 
 public interface ITreeFactory {
 	/**

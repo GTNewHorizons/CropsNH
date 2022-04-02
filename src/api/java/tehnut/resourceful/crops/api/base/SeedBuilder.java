@@ -1,6 +1,6 @@
 package tehnut.resourceful.crops.api.base;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Factory for creating Seeds/Crops/Shards.

@@ -4,22 +4,22 @@ import net.minecraft.item.ItemStack;
 import tehnut.resourceful.crops.api.util.helper.ItemHelper;
 
 import javax.annotation.Nullable;
-import java.awt.*;
+import java.awt.Color;
 
 public class Seed {
 
-    private String name;
-    private int tier;
-    private int amount;
-    private String input;
-    private String output;
-    private String secondOutput;
-    private String thirdOutput;
-    private Color color;
-    private SeedReq seedReq;
-    private Chance chance;
-    private boolean compatSeed;
-    private Compat compat;
+    private final String name;
+    private final int tier;
+    private final int amount;
+    private final String input;
+    private final String output;
+    private final String secondOutput;
+    private final String thirdOutput;
+    private final Color color;
+    private final SeedReq seedReq;
+    private final Chance chance;
+    private final boolean compatSeed;
+    private final Compat compat;
 
     /**
      * To create a seed, use {@link SeedBuilder}

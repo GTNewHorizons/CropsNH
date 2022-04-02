@@ -5,14 +5,11 @@
  ******************************************************************************/
 package forestry.api.recipes;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
 import net.minecraftforge.fluids.FluidStack;
+
+import javax.annotation.Nullable;
 
 public interface IFabricatorRecipe {
 

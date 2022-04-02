@@ -1,9 +1,5 @@
 package thaumcraft.api.crafting;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,17 +9,21 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+
 public class InfusionEnchantmentRecipe
 {
-	
+
 	public AspectList aspects;
 	public String research;
 	public ItemStack[] components;
 	public Enchantment enchantment;
 	public int recipeXP;
 	public int instability;
-	
-	public InfusionEnchantmentRecipe(String research, Enchantment input, int inst, 
+
+	public InfusionEnchantmentRecipe(String research, Enchantment input, int inst,
 			AspectList aspects2, ItemStack[] recipe) {
 		this.research = research;
 		this.enchantment = input;
@@ -35,17 +35,17 @@ public class InfusionEnchantmentRecipe
 
 	/**
      * Used to check if a recipe matches current crafting inventory
-     * @param player 
+     * @param player
      */
 	public boolean matches(ArrayList<ItemStack> input, ItemStack central, World world, EntityPlayer player) {
 		if (research.length()>0 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), research)) {
     		return false;
     	}
-		
+
 		if (!enchantment.canApply(central) || !central.getItem().isItemTool(central)) {
 			return false;
 		}
-				
+
 		Map map1 = EnchantmentHelper.getEnchantments(central);
 		Iterator iterator = map1.keySet().iterator();
         while (iterator.hasNext())
@@ -55,20 +55,20 @@ public class InfusionEnchantmentRecipe
             if (j1 == enchantment.effectId &&
             		EnchantmentHelper.getEnchantmentLevel(j1, central)>=ench.getMaxLevel())
             	return false;
-            if (enchantment.effectId != ench.effectId && 
+            if (enchantment.effectId != ench.effectId &&
             	(!enchantment.canApplyTogether(ench) ||
             	!ench.canApplyTogether(enchantment))) {
             	return false;
             }
         }
-		
+
 		ItemStack i2 = null;
-		
-		ArrayList<ItemStack> ii = new ArrayList<ItemStack>();
+
+		ArrayList<ItemStack> ii = new ArrayList<>();
 		for (ItemStack is:input) {
 			ii.add(is.copy());
 		}
-		
+
 		for (ItemStack comp:components) {
 			boolean b=false;
 			for (int a=0;a<ii.size();a++) {
@@ -87,7 +87,7 @@ public class InfusionEnchantmentRecipe
 //		System.out.println(ii.size());
 		return ii.size()==0?true:false;
     }
-	
+
 	protected boolean areItemStacksEqual(ItemStack stack0, ItemStack stack1, boolean fuzzy)
     {
 		if (stack0==null && stack1!=null) return false;
@@ -105,21 +105,21 @@ public class InfusionEnchantmentRecipe
 		}
         return stack0.getItem() != stack1.getItem() ? false : (stack0.getItemDamage() != stack1.getItemDamage() ? false : stack0.stackSize <= stack0.getMaxStackSize() );
     }
-	
-   
+
+
     public Enchantment getEnchantment() {
 		return enchantment;
-    	
+
     }
-    
+
     public AspectList getAspects() {
 		return aspects;
-    	
+
     }
-    
+
     public String getResearch() {
 		return research;
-    	
+
     }
 
 	public int calcInstability(ItemStack recipeInput) {

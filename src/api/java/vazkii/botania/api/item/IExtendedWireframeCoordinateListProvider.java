@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 30, 2015, 1:43:17 PM (GMT)]
  */
 package vazkii.botania.api.item;
@@ -23,6 +23,6 @@ public interface IExtendedWireframeCoordinateListProvider extends IWireframeCoor
 	/**
 	 * Gets the source wireframe to draw, this one will be drawn thicker.
 	 */
-	public ChunkCoordinates getSourceWireframe(EntityPlayer player, ItemStack stack);
+    ChunkCoordinates getSourceWireframe(EntityPlayer player, ItemStack stack);
 
 }

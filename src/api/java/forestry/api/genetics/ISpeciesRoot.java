@@ -1,21 +1,20 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.genetics;
+
+import com.mojang.authlib.GameProfile;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-
-import com.mojang.authlib.GameProfile;
 
 /**
  * Describes a class of species (i.e. bees, trees, butterflies), provides helper functions and access to common functionality.
@@ -84,21 +83,21 @@ public interface ISpeciesRoot {
 	/* TEMPLATES */
 	/**
 	 * Registers a bee template using the UID of the first allele as identifier.
-	 * 
+	 *
 	 * @param template
 	 */
 	void registerTemplate(IAllele[] template);
 
 	/**
 	 * Registers a bee template using the passed identifier.
-	 * 
+	 *
 	 * @param template
 	 */
 	void registerTemplate(String identifier, IAllele[] template);
 
 	/**
 	 * Retrieves a registered template using the passed identifier.
-	 * 
+	 *
 	 * @param identifier
 	 * @return Array of {@link IAllele} representing a genome.
 	 */
@@ -121,7 +120,7 @@ public interface ISpeciesRoot {
 	/* MUTATIONS */
 	/**
 	 * Use to register mutations.
-	 * 
+	 *
 	 * @param mutation
 	 */
 	void registerMutation(IMutation mutation);

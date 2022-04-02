@@ -1,17 +1,17 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.genetics;
 
-import java.util.List;
-
 import forestry.api.core.INBTTagable;
+
+import java.util.List;
 
 /**
  * An actual individual with genetic information.
- * 
+ *
  * Only the default implementation is supported.
  */
 public interface IIndividual extends INBTTagable {
@@ -23,7 +23,7 @@ public interface IIndividual extends INBTTagable {
 	void addTooltip(List<String> list);
 
 	/**
-	 * Call to mark the IIndividual as analyzed. 
+	 * Call to mark the IIndividual as analyzed.
 	 * @return true if the IIndividual has not been analyzed previously.
 	 */
 	boolean analyze();

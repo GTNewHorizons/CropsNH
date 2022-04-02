@@ -63,7 +63,7 @@ public class SeedRegistry {
     }
 
     public static List<Seed> getSeedList() {
-        return new ArrayList<Seed>(seedList);
+        return new ArrayList<>(seedList);
     }
 
     public static void setSeedList(ArrayList<Seed> list) {
@@ -75,6 +75,6 @@ public class SeedRegistry {
     }
 
     public static void dump() {
-        ResourcefulAPI.seedCache = new PermanentCache<Seed>(ModInformation.ID + "Cache");
+        ResourcefulAPI.seedCache = new PermanentCache<>(ModInformation.ID + "Cache");
     }
 }

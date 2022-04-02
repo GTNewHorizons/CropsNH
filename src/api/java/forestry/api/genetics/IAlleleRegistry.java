@@ -5,14 +5,12 @@
  ******************************************************************************/
 package forestry.api.genetics;
 
-import java.util.Collection;
-import java.util.Map;
-
+import com.mojang.authlib.GameProfile;
+import forestry.api.genetics.IClassification.EnumClassLevel;
 import net.minecraft.item.ItemStack;
 
-import com.mojang.authlib.GameProfile;
-
-import forestry.api.genetics.IClassification.EnumClassLevel;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Manages {@link ISpeciesRoot}, {@link IAllele}s, {@link IFruitFamily}s, {@link IClassification}, the blacklist and allows creation of research notes.
@@ -57,7 +55,7 @@ public interface IAlleleRegistry {
 	/* INDIVIDUAL */
 	/**
 	 * Tests the itemstack for genetic information.
-	 * 
+	 *
 	 * @param stack
 	 * @return true if the itemstack is an individual.
 	 */
@@ -65,7 +63,7 @@ public interface IAlleleRegistry {
 
 	/**
 	 * Retrieve genetic information from an itemstack.
-	 * 
+	 *
 	 * @param stack
 	 *            Stack to retrieve genetic information for.
 	 * @return IIndividual containing genetic information, null if none could be extracted.
@@ -81,7 +79,7 @@ public interface IAlleleRegistry {
 
 	/**
 	 * Registers an allele.
-	 * 
+	 *
 	 * @param allele
 	 *            IAllele to register.
 	 */
@@ -94,7 +92,7 @@ public interface IAlleleRegistry {
 
 	/**
 	 * Registers an old allele UID and the new IAllele to replace instances of it with.
-	 * 
+	 *
 	 * @param deprecatedAlleleUID
 	 * 			the old allele's UID
 	 * @param replacement
@@ -104,7 +102,7 @@ public interface IAlleleRegistry {
 
 	/**
 	 * Gets an allele
-	 * 
+	 *
 	 * @param uid
 	 *            String based unique identifier of the allele to retrieve.
 	 * @return IAllele if found or a replacement is found in the Deprecated Allele map, null otherwise.
@@ -119,7 +117,7 @@ public interface IAlleleRegistry {
 
 	/**
 	 * Registers a classification.
-	 * 
+	 *
 	 * @param classification
 	 *            IClassification to register.
 	 */
@@ -127,7 +125,7 @@ public interface IAlleleRegistry {
 
 	/**
 	 * Creates and returns a classification.
-	 * 
+	 *
 	 * @param level
 	 *            EnumClassLevel of the classification to create.
 	 * @param uid
@@ -141,7 +139,7 @@ public interface IAlleleRegistry {
 
 	/**
 	 * Gets a classification.
-	 * 
+	 *
 	 * @param uid
 	 *            String based unique identifier of the classification to retrieve.
 	 * @return {@link IClassification} if found, null otherwise.
@@ -151,21 +149,21 @@ public interface IAlleleRegistry {
 	/* FRUIT FAMILIES */
 	/**
 	 * Get all registered fruit families.
-	 * 
+	 *
 	 * @return A map of registered fruit families and their UIDs.
 	 */
 	Map<String, IFruitFamily> getRegisteredFruitFamilies();
 
 	/**
 	 * Registers a new fruit family.
-	 * 
+	 *
 	 * @param family
 	 */
 	void registerFruitFamily(IFruitFamily family);
 
 	/**
 	 * Retrieves a fruit family identified by uid.
-	 * 
+	 *
 	 * @param uid
 	 * @return {IFruitFamily} if found, false otherwise.
 	 */
@@ -174,7 +172,7 @@ public interface IAlleleRegistry {
 	/* ALLELE HANDLERS */
 	/**
 	 * Registers a new IAlleleHandler
-	 * 
+	 *
 	 * @param handler
 	 *            IAlleleHandler to register.
 	 */
@@ -183,7 +181,7 @@ public interface IAlleleRegistry {
 	/* BLACKLIST */
 	/**
 	 * Blacklist an allele identified by its UID from mutation.
-	 * 
+	 *
 	 * @param uid
 	 *            UID of the allele to blacklist.
 	 */

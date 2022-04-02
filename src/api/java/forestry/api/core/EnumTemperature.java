@@ -1,19 +1,18 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.core;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.biome.BiomeGenBase;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 /**
  *  Many things Forestry use temperature and humidity of a biome to determine whether they can or how they can work or spawn at a given location.
- * 
+ *
  *  This enum concerns temperature.
  */
 public enum EnumTemperature {

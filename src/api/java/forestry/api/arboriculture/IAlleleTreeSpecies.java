@@ -1,26 +1,23 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.arboriculture;
 
-import java.util.Collection;
-
-import net.minecraft.util.IIcon;
-
-import net.minecraftforge.common.EnumPlantType;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
 import forestry.api.genetics.IAlleleSpecies;
 import forestry.api.genetics.IFruitFamily;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.common.EnumPlantType;
+
+import java.util.Collection;
 
 public interface IAlleleTreeSpecies extends IAlleleSpecies {
 
 	ITreeRoot getRoot();
-	
+
 	/**
 	 * @return Native plant type of this species.
 	 */
@@ -44,7 +41,7 @@ public interface IAlleleTreeSpecies extends IAlleleSpecies {
 
 	@SideOnly(Side.CLIENT)
 	IIcon getGermlingIcon(EnumGermlingType type, int renderPass);
-	
+
 	@SideOnly(Side.CLIENT)
 	int getGermlingColour(EnumGermlingType type, int renderPass);
 

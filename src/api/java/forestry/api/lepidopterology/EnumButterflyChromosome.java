@@ -1,11 +1,9 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.lepidopterology;
-
-import java.util.Locale;
 
 import forestry.api.genetics.AlleleManager;
 import forestry.api.genetics.IAllele;
@@ -17,6 +15,8 @@ import forestry.api.genetics.IAlleleInteger;
 import forestry.api.genetics.IAlleleTolerance;
 import forestry.api.genetics.IChromosomeType;
 import forestry.api.genetics.ISpeciesRoot;
+
+import java.util.Locale;
 
 public enum EnumButterflyChromosome implements IChromosomeType {
 	/**
@@ -76,9 +76,9 @@ public enum EnumButterflyChromosome implements IChromosomeType {
 	 */
 	TERRITORY(IAlleleArea.class),
 	;
-	
+
 	Class<? extends IAllele> clss;
-	
+
 	EnumButterflyChromosome(Class<? extends IAllele> clss) {
 		this.clss = clss;
 	}

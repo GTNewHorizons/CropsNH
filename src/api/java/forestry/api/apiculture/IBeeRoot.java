@@ -1,21 +1,19 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.apiculture;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
+import com.mojang.authlib.GameProfile;
+import forestry.api.genetics.IAllele;
+import forestry.api.genetics.ISpeciesRoot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-import com.mojang.authlib.GameProfile;
-
-import forestry.api.genetics.IAllele;
-import forestry.api.genetics.ISpeciesRoot;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public interface IBeeRoot extends ISpeciesRoot {
 
@@ -79,7 +77,7 @@ public interface IBeeRoot extends ISpeciesRoot {
 
 	/**
 	 * Creates an IBee suitable for a queen containing the necessary second genome for the mate.
-	 * 
+	 *
 	 * @param genome
 	 *            Valid {@link IBeeGenome}
 	 * @param mate

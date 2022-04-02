@@ -1,14 +1,13 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.lepidopterology;
 
+import forestry.api.genetics.IIndividualLiving;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import forestry.api.genetics.IIndividualLiving;
 
 public interface IButterfly extends IIndividualLiving {
 
@@ -23,7 +22,7 @@ public interface IButterfly extends IIndividualLiving {
 	 * @return Physical size of the butterfly.
 	 */
 	float getSize();
-	
+
 	/**
 	 * @param world
 	 * @param x
@@ -52,7 +51,7 @@ public interface IButterfly extends IIndividualLiving {
 	boolean isAcceptedEnvironment(World world, double x, double y, double z);
 
 	IButterfly spawnCaterpillar(IButterflyNursery nursery);
-	
+
 	/**
 	 * @param entity
 	 * @param playerKill Whether or not the butterfly was killed by a player.
@@ -68,7 +67,7 @@ public interface IButterfly extends IIndividualLiving {
 	 * @return Array of itemstacks to drop on breaking of the nursery.
 	 */
 	ItemStack[] getCaterpillarDrop(IButterflyNursery nursery, boolean playerKill, int lootLevel);
-	
+
 	/**
 	 * Create an exact copy of this butterfly.
 	 */

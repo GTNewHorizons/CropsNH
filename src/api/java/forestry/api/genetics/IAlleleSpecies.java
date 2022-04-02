@@ -1,21 +1,18 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.genetics;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-
 import com.mojang.authlib.GameProfile;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
 import forestry.api.core.EnumHumidity;
 import forestry.api.core.EnumTemperature;
 import forestry.api.core.IIconProvider;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 /**
  * Basic species allele.
@@ -35,14 +32,14 @@ public interface IAlleleSpecies extends IAllele {
 	/**
 	 * Binomial name of the species sans genus ("Apis"). Returning "humboldti" will have the bee species flavour name be "Apis humboldti". Feel free to use fun
 	 * names or return null.
-	 * 
+	 *
 	 * @return flavour text (may be null)
 	 */
 	String getBinomial();
 
 	/**
 	 * Authority for the binomial name, e.g. "Sengir" on species of base Forestry.
-	 * 
+	 *
 	 * @return flavour text (may be null)
 	 */
 	String getAuthority();

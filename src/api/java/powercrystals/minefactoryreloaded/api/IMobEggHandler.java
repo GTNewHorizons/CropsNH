@@ -14,5 +14,5 @@ public interface IMobEggHandler
 	 * @param safariNet The Safari Net that is looking for egg info.
 	 * @return An EntityEggInfo, or null if this instance cannot handle this mob.
 	 */
-	public EntityEggInfo getEgg(ItemStack safariNet);
+    EntityEggInfo getEgg(ItemStack safariNet);
 }

@@ -5,11 +5,9 @@
  ******************************************************************************/
 package forestry.api.farming;
 
-import java.util.Collection;
-
 import net.minecraft.item.ItemStack;
 
-import net.minecraftforge.common.util.ForgeDirection;
+import java.util.Collection;
 
 /**
  * Easily extendable default farmListener.

@@ -11,11 +11,11 @@ public interface ILexicon {
 	 * Gets if a specific knowledge is unlocked. Check the knowledge types in
 	 * BotaniaAPI.
 	 */
-	public boolean isKnowledgeUnlocked(ItemStack stack, KnowledgeType knowledge);
+    boolean isKnowledgeUnlocked(ItemStack stack, KnowledgeType knowledge);
 
 	/**
 	 * Unlocks a specfic type of knowledge.
 	 */
-	public void unlockKnowledge(ItemStack stack, KnowledgeType knowledge);
+    void unlockKnowledge(ItemStack stack, KnowledgeType knowledge);
 
 }

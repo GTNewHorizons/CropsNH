@@ -2,8 +2,8 @@ package tehnut.resourceful.crops.api.base;
 
 public class Chance {
 
-    private double extraSeed;
-    private double essenceDrop;
+    private final double extraSeed;
+    private final double essenceDrop;
 
     protected Chance(double extraSeed, double essenceDrop) {
         this.extraSeed = extraSeed;

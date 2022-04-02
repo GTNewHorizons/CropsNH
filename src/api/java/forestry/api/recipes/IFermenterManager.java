@@ -1,12 +1,11 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.recipes;
 
 import net.minecraft.item.ItemStack;
-
 import net.minecraftforge.fluids.FluidStack;
 
 /**
@@ -35,7 +34,7 @@ public interface IFermenterManager extends ICraftingProvider {
 	 * @param liquid LiquidStack representing resource liquid and amount.
 	 * @throws NullPointerException if resource, output or liquid is null
 	 */
-	public void addRecipe(ItemStack resource, int fermentationValue, float modifier, FluidStack output, FluidStack liquid);
+    void addRecipe(ItemStack resource, int fermentationValue, float modifier, FluidStack output, FluidStack liquid);
 
 	/**
 	 * Add a recipe to the fermenter. Defaults to water as input liquid.
@@ -49,5 +48,5 @@ public interface IFermenterManager extends ICraftingProvider {
 	 * determined by fermentationValue*modifier.
 	 * @throws NullPointerException if resource, output or liquid is null
 	 */
-	public void addRecipe(ItemStack resource, int fermentationValue, float modifier, FluidStack output);
+    void addRecipe(ItemStack resource, int fermentationValue, float modifier, FluidStack output);
 }

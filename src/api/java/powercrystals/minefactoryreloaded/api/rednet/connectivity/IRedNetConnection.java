@@ -14,7 +14,7 @@ public interface IRedNetConnection
 	 * <p>
 	 * For nodes that want to interact with rednet,
 	 * see IRedNetInputNode, IRedNetOutputNode, and IRedNetOmniNode
-	 * 
+	 *
 	 * @param world The world this block is in.
 	 * @param x This block's X coordinate.
 	 * @param y This block's Y coordinate.
@@ -22,5 +22,5 @@ public interface IRedNetConnection
 	 * @param side The side that connection information is required for.
 	 * @return The connection type.
 	 */
-	public RedNetConnectionType getConnectionType(World world, int x, int y, int z, ForgeDirection side);
+    RedNetConnectionType getConnectionType(World world, int x, int y, int z, ForgeDirection side);
 }

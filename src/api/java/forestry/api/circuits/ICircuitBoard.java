@@ -1,15 +1,13 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.circuits;
 
-import java.util.List;
-
-import net.minecraft.tileentity.TileEntity;
-
 import forestry.api.core.INBTTagable;
+
+import java.util.List;
 
 public interface ICircuitBoard extends INBTTagable {
 
@@ -26,7 +24,7 @@ public interface ICircuitBoard extends INBTTagable {
 	void onRemoval(Object tile);
 
 	void onTick(Object tile);
-	
+
 	ICircuit[] getCircuits();
 
 }

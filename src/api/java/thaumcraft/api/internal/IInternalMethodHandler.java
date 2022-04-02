@@ -8,18 +8,18 @@ import thaumcraft.api.aspects.AspectList;
 
 public interface IInternalMethodHandler {
 
-	public void generateVisEffect(int dim, int x, int y, int z, int x2, int y2, int z2, int color);
-	public boolean isResearchComplete(String username, String researchkey);
-	public ItemStack getStackInRowAndColumn(Object instance, int row, int column);
-	public AspectList getObjectAspects(ItemStack is);
-	public AspectList getBonusObjectTags(ItemStack is,AspectList ot);
-	public AspectList generateTags(Item item, int meta);
-	public boolean consumeVisFromWand(ItemStack wand, EntityPlayer player, AspectList cost, boolean doit, boolean crafting);
-	public boolean consumeVisFromWandCrafting(ItemStack wand,EntityPlayer player, AspectList cost, boolean doit);
-	public boolean consumeVisFromInventory(EntityPlayer player, AspectList cost);
-	public void addWarpToPlayer(EntityPlayer player, int amount,boolean temporary);
-	public void addStickyWarpToPlayer(EntityPlayer player, int amount);
-	public boolean hasDiscoveredAspect(String username, Aspect aspect);
-	public AspectList getDiscoveredAspects(String username);
-	
+	void generateVisEffect(int dim, int x, int y, int z, int x2, int y2, int z2, int color);
+	boolean isResearchComplete(String username, String researchkey);
+	ItemStack getStackInRowAndColumn(Object instance, int row, int column);
+	AspectList getObjectAspects(ItemStack is);
+	AspectList getBonusObjectTags(ItemStack is, AspectList ot);
+	AspectList generateTags(Item item, int meta);
+	boolean consumeVisFromWand(ItemStack wand, EntityPlayer player, AspectList cost, boolean doit, boolean crafting);
+	boolean consumeVisFromWandCrafting(ItemStack wand, EntityPlayer player, AspectList cost, boolean doit);
+	boolean consumeVisFromInventory(EntityPlayer player, AspectList cost);
+	void addWarpToPlayer(EntityPlayer player, int amount, boolean temporary);
+	void addStickyWarpToPlayer(EntityPlayer player, int amount);
+	boolean hasDiscoveredAspect(String username, Aspect aspect);
+	AspectList getDiscoveredAspects(String username);
+
 }

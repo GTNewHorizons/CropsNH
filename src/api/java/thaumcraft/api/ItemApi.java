@@ -1,20 +1,20 @@
 package thaumcraft.api;
 
+import cpw.mods.fml.common.FMLLog;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.FMLLog;
 
 /**
- * @author Azanor	
- * 
- * This is used to gain access to the items in my mod. 
- * I only give some examples and it will probably still 
+ * @author Azanor
+ *
+ * This is used to gain access to the items in my mod.
+ * I only give some examples and it will probably still
  * require a bit of work for you to get hold of everything you need.
  *
  */
 public class ItemApi {
-	
+
 	public static ItemStack getItem(String itemString, int meta) {
 		ItemStack item = null;
 
@@ -32,7 +32,7 @@ public class ItemApi {
 
 		return item;
 	}
-	
+
 	public static ItemStack getBlock(String itemString, int meta) {
 		ItemStack item = null;
 
@@ -51,20 +51,20 @@ public class ItemApi {
 		return item;
 	}
 
-	/** 
-	 * 
+	/**
+	 *
 	 * Some examples
-	 * 
+	 *
 	 * Casting Wands:
 	 * itemWandCasting
-	 *  
+	 *
 	 * Resources:
-	 * itemEssence, itemWispEssence, itemResource, itemShard, itemNugget, 
+	 * itemEssence, itemWispEssence, itemResource, itemShard, itemNugget,
 	 * itemNuggetChicken, itemNuggetBeef, itemNuggetPork, itemTripleMeatTreat
-	 * 
+	 *
 	 * Research:
 	 * itemResearchNotes, itemInkwell, itemThaumonomicon
-	 * 
+	 *
 	 */
 
 }

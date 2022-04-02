@@ -1,8 +1,5 @@
 package thaumcraft.api.crafting;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -13,13 +10,16 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class ShapelessArcaneRecipe implements IArcaneRecipe
 {
     private ItemStack output = null;
-    private ArrayList input = new ArrayList();
-    
+    private final ArrayList input = new ArrayList();
+
     public AspectList aspects = null;
-    public String research; 
+    public String research;
 
     public ShapelessArcaneRecipe(String research, Block result, AspectList aspects, Object... recipe){ this(research,new ItemStack(result),aspects, recipe); }
     public ShapelessArcaneRecipe(String research, Item  result, AspectList aspects, Object... recipe){ this(research,new ItemStack(result),aspects, recipe); }
@@ -75,9 +75,9 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
     	if (research.length()>0 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), research)) {
     		return false;
     	}
-    	
+
         ArrayList required = new ArrayList(input);
-        
+
         for (int x = 0; x < 9; x++)
         {
             ItemStack slot = var1.getStackInSlot(x);
@@ -119,7 +119,7 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
                 }
             }
         }
-        
+
         return required.isEmpty();
     }
 
@@ -129,7 +129,7 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
         {
             return false;
         }
-        return (target.getItem() == input.getItem() && 
+        return (target.getItem() == input.getItem() &&
         		(!target.hasTagCompound() || ThaumcraftApiHelper.areItemStackTagsEqualForCrafting(input,target)) &&
         		(target.getItemDamage() == OreDictionary.WILDCARD_VALUE|| target.getItemDamage() == input.getItemDamage()));
     }
@@ -143,17 +143,17 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
     {
         return this.input;
     }
-    
-    @Override		
+
+    @Override
 	public AspectList getAspects() {
 		return aspects;
 	}
-    
-    @Override		
+
+    @Override
 	public AspectList getAspects(IInventory inv) {
 		return aspects;
 	}
-	
+
 	@Override
 	public String getResearch() {
 		return research;

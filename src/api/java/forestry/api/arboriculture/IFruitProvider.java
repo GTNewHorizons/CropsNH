@@ -1,19 +1,17 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.arboriculture;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import forestry.api.genetics.IFruitFamily;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import forestry.api.genetics.IFruitFamily;
 
 public interface IFruitProvider {
 
@@ -59,7 +57,7 @@ public interface IFruitProvider {
 
 	/**
 	 * Tries to spawn a fruit block at the potential position when the tree generates.
-	 * 
+	 *
 	 * @param genome
 	 * @param world
 	 * @param x

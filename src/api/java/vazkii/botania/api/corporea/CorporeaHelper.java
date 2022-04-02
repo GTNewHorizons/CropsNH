@@ -2,20 +2,13 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 14, 2015, 3:28:54 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
-import java.util.regex.Pattern;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -26,11 +19,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.regex.Pattern;
+
 public final class CorporeaHelper {
 
 	private static final List<IInventory> empty = Collections.unmodifiableList(new ArrayList());
 	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap();
-	private static final List<ICorporeaAutoCompleteController> autoCompleteControllers = new ArrayList<ICorporeaAutoCompleteController>();
+	private static final List<ICorporeaAutoCompleteController> autoCompleteControllers = new ArrayList<>();
 
 	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
 

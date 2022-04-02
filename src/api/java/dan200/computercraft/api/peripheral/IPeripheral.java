@@ -21,17 +21,17 @@ public interface IPeripheral
 	 * This can be queried from lua by calling peripheral.getType()
 	 * @return 	A string identifying the type of peripheral.
 	 */
-    public String getType();
-    
+    String getType();
+
 	/**
-	 * Should return an array of strings that identify the methods that this 
+	 * Should return an array of strings that identify the methods that this
 	 * peripheral exposes to Lua. This will be called once before each attachment,
 	 * and should not change when called multiple times.
 	 * @return 	An array of strings representing method names.
 	 * @see 	#callMethod
 	 */
-    public String[] getMethodNames();
-    
+    String[] getMethodNames();
+
 	/**
 	 * This is called when a lua program on an attached computercraft calls peripheral.call() with
 	 * one of the methods exposed by getMethodNames().<br>
@@ -60,8 +60,8 @@ public interface IPeripheral
 	 *						arguments are supplied to your method.
 	 * @see 	#getMethodNames
 	 */
-    public Object[] callMethod( IComputerAccess computer, ILuaContext context, int method, Object[] arguments ) throws LuaException, InterruptedException;
-    
+    Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments) throws LuaException, InterruptedException;
+
 	/**
 	 * Is called when canAttachToSide has returned true, and a computercraft is attaching to the peripheral.
 	 * This will occur when a peripheral is placed next to an active computercraft, when a computercraft is turned on next to a peripheral,
@@ -76,7 +76,7 @@ public interface IPeripheral
 	 *							computers can be attached to a peripheral at once.
 	 * @see		#detach
 	 */
-    public void attach( IComputerAccess computer );
+    void attach(IComputerAccess computer);
 
 	/**
 	 * Is called when a computercraft is detaching from the peripheral.
@@ -91,10 +91,10 @@ public interface IPeripheral
 	 *							computers can be attached to a peripheral at once.
 	 * @see		#detach
 	 */
-    public void detach( IComputerAccess computer );
+    void detach(IComputerAccess computer);
 
     /**
      * TODO: Document me
      */
-    public boolean equals( IPeripheral other );
+    boolean equals(IPeripheral other);
 }

@@ -2,23 +2,23 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 27, 2015, 2:37:22 PM (GMT)]
  */
 package vazkii.botania.api.lexicon.multiblock;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class describes a Mutiblock object. It's used to display a
@@ -32,7 +32,7 @@ public class Multiblock {
 
 	public int minX, minY, minZ, maxX, maxY, maxZ, offX, offY, offZ;
 
-	public HashMap<List<Integer>, MultiblockComponent> locationCache = new HashMap<List<Integer>, MultiblockComponent>();
+	public HashMap<List<Integer>, MultiblockComponent> locationCache = new HashMap<>();
 
 	/**
 	 * Adds a multiblock component to this multiblock. The component's x y z

@@ -13,15 +13,15 @@ public interface IMobSpawnHandler
 	/**
 	 * @return The class that this instance is handling.
 	 */
-	public Class<? extends EntityLivingBase> getMobClass();
-	
+    Class<? extends EntityLivingBase> getMobClass();
+
 	/**
 	 * @param entity The entity instance being spawned. Typically your regular spawn code 100% handles this
 	 */
-	public void onMobSpawn(EntityLivingBase entity);
+    void onMobSpawn(EntityLivingBase entity);
 
 	/**
 	 * @param entity The entity instance being exact-copied. Clear your inventories & etc. here
 	 */
-	public void onMobExactSpawn(EntityLivingBase entity);
+    void onMobExactSpawn(EntityLivingBase entity);
 }

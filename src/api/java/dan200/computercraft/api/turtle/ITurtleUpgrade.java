@@ -26,27 +26,27 @@ public interface ITurtleUpgrade
 	 * fail registration if an already used ID is specified.
 	 * @see dan200.computercraft.api.ComputerCraftAPI#registerTurtleUpgrade( dan200.computercraft.api.turtle.ITurtleUpgrade )
 	 */
-	public int getUpgradeID();
-	
+    int getUpgradeID();
+
 	/**
 	 * Return a String to describe this type of turtle in turtle item names.
 	 * Examples of built-in adjectives are "Wireless", "Mining" and "Crafty".
-	 */	
-	public String getUnlocalisedAdjective();
+	 */
+    String getUnlocalisedAdjective();
 
 	/**
 	 * Return whether this turtle adds a tool or a peripheral to the turtle.
 	 * Currently, turtle crafting is restricted to one tool & one peripheral per turtle.
 	 * @see TurtleUpgradeType for the differences between the two.
-	 */	
-	public TurtleUpgradeType getType();
-	
+	 */
+    TurtleUpgradeType getType();
+
 	/**
 	 * Return an item stack representing the type of item that a turtle must be crafted
 	 * with to create a turtle which holds this turtle.
 	 * Currently, turtle crafting is restricted to one tool & one peripheral per turtle.
-	 */		
-	public ItemStack getCraftingItem();
+	 */
+    ItemStack getCraftingItem();
 
     /**
 	 * Will only be called for Peripheral turtle. Creates a peripheral for a turtle
@@ -58,8 +58,8 @@ public interface ITurtleUpgrade
      * @param side Which side of the turtle (left or right) that the turtle resides on.
      * @return The newly created peripheral. You may return null if this turtle is a Tool
 	 * and this method is not expected to be called.
-	 */		
-	public IPeripheral createPeripheral( ITurtleAccess turtle, TurtleSide side );
+	 */
+    IPeripheral createPeripheral(ITurtleAccess turtle, TurtleSide side);
 
 	/**
 	 * Will only be called for Tool turtle. Called when turtle.dig() or turtle.attack() is called
@@ -75,7 +75,7 @@ public interface ITurtleUpgrade
 	 * a swinging animation. You may return null if this turtle is a Peripheral
 	 * and this method is not expected to be called.
 	 */
-	public TurtleCommandResult useTool( ITurtleAccess turtle, TurtleSide side, TurtleVerb verb, int direction );
+    TurtleCommandResult useTool(ITurtleAccess turtle, TurtleSide side, TurtleVerb verb, int direction);
 
 	/**
 	 * Called to obtain the IIcon to be used when rendering a turtle peripheral. Needs to be a "common"
@@ -85,10 +85,10 @@ public interface ITurtleUpgrade
 	 * @param side Which side of the turtle (left or right) the peripheral resides on.
 	 * @return The IIcon that you wish to be used to render your turtle peripheral.
 	 */
-	public IIcon getIcon( ITurtleAccess turtle, TurtleSide side );
+    IIcon getIcon(ITurtleAccess turtle, TurtleSide side);
 
     /**
      * TODO: Document me
      */
-    public void update( ITurtleAccess turtle, TurtleSide side );
+    void update(ITurtleAccess turtle, TurtleSide side);
 }

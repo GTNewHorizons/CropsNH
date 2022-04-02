@@ -8,5 +8,5 @@ package dan200.computercraft.api.lua;
 
 public interface ILuaTask
 {
-    public Object[] execute() throws LuaException;
+    Object[] execute() throws LuaException;
 }

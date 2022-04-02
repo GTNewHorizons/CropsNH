@@ -2,23 +2,23 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:17:06 PM (GMT)]
  */
 package vazkii.botania.api.lexicon;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import vazkii.botania.api.BotaniaAPI;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
@@ -27,7 +27,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	private KnowledgeType type = BotaniaAPI.basicKnowledge;
 
-	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
+	public List<LexiconPage> pages = new ArrayList<>();
 	private boolean priority = false;
 	private ItemStack icon = null;
 

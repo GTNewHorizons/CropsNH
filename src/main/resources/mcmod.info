@@ -1,21 +1,22 @@
 [
-{
-"modid": "AgriCraft",
-"name": "AgriCraft",
-"description": "Agricultural farming extended",
-"version": "${version}",
-"mcversion": "${mcversion}",
-"url": "http://minecraft.curseforge.com/mc-mods/225635-agricraft",
-"updateUrl": "http://minecraft.curseforge.com/mc-mods/225635-agricraft/files",
-"authorList": [
-"InfinityRaider"
-],
-"credits": "Code Help: Imasius, RlonRyan, API: HenryLoenwind, Textures: MechWarrior99, SkullyGamingMC, VapourDrive, SkeletonPunk",
-"logoFile": "assets/agricraft/textures/logo.png",
-"screenshots": [
-],
-"parent":"",
-"dependencies": [
-]
-}
+  {
+    "modid": "cropsnh",
+    "name": "GTNHCrops",
+    "description": "Crops - GTNH flavor (Based on cropsnh)",
+    "version": "${modVersion}",
+    "mcversion": "${minecraftVersion}",
+    "url": "http://github.com/GTNewHorizons/GTNHCrops",
+    "updateUrl": "http://github.com/GTNewHorizons/GTNHCrops",
+    "authorList": [
+      "InfinityRaider",
+      "mitchej123"
+    ],
+    "credits": "Code Help: Imasius, RlonRyan, API: HenryLoenwind, Textures: MechWarrior99, SkullyGamingMC, VapourDrive, SkeletonPunk",
+    "logoFile": "assets/cropsnh/textures/logo.png",
+    "screenshots": [
+    ],
+    "parent": "",
+    "dependencies": [
+    ]
+  }
 ]

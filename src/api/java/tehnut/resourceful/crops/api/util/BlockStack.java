@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
  */
 public class BlockStack {
 
-    private Block block;
+    private final Block block;
     private int meta = 0;
 
     public BlockStack(@Nullable Block block, int meta) {

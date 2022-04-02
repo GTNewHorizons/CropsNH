@@ -1,20 +1,17 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.core;
 
-import net.minecraft.entity.player.EntityPlayer;
-
 import com.mojang.authlib.GameProfile;
-
 import cpw.mods.fml.common.eventhandler.Event;
-
 import forestry.api.genetics.IAlleleSpecies;
 import forestry.api.genetics.IBreedingTracker;
 import forestry.api.genetics.IMutation;
 import forestry.api.genetics.ISpeciesRoot;
+import net.minecraft.entity.player.EntityPlayer;
 
 public abstract class ForestryEvent extends Event {
 

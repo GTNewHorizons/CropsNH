@@ -15,7 +15,7 @@ public class HCApi {
         return instance;
     }
 
-    public static interface IHCApi {
+    public interface IHCApi {
         ITrolleyRegistrar getTrolleyRegistrar();
 
         IBaseClass getBaseClass(TileEntity target, int maxStorage);

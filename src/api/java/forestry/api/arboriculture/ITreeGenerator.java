@@ -5,14 +5,11 @@
  ******************************************************************************/
 package forestry.api.arboriculture;
 
+import com.mojang.authlib.GameProfile;
+import forestry.api.world.ITreeGenData;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-
-import com.mojang.authlib.GameProfile;
-
 import net.minecraftforge.common.util.ForgeDirection;
-
-import forestry.api.world.ITreeGenData;
 
 /**
  * Implements the tree generation for a tree species.

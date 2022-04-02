@@ -1,9 +1,9 @@
 package forestry.api.genetics;
 
-import java.util.Collection;
-
 import forestry.api.core.EnumHumidity;
 import forestry.api.core.EnumTemperature;
+
+import java.util.Collection;
 
 public interface IClimateHelper {
 	/**
@@ -22,7 +22,7 @@ public interface IClimateHelper {
 
 	boolean isWithinLimits(EnumTemperature temperature, EnumTemperature baseTemp, EnumTolerance tolTemp);
 	boolean isWithinLimits(EnumHumidity humidity, EnumHumidity baseHumid, EnumTolerance tolHumid);
-	
+
 	/**
 	 * Gets a collection of humidities which fit the given parameters.
 	 * @param prefered Base humidity from which to measure.
@@ -37,7 +37,7 @@ public interface IClimateHelper {
 	 * @return A collection of temperatures which fall within the given parameters.
 	 */
 	Collection<EnumTemperature> getToleratedTemperature(EnumTemperature prefered, EnumTolerance tolerance);
-	
+
 	/**
 	 * Gets a localized, human readable string for the given temperature.
 	 * @param temperature Temperature to generate the string for.

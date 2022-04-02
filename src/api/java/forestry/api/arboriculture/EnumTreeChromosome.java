@@ -1,11 +1,9 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.arboriculture;
-
-import java.util.Locale;
 
 import forestry.api.genetics.AlleleManager;
 import forestry.api.genetics.IAllele;
@@ -18,6 +16,8 @@ import forestry.api.genetics.IChromosomeType;
 import forestry.api.genetics.IFruitFamily;
 import forestry.api.genetics.ISpeciesRoot;
 import net.minecraftforge.common.EnumPlantType;
+
+import java.util.Locale;
 
 public enum EnumTreeChromosome implements IChromosomeType {
 
@@ -73,9 +73,9 @@ public enum EnumTreeChromosome implements IChromosomeType {
 	 */
 	FIREPROOF(IAlleleBoolean.class),
 	;
-	
+
 	Class<? extends IAllele> clss;
-	
+
 	EnumTreeChromosome(Class<? extends IAllele> clss) {
 		this.clss = clss;
 	}

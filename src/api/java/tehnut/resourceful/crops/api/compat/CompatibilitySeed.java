@@ -10,8 +10,8 @@ public enum CompatibilitySeed {
 
     ;
 
-    private String modid;
-    private boolean config;
+    private final String modid;
+    private final boolean config;
 
     CompatibilitySeed(String modid, boolean config) {
         this.modid = modid;

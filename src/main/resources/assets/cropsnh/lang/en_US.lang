@@ -1,0 +1,535 @@
+//Creative Tabs
+itemGroup.cropsnh=cropsnh
+
+//Items
+item.cropsnh:cropsItem.name=Crop Sticks
+item.cropsnh:journal.name=Agricultural Journal
+item.cropsnh:trowel.name=Gardening Trowel
+item.cropsnh:magnifyingGlass.name=Magnifying Glass
+item.cropsnh:debugger.name=Debugger
+item.cropsnh:handRake.wood.name=Wooden Hand Rake
+item.cropsnh:handRake.iron.name=Iron Hand Rake
+item.cropsnh:clipper.name=Clipper
+item.cropsnh:clipping.name=Clipping
+
+item.cropsnh:nuggetDiamond.name=Diamond Nugget
+item.cropsnh:nuggetIron.name=Iron Nugget
+item.cropsnh:nuggetEmerald.name=Emerald Nugget
+item.cropsnh:nuggetTin.name=Tin Nugget
+item.cropsnh:nuggetLead.name=Lead Nugget
+item.cropsnh:nuggetSilver.name=Silver Nugget
+item.cropsnh:nuggetAluminum.name=Aluminum Nugget
+item.cropsnh:nuggetNickel.name=Nickel Nugget
+item.cropsnh:nuggetPlatinum.name=Platinum Nugget
+item.cropsnh:nuggetOsmium.name=Osmium Nugget
+item.cropsnh:nuggetQuartz.name=Quartz Shard
+
+item.cropsnh:seedPotato.name=Potato Seeds
+item.cropsnh:seedCarrot.name=Carrot Seeds
+item.cropsnh:seedSugarcane.name=Sugarcane Seeds
+item.cropsnh:seedDandelion.name=Dandelion Seeds
+item.cropsnh:seedPoppy.name=Poppy Seeds
+item.cropsnh:seedOrchid.name=Blue Orchid Seeds
+item.cropsnh:seedAllium.name=Allium Seeds
+item.cropsnh:seedTulipRed.name=Red Tulip Seeds
+item.cropsnh:seedTulipOrange.name=Orange Tulip Seeds
+item.cropsnh:seedTulipWhite.name=White Tulip Seeds
+item.cropsnh:seedTulipPink.name=Pink Tulip Seeds
+item.cropsnh:seedDaisy.name=Daisy Seeds
+item.cropsnh:seedCactus.name=Cactus Seeds
+item.cropsnh:seedShroomRed.name=Red Mushroom Spores
+item.cropsnh:seedShroomBrown.name=Brown Mushroom Spores
+item.cropsnh:seedNitorWart.name=Nitor Wart Spores
+item.cropsnh:seedQuartzanthemum.name=Quartzanthemum Seeds
+
+item.cropsnh:seedBotaniaWhite.name=Mystical White Flower Seeds
+item.cropsnh:seedBotaniaOrange.name=Mystical Orange Flower Seeds
+item.cropsnh:seedBotaniaMagenta.name=Mystical Magenta Flower Seeds
+item.cropsnh:seedBotaniaLightBlue.name=Mystical Light Blue Flower Seeds
+item.cropsnh:seedBotaniaYellow.name=Mystical Yellow Flower Seeds
+item.cropsnh:seedBotaniaLime.name=Mystical Lime Flower Seeds
+item.cropsnh:seedBotaniaPink.name=Mystical Pink Flower Seeds
+item.cropsnh:seedBotaniaGray.name=Mystical Gray Flower Seeds
+item.cropsnh:seedBotaniaLightGray.name=Mystical Light Gray Flower Seeds
+item.cropsnh:seedBotaniaCyan.name=Mystical Cyan Flower Seeds
+item.cropsnh:seedBotaniaPurple.name=Mystical Purple Flower Seeds
+item.cropsnh:seedBotaniaBlue.name=Mystical Blue Flower Seeds
+item.cropsnh:seedBotaniaBrown.name=Mystical Brown Flower Seeds
+item.cropsnh:seedBotaniaGreen.name=Mystical Green Flower Seeds
+item.cropsnh:seedBotaniaRed.name=Mystical Red Flower Seeds
+item.cropsnh:seedBotaniaBlack.name=Mystical Black Flower Seeds
+
+item.cropsnh:seedCinderpearl.name=Cinderpearl Seeds
+item.cropsnh:seedShimmerleaf.name=Shimmerleaf Seeds
+item.cropsnh:seedVishroom.name=Vishroom Spores
+item.cropsnh:seedTaintedRoot.name=Taint Root Seeds
+
+item.cropsnh:seedAum.name=Aum Seeds
+item.cropsnh:seedCerublossom.name=Cerublossom Seeds
+item.cropsnh:seedDesertNova.name=Desert Nova Seeds
+item.cropsnh:seedTarmaRoot.name=Tarma Root Seeds
+item.cropsnh:seedWakebloom.name=Wakebloom seeds
+
+item.cropsnh:seedFerranium.name=Ferranium Seeds
+item.cropsnh:seedAurigold.name=Aurigold Seeds
+item.cropsnh:seedDiamahlia.name=Diamahlia Seeds
+item.cropsnh:seedLapender.name=Lapender Seeds
+item.cropsnh:seedEmeryllis.name=Emeryllis Seeds
+item.cropsnh:seedRedstodendron.name=Redstodendron Seeds
+item.cropsnh:seedCuprosia.name=Cuprosia Seeds
+item.cropsnh:seedPetinia.name=Petinia Seeds
+item.cropsnh:seedPlombean.name=Plombean Seeds
+item.cropsnh:seedSilverweed.name=Silverweed Seeds
+item.cropsnh:seedJaslumine.name=Jaslumine Seeds
+item.cropsnh:seedNiccissus.name=Niccissus Seeds
+item.cropsnh:seedPlatiolus.name=Platiolus Seeds
+item.cropsnh:seedOsmonium.name=Osmonium Seeds
+
+
+//blocks
+tile.cropsnh:crops.name=Crop Sticks
+tile.cropsnh:seedAnalyzer.name=Seed Analyzer
+tile.cropsnh:waterPad.name=Water Pad
+tile.cropsnh:waterPadFull.name=Water Pad
+tile.cropsnh:waterTank.0.name=Wooden Water Tank
+tile.cropsnh:waterTank.1.name=Iron Water Tank
+tile.cropsnh:waterChannel.0.name=Wooden Irrigation Channel
+tile.cropsnh:waterChannelFull.0.name=Wooden Irrigation Channel
+tile.cropsnh:waterChannel.1.name=Iron Irrigation Pipe
+tile.cropsnh:channelValve.0.name=Wooden Channel Valve
+tile.cropsnh:channelValve.1.name=Iron Pipe Valve
+tile.cropsnh:sprinkler.name=Sprinkler
+tile.cropsnh:seedStorage.0.name=Seed Storage
+tile.cropsnh:seedStorageController.0.name=Seed Storage Controller
+tile.cropsnh:fence.0.name=Fence
+tile.cropsnh:fenceGate.0.name=Fence Gate
+tile.cropsnh:grate.0.name=Wooden Grate
+tile.cropsnh:peripheral.name=Computer Controlled Seed Analyzer
+
+tile.cropsnh:cropPotato.name=Potato
+tile.cropsnh:cropCarrot.name=Carrot
+tile.cropsnh:cropSugarcane.name=Sugarcane
+tile.cropsnh:cropMelon.name=Melon
+tile.cropsnh:cropPumpkin.name=Pumpkin
+tile.cropsnh:cropDandelion.name=Dandelion
+tile.cropsnh:cropPoppy.name=Poppy
+tile.cropsnh:cropOrchid.name=Orchid
+tile.cropsnh:cropAllium.name=Allium
+tile.cropsnh:cropTulipRed.name=Red Tulip
+tile.cropsnh:cropTulipOrange.name=Orange Tulip
+tile.cropsnh:cropTulipWhite.name=White Tulip
+tile.cropsnh:cropTulipPink.name=Pink Tulip
+tile.cropsnh:cropDaisy.name=Daisy
+tile.cropsnh:cropCactus.name=Cactus
+tile.cropsnh:cropShroomRed.name=Red Mushroom
+tile.cropsnh:cropShroomBrown.name=Brown Mushroom
+tile.cropsnh:cropNitorWart.name=Nitor Wart
+tile.cropsnh:cropQuartzanthemum.name=Quartzanthemum
+
+tile.cropsnh:cropBotaniaWhite.name=Mystical White Flower
+tile.cropsnh:cropBotaniaOrange.name=Mystical Orange Flower
+tile.cropsnh:cropBotaniaMagenta.name=Mystical Magenta Flower
+tile.cropsnh:cropBotaniaLightBlue.name=Mystical Light Blue Flower
+tile.cropsnh:cropBotaniaYellow.name=Mystical Yellow Flower
+tile.cropsnh:cropBotaniaLime.name=Mystical Lime Flower
+tile.cropsnh:cropBotaniaPink.name=Mystical Pink Flower
+tile.cropsnh:cropBotaniaGray.name=Mystical Gray Flower
+tile.cropsnh:cropBotaniaLightGray.name=Mystical Light Gray Flower
+tile.cropsnh:cropBotaniaCyan.name=Mystical Cyan Flower
+tile.cropsnh:cropBotaniaPurple.name=Mystical Purple Flower
+tile.cropsnh:cropBotaniaBlue.name=Mystical Blue Flower
+tile.cropsnh:cropBotaniaBrown.name=Mystical Brown Flower
+tile.cropsnh:cropBotaniaGreen.name=Mystical Green Flower
+tile.cropsnh:cropBotaniaRed.name=Mystical Red Flower
+tile.cropsnh:cropBotaniaBlack.name=Mystical Black Flower
+
+tile.cropsnh:cropCinderpearl.name=Cinderpearl
+tile.cropsnh:cropShimmerleaf.name=Shimmerleaf
+tile.cropsnh:cropVishroom.name=Vishroom
+tile.cropsnh:cropTaintedRoot.name=Taint Root
+
+tile.cropsnh:cropAum.name=Aum
+tile.cropsnh.cropCerublossom.name=Cerublossom
+tile.cropsnh.cropDesertNova.name=Desert Nova
+tile.cropsnh.cropTarmaRoot.name=Tarma Root
+tile.cropsnh.cropWakebloom.name=Wakebloom
+
+tile.cropsnh:cropFerranium.name=Ferranium
+tile.cropsnh:cropAurigold.name=Aurigold
+tile.cropsnh:cropDiamahlia.name=Diamahlia
+tile.cropsnh:cropLapender.name=Lapender
+tile.cropsnh:cropEmeryllis.name=Emeryllis
+tile.cropsnh:cropRedstodendron.name=Redstodendron
+tile.cropsnh:cropCuprosia.name=Cuprosia
+tile.cropsnh:cropPetinia.name=Petinia
+tile.cropsnh:cropPlombean.name=Plombean
+tile.cropsnh:cropSilverweed.name=Silverweed
+tile.cropsnh:cropJaslumine.name=Jaslumine
+tile.cropsnh:cropNiccissus.name=Niccissus
+tile.cropsnh:cropPlatiolus.name=Platiolus
+tile.cropsnh:cropOsmonium.name=Osmonium
+
+//entities
+entity.cropsnh.villagerFarmer.name=Villager
+entity.cropsnh.leash.name=Leash Knot
+
+//gui
+cropsnh_gui.seedAnalyzer=Seed Analyzer
+cropsnh_gui.peripheral=Computer Controlled Seed Analyzer
+
+//tooltips
+cropsnh_tooltip.unidentified=Unidentified
+cropsnh_tooltip.seed=Seed
+cropsnh_tooltip.growth=Growth
+cropsnh_tooltip.gain=Gain
+cropsnh_tooltip.strength=Strength
+cropsnh_tooltip.analyzed=This seed is not yet analyzed
+cropsnh_tooltip.fertile=This plant is fertile and can grow
+cropsnh_tooltip.notFertile=This plant can not grow here
+cropsnh_tooltip.discoveredSeeds=Discovered Seeds
+cropsnh_tooltip.material=Material
+cropsnh_tooltip.waterLevel=Water level
+cropsnh_tooltip.cropWithPlant=This crop has a plant
+cropsnh_tooltip.crossCrop=This is a cross-crop
+cropsnh_tooltip.weeds=Weeds have sprouted here
+cropsnh_tooltip.cropWithoutPlant=This crop doesn't have a plant on it
+cropsnh_tooltip.notCrop=This is not a crop
+cropsnh_tooltip.trowel=Use this to move plants from one crop to another
+cropsnh_tooltip.magnifyingGlass=Use this to inspect crops
+cropsnh_tooltip.handRake=Use this to remove weeds from crops
+cropsnh_tooltip.closed=Closed
+cropsnh_tooltip.open=Open
+cropsnh_tooltip.state=State
+cropsnh_tooltip.empty=No seed planted
+cropsnh_tooltip.waterPadDry=Dig with a shovel in farmland to create a little pit
+cropsnh_tooltip.waterPadWet=then use a bucket of water to fill it up
+cropsnh_tooltip.growthStage=Growthstage
+cropsnh_tooltip.mature=Mature
+cropsnh_tooltip.valve=Toggled with a redstone signal
+cropsnh_tooltip.grate=Right click with vines to apply vines
+cropsnh_tooltip.clipper1=Right click on crops to obtain clippings
+cropsnh_tooltip.clipper2=Clippings can be planted on other crops
+cropsnh_tooltip.clipper3=Success of planting is based on strength
+cropsnh_tooltip.analyzer=Specimen
+cropsnh_tooltip.storage=Locked Seed
+cropsnh_tooltip.none=none
+
+//descriptions
+cropsnh_description.peripheralHelp=Method Help
+cropsnh_description.method.analyze=Orders the analyzer to analyze the current specimen
+cropsnh_description.method.getBaseBlock=Returns the necessary base block for the crop at the specified direction or the specimen in the analyzer if no direction is specified
+cropsnh_description.method.getBaseBlockType=Returns the base block type (NONE, BELOW, NEAR) for the crop at the specified direction or the specimen in the analyzer if no direction is specified
+cropsnh_description.method.getBrightness=Returns the current light level for the crop at the specified direction
+cropsnh_description.method.getBrightnessRange=Returns the required light level range for the crop at the specified direction or the specimen in the analyzer if no direction is specified
+cropsnh_description.method.getCurrentSoil=Returns the current soil below the crop at the specified direction or the specimen in the analyzer if no direction is specified
+cropsnh_description.method.getGrowthStage=Returns the growth percentage of the crop at the specified direction
+cropsnh_description.method.getNeededSoil=Returns the required soil for the crop at the specified direction or the specimen in the analyzer if no direction is specified
+cropsnh_description.method.getPlant=Returns the seed currently planted on the crop at the specified direction
+cropsnh_description.method.getSpecimen=Returns the specimen currently in the analyzer
+cropsnh_description.method.getStats=Returns the stats [growth, gain, strength] of crop at the specified direction or the specimen in the analyzer if no direction is specified
+cropsnh_description.method.hasJournal=Returns if the analyzer has a journal
+cropsnh_description.method.hasPlant=Returns if there is a plant on the crop sticks at the specified direction
+cropsnh_description.method.hasWeeds=Returns if there are weeds on the crop at the specified direction
+cropsnh_description.method.isAnalyzed=Returns if the crop at the specified direction, or the specimen in the analyzer (if no direction is specified) is analyzed
+cropsnh_description.method.isCrossCrop=Returns if the crop at the specified direction is a cross crop
+cropsnh_description.method.isFertile=Returns if the crop at the specified direction is fertile and can grow
+cropsnh_description.method.isMature=Returns if the crop crop at the specified direction is mature
+cropsnh_description.method.needsBaseBlock=Returns if the crop crop at the specified direction needs a base block
+
+//misc
+cropsnh_arg.direction=direction
+cropsnh_arg.direction.optional=(optional) direction
+
+// nei GUI
+cropsnh_nei.mutation.title=Crop Mutation
+cropsnh_nei.cropProduct.title=Crop Produce
+cropsnh_nei.soil=Soil
+cropsnh_nei.needs=Needs
+cropsnh_nei.below=Below
+cropsnh_nei.nearby=Nearby
+
+//journal entries
+//---------------
+//headers
+cropsnh_journal.introduction=Welcome to Agricultural farming! Today I will teach you the basics of farming with crops. To start, you will need to put 4 sticks in a crafting grid; this will make crops. These can be put on farmland, and seeds can then be planted in them. You can also apply a second set of crops to an existing crop; this will create a cross-crop. If you plant two or more plants in crops adjacent to a cross-crop, there is a chance for a mutation to occur. In this journal you can keep track of all your discovered crop mutations. To register a discovered seed, put the journal in a Seed Analyzer and then analyze the seed. This will reveal to you the properties of the seed, as well as register it in this journal. If you ever wish to copy the journal, put it in a crafting grid together with a blank book and quill.
+cropsnh_journal.information=Information
+cropsnh_journal.tier=Tier
+cropsnh_journal.brightness=Brightness range
+cropsnh_journal.fruits=Fruits
+cropsnh_journal.growthStages=Growth Stages
+cropsnh_journal.mutations=Discovered Mutations
+
+//cropsnh seeds
+cropsnh_journal.potato=The potato is the base of almost every meal. Some have even found ways to turn it into a beverage.
+cropsnh_journal.carrot=The carrot is a vegetable suited for many diets.
+cropsnh_journal.sugarcane=Usually reeds only grow near water, but an agriculturist should be able to mutate this plant into growing about everywhere.
+cropsnh_journal.dandelion=Dandelions are yellow flowers found very commonly in every location exposed to the sun.
+cropsnh_journal.poppy=A very common, a very pretty, deep red flower.
+cropsnh_journal.orchid=A flower which looks good in many gardens - in fact no garden is complete without orchids in it.
+cropsnh_journal.allium=Allium is a flower that is grown for its purple petals.
+cropsnh_journal.tulipPink=The tulip comes in many colors, but only a true agriculturist appreciates the pink ones.
+cropsnh_journal.tulipOrange=Orange, one of the many colors in the tulip spectrum.
+cropsnh_journal.tulipRed=There is a saying: 'there are 50 shades of tulip, but red is the most beautiful'.
+cropsnh_journal.tulipWhite=There are many white flowers, but many say the white tulip is the white flower of white flowers.
+cropsnh_journal.daisy=Daisies are quite common, but nonetheless pretty white flowers.
+cropsnh_journal.cactus=Cacti can be grown to produce a green-tinted substance which is often used as dye.
+cropsnh_journal.shroomRed=This red fungus actually tastes quite nice and would make a fine ingredient for mushroom stew.
+cropsnh_journal.shroomBrown=This brown fungus actually tastes quite nice and would make a fine ingredient for mushroom stew.
+cropsnh_journal.nitorWart=This nether crop was believed to be extinct. Elders speak of it extracting glowstone particles from the environment to produce bright dusts.
+cropsnh_journal.quartzanthemum=A nether crop that feeds from fractions of quartz in the soil.
+cropsnh_journal.diamahlia=Many still believe this flower only exists in tales and stories. However some agriculturists say they have succeeded in obtaining this legendary plant.
+cropsnh_journal.aurigold=Aurigold is a rare and fabled flower that feeds on tiny fractions of gold in the soil, only a very patient and skilled agriculturist is able to cultivate this jewel.
+cropsnh_journal.ferranium=This strange plant's roots do not care for water. They just burrow in the soil while absorbing iron particles to strengthen itself.
+cropsnh_journal.lapender=Besides its beautiful blue color, this flower also produces shiny pebbles.
+cropsnh_journal.emeryllis=If you talk to the village agriculturist, they will be able to tell you tales about this plant and the infinite riches it would provide.
+cropsnh_journal.redstodendron=A strange aura seems to be emanating from redstodendron bushes.
+cropsnh_journal.cuprosia=Cuprosia is an odd flower which extracts copper from the soil to spring its beautiful petals.
+cropsnh_journal.petinia=This flower only thrives on soils rich in tin.
+cropsnh_journal.plombean=Sometimes people mistake this plant for regular beans and die of lead poisoning after consuming the fruits.
+cropsnh_journal.silverweed=Sometimes, less competent agriculturists mistake this valuable plant for weeds and discard it.
+cropsnh_journal.jaslumine=Blacksmiths frown down upon it, but many believe aluminum has its uses. That's why some still try to grow this flower.
+cropsnh_journal.niccissus=When it blooms, its flowers reveal nuggets made of nickel. It is still a mystery how this plant grows.
+cropsnh_journal.platiolus=Platinum is a rare material; most metallurgists will go to agriculturist instead of miners to get hold of it.
+cropsnh_journal.osmonium=An agriculturist managing to grow these flowers will find a good market of engineers.
+
+//botania seeds
+cropsnh_journal.botaniaWhite=This mystical flower has pretty white petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaOrange=This mystical flower has pretty orange petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaMagenta=This mystical flower has pretty magenta petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaLightBlue=This mystical flower has pretty blue petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaYellow=This mystical flower has pretty yellow petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaLime=This mystical flower has pretty lime petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaPink=This mystical flower has pretty pink petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaGray=This mystical flower has pretty gray petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaLightGray=This mystical flower has light gray pretty petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaCyan=This mystical flower has pretty cyan petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaPurple=This mystical flower has pretty purple petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaBlue=This mystical flower has pretty blue petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaBrown=This mystical flower has pretty brown petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaGreen=This mystical flower has pretty green petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaRed=This mystical flower has pretty red petals. Who knows what they might be useful for.
+cropsnh_journal.botaniaBlack=This mystical flower has pretty black petals. Who knows what they might be useful for.
+
+//thaumcraft seeds
+cropsnh_journal.shimmerleaf=The strange, glowing flowers only grow in the shadow of Silverwood Trees. They can be harvested and pulped to produce quicksilver.
+cropsnh_journal.cinderpearl=Found only in the hottest of climes, these plants burn with elemental fire. They can be harvested and ground to produce a fine powder akin to Blaze powder.
+cropsnh_journal.vishroom=Vishrooms grow naturally in Magical Forests. When touched by the naked hand, their poison is known to inflict nausea.
+cropsnh_journal.taintedRoot=Tainted Roots can be grown and harvested in Tainted Lands, but who would need the tendrils it produces?
+
+//ars magica seeds
+cropsnh_journal.aum=A flower with healing properties, Aum is a component in many spells. It can only be found at the base of Witchwood trees.
+cropsnh_journal.cerublossom=Cerublossom flowers thrive in lush, green environments. They were one of the first magical plants discovered, being used in potions and salves.
+cropsnh_journal.desertNova=Desert Novas grow in dry conditions. They get their name from the small bursts of magic that they periodically emit.
+cropsnh_journal.tarmaRoot=Lighter than it looks, Tarma Root grows in caves and other dark places. It is an ingredient in spells and air essences.
+cropsnh_journal.wakebloom=Growing on the surface of water in warm climates, wakebloom is used frequently in water-based spells.
+
+//minecraft seeds
+cropsnh_journal.seeds=Wheat is a very common, but very nutritious crop.
+cropsnh_journal.pumpkin=Most people consider pumpkins decorative vegetables, while others like the taste of pumpkin pies.
+cropsnh_journal.melon=Because of its sweet taste and high moisture content, the melon is a fruit loved by all.
+cropsnh_journal.nether_wart=Nether wart seems to have been cultivated in abandoned fortresses in the nether.
+
+//natura seeds
+cropsnh_journal.barleyNatura=Some people prefer the taste of barley bread over regular bread, while others claim it tastes exactly the same.
+cropsnh_journal.cottonNatura=Cotton has a high demand in the textile industry and is therefore a very valuable asset.
+
+//harvestcraft seeds
+cropsnh_journal.hc_Artichoke=The edible portion of the artichoke consists of the flower buds, before the flowers come into bloom.
+cropsnh_journal.hc_Asparagus=Asparagus has been used as a vegetable and medicine; it has a very delicate flavor.
+cropsnh_journal.hc_Bambooshoot=Bamboo shoots or bamboo sprouts are the edible shoots which are used in numerous Asian dishes and broths.
+cropsnh_journal.hc_Barley=Some people prefer the taste of barley bread over regular bread, while others claim it tastes exactly the same.
+cropsnh_journal.hc_Bean=Beans are a summer crop that needs warm temperatures to grow.
+cropsnh_journal.hc_Beet=The usually deep purple roots of beet are eaten either raw, grilled, boiled, or roasted.
+cropsnh_journal.hc_Bellpepper=Most often, bell peppers are green, yellow, orange, or red.
+cropsnh_journal.hc_Blackberry=The soft fruit is popular for use in desserts, jams, seedless jelly, and sometimes wine.
+cropsnh_journal.hc_Blueberry=Blueberries are perennial flowering plants with indigo-colored berries.
+cropsnh_journal.hc_Broccoli=Broccoli is an edible green plant in the cabbage family, whose large flowering head is used as a vegetable.
+cropsnh_journal.hc_Brusselsprout=The Brussels sprout has long been popular in Brussels, Belgium, and may have originated there.
+cropsnh_journal.hc_Cabbage=Cabbage is generally grown for its densely leaved heads, produced during the first year of its biennial cycle.
+cropsnh_journal.hc_Cactusfruit=The fruits typically grow spikes as well - handle with caution.
+cropsnh_journal.hc_Candleberry=The candleberry is a small shrub that produces small fruits.
+cropsnh_journal.hc_Cantaloupe=Cantaloupe is normally eaten as a fresh fruit, as a salad, or as a dessert with ice cream or custard.
+cropsnh_journal.hc_Cauliflower=Cauliflower can be roasted, boiled, fried, steamed, or eaten raw.
+cropsnh_journal.hc_Celery=Celery is a plant variety commonly used as a vegetable, the stem is the edible part.
+cropsnh_journal.hc_Chilipepper=The spicy chili has many culinary uses, from dips to spicing up your meal.
+cropsnh_journal.hc_Coffee=These beans are the base for a steaming cup of coffee to start your day, so basically the base of your day.
+cropsnh_journal.hc_Corn=Because of its shallow roots, corn is susceptible to droughts, intolerant of nutrient-deficient soils, and prone to be uprooted by severe winds.
+cropsnh_journal.hc_Cotton=Cotton has a high demand in the textile industry and is therefore a very valuable asset.
+cropsnh_journal.hc_Cranberry=Cranberry juice is usually sweetened or blended with other fruit juices to reduce its natural tartness.
+cropsnh_journal.hc_Cucumber=The cucumber is a creeping vine that bears cylindrical fruits that are used as culinary vegetables.
+cropsnh_journal.hc_Curryleaf=Seeds must be ripe and fresh to plant, dried or shriveled fruits are not viable. One can plant the whole fruit, but it is best to remove the pulp before planting in potting mix that is kept moist but not wet.
+cropsnh_journal.hc_Eggplant=The raw fruit can have a somewhat bitter taste, but becomes tender when cooked and develops a rich, complex flavor.
+cropsnh_journal.hc_Garlic=Garlic is easy to grow and can be grown year-round in mild climates.
+cropsnh_journal.hc_Ginger=Ginger produces clusters of white and pink flower buds that bloom into yellow flowers.
+cropsnh_journal.hc_Grape=A grape is a fruiting berry of the deciduous woody vines and the fruits can be eaten raw or they can be used for making wine, jam, juice, jelly, grape seed extract, raisins, vinegar, and grape seed oil.
+cropsnh_journal.hc_Kiwi=Kiwifruit can be grown in most temperate climates with adequate summer heat.
+cropsnh_journal.hc_Leek=Rather than forming a tight bulb like the onion, the leek produces a long cylinder of bundled leaf sheaths that are generally blanched by pushing soil around them.
+cropsnh_journal.hc_Lettuce=Generally grown as a hardy annual, lettuce is easily cultivated, although it requires relatively low temperatures to prevent it from flowering quickly.
+cropsnh_journal.hc_Mustard=Mustard seeds generally take three to ten days to germinate if placed under the proper conditions, which include a cold atmosphere and relatively moist soil.
+cropsnh_journal.hc_Oats=Oats are suitable for human consumption as oatmeal and rolled oats, but one of the most common uses is as livestock feed.
+cropsnh_journal.hc_Okra=Okra plants are valued for their edible green seed pods.
+cropsnh_journal.hc_Onion=The onion plant has a fan of hollow, bluish-green leaves and the bulb at the base of the plant begins to swell when a certain day-length is reached.
+cropsnh_journal.hc_Parsnip=The parsnip is a root vegetable closely related to the carrot and parsley.
+cropsnh_journal.hc_Peanut=Peanuts have many uses. They can be eaten raw, used in recipes, made into solvents and oils, medicines, textile materials, and peanut butter, as well as many other uses.
+cropsnh_journal.hc_Peas=Peas are botanically a fruit, since they contain seeds developed from the ovary of a (pea) flower.
+cropsnh_journal.hc_Pineapple=Pineapples are consumed fresh, cooked, juiced, and preserved, and are found in a wide array of cuisines.
+cropsnh_journal.hc_Radish=Radishes are mostly used in salads but also appear in many European dishes.
+cropsnh_journal.hc_Raspberry=Raspberry plants should not be planted where potatoes, tomatoes, peppers, eggplants, or bulbs have previously been grown, without prior fumigation of the soil.
+cropsnh_journal.hc_Rhubarb=For cooking, the stalks are often cut into small pieces and stewed (boiled in water) with added sugar.
+cropsnh_journal.hc_Rice=The traditional method for cultivating rice is flooding the fields while, or after, setting the young seedlings.
+cropsnh_journal.hc_Rutabaga=Some people carve out rutabagas, or turnips, in variable patterns (mostly faces) and used them as lanterns to ward off harmful spirits.
+cropsnh_journal.hc_Rye=Rye is a grass grown extensively as a grain, a cover crop and as a forage crop.
+cropsnh_journal.hc_Scallion=Scallion have a relatively mild onion flavor, and are used as a vegetable, either raw or cooked.
+cropsnh_journal.hc_Seaweed=Seaweed is used in salad dressings and sauces, dietetic foods, and as a preservative in meat and fish products, dairy items and baked goods.
+cropsnh_journal.hc_Sesameseeds=Sesame seed is one of the oldest oilseed crops known, domesticated well over 3000 years ago.
+cropsnh_journal.hc_Soybean=Traditional non-fermented food uses of soybeans include soy milk, and from the latter tofu and tofu skin.
+cropsnh_journal.hc_Spiceleaf=Spices are distinguished from herbs, which are parts of leafy green plants used for flavoring or as a garnish.
+cropsnh_journal.hc_Spinach=The cartoon character Popeye the Sailor Man is portrayed as having a strong affinity for spinach, becoming physically stronger after consuming it.
+cropsnh_journal.hc_Strawberry=Strawberries are popular and rewarding plants to grow in the domestic environment, be it for consumption or exhibition purposes.
+cropsnh_journal.hc_Sweetpotato=Although the leaves and shoots are also edible, the starchy tuberous roots are by far the most important product.
+cropsnh_journal.hc_Tea=Tea can be prepared by pouring hot or boiling water over cured leaves of the tea plant.
+cropsnh_journal.hc_Tomato=The tomato is consumed in diverse ways, including raw, as an ingredient in many dishes, sauces, salads, and drinks.
+cropsnh_journal.hc_Turnip=The turnip is a root vegetable commonly grown in temperate climates worldwide for its white, bulbous taproot.
+cropsnh_journal.hc_Waterchestnut=The water chestnut is actually not a nut at all, but an aquatic vegetable that grows in marshes, underwater in the mud.
+cropsnh_journal.hc_Whitemushroom=If you want to fly higher than a jet plane, these aren't the mushrooms you're looking for.
+cropsnh_journal.hc_Wintersquash=Winter squash can be harvested whenever the fruits have turned a deep, solid color and the skin is hard.
+cropsnh_journal.hc_Zucchini=Zucchini is usually served cooked, it can also be prepared using a variety of cooking techniques, including steamed, boiled, grilled, stuffed and baked, barbecued, fried, or incorporated in other recipes.
+
+//plant mega pack seeds
+cropsnh_journal.pmp_Beet=The usually deep purple roots of beet are eaten either raw, grilled, boiled, or roasted.
+cropsnh_journal.pmp_Broccoli=Broccoli is an edible green plant in the cabbage family, whose large flowering head is used as a vegetable.
+cropsnh_journal.pmp_Cassava=Cassava is a tropical plant commonly known as tapioca or manioc.
+cropsnh_journal.pmp_Celery=Celery is a plant variety commonly used as a vegetable, the stem is the edible part.
+cropsnh_journal.pmp_Corn=Because of its shallow roots, corn is susceptible to droughts, intolerant of nutrient-deficient soils, and prone to be uprooted by severe winds.
+cropsnh_journal.pmp_Cucumber=The cucumber is a creeping vine that bears cylindrical fruits that are used as culinary vegetables.
+cropsnh_journal.pmp_Eggplant=The raw fruit can have a somewhat bitter taste, but becomes tender when cooked and develops a rich, complex flavor.
+cropsnh_journal.pmp_GreenBean=Green beans can either be grown as a bush plant or a pole plant, the latter requiring supports.
+cropsnh_journal.pmp_Leek=Rather than forming a tight bulb like the onion, the leek produces a long cylinder of bundled leaf sheaths that are generally blanched by pushing soil around them.
+cropsnh_journal.pmp_Lettuce=Generally grown as a hardy annual, lettuce is easily cultivated, although it requires relatively low temperatures to prevent it from flowering quickly.
+cropsnh_journal.pmp_Onion=The onion plant has a fan of hollow, bluish-green leaves and the bulb at the base of the plant begins to swell when a certain day-length is reached.
+cropsnh_journal.pmp_Spinach=The cartoon character Popeye the Sailor Man is portrayed as having a strong affinity for spinach, becoming physically stronger after consuming it.
+cropsnh_journal.pmp_Tomato=The tomato is consumed in diverse ways, including raw, as an ingredient in many dishes, sauces, salads, and drinks.
+cropsnh_journal.pmp_BellPepperYellow=There are many bell peppers out there: red, yellow and green, but this one is yellow.
+cropsnh_journal.pmp_BellPepperOrange=There are many bell peppers out there: red, yellow and green, but this one is orange.
+cropsnh_journal.pmp_BellPepperRed=There are many bell peppers out there: red, yellow and green, but this one is red.
+cropsnh_journal.pmp_Sorrel=Sorrel is a slender herbaceous perennial plant with roots that run deep into the ground.
+
+//witchery seeds
+cropsnh_journal.wi_Belladonna=Everything about this plant is highly toxic: its leaves, buds and flowers.
+cropsnh_journal.wi_Garlic=According to folklore, garlic can be used to repel vampires. But who believes in vampires anyway, right?
+cropsnh_journal.wi_Mandrake=A mythical plant that when uprooted and woken up, will make painful screeching noises.
+cropsnh_journal.wi_Snowbell=Snowbells are pretty flowers that seem to freeze all the water they soak up.
+cropsnh_journal.wi_Artichoke=The water artichoke is an odd variety of artichoke, only few know what on earth it is useful for.
+cropsnh_journal.wi_Wolfsbane=Tales tell of this flower revealing the true nature of people suffering from lycanthropy.
+cropsnh_journal.wi_Wormwood=Wormwood is a rare plant. Herbologists praise its fever-suppressing capabilities.
+
+//chococraft seeds
+cropsnh_journal.gyshahl=The gysahl green is the favorite snack of the fabled Chocobo. Sometimes a gysahl green can produce a lovely gysahl and some say that a well cultivated gysahl plant can even produce a golden one.
+
+//psychedelicraft seeds
+cropsnh_journal.pc_cannabis=Commonly known as marijuana, it is very popular as a soft drug.
+cropsnh_journal.pc_coca=The leaves of this plant form the base material to produce cocaine.
+cropsnh_journal.pc_hop=Hops are used to brew all sorts of ales and lagers.
+cropsnh_journal.pc_tobacco=Tobacco is smoked all around the world despite its nefarious effects on ones health.
+cropsnh_journal.pc_coffeaCherries=A coffee bean is a seed of the coffee plant, and is the source for coffee, it is the pit inside the red or purple fruit often referred to as a cherry
+
+//blue power flax
+cropsnh_journal.bp_flax_seeds=Flax is String ~Sjin.
+
+//pneumaticCraft plants
+cropsnh.journal_PC.plant0=These plants grow squids inside their bulbs which sometimes carry a seed.
+cropsnh.journal_PC.plant1=Mature plants spout fire and sometimes a seed.
+cropsnh.journal_PC.plant2=When mature, these plants explode themselves leaving behind some seeds.
+cropsnh.journal_PC.plant3=These plants grow slimes inside of their bulbs which sometimes carry a seed.
+cropsnh.journal_PC.plant4=When mature, these plants can make seeds rain from the sky during a storm.
+cropsnh.journal_PC.plant5=Mature plants teleport a seed to a nearby, random location.
+cropsnh.journal_PC.plant6=During a storm, these plants attract lightning strikes.
+cropsnh.journal_PC.plant8=When mature, these plants burst out a seed.
+cropsnh.journal_PC.plant9=These plants puff out clouds of smoke. Who knows what effect these fumes may have.
+cropsnh.journal_PC.plant10=The seeds of these plants are highly repulsive and will bounce away on the ground.
+cropsnh.journal_PC.plant11=Because the seeds of this plant are lighter than air, they fly up into the stratosphere.
+cropsnh.journal_PC.plant12=When matured, these plants spit out 4 seeds which then fly into different directions.
+cropsnh.journal_PC.plant14=These plants propel seeds at high velocity over the ground, they only stop when hitting a wall.
+cropsnh.journal_PC.plant15=The seeds of these plants ride along the wind to find fertile soil.
+
+//applemilktea
+cropsnh.journal_AMT.item.defeatedcrow.seedMint:0=The leaves of this plant can be used to set a good cup of mint tea or to give some extra taste to a dish.
+
+//rotarycraft
+cropsnh.journal_RoC.canola=The husks of the canola seed can be centrifuged into a liquid with excellent lubricating properties.
+
+//immersive engineering
+cropsnh_journal.ie_hemp=Hemp fibers are a key resource in quite a few industrial applications.
+
+//extra biomes xl
+cropsnh_journal.EBXL_strawberry=Strawberries are popular and rewarding plants to grow in the domestic environment, be it for consumption or exhibition purposes.
+
+//biomes o plenty
+cropsnh_journal.BoP_turnip=The turnip is a root vegetable commonly grown in temperate climates worldwide for its white, bulbous taproot.
+
+//lord of the rings
+cropsnh_journal.lotr_flaxSeeds=Flax is String ~Sjin.
+cropsnh_journal.lotr_lettuce=Generally grown as a hardy annual, lettuce is easily cultivated, although it requires relatively low temperatures to prevent it from flowering quickly.
+cropsnh_journal.lotr_pipeweedSeeds=Pipeweed (also known as Halflings' Leaf) is a strain, likely of nicotiana, grown and enjoyed much by the hobbits of the Shire, to whom it was first introduced by Tobold Hornblower.
+
+//advent of ascension
+cropsnh_journal.aoa_BubbleBerry=There's a funny taste to these berries.
+cropsnh_journal.aoa_Chili=These chili's are so spicy, they might just burn more than just your mouth.
+cropsnh_journal.aoa_EyeBulb=You know that feeling that someone is watching you? Well now you can have it all the time.
+cropsnh_journal.aoa_Floracle=There's a strange aura emanating from these flowers.
+cropsnh_journal.aoa_Goldicap=The petals of this flower seem to be a universal antidote.
+cropsnh_journal.aoa_HeartFruit=The fruits of this plant taste so good, it actually hurts.
+cropsnh_journal.aoa_HollyTop=These plant's petals are known to make great arrowheads.
+cropsnh_journal.aoa_Lunacrike=The fruits of this plant are known to give a short, but powerful energy boost.
+cropsnh_journal.aoa_Lunaglobe=The fruits of this plant are rich in energy.
+cropsnh_journal.aoa_Lunalon=Those who say carrots are good for the eyes haven't tried this plant.
+cropsnh_journal.aoa_MagicMarang=Perfect for the those who enjoy a good food poisoning.
+cropsnh_journal.aoa_HavenShroom=Not to be mistaken with Magic Shrooms.
+cropsnh_journal.aoa_Rosidon=Eating this plant will get you higher, literally higher.
+cropsnh_journal.aoa_Tea="Jolly good, cup o' tea then."
+cropsnh_journal.aoa_ThornyPlant=Considered as a currency by some, be careful not to cause an economical crisis when farming these crops.
+cropsnh_journal.aoa_Trilliad=The leaves on this plant are quite nutritious.
+
+//agriculture
+cropsnh_journal.agriculture_cinnamon=Cinnamon stems must be processed immediately after harvesting while the inner bark is still wet.
+cropsnh_journal.agriculture_peanut=Peanuts have many uses. They can be eaten raw, used in recipes, made into solvents and oils, medicines, textile materials, and peanut butter, as well as many other uses.
+cropsnh_journal.agriculture_strawberry=Strawberries are popular and rewarding plants to grow in the domestic environment, be it for consumption or exhibition purposes.
+cropsnh_journal.agriculture_vanilla=Vanilla is the second most expensive spice after saffron.
+
+//garden stuff
+cropsnh_journal.gardenstuff_candelillaSeeds=The waxy product of this plant can be used to create candles.
+
+//millenaire
+cropsnh_journal.millenaire_cropMaize=Also known as corn, because of its shallow roots, corn is susceptible to droughts, intolerant of nutrient-deficient soils, and prone to be uprooted by severe winds.
+cropsnh_journal.millenaire_cropRice=The traditional method for cultivating rice is flooding the fields while, or after, setting the young seedlings.
+cropsnh_journal.millenaire_cropTurmeric=This plant is commonly used as a spice for curries.
+
+//harvest the nether
+cropsnh_journal.harvestTheNether_bloodleaf=The leaves of this plants seem to secrete a viscous... red... fluid, is... is that blood?
+cropsnh_journal.harvestTheNether_fleshroot=The hounds of hell love to feed on the roots of this fleshy plant.
+cropsnh_journal.harvestTheNether_glowflower=This pretty flower can be ground up into glowstone dust.
+cropsnh_journal.harvestTheNether_marrowberry=There is a strange taste to these berries.
+
+//the kitchen mod
+cropsnh_journal.kitchenMod_lettuce=Generally grown as a hardy annual, lettuce is easily cultivated, although it requires relatively low temperatures to prevent it from flowering quickly.
+cropsnh_journal.kitchenMod_peanut=Peanuts have many uses. They can be eaten raw, used in recipes, made into solvents and oils, medicines, textile materials, and peanut butter, as well as many other uses.
+cropsnh_journal.kitchenMod_strawberry=Strawberries are popular and rewarding plants to grow in the domestic environment, be it for consumption or exhibition purposes.
+cropsnh_journal.kitchenMod_tomato=Raspberry plants should not be planted where potatoes, tomatoes, peppers, eggplants, or bulbs have previously been grown, without prior fumigation of the soil.
+
+//gany's nether
+cropsnh_journal.ganysNether_ghostSeeds=This ghastly crop lies at the base of procusing spooky flour.
+cropsnh_journal.ganysNether_hellBushSeeds=This bush's berry feel warm and juicy, however I wouldn't bite in them...
+cropsnh_journal.ganysNether_quarzBerrySeeds=Berries made out of quartz, who would've thought!
+cropsnh_journal.ganysNether_witherShrubSeeds=An extremely rare crop which effectively grows wither skulls.
+
+//gany's surface
+cropsnh_journal.ganysSurface_camellia=Delicious tea can be extracted from this plant's leaves.
+
+//et futurum
+cropsnh_journal.etFuturum_beetRoot=The usually deep purple roots of beetroot are eaten either boiled, roasted or raw, either alone or combined with any salad vegetable.
+
+//calculator
+cropsnh_journal.calulator_broccoli=Broccoli is an edible green plant in the cabbage family, whose large flowering head is used as a vegetable.
+
+//harder wild life
+cropsnh_journal.harderWildLife_winterWheat=A crop that thrives at lower temperatures.

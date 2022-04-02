@@ -21,5 +21,5 @@ public interface ITurtleCommand
      * @see ITurtleAccess#executeCommand(dan200.computercraft.api.lua.ILuaContext,ITurtleCommand)
      * @see dan200.computercraft.api.turtle.TurtleCommandResult
 	 */
-	public TurtleCommandResult execute( ITurtleAccess turtle );
+    TurtleCommandResult execute(ITurtleAccess turtle);
 }

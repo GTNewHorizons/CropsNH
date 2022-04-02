@@ -5,9 +5,8 @@
  ******************************************************************************/
 package forestry.api.apiculture;
 
-import net.minecraft.item.ItemStack;
-
 import forestry.api.genetics.IAlleleSpeciesCustom;
+import net.minecraft.item.ItemStack;
 
 public interface IAlleleBeeSpeciesCustom extends IAlleleBeeSpecies, IAlleleSpeciesCustom {
 

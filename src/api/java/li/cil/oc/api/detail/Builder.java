@@ -26,7 +26,7 @@ public interface Builder<T extends Node> {
      * Builder for basic nodes. These nodes merely allow network access and
      * take on no special role.
      */
-    public static interface NodeBuilder extends Builder<Node> {
+    interface NodeBuilder extends Builder<Node> {
         /**
          * Makes the node a component.
          * <p/>
@@ -83,7 +83,7 @@ public interface Builder<T extends Node> {
      * Builder for component nodes. These node can be interacted with from
      * computers in the same network, that can <em>see</em> the component.
      */
-    public static interface ComponentBuilder extends Builder<Component> {
+    interface ComponentBuilder extends Builder<Component> {
         /**
          * Makes the node a connector.
          * <p/>
@@ -114,7 +114,7 @@ public interface Builder<T extends Node> {
      * Builder for connector nodes. These nodes can interact with the energy
      * stored in the network, i.e. increase or reduce it.
      */
-    public static interface ConnectorBuilder extends Builder<Connector> {
+    interface ConnectorBuilder extends Builder<Connector> {
         /**
          * Makes the node a component.
          * <p/>
@@ -145,6 +145,6 @@ public interface Builder<T extends Node> {
     /**
      * Builder for nodes that are both component <em>and</em> connector node.
      */
-    public static interface ComponentConnectorBuilder extends Builder<ComponentConnector> {
+    interface ComponentConnectorBuilder extends Builder<ComponentConnector> {
     }
 }

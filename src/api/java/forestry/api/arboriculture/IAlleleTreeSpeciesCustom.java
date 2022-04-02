@@ -5,10 +5,9 @@
  ******************************************************************************/
 package forestry.api.arboriculture;
 
-import net.minecraftforge.common.EnumPlantType;
-
 import forestry.api.genetics.IAlleleSpeciesCustom;
 import forestry.api.genetics.IFruitFamily;
+import net.minecraftforge.common.EnumPlantType;
 
 public interface IAlleleTreeSpeciesCustom extends IAlleleSpeciesCustom, IAlleleTreeSpecies {
 

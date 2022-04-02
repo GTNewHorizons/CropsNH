@@ -79,7 +79,7 @@ public abstract class GeolyzerEvent extends Event {
         /**
          * The retrieved data for the block being scanned.
          */
-        public final Map<String, Object> data = new HashMap<String, Object>();
+        public final Map<String, Object> data = new HashMap<>();
 
         public Analyze(EnvironmentHost host, Map<?, ?> options, int x, int y, int z) {
             super(host, options);

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.apiculture;
@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 public interface IArmorApiarist {
 	/**
 	 * Called when the apiarist's armor acts as protection against an attack.
-	 * 
+	 *
 	 * @param player
 	 *            Player being attacked
 	 * @param armor
@@ -25,5 +25,5 @@ public interface IArmorApiarist {
 	 *            Whether or not to actually do the side effects of protection
 	 * @return Whether or not the armor should protect the player from that attack
 	 */
-	public boolean protectPlayer(EntityPlayer player, ItemStack armor, String cause, boolean doProtect);
+    boolean protectPlayer(EntityPlayer player, ItemStack armor, String cause, boolean doProtect);
 }

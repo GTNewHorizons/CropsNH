@@ -126,7 +126,7 @@ public class FileSystemAccessEvent extends Event {
     }
 
     public static final class Server extends FileSystemAccessEvent {
-        private Node node;
+        private final Node node;
 
         public Server(String sound, TileEntity tileEntity, Node node) {
             super(sound, tileEntity, new NBTTagCompound());

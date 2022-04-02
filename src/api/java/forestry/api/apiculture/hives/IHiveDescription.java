@@ -5,12 +5,11 @@
  ******************************************************************************/
 package forestry.api.apiculture.hives;
 
+import forestry.api.core.EnumHumidity;
+import forestry.api.core.EnumTemperature;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-
-import forestry.api.core.EnumHumidity;
-import forestry.api.core.EnumTemperature;
 
 public interface IHiveDescription {
 

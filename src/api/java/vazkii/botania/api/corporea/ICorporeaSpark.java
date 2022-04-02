@@ -2,18 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 13, 2015, 10:53:05 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
 
-import java.util.List;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**
  * An interface for a Corporea Spark. Includes functions for handling
@@ -33,12 +33,12 @@ public interface ICorporeaSpark {
 	 * at that point the connection list in the master spark would be cleared out, also clearing out the one
 	 * in this instance, as it should be a pointer.
 	 */
-	public void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections);
+    void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections);
 
 	/**
 	 * Gets the inventory this spark is bound to, generally the one right below it.
 	 */
-	public IInventory getInventory();
+    IInventory getInventory();
 
 	/**
 	 * Gets the list of sparks this spark is connected to, see registerConnections(). This list
@@ -46,42 +46,42 @@ public interface ICorporeaSpark {
 	 * that the spark is still in the network, if that's not the case, the pointer should be
 	 * eliminated.
 	 */
-	public List<ICorporeaSpark> getConnections();
+    List<ICorporeaSpark> getConnections();
 
 	/**
 	 * Gets the list of sparks that this spark added to the list of connections during registerConnections(), this
 	 * is mainly used to create a non messy chain of particles to display the network when a spark is right
 	 * clicked with a wand.
 	 */
-	public List<ICorporeaSpark> getRelatives();
+    List<ICorporeaSpark> getRelatives();
 
 	/**
 	 * Gets the master spark in this network, see registerConnections(). The value this returns
 	 * should be null and the pointer should be eliminated if the spark is no longer present
 	 * in the network.
 	 */
-	public ICorporeaSpark getMaster();
+    ICorporeaSpark getMaster();
 
 	/**
 	 * Called when an item is extracted from the inventory this spark is attached to through this
 	 * spark.
 	 */
-	public void onItemExtracted(ItemStack stack);
+    void onItemExtracted(ItemStack stack);
 
 	/**
 	 * Called when this spark requests items, passes in the result of the request and not the actual requested stack(s).
 	 */
-	public void onItemsRequested(List<ItemStack> stacks);
+    void onItemsRequested(List<ItemStack> stacks);
 
 	/**
 	 * Gets if this spark is considered a master spark.
 	 */
-	public boolean isMaster();
+    boolean isMaster();
 
 	/**
 	 * Gets the network that this spark is on, or the color it's displaying. Sparks may only connect to others
 	 * of the same network, and on changing network should trigger a re-cache of the previous network.
 	 */
-	public int getNetwork();
+    int getNetwork();
 
 }

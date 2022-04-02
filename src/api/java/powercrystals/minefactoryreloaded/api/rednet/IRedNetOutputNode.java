@@ -2,7 +2,6 @@ package powercrystals.minefactoryreloaded.api.rednet;
 
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
 import powercrystals.minefactoryreloaded.api.rednet.connectivity.IRedNetConnection;
 
 /**
@@ -22,10 +21,10 @@ import powercrystals.minefactoryreloaded.api.rednet.connectivity.IRedNetConnecti
 public interface IRedNetOutputNode extends IRedNetConnection
 {
 	/**
-	 * Returns the output values of this RedNet node. 
-	 * This array must be 16 elements long. 
+	 * Returns the output values of this RedNet node.
+	 * This array must be 16 elements long.
 	 * Only called if your block is connected in "All" mode.
-	 * 
+	 *
 	 * @param world The world this block is in.
 	 * @param x This block's X coordinate.
 	 * @param y This block's Y coordinate.
@@ -33,12 +32,12 @@ public interface IRedNetOutputNode extends IRedNetConnection
 	 * @param side The side the output values are required for.
 	 * @return The output values.
 	 */
-	public int[] getOutputValues(World world, int x, int y, int z, ForgeDirection side);
+    int[] getOutputValues(World world, int x, int y, int z, ForgeDirection side);
 
 	/**
 	 * Returns the output value of this RedNet node for a given subnet.
 	 * Must be the same as getOutputValues(world, x, y, z, side)[subnet].
-	 * 
+	 *
 	 * @param world The world this block is in.
 	 * @param x This block's X coordinate.
 	 * @param y This block's Y coordinate.
@@ -47,5 +46,5 @@ public interface IRedNetOutputNode extends IRedNetConnection
 	 * @param subnet The subnet to get the output value for (0-15).
 	 * @return The output value.
 	 */
-	public int getOutputValue(World world, int x, int y, int z, ForgeDirection side, int subnet);
+    int getOutputValue(World world, int x, int y, int z, ForgeDirection side, int subnet);
 }

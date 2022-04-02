@@ -129,12 +129,7 @@ public class WorldCache<I> {
                 blockedIDs.add(nameToID.get(s));
             }
         }
-        Iterator<String> iter = nameToID.keySet().iterator();
-        while (iter.hasNext()) {
-            if (blockedIDs.contains(nameToID.get(iter.next()))) {
-                iter.remove();
-            }
-        }
+        nameToID.keySet().removeIf(s -> blockedIDs.contains(nameToID.get(s)));
     }
 
     protected void mergeNewIDs() {
@@ -208,7 +203,7 @@ public class WorldCache<I> {
     }
 
     public TIntObjectMap<I> getEnumeratedObjects() {
-        TIntObjectMap<I> ret = new TIntObjectHashMap<I>();
+        TIntObjectMap<I> ret = new TIntObjectHashMap<>();
         for (int i = 0; i <= MAX_ID && usedIDs.nextSetBit(i) >= 0; i++) {
             if (usedIDs.get(i)) {
                 ret.put(i, getObject(i));

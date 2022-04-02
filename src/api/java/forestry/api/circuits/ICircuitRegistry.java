@@ -1,14 +1,14 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.circuits;
 
-import java.util.Map;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.Map;
 
 public interface ICircuitRegistry {
 

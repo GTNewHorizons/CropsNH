@@ -5,10 +5,10 @@ import tehnut.resourceful.crops.api.util.BlockStack;
 
 public class SeedReq {
 
-    private BlockStack growthReq;
-    private EnumDifficulty difficulty;
-    private int lightLevelMin;
-    private int lightLevelMax;
+    private final BlockStack growthReq;
+    private final EnumDifficulty difficulty;
+    private final int lightLevelMin;
+    private final int lightLevelMax;
 
     /**
      * To create a seed requirement, use {@link SeedReqBuilder}

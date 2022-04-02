@@ -1,17 +1,16 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.arboriculture;
 
-import net.minecraft.world.World;
-
 import forestry.api.genetics.IMutation;
 import forestry.api.genetics.ISpeciesRoot;
+import net.minecraft.world.World;
 
 public interface ITreeMutation extends IMutation {
-	
+
 	/**
 	 * @return {@link ISpeciesRoot} this mutation is associated with.
 	 */

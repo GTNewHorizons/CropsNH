@@ -1,18 +1,17 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.farming;
 
-import java.util.Collection;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Collection;
 
 public interface IFarmLogic {
 
@@ -36,6 +35,6 @@ public interface IFarmLogic {
 	IIcon getIcon();
 
 	ResourceLocation getSpriteSheet();
-	
+
 	String getName();
 }

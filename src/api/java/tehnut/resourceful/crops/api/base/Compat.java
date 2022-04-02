@@ -4,7 +4,7 @@ import tehnut.resourceful.crops.api.util.BlockStack;
 
 public class Compat {
 
-    private CompatExNihilio compatExNihilio;
+    private final CompatExNihilio compatExNihilio;
 
     protected Compat(CompatExNihilio compatExNihilio) {
         this.compatExNihilio = compatExNihilio;
@@ -23,8 +23,8 @@ public class Compat {
 
     public static class CompatExNihilio {
 
-        private BlockStack sourceBlock;
-        private int sieveChance;
+        private final BlockStack sourceBlock;
+        private final int sieveChance;
 
         protected CompatExNihilio(BlockStack sourceBlock, int sieveChance) {
             this.sourceBlock = sourceBlock;

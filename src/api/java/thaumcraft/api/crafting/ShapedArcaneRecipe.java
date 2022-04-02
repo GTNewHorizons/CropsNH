@@ -1,8 +1,5 @@
 package thaumcraft.api.crafting;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -13,6 +10,9 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ShapedArcaneRecipe implements IArcaneRecipe
 {
     //Added in for future ease of change, but hard coded for now.
@@ -22,7 +22,7 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
     public ItemStack output = null;
     public  Object[] input = null;
     public AspectList aspects = null;
-    public String research; 
+    public String research;
     public int width = 0;
     public int height = 0;
     private boolean mirrored = true;
@@ -35,7 +35,7 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
         this.research = research;
         this.aspects = aspects;
         String shape = "";
-        
+
         int idx = 0;
 
         if (recipe[idx] instanceof Boolean)
@@ -85,7 +85,7 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
             throw new RuntimeException(ret);
         }
 
-        HashMap<Character, Object> itemMap = new HashMap<Character, Object>();
+        HashMap<Character, Object> itemMap = new HashMap<>();
 
         for (; idx < recipe.length; idx += 2)
         {
@@ -223,7 +223,7 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
         {
             return false;
         }
-        return (target.getItem() == input.getItem() && 
+        return (target.getItem() == input.getItem() &&
         		(!target.hasTagCompound() || ThaumcraftApiHelper.areItemStackTagsEqualForCrafting(input,target)) &&
         		(target.getItemDamage() == OreDictionary.WILDCARD_VALUE|| target.getItemDamage() == input.getItemDamage()));
     }
@@ -243,17 +243,17 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
     {
         return this.input;
     }
-    
-    @Override		
+
+    @Override
 	public AspectList getAspects() {
 		return aspects;
 	}
-    
-    @Override		
+
+    @Override
 	public AspectList getAspects(IInventory inv) {
 		return aspects;
 	}
-	
+
 	@Override
 	public String getResearch() {
 		return research;

@@ -1,7 +1,5 @@
 package thaumcraft.api.research;
 
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
@@ -12,6 +10,8 @@ import thaumcraft.api.crafting.CrucibleRecipe;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.InfusionEnchantmentRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
+
+import java.util.List;
 
 public class ResearchPage {
 	public static enum PageType
@@ -28,16 +28,16 @@ public class ResearchPage {
         INFUSION_ENCHANTMENT,
         SMELTING
     }
-	
+
 	public PageType type = PageType.TEXT;
-	
+
 	public String text=null;
 	public String research=null;
 	public ResourceLocation image=null;
 	public AspectList aspects=null;
 	public Object recipe=null;
 	public ItemStack recipeOutput=null;
-	
+
 	/**
 	 * @param text this can (but does not have to) be a reference to a localization variable, not the actual text.
 	 */
@@ -45,7 +45,7 @@ public class ResearchPage {
 		this.type = PageType.TEXT;
 		this.text = text;
 	}
-	
+
 	/**
 	 * @param research this page will only be displayed if the player has discovered this research
 	 * @param text this can (but does not have to) be a reference to a localization variable, not the actual text.
@@ -55,7 +55,7 @@ public class ResearchPage {
 		this.research = research;
 		this.text = text;
 	}
-	
+
 	/**
 	 * @param recipe a vanilla crafting recipe.
 	 */
@@ -64,7 +64,7 @@ public class ResearchPage {
 		this.recipe = recipe;
 		this.recipeOutput = recipe.getRecipeOutput();
 	}
-	
+
 	/**
 	 * @param recipe a collection of vanilla crafting recipes.
 	 */
@@ -72,7 +72,7 @@ public class ResearchPage {
 		this.type = PageType.NORMAL_CRAFTING;
 		this.recipe = recipe;
 	}
-	
+
 	/**
 	 * @param recipe a collection of arcane crafting recipes.
 	 */
@@ -80,7 +80,7 @@ public class ResearchPage {
 		this.type = PageType.ARCANE_CRAFTING;
 		this.recipe = recipe;
 	}
-	
+
 	/**
 	 * @param recipe a collection of arcane crafting recipes.
 	 */
@@ -88,7 +88,7 @@ public class ResearchPage {
 		this.type = PageType.CRUCIBLE_CRAFTING;
 		this.recipe = recipe;
 	}
-	
+
 	/**
 	 * @param recipe a collection of infusion crafting recipes.
 	 */
@@ -96,7 +96,7 @@ public class ResearchPage {
 		this.type = PageType.INFUSION_CRAFTING;
 		this.recipe = recipe;
 	}
-	
+
 	/**
 	 * @param recipe a compound crafting recipe.
 	 */
@@ -104,7 +104,7 @@ public class ResearchPage {
 		this.type = PageType.COMPOUND_CRAFTING;
 		this.recipe = recipe;
 	}
-	
+
 	/**
 	 * @param recipe an arcane worktable crafting recipe.
 	 */
@@ -113,7 +113,7 @@ public class ResearchPage {
 		this.recipe = recipe;
 		this.recipeOutput = recipe.getRecipeOutput();
 	}
-	
+
 	/**
 	 * @param recipe an alchemy crafting recipe.
 	 */
@@ -122,7 +122,7 @@ public class ResearchPage {
 		this.recipe = recipe;
 		this.recipeOutput = recipe.getRecipeOutput();
 	}
-	
+
 	/**
 	 * @param recipe a furnace smelting crafting recipe.
 	 */
@@ -131,7 +131,7 @@ public class ResearchPage {
 		this.recipe = input;
 		this.recipeOutput = FurnaceRecipes.smelting().getSmeltingResult(input);
 	}
-	
+
 	/**
 	 * @param recipe an infusion crafting recipe.
 	 */
@@ -144,20 +144,15 @@ public class ResearchPage {
 			this.recipeOutput = recipe.getRecipeInput();
 		}
 	}
-	
+
 	/**
 	 * @param recipe an infusion crafting recipe.
 	 */
 	public ResearchPage(InfusionEnchantmentRecipe recipe) {
 		this.type = PageType.INFUSION_ENCHANTMENT;
 		this.recipe = recipe;
-//		if (recipe.recipeOutput instanceof ItemStack) {
-//			this.recipeOutput = (ItemStack) recipe.recipeOutput;
-//		} else {
-//			this.recipeOutput = recipe.recipeInput;
-//		}
 	}
-	
+
 	/**
 	 * @param image
 	 * @param caption this can (but does not have to) be a reference to a localization variable, not the actual text.
@@ -167,7 +162,7 @@ public class ResearchPage {
 		this.image = image;
 		this.text = caption;
 	}
-	
+
 	/**
 	 * This function should really not be called directly - used internally
 	 */
@@ -175,7 +170,7 @@ public class ResearchPage {
 		this.type = PageType.ASPECTS;
 		this.aspects = as;
 	}
-	
+
 	/**
 	 * returns a localized text of the text field (if one exists). Returns the text field itself otherwise.
 	 * @return
@@ -188,6 +183,6 @@ public class ResearchPage {
 		}
 		return ret;
 	}
-	
-	
+
+
 }

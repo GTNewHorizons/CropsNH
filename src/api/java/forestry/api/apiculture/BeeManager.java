@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.apiculture;
 
+import net.minecraft.item.ItemStack;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import net.minecraft.item.ItemStack;
 /**
- * 
+ *
  * Some miscellaneous lists and settings for bees.
- * 
+ *
  * @author SirSengir
  */
 public class BeeManager {
@@ -25,7 +25,7 @@ public class BeeManager {
 	/**
 	 * List of items that can induce swarming. Integer denotes x in 1000 chance.
 	 */
-	public static HashMap<ItemStack, Integer> inducers = new HashMap<ItemStack, Integer>();
+	public static HashMap<ItemStack, Integer> inducers = new HashMap<>();
 
 	/**
 	 * Convenient access to AlleleManager.alleleRegistry.getSpeciesRoot("rootBees")

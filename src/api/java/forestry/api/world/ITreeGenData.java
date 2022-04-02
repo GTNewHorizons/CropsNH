@@ -1,17 +1,14 @@
 /*******************************************************************************
  * Copyright 2011-2014 SirSengir
- * 
+ *
  * This work (the API) is licensed under the "MIT" License, see LICENSE.txt for details.
  ******************************************************************************/
 package forestry.api.world;
 
-import net.minecraft.world.World;
-
 import com.mojang.authlib.GameProfile;
-
-import net.minecraftforge.common.util.ForgeDirection;
-
 import forestry.api.arboriculture.ITreeGenome;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public interface ITreeGenData {
 

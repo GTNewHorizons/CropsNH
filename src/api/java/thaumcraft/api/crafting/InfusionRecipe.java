@@ -1,7 +1,5 @@
 package thaumcraft.api.crafting;
 
-import java.util.ArrayList;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -9,15 +7,17 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
+import java.util.ArrayList;
+
 public class InfusionRecipe
 {
 	protected AspectList aspects;
 	protected String research;
-	private ItemStack[] components;
-	private ItemStack recipeInput;
+	private final ItemStack[] components;
+	private final ItemStack recipeInput;
 	protected Object recipeOutput;
 	protected int instability;
-	
+
 	public InfusionRecipe(String research, Object output, int inst,
 			AspectList aspects2, ItemStack input, ItemStack[] recipe) {
 		this.research = research;
@@ -30,27 +30,27 @@ public class InfusionRecipe
 
 	/**
      * Used to check if a recipe matches current crafting inventory
-     * @param player 
+     * @param player
      */
 	public boolean matches(ArrayList<ItemStack> input, ItemStack central, World world, EntityPlayer player) {
 		if (getRecipeInput()==null) return false;
-			
+
 		if (research.length()>0 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), research)) {
     		return false;
     	}
-		
+
 		ItemStack i2 = central.copy();
 		if (getRecipeInput().getItemDamage()==OreDictionary.WILDCARD_VALUE) {
 			i2.setItemDamage(OreDictionary.WILDCARD_VALUE);
 		}
-		
+
 		if (!areItemStacksEqual(i2, getRecipeInput(), true)) return false;
-		
-		ArrayList<ItemStack> ii = new ArrayList<ItemStack>();
+
+		ArrayList<ItemStack> ii = new ArrayList<>();
 		for (ItemStack is:input) {
 			ii.add(is.copy());
 		}
-		
+
 		for (ItemStack comp:getComponents()) {
 			boolean b=false;
 			for (int a=0;a<ii.size();a++) {
@@ -68,17 +68,17 @@ public class InfusionRecipe
 		}
 		return ii.size()==0?true:false;
     }
-	
+
 	public static boolean areItemStacksEqual(ItemStack stack0, ItemStack stack1, boolean fuzzy)
     {
 		if (stack0==null && stack1!=null) return false;
 		if (stack0!=null && stack1==null) return false;
 		if (stack0==null && stack1==null) return true;
-		
+
 		//nbt
-		boolean t1=ThaumcraftApiHelper.areItemStackTagsEqualForCrafting(stack0, stack1);		
+		boolean t1=ThaumcraftApiHelper.areItemStackTagsEqualForCrafting(stack0, stack1);
 		if (!t1) return false;
-		
+
 		if (fuzzy) {
 			int od = OreDictionary.getOreID(stack0);
 			if (od!=-1) {
@@ -87,18 +87,18 @@ public class InfusionRecipe
 					return true;
 			}
 		}
-		
+
 		//damage
 		boolean damage = stack0.getItemDamage() == stack1.getItemDamage() ||
-				stack1.getItemDamage() == OreDictionary.WILDCARD_VALUE;		
-		
+				stack1.getItemDamage() == OreDictionary.WILDCARD_VALUE;
+
         return stack0.getItem() != stack1.getItem() ? false : (!damage ? false : stack0.stackSize <= stack0.getMaxStackSize() );
     }
-	   
+
     public Object getRecipeOutput() {
 		return getRecipeOutput(this.getRecipeInput());
     }
-    
+
     public AspectList getAspects() {
 		return getAspects(this.getRecipeInput());
     }
@@ -106,11 +106,11 @@ public class InfusionRecipe
     public int getInstability() {
 		return getInstability(this.getRecipeInput());
     }
-    
+
     public String getResearch() {
 		return research;
     }
-    
+
 	public ItemStack getRecipeInput() {
 		return recipeInput;
 	}
@@ -118,15 +118,15 @@ public class InfusionRecipe
 	public ItemStack[] getComponents() {
 		return components;
 	}
-	
+
 	public Object getRecipeOutput(ItemStack input) {
 		return recipeOutput;
     }
-    
+
     public AspectList getAspects(ItemStack input) {
 		return aspects;
     }
-    
+
     public int getInstability(ItemStack input) {
 		return instability;
     }

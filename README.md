@@ -1,49 +1,32 @@
-# AgriCraft [![build]][build-link] ![branch][] ![minecraft][] [![curse]][curse-link]
+# CropsNH - Based on Agricraft, inspired by IC2 Crops
 
-Agricultural farming extended.
+## License
 
-## Contact [![contact]][contact-link]
-I have a Discord channel where you can contact me for support/suggestions which you don't think fit on this issue tracker. Also if you want to discuss something with me, this is the place to be!
+GTNH Modifications Copyright (c) 2022 mitchej123 and the GTNH Team
 
-## Supported Versions
-AgriCraft has releases for Minecraft versions 1.7.10 and onwards, status per Minecraft version is as follows:
+Licensed under LGPL-3.0 or later - use this however you want, but please give back any modifications
 
-| Version  | Notes
-|----------|:----------
-|![1.7.10] | One more release to end the 1.7.10 chapter will be done, fixing all bugs from the previous version.
-|![1.8.9]   | The 1.8.9 branch was highly experimental and the rendering is one big hack. Don't expect anything.
-|![1.9]    | Skipped 1.9, as it was an incredibly short-lived release.
-|![1.10]   | Port in progress.
+## Original License
 
-## Bug Reports [![bug]][bug-link]
+The MIT License (MIT)
 
-Please report any and all bugs you might encounter while playing with this mod (this only applies to versions of Minecraft this mod is currently being developed for). Suggestions are also welcome.
-However before reporting a bug please update to the latest version of the mod to see if it still persists.
-If you want to post bug reports for older versions, make sure to tell me what version you are using and the version of Forge you are using.
-If you report a bug and I request more feedback, the label 'Awaiting reply' will be added, if I have had no response for 5 days after adding that label, the issue will be closed.
+Copyright (c) 2014 InfinityRaider
 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-## Technical Documentation [![wiki]][wiki-link]
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-AgriCraft is documented in the official GitHub wiki. Note that
-this kind of information is, most of the time, only needed by pack creators and not the average user.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-[build-link]:https://travis-ci.org/AgriCraft/AgriCraft
-[build]:https://travis-ci.org/AgriCraft/AgriCraft.svg?branch=1.7.10 "Travis-CI Build Status"
-[branch]:https://img.shields.io/badge/branch-1.7.10-aaaaff.svg "GitHub Branch"
-[minecraft]:https://agricraft.github.io/versions/1.7.10/minecraft.svg "Minecraft Version"
-[curse-link]:http://agricraft.github.io/curse
-[curse]:https://agricraft.github.io/images/curse.svg "CurseForge"
-[contact-link]:https://agricraft.github.io/contact
-[contact]:https://agricraft.github.io/images/contact.svg "InfinityRaider Contact"
-
-[bug-link]:https://agricraft.github.io/issues
-[bug]:https://agricraft.github.io/images/bug.svg "AgriCraft Issues"
-
-[wiki-link]:https://agricraft.github.io/wiki
-[wiki]:https://agricraft.github.io/images/wiki.svg "AgriCraft GitHub Wiki"
-
-[1.7.10]:https://agricraft.github.io/versions/1.7.10/status.svg
-[1.8.9]:https://agricraft.github.io/versions/1.8.9/status.svg
-[1.9]:https://agricraft.github.io/versions/1.9/status.svg
-[1.10]:https://agricraft.github.io/versions/1.10/status.svg

@@ -14,15 +14,15 @@ public interface IFactoryPlantable
 	/**
 	 * @return The item this plantable is managing.
 	 */
-	public Item getSeed();
+    Item getSeed();
 
 	/**
 	 * @param stack The stack being planted.
 	 * @param forFermenting True if this stack will be converted to biofuel
 	 * @return True if this plantable can be planted (useful for metadata items).
 	 */
-	public boolean canBePlanted(ItemStack stack, boolean forFermenting);
-	
+    boolean canBePlanted(ItemStack stack, boolean forFermenting);
+
 	/**
 	 * @param world The world instance this block or item will be placed into.
 	 * @param x The destination X coordinate.
@@ -31,8 +31,8 @@ public interface IFactoryPlantable
 	 * @param stack The stack being planted.
 	 * @return The block that will be placed into the world.
 	 */
-	public ReplacementBlock getPlantedBlock(World world, int x, int y, int z, ItemStack stack);
-	
+    ReplacementBlock getPlantedBlock(World world, int x, int y, int z, ItemStack stack);
+
 	/**
 	 * @param world The world instance this block or item will be placed into.
 	 * @param x The destination X coordinate.
@@ -41,8 +41,8 @@ public interface IFactoryPlantable
 	 * @param stack The stack being planted.
 	 * @return True if this plantable can be placed at the provided coordinates.
 	 */
-	public boolean canBePlantedHere(World world, int x, int y, int z, ItemStack stack);
-	
+    boolean canBePlantedHere(World world, int x, int y, int z, ItemStack stack);
+
 	/**
 	 * Called before planting is performed. Used to till soil, for example.
 	 * @param world The world instance this block or item will be placed into.
@@ -51,8 +51,8 @@ public interface IFactoryPlantable
 	 * @param z The destination Z coordinate.
 	 * @param stack The stack being planted.
 	 */
-	public void prePlant(World world, int x, int y, int z, ItemStack stack);
-	
+    void prePlant(World world, int x, int y, int z, ItemStack stack);
+
 	/**
 	 * Called after planting is performed. Usually empty.
 	 * @param world The world instance this block or item will be placed into.
@@ -61,5 +61,5 @@ public interface IFactoryPlantable
 	 * @param z The destination Z coordinate.
 	 * @param stack The stack being planted.
 	 */
-	public void postPlant(World world, int x, int y, int z, ItemStack stack);
+    void postPlant(World world, int x, int y, int z, ItemStack stack);
 }

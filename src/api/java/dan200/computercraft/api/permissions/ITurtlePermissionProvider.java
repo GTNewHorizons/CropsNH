@@ -14,6 +14,6 @@ import net.minecraft.world.World;
  */
 public interface ITurtlePermissionProvider
 {
-    public boolean isBlockEnterable( World world, int x, int y, int z );
-    public boolean isBlockEditable( World world, int x, int y, int z );
+    boolean isBlockEnterable(World world, int x, int y, int z);
+    boolean isBlockEditable(World world, int x, int y, int z);
 }
