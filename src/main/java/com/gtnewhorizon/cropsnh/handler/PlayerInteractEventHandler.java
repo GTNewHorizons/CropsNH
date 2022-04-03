@@ -1,6 +1,5 @@
 package com.gtnewhorizon.cropsnh.handler;
 
-import com.gtnewhorizon.cropsnh.blocks.BlockGrate;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.compatibility.tconstruct.TinkersConstructHelper;
 import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
@@ -109,26 +108,6 @@ public class PlayerInteractEventHandler {
         }
     }
 
-    /** This is done with an event because else the player will place the vines as a block instead of applying them to the grate */
-    @SubscribeEvent
-    public void applyVinesToGrate(PlayerInteractEvent event) {
-        if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
-            ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
-            if(stack==null || stack.getItem()==null || stack.getItem()!= Item.getItemFromBlock(Blocks.vine)) {
-                return;
-            }
-            Block block = event.world.getBlock(event.x, event.y, event.z);
-            if(!(block instanceof BlockGrate)) {
-                return;
-            }
-            if(event.world.isRemote) {
-                denyEvent(event, true);
-            } else {
-                block.onBlockActivated(event.world, event.x, event.y, event.z, event.entityPlayer, event.face, 0, 0, 0);
-            }
-        }
-    }
-
     /** Event handler to deny bonemeal while sneaking on crops that are not allowed to be bonemealed */
     @SubscribeEvent
     public void denyBonemeal(PlayerInteractEvent event) {
@@ -141,7 +120,7 @@ public class PlayerInteractEventHandler {
         ItemStack heldItem = event.entityPlayer.getHeldItem();
         if(heldItem!=null && heldItem.getItem()==net.minecraft.init.Items.dye && heldItem.getItemDamage()==15) {
             TileEntity te = event.world.getTileEntity(event.x, event.y, event.z);
-            if(te!=null && (te instanceof TileEntityCrop)) {
+            if(te instanceof TileEntityCrop) {
                 TileEntityCrop crop = (TileEntityCrop) te;
                 if(!crop.canBonemeal()) {
                     this.denyEvent(event, false);
@@ -151,12 +130,12 @@ public class PlayerInteractEventHandler {
     }
 
     private void denyEvent(PlayerInteractEvent event, boolean sendToServer) {
-        //cancel event to prevent the Hunger Overhaul event handler from being called
+        // cancel event to prevent the Hunger Overhaul event handler from being called
         event.setResult(Event.Result.DENY);
         event.useItem = Event.Result.DENY;
         event.useBlock = Event.Result.DENY;
         if (sendToServer && event.world.isRemote) {
-            //send the right click to the server manually (cancelling the event will prevent the client from telling the server a right click happened, and nothing will happen, but we still want stuff to happen)
+            // send the right click to the server manually (cancelling the event will prevent the client from telling the server a right click happened, and nothing will happen, but we still want stuff to happen)
             FMLClientHandler.instance().getClientPlayerEntity().sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(event.x, event.y, event.z, event.face, event.entityPlayer.inventory.getCurrentItem(), 0f, 0f, 0f));
         }
         event.setCanceled(true);

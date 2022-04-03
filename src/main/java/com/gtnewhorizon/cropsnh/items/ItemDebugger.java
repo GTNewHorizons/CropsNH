@@ -1,7 +1,5 @@
 package com.gtnewhorizon.cropsnh.items;
 
-import com.gtnewhorizon.cropsnh.entity.EntityVillagerFarmer;
-import com.gtnewhorizon.cropsnh.init.WorldGen;
 import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
 import com.gtnewhorizon.cropsnh.utility.DebugHelper;
 import cpw.mods.fml.relauncher.Side;
@@ -35,13 +33,6 @@ public class ItemDebugger extends ItemCropsNH {
                 int meta = world.getBlockMetadata(x, y, z);
                 world.setBlockMetadataWithNotify(x, y, z, (meta+1)%16, 3);
                 //world.getBlock(x, y, z).updateTick(world, x, y, z, world.rand);
-            }
-        }
-        else {
-            if(!world.isRemote) {
-                EntityVillager entityvillager = new EntityVillagerFarmer(world, WorldGen.getVillagerId());
-                entityvillager.setLocationAndAngles((double) x + 0.5D, (double) y+1, (double) z + 0.5D, 0.0F, 0.0F);
-                world.spawnEntityInWorld(entityvillager);
             }
         }
         return false;

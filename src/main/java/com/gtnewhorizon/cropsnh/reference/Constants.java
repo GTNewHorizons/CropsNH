@@ -6,11 +6,6 @@ package com.gtnewhorizon.cropsnh.reference;
 public final class Constants {
 
     /**
-     * Whether or not the mod should log render calls.
-     */
-    public static final boolean LOG_RENDER_CALLS = false;
-
-    /**
      * The number of units in a block.
      */
     public static final int WHOLE = 16;

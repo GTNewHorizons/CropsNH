@@ -73,13 +73,6 @@ item.cropsnh:seedOsmonium.name=Osmonium Seeds
 //blocks
 tile.cropsnh:crops.name=Crops
 tile.cropsnh:seedAnalyzer.name=Seed Analyzer
-tile.cropsnh:waterTank.0.name=Wooden Water Tank
-tile.cropsnh:waterTank.1.name=Iron Water Tank
-tile.cropsnh:waterChannel.0.name=Wooden Irrigation Channel
-tile.cropsnh:waterChannel.1.name=Iron Irrigation Pipe
-tile.cropsnh:channelValve.0.name=Wooden Channel Valve
-tile.cropsnh:channelValve.1.name=Iron Pipe Valve
-tile.cropsnh:sprinkler.name=Vattenspridare
 
 tile.cropsnh:cropPotato.name=Potato
 tile.cropsnh:cropCarrot.name=Carrot
@@ -288,10 +281,3 @@ cropsnh_journal.hc_Turnip=The turnip is a root vegetable commonly grown in tempe
 cropsnh_journal.hc_WhiteMushroom=If you want to fly higher then a jetplane, these aren't the mushrooms you're looking for.
 cropsnh_journal.hc_WinterSquash=Winter squash can be harvested whenever the fruits have turned a deep, solid color and the skin is hard.
 cropsnh_journal.hc_Zucchini=Zucchini is usually served cooked, it can also be prepared using a variety of cooking techniques, including steamed, boiled, grilled, stuffed and baked, barbecued, fried, or incorporated in other recipes.
-
-//plant mega pack seeds
-cropsnh_journal.pmp_Spinach=The cartoon character Popeye the Sailor Man is portrayed as having a strong affinity for spinach, becoming physically stronger after consuming it.
-
-//chococraft seeds
-cropsnh_journal.cc_Gysahl=The gysahl green is the favorite snack of the fabled Chocobo. Sometimes a gysahl green can produce a lovely gysahl and some say that a well cultivated gysahl plant can produce a golden gysahl.
-

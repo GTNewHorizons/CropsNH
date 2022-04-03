@@ -91,19 +91,8 @@ tile.cropsnh:crops.name=作物架
 tile.cropsnh:seedAnalyzer.name=种子分析仪
 tile.cropsnh:waterPad.name=水垫
 tile.cropsnh:waterPadFull.name=水垫
-tile.cropsnh:waterTank.0.name=木质水箱
-tile.cropsnh:waterTank.1.name=铁质水箱
-tile.cropsnh:waterChannel.0.name=木质浇灌水道
-tile.cropsnh:waterChannelFull.0.name=木质浇灌水道
-tile.cropsnh:waterChannel.1.name=铁质浇灌水道
-tile.cropsnh:channelValve.0.name=木质水道阀门
-tile.cropsnh:channelValve.1.name=铁质水道阀门
-tile.cropsnh:sprinkler.name=洒水壶
 tile.cropsnh:seedStorage.0.name=种子储存器
 tile.cropsnh:seedStorageController.0.name=种子储存控制器
-tile.cropsnh:fence.0.name=栅栏
-tile.cropsnh:fenceGate.0.name=栅栏门
-tile.cropsnh:grate.0.name=木格栅
 tile.cropsnh:peripheral.name=数控种子分析仪
 
 tile.cropsnh:cropPotato.name=马铃薯
@@ -316,13 +305,6 @@ cropsnh_journal.cinderpearl=这些植物伴随熊熊的元素烈火生长,只分
 cropsnh_journal.vishroom=纤毛菇在魔法森林中自然生长. 如果光着手采集, 他们的毒性会导致反胃.
 cropsnh_journal.taintedRoot=腐化根能在腐化之地生长和收获, 但谁会要它出产的那些触手?
 
-//ars magica seeds
-cropsnh_journal.aum=一种具有治愈性的花, 全知草是很多魔咒的组分. 它只能在巫魂树树根找到.
-cropsnh_journal.cerublossom=万代兰能在茂盛, 青翠的环境中发现. 它们是第一种已知的魔法植物, 用于制作药水和药膏.
-cropsnh_journal.desertNova=沙漠新星在干燥的环境下生长. 它们因周期性产生的小型魔法爆发而得名.
-cropsnh_journal.tarmaRoot=比看起来要亮, 塔尔玛根生长在洞穴和其他湖南的环境中. 它是魔咒和空气精华的成分.
-cropsnh_journal.wakebloom=在温暖气候下的水面上生长, 觉苏草经常用在与水有关的魔咒中.
-
 //minecraft seeds
 cropsnh_journal.seeds=小麦是一种非常普遍,营养价值又高的作物.
 cropsnh_journal.pumpkin=大多数人认为南瓜是一种装饰性的蔬菜,然而也 有人喜欢南瓜派的味道.
@@ -395,25 +377,6 @@ cropsnh_journal.hc_WhiteMushroom=如果你想比飞机飞得还快,这些蘑菇�
 cropsnh_journal.hc_WinterSquash=只要笋瓜颜色变深,趋于泥土颜色,并且表皮 变硬,就可以收获了.
 cropsnh_journal.hc_Zucchini=西葫芦通常是炒着吃的, 当然也可用很多别的 烹调手段,包括蒸,煮,烤,填满别的材料并 烘烤,烧烤,炸,或者作为原料并入别的菜谱.
 
-//plant mega pack seeds
-cropsnh_journal.pmp_Beet=地底深处的紫色甜菜根可以生吃,烧烤,水煮, 或者烘烤.
-cropsnh_journal.pmp_Broccoli=花椰菜是卷心菜科中的一种可食用绿色蔬菜, 其开花的巨大头部被用作蔬菜.
-cropsnh_journal.pmp_Cassava=木薯根是一种热带植物，通常被人们称作木薯 或树薯
-cropsnh_journal.pmp_Celery=芹菜是一种非常普遍的蔬菜,可食用部分是它 的茎.
-cropsnh_journal.pmp_Corn=因为它浅层的根,玉米很容易受干旱影响,对 土壤养分不足非常敏感,狂风之后甚至会被连根拔起.
-cropsnh_journal.pmp_Cucumber=黄瓜是一种匍匐藤的圆柱形果实,在厨房里被 用作蔬菜.
-cropsnh_journal.pmp_Eggplant=生茄子尝起来有点苦，但烹调后就温和多了， 它也着有丰富的味道.
-cropsnh_journal.pmp_GreenBean=青豆既是灌木植物也是杆状植物，作为后者生 长时它需要支撑物.
-cropsnh_journal.pmp_Leek=不像洋葱那样紧密的球茎,象大蒜有着被紧密 的叶鞘包围的圆柱球茎,因将泥土拉到身边, 终日不见阳光而日渐变白.
-cropsnh_journal.pmp_Lettuce=通常作为种耐寒的一年生作物,莴苣是很容易 培养的,尽管它仍需要较低温度以避免过早开 花.
-cropsnh_journal.pmp_Onion=洋葱植物有一个中空,偏蓝的绿叶组成的扇形, 其基础的球茎会在时长足够时膨胀饱满.
-cropsnh_journal.pmp_Spinach=卡通动漫角色"大力水手"被描绘为一个 对菠菜有强烈喜爱的人,在吃过菠菜后会变得力大无穷.
-cropsnh_journal.pmp_Tomato=西红柿有多种食用方式,包括生吃,还有各种 菜的原料,酱料,沙拉,或者饮料.
-cropsnh_journal.pmp_BellPepperYellow=世界上有各种各样的甜椒:红,黄,绿,但这 种是黄的.
-cropsnh_journal.pmp_BellPepperOrange=世界上有各种各样的甜椒:红,黄,绿,但这 种是橙色的.
-cropsnh_journal.pmp_BellPepperRed=世界上有各种各样的甜椒:红,黄,绿,但这 种是红的.
-cropsnh_journal.pmp_Sorrel=酸模是一种细长的根系扎得很深的草本植物.
-
 //witchery seeds
 cropsnh_journal.wi_Belladonna=这种植物的一切都有高毒性: 叶子, 花蕾还有花.
 cropsnh_journal.wi_Garlic=根据民间传言, 大蒜可以驱退吸血鬼. 但又有谁信吸血鬼?
@@ -423,43 +386,8 @@ cropsnh_journal.wi_Artichoke=水洋蓟是一种奇怪的朝鲜蓟变种, 只有�
 cropsnh_journal.wi_Wolfsbane=传言说这种花能揭示受狼人咒之苦者的本来面目.
 cropsnh_journal.wi_Wormwood=苦艾是一种稀有植物. 药学家赞美它压制瘟疫的功效.
 
-//chococraft seeds
-cropsnh_journal.cc_Gysahl=基沙尔野菜是虚构的生物"陆行鸟"的最爱的 食物.有时一棵基沙尔野菜可以长出可爱的基 沙尔野菜,还有人说细心培育的基沙尔野 菜可以长出金基沙尔野菜.
-
-//psychedelicraft seeds
-cropsnh_journal.pc_cannabis=通常被称为药用大麻, 是一种广泛使用的软性瘾品.
-cropsnh_journal.pc_coca=这种植物的叶子是可卡因的原材料.
-cropsnh_journal.pc_hop=啤酒花用于酿造各种麦酒和淡啤.
-cropsnh_journal.pc_tobacco=即使有害健康,世界各地都在吸烟.
-cropsnh_journal.pc_coffeaCherries=咖啡豆是咖啡植物的种子，也是制作咖啡的原 料，因为紫红色果实里的小坑，它也常被称为 一种樱桃.
-
 //blue power flax
 cropsnh_journal.bp_flax_seeds=亚麻就是线 ~Sjin.
-
-//pneumaticCraft plants
-cropsnh.journal_PC.plant0=这种植物的花蕾中有有时会携带种子的鱿鱼.
-cropsnh.journal_PC.plant1=成熟的植物会喷火并且有时喷种子.
-cropsnh.journal_PC.plant2=成熟时, 这些植物会自爆并且散布种子.
-cropsnh.journal_PC.plant3=这种植物的花蕾中有有时会携带种子的史莱姆.
-cropsnh.journal_PC.plant4=成熟时, 这些植物会在暴雨天制造种子雨.
-cropsnh.journal_PC.plant5=成熟的植物会把种子传送到附近随机地点.
-cropsnh.journal_PC.plant6=雷雨天, 这些植物会吸引闪电.
-cropsnh.journal_PC.plant8=成熟时, 这些植物会爆发出种子.
-cropsnh.journal_PC.plant9=这些植物会释放烟雾. 谁知道这些烟有什么效果呢.
-cropsnh.journal_PC.plant10=这些植物的种子有高斥力并且在地上会弹走.
-cropsnh.journal_PC.plant11=这些植物的种子比空气轻, 它们会飞进大气层.
-cropsnh.journal_PC.plant12=成熟时, 这些植物会向不同方向射出4个种子.
-cropsnh.journal_PC.plant14=这些植物在地面附近高速射出种子, 只有撞墙是才停下来.
-cropsnh.journal_PC.plant15=这些植物的种子随风飞行寻找沃土.
-
-//applemilktea
-cropsnh.journal_AMT.item.defeatedcrow.seedMint:0=这种植物的叶子可以泡一杯美味的薄荷茶或者给菜调味.
-
-//rotarycraft
-cropsnh.journal_RoC.canola=油菜的种子荚可以提炼优质润滑油.
-
-//immersive engineering
-cropsnh_journal.ie_hemp=工业大麻纤维是工业上广泛应用的重要物资.
 
 //extra biomes xl
 cropsnh_journal.EBXL_strawberry=草莓很受欢迎,适合种植于家庭环境中,可以直 接消费掉,或者用作装饰用途.
@@ -467,51 +395,9 @@ cropsnh_journal.EBXL_strawberry=草莓很受欢迎,适合种植于家庭环境�
 //biomes o plenty
 cropsnh_journal.BoP_turnip=芜菁是一种根状蔬菜,在世界范围内通常在温 和的气候下种植,因为其白色的块状主根.
 
-//lord of the rings
-cropsnh_journal.lotr_flaxSeeds=亚麻就是线 ~Sjin.
-cropsnh_journal.lotr_lettuce=通常作为种耐寒的一年生作物,莴苣是很容易 培养的,尽管它仍需要较低温度以避免过早开 花.
-cropsnh_journal.lotr_pipeweedSeeds=烟斗草 (又叫半身人之叶) 是一种烟草, 类似于普通烟草, 由夏尔的霍比特人栽培并享用, 最早发现者是托博德·吹号.
-
-//advent of ascension
-cropsnh_journal.aoa_BubbleBerry=这些果实味道很好玩.
-cropsnh_journal.aoa_Chili=这些辣椒很辣, 它们烧掉的不仅仅是你的嘴.
-cropsnh_journal.aoa_EyeBulb=你知道被人看着的感觉是什么样的吗? 你现在可以随时感受.
-cropsnh_journal.aoa_Floracle=有一种奇怪的气场笼罩在这些花四周.
-cropsnh_journal.aoa_Goldicap=这种花的花瓣似乎是万能解毒药.
-cropsnh_journal.aoa_HeartFruit=这种植物的果实味道不错, 但是会伤人.
-cropsnh_journal.aoa_HollyTop=众所周知这种植物的果实可以做优质箭头.
-cropsnh_journal.aoa_Lunacrike=众所周知这种植物的果实会产生短暂, 但强大的能量爆发.
-cropsnh_journal.aoa_Lunaglobe=这种植物的果实富含能量.
-cropsnh_journal.aoa_Lunalon=那些讲胡萝卜对眼睛好的人没试过这个.
-cropsnh_journal.aoa_MagicMarang=对那些喜欢食物中毒的人来说相当不错.
-cropsnh_journal.aoa_HavenShroom=不要和魔菇弄混.
-cropsnh_journal.aoa_Rosidon=吃这种植物会高, 真的很高.
-cropsnh_journal.aoa_Tea="不错, 再来杯茶."
-cropsnh_journal.aoa_ThornyPlant=被某些人用作货币, 种植这种作物时注意不要引发经济危机.
-cropsnh_journal.aoa_Trilliad=这种植物的叶子富含营养.
-
-//agriculture
-cropsnh_journal.agriculture_cinnamon=肉桂必须在收获后内皮未干时处理.
-cropsnh_journal.agriculture_peanut=花生有很多用途.可以直接吃,经常出现在各 种食谱中,制成溶剂,油脂,药物,纺织材料, 哦还有花生酱,还有很多其他用途.
-cropsnh_journal.agriculture_strawberry=草莓很受欢迎,适合种植于家庭环境中,可以直 接消费掉,或者用作装饰用途.
-cropsnh_journal.agriculture_vanilla=香子兰是仅次于藏红花的第二名贵的香料.
-
-//garden stuff
-cropsnh_journal.gardenstuff_candelillaSeeds=烛木多蜡的产物可以被用来制作蜡烛.
-
-//millenaire
-cropsnh_journal.millenaire_cropMaize=因为它浅层的根,玉米很容易受干旱影响,对 土壤养分不足非常敏感,狂风之后甚至会被连 根拔起.
-cropsnh_journal.millenaire_cropRice=传统的培育水稻的方式是用水淹没耕地,在水 淹没时(或之后)种下种子.
-cropsnh_journal.millenaire_cropTurmeric=姜黄常常被用作香辛料或是咖喱.
-
 //harvest the nether
 cropsnh_journal.harvestTheNether_bloodleaf=这种植物的叶子似乎在分泌一种粘粘的... 红色的...液体,这...这是血液？
 cropsnh_journal.harvestTheNether_fleshroot=地狱猎犬喜欢以这种多肉的植物的根为食物.
 cropsnh_journal.harvestTheNether_glowflower=种植这种漂亮的花朵能得到萤石粉.
 cropsnh_journal.harvestTheNether_marrowberry=这种浆果吃起来味道怪怪的
 
-//the kitchen mod
-cropsnh_journal.kitchenMod_lettuce=作为一种一年一收的耐寒植物，生菜易于被种 植，虽然它仍需要较低的温度来防止它开花过 快.
-cropsnh_journal.kitchenMod_peanut=花生有很多用途.可以直接吃,经常出现在各 种食谱中,制成溶剂,油脂,药物,纺织材料, 哦还有花生酱,还有很多其他用途.
-cropsnh_journal.kitchenMod_strawberry=草莓很受欢迎,适合种植于家庭环境中,可以直 接消费掉,或者用作装饰用途.
-cropsnh_journal.kitchenMod_tomato=番茄有多种食用方式,包括生吃,还有各种菜 的原料,酱料,沙拉,或者饮料.

@@ -71,31 +71,8 @@ public class ConfigurationHandler {
     public static boolean enableTrowel;
     public static boolean enableMagnifyingGlass;
     public static boolean enableClipper;
-    //world gen
-    public static boolean disableWorldGen;
-    public static int greenhouseWeight;
-    public static int greenhouseLimit;
-    public static int greenhouseIrrigatedWeight;
-    public static int greenhouseIrrigatedLimit;
-    public static boolean villagerEnabled;
-    public static int greenHouseMaxTier;
     //seed storage
     public static boolean disableSeedStorage;
-    public static boolean disableSeedWarehouse;
-    //irrigation
-    public static boolean disableIrrigation;
-    public static int sprinklerRatePerSecond;
-    public static int sprinklerRatePerHalfSecond;
-    public static int sprinklerGrowthChance;
-    public static float sprinklerGrowthChancePercent;
-    public static int sprinklerGrowthInterval;
-    public static int sprinklerGrowthIntervalTicks = 100;
-    public static boolean placeWater;
-    public static boolean fillFromFlowingWater;
-    public static int channelCapacity;
-    //decorative
-    public static boolean disableFences;
-    public static boolean disableGrates;
     //rendering
     public static boolean renderCropPlantsAsTESR;
 
@@ -169,31 +146,8 @@ public class ConfigurationHandler {
         enableMagnifyingGlass = config.getBoolean("Enable Magnifying Glass", Categories.CATEGORY_TOOLS, true, "Set to false to disable the Magnifying Glass");
         enableTrowel = config.getBoolean("Enable Trowel", Categories.CATEGORY_TOOLS, true, "Set to false to disable the Trowel");
         enableClipper = config.getBoolean("Enable Clipper", Categories.CATEGORY_TOOLS, true, "Set to false to disable the Clipper");
-        //world gen
-        disableWorldGen = config.getBoolean("Disable World Gen", Categories.CATEGORY_WORLDGEN, false, "set to true to disable world gen, no greenhouses will spawn in villages");
-        greenhouseWeight = config.getInt("Greenhouse weight", Categories.CATEGORY_WORLDGEN, 10, 0, 100, "The weight for a greenhouse to be generated in a village");
-        greenhouseLimit = config.getInt("Greenhouse limit", Categories.CATEGORY_WORLDGEN, 1, 0, 2, "The maximum number of greenhouses per village");
-        greenhouseIrrigatedWeight = config.getInt("Irrigated greenhouse weight", Categories.CATEGORY_WORLDGEN, 2, 0, 100, "The weight for an irrigated greenhouse to be generated in a village");
-        greenhouseIrrigatedLimit = config.getInt("Irrigated greenhouse limit", Categories.CATEGORY_WORLDGEN, 1, 0, 2, "The maximum number of irrigated greenhouses per village");
-        villagerEnabled = config.getBoolean("Enable villagers", Categories.CATEGORY_WORLDGEN, true, "Set to false if you wish to disable villagers spawning in the CropsNH greenhouses");
-        greenHouseMaxTier = config.getInt("Maximum crop tier", Categories.CATEGORY_WORLDGEN, 3, 1, 5, "The maximum tier of plants that will spawn in greenhouses");
         //storage
         disableSeedStorage = config.getBoolean("Disable seed storage system", Categories.CATEGORY_STORAGE, false, "set to true to disable the seed storage systems");
-        disableSeedWarehouse = config.getBoolean("Disable seed storage warehouses", Categories.CATEGORY_STORAGE, false, "set to true to disable the seed storage warehouse blocks");
-        //irrigation
-        disableIrrigation = config.getBoolean("Disable Irrigation", Categories.CATEGORY_IRRIGATION, false, "set to true if you want to disable irrigation systems");
-        sprinklerRatePerSecond = config.getInt("Sprinkler water usage", Categories.CATEGORY_IRRIGATION, 10, 0, 10000, "Water usage of the sprinkler in mB per second");
-        sprinklerRatePerHalfSecond = Math.round(sprinklerRatePerSecond / 2);
-        sprinklerGrowthChance = config.getInt("Sprinkler growth chance", Categories.CATEGORY_IRRIGATION, 20, 0, 100, "Every x seconds each plant in sprinkler range has this chance to growth tick");
-        sprinklerGrowthChancePercent = sprinklerGrowthChance / 100F;
-        sprinklerGrowthInterval = config.getInt("Sprinkler growth interval", Categories.CATEGORY_IRRIGATION, 5, 1, 300, "Every x seconds each plant in sprinkler range has y chance to growth tick");
-        sprinklerGrowthIntervalTicks = sprinklerGrowthInterval * 20;
-        placeWater = config.getBoolean("Spawn water after breaking tank", Categories.CATEGORY_IRRIGATION, true, "set to false to disable placing a source block when breaking non-empty tanks");
-        fillFromFlowingWater = config.getBoolean("Fill tank from flowing water", Categories.CATEGORY_IRRIGATION, false, "set to true to let tanks fill up when water flows above them");
-        channelCapacity = config.getInt("Channel capacity", Categories.CATEGORY_IRRIGATION, 500, 100, 2000, "The amount of water in mb that an irrigation channel can hold");
-        //decoration
-        disableFences = config.getBoolean("Disable fences", Categories.CATEGORY_DECORATION, false, "Set to true to disable the decorative custom wood fences");
-        disableGrates = config.getBoolean("Disable grates", Categories.CATEGORY_DECORATION, false, "Set to true to disable the decorative custom wood grates");
         //debug mode
         debug = config.getBoolean("debug", Categories.CATEGORY_DEBUG,false,"Set to true if you wish to enable debug mode");
         //rendering

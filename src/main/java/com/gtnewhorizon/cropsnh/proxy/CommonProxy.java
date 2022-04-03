@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.proxy;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.handler.PlayerConnectToServerHandler;
 import com.gtnewhorizon.cropsnh.handler.PlayerInteractEventHandler;
-import com.gtnewhorizon.cropsnh.utility.RenderLogger;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraft.entity.Entity;
@@ -31,9 +30,6 @@ public abstract class CommonProxy implements IProxy {
         FMLCommonHandler.instance().bus().register(playerConnectToServerHandler);
         MinecraftForge.EVENT_BUS.register(playerConnectToServerHandler);
 
-        if (ConfigurationHandler.debug) {
-            FMLCommonHandler.instance().bus().register(new RenderLogger());
-        }
     }
 
     @Override

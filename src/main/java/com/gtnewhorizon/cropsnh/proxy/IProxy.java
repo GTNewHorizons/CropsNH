@@ -38,9 +38,6 @@ public interface IProxy {
     /** Returns the correct render id, might return a wrong id on the server */
     int getRenderId(Block block);
 
-    /** Registers a villager skin on the client, does nothing on the server */
-    void registerVillagerSkin(int id, String resource);
-
     /** Initializes the configuration file */
     void initConfiguration(FMLPreInitializationEvent event);
 }

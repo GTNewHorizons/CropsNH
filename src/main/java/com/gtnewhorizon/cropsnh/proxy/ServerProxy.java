@@ -40,7 +40,4 @@ public class ServerProxy extends CommonProxy {
         return -1;
     }
 
-    @Override
-    public void registerVillagerSkin(int id, String resource) {
-    }
 }

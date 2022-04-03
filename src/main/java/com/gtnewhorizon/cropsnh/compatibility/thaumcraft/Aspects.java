@@ -63,12 +63,5 @@ public class Aspects {
         ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.blockSeedAnalyzer, 1, 0), new AspectList().add(Aspect.MIND, 2).add(Aspect.PLANT, 2).add(Aspect.CROP, 2));
         //journal
         ThaumcraftApi.registerObjectTag(new ItemStack(Items.journal, 1, 0), new AspectList().add(Aspect.MIND, 2).add(Aspect.PLANT, 2).add(Aspect.CROP, 2));
-        //irrigation systems
-        if (!ConfigurationHandler.disableIrrigation) {
-            ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.blockWaterTank, 1, 0), new AspectList().add(Aspect.WATER, 2).add(Aspect.TREE, 6));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.blockWaterChannel, 1, 0), new AspectList().add(Aspect.WATER, 1).add(Aspect.TREE, 3));
-            ThaumcraftApi.registerObjectTag(new ItemStack(Blocks.blockSprinkler, 1, 0), new AspectList().add(Aspect.WATER, 1).add(Aspect.TREE, 1).add(Aspect.METAL, 1).add(Aspect.HARVEST, 1));
-        }
-
     }
 }

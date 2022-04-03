@@ -85,11 +85,6 @@ public class ClientProxy extends CommonProxy {
             }
         }
 
-        //villager
-        if (!ConfigurationHandler.disableWorldGen && ConfigurationHandler.villagerEnabled) {
-            VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("textures/entity/villager/farmer.png"));  //For now, it uses the texture for the vanilla farmer
-        }
-
         LogHelper.debug("Renderers registered");
     }
 
@@ -128,11 +123,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public int getRenderId(Block block) {
         return RenderBlockBase.getRenderId(block);
-    }
-
-    @Override
-    public void registerVillagerSkin(int id, String resource) {
-        VillagerRegistry.instance().registerVillagerSkin(id, new ResourceLocation(Reference.MOD_ID.toLowerCase(), resource));
     }
 
     @Override

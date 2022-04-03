@@ -12,11 +12,9 @@ import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.init.CropProducts;
 import com.gtnewhorizon.cropsnh.init.Crops;
 import com.gtnewhorizon.cropsnh.init.CustomCrops;
-import com.gtnewhorizon.cropsnh.init.Entities;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.init.Recipes;
 import com.gtnewhorizon.cropsnh.init.ResourceCrops;
-import com.gtnewhorizon.cropsnh.init.WorldGen;
 import com.gtnewhorizon.cropsnh.network.NetworkWrapperCropsNH;
 import com.gtnewhorizon.cropsnh.proxy.IProxy;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -70,7 +68,6 @@ public class CropsNH {
         proxy.registerEventHandlers();
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
         proxy.registerRenderers();
-        Entities.init();
         ModHelper.initHelpers();
         LogHelper.debug("Initialization Complete");
     }
@@ -86,7 +83,6 @@ public class CropsNH {
         GrowthRequirementHandler.init();
         CropPlantHandler.init();
         CropProducts.init();
-        WorldGen.init();
         CustomCrops.initGrassSeeds();
         ModHelper.postInit();
         LogHelper.debug("Post-Initialization Complete");

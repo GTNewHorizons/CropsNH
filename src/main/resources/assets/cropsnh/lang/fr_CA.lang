@@ -91,19 +91,8 @@ tile.cropsnh:crops.name=Tuteurs
 tile.cropsnh:seedAnalyzer.name=Analyseur de graines
 tile.cropsnh:waterPad.name=Protection d'eau
 tile.cropsnh:waterPadFull.name=Protection d'eau
-tile.cropsnh:waterTank.0.name=Réservoir d'eau en bois
-tile.cropsnh:waterTank.1.name=Réservoir d'eau en fer
-tile.cropsnh:waterChannel.0.name=Cannal d'irrigation en bois
-tile.cropsnh:waterChannel.1.name=Cannal d'irrigation en fer
-tile.cropsnh:waterChannel.1.name=Tuyau d'irrigation en fer
-tile.cropsnh:channelValve.0.name=Vanne de cannal en bois
-tile.cropsnh:channelValve.1.name=Vanne de cannal en fer
-tile.cropsnh:sprinkler.name=Arroseur
 tile.cropsnh:seedStorage.0.name=Stockage de graines
 tile.cropsnh:seedStorageController.0.name=Contrôleur de stockage de graines
-tile.cropsnh:fence.0.name=Barrière
-tile.cropsnh:fenceGate.0.name=Portillon
-tile.cropsnh:grate.0.name=Grille en bois
 tile.cropsnh:peripheral.name=Analyseur de graines contrôlé par ordinateur
 
 tile.cropsnh:cropPotato.name=Pomme de terre
@@ -205,8 +194,6 @@ cropsnh_tooltip.waterPadDry=Creusez avec une pelle dans des terres agricoles pou
 cropsnh_tooltip.waterPadWet=ensuite utilisez un seau d'eau pour le remplir
 cropsnh_tooltip.growthStage=Croissance
 cropsnh_tooltip.mature=Mature
-cropsnh_tooltip.valve=Basculé avec un signal redstone
-cropsnh_tooltip.grate=Cliquez droit avec des vignes pour placer les vignes
 cropsnh_tooltip.clipper1=Cliquez droit les cultures pour obtenir des boutures
 cropsnh_tooltip.clipper2=Les boutures peuvent être planté sur d'autres tuteurs
 cropsnh_tooltip.clipper3=Le succès du bouturage dépend de la force de la plante
@@ -316,13 +303,6 @@ cropsnh_journal.cinderpearl=Visible seulement dans les climats chauds, cette pla
 cropsnh_journal.vishroom=Le chamvisgnon pousse naturellement dans les fôrets magiques, lorqu'ils sont touchés à main nu, leur poison est connu pour provoquer la nausée.
 cropsnh_journal.taintedRoot=Les racines corrompues peuvent être cultivées et récoltées dans les terres corrompues, mais qui pourrait avoir besoin des tentacules qu'ils produisent ?
 
-//ars magica seeds
-cropsnh_journal.aum=Une fleur avec des propriétés de soin, Aum est un composant dans beaucoup de charmes. It can only be found at the base of witchwood trees.
-cropsnh_journal.cerublossom=Cerublossom flowers thrive in lush, green environments. They were one of the first magical plants discovered, being used in potions and salves.
-cropsnh_journal.desertNova=Desert Novas grow in dry conditions. They get their name from the small bursts of magic that they periodically emit.
-cropsnh_journal.tarmaRoot=Lighter than it looks, Tarma Root grows in caves and other dark places. It is an ingredient in spells and air essences.
-cropsnh_journal.wakebloom=Growing on the surface of water in warm climates, wakebloom is used frequently in water-based spells.
-
 //minecraft seeds
 cropsnh_journal.seeds=Le blé est une culture très commune, mais très nutritive.
 cropsnh_journal.pumpkin=La plupart des gens considèrent des potirons comme un légume décoratif, tandis que d'autres aiment le goût des tartes à la citrouille.
@@ -395,25 +375,6 @@ cropsnh_journal.hc_Whitemushroom=Si vous voulez planner plus haut qu'un avion, c
 cropsnh_journal.hc_Wintersquash=Le potiron peut être récolté quand les fruits prennent une couleur solide et profonde et que la peau est dure.
 cropsnh_journal.hc_Zucchini=La courgette est d'habitude servie cuisinée, elle peut aussi être préparé utilisant une variété de techniques culinaire, y compris cuit à la vapeur, bouilli, grillé, farci et cuit, cuit au barbecue, frit, ou incorporé dans d'autres recettes.
 
-//plant mega pack seeds
-cropsnh_journal.pmp_Beet=D'habitude les racines violettes foncées de betterave sont mangées crues, grillées, bouillies ou rôties.
-cropsnh_journal.pmp_Broccoli=Le brocoli est une plante verte comestible de la famille du chou, dont la grande tête florissante est utilisée comme un légume.
-cropsnh_journal.pmp_Cassava=Le cassava est une plante tropicale généralement connue comme le tapioca ou le manioc.
-cropsnh_journal.pmp_Celery=Le céleri est une variété de plante généralement utilisée comme un légume, la tige est la partie comestible.
-cropsnh_journal.pmp_Corn=À cause de ses racines peu profondes, le maïs est sensible aux sécheresses, intolérant de sols peu nutritifs et enclin à être déraciné par des vents violent.
-cropsnh_journal.pmp_Cucumber=Le concombre est une vigne rampante qui porte les fruits cylindriques qui sont utilisés comme des légumes culinaires.
-cropsnh_journal.pmp_Eggplant=Le fruit cru peut avoir un goût quelque peu amer, mais il devient tendre une fois cuisiné et il développe une saveur riche et complexe.
-cropsnh_journal.pmp_GreenBean=Les haricots verts peuvent ou être cultivés comme une plante en buisson ou grimpante, cette dernière exigeant des supports.
-cropsnh_journal.pmp_Leek=Plutôt que former un bulbe comme l'oignon, le poireau produit un long cylindre des gaines de feuille groupées qui sont généralement blanchies en poussant dans le sol.
-cropsnh_journal.pmp_Lettuce=Généralement cultivé comme une robuste annuelle, la laitue est facilement cultivée, bien qu'elle exige que des températures relativement basses l'empêchent de fleurir rapidement.
-cropsnh_journal.pmp_Onion=L'oignon est un fan de cavité, a des feuilles vert-bleutée et son bulbe à la base de la plante commence à gonfler quand une certaine longueur de jour est atteinte.
-cropsnh_journal.pmp_Spinach=Le personnage de dessin animé Popeye le marin est dépeint comme ayant une grosse affinité aux épinards, Le rendant plus fort dès qu'il les consomment.
-cropsnh_journal.pmp_Tomato=La tomate est consommée de façons diverses, y compris crue, comme un ingrédient dans beaucoup de plats, sauces, en salades et en boissons.
-cropsnh_journal.pmp_BellPepperYellow=Il y a beaucoup de poivrons là-bas : rouge, jaune et vert, mais celui-ci est jaune.
-cropsnh_journal.pmp_BellPepperOrange=Il y a beaucoup de poivrons là-bas : rouge, jaune et vert, mais celui-ci est orange.
-cropsnh_journal.pmp_BellPepperRed=Il y a beaucoup de poivrons là-bas : rouge, jaune et vert, mais celui-ci est rouge.
-cropsnh_journal.pmp_Sorrel=L'oseille est une plante persistante herbacée mince avec les racines qui courent profondément dans la terre.
-
 //witchery seeds
 cropsnh_journal.wi_Belladonna=Tout sur cette plante est hautement toxique : Ces feuilles, ces bulbes et ses fleurs.
 cropsnh_journal.wi_Garlic=Selon le folklore, l'ail peut être utilisé pour repousser des vampires, mais qui croit au vampires de toute façon, n'est-ce pas ?
@@ -423,43 +384,8 @@ cropsnh_journal.wi_Artichoke=L'artichaut d'eau est variaty étrange d'artichaut,
 cropsnh_journal.wi_Wolfsbane=Les contes disent de cette fleur révélant la vraie nature des gens souffrant de lycanthropie.
 cropsnh_journal.wi_Wormwood=L'absinthe est une plante rare, les herboristes loue sa fièvre supprimant les capacités.
 
-//chococraft seeds
-cropsnh_journal.cc_Gysahl=Le gysahl vert est l'en-cas préféré de Chocobo légendaire. Parfois un gysahl vert peut produire un gysahl charmant et certains disent qu'une plante bien cultivée peut produire gysahl d'or.
-
-//psychedelicraft seeds
-cropsnh_journal.pc_cannabis=Aussi communément appelé marihuana,  elle est très populaire comme un drogue douce.
-cropsnh_journal.pc_coca=Les feuilles de cette plante forme le matériel de base pour produire la cocaïne.
-cropsnh_journal.pc_hop=Le houblon est utilisé pour distiller toutes sortes de bières.
-cropsnh_journal.pc_tobacco=Le tabac est fumé dans le monde entier malgrès ses effets néfastes sur notre santé.
-cropsnh_journal.pc_coffeaCherries=Le grain de café est une graine du caféier et source du café, c'est la fosse à l'intérieur du fruit rouge ou violet qui est souvent mentionnée comme la cerise
-
 //blue power flax
 cropsnh_journal.bp_flax_seeds=Le lin est fil ~Sjin.
-
-//pneumaticCraft plants
-cropsnh.journal_PC.plant0=Ces plantes élèvent des calmars à l'intérieur de leurs bulbes qui portent parfois une graine.
-cropsnh.journal_PC.plant1=Les plantes mûres émettent un jet du feu et parfois une graine.
-cropsnh.journal_PC.plant2=Quand elles sont matures, ces plantes explosent laissant derrière elles quelques graines.
-cropsnh.journal_PC.plant3=Ces plantes élèvent des slimes à l'intérieur de leurs bulbes qui portent parfois une graine.
-cropsnh.journal_PC.plant4=Quand elles sont matures, ces plantes peuvent produire une pluie de graines du ciel durant une tempète.
-cropsnh.journal_PC.plant5=Les plantes mûres téléportent une graine à un emplacement voisin, aléatoire.
-cropsnh.journal_PC.plant6=Durant une tempète, ces plantes attirent les coups de foudre.
-cropsnh.journal_PC.plant8=Quand elles sont matures, ces plantes éclatent une graine.
-cropsnh.journal_PC.plant9=Ces plantes halètent des nuages de fumée, qui sait quel effet ces vapeurs ont.
-cropsnh.journal_PC.plant10=les graines de cette plante sont hautement répulsive et bondiront au loin sur le sol.
-cropsnh.journal_PC.plant11=Parce que les graines de cette plante sont plus légères que l'air, elles s'envolent dans la stratosphère.
-cropsnh.journal_PC.plant12=Quand mûri ces plantes crachent 4 graines qui volent alors dans des directions différentes.
-cropsnh.journal_PC.plant14=Ces plantes propulsent des graines à haute vitesse sur la terre, elles s'arrêtent seulement en frappant un mur.
-cropsnh.journal_PC.plant15=Les graines de ces plantes vont le long du vent pour trouver le sol fertile.
-
-//applemilktea
-cropsnh.journal_AMT.item.defeatedcrow.seedMint:0=Les feuilles de cette plante peuvent être utilisées pour mettre une bonne tasse de thé à la menthe ou donner un certain goût supplémentaire à un plat.
-
-//rotarycraft
-cropsnh.journal_RoC.canola=Les cosses de la graine de canola peuvent être centrifugées en un liquide avec d'excellentes propriétés lubrifiantes.
-
-//immersive engineering
-cropsnh_journal.ie_hemp=Les fibres de chanvre sont une ressource clé dans un bon nombre d'applications industrielles.
 
 //extra biomes xl
 cropsnh_journal.EBXL_strawberry=Les fraises sont des plantes populaires et utiles pour grandir dans l'environnement domestique, être là pour la décoration ou la consommation.
@@ -467,31 +393,3 @@ cropsnh_journal.EBXL_strawberry=Les fraises sont des plantes populaires et utile
 //biomes o plenty
 cropsnh_journal.BoP_turnip=Le navet est une racine comestible généralement cultivée dans des climats tempérés dans le monde entier pour sa racine pivotante blanche, proéminente.
 
-//lord of the rings
-cropsnh_journal.lotr_flaxSeeds=Le lin est fil ~Sjin.
-cropsnh_journal.lotr_lettuce=Généralement cultivé comme une robuste annuelle, la laitue est facilement cultivée, bien qu'elle exige que des températures relativement basses l'empêchent de fleurir rapidement.
-cropsnh_journal.lotr_pipeweedSeeds=L'herbe à pipe (aussi connu comme tabac des semi-hommes) est un excitant, probablement de nicotiana, cultivé et a aimé par beaucoup de hobbits de la Comté, elle a été d'abord introduite par Tobold Hornblower.
-
-//advent of ascension
-cropsnh_journal.aoa_BubbleBerry=Il y a un drôle de goût dans ces baies.
-cropsnh_journal.aoa_Chili=Ce piment est si épicé, il pourrait simplement brûler plus que votre bouche.
-cropsnh_journal.aoa_EyeBulb=Vous avez le sentiment que quelqu'un vous observe ? Bien maintenant vous pouvez l'avoir tout le temps.
-cropsnh_journal.aoa_Floracle=Il y a un étrange aura émanant de ces fleurs.
-cropsnh_journal.aoa_Goldicap=Les pétales de cette fleur semblent être un antidote universel.
-cropsnh_journal.aoa_HeartFruit=Les fruits de cette plante ont si bon goût, ca fesait mal en fait.
-cropsnh_journal.aoa_HollyTop=Les pétales de cetteplante sont connues pour faire d'excélente pointes de flèche.
-cropsnh_journal.aoa_Lunacrike=Les fruits de cette plante sont connus pour donner un court, mais puissant stimulant énergétique.
-cropsnh_journal.aoa_Lunaglobe=Les fruits de cette plante sont riches en énergie.
-cropsnh_journal.aoa_Lunalon=Ceux qui disent que les carottes sont bonnes pour la vue n'ont jamais essayé cette plante.
-cropsnh_journal.aoa_MagicMarang=Parfait pour ceux qui apprécient une bonne nourriture empoisonnée.
-cropsnh_journal.aoa_HavenShroom=Ne pas confondre avec des champignons magiques.
-cropsnh_journal.aoa_Rosidon=Manger cette plante vous emportera haut, littéralement en haut.
-cropsnh_journal.aoa_Tea="Une bonne tasse de thé alors !."
-cropsnh_journal.aoa_ThornyPlant=Considéré comme de la monnaie, prennez garde de ne pas causer une crise économique en la cultivant.
-cropsnh_journal.aoa_Trilliad=les feuilles de cette plante sont tout à fait nutritives.
-
-//agriculture
-cropsnh_journal.agriculture_cinnamon=Les tiges de cannelle doivent être traitées immédiatement après avoir récolté tant que l'intérieur de l'écorce est toujours humide.
-cropsnh_journal.agriculture_peanut=Les arachides ont beaucoup d'utilisations. Ils peuvent être mangés crus, utilisés dans des recettes, produire des solvants et des huiles, des médicaments, des matériaux textiles, le beurre de cacahuètes et aussi bien que beaucoup d'autres utilisations.
-cropsnh_journal.agriculture_strawberry=Les fraises sont des plantes populaires et utiles pouvant grandir dans l'environnement domestique, être là pour la consommation ou la décoration.
-cropsnh_journal.agriculture_vanilla=La vanille est le second épice le plus cher après le safran.

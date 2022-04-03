@@ -28,7 +28,6 @@ public abstract class NetworkWrapperCropsNH {
         wrapper.registerMessage(MessageTileEntitySeedStorage.MessageHandler.class, MessageTileEntitySeedStorage.class, messageTileEntitySeedStorage_ID, Side.CLIENT);
         wrapper.registerMessage(MessageSyncMutation.MessageHandler.class, MessageSyncMutation.class, messageSyncMutation_ID, Side.CLIENT);
         wrapper.registerMessage(MessageFertiliserApplied.MessageHandler.class, MessageFertiliserApplied.class, messageFertiliserApplied_ID, Side.CLIENT);
-        wrapper.registerMessage(MessageSyncFluidLevel.MessageHandler.class, MessageSyncFluidLevel.class, messageSyncFluidlevel_ID, Side.CLIENT);
         wrapper.registerMessage(MessagePeripheralCheckNeighbours.MessageHandler.class, MessagePeripheralCheckNeighbours.class, messagePeripheralNeighBourCheck_ID, Side.CLIENT);
         wrapper.registerMessage(MessageSendNEISetting.MessageHandler.class, MessageSendNEISetting.class, messageSendNEIsettings_ID, Side.CLIENT);
     }

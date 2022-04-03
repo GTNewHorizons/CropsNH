@@ -84,13 +84,6 @@ public class Recipes {
         }
         //CustomWood recipes
         registerCustomWoodRecipes();
-        if (!ConfigurationHandler.disableIrrigation) {
-            //change wooden bowl recipe
-            RegisterHelper.removeRecipe(new ItemStack(net.minecraft.init.Items.bowl));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(net.minecraft.init.Items.bowl, 4), "w w", " w ", 'w', Names.OreDict.slabWood));
-            //sprinkler
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.blockSprinkler, 1), " w ", " i ", "bcb", 'w', "plankWood", 'i', "ingotIron", 'b', net.minecraft.init.Blocks.iron_bars, 'c', net.minecraft.init.Items.bucket));
-        }
         //fruits
         if (ConfigurationHandler.resourcePlants) {
             if (OreDictHelper.getNuggetForName("Diamond") instanceof ItemCropsNH) {
@@ -127,26 +120,8 @@ public class Recipes {
 
     private static void registerCustomWoodRecipes() {
         if(initWoodList()) {
-            if (!ConfigurationHandler.disableIrrigation) {
-                ItemStack channel = new ItemStack(Blocks.blockWaterChannel, 1);
-                ItemStack channelFull = new ItemStack(Blocks.blockWaterChannelFull, 1);
-
-                registerCustomWoodRecipe(Blocks.blockWaterTank, 1, true, "w w", "w w", "www", 'w', REFERENCE);
-                registerCustomWoodRecipe(Blocks.blockWaterChannel, 6, true, "w w", " w ", 'w', REFERENCE);
-                registerCustomWoodRecipe(Blocks.blockWaterChannelFull, 1, false, channel, channel, channel, channel);
-                registerCustomWoodRecipe(Blocks.blockWaterChannel, 4, false, channelFull);
-                registerCustomWoodRecipe(Blocks.blockChannelValve, 1, false, new ItemStack(net.minecraft.init.Items.iron_ingot, 1), new ItemStack(net.minecraft.init.Blocks.lever, 1), channel);
-            }
             if (!ConfigurationHandler.disableSeedStorage) {
                 registerCustomWoodRecipe(Blocks.blockSeedStorage, 1, true, "wiw", "wcw", "wcw", 'w', REFERENCE, 'i', net.minecraft.init.Items.iron_ingot, 'c', net.minecraft.init.Blocks.chest);
-            }
-            if (!ConfigurationHandler.disableFences) {
-                ItemStack fence = new ItemStack(Blocks.blockFence, 1);
-                registerCustomWoodRecipe(Blocks.blockFence, 8, true, "fff", "fwf", "fff", 'w', REFERENCE, 'f', net.minecraft.init.Blocks.fence);
-                registerCustomWoodRecipe(Blocks.blockFenceGate, 1, true, "fwf", 'w', REFERENCE, 'f', fence);
-            }
-            if (!ConfigurationHandler.disableGrates) {
-                registerCustomWoodRecipe(Blocks.blockGrate, 8, true, "w w", " w ", "w w", 'w', REFERENCE);
             }
         }
     }
