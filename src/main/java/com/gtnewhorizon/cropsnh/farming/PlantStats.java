@@ -15,18 +15,33 @@ public class PlantStats implements ISeedStats {
     private short gain;
     private short strength;
     private boolean analyzed;
+    private int stage;
+    private int growthProgress;
+    private int fertilizer;
+    private int hydration;
+    private int weedEx;
 
-    public PlantStats() {
-        this(MIN, MIN, MIN);
+
+	public PlantStats() {
+        this(MIN, MIN, MIN, false, 0, 0, 0, 0, 0);
     }
-
+    
     public PlantStats(int growth, int gain, int strength) {
-        this(growth, gain, strength, false);
+        this(growth, gain, strength, false, 0, 0, 0, 0, 0);
+    }
+    
+    public PlantStats(int growth, int gain, int strength, boolean analyzed) {
+        this(growth, gain, strength, analyzed, 0, 0, 0, 0, 0);
     }
 
-    public PlantStats(int growth, int gain, int strength, boolean analyzed) {
+    public PlantStats(int growth, int gain, int strength, boolean analyzed, int stage, int growthProgress, int fertilizer, int hydration, int weedEx) {
         this.setStats(growth, gain, strength);
         this.analyzed = analyzed;
+        this.stage = stage;
+        this.growthProgress = growthProgress;
+        this.fertilizer = fertilizer;
+        this.hydration = hydration;
+        this.weedEx = weedEx;
     }
 
     public void setStats(int growth, int gain, int strength) {
@@ -46,6 +61,31 @@ public class PlantStats implements ISeedStats {
     public short getStrength() {
         return strength;
     }
+    
+    public int getStage() {
+    	return stage;
+    }
+    public int getGrowthProgress() {
+    	return growthProgress;
+    }
+
+    public int getFertilizer() {
+    	return fertilizer;
+    }
+    
+    public int getHydration() {
+    	return hydration;
+    }
+    
+
+    public int getWeedEx() {
+		return weedEx;
+	}
+
+	public void setWeedEx(int weedEx) {
+		this.weedEx = weedEx;
+	}
+    
 
     @Override
     public short getMaxGrowth() {
@@ -73,6 +113,25 @@ public class PlantStats implements ISeedStats {
     public void setStrength(int strength) {
         this.strength = moveIntoBounds(strength);
     }
+    
+    public void setStage(int stage) {
+    	this.stage = stage;
+    }
+    
+    public void setGrowthProgress(int growthProgress) {
+    	this.growthProgress = growthProgress;
+    }
+    
+    public void setFertilizer(int fertilizer)
+    {
+    	this.fertilizer = fertilizer;
+    }
+    
+    public void setHydration(int hydration)
+    {
+    	this.hydration = hydration;
+    }
+    
 
     private short moveIntoBounds(int stat) {
         int lowerLimit = Math.max(MIN, stat);
@@ -80,7 +139,7 @@ public class PlantStats implements ISeedStats {
     }
 
     public PlantStats copy() {
-        return new PlantStats(getGrowth(), getGain(), getStrength(), analyzed);
+        return new PlantStats(getGrowth(), getGain(), getStrength(), analyzed, stage, growthProgress, fertilizer, hydration, weedEx);
     }
 
     public static PlantStats getStatsFromStack(ItemStack stack) {
@@ -100,6 +159,11 @@ public class PlantStats implements ISeedStats {
             stats.setGain(tag.getShort(Names.NBT.gain));
             stats.setStrength(tag.getShort(Names.NBT.strength));
             stats.analyzed=tag.hasKey(Names.NBT.analyzed) && tag.getBoolean(Names.NBT.analyzed);
+            stats.setStage(tag.getInteger(Names.NBT.stage));
+            stats.setGrowthProgress(tag.getInteger(Names.NBT.growthProgress));
+            stats.setFertilizer(tag.getInteger(Names.NBT.fertilizer));
+            stats.setHydration(tag.getInteger(Names.NBT.hydration));
+            stats.setWeedEx(tag.getInteger(Names.NBT.weedEx));
             return stats;
         }
         return null;
@@ -110,6 +174,11 @@ public class PlantStats implements ISeedStats {
         tag.setShort(Names.NBT.gain, gain);
         tag.setShort(Names.NBT.strength, strength);
         tag.setBoolean(Names.NBT.analyzed, analyzed);
+        tag.setInteger(Names.NBT.stage, stage);
+        tag.setInteger(Names.NBT.growthProgress, growthProgress);
+        tag.setInteger(Names.NBT.fertilizer, fertilizer);
+        tag.setInteger(Names.NBT.hydration, hydration);
+        tag.setInteger(Names.NBT.weedEx, weedEx);
         return tag;
     }
 

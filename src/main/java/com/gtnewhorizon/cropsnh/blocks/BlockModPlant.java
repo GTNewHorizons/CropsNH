@@ -1,6 +1,5 @@
 package com.gtnewhorizon.cropsnh.blocks;
 
-
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.ICropsNHPlant;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
@@ -11,10 +10,12 @@ import com.gtnewhorizon.cropsnh.compatibility.applecore.AppleCoreHelper;
 import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
 import com.gtnewhorizon.cropsnh.farming.CropProduce;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantCropsNHShearable;
+import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirement;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.items.ItemModSeed;
 import com.gtnewhorizon.cropsnh.reference.Constants;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
 import com.gtnewhorizon.cropsnh.utility.exception.MissingArgumentsException;
@@ -22,16 +23,22 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.IResource;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 public class BlockModPlant extends BlockCrops implements ICropsNHPlant {
     private final IGrowthRequirement growthRequirement;
@@ -57,96 +64,7 @@ public class BlockModPlant extends BlockCrops implements ICropsNHPlant {
      * This constructor creates the seed for this plant which can be gotten via blockModPlant.getSeed().
      * This constructor also registers this block and the item for the seed to the minecraft item/block registry and to the CropsNH CropPlantHandler.
      * */
-    public BlockModPlant(Object... arguments) throws MissingArgumentsException {
-        super();
-        //get parameters
-        String name = null;
-        ItemStack fruit = null;
-        ItemStack shearable = null;
-        BlockWithMeta soil = null;
-        RequirementType type = RequirementType.NONE;
-        BlockWithMeta base = null;
-        int tier = -1;
-        RenderMethod renderType = null;
-        int[] brightness = null;
-        for(Object arg:arguments) {
-            if(arg == null) {
-                continue;
-            }
-            if(arg instanceof String) {
-                name = (String) arg;
-                continue;
-            }
-            if(arg instanceof  ItemStack) {
-                if(fruit==null) {
-                    fruit = (ItemStack) arg;
-                } else {
-                    shearable = (ItemStack) arg;
-                }
-                continue;
-            }
-            if(arg instanceof RequirementType) {
-                type = (RequirementType) arg;
-            }
-            if(arg instanceof BlockWithMeta) {
-                if(type != RequirementType.NONE) {
-                    base = (BlockWithMeta) arg;
-                    base = base.getBlock() == null ? null : base;
-                } else {
-                    soil = (BlockWithMeta) arg;
-                    soil = soil.getBlock() == null ? null : soil;
-                }
-                continue;
-            }
-            if(arg instanceof RenderMethod) {
-                renderType = (RenderMethod) arg;
-                continue;
-            }
-            if(arg instanceof Integer) {
-                tier = (Integer) arg;
-            }
-            if(arg instanceof int[]) {
-                int[] array = (int[]) arg;
-                brightness = array.length==2?array:brightness;
-            }
-        }
-        //check if necessary parameters have been passed
-        if(name==null || tier<0 || renderType==null) {
-            throw new MissingArgumentsException();
-        }
-        //set fields
-        IGrowthRequirementBuilder builder = GrowthRequirementHandler.getNewBuilder();
-        if (base != null && type != RequirementType.NONE) {
-            builder.requiredBlock(base, type, true);
-        }
-        if(brightness != null) {
-            builder.brightnessRange(brightness[0], brightness[1]);
-        }
-        if (soil == null) {
-            growthRequirement = builder.build();
-        } else {
-            growthRequirement = builder.soil(soil).build();
-        }
-        this.products.addProduce(fruit);
-        this.tier = tier;
-        this.setTickRandomly(true);
-        this.useNeighborBrightness = true;
-        this.renderType = renderType;
-        //register this plant
-        RegisterHelper.registerCrop(this, name);
-        //create seed for this plant
-        this.seed = new ItemModSeed(this, "cropsnh_journal."+Character.toLowerCase(name.charAt(0))+name.substring(1));
-        //register this plant to the CropPlantHandler
-        try {
-            if(shearable == null) {
-                CropPlantHandler.registerPlant(this);
-            } else {
-                CropPlantHandler.registerPlant(new CropPlantCropsNHShearable(this, shearable));
-            }
-        } catch (Exception e) {
-            LogHelper.printStackTrace(e);
-        }
-    }
+    
 
     @Override
     public ItemModSeed getSeed() {return this.seed;}
@@ -198,17 +116,43 @@ public class BlockModPlant extends BlockCrops implements ICropsNHPlant {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister reg) {
-        LogHelper.debug("registering icon for: " + this.getUnlocalizedName());
-        this.icons = new IIcon[4];
-        for(int i=1;i<this.icons.length+1;i++) {
-            this.icons[i-1] = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.') + 1)+i);
+        //LogHelper.debug("registering icon for: " + this.getUnlocalizedName());
+        this.icons = new IIcon[this.growthStages.length];
+        for(int i=0;i<this.growthStages.length;i++) {
+        	Vector<ResourceLocation> locations = new Vector<ResourceLocation>();
+        	String fileName = "blockCrop."+this.name+"."+(i+1);
+        	
+        	locations.add(new ResourceLocation("cropsnh", "textures/blocks/"+fileName+".png"));
+        	locations.add(new ResourceLocation("ic2", "textures/blocks/crop/"+this.name+"."+(i+1)+".png"));
+        	locations.add(new ResourceLocation("bpp", "textures/blocks/crop/"+fileName+".png"));
+        	locations.add(new ResourceLocation("gregtech", "textures/blocks/crop/"+fileName+".png"));
+        	locations.add(new ResourceLocation("ic2", "textures/blocks/crop/"+fileName+".png"));
+        	
+        	for(int j = 0; j < locations.size(); j++)
+        	{
+        		try {
+            		IResource res = Minecraft.getMinecraft().getResourceManager().getResource(locations.get(j));
+    				if(res != null)
+    				{
+    					String resPath = locations.get(j).getResourcePath();
+    					String resName = resPath.substring(resPath.lastIndexOf("blocks/")+7, resPath.lastIndexOf("."));
+    					
+    					this.icons[i] = reg.registerIcon(locations.get(j).getResourceDomain()+":"+resName);
+    					break;
+    				}
+    			} catch (IOException e) {
+    				//e.printStackTrace();
+    			}
+        	}
+        	
+        	if(this.icons[i] == null) this.icons[i] = reg.registerIcon("cropsnh:cropBlock.default."+(i+1));
         }
     }
 
     //growing
     @Override
     public void updateTick(World world, int x, int y, int z, Random rnd) {
-        int meta = this.getPlantMetadata(world, x, y, z);
+        /*int meta = this.getPlantMetadata(world, x, y, z);
         if (meta < Constants.MATURE && this.isFertile(world, x, y ,z)) {
             //Base growth rate
             int growthRate = (tier > 0 && tier <= Constants.GROWTH_TIER.length)?Constants.GROWTH_TIER[tier]:Constants.GROWTH_TIER[0];
@@ -221,7 +165,7 @@ public class BlockModPlant extends BlockCrops implements ICropsNHPlant {
                 world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
                 AppleCoreHelper.announceGrowthTick(this, world, x, y, z);
             }
-        }
+        }*/
     }
 
     //check if the plant is mature
@@ -233,7 +177,7 @@ public class BlockModPlant extends BlockCrops implements ICropsNHPlant {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        switch(meta) {
+        /*switch(meta) {
             case 0:
             case 1: return this.icons[0];
             case 2:
@@ -243,7 +187,9 @@ public class BlockModPlant extends BlockCrops implements ICropsNHPlant {
             case 6: return this.icons[2];
             case 7: return this.icons[3];
         }
-        return this.icons[meta/5];
+        return this.icons[meta/5];*/
+    	if(meta < this.icons.length && meta >= 0) return this.icons[meta];
+    	return this.icons[0];
     }
 
     //item drops
@@ -317,5 +263,128 @@ public class BlockModPlant extends BlockCrops implements ICropsNHPlant {
     @Override
     public IGrowthRequirement getGrowthRequirement() {
         return growthRequirement;
+    }
+    
+    
+    
+    
+    /*
+     * CropsNH
+     */
+    
+    public static Vector<BlockModPlant> plants = new Vector<BlockModPlant>();
+    
+    
+    public String name;
+    public int[] growthStages;
+    public int growthStageAfterHarvest;
+    public int harvestStage;
+    public ItemStack alternateSeed;
+
+    public BlockModPlant(String name, String[] drops, int[] dropMetas, String[] foundationBlocks, int[] growthStages, int harvestStage, int growthStageAfterHarvest, int tier, int minBrightness, int maxBrightness)
+    {
+        ItemStack shearable = null;
+    	
+        this.tier = tier;
+        this.growthStages = growthStages;
+        this.harvestStage = harvestStage;
+        this.growthStageAfterHarvest = growthStageAfterHarvest;
+        
+        this.name = name;
+        for(int i = 0; i < drops.length; i++)
+        {
+        	//ItemStack item = OreDictHelper.getFirstOredictItem(itemName);
+        	//ItemStack = Block.blockRegistry.getObject(itemName);
+        	Item itemType = (Item)Item.itemRegistry.getObject(drops[i]);
+        	if(itemType == null) continue;
+        	ItemStack item = new ItemStack(itemType, 1, dropMetas[i]);
+        	if(item != null)
+        	{
+        		this.products.addProduce(item);
+        	}
+        }
+        
+        this.growthRequirement = new GrowthRequirement(foundationBlocks);
+        //this.growthRequirement = GrowthRequirementHandler.getNewBuilder().build();
+
+        this.setTickRandomly(true);
+        this.useNeighborBrightness = true;
+        this.renderType = RenderMethod.HASHTAG;
+        
+        
+        //RegisterHelper.registerCrop(this, name);
+        //RegisterHelper.registerBlock(this, Names.Objects.crop + name);
+        //this.seed = new ItemModSeed(this, "cropsnh_journal."+Character.toLowerCase(name.charAt(0))+name.substring(1));
+        //this.plants.add(this);
+        
+      //register this plant
+        RegisterHelper.registerCrop(this, name);
+        //create seed for this plant
+        this.seed = new ItemModSeed(this, "cropsnh_journal."+Character.toLowerCase(name.charAt(0))+name.substring(1));
+        plants.add(this);
+        //register this plant to the CropPlantHandler
+        try {
+            if(shearable == null) {
+                CropPlantHandler.registerPlant(this);
+            } else {
+                CropPlantHandler.registerPlant(new CropPlantCropsNHShearable(this, shearable));
+            }
+        } catch (Exception e) {
+            LogHelper.printStackTrace(e);
+        }
+    }
+    
+    public BlockModPlant(String name, String[] drops, int[] dropMetas, String[] foundationBlocks, int[] growthStages, int harvestStage, int growthStageAfterHarvest, int tier)
+    {
+    	this(name, drops, dropMetas, foundationBlocks, growthStages, harvestStage, growthStageAfterHarvest, tier, 0, 16);
+    }
+    
+    public static BlockModPlant getByItemStack(ItemStack seed) {
+    	if(seed == null) return null;
+    	for(BlockModPlant plant : plants)
+    	{
+    		ItemStack plantSeed = plant.getSeedStack(1);
+    		if(seed.getItem().getUnlocalizedName().equals(plantSeed.getItem().getUnlocalizedName()) )
+			{
+				return plant;
+			}
+    	}
+    	return null;
+    }
+    
+    public void setAlternateSeed(String alternateSeedName, int meta)
+    {
+    	Item item = (Item)Item.itemRegistry.getObject(alternateSeedName);
+    	setAlternateSeed(item, meta);
+    }
+    
+    public void setAlternateSeed(Item item, int meta)
+    {
+    	if(item == null) return;
+    	ItemStack itemStack = new ItemStack(item, 1, meta);
+    	
+    	if(itemStack == null) return;
+    	
+    	this.alternateSeed = itemStack;
+    }
+    
+    public static boolean itemIsAlternateSeed(ItemStack item)
+    {
+    	return getAlternateSeedPlant(item.getItem(), item.getItemDamage()) != null;
+    }
+    
+    public static BlockModPlant getAlternateSeedPlant(Item seed, int meta)
+    {
+    	for(BlockModPlant plant : plants)
+    	{
+    		if(plant.alternateSeed != null)
+    		{
+    			if(plant.alternateSeed.getItem() == seed && plant.alternateSeed.getItemDamage() == meta)
+    			{
+    				return plant;
+    			}
+    		}
+    	}
+    	return null;
     }
 }

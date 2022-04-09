@@ -25,7 +25,7 @@ public class MutationHandler implements IMutationHandler {
         return INSTANCE;
     }
 
-    private List<IMutation> mutations;
+    private List<IMutation> mutations = new ArrayList<>();
     private boolean isSyncing = false;
     private IMutationLogic mutationLogic = MutationLogicCropsNH.getInstance();
 
@@ -35,7 +35,7 @@ public class MutationHandler implements IMutationHandler {
         //Read mutations & initialize the mutation arrays
         String[] data = IOHelper.getLinesArrayFromData(ConfigurationHandler.readMutationData());
 
-        mutations = new ArrayList<>();
+        
 
       //print registered mutations to the log
         LogHelper.info("Registered Mutations:");

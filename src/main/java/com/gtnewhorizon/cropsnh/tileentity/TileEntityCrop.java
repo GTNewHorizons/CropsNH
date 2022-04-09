@@ -8,6 +8,7 @@ import com.gtnewhorizon.cropsnh.api.v1.IFertiliser;
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
 import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
+import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
 import com.gtnewhorizon.cropsnh.compatibility.applecore.AppleCoreHelper;
 import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
 import com.gtnewhorizon.cropsnh.farming.PlantStats;
@@ -17,25 +18,35 @@ import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.statstringdisplayer.StatStringDisplayer;
+
+import ic2.api.crops.CropCard;
+import ic2.api.crops.ICropTile;
+
+import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebuggable {
+public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebuggable, ICropTile {
     private PlantStats stats = new PlantStats();
     private boolean crossCrop=false;
     private boolean weed=false;
@@ -62,13 +73,13 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
     }
 
     @Override
-    public short getGrowth() {return this.weed ? (short) ConfigurationHandler.weedGrowthMultiplier : stats.getGrowth();} //Pardon the cast.
+    public byte getGrowth() {return this.weed ? (byte) ConfigurationHandler.weedGrowthMultiplier : (byte)stats.getGrowth();} //Pardon the cast.
 
     @Override
-    public short getGain() {return stats.getGain();}
+    public byte getGain() {return (byte)stats.getGain();}
 
     @Override
-    public short getStrength() {return stats.getStrength();}
+    public byte getStrength() {return (byte)stats.getStrength();}
 
     @Override
     public boolean isAnalyzed() {return stats.isAnalyzed();}
@@ -104,10 +115,11 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
     }
 
     /** sets the plant in the crop */
-    public void setPlant(int growth, int gain, int strength, boolean analyzed, CropPlant plant) {
+    private void setPlant(int growth, int gain, int strength, boolean analyzed, CropPlant plant, BlockModPlant blockModPlant) {
         if( (!this.crossCrop) && (!this.hasPlant())) {
             if(plant!=null) {
                 this.plant = plant;
+            	this.blockModPlant = blockModPlant;
                 this.stats = new PlantStats(growth, gain, strength, analyzed);
                 this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 0, 3);
                 plant.onSeedPlanted(worldObj, xCoord, yCoord, zCoord, this);
@@ -115,6 +127,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
                 if(data != null) {
                     this.data = data;
                 }
+                
+                
                 this.markForUpdate();
             }
         }
@@ -123,7 +137,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
     /** sets the plant in the crop */
     @Override
     public void setPlant(int growth, int gain, int strength, boolean analyzed, Item seed, int seedMeta) {
-        this.setPlant(growth, gain, strength, analyzed, CropPlantHandler.getPlantFromStack(new ItemStack(seed, 1, seedMeta)));
+    	ItemStack itemStack = new ItemStack(seed, 1, seedMeta);
+        this.setPlant(growth, gain, strength, analyzed, CropPlantHandler.getPlantFromStack(itemStack), BlockModPlant.getByItemStack(itemStack));
         if(plant != null) {
             plant.onSeedPlanted(this.getWorldObj(), xCoord, yCoord, zCoord, this);
         }
@@ -135,6 +150,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
         CropPlant oldPlant = getPlant();
         this.stats = new PlantStats();
         this.plant = null;
+        this.blockModPlant = null;
         this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 0, 3);
         this.markForUpdate();
         if (oldPlant != null) {
@@ -173,10 +189,15 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
         return false;
     }
 
-    /** check the block if the plant is mature */
+    /** check the block if the plant is mature (can spread/mutate, 1 stage below max stage but not stage 1) */
     @Override
     public boolean isMature() {
-        return worldObj.getBlockMetadata(xCoord, yCoord, zCoord) >= Constants.MATURE;
+        //
+    	if(this.getBlockModPlant() != null && this.getBlockModPlant().growthStages != null && (this.stats.getStage()+1) >= this.getBlockModPlant().growthStages.length-1 && this.stats.getStage() > 1)
+    	{
+    		return true;
+    	}
+    	return false;
     }
 
     /** gets the fruits for this plant */
@@ -184,7 +205,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
 
     /** allow harvesting */
     public boolean allowHarvest(EntityPlayer player) {
-        return hasPlant() && isMature() && plant.onHarvest(worldObj, xCoord, yCoord, zCoord, this, player);
+    	if(getBlockModPlant() == null) return false;
+        return hasPlant() && this.stats.getStage() >= this.getBlockModPlant().harvestStage-1 && plant.onHarvest(worldObj, xCoord, yCoord, zCoord, this, player);
     }
 
     /** returns an ItemStack holding the seed currently planted, initialized with an NBT tag holding the stats */
@@ -212,6 +234,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
         this.crossCrop=false;
         this.weed=true;
         this.clearPlant();
+        this.markForUpdate();
     }
 
     /** spread the weed */
@@ -305,7 +328,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
 
     @Override
     public boolean harvest(@Nullable EntityPlayer player) {
-        return ((BlockCrop) worldObj.getBlock(xCoord, yCoord, zCoord)).harvest(worldObj, xCoord, yCoord, zCoord, player, this);
+        //return ((BlockCrop) worldObj.getBlock(xCoord, yCoord, zCoord)).harvest(worldObj, xCoord, yCoord, zCoord, player, this);
+    	return false;
     }
 
     @Override
@@ -345,10 +369,55 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
     //TileEntity is just to store data on the crop
     @Override
     public boolean canUpdate() {
-        return false;
+        return true;
+    }
+    
+    @Override
+    public void updateEntity()
+    {
+    	ticks++;
+    	if(ticks >= 2)
+    	{
+    		ticks = 0;
+    		if(this.canGrow())
+        	{
+        		this.grow();
+        	}
+        	
+        	if(this.hasPlant())
+        	{
+        		stats.setFertilizer(Math.max(0, stats.getFertilizer()-1));
+        		stats.setHydration(Math.max(0, stats.getHydration()-1));
+        		stats.setWeedEx(Math.max(0, stats.getWeedEx()-1));
+        	}
+    	}
+    	
+    	if(!worldObj.isRemote) {
+    		if(Math.random() <= 0.01)
+        	{
+        		if(hasPlant() || hasWeed()) {
+                	if (isMature() && hasWeed() && ConfigurationHandler.enableWeeds){
+                    	//spreadWeed();
+                    }
+                } else {
+                    //15% chance to spawn weeds
+                    if(ConfigurationHandler.enableWeeds && (Math.random() < ConfigurationHandler.weedSpawnChance)) {
+                        spawnWeed();
+                    }
+                    else if(isCrossCrop()) {
+                        crossOver();
+                    }
+                }
+        	}
+    	}
     }
 
-    //this saves the data on the tile entity
+    private boolean canGrow() {
+		if(this.getBlockModPlant() != null && this.getBlockModPlant().growthStages != null && (this.stats.getStage()+1) < this.getBlockModPlant().growthStages.length) return true;
+		return false;
+	}
+
+	//this saves the data on the tile entity
     @Override
     public void writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
@@ -384,7 +453,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
 
     /** Apply a growth increment */
     public void applyGrowthTick() {
-        int flag = 2;
+        /*int flag = 2;
         int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
         if(hasPlant()) {
             flag = plant.onAllowedGrowthTick(worldObj, xCoord, yCoord, zCoord, meta, this) ? 2 : 6;
@@ -395,7 +464,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
         if (hasWeed() || !plant.isMature(worldObj, xCoord, yCoord, zCoord)) {
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta + 1, flag);
             AppleCoreHelper.announceGrowthTick(this.getBlockType(), worldObj, xCoord, yCoord, zCoord);
-        }
+        }*/
     }
 
     /** the code that makes the crop cross with neighboring crops */
@@ -442,7 +511,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
     public IIcon getPlantIcon() {
         IIcon icon = null;
         if(this.hasPlant()) {
-            icon = plant.getPlantIcon(this.getBlockMetadata());
+            //icon = plant.getPlantIcon(this.getBlockMetadata());
+        	icon = getBlockModPlant().getIcon(this.stats.getStage());
         }
         else if(this.weed) {
             icon = ((BlockCrop) this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord)).getWeedIcon(this.getBlockMetadata());
@@ -486,13 +556,22 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
     		//Add the seed name.
     		information.add(StatCollector.translateToLocal("cropsnh_tooltip.seed") + ": " + this.getSeedStack().getDisplayName());
     		//Add the growth.
-    		if(this.isMature()) {
-    			information.add(StatCollector.translateToLocal("cropsnh_tooltip.growthStage")+": "+StatCollector.translateToLocal("cropsnh_tooltip.mature"));
-    		} else {
-    			information.add(StatCollector.translateToLocal("cropsnh_tooltip.growthStage")+": "+((int) ( (100*(this.getBlockMetadata()+0.00F))/7.00F)+"%" ));
+
+    		
+    		
+    		if(getBlockModPlant() != null)
+    		{
+    			information.add(StatCollector.translateToLocal("cropsnh_tooltip.growthStage")+": " + (this.stats.getStage()+1) + " / " + blockModPlant.growthStages.length);
+    			if(this.stats.getStage()+1 < blockModPlant.growthStages.length)
+    			{
+    				information.add("Growth progress: " + this.stats.getGrowthProgress() + " / " + blockModPlant.growthStages[this.stats.getStage()]);
+    			}
     		}
+    		
     		//Add the analyzed data.
     		if(this.isAnalyzed()) {
+    			information.add(" - Nutrients: " + nutrients + " Humidity: " + humidity + " Air Quality: " + airQuality);
+    			information.add(" - Fertilizer: " + stats.getFertilizer() + " Hydration: " + stats.getHydration() + " WeedEx: " + stats.getWeedEx());
     			information.add(" - " + StatCollector.translateToLocal("cropsnh_tooltip.growth") + ": " + StatStringDisplayer.instance().getStatDisplayString(this.getGrowth(), ConfigurationHandler.cropStatCap));
                 information.add(" - " + StatCollector.translateToLocal("cropsnh_tooltip.gain") + ": " + StatStringDisplayer.instance().getStatDisplayString(this.getGain(), ConfigurationHandler.cropStatCap));
     			information.add(" - " + StatCollector.translateToLocal("cropsnh_tooltip.strength") + ": " + StatStringDisplayer.instance().getStatDisplayString(this.getStrength(), ConfigurationHandler.cropStatCap));
@@ -510,4 +589,464 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
     		information.add(StatCollector.translateToLocal("cropsnh_tooltip.empty"));
         }
     }
+    
+    
+    
+    /*
+     * CropsNH
+     */
+    
+    private BlockModPlant blockModPlant;
+    
+    private int nutrients = 0, humidity = 0, airQuality = 0;
+    private int ticks = 0;
+    private final int tickRate = 128;
+    
+    
+    private BlockModPlant getBlockModPlant()
+    {
+    	if(this.blockModPlant != null) return this.blockModPlant;
+    	this.blockModPlant = BlockModPlant.getByItemStack(this.getSeedStack());
+    	return this.blockModPlant;
+    }
+
+	public void harvestManual(World world, int x, int y, int z) {
+		ItemStack[] items = harvestAutomated();
+        for(ItemStack item : items)
+        {
+        	EntityItem entityItem = new EntityItem(world, x, y, z, item);
+            entityItem.delayBeforeCanPickup = 10;
+            world.spawnEntityInWorld(entityItem);
+        }
+	}
+	
+	public ItemStack[] harvestAutomated()
+	{
+		ArrayList<ItemStack> drops = getFruits();
+        ArrayList<ItemStack> droppedItems = new ArrayList<ItemStack>();
+        
+        double dropChance = Math.pow(0.95, this.getBlockModPlant().tier);
+        dropChance *= Math.pow(1.03, this.stats.getGain());
+        
+        while(dropChance > 0.0 && drops.size() > 0)
+        {
+        	if(ThreadLocalRandom.current().nextDouble() <= dropChance)
+        	{
+        		int itemNum = ThreadLocalRandom.current().nextInt(drops.size());
+        		ItemStack drop = drops.get(itemNum);
+        		if(drop==null || drop.getItem()==null) {
+                    continue;
+                }
+        		
+        		if(ThreadLocalRandom.current().nextInt(100) <= this.stats.getGain()) drop.stackSize++;
+        		
+                droppedItems.add(drop);
+        	}
+        	dropChance -= 1.0;
+        }
+        
+        
+        stats.setStage(this.getBlockModPlant().growthStageAfterHarvest-1);
+        this.markForUpdate();
+        
+        return droppedItems.toArray(new ItemStack[0]);
+	}
+    
+	private void updateEnvironmentalStats()
+	{
+		String soilName = Block.blockRegistry.getNameForObject(this.worldObj.getBlock(this.xCoord, this.yCoord - 1, this.zCoord));
+		
+		
+		float temperature = worldObj.getBiomeGenForCoords(xCoord, zCoord).temperature;
+		nutrients = 10 - (int) (Math.abs(temperature - 1.0f) * 16.0f);
+		if(nutrients >= 8) nutrients = 10;
+		
+		if(soilName.equals("Ztones:cleanDirt") || soilName.equals("RandomThings:fertilizedDirt") || soilName.equals("RandomThings:fertilizedDirt_tilled"))
+        {
+			nutrients += 3;
+        }
+		else
+		{
+			for(int i = 0; i < 3; i++)
+			{
+				if(Block.blockRegistry.getNameForObject(this.worldObj.getBlock(this.xCoord, this.yCoord - (2+i), this.zCoord)) == "minecraft:dirt")
+				{
+					nutrients++;
+				}
+			}
+		}
+		
+		
+		float rainfall = worldObj.getBiomeGenForCoords(xCoord, zCoord).rainfall;
+		humidity = 10 - (int) (Math.abs(rainfall - 1.0f) * 16.0f);
+		if(humidity >= 7) humidity = 10;
+		
+		if(worldObj.getBlockMetadata(xCoord, yCoord-1, zCoord) >= 7 ||
+				soilName.equals("Ztones:cleanDirt") || soilName.equals("RandomThings:fertilizedDirt") || soilName.equals("RandomThings:fertilizedDirt_tilled"))
+        {
+				humidity += 2;
+        }
+		
+		if (stats.getHydration() >= 5) {
+			humidity += 2;
+		}
+		humidity += (stats.getHydration() + 24) / 25;
+		
+		
+		airQuality = Math.min(4, Math.max(0, (yCoord - 64) / 15));
+		if(worldObj.canBlockSeeTheSky(xCoord, yCoord+1, zCoord)) airQuality += 2;
+		
+		int emptyBlocks = 9;
+		
+		for(int x = xCoord - 1; x <= xCoord + 1; x++)
+		{
+			for(int z = zCoord - 1; z <= zCoord + 1; z++)
+			{
+				if(worldObj.isBlockNormalCubeDefault(x, yCoord, z, false) ||
+						worldObj.getTileEntity(x, yCoord, z) instanceof TileEntityCrop)
+				{
+					emptyBlocks--;
+				}
+			}
+		}
+		
+		airQuality += emptyBlocks / 2;
+	}
+	
+	private void grow()
+	{
+		this.updateEnvironmentalStats();
+		
+		int baseEnvStats = humidity + nutrients + airQuality * 5;
+    	int finalEnvStats = baseEnvStats - ((getBlockModPlant().tier - 1) * 4 + stats.getGrowth() + stats.getGain() + stats.getStrength());
+		
+    	int growth = 6 + stats.getGrowth();
+    	if(finalEnvStats >= 0) growth = (int)(growth * (1.0f + (finalEnvStats/100.0f)));
+    	if(finalEnvStats < 0) growth = (int)(growth * Math.max(0.25, 1.0f - (finalEnvStats/25.0f)));
+		
+		this.stats.setGrowthProgress(this.stats.getGrowthProgress()+growth);
+    	if(this.stats.getGrowthProgress() > this.getBlockModPlant().growthStages[this.stats.getStage()])
+    	{
+    		this.stats.setStage(this.stats.getStage()+1);
+    		this.stats.setGrowthProgress(0);
+    		if(worldObj.isRemote) {
+                markForRenderUpdate();
+            }
+    		this.markDirty();
+    	}
+	}
+	
+	public boolean canHarvest()
+	{
+		return hasPlant() && this.stats.getStage() >= this.getBlockModPlant().harvestStage-1;
+	}
+	
+	public boolean fertilize()
+	{
+		if(stats.getFertilizer() <= 100)
+		{
+			stats.setFertilizer(stats.getFertilizer()+100);
+			markForUpdate();
+			return true;
+		}
+		return false;
+	}
+	
+	public int hydrate(int maxHydration)
+	{
+		int toHydrate = Math.min(200 - stats.getHydration(), maxHydration);
+		stats.setHydration(stats.getHydration()+toHydrate);
+		if(toHydrate > 0) markForUpdate();
+		return toHydrate;
+	}
+	
+	public boolean weedEx()
+	{
+		if(stats.getWeedEx() <= 50)
+		{
+			stats.setWeedEx(stats.getWeedEx()+50);
+			markForUpdate();
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public CropCard getCrop() {
+		return new FakeCropCard(this.canGrow(), getBlockModPlant().name, this.canHarvest(), this.weed);
+	}
+
+	@Override
+	public void setCrop(CropCard cropCard) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public short getID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setID(short id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public byte getSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setSize(byte size) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setGrowth(byte growth) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setGain(byte gain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public byte getResistance() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setResistance(byte resistance) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public byte getScanLevel() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setScanLevel(byte scanLevel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public NBTTagCompound getCustomData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getNutrientStorage() {
+		return stats.getFertilizer();
+	}
+
+	@Override
+	public void setNutrientStorage(int nutrientStorage) {
+		stats.setFertilizer(nutrientStorage);
+		markForUpdate();
+	}
+
+	@Override
+	public int getHydrationStorage() {
+		return stats.getHydration();
+	}
+
+	@Override
+	public void setHydrationStorage(int hydrationStorage) {
+		stats.setHydration(hydrationStorage);
+		markForUpdate();
+	}
+
+	@Override
+	public int getWeedExStorage() {
+		return stats.getWeedEx();
+	}
+
+	@Override
+	public void setWeedExStorage(int weedExStorage) {
+		stats.setWeedEx(weedExStorage);
+		markForUpdate();
+	}
+
+	@Override
+	public byte getHumidity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte getNutrients() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte getAirQuality() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public World getWorld() {
+		return this.worldObj;
+	}
+
+	@Override
+	public ChunkCoordinates getLocation() {
+		return new ChunkCoordinates(xCoord, yCoord, zCoord);
+	}
+
+	@Override
+	public int getLightLevel() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean pick(boolean manual) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean harvest(boolean manual) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ItemStack[] harvest_automated(boolean Optimal) {
+		//if(Optimal && stats.getStage() != getBlockModPlant().growthStages.length) return null;
+		return harvestAutomated();
+	}
+
+	@Override
+	public void reset() {
+		this.clearPlant();
+		this.clearWeed();
+	}
+
+	@Override
+	public void updateState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isBlockBelow(Block block) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isBlockBelow(String oreDictionaryName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ItemStack generateSeeds(CropCard crop, byte growth, byte gain, byte resis, byte scan) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStack generateSeeds(short plant, byte growth, byte gain, byte resis, byte scan) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
+
+
+
+class FakeCropCard extends CropCard {
+	boolean canGrowValue = false;
+	String displayNameValue = "";
+	boolean canBeHarvestedValue = false;
+	boolean isWeedValue = false;
+	
+	public FakeCropCard(boolean canGrow, String displayName, boolean canBeHarvested, boolean isWeed){
+		canGrowValue = canGrow;
+		displayNameValue = displayName;
+		canBeHarvestedValue = canBeHarvested;
+		isWeedValue = isWeed;
+	}
+
+	@Override
+	public String name() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int tier() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int stat(int n) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String[] attributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int maxSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean canGrow(ICropTile crop) {
+		return false;
+	}
+
+	@Override
+	public int getOptimalHavestSize(ICropTile crop) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean canBeHarvested(ICropTile crop) {
+		return canBeHarvestedValue;
+	}
+
+	@Override
+	public ItemStack getGain(ICropTile crop) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String displayName()
+	{
+		return displayNameValue;
+	}
+	
+	@Override
+	public boolean isWeed(ICropTile tile)
+	{
+		return isWeedValue;
+	}
+}
+

@@ -54,10 +54,9 @@ public abstract class CropPlant implements ICropPlant {
 
     @Override
     public final void setTier(int tier) {
-        tier = tier >= Constants.GROWTH_TIER.length ? Constants.GROWTH_TIER.length-1 : tier;
         tier = tier <= 0 ? 1 : tier;
         this.tier = tier;
-        this.spreadChance = 100/tier;
+        this.spreadChance = (int)(100 * Math.pow(0.9, tier));
     }
 
     @Override

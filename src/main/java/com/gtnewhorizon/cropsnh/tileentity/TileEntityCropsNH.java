@@ -129,7 +129,10 @@ public abstract class TileEntityCropsNH extends TileEntity {
 
     @SideOnly(Side.CLIENT)
     public final void markForRenderUpdate() {
-        Minecraft.getMinecraft().renderGlobal.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+    	if(Minecraft.getMinecraft().renderGlobal != null)
+    	{
+    		Minecraft.getMinecraft().renderGlobal.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+    	}
 
     }
 

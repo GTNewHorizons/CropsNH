@@ -15,19 +15,6 @@ public class Crops {
     public static void init() {
         crops = new ArrayList<>();
         seeds = new ArrayList<>();
-        for(Object[] data: Data.defaults) {
-            BlockModPlant plant;
-            try {
-                plant = new BlockModPlant(data);
-            } catch (Exception e) {
-                if(ConfigurationHandler.debug) {
-                    LogHelper.printStackTrace(e);
-                }
-                return;
-            }
-            crops.add(plant);
-            seeds.add(plant.getSeed());
-        }
-        LogHelper.info("Crops registered");
+        
     }
 }

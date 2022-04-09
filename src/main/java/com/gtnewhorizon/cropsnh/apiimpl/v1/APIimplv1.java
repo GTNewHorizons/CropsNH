@@ -499,12 +499,13 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public ICropsNHPlant createNewCrop(Object... args) {
-        try {
+        /*try {
             return new BlockModPlant(args);
         } catch (MissingArgumentsException e) {
             e.printStackTrace();
             return null;
-        }
+        }*/
+    	return null;
     }
 
 

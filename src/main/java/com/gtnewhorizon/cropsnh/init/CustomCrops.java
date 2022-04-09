@@ -25,64 +25,7 @@ public class CustomCrops {
 
     @SuppressWarnings("deprecation")
     public static void init() {
-        if(ConfigurationHandler.customCrops) {
-            String[] cropsRawData = IOHelper.getLinesArrayFromData(ConfigurationHandler.readCustomCrops());
-            customCrops = new BlockModPlant[cropsRawData.length];
-            customSeeds = new ItemModSeed[cropsRawData.length];
-            for(int i=0;i<cropsRawData.length;i++) {
-                String[] cropData = IOHelper.getData(cropsRawData[i]);
-                //cropData[0]: name
-                //cropData[1]: fruit name:meta
-                //cropData[2]: soil
-                //cropData[3]: base block name:meta
-                //cropData[4]: tier
-                //cropData[5]: render type
-                //cropData[6]: information
-                //cropData[7]: shearable drop (optional)
-                boolean success = cropData.length==7 || cropData.length==8;
-                String errorMsg = "Incorrect amount of arguments, arguments should be: (name, fruit:fruitMeta, soil, baseBlock:baseBlockMeta, tier, renderType, information, shearable (optional) )";
-                LogHelper.debug(new StringBuffer("parsing ").append(cropsRawData[i]));
-                if(success) {
-                    ItemStack fruitStack = IOHelper.getStack(cropData[1], false);
-                    errorMsg = "Invalid fruit";
-                    success = (fruitStack!=null && fruitStack.getItem()!=null) || (cropData[1].equals("null")) ;
-                    if(success) {
-                        String name = cropData[0];
-                        //soil
-                        BlockWithMeta soil =IOHelper.getBlock(cropData[2]);
-                        //baseblock
-                        BlockWithMeta base = IOHelper.getBlock(cropData[3]);
-                        //tier
-                        int tier = Integer.parseInt(cropData[4]);
-                        //render method
-                        RenderMethod renderType = RenderMethod.getRenderMethod(Integer.parseInt(cropData[5]));
-                        //shearable
-                        ItemStack shearable = cropData.length>7?IOHelper.getStack(cropData[7], false):null;
-                        shearable = (shearable!=null && shearable.getItem()!=null)?shearable:null;
-                        //info
-                        String info = cropData[6];
-                        try {
-                            customCrops[i] = new BlockModPlant(name, fruitStack, soil, RequirementType.BELOW, base, tier, renderType, shearable);
-                        } catch (Exception e) {
-                            if(ConfigurationHandler.debug) {
-                            	LogHelper.printStackTrace(e);
-                            }
-                            break;
-                        }
-                        customSeeds[i] = customCrops[i].getSeed();
-                        LanguageRegistry.addName(customCrops[i], Character.toUpperCase(name.charAt(0))+name.substring(1));
-                        LanguageRegistry.addName(customSeeds[i], Character.toUpperCase(name.charAt(0))+name.substring(1) + " Seeds");
-                        if(FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-                            customSeeds[i].setInformation(info);
-                        }
-                    }
-                }
-                if(!success) {
-                    LogHelper.info(new StringBuffer("Error when adding custom crop: ").append(errorMsg).append(" (line: ").append(cropsRawData[i]).append(")"));
-                }
-            }
-            LogHelper.info("Custom crops registered");
-        }
+        
     }
 
     public static void initGrassSeeds() {

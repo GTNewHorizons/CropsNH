@@ -36,7 +36,7 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
         PositionedStack parent2;
         PositionedStack result;
         List<PositionedStack> soils = new ArrayList<>();
-        PositionedStack requiredBlock;
+        List<PositionedStack> requiredBlocks = new ArrayList<>();
         RequirementType requiredType;
 
         //constructor
@@ -59,7 +59,10 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
 
             this.requiredType = growthReq.getRequiredType();
             if (requiredType != RequirementType.NONE) {
-                requiredBlock = new PositionedStack(growthReq.requiredBlockAsItemStack(), Constants.nei_X_result, Constants.nei_Y_base);
+            	for(ItemStack requiredBlock : growthReq.requiredBlocksAsItemStacks())
+            	{
+            		requiredBlocks.add(new PositionedStack(requiredBlock, Constants.nei_X_result, Constants.nei_Y_base));
+            	}
             }
         }
 
@@ -75,9 +78,9 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
             List<PositionedStack> list = new ArrayList<>();
             list.add(parent1);
             list.add(parent2);
-            list.add(soils.get(NEICropMutationHandler.this.cycleticks / 20 % soils.size()));
-            if(requiredBlock!=null) {
-                list.add(requiredBlock);
+            list.add(soils.get((NEICropMutationHandler.this.cycleticks / 20) % soils.size()));
+            if(requiredBlocks!=null && requiredBlocks.size() > 0) {
+            	list.add(requiredBlocks.get((NEICropMutationHandler.this.cycleticks / 20) % requiredBlocks.size()));
             }
             return list;
         }

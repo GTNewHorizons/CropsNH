@@ -7,6 +7,11 @@ public final class Names {
         public static final String gain = "gain";
         public static final String strength = "strength";
         public static final String analyzed = "analyzed";
+        public static final String stage = "stage";
+        public static final String growthProgress = "growthProgress";
+        public static final String fertilizer = "fertilizer";
+        public static final String hydration = "hydration";
+        public static final String weedEx = "weedEx";
         public static final String crossCrop = "crossCrop";
         public static final String weed = "weed";
         public static final String discoveredSeeds = "discoveredSeeds";

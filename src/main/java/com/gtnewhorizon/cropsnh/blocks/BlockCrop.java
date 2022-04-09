@@ -20,6 +20,8 @@ import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderCrop;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropsNH;
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
+
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -30,6 +32,7 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -53,6 +56,7 @@ import vazkii.botania.api.item.IHornHarvestable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * The most important block in the mod.
@@ -150,15 +154,16 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
                 crop.setCrossCrop(false);
                 this.dropBlockAsItem(world, x, y, z, new ItemStack(Items.crops, 1));
                 return false;
-            } else if(crop.isMature() && crop.allowHarvest(player)) {
-                crop.getWorldObj().setBlockMetadataWithNotify(crop.xCoord, crop.yCoord, crop.zCoord, 2, 2);
+            } else if(crop.allowHarvest(player)) {
+                /*crop.getWorldObj().setBlockMetadataWithNotify(crop.xCoord, crop.yCoord, crop.zCoord, 2, 2);
                 ArrayList<ItemStack> drops = crop.getFruits();
                 for (ItemStack drop : drops) {
                     if(drop==null || drop.getItem()==null) {
                         continue;
                     }
                     this.dropBlockAsItem(world, x, y, z, drop);
-                }
+                }*/
+            	crop.harvestManual(world, x, y, z);
                 return true;
             }
         }
@@ -213,7 +218,7 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
         if (!world.isRemote) {
             TileEntityCrop crop = (TileEntityCrop) world.getTileEntity(x, y, z);
             //is the cropEmpty a crosscrop or does it already have a plant
-            if (crop.isCrossCrop() || crop.hasPlant() || !(CropPlantHandler.isValidSeed(stack))) {
+            if (crop.isCrossCrop() || crop.hasPlant() || !((CropPlantHandler.isValidSeed(stack) || BlockModPlant.itemIsAlternateSeed(stack)))) {
                 return false;
             }
             //the seed can be planted here
@@ -225,8 +230,17 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
                 //NBT data was found: copy data to plant
                 crop.setPlant(stack.stackTagCompound.getInteger(Names.NBT.growth), stack.stackTagCompound.getInteger(Names.NBT.gain), stack.stackTagCompound.getInteger(Names.NBT.strength), stack.stackTagCompound.getBoolean(Names.NBT.analyzed), stack.getItem(), stack.getItemDamage());
             } else {
-                //NBT data was not initialized: set defaults
-                crop.setPlant(Constants.DEFAULT_GROWTH, Constants.DEFAULT_GAIN, Constants.DEFAULT_STRENGTH, false, stack.getItem(), stack.getItemDamage());
+            	BlockModPlant alternateSeedPlant = BlockModPlant.getAlternateSeedPlant(stack.getItem(), stack.getItemDamage());
+            	if(alternateSeedPlant != null)
+            	{
+            		//NBT data was not initialized: set defaults
+                    crop.setPlant(Constants.DEFAULT_GROWTH, Constants.DEFAULT_GAIN, Constants.DEFAULT_STRENGTH, false, alternateSeedPlant.getSeedStack(1).getItem(), alternateSeedPlant.getSeedStack(1).getItemDamage());
+            	}
+            	else if(BlockModPlant.getByItemStack(stack) != null)
+            	{
+            		BlockModPlant plant = BlockModPlant.getByItemStack(stack);
+            		crop.setPlant(Constants.DEFAULT_GROWTH, Constants.DEFAULT_GAIN, Constants.DEFAULT_STRENGTH, false, plant.getSeedStack(1).getItem(), plant.getSeedStack(1).getItemDamage());
+            	}
             }
             return true;
         }
@@ -259,20 +273,6 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
             } else if (heldItem == null || heldItem.getItem() == null) {
                 //harvest operation
                 this.harvest(world, x, y, z, player, crop);
-            } else if (heldItem.getItem() == net.minecraft.init.Items.reeds) {
-                //Enables reed planting, temporary code until I code in seed proxy's
-                //TODO: create seed proxy handler to plant other things directly onto crops (for example the Ex Nihilo seeds)
-                if(crop.hasPlant()) {
-                    this.harvest(world, x, y, z, player, crop);
-                } else if (!crop.isCrossCrop() && !crop.hasWeed()) {
-                    CropPlant sugarcane = CropPlantHandler.getPlantFromStack(new ItemStack((ItemSeeds) Item.itemRegistry.getObject("CropsNH:seedSugarcane")));
-                    if (sugarcane != null && sugarcane.getGrowthRequirement().canGrow(world, x, y, z)) {
-                        crop.setPlant(1, 1, 1, false, sugarcane);
-                        if (!player.capabilities.isCreativeMode) {
-                            heldItem.stackSize = heldItem.stackSize - 1;
-                        }
-                    }
-                }
             }
             //check to see if the player clicked with crops (crosscrop attempt)
             else if (heldItem.getItem() == Items.crops) {
@@ -294,21 +294,22 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
                     ((IRake) heldItem.getItem()).removeWeeds(crop, heldItem);
                 }
             }
-            //check to see if the player wants and is allowed to use bonemeal
-            else if (heldItem.getItem() == net.minecraft.init.Items.dye && heldItem.getItemDamage() == 15) {
-                return !crop.canBonemeal();
+            // Fertilizers
+            else if (heldItem.getItem() == net.minecraft.init.Items.dye && heldItem.getItemDamage() == 15 ||
+            		heldItem.getItem() == (Item)(Item.itemRegistry.getObject("IC2:itemFertilizer")) ||
+            		heldItem.getItem() == (Item)(Item.itemRegistry.getObject("Forestry:fertilizerCompound")))
+            {
+            	if(crop.fertilize()) player.getCurrentEquippedItem().stackSize--;
             }
-            //fertiliser
-            else if (heldItem.getItem() instanceof IFertiliser) {
-                IFertiliser fertiliser = (IFertiliser) heldItem.getItem();
-                if (crop.allowFertiliser(fertiliser)) {
-                    crop.applyFertiliser(fertiliser, world.rand);
-                    NetworkWrapperCropsNH.wrapper.sendToAllAround(new MessageFertiliserApplied(heldItem, x, y, z), new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 32));
-                    if (!player.capabilities.isCreativeMode) {
-                        heldItem.stackSize = heldItem.stackSize - 1;
-                    }
-                }
-                return false;
+            // Hydration with IC2 hydration cell
+            else if (heldItem.getItem() == (Item)(Item.itemRegistry.getObject("IC2:itemCellHydrant")))
+            {
+            	int hydrationUsed = crop.hydrate(10000 - heldItem.getItemDamage());
+            	heldItem.setItemDamage(heldItem.getItemDamage() + hydrationUsed);
+            }
+            else if (heldItem.getItem() == (Item)(Item.itemRegistry.getObject("IC2:itemWeedEx")) && heldItem.getItemDamage() < 64)
+            {
+            	if(crop.weedEx()) heldItem.setItemDamage(heldItem.getItemDamage()+1);
             }
             //allow the debugger to be used
             else if (heldItem.getItem() instanceof ItemDebugger) {
@@ -379,7 +380,7 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
                         drops.add(new ItemStack(Items.crops, 1));
                     }
                     if (crop.hasPlant()) {
-                        if (crop.isMature()) {
+                        if (crop.allowHarvest(null)) {
                             drops.addAll(crop.getFruits());
                             drops.add(crop.getSeedStack());
                         }
@@ -493,7 +494,7 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
         } else if (crop.isCrossCrop()) {
             crop.setCrossCrop(false);
             drops.add(new ItemStack(Items.crops, 1));
-        } else if (crop.isMature() && crop.allowHarvest(null)) {
+        } else if (crop.canHarvest()) {
             crop.getWorldObj().setBlockMetadataWithNotify(crop.xCoord, crop.yCoord, crop.zCoord, 2, 2);
             for(ItemStack stack:crop.getFruits()) {
                 if(stack==null || stack.getItem()==null) {
@@ -548,7 +549,7 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
             if (crop.hasPlant()) {
                 ItemStack seedStack = crop.getSeedStack().copy();
                 items.add(seedStack);
-                if(crop.isMature()) {
+                if(crop.canHarvest()) {
                     items.addAll(crop.getFruits());
                 }
             }
@@ -576,7 +577,7 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
                 TileEntityCrop crop = (TileEntityCrop) te;
                 if(crop.hasPlant()) {
                     ArrayList<ItemStack> drops = new ArrayList<>();
-                    if(crop.isMature()) {
+                    if(crop.canHarvest()) {
                         drops.addAll(crop.getFruits());
                     }
                     drops.add(crop.getSeedStack());

@@ -36,6 +36,11 @@ public final class GrowthRequirementNull implements IGrowthRequirement {
     public ItemStack requiredBlockAsItemStack() {
         return null;
     }
+    
+    @Override
+    public ItemStack[] requiredBlocksAsItemStacks() {
+        return null;
+    }
 
     @Override
     public RequirementType getRequiredType() {

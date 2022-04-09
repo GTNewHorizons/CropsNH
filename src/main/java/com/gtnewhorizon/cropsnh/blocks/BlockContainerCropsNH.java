@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.ForgeDirection;
  * The base class for all CropsNH container blocks.
  */
 public abstract class BlockContainerCropsNH extends BlockCropsNH implements ITileEntityProvider {
-
+	private boolean tileEntityRegistered = false;
     /**
      * The default constructor.
      *
@@ -35,11 +35,13 @@ public abstract class BlockContainerCropsNH extends BlockCropsNH implements ITil
      * Attempts to register the TileEntity for this block. If the process fails, an error is printed to the log via {@link LogHelper#printStackTrace(Exception)}.
      */
     private void registerTileEntity() {
+    	if(tileEntityRegistered) return;
         try {
             TileEntity tile = this.createNewTileEntity(null, 0);
             if(tile != null) {
                 Class<? extends TileEntity> tileClass = tile.getClass();
                 GameRegistry.registerTileEntity(tileClass, wrapName(getTileEntityName()));
+                tileEntityRegistered = true;
             }
         } catch(Exception e) {
             LogHelper.printStackTrace(e);
