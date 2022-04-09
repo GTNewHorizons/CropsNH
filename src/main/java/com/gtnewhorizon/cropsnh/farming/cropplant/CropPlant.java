@@ -41,7 +41,7 @@ public abstract class CropPlant implements ICropPlant {
     	int tier = getTier();
 
     	if (tier > 0 && tier <= Constants.GROWTH_TIER.length) {
-    		return Constants.GROWTH_TIER[tier];
+    		return Constants.GROWTH_TIER[tier-1];
     	} else {
     		return Constants.GROWTH_TIER[0];
     	}
