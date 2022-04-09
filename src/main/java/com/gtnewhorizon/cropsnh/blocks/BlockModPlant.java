@@ -122,6 +122,7 @@ public class BlockModPlant extends BlockCrops implements ICropsNHPlant {
         	Vector<ResourceLocation> locations = new Vector<ResourceLocation>();
         	String fileName = "blockCrop."+this.name+"."+(i+1);
         	
+        	locations.add(new ResourceLocation("cropsnh", "textures/blocks/"+this.name+"."+(i+1)+".png"));
         	locations.add(new ResourceLocation("cropsnh", "textures/blocks/"+fileName+".png"));
         	locations.add(new ResourceLocation("ic2", "textures/blocks/crop/"+this.name+"."+(i+1)+".png"));
         	locations.add(new ResourceLocation("bpp", "textures/blocks/crop/"+fileName+".png"));
