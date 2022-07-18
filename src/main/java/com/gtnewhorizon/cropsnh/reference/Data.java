@@ -54,13 +54,5 @@ public class Data {
     };
 
     public static final String[][] modResources = {
-            {"Copper", "Cuprosia"},
-            {"Tin", "Petinia"},
-            {"Lead", "Plombean"},
-            {"Silver", "Silverweed"},
-            {"Aluminum", "Jaslumine"},
-            {"Nickel", "Niccissus"},
-            {"Platinum", "Platiolus"},
-            {"Osmium", "Osmonium"}
     };
 }

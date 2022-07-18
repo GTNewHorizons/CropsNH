@@ -6,8 +6,6 @@ import com.gtnewhorizon.cropsnh.CropsNH;
 import com.gtnewhorizon.cropsnh.blocks.BlockCustomWood;
 import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.compatibility.arsmagica.ArsMagicaHelper;
-import com.gtnewhorizon.cropsnh.compatibility.botania.BotaniaHelper;
 import com.gtnewhorizon.cropsnh.compatibility.thaumcraft.ThaumcraftHelper;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
@@ -58,24 +56,6 @@ public class NEIConfig implements IConfigureNEI {
             //hide plant blocks
             for(BlockModPlant plant : Crops.crops) {
                 CropsNH.proxy.hideItemInNEI(new ItemStack(plant, 1, i));
-            }
-            //hide botania crops
-            if(ModHelper.allowIntegration(Names.Mods.botania)) {
-                for(BlockModPlant plant : BotaniaHelper.botaniaCrops) {
-                    CropsNH.proxy.hideItemInNEI(new ItemStack(plant, 1, i));
-                }
-            }
-            //hide thaumcraft crops
-            if(ModHelper.allowIntegration(Names.Mods.thaumcraft)) {
-                for(BlockModPlant plant : ThaumcraftHelper.thaumcraftCrops) {
-                    CropsNH.proxy.hideItemInNEI(new ItemStack(plant, 1, i));
-                }
-            }
-            //hide ars magica crops
-            if(ModHelper.allowIntegration(Names.Mods.arsMagica)) {
-                for(BlockModPlant plant : ArsMagicaHelper.arsMagicaCrops) {
-                    CropsNH.proxy.hideItemInNEI(new ItemStack(plant, 1, i));
-                }
             }
             //hide resource crops
             if(ConfigurationHandler.resourcePlants) {

@@ -158,4 +158,28 @@ public abstract class OreDictHelper {
 
         return fruits;
     }
+    
+    public static boolean isBlockInOredictStrings(Block block, int meta, String oredictName)
+    {
+        if(block==null || oredictName == null) {
+            return false;
+        }
+
+
+       for (ItemStack itemStack : OreDictionary.getOres(oredictName)) {
+            if (itemStack.getItem() instanceof ItemBlock) {
+                ItemBlock block2 = (ItemBlock) itemStack.getItem();
+
+                String blockNameOne = Block.blockRegistry.getNameForObject(block); 
+                String blockNameTwo = Block.blockRegistry.getNameForObject(block2.field_150939_a); 
+                if(blockNameOne.equals(blockNameTwo) && meta == itemStack.getItemDamage())
+                {
+                	return true;
+                }
+            }
+        }
+        
+        
+        return false;
+    }
 }

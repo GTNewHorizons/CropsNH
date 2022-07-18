@@ -6,12 +6,16 @@ import com.gtnewhorizon.cropsnh.api.v1.ISoilContainer;
 import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Encodes all requirements a plant needs to mutate and grow
@@ -26,7 +30,7 @@ public class GrowthRequirement implements IGrowthRequirement {
     /** Maximum allowed brightness, exclusive **/
     private int maxBrightness = 16;
     /** Minimum allowed brightness, inclusive **/
-    private int minBrightness = 8;
+    private int minBrightness = 0;
 
     private BlockWithMeta soil = null;
 
@@ -80,7 +84,9 @@ public class GrowthRequirement implements IGrowthRequirement {
     /** @return true, if the correct base block is below **/
     private boolean isBaseBlockBelow(World world, int x, int y, int z) {
         if(this.requiresBaseBlock() && this.requiredType==RequirementType.BELOW) {
-            return this.isBlockAdequate(world, x, y - 2, z);
+            return this.isBlockAdequate(world, x, y - 2, z) || 
+            		this.isBlockAdequate(world, x, y - 3, z) || 
+            		this.isBlockAdequate(world, x, y - 4, z);
         }
         return true;
     }
@@ -106,13 +112,21 @@ public class GrowthRequirement implements IGrowthRequirement {
     /** @return true, if this block corresponds to the required block **/
     private boolean isBlockAdequate(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
-        int meta = block.getDamageValue(world, x, y, z);
-        if(this.oreDict) {
-            return OreDictHelper.isSameOre(block, meta, this.requiredBlock.getBlock(), this.requiredBlock.getMeta());
+        int meta = world.getBlockMetadata(x, y, z);
+        if(foundationBlocks != null && foundationBlocks.length >= 1)
+        {        	
+        	for(String foundationName : foundationBlocks)
+        	{
+        		OreDictionary.getOreNames();
+        		if(Block.blockRegistry.getNameForObject(block).equals(foundationName) ||
+        				OreDictHelper.isBlockInOredictStrings(block, meta, foundationName))
+        		{
+        			return true;
+        		}
+        	}
+        	return false;
         }
-        else {
-            return block==this.requiredBlock.getBlock() && meta==this.requiredBlock.getMeta();
-        }
+        return true;
     }
 
     public boolean isBrightnessGood(World world, int x, int y, int z) {
@@ -198,6 +212,46 @@ public class GrowthRequirement implements IGrowthRequirement {
     @Override
     public boolean isOreDict() {
         return oreDict;
+    }
+    
+    
+    
+    /*
+     * cropsNH
+     */
+    
+    private String[] foundationBlocks = null;
+    
+    public GrowthRequirement(String[] foundationBlocks) {
+    	this.foundationBlocks = foundationBlocks;
+    	requiredType = RequirementType.BELOW;
+    }
+    
+    public GrowthRequirement(String[] foundationBlocks, int minBrightness, int maxBrightness) {
+    	this.foundationBlocks = foundationBlocks;
+    	requiredType = RequirementType.BELOW;
+    	this.minBrightness = minBrightness;
+    	this.maxBrightness = maxBrightness;
+    }
+    
+    public ItemStack[] requiredBlocksAsItemStacks()
+    {
+    	Vector<ItemStack> itemStacks = new Vector<ItemStack>();
+    	for(String requiredBlock : foundationBlocks)
+    	{
+    		Item itemType = (Item)Item.itemRegistry.getObject(requiredBlock);
+        	if(itemType!= null)
+        	{
+        		ItemStack item = new ItemStack(itemType, 1);
+            	if(item != null)
+            	{
+            		itemStacks.add(item);
+            	}
+        	}
+        	
+        	itemStacks.addAll(OreDictionary.getOres(requiredBlock));        	
+    	}
+    	return itemStacks.toArray(new ItemStack[0]);
     }
 
 }

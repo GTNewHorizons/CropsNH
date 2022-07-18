@@ -33,7 +33,7 @@ public class NEICropProductHandler extends CropsNHNEIHandler {
         PositionedStack seed;
         List<PositionedStack> products;
         List<PositionedStack> soils = new ArrayList<>();
-        PositionedStack requiredBlock;
+        List<PositionedStack> requiredBlocks = new ArrayList<>();
         RequirementType requiredType;
 
         //constructor
@@ -56,7 +56,10 @@ public class NEICropProductHandler extends CropsNHNEIHandler {
             }
             this.requiredType = growthReq.getRequiredType();
             if (requiredType != RequirementType.NONE) {
-                requiredBlock = new PositionedStack(growthReq.requiredBlockAsItemStack(), Constants.nei_X_parent1, Constants.nei_Y_base);
+            	for(ItemStack requiredBlock : growthReq.requiredBlocksAsItemStacks())
+            	{
+            		requiredBlocks.add(new PositionedStack(requiredBlock, Constants.nei_X_parent1, Constants.nei_Y_base));
+            	}
             }
         }
 
@@ -70,9 +73,9 @@ public class NEICropProductHandler extends CropsNHNEIHandler {
         public List<PositionedStack> getIngredients() {
             List<PositionedStack> list = new ArrayList<>();
             list.add(seed);
-            list.add(soils.get(NEICropProductHandler.this.cycleticks / 20 % soils.size()));
-            if(requiredBlock!=null) {
-                list.add(requiredBlock);
+            list.add(soils.get((NEICropProductHandler.this.cycleticks / 20) % soils.size()));
+            if(requiredBlocks!=null  && requiredBlocks.size() > 0) {
+            	list.add(requiredBlocks.get((NEICropProductHandler.this.cycleticks / 20) % requiredBlocks.size()));
             }
             list.addAll(products);
             return list;

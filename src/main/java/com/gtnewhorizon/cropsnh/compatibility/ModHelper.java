@@ -3,11 +3,9 @@ package com.gtnewhorizon.cropsnh.compatibility;
 import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
 import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIHelper;
 import com.gtnewhorizon.cropsnh.compatibility.applecore.AppleCoreHelper;
-import com.gtnewhorizon.cropsnh.compatibility.arsmagica.ArsMagicaHelper;
 import com.gtnewhorizon.cropsnh.compatibility.biomesoplenty.BiomesOPlentyHelper;
 import com.gtnewhorizon.cropsnh.compatibility.bloodmagic.BloodMagicHelper;
 import com.gtnewhorizon.cropsnh.compatibility.bluepower.BluePowerHelper;
-import com.gtnewhorizon.cropsnh.compatibility.botania.BotaniaHelper;
 import com.gtnewhorizon.cropsnh.compatibility.computercraft.ComputerCraftHelper;
 import com.gtnewhorizon.cropsnh.compatibility.ex_nihilo.ExNihiloHelper;
 import com.gtnewhorizon.cropsnh.compatibility.extrabiomesxl.ExtraBiomesXLHelper;
@@ -200,11 +198,9 @@ public abstract class ModHelper {
     public static void findHelpers() {
         Class[] classes = {
                 AppleCoreHelper.class,
-                ArsMagicaHelper.class,
                 BiomesOPlentyHelper.class,
                 BloodMagicHelper.class,
                 BluePowerHelper.class,
-                BotaniaHelper.class,
                 ComputerCraftHelper.class,
                 EtFuturumHelper.class,
                 ExNihiloHelper.class,

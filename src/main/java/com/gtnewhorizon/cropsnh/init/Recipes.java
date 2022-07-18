@@ -49,10 +49,6 @@ public class Recipes {
         }
         //seed analyzer
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.blockSeedAnalyzer, 1), "sgs", " bs", "pwp", 's', "stickWood", 'g', "paneGlass", 'b', net.minecraft.init.Blocks.stone_slab, 'p', "plankWood", 'w', "slabWood"));
-        //seeds
-        GameRegistry.addShapelessRecipe(new ItemStack((Item) Item.itemRegistry.getObject("CropsNH:seedPotato")), new ItemStack(net.minecraft.init.Items.potato));
-        GameRegistry.addShapelessRecipe(new ItemStack((Item) Item.itemRegistry.getObject("CropsNH:seedCarrot")), new ItemStack(net.minecraft.init.Items.carrot));
-        GameRegistry.addShapelessRecipe(new ItemStack(net.minecraft.init.Items.wheat_seeds), new ItemStack(net.minecraft.init.Items.wheat));
         //journal
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.journal, 1), "csc", "sbs", "csc", 'c', Items.crops, 's', Names.OreDict.listAllseed, 'b', net.minecraft.init.Items.writable_book));
         GameRegistry.addRecipe(new RecipeJournal());

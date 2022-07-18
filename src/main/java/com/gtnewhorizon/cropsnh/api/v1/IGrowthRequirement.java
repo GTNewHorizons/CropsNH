@@ -25,6 +25,7 @@ public interface IGrowthRequirement {
 
 	/** @return the required block as ItemStack of size 1 */
 	ItemStack requiredBlockAsItemStack();
+	ItemStack[] requiredBlocksAsItemStacks();
 
 	RequirementType getRequiredType();
 

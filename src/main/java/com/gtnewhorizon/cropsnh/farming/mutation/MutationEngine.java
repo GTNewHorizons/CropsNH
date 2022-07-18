@@ -45,10 +45,8 @@ public class MutationEngine implements IMutationEngine {
     }
 
     private boolean resultIsValid(ICrossOverResult result) {
-        IGrowthRequirement growthReq = CropPlantHandler.getGrowthRequirement(result.getSeed(), result.getMeta());
-
         boolean valid = result.getSeed() != null && CropPlantHandler.isValidSeed(result.getSeed(), result.getMeta());
-        return valid && growthReq.canGrow(crop.getWorldObj(), crop.xCoord, crop.yCoord, crop.zCoord);
+        return valid;
     }
 
     public ICrossOverResult rollAndExecuteStrategy() {

@@ -1,5 +1,8 @@
 package com.gtnewhorizon.cropsnh.items;
 
+import java.io.IOException;
+import java.util.Vector;
+
 import com.gtnewhorizon.cropsnh.api.v1.ICropsNHSeed;
 import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
 import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
@@ -12,12 +15,15 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.IResource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import powercrystals.minefactoryreloaded.api.IFactoryPlantable;
 import powercrystals.minefactoryreloaded.api.ReplacementBlock;
@@ -73,13 +79,7 @@ public class ItemModSeed extends ItemSeeds implements ICropsNHSeed, IFactoryPlan
             if (side != 1) {
                 return false;
             } else if (player.canPlayerEdit(x, y, z, side, stack) && player.canPlayerEdit(x, y + 1, z, side, stack)) {
-                if (world.isAirBlock(x, y + 1, z)) {
-                    world.setBlock(x, y + 1, z, this.getPlant());
-                    --stack.stackSize;
-                    return true;
-                } else {
-                    return false;
-                }
+                
             } else {
                 return false;
             }
@@ -90,8 +90,23 @@ public class ItemModSeed extends ItemSeeds implements ICropsNHSeed, IFactoryPlan
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister reg) {
-        LogHelper.debug("registering icon for: " + this.getUnlocalizedName());
-        itemIcon = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.')+1));
+        
+        String plantName = this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf("seed")+4);
+        LogHelper.error("registering icon for: " + plantName);
+        
+        try {
+    		IResource res = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("cropsnh", "textures/items/seed"+plantName+".png"));
+    		if(res != null)
+    		{
+    			itemIcon = reg.registerIcon("cropsnh:seed"+plantName);
+    		}
+    		
+        }catch (IOException e) {
+		}
+        
+        if(itemIcon == null) itemIcon = reg.registerIcon("cropsnh:seedDefault");
+        	
+        
     }
 
     @Override

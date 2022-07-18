@@ -3,6 +3,7 @@ package com.gtnewhorizon.cropsnh.farming;
 import com.gtnewhorizon.cropsnh.api.v1.ICropsNHPlant;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.v1.ItemWithMeta;
+import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantCropsNH;
@@ -191,7 +192,7 @@ public class CropPlantHandler {
      * @return if the item is a valid seed.
      */
     public static boolean isValidSeed(Item seed, int meta) {
-        return isRecognizedByCropsNH(seed, meta) && !cropPlants.get(seed).get(meta).isBlackListed();
+        return isRecognizedByCropsNH(seed, meta);
     }
 
     /**
@@ -201,7 +202,8 @@ public class CropPlantHandler {
      * @return if the item is recognized as a seed
      */
     private static boolean isRecognizedByCropsNH(Item seed, int meta) {
-        return (seed != null) && cropPlants.containsKey(seed) && cropPlants.get(seed).containsKey(meta);
+    	if((seed != null) && cropPlants.containsKey(seed) && cropPlants.get(seed).containsKey(meta)) return true;
+    	return BlockModPlant.itemIsAlternateSeed(new ItemStack(seed, meta));
     }
 
     /**
@@ -244,7 +246,16 @@ public class CropPlantHandler {
     }
 
     public static IGrowthRequirement getGrowthRequirement(Item seed, int meta) {
-        CropPlant plant = cropPlants.get(seed).get(meta);
+    	CropPlant plant = null;
+    	HashMap<Integer, CropPlant> seedMap = cropPlants.get(seed);
+        if(seedMap != null) plant = seedMap.get(meta);
+        
+        if(plant == null)
+        {
+        	BlockModPlant blockModPlant = BlockModPlant.getAlternateSeedPlant(seed, meta);
+        	if(blockModPlant != null) return blockModPlant.getGrowthRequirement();
+        }
+        
         return plant==null? GrowthRequirementHandler.NULL:plant.getGrowthRequirement();
 
     }

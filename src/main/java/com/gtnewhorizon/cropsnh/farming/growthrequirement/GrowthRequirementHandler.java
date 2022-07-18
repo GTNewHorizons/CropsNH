@@ -60,6 +60,12 @@ public class GrowthRequirementHandler {
 
     private static void registerSoils() {
         addDefaultSoil(new BlockWithMeta(Blocks.farmland));
+        
+        Block gardenSoil = Block.getBlockFromName("Ztones:cleanDirt");
+        if(gardenSoil != null) addDefaultSoil(new BlockWithMeta(gardenSoil)); 
+        
+        Block fertilizedDirt = Block.getBlockFromName("RandomThings:fertilizedDirt");
+        if(fertilizedDirt != null) addDefaultSoil(new BlockWithMeta(fertilizedDirt)); 
     }
 
     private static void registerCustomEntries() {

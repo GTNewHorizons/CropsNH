@@ -29,17 +29,17 @@ public interface ICrop {
     /**
      * @return the growth stat
      */
-    short getGrowth();
+    byte getGrowth();
 
     /**
      * @return the gain stat
      */
-    short getGain();
+    byte getGain();
 
     /**
      * @return the strength stat
      */
-    short getStrength();
+    byte getStrength();
 
     /**
      * @return if this crop is analyzed

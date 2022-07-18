@@ -9,8 +9,6 @@ import net.minecraft.item.ItemStack;
 public class CropProducts {
     //Add special cases for plants here
     public static void init() {
-        //poisonous potato
-        CropProduce potato = ((BlockModPlant) Block.blockRegistry.getObject("CropsNH:cropPotato")).products;
-        potato.addProduce(new ItemStack(Items.poisonous_potato), 10);
+        
     }
 }

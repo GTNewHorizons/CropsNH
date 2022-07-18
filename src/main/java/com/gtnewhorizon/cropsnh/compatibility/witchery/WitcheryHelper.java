@@ -152,7 +152,7 @@ public final class WitcheryHelper extends ModHelper {
         world.setBlockToAir(x, y, z+1);
         world.setBlockToAir(x, y, z-1);
         crop.clearPlant();
-        crop.setPlant(1, 1, 1, false, CropPlantHandler.getPlantFromStack(new ItemStack(wormwoodSeed, 0)));
+        crop.setPlant(1, 1, 1, false, wormwoodSeed, 0);
         if(!player.capabilities.isCreativeMode) {
             sprig.damageItem(1, player);
         }
