@@ -1,16 +1,19 @@
 package com.gtnewhorizon.cropsnh.compatibility.minetweaker;
 
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.items.ItemHandRake;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
-import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.cropsnh.WeedRaking")
 public class WeedRaking {
+
     @ZenMethod
     public static void add(IItemStack drop, int weight) {
         MineTweakerAPI.apply(new AddAction(MineTweakerMC.getItemStack(drop), weight));
@@ -22,6 +25,7 @@ public class WeedRaking {
     }
 
     private static class AddAction implements IUndoableAction {
+
         private final ItemStack entry;
         private final int weight;
 
@@ -62,6 +66,7 @@ public class WeedRaking {
     }
 
     private static class RemoveAction implements IUndoableAction {
+
         private final ItemStack drop;
         private final int weight;
 
@@ -72,7 +77,7 @@ public class WeedRaking {
 
         @Override
         public void apply() {
-            if(weight > 0) {
+            if (weight > 0) {
                 ItemHandRake.ItemDropRegistry.instance().removeDrop(drop);
             }
         }
@@ -84,7 +89,7 @@ public class WeedRaking {
 
         @Override
         public void undo() {
-            if(weight > 0) {
+            if (weight > 0) {
                 ItemHandRake.ItemDropRegistry.instance().registerDrop(drop, weight);
             }
         }
@@ -96,7 +101,7 @@ public class WeedRaking {
 
         @Override
         public String describeUndo() {
-            return "Restoring previously removed rake drop '" + drop.getDisplayName() + "', with weight "+ weight;
+            return "Restoring previously removed rake drop '" + drop.getDisplayName() + "', with weight " + weight;
         }
 
         @Override

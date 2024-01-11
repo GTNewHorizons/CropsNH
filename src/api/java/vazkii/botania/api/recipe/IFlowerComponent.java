@@ -1,10 +1,8 @@
 /**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+ * This class was created by <Vazkii>. It's distributed as part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
+ * Botania is Open Source and distributed under the Botania License: http://botaniamod.net/license.php
  *
  * File Created @ [Feb 15, 2014, 2:36:35 PM (GMT)]
  */
@@ -18,8 +16,8 @@ import net.minecraft.item.ItemStack;
  */
 public interface IFlowerComponent {
 
-	boolean canFit(ItemStack stack, IInventory apothecary);
+    boolean canFit(ItemStack stack, IInventory apothecary);
 
-	int getParticleColor(ItemStack stack);
+    int getParticleColor(ItemStack stack);
 
 }

@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh;
 
+import java.util.ArrayList;
+
 import com.gtnewhorizon.cropsnh.apiimpl.APISelector;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIHelper;
@@ -19,6 +21,7 @@ import com.gtnewhorizon.cropsnh.network.NetworkWrapperCropsNH;
 import com.gtnewhorizon.cropsnh.proxy.IProxy;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -30,19 +33,23 @@ import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-import java.util.ArrayList;
-
 /**
  * Hard fork of Agricraft (originally by InfinityRaider) for the GTNH modpack
  * </p>
+ * 
  * @author InfinityRaider, mitchej123, GTNHTeam
  */
-@Mod(modid = Reference.MOD_ID,name = Reference.MOD_NAME,version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY_CLASS)
+@Mod(
+        modid = Reference.MOD_ID,
+        name = Reference.MOD_NAME,
+        version = Reference.VERSION,
+        guiFactory = Reference.GUI_FACTORY_CLASS)
 public class CropsNH {
+
     @Mod.Instance(Reference.MOD_ID)
     public static CropsNH instance;
 
-    @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS,serverSide = Reference.SERVER_PROXY_CLASS)
+    @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
     public static IProxy proxy;
 
     @Mod.EventHandler
@@ -97,8 +104,7 @@ public class CropsNH {
 
     @Mod.EventHandler
     @SuppressWarnings("unused")
-    public void onServerStart(FMLServerStartingEvent event) {
-    }
+    public void onServerStart(FMLServerStartingEvent event) {}
 
     @Mod.EventHandler
     @SuppressWarnings("unused")
@@ -107,8 +113,8 @@ public class CropsNH {
         removedIds.add("CropsNH:cropMelon");
         removedIds.add("CropsNH:cropPumpkin");
         removedIds.add("CropsNH:sprinklerItem");
-        for(FMLMissingMappingsEvent.MissingMapping missingMapping: event.get()) {
-            if(removedIds.contains(missingMapping.name)) {
+        for (FMLMissingMappingsEvent.MissingMapping missingMapping : event.get()) {
+            if (removedIds.contains(missingMapping.name)) {
                 missingMapping.ignore();
             }
         }

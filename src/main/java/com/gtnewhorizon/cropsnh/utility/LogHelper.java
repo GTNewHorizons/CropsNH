@@ -1,9 +1,11 @@
 package com.gtnewhorizon.cropsnh.utility;
 
+import org.apache.logging.log4j.Level;
+
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.reference.Reference;
+
 import cpw.mods.fml.common.FMLLog;
-import org.apache.logging.log4j.Level;
 
 /**
  * A class to assist in the logging of the mod.
@@ -18,7 +20,7 @@ public abstract class LogHelper {
      * Please use {@link #debug(Object)} for logs of {@link Level#DEBUG}.
      *
      * @param logLevel the level at which to log the object, for filtering purposes.
-     * @param object the object to be logged (interpreted into a string).
+     * @param object   the object to be logged (interpreted into a string).
      */
     public static void log(Level logLevel, Object object) {
         FMLLog.log(Reference.MOD_NAME, logLevel, String.valueOf(object));
@@ -39,8 +41,8 @@ public abstract class LogHelper {
      * @param object the object to be logged (interpreted into a string).
      */
     public static void debug(Object object) {
-        if(ConfigurationHandler.debug) {
-            log(Level.INFO, "[DEBUG] "+object);
+        if (ConfigurationHandler.debug) {
+            log(Level.INFO, "[DEBUG] " + object);
         }
     }
 
@@ -68,7 +70,7 @@ public abstract class LogHelper {
      * @param object the object to be logged (interpreted into a string).
      */
     public static void info(Object object) {
-            log(Level.INFO, object);
+        log(Level.INFO, object);
     }
 
     /**
@@ -104,7 +106,7 @@ public abstract class LogHelper {
      * @param e an exception to log.
      */
     public static void printStackTrace(Exception e) {
-    	if(ConfigurationHandler.debug) {
+        if (ConfigurationHandler.debug) {
             e.printStackTrace();
         }
     }

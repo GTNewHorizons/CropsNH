@@ -1,10 +1,8 @@
 /**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+ * This class was created by <Vazkii>. It's distributed as part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
+ * Botania is Open Source and distributed under the Botania License: http://botaniamod.net/license.php
  *
  * File Created @ [Jan 22, 2014, 5:12:53 PM (GMT)]
  */
@@ -19,10 +17,10 @@ import net.minecraft.world.World;
  */
 public interface IWandable {
 
-	/**
-	 * Called when the block is used by a wand. Note that the player parameter can be null
-	 * if this function is called from a dispenser.
-	 */
+    /**
+     * Called when the block is used by a wand. Note that the player parameter can be null if this function is called
+     * from a dispenser.
+     */
     boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int side);
 
 }

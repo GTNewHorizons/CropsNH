@@ -1,24 +1,25 @@
 package li.cil.oc.api.prefab;
 
-import li.cil.oc.api.Network;
-import li.cil.oc.api.network.Node;
-import li.cil.oc.api.network.SidedEnvironment;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import li.cil.oc.api.Network;
+import li.cil.oc.api.network.Node;
+import li.cil.oc.api.network.SidedEnvironment;
+
 /**
- * TileEntities can implement the {@link li.cil.oc.api.network.SidedEnvironment}
- * interface to allow them to interact with the component network, by providing
- * a separate {@link li.cil.oc.api.network.Node} for each block face, and
- * connecting it to said network. This allows more control over connectivity
- * than the simple {@link li.cil.oc.api.network.Environment}.
+ * TileEntities can implement the {@link li.cil.oc.api.network.SidedEnvironment} interface to allow them to interact
+ * with the component network, by providing a separate {@link li.cil.oc.api.network.Node} for each block face, and
+ * connecting it to said network. This allows more control over connectivity than the simple
+ * {@link li.cil.oc.api.network.Environment}.
  * <p/>
- * Nodes in such a network can communicate with each other, or just use the
- * network as an index structure to find other nodes connected to them.
+ * Nodes in such a network can communicate with each other, or just use the network as an index structure to find other
+ * nodes connected to them.
  */
 @SuppressWarnings("UnusedDeclaration")
 public abstract class TileEntitySidedEnvironment extends TileEntity implements SidedEnvironment {
+
     // See constructor.
     protected Node[] nodes = new Node[6];
 
@@ -28,10 +29,11 @@ public abstract class TileEntitySidedEnvironment extends TileEntity implements S
     /**
      * This expects a node per face that is used to represent this tile entity.
      * <p/>
-     * You must only create new nodes using the factory method in the network
-     * API, {@link li.cil.oc.api.Network#newNode(li.cil.oc.api.network.Environment, li.cil.oc.api.network.Visibility)}.
+     * You must only create new nodes using the factory method in the network API,
+     * {@link li.cil.oc.api.Network#newNode(li.cil.oc.api.network.Environment, li.cil.oc.api.network.Visibility)}.
      * <p/>
      * For example:
+     * 
      * <pre>
      * // The first parameters to newNode is the host() of the node, which will
      * // usually be this tile entity. The second one is it's reachability,

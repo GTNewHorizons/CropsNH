@@ -1,12 +1,5 @@
 package com.gtnewhorizon.cropsnh.renderers.blocks;
 
-import com.gtnewhorizon.cropsnh.blocks.BlockPeripheral;
-import com.gtnewhorizon.cropsnh.container.ContainerSeedAnalyzer;
-import com.gtnewhorizon.cropsnh.init.Blocks;
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizon.cropsnh.renderers.models.ModelPeripheralProbe;
-import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -20,10 +13,21 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
 
+import com.gtnewhorizon.cropsnh.blocks.BlockPeripheral;
+import com.gtnewhorizon.cropsnh.container.ContainerSeedAnalyzer;
+import com.gtnewhorizon.cropsnh.init.Blocks;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+import com.gtnewhorizon.cropsnh.reference.Reference;
+import com.gtnewhorizon.cropsnh.renderers.models.ModelPeripheralProbe;
+import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
+
 public class RenderPeripheral extends RenderBlockBase {
-    private static final ResourceLocation probeTexture = new ResourceLocation(Reference.MOD_ID.toLowerCase()+":textures/blocks/peripheralProbe.png");
+
+    private static final ResourceLocation probeTexture = new ResourceLocation(
+            Reference.MOD_ID.toLowerCase() + ":textures/blocks/peripheralProbe.png");
     private static final ModelBase probeModel = new ModelPeripheralProbe();
 
     public RenderPeripheral() {
@@ -31,12 +35,17 @@ public class RenderPeripheral extends RenderBlockBase {
     }
 
     @Override
-    protected boolean doWorldRender(Tessellator tessellator, IBlockAccess world, double x, double y, double z, TileEntity tile, Block block, float f, int modelId, RenderBlocks renderer, boolean callFromTESR) {
-        if(callFromTESR) {
-            if(tile instanceof TileEntityPeripheral) {
+    protected boolean doWorldRender(Tessellator tessellator, IBlockAccess world, double x, double y, double z,
+            TileEntity tile, Block block, float f, int modelId, RenderBlocks renderer, boolean callFromTESR) {
+        if (callFromTESR) {
+            if (tile instanceof TileEntityPeripheral) {
                 TileEntityPeripheral peripheral = (TileEntityPeripheral) tile;
                 drawSeed(tessellator, peripheral);
-                performAnimations(tessellator, peripheral, block.getIcon(3, 0), block.colorMultiplier(world, (int) x, (int) y, (int) z));
+                performAnimations(
+                        tessellator,
+                        peripheral,
+                        block.getIcon(3, 0),
+                        block.colorMultiplier(world, (int) x, (int) y, (int) z));
             }
         } else {
             renderBase(tessellator, (BlockPeripheral) block, block.colorMultiplier(world, (int) x, (int) y, (int) z));
@@ -46,29 +55,37 @@ public class RenderPeripheral extends RenderBlockBase {
 
     private void drawSeed(Tessellator tessellator, TileEntityPeripheral peripheral) {
         ItemStack stack = peripheral.getStackInSlot(ContainerSeedAnalyzer.seedSlotId);
-        if(stack == null || stack.getItem() == null) {
+        if (stack == null || stack.getItem() == null) {
             return;
         }
         IIcon icon = stack.getItem().getIconFromDamage(stack.getItemDamage());
-        if(icon == null) {
+        if (icon == null) {
             return;
         }
 
-        float dx = 4* Constants.UNIT;
-        float dy = 14*Constants.UNIT;
-        float dz = 4*Constants.UNIT;
+        float dx = 4 * Constants.UNIT;
+        float dy = 14 * Constants.UNIT;
+        float dz = 4 * Constants.UNIT;
         float scale = 0.5F;
         float angle = 90.0F;
 
         GL11.glPushMatrix();
         GL11.glTranslated(dx, dy, dz);
-        //resize the texture to half the size
+        // resize the texture to half the size
         GL11.glScalef(scale, scale, scale);
-        //rotate the renderer
+        // rotate the renderer
         GL11.glRotatef(angle, 1.0F, 0.0F, 0.0F);
 
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-        ItemRenderer.renderItemIn2D(tessellator, icon.getMinU(), icon.getMinV(), icon.getMaxU(), icon.getMaxV(), icon.getIconWidth(), icon.getIconHeight(), Constants.UNIT);
+        ItemRenderer.renderItemIn2D(
+                tessellator,
+                icon.getMinU(),
+                icon.getMinV(),
+                icon.getMaxU(),
+                icon.getMaxV(),
+                icon.getIconWidth(),
+                icon.getIconHeight(),
+                Constants.UNIT);
 
         GL11.glRotatef(-angle, 1.0F, 0.0F, 0.0F);
         GL11.glScalef(1 / scale, 1 / scale, 1 / scale);
@@ -77,7 +94,7 @@ public class RenderPeripheral extends RenderBlockBase {
     }
 
     private void performAnimations(Tessellator tessellator, TileEntityPeripheral peripheral, IIcon icon, int cm) {
-        int maxDoorPos = TileEntityPeripheral.MAX/2;
+        int maxDoorPos = TileEntityPeripheral.MAX / 2;
         float unit = Constants.UNIT;
 
         GL11.glPushMatrix();
@@ -85,7 +102,7 @@ public class RenderPeripheral extends RenderBlockBase {
         for (ForgeDirection dir : TileEntityPeripheral.VALID_DIRECTIONS) {
             int timer = peripheral.getTimer(dir);
 
-            //doors
+            // doors
             float doorPosition = (timer >= maxDoorPos ? maxDoorPos : timer) * 4.0F / maxDoorPos;
             if (doorPosition < 4) {
                 Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
@@ -95,7 +112,7 @@ public class RenderPeripheral extends RenderBlockBase {
                 tessellator.draw();
             }
 
-            //probe
+            // probe
             float probePosition = (timer < maxDoorPos ? 0 : timer - maxDoorPos) * 90 / maxDoorPos;
             GL11.glRotatef(180, 0, 0, 1);
             float dx = -0.5F;
@@ -118,11 +135,10 @@ public class RenderPeripheral extends RenderBlockBase {
             GL11.glRotatef(-probePosition, 1, 0, 0);
             GL11.glTranslatef(-dX, -dY, -dZ);
 
-
             GL11.glTranslatef(-dx, -dy, -dz);
             GL11.glRotatef(-180, 0, 0, 1);
 
-            //rotate 90� for the next render
+            // rotate 90� for the next render
             GL11.glTranslatef(0.5F, 0.5F, 0.5F);
             GL11.glRotatef(-90, 0, 1, 0);
             GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
@@ -137,36 +153,36 @@ public class RenderPeripheral extends RenderBlockBase {
         IIcon iconBottom = blockPeripheral.getIcon(2, 0);
         IIcon iconInside = blockPeripheral.getIcon(3, 0);
         float unit = Constants.UNIT;
-        //top
+        // top
         drawScaledFaceFrontXZ(tessellator2, 0, 0, 16, 16, iconTop, 1, colorMultiplier);
         drawScaledFaceBackXZ(tessellator2, 0, 0, 16, 16, iconTop, 1, colorMultiplier);
-        //bottom
+        // bottom
         drawScaledFaceFrontXZ(tessellator2, 0, 0, 16, 16, iconBottom, 0, colorMultiplier);
         drawScaledFaceBackXZ(tessellator2, 0, 0, 16, 16, iconBottom, 0, colorMultiplier);
-        //front
+        // front
         drawScaledFaceFrontXY(tessellator2, 0, 0, 16, 16, iconSide, 0, colorMultiplier);
         drawScaledFaceBackXY(tessellator2, 0, 0, 16, 16, iconSide, 0, colorMultiplier);
-        //right
+        // right
         drawScaledFaceFrontYZ(tessellator2, 0, 0, 16, 16, iconSide, 1, colorMultiplier);
         drawScaledFaceBackYZ(tessellator2, 0, 0, 16, 16, iconSide, 1, colorMultiplier);
-        //left
+        // left
         drawScaledFaceFrontYZ(tessellator2, 0, 0, 16, 16, iconSide, 0, colorMultiplier);
         drawScaledFaceBackYZ(tessellator2, 0, 0, 16, 16, iconSide, 0, colorMultiplier);
-        //back
+        // back
         drawScaledFaceFrontXY(tessellator2, 0, 0, 16, 16, iconSide, 1, colorMultiplier);
         drawScaledFaceBackXY(tessellator2, 0, 0, 16, 16, iconSide, 1, colorMultiplier);
-        //inside top
+        // inside top
         drawScaledFaceFrontXZ(tessellator2, 4, 4, 12, 12, iconBottom, 12 * unit, colorMultiplier);
-        //inside front
+        // inside front
         drawScaledFaceFrontXY(tessellator2, 0, 0, 16, 16, iconInside, 4 * unit, colorMultiplier);
         drawScaledFaceBackXY(tessellator2, 0, 0, 16, 16, iconInside, 4 * unit, colorMultiplier);
-        //inside right
+        // inside right
         drawScaledFaceFrontYZ(tessellator2, 0, 0, 16, 16, iconInside, 12 * unit, colorMultiplier);
         drawScaledFaceBackYZ(tessellator2, 0, 0, 16, 16, iconInside, 12 * unit, colorMultiplier);
-        //inside left
+        // inside left
         drawScaledFaceFrontYZ(tessellator2, 0, 0, 16, 16, iconInside, 4 * unit, colorMultiplier);
         drawScaledFaceBackYZ(tessellator2, 0, 0, 16, 16, iconInside, 4 * unit, colorMultiplier);
-        //inside back
+        // inside back
         drawScaledFaceFrontXY(tessellator2, 0, 0, 16, 16, iconInside, 12 * unit, colorMultiplier);
         drawScaledFaceBackXY(tessellator2, 0, 0, 16, 16, iconInside, 12 * unit, colorMultiplier);
     }

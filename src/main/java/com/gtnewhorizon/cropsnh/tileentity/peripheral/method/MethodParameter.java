@@ -3,6 +3,7 @@ package com.gtnewhorizon.cropsnh.tileentity.peripheral.method;
 import net.minecraft.util.StatCollector;
 
 public class MethodParameter {
+
     public static final MethodParameter DIRECTION = new MethodParameter("direction");
     public static final MethodParameter DIRECTION_OPTIONAL = new MethodParameter("direction.optional");
 
@@ -13,10 +14,10 @@ public class MethodParameter {
     }
 
     public String getName() {
-        return StatCollector.translateToLocal("cropsnh_arg."+name);
+        return StatCollector.translateToLocal("cropsnh_arg." + name);
     }
 
     public String getDescription() {
-        return StatCollector.translateToLocal("cropsnh_description.parameter."+name);
+        return StatCollector.translateToLocal("cropsnh_description.parameter." + name);
     }
 }

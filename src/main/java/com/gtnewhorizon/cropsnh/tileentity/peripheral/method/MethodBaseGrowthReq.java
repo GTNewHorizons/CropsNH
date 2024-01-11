@@ -1,12 +1,13 @@
 package com.gtnewhorizon.cropsnh.tileentity.peripheral.method;
 
+import java.util.ArrayList;
+
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
 
-import java.util.ArrayList;
-
 public abstract class MethodBaseGrowthReq extends MethodBase {
+
     public MethodBaseGrowthReq(String name) {
         super(name);
     }

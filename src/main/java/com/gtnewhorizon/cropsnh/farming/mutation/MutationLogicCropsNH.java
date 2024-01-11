@@ -5,6 +5,7 @@ import com.gtnewhorizon.cropsnh.api.v1.IMutationEngine;
 import com.gtnewhorizon.cropsnh.api.v1.IMutationLogic;
 
 public class MutationLogicCropsNH implements IMutationLogic {
+
     private static final MutationLogicCropsNH INSTANCE = new MutationLogicCropsNH();
 
     public static MutationLogicCropsNH getInstance() {

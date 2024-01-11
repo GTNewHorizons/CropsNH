@@ -1,6 +1,7 @@
 package tehnut.resourceful.crops.api.base;
 
 import net.minecraft.world.EnumDifficulty;
+
 import tehnut.resourceful.crops.api.util.BlockStack;
 
 public class SeedReq {
@@ -43,11 +44,14 @@ public class SeedReq {
 
     @Override
     public String toString() {
-        return "SeedReq{" +
-                "growthReq=" + growthReq +
-                "difficulty=" + difficulty +
-                ", lightLevelMin=" + lightLevelMin +
-                ", lightLevelMax=" + lightLevelMax +
-                '}';
+        return "SeedReq{" + "growthReq="
+                + growthReq
+                + "difficulty="
+                + difficulty
+                + ", lightLevelMin="
+                + lightLevelMin
+                + ", lightLevelMax="
+                + lightLevelMax
+                + '}';
     }
 }

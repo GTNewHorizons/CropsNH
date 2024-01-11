@@ -1,5 +1,12 @@
 package com.gtnewhorizon.cropsnh.compatibility.arsmagica;
 
+import java.util.ArrayList;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.RenderMethod;
 import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
@@ -8,20 +15,15 @@ import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.items.ItemModSeed;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
 
 public class ArsMagicaHelper extends ModHelper {
+
     public static ArrayList<BlockModPlant> arsMagicaCrops = new ArrayList<>();
     public static ArrayList<ItemModSeed> arsMagicaSeeds = new ArrayList<>();
 
     @Override
     protected void initPlants() {
-        //aum
+        // aum
         Item aum = (Item) Item.itemRegistry.getObject("arsmagica2:Aum");
         BlockModPlant cropAum = null;
         try {
@@ -29,7 +31,7 @@ public class ArsMagicaHelper extends ModHelper {
         } catch (Exception e) {
             LogHelper.printStackTrace(e);
         }
-        if(cropAum != null) {
+        if (cropAum != null) {
             Block log = (Block) Block.blockRegistry.getObject("arsmagica2:WitchwoodLog");
             if (log != null) {
                 cropAum.getGrowthRequirement().setRequiredBlock(new BlockWithMeta(log), RequirementType.NEARBY, false);
@@ -38,7 +40,7 @@ public class ArsMagicaHelper extends ModHelper {
             arsMagicaSeeds.add(cropAum.getSeed());
         }
 
-        //tarma root
+        // tarma root
         Item tarmaRoot = (Item) Item.itemRegistry.getObject("arsmagica2:TarmaRoot");
         BlockModPlant cropTarmaRoot = null;
         try {
@@ -46,13 +48,13 @@ public class ArsMagicaHelper extends ModHelper {
         } catch (Exception e) {
             LogHelper.printStackTrace(e);
         }
-        if(cropTarmaRoot != null) {
+        if (cropTarmaRoot != null) {
             cropTarmaRoot.getGrowthRequirement().setBrightnessRange(0, 8);
             arsMagicaCrops.add(cropTarmaRoot);
             arsMagicaSeeds.add(cropTarmaRoot.getSeed());
         }
 
-        //cerublossom
+        // cerublossom
         Item cerublossom = (Item) Item.itemRegistry.getObject("arsmagica2:blueOrchid");
         BlockModPlant cropCerublossom = null;
         try {
@@ -60,12 +62,12 @@ public class ArsMagicaHelper extends ModHelper {
         } catch (Exception e) {
             LogHelper.printStackTrace(e);
         }
-        if(cropCerublossom != null) {
+        if (cropCerublossom != null) {
             arsMagicaCrops.add(cropCerublossom);
             arsMagicaSeeds.add(cropCerublossom.getSeed());
         }
 
-        //desert nova
+        // desert nova
         Item desertNova = (Item) Item.itemRegistry.getObject("arsmagica2:desertNova");
         BlockModPlant cropDesertNova = null;
         try {
@@ -73,13 +75,13 @@ public class ArsMagicaHelper extends ModHelper {
         } catch (Exception e) {
             LogHelper.printStackTrace(e);
         }
-        if(cropDesertNova != null) {
+        if (cropDesertNova != null) {
             cropDesertNova.getGrowthRequirement().setSoil(new BlockWithMeta(Blocks.sand));
             arsMagicaCrops.add(cropDesertNova);
             arsMagicaSeeds.add(cropDesertNova.getSeed());
         }
 
-        //wakebloom
+        // wakebloom
         Item wakebloom = (Item) Item.itemRegistry.getObject("arsmagica2:wakebloom");
         BlockModPlant cropWakebloom = null;
         try {
@@ -87,8 +89,9 @@ public class ArsMagicaHelper extends ModHelper {
         } catch (Exception e) {
             LogHelper.printStackTrace(e);
         }
-        if(cropWakebloom != null) {
-            cropWakebloom.getGrowthRequirement().setSoil(new BlockWithMeta(com.gtnewhorizon.cropsnh.init.Blocks.blockWaterPadFull));
+        if (cropWakebloom != null) {
+            cropWakebloom.getGrowthRequirement()
+                    .setSoil(new BlockWithMeta(com.gtnewhorizon.cropsnh.init.Blocks.blockWaterPadFull));
             arsMagicaCrops.add(cropWakebloom);
             arsMagicaSeeds.add(cropWakebloom.getSeed());
         }

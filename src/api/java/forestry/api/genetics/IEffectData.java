@@ -13,15 +13,16 @@ import forestry.api.core.INBTTagable;
  * @author SirSengir
  */
 public interface IEffectData extends INBTTagable {
-	void setInteger(int index, int val);
 
-	void setFloat(int index, float val);
+    void setInteger(int index, int val);
 
-	void setBoolean(int index, boolean val);
+    void setFloat(int index, float val);
 
-	int getInteger(int index);
+    void setBoolean(int index, boolean val);
 
-	float getFloat(int index);
+    int getInteger(int index);
 
-	boolean getBoolean(int index);
+    float getFloat(int index);
+
+    boolean getBoolean(int index);
 }

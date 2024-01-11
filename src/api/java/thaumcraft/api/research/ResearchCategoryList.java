@@ -1,13 +1,13 @@
 package thaumcraft.api.research;
 
-import net.minecraft.util.ResourceLocation;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.util.ResourceLocation;
+
 public class ResearchCategoryList {
 
-	/** Is the smallest column used on the GUI. */
+    /** Is the smallest column used on the GUI. */
     public int minDisplayColumn;
 
     /** Is the smallest row used on the GUI. */
@@ -23,15 +23,12 @@ public class ResearchCategoryList {
     public ResourceLocation icon;
     public ResourceLocation background;
 
-	public ResearchCategoryList(ResourceLocation icon, ResourceLocation background) {
-		this.icon = icon;
-		this.background = background;
-	}
+    public ResearchCategoryList(ResourceLocation icon, ResourceLocation background) {
+        this.icon = icon;
+        this.background = background;
+    }
 
-	//Research
-	public Map<String, ResearchItem> research = new HashMap<>();
-
-
-
+    // Research
+    public Map<String, ResearchItem> research = new HashMap<>();
 
 }

@@ -1,9 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity;
 
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.utility.multiblock.IMultiBlockComponent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -12,15 +10,19 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.List;
+import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.utility.multiblock.IMultiBlockComponent;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * The root class for all CropsNH TileEntities.
  */
 public abstract class TileEntityCropsNH extends TileEntity {
+
     /**
-     * The orientation of the block.
-     * Defaults to ForgeDirection.UNKNOWN;
+     * The orientation of the block. Defaults to ForgeDirection.UNKNOWN;
      */
     private ForgeDirection orientation = ForgeDirection.UNKNOWN;
 
@@ -30,12 +32,12 @@ public abstract class TileEntityCropsNH extends TileEntity {
      * Overriding subclasses should <em>always</em> make a call to Super().
      */
     @Override
-    public void writeToNBT (NBTTagCompound tag){
+    public void writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
         if (this.orientation != null) {
             tag.setByte(Names.NBT.direction, (byte) this.orientation.ordinal());
         }
-        if(this.isMultiBlock()) {
+        if (this.isMultiBlock()) {
             NBTTagCompound multiBlockTag = new NBTTagCompound();
             ((IMultiBlockComponent<?, ?>) this).getMultiBlockData().writeToNBT(multiBlockTag);
             tag.setTag(Names.NBT.multiBlock, multiBlockTag);
@@ -48,13 +50,13 @@ public abstract class TileEntityCropsNH extends TileEntity {
      * Overriding subclasses should <em>always</em> make a call to Super().
      */
     @Override
-    public void readFromNBT (NBTTagCompound tag){
+    public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
         if (tag.hasKey(Names.NBT.direction)) {
             this.setOrientation(tag.getByte(Names.NBT.direction));
         }
-        if(this.isMultiBlock()) {
-            if(tag.hasKey(Names.NBT.multiBlock)) {
+        if (this.isMultiBlock()) {
+            if (tag.hasKey(Names.NBT.multiBlock)) {
                 NBTTagCompound multiBlockTag = tag.getCompoundTag(Names.NBT.multiBlock);
                 ((IMultiBlockComponent<?, ?>) this).getMultiBlockData().readFromNBT(multiBlockTag);
             }
@@ -93,8 +95,8 @@ public abstract class TileEntityCropsNH extends TileEntity {
     }
 
     /**
-     * Sets the block's orientation from an integer.
-     * This is not the recommended method, and is only included for serialization purposes.
+     * Sets the block's orientation from an integer. This is not the recommended method, and is only included for
+     * serialization purposes.
      *
      * @param orientation the orientation index
      */
@@ -109,11 +111,11 @@ public abstract class TileEntityCropsNH extends TileEntity {
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, this.blockMetadata, nbtTag);
     }
 
-    //read data from packet
+    // read data from packet
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         readFromNBT(pkt.func_148857_g());
-        if(worldObj.isRemote) {
+        if (worldObj.isRemote) {
             markForRenderUpdate();
         }
     }
@@ -122,7 +124,7 @@ public abstract class TileEntityCropsNH extends TileEntity {
      * Marks the tile entity for an update.
      */
     public final void markForUpdate() {
-        if(!worldObj.isRemote) {
+        if (!worldObj.isRemote) {
             this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
@@ -134,8 +136,7 @@ public abstract class TileEntityCropsNH extends TileEntity {
     }
 
     /**
-     * Add the waila information to a list.
-     * I reccomend a call to the super method where applicable.
+     * Add the waila information to a list. I reccomend a call to the super method where applicable.
      *
      * @param information the list to add to.
      */

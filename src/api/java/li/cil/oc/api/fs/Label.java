@@ -8,6 +8,7 @@ import li.cil.oc.api.Persistable;
  * @see li.cil.oc.api.FileSystem#asManagedEnvironment
  */
 public interface Label extends Persistable {
+
     /**
      * Get the current value of this label.
      * <p/>

@@ -1,10 +1,8 @@
 /**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+ * This class was created by <Vazkii>. It's distributed as part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
+ * Botania is Open Source and distributed under the Botania License: http://botaniamod.net/license.php
  *
  * File Created @ [Oct 9, 2014, 3:01:58 PM (GMT)]
  */
@@ -14,21 +12,20 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 /**
- * A TileEntity that implements this can be bound to another block
- * via the Wand of the Forest. Also see IWireframeAABBProvider to change
- * the displayed bounding box.
+ * A TileEntity that implements this can be bound to another block via the Wand of the Forest. Also see
+ * IWireframeAABBProvider to change the displayed bounding box.
  */
 public interface IWandBindable extends ITileBound {
 
-	/**
-	 * Return true if the Wand can select this tile.
-	 */
+    /**
+     * Return true if the Wand can select this tile.
+     */
     boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side);
 
-	/**
-	 * Call to bind the TileEntity to where the player clicked. Return true to deselect
-	 * the TileEntity for another bind or false case the TileEntity should stay selected.
-	 */
+    /**
+     * Call to bind the TileEntity to where the player clicked. Return true to deselect the TileEntity for another bind
+     * or false case the TileEntity should stay selected.
+     */
     boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side);
 
 }

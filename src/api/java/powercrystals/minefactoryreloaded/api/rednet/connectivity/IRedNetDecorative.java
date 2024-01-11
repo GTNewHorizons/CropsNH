@@ -5,7 +5,6 @@ package powercrystals.minefactoryreloaded.api.rednet.connectivity;
  * <p>
  * RedNet cables will treat your block similar to a vanilla block that's not redstone active.
  */
-public interface IRedNetDecorative
-{
+public interface IRedNetDecorative {
 
 }

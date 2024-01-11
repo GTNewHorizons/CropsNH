@@ -1,14 +1,16 @@
 package com.gtnewhorizon.cropsnh.renderers.models;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public class ModelSprinkler extends ModelBase {
-	public ModelSprinkler() {
+
+    public ModelSprinkler() {
         crossBar1 = new ModelRenderer(this, 0, 0);
         crossBar1.addBox(0F, 0F, 0F, 9, 1, 1, 0F);
         crossBar1.setRotationPoint(-4.5F, 19F, -0.5F);
@@ -44,7 +46,7 @@ public class ModelSprinkler extends ModelBase {
         super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     }
 
-    //fields
+    // fields
     public ModelRenderer crossBar1;
     public ModelRenderer crossBar2;
     public ModelRenderer connectingRod;

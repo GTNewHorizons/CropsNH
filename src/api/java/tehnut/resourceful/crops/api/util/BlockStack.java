@@ -1,10 +1,11 @@
 package tehnut.resourceful.crops.api.util;
 
-import cpw.mods.fml.common.registry.GameData;
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nullable;
+import cpw.mods.fml.common.registry.GameData;
 
 /**
  * A set {@link Block} and meta to check against.
@@ -45,24 +46,18 @@ public class BlockStack {
 
     @Override
     public String toString() {
-        return "BlockStack{" +
-                "block=" + GameData.getBlockRegistry().getNameForObject(block) +
-                ", meta=" + meta +
-                '}';
+        return "BlockStack{" + "block=" + GameData.getBlockRegistry().getNameForObject(block) + ", meta=" + meta + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
+        if (this == o) return true;
 
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         BlockStack that = (BlockStack) o;
 
-        if (meta != that.meta)
-            return false;
+        if (meta != that.meta) return false;
 
         return !(block != null ? !block.equals(that.block) : that.block != null);
     }

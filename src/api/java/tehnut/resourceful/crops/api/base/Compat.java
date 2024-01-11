@@ -16,9 +16,7 @@ public class Compat {
 
     @Override
     public String toString() {
-        return "Compat{" +
-                "compatExNihilio=" + compatExNihilio +
-                '}';
+        return "Compat{" + "compatExNihilio=" + compatExNihilio + '}';
     }
 
     public static class CompatExNihilio {
@@ -41,10 +39,7 @@ public class Compat {
 
         @Override
         public String toString() {
-            return "CompatExNihilio{" +
-                    "sourceBlock=" + sourceBlock +
-                    ", sieveChance=" + sieveChance +
-                    '}';
+            return "CompatExNihilio{" + "sourceBlock=" + sourceBlock + ", sieveChance=" + sieveChance + '}';
         }
     }
 }

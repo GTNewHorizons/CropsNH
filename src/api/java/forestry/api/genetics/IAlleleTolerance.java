@@ -10,6 +10,6 @@ package forestry.api.genetics;
  */
 public interface IAlleleTolerance extends IAllele {
 
-	EnumTolerance getValue();
+    EnumTolerance getValue();
 
 }

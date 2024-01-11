@@ -1,15 +1,17 @@
 package com.gtnewhorizon.cropsnh.container;
 
-import com.gtnewhorizon.cropsnh.tileentity.storage.SeedStorageSlot;
-import com.gtnewhorizon.cropsnh.tileentity.storage.TileEntitySeedStorageController;
+import java.util.List;
+
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-import java.util.List;
+import com.gtnewhorizon.cropsnh.tileentity.storage.SeedStorageSlot;
+import com.gtnewhorizon.cropsnh.tileentity.storage.TileEntitySeedStorageController;
 
 public class ContainerSeedStorageController extends ContainerSeedStorageBase {
+
     public TileEntitySeedStorageController te;
     private static final int invOffsetX = 82;
     private static final int invOffsetY = 94;

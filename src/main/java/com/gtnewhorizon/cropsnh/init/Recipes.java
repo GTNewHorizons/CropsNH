@@ -1,5 +1,21 @@
 package com.gtnewhorizon.cropsnh.init;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+
 import com.gtnewhorizon.cropsnh.blocks.BlockCustomWood;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.compatibility.computercraft.ComputerCraftHelper;
@@ -13,23 +29,8 @@ import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
-import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
-import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Recipes {
 
@@ -40,67 +41,216 @@ public class Recipes {
     private static List<ItemStack> woodList;
 
     public static void init() {
-        //crop item
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.crops, ConfigurationHandler.cropsPerCraft), "ss", "ss", 's', "stickWood"));
+        // crop item
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(Items.crops, ConfigurationHandler.cropsPerCraft),
+                        "ss",
+                        "ss",
+                        's',
+                        "stickWood"));
         if (ConfigurationHandler.cropsPerCraft == 3) {
-            GameRegistry.addShapelessRecipe(new ItemStack(net.minecraft.init.Items.stick, 6 / ConfigurationHandler.cropsPerCraft), new ItemStack(Items.crops), new ItemStack(Items.crops));
+            GameRegistry.addShapelessRecipe(
+                    new ItemStack(net.minecraft.init.Items.stick, 6 / ConfigurationHandler.cropsPerCraft),
+                    new ItemStack(Items.crops),
+                    new ItemStack(Items.crops));
         } else {
-            GameRegistry.addShapelessRecipe(new ItemStack(net.minecraft.init.Items.stick, 4 / ConfigurationHandler.cropsPerCraft), new ItemStack(Items.crops));
+            GameRegistry.addShapelessRecipe(
+                    new ItemStack(net.minecraft.init.Items.stick, 4 / ConfigurationHandler.cropsPerCraft),
+                    new ItemStack(Items.crops));
         }
-        //seed analyzer
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.blockSeedAnalyzer, 1), "sgs", " bs", "pwp", 's', "stickWood", 'g', "paneGlass", 'b', net.minecraft.init.Blocks.stone_slab, 'p', "plankWood", 'w', "slabWood"));
-        //seeds
-        GameRegistry.addShapelessRecipe(new ItemStack((Item) Item.itemRegistry.getObject("CropsNH:seedPotato")), new ItemStack(net.minecraft.init.Items.potato));
-        GameRegistry.addShapelessRecipe(new ItemStack((Item) Item.itemRegistry.getObject("CropsNH:seedCarrot")), new ItemStack(net.minecraft.init.Items.carrot));
-        GameRegistry.addShapelessRecipe(new ItemStack(net.minecraft.init.Items.wheat_seeds), new ItemStack(net.minecraft.init.Items.wheat));
-        //journal
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.journal, 1), "csc", "sbs", "csc", 'c', Items.crops, 's', Names.OreDict.listAllseed, 'b', net.minecraft.init.Items.writable_book));
+        // seed analyzer
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(Blocks.blockSeedAnalyzer, 1),
+                        "sgs",
+                        " bs",
+                        "pwp",
+                        's',
+                        "stickWood",
+                        'g',
+                        "paneGlass",
+                        'b',
+                        net.minecraft.init.Blocks.stone_slab,
+                        'p',
+                        "plankWood",
+                        'w',
+                        "slabWood"));
+        // seeds
+        GameRegistry.addShapelessRecipe(
+                new ItemStack((Item) Item.itemRegistry.getObject("CropsNH:seedPotato")),
+                new ItemStack(net.minecraft.init.Items.potato));
+        GameRegistry.addShapelessRecipe(
+                new ItemStack((Item) Item.itemRegistry.getObject("CropsNH:seedCarrot")),
+                new ItemStack(net.minecraft.init.Items.carrot));
+        GameRegistry.addShapelessRecipe(
+                new ItemStack(net.minecraft.init.Items.wheat_seeds),
+                new ItemStack(net.minecraft.init.Items.wheat));
+        // journal
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(Items.journal, 1),
+                        "csc",
+                        "sbs",
+                        "csc",
+                        'c',
+                        Items.crops,
+                        's',
+                        Names.OreDict.listAllseed,
+                        'b',
+                        net.minecraft.init.Items.writable_book));
         GameRegistry.addRecipe(new RecipeJournal());
-        //trowel
-        if(ConfigurationHandler.enableTrowel && Items.trowel != null) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.trowel, 1, 0), "  s", "ii ", 's', "stickWood", 'i', "ingotIron"));
+        // trowel
+        if (ConfigurationHandler.enableTrowel && Items.trowel != null) {
+            GameRegistry.addRecipe(
+                    new ShapedOreRecipe(
+                            new ItemStack(Items.trowel, 1, 0),
+                            "  s",
+                            "ii ",
+                            's',
+                            "stickWood",
+                            'i',
+                            "ingotIron"));
         }
-        //magnifying glass
-        if(ConfigurationHandler.enableMagnifyingGlass && Items.magnifyingGlass != null) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.magnifyingGlass, 1, 0), "sgs", " s ", " s ", 's', "stickWood", 'g', "paneGlass"));
+        // magnifying glass
+        if (ConfigurationHandler.enableMagnifyingGlass && Items.magnifyingGlass != null) {
+            GameRegistry.addRecipe(
+                    new ShapedOreRecipe(
+                            new ItemStack(Items.magnifyingGlass, 1, 0),
+                            "sgs",
+                            " s ",
+                            " s ",
+                            's',
+                            "stickWood",
+                            'g',
+                            "paneGlass"));
         }
-        //hand rakes
-        if(ConfigurationHandler.enableHandRake && Items.handRake != null) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.handRake, 1, 0), "fs", 'f', net.minecraft.init.Blocks.fence, 's', "stickWood"));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.handRake, 1, 1), "fs", 'f', net.minecraft.init.Blocks.iron_bars, 's', "stickWood"));
+        // hand rakes
+        if (ConfigurationHandler.enableHandRake && Items.handRake != null) {
+            GameRegistry.addRecipe(
+                    new ShapedOreRecipe(
+                            new ItemStack(Items.handRake, 1, 0),
+                            "fs",
+                            'f',
+                            net.minecraft.init.Blocks.fence,
+                            's',
+                            "stickWood"));
+            GameRegistry.addRecipe(
+                    new ShapedOreRecipe(
+                            new ItemStack(Items.handRake, 1, 1),
+                            "fs",
+                            'f',
+                            net.minecraft.init.Blocks.iron_bars,
+                            's',
+                            "stickWood"));
         }
-        //clipper
-        if(ConfigurationHandler.enableClipper && Items.clipper != null) {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.clipper, 1, 0), " i ", "scn", " s ", 'i', "ingotIron", 's', "stickWood", 'c', new ItemStack(net.minecraft.init.Items.shears)));
+        // clipper
+        if (ConfigurationHandler.enableClipper && Items.clipper != null) {
+            GameRegistry.addRecipe(
+                    new ShapedOreRecipe(
+                            new ItemStack(Items.clipper, 1, 0),
+                            " i ",
+                            "scn",
+                            " s ",
+                            'i',
+                            "ingotIron",
+                            's',
+                            "stickWood",
+                            'c',
+                            new ItemStack(net.minecraft.init.Items.shears)));
         }
-        //peripheral
-        if(Blocks.blockPeripheral!=null) {
-            if(ModHelper.allowIntegration(Names.Mods.computerCraft)) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.blockPeripheral, 1), "iai", "rcr", "iri", 'i', "ingotIron", 'a', Blocks.blockSeedAnalyzer, 'r', net.minecraft.init.Items.comparator, 'c', ComputerCraftHelper.getComputerBlock()));
+        // peripheral
+        if (Blocks.blockPeripheral != null) {
+            if (ModHelper.allowIntegration(Names.Mods.computerCraft)) {
+                GameRegistry.addRecipe(
+                        new ShapedOreRecipe(
+                                new ItemStack(Blocks.blockPeripheral, 1),
+                                "iai",
+                                "rcr",
+                                "iri",
+                                'i',
+                                "ingotIron",
+                                'a',
+                                Blocks.blockSeedAnalyzer,
+                                'r',
+                                net.minecraft.init.Items.comparator,
+                                'c',
+                                ComputerCraftHelper.getComputerBlock()));
             }
-            if(ModHelper.allowIntegration(Names.Mods.openComputers)) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.blockPeripheral, 1), "iai", "rcr", "iri", 'i', "ingotIron", 'a', Blocks.blockSeedAnalyzer, 'r', net.minecraft.init.Items.comparator, 'c', OpenComputersHelper.getComputerBlock()));
+            if (ModHelper.allowIntegration(Names.Mods.openComputers)) {
+                GameRegistry.addRecipe(
+                        new ShapedOreRecipe(
+                                new ItemStack(Blocks.blockPeripheral, 1),
+                                "iai",
+                                "rcr",
+                                "iri",
+                                'i',
+                                "ingotIron",
+                                'a',
+                                Blocks.blockSeedAnalyzer,
+                                'r',
+                                net.minecraft.init.Items.comparator,
+                                'c',
+                                OpenComputersHelper.getComputerBlock()));
             }
         }
-        //CustomWood recipes
+        // CustomWood recipes
         registerCustomWoodRecipes();
-        //fruits
+        // fruits
         if (ConfigurationHandler.resourcePlants) {
             if (OreDictHelper.getNuggetForName("Diamond") instanceof ItemCropsNH) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(net.minecraft.init.Items.diamond, 1), "nnn", "nnn", "nnn", 'n', "nuggetDiamond"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(OreDictHelper.getNuggetForName("Diamond"), 9), "gemDiamond"));
+                GameRegistry.addRecipe(
+                        new ShapedOreRecipe(
+                                new ItemStack(net.minecraft.init.Items.diamond, 1),
+                                "nnn",
+                                "nnn",
+                                "nnn",
+                                'n',
+                                "nuggetDiamond"));
+                GameRegistry.addRecipe(
+                        new ShapelessOreRecipe(
+                                new ItemStack(OreDictHelper.getNuggetForName("Diamond"), 9),
+                                "gemDiamond"));
             }
             if (OreDictHelper.getNuggetForName("Emerald") instanceof ItemCropsNH) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(net.minecraft.init.Items.emerald, 1), "nnn", "nnn", "nnn", 'n', "nuggetEmerald"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(OreDictHelper.getNuggetForName("Emerald"), 9), "gemEmerald"));
+                GameRegistry.addRecipe(
+                        new ShapedOreRecipe(
+                                new ItemStack(net.minecraft.init.Items.emerald, 1),
+                                "nnn",
+                                "nnn",
+                                "nnn",
+                                'n',
+                                "nuggetEmerald"));
+                GameRegistry.addRecipe(
+                        new ShapelessOreRecipe(
+                                new ItemStack(OreDictHelper.getNuggetForName("Emerald"), 9),
+                                "gemEmerald"));
             }
             if (OreDictHelper.getNuggetForName("Iron") instanceof ItemCropsNH) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(net.minecraft.init.Items.iron_ingot, 1), "nnn", "nnn", "nnn", 'n', "nuggetIron"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(OreDictHelper.getNuggetForName("Iron"), 9), "ingotIron"));
+                GameRegistry.addRecipe(
+                        new ShapedOreRecipe(
+                                new ItemStack(net.minecraft.init.Items.iron_ingot, 1),
+                                "nnn",
+                                "nnn",
+                                "nnn",
+                                'n',
+                                "nuggetIron"));
+                GameRegistry.addRecipe(
+                        new ShapelessOreRecipe(new ItemStack(OreDictHelper.getNuggetForName("Iron"), 9), "ingotIron"));
             }
             if (OreDictHelper.getNuggetForName("Quartz") instanceof ItemCropsNH) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(net.minecraft.init.Items.quartz, 1), "nnn", "nnn", "nnn", 'n', "nuggetQuartz"));
-                GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(OreDictHelper.getNuggetForName("Quartz"), 9), new ItemStack(net.minecraft.init.Items.quartz, 1)));
+                GameRegistry.addRecipe(
+                        new ShapedOreRecipe(
+                                new ItemStack(net.minecraft.init.Items.quartz, 1),
+                                "nnn",
+                                "nnn",
+                                "nnn",
+                                'n',
+                                "nuggetQuartz"));
+                GameRegistry.addRecipe(
+                        new ShapelessOreRecipe(
+                                new ItemStack(OreDictHelper.getNuggetForName("Quartz"), 9),
+                                new ItemStack(net.minecraft.init.Items.quartz, 1)));
             }
             for (String[] data : Data.modResources) {
                 String oreName = data[0];
@@ -109,7 +259,8 @@ public class Recipes {
                     ItemStack nugget = new ItemStack(nuggetItem, 9, OreDictHelper.getNuggetMetaForName(oreName));
                     ItemStack ingot = OreDictHelper.getIngot(oreName);
                     if (ingot != null) {
-                        GameRegistry.addRecipe(new ShapedOreRecipe(ingot, "nnn", "nnn", "nnn", 'n', "nugget" + oreName));
+                        GameRegistry
+                                .addRecipe(new ShapedOreRecipe(ingot, "nnn", "nnn", "nnn", 'n', "nugget" + oreName));
                     }
                     GameRegistry.addRecipe(new ShapelessOreRecipe(nugget, "ingot" + oreName));
                 }
@@ -119,18 +270,30 @@ public class Recipes {
     }
 
     private static void registerCustomWoodRecipes() {
-        if(initWoodList()) {
+        if (initWoodList()) {
             if (!ConfigurationHandler.disableSeedStorage) {
-                registerCustomWoodRecipe(Blocks.blockSeedStorage, 1, true, "wiw", "wcw", "wcw", 'w', REFERENCE, 'i', net.minecraft.init.Items.iron_ingot, 'c', net.minecraft.init.Blocks.chest);
+                registerCustomWoodRecipe(
+                        Blocks.blockSeedStorage,
+                        1,
+                        true,
+                        "wiw",
+                        "wcw",
+                        "wcw",
+                        'w',
+                        REFERENCE,
+                        'i',
+                        net.minecraft.init.Items.iron_ingot,
+                        'c',
+                        net.minecraft.init.Blocks.chest);
             }
         }
     }
 
     private static boolean initWoodList() {
-        if(woodList != null && woodList.size()>0) {
+        if (woodList != null && woodList.size() > 0) {
             return true;
         }
-        for(Field field:Blocks.class.getDeclaredFields()) {
+        for (Field field : Blocks.class.getDeclaredFields()) {
             try {
                 if (field.get(null) == null) {
                     continue;
@@ -142,7 +305,7 @@ public class Recipes {
                 woodList = new ArrayList<>();
                 (((ItemBlockCustomWood) Item.getItemFromBlock((BlockCustomWood) obj))).getSubItems(woodList);
                 return true;
-            } catch(Exception e) {
+            } catch (Exception e) {
                 LogHelper.printStackTrace(e);
             }
         }
@@ -151,14 +314,20 @@ public class Recipes {
 
     /**
      * Adds the given recipe for every available wood type.
-     * @param params Same as for GameRegistry. The only difference is that planks will get replaced with the different woods.
+     * 
+     * @param params Same as for GameRegistry. The only difference is that planks will get replaced with the different
+     *               woods.
      */
     public static void registerCustomWoodRecipe(Block block, int stackSize, boolean shaped, Object... params) {
         for (ItemStack stack : woodList) {
-            if(stack.hasTagCompound() && stack.stackTagCompound.hasKey(Names.NBT.material) && stack.stackTagCompound.hasKey(Names.NBT.materialMeta)) {
-                //get material
+            if (stack.hasTagCompound() && stack.stackTagCompound.hasKey(Names.NBT.material)
+                    && stack.stackTagCompound.hasKey(Names.NBT.materialMeta)) {
+                // get material
                 NBTTagCompound materialTag = stack.getTagCompound();
-                ItemStack plank = new ItemStack((Block) Block.blockRegistry.getObject(materialTag.getString(Names.NBT.material)), 1, materialTag.getInteger(Names.NBT.materialMeta));
+                ItemStack plank = new ItemStack(
+                        (Block) Block.blockRegistry.getObject(materialTag.getString(Names.NBT.material)),
+                        1,
+                        materialTag.getInteger(Names.NBT.materialMeta));
                 Object[] ingredients = Arrays.copyOf(params, params.length);
                 for (int i = 0; i < ingredients.length; i++) {
                     // replace all planks with the custom ones
@@ -166,30 +335,36 @@ public class Recipes {
                         ingredients[i] = plank;
                     }
                     // Also replace ItemBlockCustomWood with the correct version
-                    if (ingredients[i] instanceof ItemStack && ingredients[i]!=null && ((ItemStack)ingredients[i]).getItem() instanceof ItemBlockCustomWood) {
+                    if (ingredients[i] instanceof ItemStack && ingredients[i] != null
+                            && ((ItemStack) ingredients[i]).getItem() instanceof ItemBlockCustomWood) {
                         ((ItemStack) ingredients[i]).stackTagCompound = materialTag;
                     }
                 }
                 ItemStack result = new ItemStack(block, stackSize);
                 result.stackTagCompound = materialTag;
-                //register recipes
-                if (shaped)
-                    GameRegistry.addShapedRecipe(result, ingredients);
-                else
-                    addShapelessCustomWoodRecipe(result, ingredients);
+                // register recipes
+                if (shaped) GameRegistry.addShapedRecipe(result, ingredients);
+                else addShapelessCustomWoodRecipe(result, ingredients);
             }
         }
     }
 
     @SuppressWarnings("unchecked")
     public static void registerCustomWoodRecipe(IRecipe recipe) {
-        if(recipe instanceof ShapedRecipes) {
+        if (recipe instanceof ShapedRecipes) {
             ShapedRecipes shapedRecipe = (ShapedRecipes) recipe;
-            registerCustomWoodRecipe(((ItemBlock) shapedRecipe.getRecipeOutput().getItem()).field_150939_a, shapedRecipe.getRecipeOutput().stackSize, true, (Object[]) shapedRecipe.recipeItems);
-        }
-        else if (recipe instanceof ShapelessRecipes) {
+            registerCustomWoodRecipe(
+                    ((ItemBlock) shapedRecipe.getRecipeOutput().getItem()).field_150939_a,
+                    shapedRecipe.getRecipeOutput().stackSize,
+                    true,
+                    (Object[]) shapedRecipe.recipeItems);
+        } else if (recipe instanceof ShapelessRecipes) {
             ShapelessRecipes shapelessRecipe = (ShapelessRecipes) recipe;
-            registerCustomWoodRecipe(((ItemBlock) shapelessRecipe.getRecipeOutput().getItem()).field_150939_a, shapelessRecipe.getRecipeOutput().stackSize, false, shapelessRecipe.recipeItems.toArray(new ItemStack[shapelessRecipe.recipeItems.size()]));
+            registerCustomWoodRecipe(
+                    ((ItemBlock) shapelessRecipe.getRecipeOutput().getItem()).field_150939_a,
+                    shapelessRecipe.getRecipeOutput().stackSize,
+                    false,
+                    shapelessRecipe.recipeItems.toArray(new ItemStack[shapelessRecipe.recipeItems.size()]));
         }
     }
 

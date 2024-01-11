@@ -1,13 +1,14 @@
 package com.gtnewhorizon.cropsnh.farming.mutation;
 
+import java.util.List;
+
+import net.minecraft.item.Item;
 
 import com.gtnewhorizon.cropsnh.api.v1.ICrop;
 import com.gtnewhorizon.cropsnh.api.v1.IMutationEngine;
-import net.minecraft.item.Item;
-
-import java.util.List;
 
 public class SpreadStrategy extends BaseStrategy {
+
     public SpreadStrategy(IMutationEngine mutationEngine) {
         super(mutationEngine);
     }
@@ -26,8 +27,12 @@ public class SpreadStrategy extends BaseStrategy {
     private CrossOverResult fromTileEntityCrop(ICrop crop, List<ICrop> neighbours) {
         Item seed = crop.getSeedStack().getItem();
         int meta = crop.getSeedStack().getItemDamage();
-        double chance = ((double) crop.getPlant().getSpreadChance())/100.0;
+        double chance = ((double) crop.getPlant().getSpreadChance()) / 100.0;
 
-        return new CrossOverResult(seed, meta, chance, engine.getStatCalculator().calculateStats(seed, meta, neighbours, false));
+        return new CrossOverResult(
+                seed,
+                meta,
+                chance,
+                engine.getStatCalculator().calculateStats(seed, meta, neighbours, false));
     }
 }

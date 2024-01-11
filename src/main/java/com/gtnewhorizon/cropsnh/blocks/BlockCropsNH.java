@@ -1,15 +1,17 @@
 package com.gtnewhorizon.cropsnh.blocks;
 
-import com.gtnewhorizon.cropsnh.CropsNH;
-import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropsNH;
-import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+
+import com.gtnewhorizon.cropsnh.CropsNH;
+import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropsNH;
+import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * The base class for all CropsNH blocks.
@@ -17,8 +19,8 @@ import net.minecraft.item.ItemStack;
 public abstract class BlockCropsNH extends Block {
 
     /**
-     * The default, base constructor for all CropsNH blocks.
-     * This method runs the super constructor from the block class, then registers the new block with the {@link RegisterHelper}.
+     * The default, base constructor for all CropsNH blocks. This method runs the super constructor from the block
+     * class, then registers the new block with the {@link RegisterHelper}.
      *
      * @param mat the {@link Material} the block is comprised of.
      */
@@ -65,6 +67,6 @@ public abstract class BlockCropsNH extends Block {
      * @param tea tile entity associated with the block, possibly null.
      */
     public ItemStack getWailaStack(BlockCropsNH block, TileEntityCropsNH tea) {
-    	return null;
+        return null;
     }
 }

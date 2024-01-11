@@ -1,10 +1,8 @@
 /**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+ * This class was created by <Vazkii>. It's distributed as part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
+ * Botania is Open Source and distributed under the Botania License: http://botaniamod.net/license.php
  *
  * File Created @ [Aug 6, 2014, 6:06:27 PM (GMT)]
  */
@@ -20,10 +18,10 @@ import net.minecraft.item.ItemStack;
  */
 public interface IPixieSpawner {
 
-	/**
-	 * The chance this item adds for pixies to be spawned. From 0.0 to 1.0. All values
-	 * are put together when calculating.
-	 */
+    /**
+     * The chance this item adds for pixies to be spawned. From 0.0 to 1.0. All values are put together when
+     * calculating.
+     */
     float getPixieChance(ItemStack stack);
 
 }

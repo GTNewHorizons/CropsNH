@@ -9,8 +9,8 @@ import net.minecraft.item.ItemStack;
 
 public interface IIngredientManager {
 
-	String getDescription(ItemStack itemstack);
+    String getDescription(ItemStack itemstack);
 
-	void addIngredient(ItemStack ingredient, String description);
+    void addIngredient(ItemStack ingredient, String description);
 
 }

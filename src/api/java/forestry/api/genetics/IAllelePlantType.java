@@ -5,12 +5,12 @@
  ******************************************************************************/
 package forestry.api.genetics;
 
-import net.minecraftforge.common.EnumPlantType;
-
 import java.util.EnumSet;
+
+import net.minecraftforge.common.EnumPlantType;
 
 public interface IAllelePlantType extends IAllele {
 
-	EnumSet<EnumPlantType> getPlantTypes();
+    EnumSet<EnumPlantType> getPlantTypes();
 
 }

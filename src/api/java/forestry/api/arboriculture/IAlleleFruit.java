@@ -12,6 +12,6 @@ import forestry.api.genetics.IAllele;
  */
 public interface IAlleleFruit extends IAllele {
 
-	IFruitProvider getProvider();
+    IFruitProvider getProvider();
 
 }

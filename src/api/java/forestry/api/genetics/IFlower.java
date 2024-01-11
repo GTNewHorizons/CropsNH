@@ -9,12 +9,14 @@ import net.minecraft.block.Block;
 
 public interface IFlower extends Comparable<IFlower> {
 
-	Block getBlock();
-	int getMeta();
+    Block getBlock();
 
-	double getWeight();
-	void setWeight(double weight);
+    int getMeta();
 
-	boolean isPlantable();
+    double getWeight();
+
+    void setWeight(double weight);
+
+    boolean isPlantable();
 
 }

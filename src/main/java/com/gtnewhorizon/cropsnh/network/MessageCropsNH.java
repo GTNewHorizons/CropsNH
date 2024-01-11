@@ -1,27 +1,30 @@
 package com.gtnewhorizon.cropsnh.network;
 
-import com.gtnewhorizon.cropsnh.CropsNH;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import io.netty.buffer.ByteBuf;
+import java.util.Iterator;
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 
-import java.util.Iterator;
-import java.util.List;
+import com.gtnewhorizon.cropsnh.CropsNH;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import io.netty.buffer.ByteBuf;
 
 public abstract class MessageCropsNH implements IMessage {
+
     protected EntityPlayer getPlayerFromByteBuf(ByteBuf buf) {
         int playerNameLength = buf.readInt();
         String name = new String(buf.readBytes(playerNameLength).array());
         List list = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
         EntityPlayer player = null;
         Iterator iterator = list.iterator();
-        while (iterator.hasNext() && player==null) {
-            EntityPlayer nextPlayer = (EntityPlayer)iterator.next();
-            if(nextPlayer.getGameProfile().getName().equals(name)) {
+        while (iterator.hasNext() && player == null) {
+            EntityPlayer nextPlayer = (EntityPlayer) iterator.next();
+            if (nextPlayer.getGameProfile().getName().equals(name)) {
                 player = nextPlayer;
             }
         }
@@ -29,7 +32,7 @@ public abstract class MessageCropsNH implements IMessage {
     }
 
     protected void writePlayerToByteBuf(EntityPlayer player, ByteBuf buf) {
-        String playerName = player==null?"null":player.getGameProfile().getName();
+        String playerName = player == null ? "null" : player.getGameProfile().getName();
         buf.writeInt(playerName.length());
         buf.writeBytes(playerName.getBytes());
     }
@@ -37,11 +40,11 @@ public abstract class MessageCropsNH implements IMessage {
     protected Item readItemFromByteBuf(ByteBuf buf) {
         int itemNameLength = buf.readInt();
         String itemName = new String(buf.readBytes(itemNameLength).array());
-        return  (Item) Item.itemRegistry.getObject(itemName);
+        return (Item) Item.itemRegistry.getObject(itemName);
     }
 
     protected void writeItemToByteBuf(Item item, ByteBuf buf) {
-        String itemName = item==null?"null":Item.itemRegistry.getNameForObject(item);
+        String itemName = item == null ? "null" : Item.itemRegistry.getNameForObject(item);
         buf.writeInt(itemName.length());
         buf.writeBytes(itemName.getBytes());
     }
@@ -50,7 +53,7 @@ public abstract class MessageCropsNH implements IMessage {
         Item item = this.readItemFromByteBuf(buf);
         int meta = buf.readInt();
         int amount = buf.readInt();
-        return item==null?null:new ItemStack(item, amount, meta);
+        return item == null ? null : new ItemStack(item, amount, meta);
     }
 
     protected void writeItemStackFromByteBuf(ByteBuf buf, ItemStack stack) {

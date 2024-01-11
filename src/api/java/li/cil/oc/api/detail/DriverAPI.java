@@ -1,24 +1,24 @@
 package li.cil.oc.api.detail;
 
+import java.util.Collection;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+
 import li.cil.oc.api.driver.Block;
 import li.cil.oc.api.driver.Converter;
 import li.cil.oc.api.driver.EnvironmentHost;
 import li.cil.oc.api.driver.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-
-import java.util.Collection;
 
 public interface DriverAPI {
+
     /**
      * Registers a new driver for a block component.
      * <p/>
-     * Whenever the neighboring blocks of an Adapter block change, it checks if
-     * there exists a driver for the changed block, and if it is configured to
-     * interface that block type connects it to the component network.
+     * Whenever the neighboring blocks of an Adapter block change, it checks if there exists a driver for the changed
+     * block, and if it is configured to interface that block type connects it to the component network.
      * <p/>
-     * This must be called in the init phase, <em>not</em> the pre- or post-init
-     * phases.
+     * This must be called in the init phase, <em>not</em> the pre- or post-init phases.
      *
      * @param driver the driver for a block component.
      */
@@ -27,11 +27,10 @@ public interface DriverAPI {
     /**
      * Registers a new driver for an item component.
      * <p/>
-     * Item components can inserted into a computers component slots. They have
-     * to specify their type, to determine into which slots they can fit.
+     * Item components can inserted into a computers component slots. They have to specify their type, to determine into
+     * which slots they can fit.
      * <p/>
-     * This must be called in the init phase, <em>not</em> the pre- or post-init
-     * phases.
+     * This must be called in the init phase, <em>not</em> the pre- or post-init phases.
      *
      * @param driver the driver for an item component.
      */
@@ -40,24 +39,21 @@ public interface DriverAPI {
     /**
      * Registers a new type converter.
      * <p/>
-     * Type converters are used to automatically convert values returned from
-     * callbacks to a "simple" format that can be pushed to any architecture.
+     * Type converters are used to automatically convert values returned from callbacks to a "simple" format that can be
+     * pushed to any architecture.
      * <p/>
-     * This must be called in the init phase, <em>not</em> the pre- or post-init
-     * phases.
+     * This must be called in the init phase, <em>not</em> the pre- or post-init phases.
      *
      * @param converter the converter to register.
      */
     void add(Converter converter);
 
     /**
-     * Looks up a driver for the block at the specified position in the
-     * specified world.
+     * Looks up a driver for the block at the specified position in the specified world.
      * <p/>
-     * Note that several drivers for a single block can exist. Because of this
-     * block drivers are always encapsulated in a 'compound' driver, which is
-     * what will be returned here. In other words, you should will <em>not</em>
-     * get actual instances of drivers registered via {@link #add(li.cil.oc.api.driver.Block)}.
+     * Note that several drivers for a single block can exist. Because of this block drivers are always encapsulated in
+     * a 'compound' driver, which is what will be returned here. In other words, you should will <em>not</em> get actual
+     * instances of drivers registered via {@link #add(li.cil.oc.api.driver.Block)}.
      *
      * @param world the world containing the block.
      * @param x     the X coordinate of the block.
@@ -70,9 +66,8 @@ public interface DriverAPI {
     /**
      * Looks up a driver for the specified item stack.
      * <p/>
-     * Note that unlike for blocks, there can always only be one item driver
-     * per item. If there are multiple ones, the first one that was registered
-     * will be used.
+     * Note that unlike for blocks, there can always only be one item driver per item. If there are multiple ones, the
+     * first one that was registered will be used.
      *
      * @param stack the item stack to get a driver for.
      * @param host  the type that will host the environment created by returned driver.
@@ -83,12 +78,10 @@ public interface DriverAPI {
     /**
      * Looks up a driver for the specified item stack.
      * <p/>
-     * Note that unlike for blocks, there can always only be one item driver
-     * per item. If there are multiple ones, the first one that was registered
-     * will be used.
+     * Note that unlike for blocks, there can always only be one item driver per item. If there are multiple ones, the
+     * first one that was registered will be used.
      * <p/>
-     * This is a context-agnostic variant used mostly for "house-keeping"
-     * stuff, such as querying slot types and tier.
+     * This is a context-agnostic variant used mostly for "house-keeping" stuff, such as querying slot types and tier.
      *
      * @param stack the item stack to get a driver for.
      * @return a driver for the item, or <tt>null</tt> if there is none.
@@ -98,9 +91,8 @@ public interface DriverAPI {
     /**
      * Get a list of all registered block drivers.
      * <p/>
-     * This is intended to allow checking for particular drivers using more
-     * customized logic, and in particular to check for drivers with the
-     * {@link li.cil.oc.api.driver.EnvironmentAware} interface.
+     * This is intended to allow checking for particular drivers using more customized logic, and in particular to check
+     * for drivers with the {@link li.cil.oc.api.driver.EnvironmentAware} interface.
      *
      * @return the list of all registered block drivers.
      */
@@ -109,9 +101,8 @@ public interface DriverAPI {
     /**
      * Get a list of all registered item drivers.
      * <p/>
-     * This is intended to allow checking for particular drivers using more
-     * customized logic, and in particular to check for drivers with the
-     * {@link li.cil.oc.api.driver.EnvironmentAware} interface.
+     * This is intended to allow checking for particular drivers using more customized logic, and in particular to check
+     * for drivers with the {@link li.cil.oc.api.driver.EnvironmentAware} interface.
      *
      * @return the list of all registered item drivers.
      */

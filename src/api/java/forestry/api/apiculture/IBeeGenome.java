@@ -17,32 +17,32 @@ import forestry.api.genetics.IGenome;
  */
 public interface IBeeGenome extends IGenome {
 
-	IAlleleBeeSpecies getPrimary();
-	
-	IAlleleBeeSpecies getSecondary();
+    IAlleleBeeSpecies getPrimary();
 
-	float getSpeed();
+    IAlleleBeeSpecies getSecondary();
 
-	int getLifespan();
+    float getSpeed();
 
-	int getFertility();
+    int getLifespan();
 
-	EnumTolerance getToleranceTemp();
+    int getFertility();
 
-	EnumTolerance getToleranceHumid();
+    EnumTolerance getToleranceTemp();
 
-	boolean getNocturnal();
+    EnumTolerance getToleranceHumid();
 
-	boolean getTolerantFlyer();
+    boolean getNocturnal();
 
-	boolean getCaveDwelling();
+    boolean getTolerantFlyer();
 
-	IFlowerProvider getFlowerProvider();
+    boolean getCaveDwelling();
 
-	int getFlowering();
+    IFlowerProvider getFlowerProvider();
 
-	int[] getTerritory();
+    int getFlowering();
 
-	IAlleleBeeEffect getEffect();
+    int[] getTerritory();
+
+    IAlleleBeeEffect getEffect();
 
 }

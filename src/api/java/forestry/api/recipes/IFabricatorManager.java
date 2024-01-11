@@ -10,9 +10,10 @@ import net.minecraftforge.fluids.FluidStack;
 
 public interface IFabricatorManager extends ICraftingProvider {
 
-	void addRecipe(IFabricatorRecipe recipe);
-	void addRecipe(ItemStack plan, FluidStack molten, ItemStack result, Object[] pattern);
+    void addRecipe(IFabricatorRecipe recipe);
 
-	void addSmelting(ItemStack resource, FluidStack molten, int meltingPoint);
+    void addRecipe(ItemStack plan, FluidStack molten, ItemStack result, Object[] pattern);
+
+    void addSmelting(ItemStack resource, FluidStack molten, int meltingPoint);
 
 }

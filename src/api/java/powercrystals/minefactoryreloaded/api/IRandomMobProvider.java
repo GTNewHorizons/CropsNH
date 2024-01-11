@@ -1,11 +1,10 @@
 package powercrystals.minefactoryreloaded.api;
 
-import net.minecraft.world.World;
-
 import java.util.List;
 
+import net.minecraft.world.World;
 
-public interface IRandomMobProvider
-{
-	List<RandomMob> getRandomMobs(World world);
+public interface IRandomMobProvider {
+
+    List<RandomMob> getRandomMobs(World world);
 }

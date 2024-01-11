@@ -5,27 +5,30 @@
  ******************************************************************************/
 package forestry.api.world;
 
-import com.mojang.authlib.GameProfile;
-import forestry.api.arboriculture.ITreeGenome;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.mojang.authlib.GameProfile;
+
+import forestry.api.arboriculture.ITreeGenome;
+
 public interface ITreeGenData {
 
-	int getGirth(World world, int x, int y, int z);
+    int getGirth(World world, int x, int y, int z);
 
-	float getHeightModifier();
+    float getHeightModifier();
 
-	boolean canGrow(World world, int x, int y, int z, int expectedGirth, int expectedHeight);
+    boolean canGrow(World world, int x, int y, int z, int expectedGirth, int expectedHeight);
 
-	void setLeaves(World world, GameProfile owner, int x, int y, int z);
-	void setLeavesDecorative(World world, GameProfile owner, int x, int y, int z);
+    void setLeaves(World world, GameProfile owner, int x, int y, int z);
 
-	void setLogBlock(World world, int x, int y, int z, ForgeDirection facing);
+    void setLeavesDecorative(World world, GameProfile owner, int x, int y, int z);
 
-	boolean allowsFruitBlocks();
+    void setLogBlock(World world, int x, int y, int z, ForgeDirection facing);
 
-	boolean trySpawnFruitBlock(World world, int x, int y, int z);
+    boolean allowsFruitBlocks();
 
-	ITreeGenome getGenome();
+    boolean trySpawnFruitBlock(World world, int x, int y, int z);
+
+    ITreeGenome getGenome();
 }

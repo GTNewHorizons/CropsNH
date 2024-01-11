@@ -14,12 +14,12 @@ import forestry.api.core.INBTTagable;
  */
 public interface IChromosome extends INBTTagable {
 
-	IAllele getPrimaryAllele();
+    IAllele getPrimaryAllele();
 
-	IAllele getSecondaryAllele();
+    IAllele getSecondaryAllele();
 
-	IAllele getInactiveAllele();
+    IAllele getInactiveAllele();
 
-	IAllele getActiveAllele();
+    IAllele getActiveAllele();
 
 }

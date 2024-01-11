@@ -5,33 +5,33 @@
  ******************************************************************************/
 package forestry.api.circuits;
 
+import java.util.Map;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.Map;
-
 public interface ICircuitRegistry {
 
-	/* CIRCUITS */
-	Map<String, ICircuit> getRegisteredCircuits();
+    /* CIRCUITS */
+    Map<String, ICircuit> getRegisteredCircuits();
 
-	void registerCircuit(ICircuit circuit);
+    void registerCircuit(ICircuit circuit);
 
-	ICircuit getCircuit(String uid);
+    ICircuit getCircuit(String uid);
 
-	ICircuitLibrary getCircuitLibrary(World world, String playername);
+    ICircuitLibrary getCircuitLibrary(World world, String playername);
 
-	/* LAYOUTS */
-	Map<String, ICircuitLayout> getRegisteredLayouts();
+    /* LAYOUTS */
+    Map<String, ICircuitLayout> getRegisteredLayouts();
 
-	void registerLayout(ICircuitLayout layout);
+    void registerLayout(ICircuitLayout layout);
 
-	ICircuitLayout getLayout(String uid);
+    ICircuitLayout getLayout(String uid);
 
-	ICircuitLayout getDefaultLayout();
+    ICircuitLayout getDefaultLayout();
 
-	ICircuitBoard getCircuitboard(ItemStack itemstack);
+    ICircuitBoard getCircuitboard(ItemStack itemstack);
 
-	boolean isChipset(ItemStack itemstack);
+    boolean isChipset(ItemStack itemstack);
 
 }

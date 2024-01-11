@@ -1,24 +1,25 @@
 package li.cil.oc.api.prefab;
 
-import li.cil.oc.api.nanomachines.Behavior;
-import li.cil.oc.api.nanomachines.DisableReason;
 import net.minecraft.entity.player.EntityPlayer;
 
+import li.cil.oc.api.nanomachines.Behavior;
+import li.cil.oc.api.nanomachines.DisableReason;
+
 /**
- * Base class for behaviors, mostly useful to have less cluttered classes when
- * you only need one or two of the methods in the interface.
+ * Base class for behaviors, mostly useful to have less cluttered classes when you only need one or two of the methods
+ * in the interface.
  * <p/>
  * This implementation will also store the player the behavior was created for.
  */
 public abstract class AbstractBehavior implements Behavior {
+
     /**
      * The player this behavior was created for.
      */
     public final EntityPlayer player;
 
     /**
-     * Pass along the player the behavior was created for here to have it stored
-     * for later use.
+     * Pass along the player the behavior was created for here to have it stored for later use.
      *
      * @param player the player the behavior was created for.
      */
@@ -39,14 +40,11 @@ public abstract class AbstractBehavior implements Behavior {
     }
 
     @Override
-    public void onEnable() {
-    }
+    public void onEnable() {}
 
     @Override
-    public void onDisable(DisableReason reason) {
-    }
+    public void onDisable(DisableReason reason) {}
 
     @Override
-    public void update() {
-    }
+    public void update() {}
 }

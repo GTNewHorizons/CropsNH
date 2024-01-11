@@ -1,7 +1,7 @@
 package com.gtnewhorizon.cropsnh.reference;
 
 /**
- *	A class containing the constants and default values used in the coding of the CropsNH mod.
+ * A class containing the constants and default values used in the coding of the CropsNH mod.
  */
 public final class Constants {
 
@@ -26,10 +26,9 @@ public final class Constants {
     public static final int THREE_QUARTER = QUARTER * 3;
 
     /**
-     * The value of 1/16 as represented in float form.
-     * Pre-calculated as to cut back on calculations.
+     * The value of 1/16 as represented in float form. Pre-calculated as to cut back on calculations.
      */
-    public static final float UNIT = 1 / (float)WHOLE;
+    public static final float UNIT = 1 / (float) WHOLE;
 
     /**
      * The representation of 1 bucket(b) in millibuckets(mB).
@@ -54,24 +53,21 @@ public final class Constants {
     public static final int MATURE = 7;
 
     /**
-     * An array of the possible growth tiers.
-     * Ranges from 0-5, with 0 containing the default value.
+     * An array of the possible growth tiers. Ranges from 0-5, with 0 containing the default value.
      */
-    public static final int[] GROWTH_TIER = {
-    		50, //Tier 0, a placeholder and default value.
-    		50, //Tier I
-    		45, //Tier II
-    		35, //Tier III
-    		25, //Tier VI
-    		20  //Tier V
-    	};
+    public static final int[] GROWTH_TIER = { 50, // Tier 0, a placeholder and default value.
+            50, // Tier I
+            45, // Tier II
+            35, // Tier III
+            25, // Tier VI
+            20 // Tier V
+    };
 
     /*
      * Default Plant Stats.
      */
     /**
-     * The default growth of the crop.
-     * Possibly unneeded, should be a GROWTH_TIER?
+     * The default growth of the crop. Possibly unneeded, should be a GROWTH_TIER?
      *
      * Growth = {@value}
      */
@@ -102,7 +98,7 @@ public final class Constants {
      */
     public static final float DEFAULT_MUTATION_CHANCE = 0.2F;
 
-    //constants for positioning item textures on the NEI recipe
+    // constants for positioning item textures on the NEI recipe
     public static final int nei_X_parent1 = 44;
     public static final int nei_X_parent2 = 106;
     public static final int nei_X_result = 75;

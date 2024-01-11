@@ -1,11 +1,13 @@
 package com.gtnewhorizon.cropsnh.container;
 
-import com.gtnewhorizon.cropsnh.tileentity.TileEntitySeedAnalyzer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class SlotSeedAnalyzerSeed extends Slot{
+import com.gtnewhorizon.cropsnh.tileentity.TileEntitySeedAnalyzer;
+
+public class SlotSeedAnalyzerSeed extends Slot {
+
     public SlotSeedAnalyzerSeed(IInventory inventory, int id, int x, int y) {
         super(inventory, id, x, y);
     }

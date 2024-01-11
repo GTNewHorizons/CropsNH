@@ -1,10 +1,12 @@
 package li.cil.oc.api.event;
 
-import cpw.mods.fml.common.eventhandler.Cancelable;
-import li.cil.oc.api.internal.Agent;
 import net.minecraft.world.World;
 
+import cpw.mods.fml.common.eventhandler.Cancelable;
+import li.cil.oc.api.internal.Agent;
+
 public abstract class RobotBreakBlockEvent extends RobotEvent {
+
     protected RobotBreakBlockEvent(Agent agent) {
         super(agent);
     }
@@ -16,6 +18,7 @@ public abstract class RobotBreakBlockEvent extends RobotEvent {
      */
     @Cancelable
     public static class Pre extends RobotBreakBlockEvent {
+
         /**
          * The world in which the block will be broken.
          */
@@ -43,8 +46,8 @@ public abstract class RobotBreakBlockEvent extends RobotEvent {
         /**
          * Sets the time it should take the robot to break the block.
          * <p/>
-         * Note that the robot will still break the block instantly, but the
-         * robot's execution is paused for the specified amount of time.
+         * Note that the robot will still break the block instantly, but the robot's execution is paused for the
+         * specified amount of time.
          *
          * @param breakTime the time in seconds the break operation takes.
          */
@@ -66,6 +69,7 @@ public abstract class RobotBreakBlockEvent extends RobotEvent {
      * Fired after a robot broke a block.
      */
     public static class Post extends RobotBreakBlockEvent {
+
         /**
          * The amount of experience the block that was broken generated (e.g. certain ores).
          */

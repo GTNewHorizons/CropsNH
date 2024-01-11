@@ -1,22 +1,23 @@
 package li.cil.oc.api.prefab;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.machine.Value;
-import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Basic implementation for the <tt>Value</tt> interface.
  */
 public class AbstractValue implements Value {
+
     @Override
     public Object apply(Context context, Arguments arguments) {
         return null;
     }
 
     @Override
-    public void unapply(Context context, Arguments arguments) {
-    }
+    public void unapply(Context context, Arguments arguments) {}
 
     @Override
     public Object[] call(Context context, Arguments arguments) {
@@ -24,14 +25,11 @@ public class AbstractValue implements Value {
     }
 
     @Override
-    public void dispose(Context context) {
-    }
+    public void dispose(Context context) {}
 
     @Override
-    public void load(NBTTagCompound nbt) {
-    }
+    public void load(NBTTagCompound nbt) {}
 
     @Override
-    public void save(NBTTagCompound nbt) {
-    }
+    public void save(NBTTagCompound nbt) {}
 }

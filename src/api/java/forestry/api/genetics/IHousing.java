@@ -12,6 +12,6 @@ import net.minecraft.util.ChunkCoordinates;
  */
 public interface IHousing {
 
-	ChunkCoordinates getCoordinates();
+    ChunkCoordinates getCoordinates();
 
 }

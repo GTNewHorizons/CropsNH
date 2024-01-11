@@ -1,13 +1,15 @@
 package com.gtnewhorizon.cropsnh.proxy;
 
-import cpw.mods.fml.server.FMLServerHandler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import cpw.mods.fml.server.FMLServerHandler;
+
 @SuppressWarnings("unused")
 public class ServerProxy extends CommonProxy {
+
     @Override
     public EntityPlayer getClientPlayer() {
         return null;
@@ -33,7 +35,9 @@ public class ServerProxy extends CommonProxy {
     public void hideItemInNEI(ItemStack stack) {}
 
     @Override
-    public void registerEventHandlers() {super.registerEventHandlers();}
+    public void registerEventHandlers() {
+        super.registerEventHandlers();
+    }
 
     @Override
     public int getRenderId(Block block) {

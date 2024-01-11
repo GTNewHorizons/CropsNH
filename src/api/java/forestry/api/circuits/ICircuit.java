@@ -8,23 +8,24 @@ package forestry.api.circuits;
 import java.util.List;
 
 public interface ICircuit {
-	String getUID();
 
-	boolean requiresDiscovery();
+    String getUID();
 
-	int getLimit();
+    boolean requiresDiscovery();
 
-	String getName();
+    int getLimit();
 
-	boolean isCircuitable(Object tile);
+    String getName();
 
-	void onInsertion(int slot, Object tile);
+    boolean isCircuitable(Object tile);
 
-	void onLoad(int slot, Object tile);
+    void onInsertion(int slot, Object tile);
 
-	void onRemoval(int slot, Object tile);
+    void onLoad(int slot, Object tile);
 
-	void onTick(int slot, Object tile);
+    void onRemoval(int slot, Object tile);
 
-	void addTooltip(List<String> list);
+    void onTick(int slot, Object tile);
+
+    void addTooltip(List<String> list);
 }

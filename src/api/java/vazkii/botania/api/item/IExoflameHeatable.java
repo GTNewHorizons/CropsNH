@@ -1,10 +1,8 @@
 /**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+ * This class was created by <Vazkii>. It's distributed as part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
+ * Botania is Open Source and distributed under the Botania License: http://botaniamod.net/license.php
  *
  * File Created @ [Aug 30, 2014, 4:28:29 PM (GMT)]
  */
@@ -15,29 +13,26 @@ package vazkii.botania.api.item;
  */
 public interface IExoflameHeatable {
 
-	/**
-	 * Can this TileEntity smelt its contents. If true, the Exoflame is allowed
-	 * to fuel it.
-	 */
+    /**
+     * Can this TileEntity smelt its contents. If true, the Exoflame is allowed to fuel it.
+     */
     boolean canSmelt();
 
-	/**
-	 * Gets the amount of ticks left for the fuel. If below 2, the exoflame
-	 * will call boostBurnTime.
-	 */
+    /**
+     * Gets the amount of ticks left for the fuel. If below 2, the exoflame will call boostBurnTime.
+     */
     int getBurnTime();
 
-	/**
-	 * Called to increase the amount of time this furnace should be burning
-	 * the fuel for. Even if it doesn't have any fuel.
-	 */
+    /**
+     * Called to increase the amount of time this furnace should be burning the fuel for. Even if it doesn't have any
+     * fuel.
+     */
     void boostBurnTime();
 
-	/**
-	 * Called once every two ticks to increase the speed of the furnace. Feel
-	 * free to not do anything if all you want is to allow the exoflame to feed
-	 * it, not make it faster.
-	 */
+    /**
+     * Called once every two ticks to increase the speed of the furnace. Feel free to not do anything if all you want is
+     * to allow the exoflame to feed it, not make it faster.
+     */
     void boostCookTime();
 
 }

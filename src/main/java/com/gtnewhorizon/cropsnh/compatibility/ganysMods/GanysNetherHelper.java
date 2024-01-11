@@ -1,26 +1,29 @@
 package com.gtnewhorizon.cropsnh.compatibility.ganysMods;
 
-import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.utility.LogHelper;
-import com.gtnewhorizon.cropsnh.utility.exception.DuplicateCropPlantException;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 
+import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
+import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
+import com.gtnewhorizon.cropsnh.utility.exception.DuplicateCropPlantException;
+
 public class GanysNetherHelper extends ModHelper {
+
     @Override
     protected void initPlants() {
         ItemSeeds seedGhost = (ItemSeeds) Item.itemRegistry.getObject("ganysnether:ghostSeeds");
         Item cropGhost = (Item) Item.itemRegistry.getObject("ganysnether:spectreWheatItem");
-        if(seedGhost != null && cropGhost != null) {
+        if (seedGhost != null && cropGhost != null) {
             Block plantGhost = seedGhost.getPlant(null, 0, 0, 0);
-            if(plantGhost != null) {
+            if (plantGhost != null) {
                 try {
-                    CropPlantHandler.registerPlant(new CropPlantGanysNether(seedGhost, plantGhost, new ItemStack(cropGhost), 0));
+                    CropPlantHandler.registerPlant(
+                            new CropPlantGanysNether(seedGhost, plantGhost, new ItemStack(cropGhost), 0));
                 } catch (DuplicateCropPlantException e) {
                     LogHelper.printStackTrace(e);
                 }
@@ -29,11 +32,16 @@ public class GanysNetherHelper extends ModHelper {
 
         ItemSeeds seedQuartzBerry = (ItemSeeds) Item.itemRegistry.getObject("ganysnether:quarzBerrySeeds");
         Item cropQuartzBerry = (Item) Item.itemRegistry.getObject("ganysnether:quarzBerry");
-        if(seedQuartzBerry != null && cropQuartzBerry != null) {
+        if (seedQuartzBerry != null && cropQuartzBerry != null) {
             Block plantQuartzBerry = seedQuartzBerry.getPlant(null, 0, 0, 0);
-            if(plantQuartzBerry != null) {
+            if (plantQuartzBerry != null) {
                 try {
-                    CropPlantHandler.registerPlant(new CropPlantGanysNether(seedQuartzBerry, plantQuartzBerry, new ItemStack(cropQuartzBerry), 1));
+                    CropPlantHandler.registerPlant(
+                            new CropPlantGanysNether(
+                                    seedQuartzBerry,
+                                    plantQuartzBerry,
+                                    new ItemStack(cropQuartzBerry),
+                                    1));
                 } catch (DuplicateCropPlantException e) {
                     LogHelper.printStackTrace(e);
                 }
@@ -42,11 +50,12 @@ public class GanysNetherHelper extends ModHelper {
 
         ItemSeeds seedHellBush = (ItemSeeds) Item.itemRegistry.getObject("ganysnether:hellBushSeeds");
         Item cropHellBush = (Item) Item.itemRegistry.getObject("ganysnether:lavaBerry");
-        if(seedHellBush != null && cropHellBush != null) {
+        if (seedHellBush != null && cropHellBush != null) {
             Block plantHellBush = seedHellBush.getPlant(null, 0, 0, 0);
-            if(plantHellBush != null) {
+            if (plantHellBush != null) {
                 try {
-                    CropPlantHandler.registerPlant(new CropPlantGanysNether(seedHellBush, plantHellBush, new ItemStack(cropHellBush), 1));
+                    CropPlantHandler.registerPlant(
+                            new CropPlantGanysNether(seedHellBush, plantHellBush, new ItemStack(cropHellBush), 1));
                 } catch (DuplicateCropPlantException e) {
                     LogHelper.printStackTrace(e);
                 }
@@ -54,11 +63,12 @@ public class GanysNetherHelper extends ModHelper {
         }
 
         ItemSeeds seedWither = (ItemSeeds) Item.itemRegistry.getObject("ganysnether:witherShrubSeeds");
-        if(seedWither != null) {
+        if (seedWither != null) {
             Block plantWither = seedWither.getPlant(null, 0, 0, 0);
-            if(plantWither != null) {
+            if (plantWither != null) {
                 try {
-                    CropPlantHandler.registerPlant(new CropPlantGanysNether(seedWither, plantWither, new ItemStack(Items.skull, 1, 1), 2));
+                    CropPlantHandler.registerPlant(
+                            new CropPlantGanysNether(seedWither, plantWither, new ItemStack(Items.skull, 1, 1), 2));
                 } catch (DuplicateCropPlantException e) {
                     LogHelper.printStackTrace(e);
                 }

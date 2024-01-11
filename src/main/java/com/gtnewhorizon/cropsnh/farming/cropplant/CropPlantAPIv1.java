@@ -1,12 +1,8 @@
 package com.gtnewhorizon.cropsnh.farming.cropplant;
 
-import com.gtnewhorizon.cropsnh.api.v1.IAdditionalCropData;
-import com.gtnewhorizon.cropsnh.api.v1.ICrop;
-import com.gtnewhorizon.cropsnh.api.v1.ICropPlant;
-import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
-import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,10 +12,17 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.api.v1.IAdditionalCropData;
+import com.gtnewhorizon.cropsnh.api.v1.ICrop;
+import com.gtnewhorizon.cropsnh.api.v1.ICropPlant;
+import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class CropPlantAPIv1 extends CropPlant implements ICropPlant {
+
     protected ICropPlant plant;
 
     public CropPlantAPIv1(ICropPlant plant) {
@@ -58,7 +61,6 @@ public class CropPlantAPIv1 extends CropPlant implements ICropPlant {
         return plant.getFruitsOnHarvest(gain, rand);
     }
 
-
     @Override
     public boolean canBonemeal() {
         return plant.canBonemeal();
@@ -89,10 +91,17 @@ public class CropPlantAPIv1 extends CropPlant implements ICropPlant {
 
     @SideOnly(Side.CLIENT)
     public void renderPlantInCrop(IBlockAccess world, int x, int y, int z, RenderBlocks renderer) {
-        if(plant.overrideRendering()) {
+        if (plant.overrideRendering()) {
             plant.renderPlantInCrop(world, x, y, z, renderer);
         } else {
-            PlantRenderer.renderPlantLayer(world, x, y, z, renderAsFlower() ? 1 : 6, getPlantIcon(world.getBlockMetadata(x, y, z)), 0);
+            PlantRenderer.renderPlantLayer(
+                    world,
+                    x,
+                    y,
+                    z,
+                    renderAsFlower() ? 1 : 6,
+                    getPlantIcon(world.getBlockMetadata(x, y, z)),
+                    0);
         }
     }
 
@@ -103,7 +112,8 @@ public class CropPlantAPIv1 extends CropPlant implements ICropPlant {
 
     @Override
     public IAdditionalCropData readCropDataFromNBT(NBTTagCompound tag) {
-        return ((ICropPlant) plant).readCropDataFromNBT(tag);}
+        return ((ICropPlant) plant).readCropDataFromNBT(tag);
+    }
 
     @Override
     public IGrowthRequirement initGrowthRequirement() {
@@ -117,11 +127,14 @@ public class CropPlantAPIv1 extends CropPlant implements ICropPlant {
 
     @Override
     public void onInvalidate(World world, int x, int y, int z, ICrop crop) {
-        ((ICropPlant) plant).onInvalidate(world, x, y, z, crop);}
+        ((ICropPlant) plant).onInvalidate(world, x, y, z, crop);
+    }
 
     @Override
     public void onChunkUnload(World world, int x, int y, int z, ICrop crop) {
-        ((ICropPlant) plant).onChunkUnload(world, x, y, z, crop);}
+        ((ICropPlant) plant).onChunkUnload(world, x, y, z, crop);
+    }
+
     @Override
     public boolean onHarvest(World world, int x, int y, int z, ICrop crop, EntityPlayer player) {
         return ((ICropPlant) plant).onHarvest(world, x, y, z, crop, player);

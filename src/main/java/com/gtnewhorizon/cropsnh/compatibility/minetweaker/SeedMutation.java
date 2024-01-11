@@ -1,20 +1,21 @@
 package com.gtnewhorizon.cropsnh.compatibility.minetweaker;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.api.v1.IMutation;
 import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
 import com.gtnewhorizon.cropsnh.farming.mutation.Mutation;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationHandler;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
-import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 @ZenClass("mods.cropsnh.SeedMutation")
 public class SeedMutation {
@@ -25,11 +26,13 @@ public class SeedMutation {
         ItemStack parent1ToAdd = MineTweakerMC.getItemStack(parent1);
         ItemStack parent2ToAdd = MineTweakerMC.getItemStack(parent2);
 
-        if (CropPlantHandler.isValidSeed(resultToAdd) && CropPlantHandler.isValidSeed(parent1ToAdd) && CropPlantHandler.isValidSeed(parent2ToAdd)) {
+        if (CropPlantHandler.isValidSeed(resultToAdd) && CropPlantHandler.isValidSeed(parent1ToAdd)
+                && CropPlantHandler.isValidSeed(parent2ToAdd)) {
             MineTweakerAPI.apply(new AddAction(resultToAdd, parent1ToAdd, parent2ToAdd));
         } else {
-            MineTweakerAPI.logError("Adding mutation with result '" + resultToAdd.getDisplayName()
-                    + "' failed. All 3 have to be of type ItemSeeds.");
+            MineTweakerAPI.logError(
+                    "Adding mutation with result '" + resultToAdd.getDisplayName()
+                            + "' failed. All 3 have to be of type ItemSeeds.");
         }
     }
 

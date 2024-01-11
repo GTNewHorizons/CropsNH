@@ -5,29 +5,30 @@
  ******************************************************************************/
 package forestry.api.apiculture.hives;
 
-import forestry.api.apiculture.IHiveDrop;
-
 import java.util.List;
+
+import forestry.api.apiculture.IHiveDrop;
 
 public interface IHiveRegistry {
 
-	/* Forestry Hive Names */
+    /* Forestry Hive Names */
     String forest = "Forestry:forest";
-	String meadows = "Forestry:meadows";
-	String desert = "Forestry:desert";
-	String jungle = "Forestry:jungle";
-	String end = "Forestry:end";
-	String snow = "Forestry:snow";
-	String swamp = "Forestry:swamp";
+    String meadows = "Forestry:meadows";
+    String desert = "Forestry:desert";
+    String jungle = "Forestry:jungle";
+    String end = "Forestry:end";
+    String snow = "Forestry:snow";
+    String swamp = "Forestry:swamp";
 
-	/**
-	 * Adds a new hive to be generated in the world.
-	 */
-	void registerHive(String hiveName, IHiveDescription hiveDescription);
+    /**
+     * Adds a new hive to be generated in the world.
+     */
+    void registerHive(String hiveName, IHiveDescription hiveDescription);
 
-	/**
-	 * Add drops to a registered hive.
-	 */
-	void addDrops(String hiveName, IHiveDrop... drops);
-	void addDrops(String hiveName, List<IHiveDrop> drop);
+    /**
+     * Add drops to a registered hive.
+     */
+    void addDrops(String hiveName, IHiveDrop... drops);
+
+    void addDrops(String hiveName, List<IHiveDrop> drop);
 }

@@ -1,8 +1,8 @@
 package com.gtnewhorizon.cropsnh.api.v1;
 
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,13 +12,16 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public interface ICropPlant {
+
     /**
-     * This method returns the default tier of this plant, tiers can be overridden with the configs.
-     * This should be in the interval [1, 5].
+     * This method returns the default tier of this plant, tiers can be overridden with the configs. This should be in
+     * the interval [1, 5].
      *
      * @return the default tier
      */
@@ -37,8 +40,7 @@ public interface ICropPlant {
     Block getBlock();
 
     /**
-     * This method should return all possible fruits for this crop.
-     * It is used for the NEI handler and the journal
+     * This method should return all possible fruits for this crop. It is used for the NEI handler and the journal
      *
      * @return an ArrayList holding all possible fruit drops for this crop, regardless of its stats
      */
@@ -53,8 +55,8 @@ public interface ICropPlant {
     ItemStack getRandomFruit(Random rand);
 
     /**
-     * This method is called to determine the fruit drops when this plant is harvested.
-     * All ItemStacks passed in the ArrayList will be dropped in the world.
+     * This method is called to determine the fruit drops when this plant is harvested. All ItemStacks passed in the
+     * ArrayList will be dropped in the world.
      *
      * @param gain the gain level of the crop harvested
      * @param rand a Random object
@@ -62,13 +64,12 @@ public interface ICropPlant {
      */
     ArrayList<ItemStack> getFruitsOnHarvest(int gain, Random rand);
 
-
     /**
-     * This method is called when this crop is harvested, but before any default CropsNH harvest logic has been executed.
-     * It can be used as a notification to keep track of when one of your crops is harvested.
-     * It can also be used to override CropsNH's harvesting behaviour.
-     * By returning false from this method, you prevent CropsNH from doing any further harvesting operations, effectively cancelling the harvest,
-     * you will then need to perform your own custom operations in this method.
+     * This method is called when this crop is harvested, but before any default CropsNH harvest logic has been
+     * executed. It can be used as a notification to keep track of when one of your crops is harvested. It can also be
+     * used to override CropsNH's harvesting behaviour. By returning false from this method, you prevent CropsNH from
+     * doing any further harvesting operations, effectively cancelling the harvest, you will then need to perform your
+     * own custom operations in this method.
      *
      * @param world  the World object for the crop
      * @param x      the x coordinate for the crop
@@ -81,8 +82,8 @@ public interface ICropPlant {
     boolean onHarvest(World world, int x, int y, int z, ICrop crop, EntityPlayer player);
 
     /**
-     * This method is called when the seed for this crop is planted on a crop.
-     * This can happen when the seed is planted, spread from a neighbour or mutated from two parents
+     * This method is called when the seed for this crop is planted on a crop. This can happen when the seed is planted,
+     * spread from a neighbour or mutated from two parents
      *
      * @param world the world object
      * @param x     the x coordinate
@@ -104,15 +105,16 @@ public interface ICropPlant {
     void onPlantRemoved(World world, int x, int y, int z, ICrop crop);
 
     /**
-     * This method determines if bonemeal may be applied to this crop
-     * By default, CropsNH does not allow bonemeal on crops higher than tier 3
+     * This method determines if bonemeal may be applied to this crop By default, CropsNH does not allow bonemeal on
+     * crops higher than tier 3
      *
      * @return if bonemeal may be applied to this plant
      */
     boolean canBonemeal();
 
     /**
-     * If you want your crop to have additional data, this is called when the plant is first applied to crop sticks, either trough planting, spreading or mutation
+     * If you want your crop to have additional data, this is called when the plant is first applied to crop sticks,
+     * either trough planting, spreading or mutation
      *
      * @param world the world object for the crop
      * @param x     the x-coordinate
@@ -121,10 +123,12 @@ public interface ICropPlant {
      * @param crop  the crop where this plant is planted on
      * @return initial IAdditionalCropData object (can be null if you don't need additional data)
      */
-    IAdditionalCropData getInitialCropData(World world, int x, int y, int z, com.gtnewhorizon.cropsnh.api.v1.ICrop crop);
+    IAdditionalCropData getInitialCropData(World world, int x, int y, int z,
+            com.gtnewhorizon.cropsnh.api.v1.ICrop crop);
 
     /**
-     * If this CropPlant should track additional data, this method will be called when the crop containing such a CropPlant is reading from NBT
+     * If this CropPlant should track additional data, this method will be called when the crop containing such a
+     * CropPlant is reading from NBT
      *
      * @param tag the same tag returned from the IAdditionalCropData.writeToNBT() method
      * @return an object holding the data
@@ -165,24 +169,26 @@ public interface ICropPlant {
     void onChunkUnload(World world, int x, int y, int z, ICrop crop);
 
     /**
-     * Gets the growth requirement for this plant, this is used to check if the plant can be planted or grow in certain locations
+     * Gets the growth requirement for this plant, this is used to check if the plant can be planted or grow in certain
+     * locations
      * <p>
-     * If you don't want to create your own class for this, you can use APIv1.getGrowthRequirementBuilder() to get a Builder object to build IGrowthRequirements
-     * If you just want to have vanilla crop behaviour, you can use APIv1.getDefaultGrowthRequirement() to get a growth requirement with default behaviour
+     * If you don't want to create your own class for this, you can use APIv1.getGrowthRequirementBuilder() to get a
+     * Builder object to build IGrowthRequirements If you just want to have vanilla crop behaviour, you can use
+     * APIv1.getDefaultGrowthRequirement() to get a growth requirement with default behaviour
      */
     IGrowthRequirement getGrowthRequirement();
 
     /**
-     * Deprecated, use the method below which also passes the ICrop object.
-     * This way you don't need to retrieve the TileEntity from the world and coordinates which slows the method down
+     * Deprecated, use the method below which also passes the ICrop object. This way you don't need to retrieve the
+     * TileEntity from the world and coordinates which slows the method down
      */
     @Deprecated
     boolean onAllowedGrowthTick(World world, int x, int y, int z, int oldGrowthStage);
 
     /**
      * This is called when a growth tick has been allowed. At this point the growth tick can no longer be cancelled
-     * Returning true from this method will make the crop being rendered again client side.
-     * Return false if the new growth stage has the same icon as the old growth stage.
+     * Returning true from this method will make the crop being rendered again client side. Return false if the new
+     * growth stage has the same icon as the old growth stage.
      *
      * @param world          the World object
      * @param x              the x coordinate
@@ -206,8 +212,8 @@ public interface ICropPlant {
     boolean isMature(IBlockAccess world, int x, int y, int z);
 
     /**
-     * This gets the height of the crop, this is used to render the bounding boxes client side.
-     * In CropsNH, for default, 1-block tall crops this is 13/16th of a block
+     * This gets the height of the crop, this is used to render the bounding boxes client side. In CropsNH, for default,
+     * 1-block tall crops this is 13/16th of a block
      *
      * @param meta the growth stage of the plant
      * @return the height for the bounding box
@@ -223,31 +229,32 @@ public interface ICropPlant {
     IIcon getPlantIcon(int growthStage);
 
     /**
-     * Determines how the plant is rendered.
-     * Returning true will render the texture as four crosses ('x') on each corner, similar to flowers.
-     * Returning false will render the texture as a hash tag ('#') parallel to each side, similar to wheat
+     * Determines how the plant is rendered. Returning true will render the texture as four crosses ('x') on each
+     * corner, similar to flowers. Returning false will render the texture as a hash tag ('#') parallel to each side,
+     * similar to wheat
      *
      * @return false to render the plant in a hash tag shape, true for a cross shape.
      */
     boolean renderAsFlower();
 
     /**
-     * Retrieves information about the plant for the seed journal.
-     * It's possible to pass an unlocalized String, the returned value will be localized if possible.
+     * Retrieves information about the plant for the seed journal. It's possible to pass an unlocalized String, the
+     * returned value will be localized if possible.
      *
      * @return a string describing the plant for use by the seed journal.
      */
     String getInformation();
 
     /**
-     * Return true if you want to render the plant yourself, else cropsnh will render the plant based on the data returned by the getIcon and renderAsFlower methods
+     * Return true if you want to render the plant yourself, else cropsnh will render the plant based on the data
+     * returned by the getIcon and renderAsFlower methods
      */
     @SideOnly(Side.CLIENT)
     boolean overrideRendering();
 
     /**
-     * A function to render the crop. Called when the plant is rendered.
-     * This is never called when returning false from overrideRendering()
+     * A function to render the crop. Called when the plant is rendered. This is never called when returning false from
+     * overrideRendering()
      *
      * @param world    the world the plant is in.
      * @param x        the x coordinate of the plant.
@@ -258,13 +265,12 @@ public interface ICropPlant {
     @SideOnly(Side.CLIENT)
     void renderPlantInCrop(IBlockAccess world, int x, int y, int z, RenderBlocks renderer);
 
-
     /**
      *
      *
-     * These methods are here for reading purpose only,
-     * These methods will never be called in your implementation of this interface,
-     * Their behaviour is handled by CropsNH, the configuration file and the implementation of the above methods.
+     * These methods are here for reading purpose only, These methods will never be called in your implementation of
+     * this interface, Their behaviour is handled by CropsNH, the configuration file and the implementation of the above
+     * methods.
      *
      *
      */
@@ -275,8 +281,8 @@ public interface ICropPlant {
     int getGrowthRate();
 
     /**
-     * Returns the tier of the seed as represented as an integer value, or the overriding value.
-     * The overriding value may be set in the configuration files.
+     * Returns the tier of the seed as represented as an integer value, or the overriding value. The overriding value
+     * may be set in the configuration files.
      * <p>
      * Does not always have same output as {@link #tier()}.
      * <p>
@@ -314,16 +320,16 @@ public interface ICropPlant {
     void setBlackListStatus(boolean status);
 
     /**
-     * Checks if this plant ignores the rule to disabled vanilla planting
-     * true means that the seed for this plant can still be planted even though vanilla planting is disabled
+     * Checks if this plant ignores the rule to disabled vanilla planting true means that the seed for this plant can
+     * still be planted even though vanilla planting is disabled
      *
      * @return if this ignores the vanilla planting rule or not
      */
     boolean ignoresVanillaPlantingRule();
 
     /**
-     * Sets if this plant should ignore the rule to disabled vanilla planting
-     * true means that the seed for this plant can still be planted even though vanilla planting is disabled
+     * Sets if this plant should ignore the rule to disabled vanilla planting true means that the seed for this plant
+     * can still be planted even though vanilla planting is disabled
      *
      * @param value if this ignores the vanilla planting rule or not
      */

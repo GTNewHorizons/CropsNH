@@ -10,6 +10,6 @@ package forestry.api.genetics;
  */
 public interface IAlleleFloat extends IAllele {
 
-	float getValue();
+    float getValue();
 
 }

@@ -6,11 +6,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public final class WorldCoordinates {
+
     private final int x;
     private final int y;
     private final int z;
 
-    public WorldCoordinates(int x,  int y,  int z) {
+    public WorldCoordinates(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -45,15 +46,15 @@ public final class WorldCoordinates {
     }
 
     public WorldCoordinates getNeighbour(ForgeDirection dir) {
-        if(dir == ForgeDirection.UNKNOWN) {
+        if (dir == ForgeDirection.UNKNOWN) {
             return this;
         }
-        return new WorldCoordinates(x()+dir.offsetX, y()+dir.offsetY, z()+dir.offsetZ);
+        return new WorldCoordinates(x() + dir.offsetX, y() + dir.offsetY, z() + dir.offsetZ);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof WorldCoordinates) {
+        if (obj instanceof WorldCoordinates) {
             WorldCoordinates coords = (WorldCoordinates) obj;
             return coords.x() == this.x() && coords.y() == this.y() && coords.z() == this.z();
         }

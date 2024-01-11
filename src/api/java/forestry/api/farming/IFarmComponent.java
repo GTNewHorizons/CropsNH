@@ -10,18 +10,21 @@ package forestry.api.farming;
  */
 public interface IFarmComponent {
 
-	/**
-	 * Implemented by farm parts to apply a farmListener to the completed structure.
-	 */
-	interface Listener extends IFarmComponent {
-		IFarmListener getFarmListener();
-	}
+    /**
+     * Implemented by farm parts to apply a farmListener to the completed structure.
+     */
+    interface Listener extends IFarmComponent {
 
-	/**
-	 * Implemented by farm parts to receive ticks from the completed structure.
-	 */
-	interface Active extends IFarmComponent {
-		void updateServer(int tickCount);
-		void updateClient(int tickCount);
-	}
+        IFarmListener getFarmListener();
+    }
+
+    /**
+     * Implemented by farm parts to receive ticks from the completed structure.
+     */
+    interface Active extends IFarmComponent {
+
+        void updateServer(int tickCount);
+
+        void updateClient(int tickCount);
+    }
 }

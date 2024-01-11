@@ -1,19 +1,20 @@
 package com.gtnewhorizon.cropsnh.compatibility.minetweaker;
 
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.ItemStack;
 
 import com.google.common.base.Joiner;
 import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
-import net.minecraft.item.ItemSeeds;
-import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import java.util.Arrays;
-import java.util.List;
 
 @ZenClass("mods.cropsnh.SeedBlacklist")
 public class SeedBlacklist {
@@ -23,23 +24,21 @@ public class SeedBlacklist {
         add(new IItemStack[] { seed });
     }
 
-
     @ZenMethod
     public static void add(IItemStack[] seeds) {
         ItemStack[] seedsToAdd = MineTweakerMC.getItemStacks(seeds);
         if (areValidSeeds(seedsToAdd)) {
             MineTweakerAPI.apply(new AddAction(seedsToAdd));
         } else {
-            MineTweakerAPI.logError("Error adding seeds to the blacklist. All provided items must be of type ItemSeeds.");
+            MineTweakerAPI
+                    .logError("Error adding seeds to the blacklist. All provided items must be of type ItemSeeds.");
         }
     }
-
 
     @ZenMethod
     public static void remove(IItemStack seed) {
         remove(new IItemStack[] { seed });
     }
-
 
     @ZenMethod
     public static void remove(IItemStack[] seeds) {
@@ -47,10 +46,10 @@ public class SeedBlacklist {
         if (areValidSeeds(seedsToRemove)) {
             MineTweakerAPI.apply(new RemoveAction(seedsToRemove));
         } else {
-            MineTweakerAPI.logError("Error removing seeds from the blacklist. All provided items must be of type ItemSeeds.");
+            MineTweakerAPI
+                    .logError("Error removing seeds from the blacklist. All provided items must be of type ItemSeeds.");
         }
     }
-
 
     /** @return False, if one of the provided ItemStacks is not of type ItemSeeds, true otherwise */
     private static boolean areValidSeeds(ItemStack[] seeds) {
@@ -61,7 +60,6 @@ public class SeedBlacklist {
         }
         return true;
     }
-
 
     private static class AddAction implements IUndoableAction {
 
@@ -101,7 +99,6 @@ public class SeedBlacklist {
             return null;
         }
     }
-
 
     private static class RemoveAction implements IUndoableAction {
 

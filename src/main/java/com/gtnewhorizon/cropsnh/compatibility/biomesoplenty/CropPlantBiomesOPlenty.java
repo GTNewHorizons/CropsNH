@@ -1,22 +1,25 @@
 package com.gtnewhorizon.cropsnh.compatibility.biomesoplenty;
 
-import com.gtnewhorizon.cropsnh.api.v1.ICrop;
-import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
-import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.api.v1.ICrop;
+import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
+import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class CropPlantBiomesOPlenty extends CropPlant {
+
     private final Item seed;
     private final ItemStack fruit;
     private final Block plant;
@@ -42,7 +45,6 @@ public class CropPlantBiomesOPlenty extends CropPlant {
         return plant;
     }
 
-
     @Override
     public ArrayList<ItemStack> getAllFruits() {
         ArrayList<ItemStack> fruits = new ArrayList<>();
@@ -53,7 +55,7 @@ public class CropPlantBiomesOPlenty extends CropPlant {
     @Override
     public ItemStack getRandomFruit(Random rand) {
         ArrayList<ItemStack> list = getAllFruits();
-        if(list!=null && list.size()>0) {
+        if (list != null && list.size() > 0) {
             return list.get(rand.nextInt(list.size())).copy();
         }
         return null;
@@ -63,7 +65,7 @@ public class CropPlantBiomesOPlenty extends CropPlant {
     public ArrayList<ItemStack> getFruitsOnHarvest(int gain, Random rand) {
         int amount = (int) (Math.ceil((gain + 0.00) / 3));
         ArrayList<ItemStack> list = new ArrayList<>();
-        while(amount>0) {
+        while (amount > 0) {
             list.add(getRandomFruit(rand));
             amount--;
         }
@@ -87,7 +89,7 @@ public class CropPlantBiomesOPlenty extends CropPlant {
     @Override
     @SideOnly(Side.CLIENT)
     public float getHeight(int meta) {
-        return Constants.UNIT*13;
+        return Constants.UNIT * 13;
     }
 
     @Override
@@ -103,6 +105,7 @@ public class CropPlantBiomesOPlenty extends CropPlant {
 
     @Override
     public String getInformation() {
-        return "cropsnh_journal.BoP_"+plant.getUnlocalizedName().substring(plant.getUnlocalizedName().indexOf('.')+1);
+        return "cropsnh_journal.BoP_"
+                + plant.getUnlocalizedName().substring(plant.getUnlocalizedName().indexOf('.') + 1);
     }
 }

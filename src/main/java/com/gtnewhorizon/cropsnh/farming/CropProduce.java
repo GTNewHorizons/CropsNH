@@ -1,17 +1,18 @@
 package com.gtnewhorizon.cropsnh.farming;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.item.ItemStack;
+
 public class CropProduce {
+
     public static final int DEFAULT_WEIGHT = 100;
     private final ArrayList<Product> products = new ArrayList<>();
     private int totalWeight;
 
     public void addProduce(ItemStack stack) {
-        if(stack==null || stack.getItem()==null) {
+        if (stack == null || stack.getItem() == null) {
             return;
         }
         this.addProduce(stack, DEFAULT_WEIGHT);
@@ -30,7 +31,7 @@ public class CropProduce {
     }
 
     public void addProduce(ItemStack stack, int weight, int minGain, boolean overwrite) {
-        if(overwrite) {
+        if (overwrite) {
             this.removeProduce(stack);
         }
         this.products.add(new Product(stack, weight, minGain));
@@ -42,9 +43,9 @@ public class CropProduce {
     }
 
     public void removeProduce(ItemStack stack) {
-        for(int i=0;i<products.size();i++) {
+        for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
-            if(product.product.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(stack, product.product)) {
+            if (product.product.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(stack, product.product)) {
                 totalWeight = totalWeight - product.weight;
                 products.remove(i);
             }
@@ -53,9 +54,9 @@ public class CropProduce {
 
     public ArrayList<ItemStack> getProduce(int amount, Random rand) {
         ArrayList<ItemStack> results = new ArrayList<>();
-        while(amount>0) {
-            double stop = rand.nextDouble()*this.totalWeight;
-            for (Product product:this.products) {
+        while (amount > 0) {
+            double stop = rand.nextDouble() * this.totalWeight;
+            for (Product product : this.products) {
                 stop = stop - product.weight;
                 if (stop <= 0) {
                     results.add(product.product.copy());
@@ -69,7 +70,7 @@ public class CropProduce {
 
     public ArrayList<ItemStack> getAllProducts() {
         ArrayList<ItemStack> fruits = new ArrayList<>();
-        for(Product product:this.products) {
+        for (Product product : this.products) {
             fruits.add(product.product.copy());
         }
         return fruits;
@@ -77,7 +78,7 @@ public class CropProduce {
 
     public int getWeight(ItemStack stack) {
         int weight = 0;
-        for (Product product:products) {
+        for (Product product : products) {
             if (product.product.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(stack, product.product)) {
                 weight = product.weight;
                 break;
@@ -86,9 +87,9 @@ public class CropProduce {
         return weight;
     }
 
-
     // Something funny is going on here.
     private static class Product {
+
         protected ItemStack product;
         protected int weight;
         protected int minGain;

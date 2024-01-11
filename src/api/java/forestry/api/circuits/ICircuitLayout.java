@@ -7,10 +7,10 @@ package forestry.api.circuits;
 
 public interface ICircuitLayout {
 
-	String getUID();
+    String getUID();
 
-	String getName();
+    String getName();
 
-	String getUsage();
+    String getUsage();
 
 }

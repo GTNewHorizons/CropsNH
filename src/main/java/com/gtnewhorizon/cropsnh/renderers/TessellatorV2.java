@@ -1,17 +1,21 @@
 package com.gtnewhorizon.cropsnh.renderers;
 
-import com.gtnewhorizon.cropsnh.utility.TransformationMatrix;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.shader.TesselatorVertexState;
 
+import com.gtnewhorizon.cropsnh.utility.TransformationMatrix;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
- * Note that this class isn't used by vanilla minecraft, the matrix operations done by this class will be ignored by the calls made by vanilla to the Tessellator
- * I chose not to replace the vanilla Tessellator.instance field with this one for obvious reasons.
+ * Note that this class isn't used by vanilla minecraft, the matrix operations done by this class will be ignored by the
+ * calls made by vanilla to the Tessellator I chose not to replace the vanilla Tessellator.instance field with this one
+ * for obvious reasons.
  */
 @SideOnly(Side.CLIENT)
 public class TessellatorV2 extends Tessellator {
+
     public static final TessellatorV2 instance = new TessellatorV2(2097152);
     private static final Tessellator tessellator = Tessellator.instance;
 
@@ -24,9 +28,9 @@ public class TessellatorV2 extends Tessellator {
         instance.defaultTexture = true;
     }
 
-    //---------------------------------------------
-    //methods requiring some linear transformations
-    //---------------------------------------------
+    // ---------------------------------------------
+    // methods requiring some linear transformations
+    // ---------------------------------------------
 
     /**
      * Adds a vertex specifying both x,y,z and the texture u,v for it.
@@ -64,14 +68,14 @@ public class TessellatorV2 extends Tessellator {
     }
 
     /**
-     *  Sets the rotation relative to the absolute coordinates
+     * Sets the rotation relative to the absolute coordinates
      */
     public void setRotation(double angle, double x, double y, double z) {
         this.matrix.setRotation(angle, x, y, z);
     }
 
     /**
-     *  Rotates around the current coordinate system
+     * Rotates around the current coordinate system
      */
     public void addRotation(double angle, double x, double y, double z) {
         this.matrix.multiplyRightWith(new TransformationMatrix(angle, x, y, z));
@@ -91,9 +95,9 @@ public class TessellatorV2 extends Tessellator {
         return this.matrix;
     }
 
-    //---------------
-    //other overrides
-    //---------------
+    // ---------------
+    // other overrides
+    // ---------------
     @Override
     public int draw() {
         return tessellator.draw();

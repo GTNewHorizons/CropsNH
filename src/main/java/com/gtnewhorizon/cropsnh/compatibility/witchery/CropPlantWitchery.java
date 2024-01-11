@@ -1,12 +1,15 @@
 package com.gtnewhorizon.cropsnh.compatibility.witchery;
 
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantGeneric;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeeds;
 
+import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantGeneric;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class CropPlantWitchery extends CropPlantGeneric {
+
     protected static final Item BELLADONNA_SEED = (Item) Item.itemRegistry.getObject("witchery:seedsbelladonna");
     private final int tier;
 
@@ -32,22 +35,22 @@ public class CropPlantWitchery extends CropPlantGeneric {
 
     @Override
     public int transformMeta(int growthStage) {
-        return growthStage==7?4:(int) (((float) growthStage)/2.0F);
+        return growthStage == 7 ? 4 : (int) (((float) growthStage) / 2.0F);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean renderAsFlower() {
-        return getSeed().getItem()!= BELLADONNA_SEED;
+        return getSeed().getItem() != BELLADONNA_SEED;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public String getInformation() {
         String name = getSeed().getUnlocalizedName();
-        name = name.substring(name.indexOf(':')+1);
+        name = name.substring(name.indexOf(':') + 1);
         int index = name.indexOf("seeds");
-        name = index<0?name:name.substring(index+"seeds".length());
-        return "cropsnh_journal.wi_"+Character.toUpperCase(name.charAt(0))+name.substring(1);
+        name = index < 0 ? name : name.substring(index + "seeds".length());
+        return "cropsnh_journal.wi_" + Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
 }

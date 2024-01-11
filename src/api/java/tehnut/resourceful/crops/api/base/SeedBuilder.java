@@ -3,8 +3,7 @@ package tehnut.resourceful.crops.api.base;
 import java.awt.Color;
 
 /**
- * Factory for creating Seeds/Crops/Shards.
- * Documentation for each field can be found in {@link Seed}
+ * Factory for creating Seeds/Crops/Shards. Documentation for each field can be found in {@link Seed}
  */
 public class SeedBuilder {
 
@@ -31,20 +30,15 @@ public class SeedBuilder {
     }
 
     public SeedBuilder setTier(int tier) {
-        if (tier > 4)
-            this.tier = 4;
-        else if (tier < 1)
-            this.tier = 1;
-        else
-            this.tier = tier;
+        if (tier > 4) this.tier = 4;
+        else if (tier < 1) this.tier = 1;
+        else this.tier = tier;
         return this;
     }
 
     public SeedBuilder setAmount(int amount) {
-        if (amount > 64)
-            this.amount = 64;
-        else
-            this.amount = amount;
+        if (amount > 64) this.amount = 64;
+        else this.amount = amount;
         return this;
     }
 
@@ -94,6 +88,18 @@ public class SeedBuilder {
     }
 
     public Seed build() {
-        return new Seed(name, tier, amount, input, output, secondOutput, thirdOutput, color, seedReq, chance, compatSeed, compat);
+        return new Seed(
+                name,
+                tier,
+                amount,
+                input,
+                output,
+                secondOutput,
+                thirdOutput,
+                color,
+                seedReq,
+                chance,
+                compatSeed,
+                compat);
     }
 }

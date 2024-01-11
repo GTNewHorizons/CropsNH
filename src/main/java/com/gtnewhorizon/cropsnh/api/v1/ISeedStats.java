@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.api.v1;
 
 public interface ISeedStats {
+
     /**
      * @return The growth value of the seed.
      */

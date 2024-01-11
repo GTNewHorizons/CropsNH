@@ -5,10 +5,11 @@
  ******************************************************************************/
 package forestry.api.core;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  *
@@ -16,18 +17,18 @@ import net.minecraft.util.IIcon;
  */
 public interface IErrorState {
 
-	short getID();
+    short getID();
 
-	String getUniqueName();
+    String getUniqueName();
 
-	String getDescription();
+    String getDescription();
 
-	String getHelp();
+    String getHelp();
 
-	@SideOnly(Side.CLIENT)
-	void registerIcons(IIconRegister register);
+    @SideOnly(Side.CLIENT)
+    void registerIcons(IIconRegister register);
 
-	@SideOnly(value = Side.CLIENT)
-	IIcon getIcon();
+    @SideOnly(value = Side.CLIENT)
+    IIcon getIcon();
 
 }

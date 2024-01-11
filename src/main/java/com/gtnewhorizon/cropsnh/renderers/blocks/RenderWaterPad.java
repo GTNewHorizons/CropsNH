@@ -1,10 +1,5 @@
 package com.gtnewhorizon.cropsnh.renderers.blocks;
 
-import com.gtnewhorizon.cropsnh.blocks.BlockWaterPad;
-import com.gtnewhorizon.cropsnh.blocks.BlockWaterPadFull;
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -15,10 +10,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
+
+import com.gtnewhorizon.cropsnh.blocks.BlockWaterPad;
+import com.gtnewhorizon.cropsnh.blocks.BlockWaterPadFull;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderWaterPad extends RenderBlockBase {
+
     public RenderWaterPad(Block block) {
         super(block, true);
     }
@@ -36,7 +40,7 @@ public class RenderWaterPad extends RenderBlockBase {
         drawScaledPrism(tessellator, 15, 8, 1, 16, 15, 16, Blocks.dirt.getIcon(0, 0), cm);
         drawScaledPrism(tessellator, 0, 8, 15, 15, 15, 16, Blocks.dirt.getIcon(0, 0), cm);
         drawScaledPrism(tessellator, 0, 8, 0, 15, 1, 15, Blocks.dirt.getIcon(0, 0), cm);
-        if(full) {
+        if (full) {
             drawScaledPrism(tessellator, 1, 14, 1, 15, 15, 15, Blocks.water.getIcon(0, 0), cm);
         }
         tessellator.draw();
@@ -45,7 +49,9 @@ public class RenderWaterPad extends RenderBlockBase {
     }
 
     @Override
-    protected boolean doWorldRender(Tessellator tessellator2, IBlockAccess world, double xCoord, double yCoord, double zCoord, TileEntity tile, Block block, float f, int modelId, RenderBlocks renderer, boolean callFromTESR) {
+    protected boolean doWorldRender(Tessellator tessellator2, IBlockAccess world, double xCoord, double yCoord,
+            double zCoord, TileEntity tile, Block block, float f, int modelId, RenderBlocks renderer,
+            boolean callFromTESR) {
         Tessellator tessellator = Tessellator.instance;
         int x = (int) xCoord;
         int y = (int) yCoord;
@@ -59,7 +65,8 @@ public class RenderWaterPad extends RenderBlockBase {
         return false;
     }
 
-    private void renderBase(Tessellator tessellator, IBlockAccess world, int x, int y, int z, boolean full, RenderBlocks renderer) {
+    private void renderBase(Tessellator tessellator, IBlockAccess world, int x, int y, int z, boolean full,
+            RenderBlocks renderer) {
         float u = Constants.UNIT;
         tessellator.setBrightness(Blocks.farmland.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));
         tessellator.setColorRGBA_F(1, 1, 1, 1);
@@ -73,12 +80,12 @@ public class RenderWaterPad extends RenderBlockBase {
         if (shouldRenderCorner(world, x, y, z, full, ForgeDirection.WEST, ForgeDirection.NORTH)) {
             renderer.setRenderBounds(0, 8 * u, 0, u, 15 * u, 1 * u);
             renderer.renderStandardBlock(Blocks.farmland, x, y, z);
-        } else if(full) {
+        } else if (full) {
             IIcon icon = Blocks.water.getIcon(0, 0);
             int l = Blocks.water.colorMultiplier(world, x, y, z);
-            float f = (float)(l >> 16 & 255) / 255.0F;
-            float f1 = (float)(l >> 8 & 255) / 255.0F;
-            float f2 = (float)(l & 255) / 255.0F;
+            float f = (float) (l >> 16 & 255) / 255.0F;
+            float f1 = (float) (l >> 8 & 255) / 255.0F;
+            float f2 = (float) (l & 255) / 255.0F;
             float f4 = 1.0F;
             tessellator.setBrightness(Blocks.water.getMixedBrightnessForBlock(world, x, y, z));
             tessellator.setColorRGBA_F(f4 * f, f4 * f1, f4 * f2, 0.8F);
@@ -93,12 +100,12 @@ public class RenderWaterPad extends RenderBlockBase {
         if (shouldRenderCorner(world, x, y, z, full, ForgeDirection.NORTH, ForgeDirection.EAST)) {
             renderer.setRenderBounds(15 * u, 8 * u, 0, 16 * u, 15 * u, 1 * u);
             renderer.renderStandardBlock(Blocks.farmland, x, y, z);
-        } else if(full) {
+        } else if (full) {
             IIcon icon = Blocks.water.getIcon(0, 0);
             int l = Blocks.water.colorMultiplier(world, x, y, z);
-            float f = (float)(l >> 16 & 255) / 255.0F;
-            float f1 = (float)(l >> 8 & 255) / 255.0F;
-            float f2 = (float)(l & 255) / 255.0F;
+            float f = (float) (l >> 16 & 255) / 255.0F;
+            float f1 = (float) (l >> 8 & 255) / 255.0F;
+            float f2 = (float) (l & 255) / 255.0F;
             float f4 = 1.0F;
             tessellator.setBrightness(Blocks.water.getMixedBrightnessForBlock(world, x, y, z));
             tessellator.setColorRGBA_F(f4 * f, f4 * f1, f4 * f2, 0.8F);
@@ -113,12 +120,12 @@ public class RenderWaterPad extends RenderBlockBase {
         if (shouldRenderCorner(world, x, y, z, full, ForgeDirection.EAST, ForgeDirection.SOUTH)) {
             renderer.setRenderBounds(15 * u, 8 * u, 15 * u, 16 * u, 15 * u, 16 * u);
             renderer.renderStandardBlock(Blocks.farmland, x, y, z);
-        } else if(full) {
+        } else if (full) {
             IIcon icon = Blocks.water.getIcon(0, 0);
             int l = Blocks.water.colorMultiplier(world, x, y, z);
-            float f = (float)(l >> 16 & 255) / 255.0F;
-            float f1 = (float)(l >> 8 & 255) / 255.0F;
-            float f2 = (float)(l & 255) / 255.0F;
+            float f = (float) (l >> 16 & 255) / 255.0F;
+            float f1 = (float) (l >> 8 & 255) / 255.0F;
+            float f2 = (float) (l & 255) / 255.0F;
             float f4 = 1.0F;
             tessellator.setBrightness(Blocks.water.getMixedBrightnessForBlock(world, x, y, z));
             tessellator.setColorRGBA_F(f4 * f, f4 * f1, f4 * f2, 0.8F);
@@ -133,12 +140,12 @@ public class RenderWaterPad extends RenderBlockBase {
         if (shouldRenderCorner(world, x, y, z, full, ForgeDirection.SOUTH, ForgeDirection.WEST)) {
             renderer.setRenderBounds(0, 8 * u, 15 * u, u, 15 * u, 16 * u);
             renderer.renderStandardBlock(Blocks.farmland, x, y, z);
-        } else if(full) {
+        } else if (full) {
             IIcon icon = Blocks.water.getIcon(0, 0);
             int l = Blocks.water.colorMultiplier(world, x, y, z);
-            float f = (float)(l >> 16 & 255) / 255.0F;
-            float f1 = (float)(l >> 8 & 255) / 255.0F;
-            float f2 = (float)(l & 255) / 255.0F;
+            float f = (float) (l >> 16 & 255) / 255.0F;
+            float f1 = (float) (l >> 8 & 255) / 255.0F;
+            float f2 = (float) (l & 255) / 255.0F;
             float f4 = 1.0F;
             tessellator.setBrightness(Blocks.water.getMixedBrightnessForBlock(world, x, y, z));
             tessellator.setColorRGBA_F(f4 * f, f4 * f1, f4 * f2, 0.8F);
@@ -152,12 +159,12 @@ public class RenderWaterPad extends RenderBlockBase {
 
         renderer.renderAllFaces = renderAllFaces;
 
-        if(full) {
+        if (full) {
             IIcon icon = Blocks.water.getIcon(0, 0);
             int l = Blocks.water.colorMultiplier(world, x, y, z);
-            float f = (float)(l >> 16 & 255) / 255.0F;
-            float f1 = (float)(l >> 8 & 255) / 255.0F;
-            float f2 = (float)(l & 255) / 255.0F;
+            float f = (float) (l >> 16 & 255) / 255.0F;
+            float f1 = (float) (l >> 8 & 255) / 255.0F;
+            float f2 = (float) (l & 255) / 255.0F;
             float f4 = 1.0F;
             tessellator.setBrightness(Blocks.water.getMixedBrightnessForBlock(world, x, y, z));
             tessellator.setColorRGBA_F(f4 * f, f4 * f1, f4 * f2, 0.8F);
@@ -170,40 +177,42 @@ public class RenderWaterPad extends RenderBlockBase {
         }
     }
 
-    private boolean shouldRenderCorner(IBlockAccess world, int x, int y, int z, boolean full, ForgeDirection dir1, ForgeDirection dir2) {
+    private boolean shouldRenderCorner(IBlockAccess world, int x, int y, int z, boolean full, ForgeDirection dir1,
+            ForgeDirection dir2) {
         Block block = world.getBlock(x + dir1.offsetX, y, z + dir1.offsetZ);
         boolean flag1 = block instanceof BlockWaterPad;
-        boolean flag2 =  block instanceof BlockWaterPadFull;
-        if(!flag1 || (full!=flag2)) {
+        boolean flag2 = block instanceof BlockWaterPadFull;
+        if (!flag1 || (full != flag2)) {
             return true;
         }
         block = world.getBlock(x + dir2.offsetX, y, z + dir2.offsetZ);
         flag1 = block instanceof BlockWaterPad;
         flag2 = block instanceof BlockWaterPadFull;
-        if(!flag1 || (full!=flag2)) {
+        if (!flag1 || (full != flag2)) {
             return true;
         }
         block = world.getBlock(x + dir1.offsetX + dir2.offsetX, y, z + dir1.offsetZ + dir2.offsetZ);
         flag1 = block instanceof BlockWaterPad;
         flag2 = block instanceof BlockWaterPadFull;
-        return !flag1 || (full!=flag2);
+        return !flag1 || (full != flag2);
     }
 
-    private void renderSide(Tessellator tessellator, IBlockAccess world, int x, int y, int z, boolean full, RenderBlocks renderer, ForgeDirection side) {
+    private void renderSide(Tessellator tessellator, IBlockAccess world, int x, int y, int z, boolean full,
+            RenderBlocks renderer, ForgeDirection side) {
         float u = Constants.UNIT;
         int xLower = Math.max(0, 1 + 14 * side.offsetX);
         int xUpper = Math.min(16, 15 + 14 * side.offsetX);
         int zLower = Math.max(0, 1 + 14 * side.offsetZ);
         int zUpper = Math.min(16, 15 + 14 * side.offsetZ);
-        Block block = world.getBlock(x+side.offsetX, y, z+side.offsetZ);
-        if(block!=null && block instanceof BlockWaterPad) {
+        Block block = world.getBlock(x + side.offsetX, y, z + side.offsetZ);
+        if (block != null && block instanceof BlockWaterPad) {
             boolean flag = block instanceof BlockWaterPadFull;
             if (full) {
                 IIcon icon = Blocks.water.getIcon(0, 0);
                 int l = Blocks.water.colorMultiplier(world, x, y, z);
-                float f = (float)(l >> 16 & 255) / 255.0F;
-                float f1 = (float)(l >> 8 & 255) / 255.0F;
-                float f2 = (float)(l & 255) / 255.0F;
+                float f = (float) (l >> 16 & 255) / 255.0F;
+                float f1 = (float) (l >> 8 & 255) / 255.0F;
+                float f2 = (float) (l & 255) / 255.0F;
                 float f4 = 1.0F;
                 tessellator.setBrightness(Blocks.water.getMixedBrightnessForBlock(world, x, y, z));
                 tessellator.setColorRGBA_F(f4 * f, f4 * f1, f4 * f2, 0.8F);

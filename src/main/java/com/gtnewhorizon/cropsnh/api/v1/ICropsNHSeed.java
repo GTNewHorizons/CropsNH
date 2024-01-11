@@ -1,12 +1,14 @@
 package com.gtnewhorizon.cropsnh.api.v1;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.IPlantable;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public interface ICropsNHSeed extends IPlantable {
+
     /** Gets the plant for this seed */
     ICropsNHPlant getPlant();
 

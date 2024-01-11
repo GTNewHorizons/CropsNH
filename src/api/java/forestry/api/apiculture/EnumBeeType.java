@@ -8,17 +8,22 @@ package forestry.api.apiculture;
 import java.util.Locale;
 
 public enum EnumBeeType {
-	DRONE, PRINCESS, QUEEN, LARVAE, NONE;
 
-	public static final EnumBeeType[] VALUES = values();
+    DRONE,
+    PRINCESS,
+    QUEEN,
+    LARVAE,
+    NONE;
 
-	String name;
+    public static final EnumBeeType[] VALUES = values();
 
-	private EnumBeeType() {
-		this.name = this.toString().toLowerCase(Locale.ENGLISH);
-	}
+    String name;
 
-	public String getName() {
-		return name;
-	}
+    private EnumBeeType() {
+        this.name = this.toString().toLowerCase(Locale.ENGLISH);
+    }
+
+    public String getName() {
+        return name;
+    }
 }

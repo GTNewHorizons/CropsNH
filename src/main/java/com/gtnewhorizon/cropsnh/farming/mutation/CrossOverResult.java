@@ -1,15 +1,17 @@
 package com.gtnewhorizon.cropsnh.farming.mutation;
 
+import net.minecraft.item.Item;
+
 import com.gtnewhorizon.cropsnh.api.v1.ICrossOverResult;
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
 import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import net.minecraft.item.Item;
 
 /**
- * Represents the result of a specific <code>INewSeedStrategy</code> containing
- * the seed plus meta and the chance to happen.
+ * Represents the result of a specific <code>INewSeedStrategy</code> containing the seed plus meta and the chance to
+ * happen.
  */
 public class CrossOverResult implements ICrossOverResult {
+
     private Item seed;
     private int meta;
     private double chance;
@@ -34,7 +36,7 @@ public class CrossOverResult implements ICrossOverResult {
 
     @Override
     public void setSeedAndMeta(Item seed, int meta) {
-        if(CropPlantHandler.isValidSeed(seed, meta)) {
+        if (CropPlantHandler.isValidSeed(seed, meta)) {
             this.seed = seed;
             this.meta = meta;
         }

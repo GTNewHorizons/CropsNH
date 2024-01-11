@@ -1,13 +1,15 @@
 package com.gtnewhorizon.cropsnh.farming;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class PlantStats implements ISeedStats {
+
     private static final short MAX = (short) ConfigurationHandler.cropStatCap;
     private static final short MIN = 1;
 
@@ -84,22 +86,24 @@ public class PlantStats implements ISeedStats {
     }
 
     public static PlantStats getStatsFromStack(ItemStack stack) {
-        if(stack==null || stack.getItem()==null) {
+        if (stack == null || stack.getItem() == null) {
             return null;
         }
-        if(stack.getItem() instanceof ITrowel) {
+        if (stack.getItem() instanceof ITrowel) {
             ((ITrowel) stack.getItem()).getStats(stack);
         }
         return readFromNBT(stack.getTagCompound());
     }
 
     public static PlantStats readFromNBT(NBTTagCompound tag) {
-        if(tag !=null && tag.hasKey(Names.NBT.growth) && tag.hasKey(Names.NBT.gain) && tag.hasKey(Names.NBT.strength)) {
+        if (tag != null && tag.hasKey(Names.NBT.growth)
+                && tag.hasKey(Names.NBT.gain)
+                && tag.hasKey(Names.NBT.strength)) {
             PlantStats stats = new PlantStats();
             stats.setGrowth(tag.getShort(Names.NBT.growth));
             stats.setGain(tag.getShort(Names.NBT.gain));
             stats.setStrength(tag.getShort(Names.NBT.strength));
-            stats.analyzed=tag.hasKey(Names.NBT.analyzed) && tag.getBoolean(Names.NBT.analyzed);
+            stats.analyzed = tag.hasKey(Names.NBT.analyzed) && tag.getBoolean(Names.NBT.analyzed);
             return stats;
         }
         return null;

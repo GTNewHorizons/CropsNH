@@ -4,6 +4,7 @@ package li.cil.oc.api.driver.item;
  * Reference list of slot types in OpenComputers.
  */
 public final class Slot {
+
     public static final String None = "none";
     public static final String Any = "any";
 
@@ -17,6 +18,5 @@ public final class Slot {
     public static final String Tablet = "tablet";
     public static final String Upgrade = "upgrade";
 
-    private Slot() {
-    }
+    private Slot() {}
 }

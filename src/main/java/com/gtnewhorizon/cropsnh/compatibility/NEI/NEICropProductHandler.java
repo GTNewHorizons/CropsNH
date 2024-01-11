@@ -1,8 +1,16 @@
 package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
-import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
@@ -11,52 +19,65 @@ import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import org.lwjgl.opengl.GL11;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
+import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public class NEICropProductHandler extends CropsNHNEIHandler {
-    //this is a class which handles the recipe for crop products (has to contain a CachedRecipe for the products)
+
+    // this is a class which handles the recipe for crop products (has to contain a CachedRecipe for the products)
     private static final String name = StatCollector.translateToLocal("cropsnh_nei.cropProduct.title");
     private static final String id = "cropProduct";
 
     private static final int COLOR_BLACK = 1644054;
 
-    //the class defining a  recipe (must be contained in a TemplateRecipeHandler class)
+    // the class defining a recipe (must be contained in a TemplateRecipeHandler class)
     public class CachedCropProductRecipe extends TemplateRecipeHandler.CachedRecipe {
+
         PositionedStack seed;
         List<PositionedStack> products;
         List<PositionedStack> soils = new ArrayList<>();
         PositionedStack requiredBlock;
         RequirementType requiredType;
 
-        //constructor
+        // constructor
         public CachedCropProductRecipe(ItemStack stack) {
             this.seed = new PositionedStack(stack, Constants.nei_X_parent1, Constants.nei_Y_seeds);
             this.products = new ArrayList<>();
             List<ItemStack> drops = CropPlantHandler.getPlantFromStack(stack).getAllFruits();
-            if(drops != null) {
+            if (drops != null) {
                 for (int i = 0; i < drops.size(); i++) {
-                    products.add(new PositionedStack(drops.get(i), Constants.nei_X_parent2 + 16 * (i % 3), Constants.nei_Y_seeds + 16 * ((i / 3) - 1)));
+                    products.add(
+                            new PositionedStack(
+                                    drops.get(i),
+                                    Constants.nei_X_parent2 + 16 * (i % 3),
+                                    Constants.nei_Y_seeds + 16 * ((i / 3) - 1)));
                 }
             }
-            IGrowthRequirement growthReq = CropPlantHandler.getGrowthRequirement(stack.getItem(), stack.getItemDamage());
+            IGrowthRequirement growthReq = CropPlantHandler
+                    .getGrowthRequirement(stack.getItem(), stack.getItemDamage());
             if (growthReq.getSoil() != null) {
-                soils.add(new PositionedStack(growthReq.getSoil().toStack(), Constants.nei_X_parent1, Constants.nei_Y_soil));
+                soils.add(
+                        new PositionedStack(
+                                growthReq.getSoil().toStack(),
+                                Constants.nei_X_parent1,
+                                Constants.nei_Y_soil));
             } else {
                 for (BlockWithMeta blockWithMeta : GrowthRequirementHandler.defaultSoils) {
-                    soils.add(new PositionedStack(blockWithMeta.toStack(), Constants.nei_X_parent1, Constants.nei_Y_soil));
+                    soils.add(
+                            new PositionedStack(
+                                    blockWithMeta.toStack(),
+                                    Constants.nei_X_parent1,
+                                    Constants.nei_Y_soil));
                 }
             }
             this.requiredType = growthReq.getRequiredType();
             if (requiredType != RequirementType.NONE) {
-                requiredBlock = new PositionedStack(growthReq.requiredBlockAsItemStack(), Constants.nei_X_parent1, Constants.nei_Y_base);
+                requiredBlock = new PositionedStack(
+                        growthReq.requiredBlockAsItemStack(),
+                        Constants.nei_X_parent1,
+                        Constants.nei_Y_base);
             }
         }
 
@@ -65,59 +86,59 @@ public class NEICropProductHandler extends CropsNHNEIHandler {
             return seed;
         }
 
-        //return ingredients
+        // return ingredients
         @Override
         public List<PositionedStack> getIngredients() {
             List<PositionedStack> list = new ArrayList<>();
             list.add(seed);
             list.add(soils.get(NEICropProductHandler.this.cycleticks / 20 % soils.size()));
-            if(requiredBlock!=null) {
+            if (requiredBlock != null) {
                 list.add(requiredBlock);
             }
             list.addAll(products);
             return list;
         }
 
-        //return result
+        // return result
         @Override
         public PositionedStack getResult() {
             return null;
         }
     }
 
-    //loads the crop product recipes for a given product
+    // loads the crop product recipes for a given product
     @Override
     protected void loadCraftingRecipesDo(String id, Object... results) {
-        if(id.equalsIgnoreCase(NEICropProductHandler.id)) {
+        if (id.equalsIgnoreCase(NEICropProductHandler.id)) {
             ArrayList<CropPlant> plants = CropPlantHandler.getPlants();
-            for (CropPlant plant:plants) {
-                if (plant.getSeed()!=null && plant.getSeed().getItem()!=null) {
+            for (CropPlant plant : plants) {
+                if (plant.getSeed() != null && plant.getSeed().getItem() != null) {
                     arecipes.add(new CachedCropProductRecipe(plant.getSeed()));
                 }
             }
-        }
-        else if(id.equalsIgnoreCase("item")) {
+        } else if (id.equalsIgnoreCase("item")) {
             for (Object object : results) {
-                if (object instanceof ItemStack && getClass()==NEICropProductHandler.class) {
-                    loadCraftingRecipes(new ItemStack(((ItemStack) object).getItem(), 1, ((ItemStack) object).getItemDamage()));
+                if (object instanceof ItemStack && getClass() == NEICropProductHandler.class) {
+                    loadCraftingRecipes(
+                            new ItemStack(((ItemStack) object).getItem(), 1, ((ItemStack) object).getItemDamage()));
                 }
             }
         }
     }
 
-    //loads the crop product recipes for a given product
+    // loads the crop product recipes for a given product
     @Override
     protected void loadCraftingRecipesDo(ItemStack result) {
-        for(CropPlant plant:CropPlantHandler.getPlants()) {
+        for (CropPlant plant : CropPlantHandler.getPlants()) {
             ArrayList<ItemStack> drops = plant.getAllFruits();
-            if(drops==null) {
+            if (drops == null) {
                 continue;
             }
-            for(ItemStack drop:drops) {
-                if(drop == null || drop.getItem() == null) {
+            for (ItemStack drop : drops) {
+                if (drop == null || drop.getItem() == null) {
                     continue;
                 }
-                if(drop.getItem() == result.getItem() && drop.getItemDamage() == result.getItemDamage()) {
+                if (drop.getItem() == result.getItem() && drop.getItemDamage() == result.getItemDamage()) {
                     arecipes.add(new CachedCropProductRecipe(plant.getSeed()));
                     break;
                 }
@@ -125,44 +146,46 @@ public class NEICropProductHandler extends CropsNHNEIHandler {
         }
     }
 
-    //loads the crop product recipes for a given seed
+    // loads the crop product recipes for a given seed
     @Override
     protected void loadUsageRecipesDo(ItemStack ingredient) {
-        if(CropPlantHandler.isValidSeed(ingredient)) {
+        if (CropPlantHandler.isValidSeed(ingredient)) {
             arecipes.add(new CachedCropProductRecipe(ingredient));
-        }
-        else if(ingredient.getItem() instanceof ItemBlock) {
-            BlockWithMeta block = new BlockWithMeta(((ItemBlock) ingredient.getItem()).field_150939_a, ingredient.getItemDamage());
+        } else if (ingredient.getItem() instanceof ItemBlock) {
+            BlockWithMeta block = new BlockWithMeta(
+                    ((ItemBlock) ingredient.getItem()).field_150939_a,
+                    ingredient.getItemDamage());
             ArrayList<CropPlant> plants = CropPlantHandler.getPlants();
-            for(CropPlant plant:plants) {
-                if(plant.getSeed()==null || plant.getSeed().getItem()==null) {
+            for (CropPlant plant : plants) {
+                if (plant.getSeed() == null || plant.getSeed().getItem() == null) {
                     continue;
                 }
-                IGrowthRequirement req = CropPlantHandler.getGrowthRequirement(plant.getSeed().getItem(), plant.getSeed().getItemDamage());
-                if(req.isValidSoil(block)) {
+                IGrowthRequirement req = CropPlantHandler
+                        .getGrowthRequirement(plant.getSeed().getItem(), plant.getSeed().getItemDamage());
+                if (req.isValidSoil(block)) {
                     arecipes.add(new CachedCropProductRecipe(plant.getSeed()));
                     continue;
                 }
-                if(block.equals(req.getRequiredBlock())) {
+                if (block.equals(req.getRequiredBlock())) {
                     arecipes.add(new CachedCropProductRecipe(plant.getSeed()));
                 }
             }
         }
     }
 
-    //returns the name for this recipe
+    // returns the name for this recipe
     @Override
     public String getRecipeName() {
         return name;
     }
 
-    //returns the id for this recipe
+    // returns the id for this recipe
     @Override
     public String getOverlayIdentifier() {
         return id;
     }
 
-    //gets the texture to display the recipe in
+    // gets the texture to display the recipe in
     @Override
     public String getGuiTexture() {
         return new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/nei/cropProduce.png").toString();
@@ -173,7 +196,7 @@ public class NEICropProductHandler extends CropsNHNEIHandler {
         return 1;
     }
 
-    //defines rectangles on the recipe gui which can be clicked to show all crop mutation recipes
+    // defines rectangles on the recipe gui which can be clicked to show all crop mutation recipes
     @Override
     public void loadTransferRects() {
         transferRects.add(new RecipeTransferRect(new Rectangle(72, 27, 18, 6), id));

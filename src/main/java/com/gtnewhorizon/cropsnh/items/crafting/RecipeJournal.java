@@ -1,44 +1,44 @@
 package com.gtnewhorizon.cropsnh.items.crafting;
 
-import com.gtnewhorizon.cropsnh.items.ItemJournal;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
+import com.gtnewhorizon.cropsnh.items.ItemJournal;
+
 public class RecipeJournal implements IRecipe {
+
     @Override
     public boolean matches(InventoryCrafting invCrafting, World world) {
         ItemStack journal = null;
         ItemStack book = null;
-        for(int i=0;i<invCrafting.getSizeInventory();i++) {
+        for (int i = 0; i < invCrafting.getSizeInventory(); i++) {
             ItemStack stackAtIndex = invCrafting.getStackInSlot(i);
-            if(stackAtIndex!=null && stackAtIndex.getItem()!=null) {
-                if(stackAtIndex.getItem() instanceof ItemJournal) {
-                    if(journal==null) {
+            if (stackAtIndex != null && stackAtIndex.getItem() != null) {
+                if (stackAtIndex.getItem() instanceof ItemJournal) {
+                    if (journal == null) {
                         journal = stackAtIndex.copy();
-                    }
-                    else {
+                    } else {
                         return false;
                     }
-                }
-                else if(stackAtIndex.getItem()==net.minecraft.init.Items.writable_book) {
-                    if(book==null) {
+                } else if (stackAtIndex.getItem() == net.minecraft.init.Items.writable_book) {
+                    if (book == null) {
                         book = stackAtIndex;
-                    }
-                    else {
+                    } else {
                         return false;
                     }
                 }
             }
         }
-        return journal!=null && book!=null;
+        return journal != null && book != null;
     }
 
     @Override
     public ItemStack getCraftingResult(InventoryCrafting invCrafting) {
-        for(int i=0;i<invCrafting.getSizeInventory();i++) {
-            if(invCrafting.getStackInSlot(i)!=null && invCrafting.getStackInSlot(i).getItem() instanceof ItemJournal) {
+        for (int i = 0; i < invCrafting.getSizeInventory(); i++) {
+            if (invCrafting.getStackInSlot(i) != null
+                    && invCrafting.getStackInSlot(i).getItem() instanceof ItemJournal) {
                 return invCrafting.getStackInSlot(i).copy();
             }
         }

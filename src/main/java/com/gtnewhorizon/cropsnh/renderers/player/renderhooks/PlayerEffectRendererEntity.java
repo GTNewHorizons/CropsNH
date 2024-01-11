@@ -1,17 +1,20 @@
 package com.gtnewhorizon.cropsnh.renderers.player.renderhooks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public abstract class PlayerEffectRendererEntity extends PlayerEffectRenderer {
+
     private final IWrappedEntity entityWrapper;
     private final EntityLiving entity;
     private final ModelBase model;
@@ -44,7 +47,7 @@ public abstract class PlayerEffectRendererEntity extends PlayerEffectRenderer {
         double aY = 0.2F;
 
         double dx = 0.5;
-        double dy = -1 + aY*Math.cos((vY*arg)-Math.PI);
+        double dy = -1 + aY * Math.cos((vY * arg) - Math.PI);
         double dz = 0.5;
         float scale = getScale();
 
@@ -68,6 +71,7 @@ public abstract class PlayerEffectRendererEntity extends PlayerEffectRenderer {
     protected abstract float getScale();
 
     protected interface IWrappedEntity<T extends EntityLiving> {
+
         T getEntity();
 
         void performAnimationUpdates();

@@ -1,26 +1,26 @@
 package li.cil.oc.api.event;
 
-import cpw.mods.fml.common.eventhandler.Cancelable;
-import cpw.mods.fml.common.eventhandler.Event;
-import li.cil.oc.api.network.Node;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import cpw.mods.fml.common.eventhandler.Cancelable;
+import cpw.mods.fml.common.eventhandler.Event;
+import li.cil.oc.api.network.Node;
+
 /**
  * Events for handling file system access and representing it on the client.
  * <p/>
- * This is used to play file system access sounds and render disk activity
- * indicators on some containers (e.g. disk drive, computer, server).
+ * This is used to play file system access sounds and render disk activity indicators on some containers (e.g. disk
+ * drive, computer, server).
  * <p/>
- * Use this to implement rendering of disk access indicators on you own
- * containers / computers / drive bays.
+ * Use this to implement rendering of disk access indicators on you own containers / computers / drive bays.
  * <p/>
- * Canceling this event is provided to allow registering higher priority
- * event handlers that override default behavior.
+ * Canceling this event is provided to allow registering higher priority event handlers that override default behavior.
  */
 @Cancelable
 public class FileSystemAccessEvent extends Event {
+
     protected String sound;
 
     protected World world;
@@ -110,22 +110,22 @@ public class FileSystemAccessEvent extends Event {
     /**
      * The tile entity hosting the file system.
      * <p/>
-     * <em>Important</em>: this can be <tt>null</tt>, which is usually the
-     * case when the container is an entity or item.
+     * <em>Important</em>: this can be <tt>null</tt>, which is usually the case when the container is an entity or item.
      */
     public TileEntity getTileEntity() {
         return tileEntity;
     }
 
     /**
-     * Addition custom data, this is used to transmit the number of the server
-     * in a server rack the file system lives in, for example.
+     * Addition custom data, this is used to transmit the number of the server in a server rack the file system lives
+     * in, for example.
      */
     public NBTTagCompound getData() {
         return data;
     }
 
     public static final class Server extends FileSystemAccessEvent {
+
         private final Node node;
 
         public Server(String sound, TileEntity tileEntity, Node node) {
@@ -147,6 +147,7 @@ public class FileSystemAccessEvent extends Event {
     }
 
     public static final class Client extends FileSystemAccessEvent {
+
         /**
          * Constructor for tile entity hosted file systems.
          *

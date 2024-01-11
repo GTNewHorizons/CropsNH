@@ -1,9 +1,11 @@
 package com.gtnewhorizon.cropsnh.compatibility.harvestcraft;
 
+import net.minecraft.item.ItemSeeds;
+
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantGeneric;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.item.ItemSeeds;
 
 public class CropPlantHarvestCraft extends CropPlantGeneric {
 
@@ -26,9 +28,9 @@ public class CropPlantHarvestCraft extends CropPlantGeneric {
     @SideOnly(Side.CLIENT)
     public String getInformation() {
         String name = getSeed().getUnlocalizedName();
-        int start = Math.max(0, name.indexOf('.')+1);
+        int start = Math.max(0, name.indexOf('.') + 1);
         int stop = name.indexOf("seedItem");
-        name = name.substring(start, stop<0?name.length():stop);
-        return "cropsnh_journal.hc_"+Character.toUpperCase(name.charAt(0))+name.substring(1);
+        name = name.substring(start, stop < 0 ? name.length() : stop);
+        return "cropsnh_journal.hc_" + Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
 }

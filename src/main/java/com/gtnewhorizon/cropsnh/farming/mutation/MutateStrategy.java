@@ -1,14 +1,16 @@
 package com.gtnewhorizon.cropsnh.farming.mutation;
 
+import java.util.List;
+
+import net.minecraft.item.Item;
+
 import com.gtnewhorizon.cropsnh.api.v1.ICrop;
 import com.gtnewhorizon.cropsnh.api.v1.ICrossOverResult;
 import com.gtnewhorizon.cropsnh.api.v1.IMutation;
 import com.gtnewhorizon.cropsnh.api.v1.IMutationEngine;
-import net.minecraft.item.Item;
-
-import java.util.List;
 
 public class MutateStrategy extends BaseStrategy {
+
     public MutateStrategy(IMutationEngine mutationEngine) {
         super(mutationEngine);
     }
@@ -30,6 +32,10 @@ public class MutateStrategy extends BaseStrategy {
         Item seed = mutation.getResult().getItem();
         int meta = mutation.getResult().getItemDamage();
 
-        return new CrossOverResult(seed, meta, mutation.getChance(), engine.getStatCalculator().calculateStats(seed, meta, neighbours, true));
+        return new CrossOverResult(
+                seed,
+                meta,
+                mutation.getChance(),
+                engine.getStatCalculator().calculateStats(seed, meta, neighbours, true));
     }
 }

@@ -1,16 +1,17 @@
 package li.cil.oc.api.detail;
 
-import li.cil.oc.api.nanomachines.BehaviorProvider;
-import li.cil.oc.api.nanomachines.Controller;
 import net.minecraft.entity.player.EntityPlayer;
 
+import li.cil.oc.api.nanomachines.BehaviorProvider;
+import li.cil.oc.api.nanomachines.Controller;
+
 public interface NanomachinesAPI {
+
     /**
      * Register a new behavior provider.
      * <p/>
-     * When a controller is reconfigured it will draw behaviors from all
-     * registered providers and build a new random connection graph to
-     * those behaviors.
+     * When a controller is reconfigured it will draw behaviors from all registered providers and build a new random
+     * connection graph to those behaviors.
      *
      * @param provider the provider to add.
      */
@@ -34,9 +35,8 @@ public interface NanomachinesAPI {
     /**
      * Get the nanomachine controller of the specified player.
      * <p/>
-     * If the player has a controller installed, this will initialize the
-     * controller if it has not already been loaded. If the player has no
-     * controller, this will return <tt>null</tt>.
+     * If the player has a controller installed, this will initialize the controller if it has not already been loaded.
+     * If the player has no controller, this will return <tt>null</tt>.
      *
      * @param player the player to get the controller for.
      * @return the controller for the specified player.
@@ -44,11 +44,9 @@ public interface NanomachinesAPI {
     Controller getController(EntityPlayer player);
 
     /**
-     * Install a controller for the specified player if it doesn't already
-     * have one.
+     * Install a controller for the specified player if it doesn't already have one.
      * <p/>
-     * This will also initialize the controller if it has not already been
-     * initialized.
+     * This will also initialize the controller if it has not already been initialized.
      *
      * @param player the player to install a nanomachine controller for.
      * @return the controller for the specified player.

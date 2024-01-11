@@ -1,13 +1,13 @@
 package com.gtnewhorizon.cropsnh.gui;
 
-import cpw.mods.fml.client.IModGuiFactory;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Set;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 
-import java.util.Set;
-
+import cpw.mods.fml.client.IModGuiFactory;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 @SuppressWarnings("unused")

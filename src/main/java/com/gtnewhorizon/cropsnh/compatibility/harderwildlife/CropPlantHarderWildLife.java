@@ -1,9 +1,11 @@
 package com.gtnewhorizon.cropsnh.compatibility.harderwildlife;
 
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantGeneric;
 import net.minecraft.item.ItemSeeds;
 
+import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantGeneric;
+
 public class CropPlantHarderWildLife extends CropPlantGeneric {
+
     private final String name;
 
     public CropPlantHarderWildLife(ItemSeeds seed, String name) {

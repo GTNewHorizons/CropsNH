@@ -9,16 +9,16 @@ import net.minecraft.item.ItemStack;
 
 public interface IInfuserManager {
 
-	void addMixture(int meta, ItemStack ingredient, IBeverageEffect effect);
+    void addMixture(int meta, ItemStack ingredient, IBeverageEffect effect);
 
-	void addMixture(int meta, ItemStack[] ingredients, IBeverageEffect effect);
+    void addMixture(int meta, ItemStack[] ingredients, IBeverageEffect effect);
 
-	ItemStack getSeasoned(ItemStack base, ItemStack[] ingredients);
+    ItemStack getSeasoned(ItemStack base, ItemStack[] ingredients);
 
-	boolean hasMixtures(ItemStack[] ingredients);
+    boolean hasMixtures(ItemStack[] ingredients);
 
-	boolean isIngredient(ItemStack itemstack);
+    boolean isIngredient(ItemStack itemstack);
 
-	ItemStack[] getRequired(ItemStack[] ingredients);
+    ItemStack[] getRequired(ItemStack[] ingredients);
 
 }

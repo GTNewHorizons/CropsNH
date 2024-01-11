@@ -5,28 +5,37 @@
  ******************************************************************************/
 package forestry.api.apiculture;
 
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+
 import com.mojang.authlib.GameProfile;
+
 import forestry.api.core.EnumHumidity;
 import forestry.api.core.EnumTemperature;
 import forestry.api.core.IErrorLogicSource;
 import forestry.api.genetics.IHousing;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public interface IBeeHousing extends IHousing, IErrorLogicSource {
 
-	Iterable<IBeeModifier> getBeeModifiers();
-	Iterable<IBeeListener> getBeeListeners();
+    Iterable<IBeeModifier> getBeeModifiers();
 
-	IBeeHousingInventory getBeeInventory();
-	IBeekeepingLogic getBeekeepingLogic();
+    Iterable<IBeeListener> getBeeListeners();
 
-	EnumTemperature getTemperature();
-	EnumHumidity getHumidity();
-	int getBlockLightValue();
-	boolean canBlockSeeTheSky();
+    IBeeHousingInventory getBeeInventory();
 
-	World getWorld();
-	BiomeGenBase getBiome();
-	GameProfile getOwner();
+    IBeekeepingLogic getBeekeepingLogic();
+
+    EnumTemperature getTemperature();
+
+    EnumHumidity getHumidity();
+
+    int getBlockLightValue();
+
+    boolean canBlockSeeTheSky();
+
+    World getWorld();
+
+    BiomeGenBase getBiome();
+
+    GameProfile getOwner();
 }

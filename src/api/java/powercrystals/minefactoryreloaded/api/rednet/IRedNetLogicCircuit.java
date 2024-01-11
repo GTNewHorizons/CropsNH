@@ -2,18 +2,21 @@ package powercrystals.minefactoryreloaded.api.rednet;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public interface IRedNetLogicCircuit
-{
-	byte getInputCount();
+public interface IRedNetLogicCircuit {
 
-	byte getOutputCount();
+    byte getInputCount();
 
-	int[] recalculateOutputValues(long worldTime, int[] inputValues);
+    byte getOutputCount();
 
-	String getUnlocalizedName();
-	String getInputPinLabel(int pin);
-	String getOutputPinLabel(int pin);
+    int[] recalculateOutputValues(long worldTime, int[] inputValues);
 
-	void readFromNBT(NBTTagCompound tag);
-	void writeToNBT(NBTTagCompound tag);
+    String getUnlocalizedName();
+
+    String getInputPinLabel(int pin);
+
+    String getOutputPinLabel(int pin);
+
+    void readFromNBT(NBTTagCompound tag);
+
+    void writeToNBT(NBTTagCompound tag);
 }

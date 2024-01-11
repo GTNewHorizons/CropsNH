@@ -1,10 +1,12 @@
 package li.cil.oc.api.event;
 
-import cpw.mods.fml.common.eventhandler.Cancelable;
-import li.cil.oc.api.internal.Agent;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import cpw.mods.fml.common.eventhandler.Cancelable;
+import li.cil.oc.api.internal.Agent;
+
 public abstract class RobotMoveEvent extends RobotEvent {
+
     /**
      * The direction in which the robot will be moving.
      */
@@ -22,6 +24,7 @@ public abstract class RobotMoveEvent extends RobotEvent {
      */
     @Cancelable
     public static class Pre extends RobotMoveEvent {
+
         public Pre(Agent agent, ForgeDirection direction) {
             super(agent, direction);
         }
@@ -31,6 +34,7 @@ public abstract class RobotMoveEvent extends RobotEvent {
      * Fired after a robot moved.
      */
     public static class Post extends RobotMoveEvent {
+
         public Post(Agent agent, ForgeDirection direction) {
             super(agent, direction);
         }

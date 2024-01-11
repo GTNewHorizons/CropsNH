@@ -1,5 +1,10 @@
 package com.gtnewhorizon.cropsnh.tileentity.peripheral;
 
+import java.util.HashMap;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntitySeedAnalyzer;
@@ -24,6 +29,7 @@ import com.gtnewhorizon.cropsnh.tileentity.peripheral.method.MethodIsCrossCrop;
 import com.gtnewhorizon.cropsnh.tileentity.peripheral.method.MethodIsFertile;
 import com.gtnewhorizon.cropsnh.tileentity.peripheral.method.MethodIsMature;
 import com.gtnewhorizon.cropsnh.tileentity.peripheral.method.MethodNeedsBaseBlock;
+
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -35,18 +41,19 @@ import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.ManagedPeripheral;
 import li.cil.oc.api.network.SimpleComponent;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.HashMap;
+@Optional.InterfaceList(
+        value = {
+                @Optional.Interface(
+                        modid = Names.Mods.computerCraft,
+                        iface = "dan200.computercraft.api.peripheral.IPeripheral"),
+                @Optional.Interface(modid = Names.Mods.openComputers, iface = "li.cil.oc.api.network.SimpleComponent"),
+                @Optional.Interface(
+                        modid = Names.Mods.openComputers,
+                        iface = "li.cil.oc.api.network.ManagedPeripheral") })
+public class TileEntityPeripheral extends TileEntitySeedAnalyzer
+        implements IPeripheral, SimpleComponent, ManagedPeripheral {
 
-
-@Optional.InterfaceList( value = {
-        @Optional.Interface(modid = Names.Mods.computerCraft, iface = "dan200.computercraft.api.peripheral.IPeripheral"),
-        @Optional.Interface(modid = Names.Mods.openComputers, iface = "li.cil.oc.api.network.SimpleComponent"),
-        @Optional.Interface(modid = Names.Mods.openComputers, iface = "li.cil.oc.api.network.ManagedPeripheral")
-})
-public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPeripheral, SimpleComponent, ManagedPeripheral {
     private static IMethod[] methods;
     private boolean mayAnalyze = false;
     /** Data to animate the peripheral client side */
@@ -57,7 +64,8 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
     @SideOnly(Side.CLIENT)
     private HashMap<ForgeDirection, Boolean> activeSides;
 
-    public static final ForgeDirection[] VALID_DIRECTIONS = {ForgeDirection.NORTH, ForgeDirection.EAST, ForgeDirection.SOUTH, ForgeDirection.WEST};
+    public static final ForgeDirection[] VALID_DIRECTIONS = { ForgeDirection.NORTH, ForgeDirection.EAST,
+            ForgeDirection.SOUTH, ForgeDirection.WEST };
     public static final int MAX = 60;
 
     public TileEntityPeripheral() {
@@ -78,7 +86,7 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
     }
 
     private void initMethods() {
-        if(methods ==null) {
+        if (methods == null) {
             methods = methodList();
         }
     }
@@ -90,30 +98,31 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
 
     @Override
     public void updateEntity() {
-        if(mayAnalyze) {
-            if(this.hasSpecimen() && !isSpecimenAnalyzed()) {
+        if (mayAnalyze) {
+            if (this.hasSpecimen() && !isSpecimenAnalyzed()) {
                 super.updateEntity();
             } else {
                 reset();
             }
-        } if(worldObj.isRemote) {
-            if(updateCheck == 0) {
+        }
+        if (worldObj.isRemote) {
+            if (updateCheck == 0) {
                 checkSides();
             }
-            for(ForgeDirection dir:VALID_DIRECTIONS) {
+            for (ForgeDirection dir : VALID_DIRECTIONS) {
                 int timer = timers.get(dir);
-                timer = timer + (isSideActive(dir)?1:-1);
-                timer = timer<0?0:timer;
-                timer = timer>MAX?MAX:timer;
+                timer = timer + (isSideActive(dir) ? 1 : -1);
+                timer = timer < 0 ? 0 : timer;
+                timer = timer > MAX ? MAX : timer;
                 timers.put(dir, timer);
             }
-            updateCheck = (updateCheck+1)%1200;
+            updateCheck = (updateCheck + 1) % 1200;
         }
     }
 
     @SideOnly(Side.CLIENT)
     public int getTimer(ForgeDirection dir) {
-        if(updateCheck == 0 || timers == null) {
+        if (updateCheck == 0 || timers == null) {
             checkSides();
         }
         return timers.get(dir);
@@ -126,7 +135,7 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
 
     @SideOnly(Side.CLIENT)
     public void checkSides() {
-        for(ForgeDirection dir:VALID_DIRECTIONS) {
+        for (ForgeDirection dir : VALID_DIRECTIONS) {
             checkSide(dir);
         }
         updateCheck = 0;
@@ -134,13 +143,13 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
 
     @SideOnly(Side.CLIENT)
     private void checkSide(ForgeDirection dir) {
-        if(timers == null) {
+        if (timers == null) {
             timers = new HashMap<>();
         }
-        if(!timers.containsKey(dir)) {
+        if (!timers.containsKey(dir)) {
             timers.put(dir, 0);
         }
-        if(activeSides == null) {
+        if (activeSides == null) {
             activeSides = new HashMap<>();
         }
         activeSides.put(dir, isCrop(dir));
@@ -151,7 +160,7 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
     }
 
     public void startAnalyzing() {
-        if(!mayAnalyze && this.hasSpecimen() && !this.isSpecimenAnalyzed()) {
+        if (!mayAnalyze && this.hasSpecimen() && !this.isSpecimenAnalyzed()) {
             mayAnalyze = true;
             this.markForUpdate();
         }
@@ -164,7 +173,7 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
     }
 
     private void reset() {
-        if(mayAnalyze) {
+        if (mayAnalyze) {
             mayAnalyze = false;
             this.markForUpdate();
         }
@@ -181,7 +190,7 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
 
     public String[] getAllMethodNames() {
         String[] names = new String[methods.length];
-        for(int i=0;i<names.length;i++) {
+        for (int i = 0; i < names.length; i++) {
             names[i] = methods[i].getName();
         }
         return names;
@@ -192,32 +201,17 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
     }
 
     private static IMethod[] methodList() {
-        return new IMethod[] {
-                new MethodAnalyze(),
-                new MethodGetBaseBlock(),
-                new MethodGetBaseBlockType(),
-                new MethodGetBrightness(),
-                new MethodGetBrightnessRange(),
-                new MethodGetCurrentSoil(),
-                new MethodGetGrowthStage(),
-                new MethodGetNeededSoil(),
-                new MethodGetPlant(),
-                new MethodGetSpecimen(),
-                new MethodGetStats(),
-                new MethodHasJournal(),
-                new MethodHasPlant(),
-                new MethodHasWeeds(),
-                new MethodIsAnalyzed(),
-                new MethodIsCrossCrop(),
-                new MethodIsFertile(),
-                new MethodIsMature(),
-                new MethodNeedsBaseBlock()
-        };
+        return new IMethod[] { new MethodAnalyze(), new MethodGetBaseBlock(), new MethodGetBaseBlockType(),
+                new MethodGetBrightness(), new MethodGetBrightnessRange(), new MethodGetCurrentSoil(),
+                new MethodGetGrowthStage(), new MethodGetNeededSoil(), new MethodGetPlant(), new MethodGetSpecimen(),
+                new MethodGetStats(), new MethodHasJournal(), new MethodHasPlant(), new MethodHasWeeds(),
+                new MethodIsAnalyzed(), new MethodIsCrossCrop(), new MethodIsFertile(), new MethodIsMature(),
+                new MethodNeedsBaseBlock() };
     }
 
-    //---------------------
-    //ComputerCraft methods
-    //---------------------
+    // ---------------------
+    // ComputerCraft methods
+    // ---------------------
     @Override
     public String getType() {
         return getName();
@@ -230,24 +224,23 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
 
     @Override
     @Optional.Method(modid = Names.Mods.computerCraft)
-    public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments) throws LuaException, InterruptedException {
+    public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments)
+            throws LuaException, InterruptedException {
         IMethod calledMethod = methods[method];
         try {
             return invokeMethod(calledMethod, arguments);
-        } catch(MethodException e) {
+        } catch (MethodException e) {
             throw new LuaException(e.getDescription());
         }
     }
 
     @Override
     @Optional.Method(modid = Names.Mods.computerCraft)
-    public void attach(IComputerAccess computer) {
-    }
+    public void attach(IComputerAccess computer) {}
 
     @Override
     @Optional.Method(modid = Names.Mods.computerCraft)
-    public void detach(IComputerAccess computer) {
-    }
+    public void detach(IComputerAccess computer) {}
 
     @Override
     @Optional.Method(modid = Names.Mods.computerCraft)
@@ -255,9 +248,9 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
         return other instanceof TileEntityPeripheral;
     }
 
-    //---------------------
-    //OpenComputers methods
-    //---------------------
+    // ---------------------
+    // OpenComputers methods
+    // ---------------------
     @Override
     public String getComponentName() {
         return getName();
@@ -272,18 +265,18 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
     @Optional.Method(modid = Names.Mods.openComputers)
     public Object[] invoke(String method, Context context, Arguments args) throws Exception {
         IMethod calledMethod = null;
-        for(IMethod iMethod: methods) {
-            if(iMethod.getName().equals(method)) {
+        for (IMethod iMethod : methods) {
+            if (iMethod.getName().equals(method)) {
                 calledMethod = iMethod;
                 break;
             }
         }
-        if(calledMethod == null)  {
+        if (calledMethod == null) {
             return null;
         }
         try {
             return invokeMethod(calledMethod, args.toArray());
-        } catch(MethodException e) {
+        } catch (MethodException e) {
             throw new Exception(e.getDescription());
         }
     }

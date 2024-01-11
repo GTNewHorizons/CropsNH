@@ -1,11 +1,11 @@
 package tehnut.resourceful.crops.api.base;
 
 import net.minecraft.world.EnumDifficulty;
+
 import tehnut.resourceful.crops.api.util.BlockStack;
 
 /**
- * Factory for creating SeedReqs.
- * Documentation for each field can be found in {@link SeedReq}
+ * Factory for creating SeedReqs. Documentation for each field can be found in {@link SeedReq}
  */
 public class SeedReqBuilder {
 

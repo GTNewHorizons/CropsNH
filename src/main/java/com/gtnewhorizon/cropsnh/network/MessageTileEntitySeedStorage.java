@@ -1,19 +1,22 @@
 package com.gtnewhorizon.cropsnh.network;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+
 import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.storage.SeedStorageSlot;
 import com.gtnewhorizon.cropsnh.tileentity.storage.TileEntitySeedStorage;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 
 public class MessageTileEntitySeedStorage extends MessageCropsNH {
+
     private int x;
     private int y;
     private int z;
@@ -30,15 +33,14 @@ public class MessageTileEntitySeedStorage extends MessageCropsNH {
         this.x = x;
         this.y = y;
         this.z = z;
-        if(slot!=null) {
+        if (slot != null) {
             this.slotId = slot.getId();
             this.amount = slot.count;
             NBTTagCompound tag = slot.getTag();
             this.growth = tag.getInteger(Names.NBT.growth);
             this.gain = tag.getInteger(Names.NBT.gain);
             this.strength = tag.getInteger(Names.NBT.strength);
-        }
-        else {
+        } else {
             this.slotId = -1;
         }
     }
@@ -55,7 +57,7 @@ public class MessageTileEntitySeedStorage extends MessageCropsNH {
         this.y = buf.readInt();
         this.z = buf.readInt();
         this.slotId = buf.readInt();
-        if(this.slotId>=0) {
+        if (this.slotId >= 0) {
             this.amount = buf.readInt();
             this.growth = buf.readInt();
             this.gain = buf.readInt();
@@ -69,7 +71,7 @@ public class MessageTileEntitySeedStorage extends MessageCropsNH {
         buf.writeInt(this.y);
         buf.writeInt(this.z);
         buf.writeInt(this.slotId);
-        if(this.slotId>=0) {
+        if (this.slotId >= 0) {
             buf.writeInt(this.amount);
             buf.writeInt(this.growth);
             buf.writeInt(this.gain);
@@ -78,10 +80,12 @@ public class MessageTileEntitySeedStorage extends MessageCropsNH {
     }
 
     public static class MessageHandler implements IMessageHandler<MessageTileEntitySeedStorage, IMessage> {
+
         @Override
         public IMessage onMessage(MessageTileEntitySeedStorage message, MessageContext context) {
-            TileEntity te = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.x, message.y, message.z);
-            if(te!=null && te instanceof TileEntitySeedStorage) {
+            TileEntity te = FMLClientHandler.instance().getClient().theWorld
+                    .getTileEntity(message.x, message.y, message.z);
+            if (te != null && te instanceof TileEntitySeedStorage) {
                 TileEntitySeedStorage storage = (TileEntitySeedStorage) te;
                 ItemStack stack = storage.getLockedSeed();
                 stack.stackSize = message.amount;

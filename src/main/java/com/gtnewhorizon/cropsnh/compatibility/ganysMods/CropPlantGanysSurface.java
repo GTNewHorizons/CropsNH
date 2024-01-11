@@ -1,9 +1,11 @@
 package com.gtnewhorizon.cropsnh.compatibility.ganysMods;
 
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantGeneric;
 import net.minecraft.item.ItemSeeds;
 
+import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantGeneric;
+
 public class CropPlantGanysSurface extends CropPlantGeneric {
+
     private final String name;
 
     protected CropPlantGanysSurface(ItemSeeds seed, String name) {

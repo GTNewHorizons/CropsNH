@@ -1,28 +1,29 @@
 package com.gtnewhorizon.cropsnh.farming.growthrequirement;
 
-import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
-import com.gtnewhorizon.cropsnh.api.v1.ISoilContainer;
-import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
-import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
+import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.api.v1.ISoilContainer;
+import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
+import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 /**
- * Encodes all requirements a plant needs to mutate and grow
- * Uses the Builder class inside to construct instances.
+ * Encodes all requirements a plant needs to mutate and grow Uses the Builder class inside to construct instances.
  */
 public class GrowthRequirement implements IGrowthRequirement {
+
     GrowthRequirement() {}
 
     public static final int NEARBY_DEFAULT_RANGE = 4;
 
-    //brightness
+    // brightness
     /** Maximum allowed brightness, exclusive **/
     private int maxBrightness = 16;
     /** Minimum allowed brightness, inclusive **/
@@ -30,13 +31,13 @@ public class GrowthRequirement implements IGrowthRequirement {
 
     private BlockWithMeta soil = null;
 
-    //block requirement
+    // block requirement
     private BlockWithMeta requiredBlock = null;
     private boolean oreDict = false;
     private RequirementType requiredType = RequirementType.NONE;
 
     public List<BlockWithMeta> getSoilBlocks() {
-        if(this.requiresSpecificSoil()) {
+        if (this.requiresSpecificSoil()) {
             List<BlockWithMeta> list = new ArrayList<>();
             list.add(soil);
             return list;
@@ -46,7 +47,7 @@ public class GrowthRequirement implements IGrowthRequirement {
 
     public List<BlockWithMeta> getBelowBlocks() {
         List<BlockWithMeta> list = new ArrayList<>();
-        if(this.requiredType==RequirementType.BELOW) {
+        if (this.requiredType == RequirementType.BELOW) {
             list.add(requiredBlock);
         }
         return list;
@@ -54,24 +55,27 @@ public class GrowthRequirement implements IGrowthRequirement {
 
     public List<BlockWithMeta> getNearBlocks() {
         List<BlockWithMeta> list = new ArrayList<>();
-        if(this.requiredType==RequirementType.NEARBY) {
+        if (this.requiredType == RequirementType.NEARBY) {
             list.add(requiredBlock);
         }
         return list;
     }
 
-    //Methods to check if a seed can grow
-    //-----------------------------------
-	public boolean canGrow(World world, int x, int y, int z) {
-        return this.isValidSoil(world, x, y-1, z) && this.isBrightnessGood(world, x, y, z) && this.isBaseBlockPresent(world, x, y, z);
+    // Methods to check if a seed can grow
+    // -----------------------------------
+    public boolean canGrow(World world, int x, int y, int z) {
+        return this.isValidSoil(world, x, y - 1, z) && this.isBrightnessGood(world, x, y, z)
+                && this.isBaseBlockPresent(world, x, y, z);
     }
 
     @Override
     public boolean isBaseBlockPresent(World world, int x, int y, int z) {
-        if(this.requiresBaseBlock()) {
-            switch(this.requiredType) {
-                case BELOW: return this.isBaseBlockBelow(world, x, y, z);
-                case NEARBY: return this.isBaseBlockNear(world, x, y, z);
+        if (this.requiresBaseBlock()) {
+            switch (this.requiredType) {
+                case BELOW:
+                    return this.isBaseBlockBelow(world, x, y, z);
+                case NEARBY:
+                    return this.isBaseBlockNear(world, x, y, z);
             }
         }
         return true;
@@ -79,7 +83,7 @@ public class GrowthRequirement implements IGrowthRequirement {
 
     /** @return true, if the correct base block is below **/
     private boolean isBaseBlockBelow(World world, int x, int y, int z) {
-        if(this.requiresBaseBlock() && this.requiredType==RequirementType.BELOW) {
+        if (this.requiresBaseBlock() && this.requiredType == RequirementType.BELOW) {
             return this.isBlockAdequate(world, x, y - 2, z);
         }
         return true;
@@ -87,12 +91,12 @@ public class GrowthRequirement implements IGrowthRequirement {
 
     /** @return true, if the correct base block is below **/
     private boolean isBaseBlockNear(World world, int x, int y, int z) {
-        if(this.requiresBaseBlock() && this.requiredType==RequirementType.NEARBY) {
+        if (this.requiresBaseBlock() && this.requiredType == RequirementType.NEARBY) {
             int range = NEARBY_DEFAULT_RANGE;
             for (int xPos = x - range; xPos <= x + range; xPos++) {
                 for (int yPos = y - range; yPos <= y + range; yPos++) {
                     for (int zPos = z - range; zPos <= z + range; zPos++) {
-                        if(this.isBlockAdequate(world, xPos, yPos, zPos)) {
+                        if (this.isBlockAdequate(world, xPos, yPos, zPos)) {
                             return true;
                         }
                     }
@@ -107,18 +111,17 @@ public class GrowthRequirement implements IGrowthRequirement {
     private boolean isBlockAdequate(World world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
         int meta = block.getDamageValue(world, x, y, z);
-        if(this.oreDict) {
+        if (this.oreDict) {
             return OreDictHelper.isSameOre(block, meta, this.requiredBlock.getBlock(), this.requiredBlock.getMeta());
-        }
-        else {
-            return block==this.requiredBlock.getBlock() && meta==this.requiredBlock.getMeta();
+        } else {
+            return block == this.requiredBlock.getBlock() && meta == this.requiredBlock.getMeta();
         }
     }
 
     public boolean isBrightnessGood(World world, int x, int y, int z) {
         int lvl = world.getSavedLightValue(EnumSkyBlock.Block, x, y + 1, z);
         boolean day = world.isDaytime();
-        if(day) {
+        if (day) {
             int light_sky = world.getSavedLightValue(EnumSkyBlock.Sky, x, y + 1, z);
             lvl = Math.max(light_sky, lvl);
         }
@@ -131,14 +134,16 @@ public class GrowthRequirement implements IGrowthRequirement {
         int meta = world.getBlockMetadata(x, y, z);
         BlockWithMeta soil = new BlockWithMeta(block, meta);
         if (block instanceof ISoilContainer) {
-            soil = new BlockWithMeta(((ISoilContainer) block).getSoil(world, x, y, z), ((ISoilContainer) block).getSoilMeta(world, x, y, z));
+            soil = new BlockWithMeta(
+                    ((ISoilContainer) block).getSoil(world, x, y, z),
+                    ((ISoilContainer) block).getSoilMeta(world, x, y, z));
         }
         return isValidSoil(soil);
     }
 
     @Override
     public boolean isValidSoil(BlockWithMeta soil) {
-        if(this.requiresSpecificSoil()) {
+        if (this.requiresSpecificSoil()) {
             return this.soil.equals(soil);
         } else {
             return GrowthRequirementHandler.defaultSoils.contains(soil);
@@ -146,7 +151,7 @@ public class GrowthRequirement implements IGrowthRequirement {
     }
 
     public boolean requiresSpecificSoil() {
-        return this.soil!=null;
+        return this.soil != null;
     }
 
     public boolean requiresBaseBlock() {
@@ -163,10 +168,12 @@ public class GrowthRequirement implements IGrowthRequirement {
         return requiredType;
     }
 
-    //Methods to change specific requirements
-    //--------------------------------------
+    // Methods to change specific requirements
+    // --------------------------------------
     @Override
-    public BlockWithMeta getSoil() {return this.soil;}
+    public BlockWithMeta getSoil() {
+        return this.soil;
+    }
 
     @Override
     public void setSoil(BlockWithMeta soil) {
@@ -175,7 +182,9 @@ public class GrowthRequirement implements IGrowthRequirement {
     }
 
     @Override
-    public int[] getBrightnessRange() {return new int[] {minBrightness, maxBrightness};}
+    public int[] getBrightnessRange() {
+        return new int[] { minBrightness, maxBrightness };
+    }
 
     @Override
     public void setBrightnessRange(int min, int max) {

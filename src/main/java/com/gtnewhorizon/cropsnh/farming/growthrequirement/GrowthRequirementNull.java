@@ -1,15 +1,18 @@
 package com.gtnewhorizon.cropsnh.farming.growthrequirement;
 
-import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
-import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
+import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
+
 /**
- * An IGrowthRequirement implementation to prevent NPE's, for instance when the IGrowthRequirement for a null stack is querried, this is returned
+ * An IGrowthRequirement implementation to prevent NPE's, for instance when the IGrowthRequirement for a null stack is
+ * querried, this is returned
  */
 public final class GrowthRequirementNull implements IGrowthRequirement {
+
     GrowthRequirementNull() {}
 
     @Override

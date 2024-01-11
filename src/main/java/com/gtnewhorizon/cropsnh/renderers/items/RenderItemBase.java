@@ -1,7 +1,7 @@
 package com.gtnewhorizon.cropsnh.renderers.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.HashMap;
+
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.item.EntityItem;
@@ -10,16 +10,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+
 import org.lwjgl.opengl.GL11;
 
-import java.util.HashMap;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public abstract class RenderItemBase implements IItemRenderer {
+
     private static final HashMap<Item, RenderItemBase> renderers = new HashMap<>();
 
     protected RenderItemBase(Item item) {
-        if(!renderers.containsKey(item)) {
+        if (!renderers.containsKey(item)) {
             MinecraftForgeClient.registerItemRenderer(item, this);
             renderers.put(item, this);
         }
@@ -39,21 +42,34 @@ public abstract class RenderItemBase implements IItemRenderer {
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         Tessellator tessellator = Tessellator.instance;
         GL11.glPushMatrix();
-        switch(type) {
-            case ENTITY: renderItemEntity(item, tessellator, (RenderBlocks) data[0], (EntityItem) data[1]); break;
-            case EQUIPPED: renderItemEquipped(item, tessellator, (RenderBlocks) data[0], (EntityPlayer) data[1]); break;
-            case EQUIPPED_FIRST_PERSON: renderItemEquippedFirstPerson(item, tessellator, (RenderBlocks) data[0], (EntityPlayer) data[1]); break;
-            case INVENTORY: renderItemInventory(item, tessellator, (RenderBlocks) data[0]); break;
-            case FIRST_PERSON_MAP: renderItemMap(item, tessellator); break;
+        switch (type) {
+            case ENTITY:
+                renderItemEntity(item, tessellator, (RenderBlocks) data[0], (EntityItem) data[1]);
+                break;
+            case EQUIPPED:
+                renderItemEquipped(item, tessellator, (RenderBlocks) data[0], (EntityPlayer) data[1]);
+                break;
+            case EQUIPPED_FIRST_PERSON:
+                renderItemEquippedFirstPerson(item, tessellator, (RenderBlocks) data[0], (EntityPlayer) data[1]);
+                break;
+            case INVENTORY:
+                renderItemInventory(item, tessellator, (RenderBlocks) data[0]);
+                break;
+            case FIRST_PERSON_MAP:
+                renderItemMap(item, tessellator);
+                break;
         }
         GL11.glPopMatrix();
     }
 
-    protected abstract void renderItemEntity(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks, EntityItem entityItem);
+    protected abstract void renderItemEntity(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks,
+            EntityItem entityItem);
 
-    protected abstract void renderItemEquipped(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks, EntityPlayer player);
+    protected abstract void renderItemEquipped(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks,
+            EntityPlayer player);
 
-    protected abstract void renderItemEquippedFirstPerson(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks, EntityPlayer player);
+    protected abstract void renderItemEquippedFirstPerson(ItemStack stack, Tessellator tessellator,
+            RenderBlocks renderBlocks, EntityPlayer player);
 
     protected abstract void renderItemInventory(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks);
 
@@ -66,7 +82,7 @@ public abstract class RenderItemBase implements IItemRenderer {
     protected void drawAxisSystem(boolean startDrawing) {
         Tessellator tessellator = Tessellator.instance;
 
-        if(startDrawing) {
+        if (startDrawing) {
             tessellator.startDrawingQuads();
         }
 
@@ -85,7 +101,7 @@ public abstract class RenderItemBase implements IItemRenderer {
         tessellator.addVertexWithUV(0, 0.005F, -1, 0, 1);
         tessellator.addVertexWithUV(0, -0.005F, -1, 1, 1);
 
-        if(startDrawing) {
+        if (startDrawing) {
             tessellator.draw();
         }
     }

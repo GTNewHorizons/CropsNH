@@ -1,10 +1,8 @@
 /**
- * This class was created by <TheLoneDevil>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+ * This class was created by <TheLoneDevil>. It's distributed as part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
+ * Botania is Open Source and distributed under the Botania License: http://botaniamod.net/license.php
  *
  * File Created @ [? (GMT)]
  */
@@ -17,8 +15,8 @@ import net.minecraft.world.World;
  */
 public interface IFlowerlessWorld {
 
-	/**
-	 * @return Should this world be allowed to generate flowers?
-	 */
+    /**
+     * @return Should this world be allowed to generate flowers?
+     */
     boolean generateFlowers(World world);
 }

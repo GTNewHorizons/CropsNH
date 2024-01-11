@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.api.example;
 
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
+
 import cpw.mods.fml.common.Optional;
 
 /**
@@ -8,6 +9,7 @@ import cpw.mods.fml.common.Optional;
  */
 @Optional.Interface(modid = "CropsNH", iface = "com.gtnewhorizon.cropsnh.api.v2.ISeedStats")
 public class SeedStatsExample implements ISeedStats {
+
     private final short growth;
     private final short gain;
     private final short strength;

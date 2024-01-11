@@ -3,6 +3,7 @@ package com.gtnewhorizon.cropsnh.api.v1;
 import net.minecraft.item.ItemStack;
 
 public interface ITrowel {
+
     /** Return true if this trowel is currently carrying a plant */
     boolean hasSeed(ItemStack trowel);
 
@@ -25,5 +26,5 @@ public interface ITrowel {
     void clearSeed(ItemStack trowel);
 
     /** Gets the stats from the seed */
-    ISeedStats getStats(ItemStack trowel) ;
+    ISeedStats getStats(ItemStack trowel);
 }

@@ -1,31 +1,36 @@
 package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
-import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
-import com.gtnewhorizon.cropsnh.api.v1.IRake;
-import com.gtnewhorizon.cropsnh.items.ItemHandRake;
-import com.gtnewhorizon.cropsnh.reference.Reference;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import org.lwjgl.opengl.GL11;
-
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NEIWeedRakingHandler  extends TemplateRecipeHandler {
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
+import com.gtnewhorizon.cropsnh.api.v1.IRake;
+import com.gtnewhorizon.cropsnh.items.ItemHandRake;
+import com.gtnewhorizon.cropsnh.reference.Reference;
+
+import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+
+public class NEIWeedRakingHandler extends TemplateRecipeHandler {
+
     private static final String name = StatCollector.translateToLocal("cropsnh_nei.weedRaking.title");
     private static final String id = "weedRaking";
 
     private static final int COLOR_BLACK = 1644054;
 
     public class CachedWeedRakingRecipe extends TemplateRecipeHandler.CachedRecipe {
+
         ArrayList<PositionedStack> results;
         PositionedStack rake;
 
-        //constructor
+        // constructor
         public CachedWeedRakingRecipe(ItemStack rake) {
 
         }
@@ -35,7 +40,7 @@ public class NEIWeedRakingHandler  extends TemplateRecipeHandler {
             return rake;
         }
 
-        //return ingredients
+        // return ingredients
         @Override
         public List<PositionedStack> getIngredients() {
             List<PositionedStack> list = new ArrayList<>();
@@ -43,60 +48,60 @@ public class NEIWeedRakingHandler  extends TemplateRecipeHandler {
             return list;
         }
 
-        //return result
+        // return result
         @Override
         public PositionedStack getResult() {
             return results.get(0);
         }
     }
 
-    //loads the mutation recipes for a given mutation
+    // loads the mutation recipes for a given mutation
     @Override
     public void loadCraftingRecipes(String id, Object... results) {
-        if(id.equalsIgnoreCase(NEIWeedRakingHandler.id)) {
+        if (id.equalsIgnoreCase(NEIWeedRakingHandler.id)) {
 
-        }
-        else if(id.equalsIgnoreCase("item")) {
+        } else if (id.equalsIgnoreCase("item")) {
             for (Object object : results) {
-                if (object instanceof ItemStack && getClass()==NEIWeedRakingHandler.class) {
-                    loadCraftingRecipes(new ItemStack(((ItemStack) object).getItem(), 1, ((ItemStack) object).getItemDamage()));
+                if (object instanceof ItemStack && getClass() == NEIWeedRakingHandler.class) {
+                    loadCraftingRecipes(
+                            new ItemStack(((ItemStack) object).getItem(), 1, ((ItemStack) object).getItemDamage()));
                 }
             }
         }
     }
 
-    //loads the mutation recipes for a given mutation
+    // loads the mutation recipes for a given mutation
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        if(ItemHandRake.ItemDropRegistry.instance().getWeight(result)>0) {
+        if (ItemHandRake.ItemDropRegistry.instance().getWeight(result) > 0) {
 
         }
     }
 
-    //loads the mutation recipes for a given parent
+    // loads the mutation recipes for a given parent
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        if(ingredient == null || ingredient.getItem() == null) {
+        if (ingredient == null || ingredient.getItem() == null) {
             return;
         }
-        if(ingredient.getItem() instanceof IRake) {
-           // List<ItemStack> drops = ItemHandRake.ItemDropRegistry.instance().getAllDrops();
+        if (ingredient.getItem() instanceof IRake) {
+            // List<ItemStack> drops = ItemHandRake.ItemDropRegistry.instance().getAllDrops();
         }
     }
 
-    //returns the name for this recipe
+    // returns the name for this recipe
     @Override
     public String getRecipeName() {
         return name;
     }
 
-    //returns the id for this recipe
+    // returns the id for this recipe
     @Override
     public String getOverlayIdentifier() {
         return id;
     }
 
-    //gets the texture to display the recipe in
+    // gets the texture to display the recipe in
     @Override
     public String getGuiTexture() {
         return new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/nei/weedRaking.png").toString();
@@ -107,7 +112,7 @@ public class NEIWeedRakingHandler  extends TemplateRecipeHandler {
         return 1;
     }
 
-    //defines rectangles on the recipe gui which can be clicked to show all crop mutation recipes
+    // defines rectangles on the recipe gui which can be clicked to show all crop mutation recipes
     @Override
     public void loadTransferRects() {
         transferRects.add(new RecipeTransferRect(new Rectangle(65, 2, 4, 39), id));

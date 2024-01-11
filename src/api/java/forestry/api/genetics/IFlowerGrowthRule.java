@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 /**
  * Basic condition for flower growing
  */
-public interface IFlowerGrowthRule {	
-	boolean growFlower(IFlowerRegistry fr, String flowerType, World world, IIndividual individual, int x, int y, int z);
+public interface IFlowerGrowthRule {
+
+    boolean growFlower(IFlowerRegistry fr, String flowerType, World world, IIndividual individual, int x, int y, int z);
 }

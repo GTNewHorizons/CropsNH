@@ -2,9 +2,11 @@ package com.gtnewhorizon.cropsnh.compatibility.minetweaker;
 
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.reference.Names;
+
 import minetweaker.MineTweakerAPI;
 
 public class MinetweakerHelper extends ModHelper {
+
     @Override
     protected void onInit() {
         MineTweakerAPI.registerClass(SeedMutation.class);

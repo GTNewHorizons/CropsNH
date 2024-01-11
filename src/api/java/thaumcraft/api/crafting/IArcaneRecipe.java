@@ -4,15 +4,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 import thaumcraft.api.aspects.AspectList;
 
-public interface IArcaneRecipe
-{
-	
-	
+public interface IArcaneRecipe {
+
     /**
      * Used to check if a recipe matches current crafting inventory
-     * @param player 
+     * 
+     * @param player
      */
     boolean matches(IInventory var1, World world, EntityPlayer player);
 
@@ -27,9 +27,11 @@ public interface IArcaneRecipe
     int getRecipeSize();
 
     ItemStack getRecipeOutput();
+
     AspectList getAspects();
+
     AspectList getAspects(IInventory var1);
+
     String getResearch();
 
-    
 }

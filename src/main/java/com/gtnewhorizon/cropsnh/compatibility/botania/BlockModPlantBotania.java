@@ -1,14 +1,17 @@
 package com.gtnewhorizon.cropsnh.compatibility.botania;
 
-import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
-import com.gtnewhorizon.cropsnh.utility.LogHelper;
-import com.gtnewhorizon.cropsnh.utility.exception.MissingArgumentsException;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
+import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
+import com.gtnewhorizon.cropsnh.utility.exception.MissingArgumentsException;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockModPlantBotania extends BlockModPlant {
+
     @SideOnly(Side.CLIENT)
     private IIcon[] alternateIcons;
 
@@ -16,11 +19,10 @@ public class BlockModPlantBotania extends BlockModPlant {
         super(arguments);
     }
 
-
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        if(BotaniaHelper.useAlternateTextures()) {
+        if (BotaniaHelper.useAlternateTextures()) {
             switch (meta) {
                 case 0:
                     return this.alternateIcons[0];
@@ -45,15 +47,16 @@ public class BlockModPlantBotania extends BlockModPlant {
         }
     }
 
-    //register icons
+    // register icons
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister reg) {
         LogHelper.debug("registering icon for: " + this.getUnlocalizedName());
         super.registerBlockIcons(reg);
         this.alternateIcons = new IIcon[4];
-        for(int i=1;i<this.alternateIcons.length+1;i++) {
-            this.alternateIcons[i-1] = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.') + 1)+"Alternate"+i);
+        for (int i = 1; i < this.alternateIcons.length + 1; i++) {
+            this.alternateIcons[i - 1] = reg.registerIcon(
+                    this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.') + 1) + "Alternate" + i);
         }
     }
 }

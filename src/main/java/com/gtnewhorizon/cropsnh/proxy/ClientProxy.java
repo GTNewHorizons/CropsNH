@@ -1,6 +1,16 @@
 package com.gtnewhorizon.cropsnh.proxy;
 
-import codechicken.nei.api.API;
+import java.lang.reflect.Field;
+import java.util.Iterator;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+
 import com.gtnewhorizon.cropsnh.blocks.BlockCropsNH;
 import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIConfig;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
@@ -9,26 +19,15 @@ import com.gtnewhorizon.cropsnh.handler.SoundHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
-import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.player.renderhooks.RenderPlayerHooks;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
+
+import codechicken.nei.api.API;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.VillagerRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-
-import java.lang.reflect.Field;
-import java.util.Iterator;
 
 @SuppressWarnings("unused")
 public class ClientProxy extends CommonProxy {
@@ -55,13 +54,13 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenderers() {
-        //BLOCKS
-        //------
-        for(Field field: Blocks.class.getDeclaredFields()) {
-            if(field.getType().isAssignableFrom(BlockCropsNH.class)) {
+        // BLOCKS
+        // ------
+        for (Field field : Blocks.class.getDeclaredFields()) {
+            if (field.getType().isAssignableFrom(BlockCropsNH.class)) {
                 try {
                     Object obj = field.get(null);
-                    if(obj!=null) {
+                    if (obj != null) {
                         ((BlockCropsNH) obj).getRenderer();
                     }
                 } catch (IllegalAccessException e) {
@@ -70,16 +69,16 @@ public class ClientProxy extends CommonProxy {
             }
         }
 
-        //ITEMS
-        //-----
-        for(Field field: Items.class.getDeclaredFields()) {
-            if(field.getType().isAssignableFrom(ItemCropsNH.class)) {
+        // ITEMS
+        // -----
+        for (Field field : Items.class.getDeclaredFields()) {
+            if (field.getType().isAssignableFrom(ItemCropsNH.class)) {
                 try {
                     Object obj = field.get(null);
-                    if(obj!=null) {
+                    if (obj != null) {
                         ((ItemCropsNH) obj).getItemRenderer();
                     }
-                }catch (IllegalAccessException e) {
+                } catch (IllegalAccessException e) {
                     LogHelper.printStackTrace(e);
                 }
             }
@@ -112,9 +111,9 @@ public class ClientProxy extends CommonProxy {
     public void hideItemInNEI(ItemStack stack) {
         Iterator<ModContainer> mods = Loader.instance().getActiveModList().iterator();
         ModContainer modContainer;
-        while(mods.hasNext()) {
+        while (mods.hasNext()) {
             modContainer = (ModContainer) mods.next();
-            if(modContainer.getModId().equalsIgnoreCase("NotEnoughItems")) {
+            if (modContainer.getModId().equalsIgnoreCase("NotEnoughItems")) {
                 API.hideItem(stack);
             }
         }

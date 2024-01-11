@@ -20,10 +20,7 @@ public class Chance {
 
     @Override
     public String toString() {
-        return "Chance{" +
-                "extraSeed=" + extraSeed +
-                ", essenceDrop=" + essenceDrop +
-                '}';
+        return "Chance{" + "extraSeed=" + extraSeed + ", essenceDrop=" + essenceDrop + '}';
     }
 
     @Override

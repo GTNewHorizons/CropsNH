@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.init;
 
+import net.minecraft.item.Item;
+
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.items.ItemClipper;
 import com.gtnewhorizon.cropsnh.items.ItemClipping;
@@ -10,9 +12,9 @@ import com.gtnewhorizon.cropsnh.items.ItemJournal;
 import com.gtnewhorizon.cropsnh.items.ItemMagnifyingGlass;
 import com.gtnewhorizon.cropsnh.items.ItemTrowel;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
-import net.minecraft.item.Item;
 
 public class Items {
+
     public static Item crops;
     public static Item journal;
     public static Item trowel;
@@ -27,13 +29,13 @@ public class Items {
         journal = new ItemJournal();
         magnifyingGlass = new ItemMagnifyingGlass();
         debugItem = new ItemDebugger();
-        if(ConfigurationHandler.enableTrowel) {
+        if (ConfigurationHandler.enableTrowel) {
             trowel = new ItemTrowel();
         }
         if (ConfigurationHandler.enableHandRake) {
             handRake = new ItemHandRake();
         }
-        if(ConfigurationHandler.enableClipper) {
+        if (ConfigurationHandler.enableClipper) {
             clipper = new ItemClipper();
         }
         clipping = new ItemClipping();

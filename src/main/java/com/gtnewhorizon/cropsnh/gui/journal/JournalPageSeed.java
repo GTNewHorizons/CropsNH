@@ -1,14 +1,8 @@
 package com.gtnewhorizon.cropsnh.gui.journal;
 
-import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.api.v1.IMutation;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
-import com.gtnewhorizon.cropsnh.farming.mutation.MutationHandler;
-import com.gtnewhorizon.cropsnh.gui.Component;
-import com.gtnewhorizon.cropsnh.reference.Reference;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
@@ -17,16 +11,35 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
+import com.gtnewhorizon.cropsnh.api.v1.IMutation;
+import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
+import com.gtnewhorizon.cropsnh.farming.mutation.MutationHandler;
+import com.gtnewhorizon.cropsnh.gui.Component;
+import com.gtnewhorizon.cropsnh.reference.Reference;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class JournalPageSeed extends JournalPage {
-    private static final ResourceLocation ICON_FRAME = new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/journal/GuiJournalSeedFrame.png");
-    private static final ResourceLocation MUTATION_TEMPLATE = new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/journal/GuiJournalMutationTemplate.png");
-    private static final ResourceLocation QUESTION_MARK = new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/journal/GuiJournalQuestionMark.png");
-    private static final ResourceLocation BRIGHTNESS_BAR = new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/journal/GuiJournalBrightnessBar.png");
-    private static final ResourceLocation BRIGHTNESS_FRAME = new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/journal/GuiJournalBrightnessFrame.png");
+
+    private static final ResourceLocation ICON_FRAME = new ResourceLocation(
+            Reference.MOD_ID.toLowerCase(),
+            "textures/gui/journal/GuiJournalSeedFrame.png");
+    private static final ResourceLocation MUTATION_TEMPLATE = new ResourceLocation(
+            Reference.MOD_ID.toLowerCase(),
+            "textures/gui/journal/GuiJournalMutationTemplate.png");
+    private static final ResourceLocation QUESTION_MARK = new ResourceLocation(
+            Reference.MOD_ID.toLowerCase(),
+            "textures/gui/journal/GuiJournalQuestionMark.png");
+    private static final ResourceLocation BRIGHTNESS_BAR = new ResourceLocation(
+            Reference.MOD_ID.toLowerCase(),
+            "textures/gui/journal/GuiJournalBrightnessBar.png");
+    private static final ResourceLocation BRIGHTNESS_FRAME = new ResourceLocation(
+            Reference.MOD_ID.toLowerCase(),
+            "textures/gui/journal/GuiJournalBrightnessFrame.png");
 
     private final ArrayList<ItemStack> discoveredSeeds;
     private final int page;
@@ -51,15 +64,15 @@ public class JournalPageSeed extends JournalPage {
 
     @Override
     public ArrayList<String> getTooltip(int x, int y) {
-        for(Component<ItemStack> component:fruits) {
-            if(component.isOverComponent(x, y)) {
+        for (Component<ItemStack> component : fruits) {
+            if (component.isOverComponent(x, y)) {
                 ArrayList<String> toolTip = new ArrayList<>();
                 toolTip.add(component.getComponent().getDisplayName());
                 return toolTip;
             }
         }
-        for(Component<ItemStack> component:seeds) {
-            if(component.isOverComponent(x, y)) {
+        for (Component<ItemStack> component : seeds) {
+            if (component.isOverComponent(x, y)) {
                 ArrayList<String> toolTip = new ArrayList<>();
                 toolTip.add(component.getComponent().getDisplayName());
                 return toolTip;
@@ -70,13 +83,14 @@ public class JournalPageSeed extends JournalPage {
 
     @Override
     public int getPagesToBrowseOnMouseClick(int x, int y) {
-        for(Component<ItemStack> component:seeds) {
-            if(component.isOverComponent(x, y)) {
+        for (Component<ItemStack> component : seeds) {
+            if (component.isOverComponent(x, y)) {
                 ItemStack selected = component.getComponent();
-                for(int i=0;i<discoveredSeeds.size();i++) {
+                for (int i = 0; i < discoveredSeeds.size(); i++) {
                     ItemStack current = discoveredSeeds.get(i);
-                    if(selected.getItem()==current.getItem() && selected.getItemDamage()==current.getItemDamage()) {
-                        return i-page;
+                    if (selected.getItem() == current.getItem()
+                            && selected.getItemDamage() == current.getItemDamage()) {
+                        return i - page;
                     }
                 }
                 break;
@@ -84,7 +98,6 @@ public class JournalPageSeed extends JournalPage {
         }
         return 0;
     }
-
 
     // *************************** //
     // TEXT TO RENDER ON THIS PAGE //
@@ -173,7 +186,6 @@ public class JournalPageSeed extends JournalPage {
         return list;
     }
 
-
     // **************************** //
     // ITEMS TO RENDER ON THIS PAGE //
     // **************************** //
@@ -195,12 +207,12 @@ public class JournalPageSeed extends JournalPage {
     }
 
     private ArrayList<Component<ItemStack>> getFruits() {
-        if(this.plant==null) {
+        if (this.plant == null) {
             this.plant = CropPlantHandler.getPlantFromStack(discoveredSeeds.get(page));
         }
         ArrayList<Component<ItemStack>> fruits = new ArrayList<>();
         ArrayList<ItemStack> allFruits = plant.getAllFruits();
-        if(allFruits != null ) {
+        if (allFruits != null) {
             for (int i = 0; i < allFruits.size(); i++) {
                 ItemStack stack = allFruits.get(i);
                 if (stack != null && stack.getItem() != null) {
@@ -247,9 +259,10 @@ public class JournalPageSeed extends JournalPage {
     private ArrayList<IMutation> getDiscoveredParentMutations() {
         ArrayList<IMutation> allMutations = new ArrayList<>();
         ArrayList<IMutation> mutations = new ArrayList<>();
-        allMutations.addAll(Arrays.asList(MutationHandler.getInstance().getMutationsFromParent(discoveredSeeds.get(page))));
-        for(IMutation mutation:allMutations) {
-            if(isMutationDiscovered(mutation)) {
+        allMutations
+                .addAll(Arrays.asList(MutationHandler.getInstance().getMutationsFromParent(discoveredSeeds.get(page))));
+        for (IMutation mutation : allMutations) {
+            if (isMutationDiscovered(mutation)) {
                 mutations.add(mutation);
             }
         }
@@ -259,9 +272,10 @@ public class JournalPageSeed extends JournalPage {
     private ArrayList<IMutation> getDiscoveredChildMutations() {
         ArrayList<IMutation> allMutations = new ArrayList<>();
         ArrayList<IMutation> mutations = new ArrayList<>();
-        allMutations.addAll(Arrays.asList(MutationHandler.getInstance().getMutationsFromChild(discoveredSeeds.get(page))));
-        for(IMutation mutation:allMutations) {
-            if(isMutationDiscovered(mutation)) {
+        allMutations
+                .addAll(Arrays.asList(MutationHandler.getInstance().getMutationsFromChild(discoveredSeeds.get(page))));
+        for (IMutation mutation : allMutations) {
+            if (isMutationDiscovered(mutation)) {
                 mutations.add(mutation);
             }
         }
@@ -271,9 +285,10 @@ public class JournalPageSeed extends JournalPage {
     private ArrayList<IMutation> getUncompleteMutations() {
         ArrayList<IMutation> allMutations = new ArrayList<>();
         ArrayList<IMutation> mutations = new ArrayList<>();
-        allMutations.addAll(Arrays.asList(MutationHandler.getInstance().getMutationsFromParent(discoveredSeeds.get(page))));
-        for(IMutation mutation:allMutations) {
-            if(isMutationHalfDiscovered(mutation)) {
+        allMutations
+                .addAll(Arrays.asList(MutationHandler.getInstance().getMutationsFromParent(discoveredSeeds.get(page))));
+        for (IMutation mutation : allMutations) {
+            if (isMutationHalfDiscovered(mutation)) {
                 mutations.add(mutation);
             }
         }
@@ -298,14 +313,13 @@ public class JournalPageSeed extends JournalPage {
     }
 
     private boolean isSeedDiscovered(ItemStack seed) {
-        for (ItemStack current:discoveredSeeds) {
-            if(current.getItem()==seed.getItem() && current.getItemDamage()==seed.getItemDamage()) {
+        for (ItemStack current : discoveredSeeds) {
+            if (current.getItem() == seed.getItem() && current.getItemDamage() == seed.getItemDamage()) {
                 return true;
             }
         }
         return false;
     }
-
 
     // ******************************* //
     // TEXTURES TO RENDER ON THIS PAGE //
@@ -341,9 +355,9 @@ public class JournalPageSeed extends JournalPage {
      * @param icon the icon to get the resource location from.
      * @return the resource location for the icon, or null.
      */
-    //TODO: get rid of this method and do it the legit way
+    // TODO: get rid of this method and do it the legit way
     private ResourceLocation getBlockResource(IIcon icon) {
-        if(icon==null) {
+        if (icon == null) {
             return null;
         }
         String path = icon.getIconName();
@@ -362,17 +376,29 @@ public class JournalPageSeed extends JournalPage {
         textures.add(new Component<>(BRIGHTNESS_BAR, x, y, 2 + 16 * u, v));
         textures.add(new Component<>(BRIGHTNESS_FRAME, x + u * brightnessRange[0], y, 1, v));
         textures.add(new Component<>(BRIGHTNESS_FRAME, x + u * brightnessRange[1] + 1, y, 1, v));
-        textures.add(new Component<>(BRIGHTNESS_FRAME, x + u * brightnessRange[0] + 1, y, u * (brightnessRange[1] - brightnessRange[0]), 1));
-        textures.add(new Component<>(BRIGHTNESS_FRAME, x + u * brightnessRange[0] + 1, y + v - 1, u * (brightnessRange[1] - brightnessRange[0]), 1));
+        textures.add(
+                new Component<>(
+                        BRIGHTNESS_FRAME,
+                        x + u * brightnessRange[0] + 1,
+                        y,
+                        u * (brightnessRange[1] - brightnessRange[0]),
+                        1));
+        textures.add(
+                new Component<>(
+                        BRIGHTNESS_FRAME,
+                        x + u * brightnessRange[0] + 1,
+                        y + v - 1,
+                        u * (brightnessRange[1] - brightnessRange[0]),
+                        1));
         return textures;
     }
 
     private ArrayList<Component<ResourceLocation>> getFruitIconFrames() {
-        if(this.fruits==null) {
+        if (this.fruits == null) {
             this.fruits = getFruits();
         }
         ArrayList<Component<ResourceLocation>> components = new ArrayList<>();
-        for(int i=0;i<fruits.size();i++) {
+        for (int i = 0; i < fruits.size(); i++) {
             components.add(new Component<>(ICON_FRAME, 29 + 24 * i, 101, 18, 18));
         }
         return components;
@@ -383,18 +409,17 @@ public class JournalPageSeed extends JournalPage {
         int l = getUncompleteMutations().size();
         ArrayList<Component<ResourceLocation>> components = new ArrayList<>();
         int y = 0;
-        for(int i=0;i<n;i++) {
+        for (int i = 0; i < n; i++) {
             y = y + 20;
             components.add(new Component<>(MUTATION_TEMPLATE, 132, y, 86, 18));
         }
-        for(int i=0;i<l;i++) {
+        for (int i = 0; i < l; i++) {
             y = y + 20;
             components.add(new Component<>(MUTATION_TEMPLATE, 132, y, 86, 18));
             components.add(new Component<>(QUESTION_MARK, 201, y + 1, 16, 16));
         }
         return components;
     }
-
 
     // ******************************* //
     // TEXTURES TO RENDER ON THIS PAGE //
@@ -409,7 +434,7 @@ public class JournalPageSeed extends JournalPage {
 
     @Override
     public ArrayList<Component<IIcon>> getIconComponents(ResourceLocation textureMap) {
-        if(textureMap != TextureMap.locationBlocksTexture) {
+        if (textureMap != TextureMap.locationBlocksTexture) {
             return null;
         }
         return getGrowthStageIcons();
@@ -417,7 +442,7 @@ public class JournalPageSeed extends JournalPage {
 
     private ArrayList<Component<IIcon>> getGrowthStageIcons() {
         ArrayList<Component<IIcon>> growthStages = new ArrayList<>();
-        for(int i=0;i<8;i++) {
+        for (int i = 0; i < 8; i++) {
             int x = 30 + 24 * (i % 4);
             int y = 129 + 24 * (i / 4);
             growthStages.add(new Component<>(plant.getPlantIcon(i), x, y, 16, 16));

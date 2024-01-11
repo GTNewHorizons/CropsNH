@@ -5,26 +5,26 @@
  ******************************************************************************/
 package forestry.api.circuits;
 
-import forestry.api.core.INBTTagable;
-
 import java.util.List;
+
+import forestry.api.core.INBTTagable;
 
 public interface ICircuitBoard extends INBTTagable {
 
-	int getPrimaryColor();
+    int getPrimaryColor();
 
-	int getSecondaryColor();
+    int getSecondaryColor();
 
-	void addTooltip(List<String> list);
+    void addTooltip(List<String> list);
 
-	void onInsertion(Object tile);
+    void onInsertion(Object tile);
 
-	void onLoad(Object tile);
+    void onLoad(Object tile);
 
-	void onRemoval(Object tile);
+    void onRemoval(Object tile);
 
-	void onTick(Object tile);
+    void onTick(Object tile);
 
-	ICircuit[] getCircuits();
+    ICircuit[] getCircuits();
 
 }

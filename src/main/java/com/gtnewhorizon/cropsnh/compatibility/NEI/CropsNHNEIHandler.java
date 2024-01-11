@@ -1,18 +1,20 @@
 package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
+import java.util.HashMap;
+
+import net.minecraft.item.ItemStack;
+
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.item.ItemStack;
-
-import java.util.HashMap;
 
 @SideOnly(Side.CLIENT)
 public abstract class CropsNHNEIHandler extends TemplateRecipeHandler {
+
     private static final HashMap<Class<? extends CropsNHNEIHandler>, Boolean> handlerStatuses = new HashMap<>();
 
     public CropsNHNEIHandler() {
-        if(!handlerStatuses.containsKey(this.getClass())) {
+        if (!handlerStatuses.containsKey(this.getClass())) {
             handlerStatuses.put(this.getClass(), true);
         }
     }
@@ -27,7 +29,7 @@ public abstract class CropsNHNEIHandler extends TemplateRecipeHandler {
 
     @Override
     public final void loadCraftingRecipes(String id, Object... results) {
-        if(!isActive()) {
+        if (!isActive()) {
             return;
         }
         loadCraftingRecipesDo(id, results);

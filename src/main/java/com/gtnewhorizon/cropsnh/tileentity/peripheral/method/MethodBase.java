@@ -1,20 +1,22 @@
 package com.gtnewhorizon.cropsnh.tileentity.peripheral.method;
 
-import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
-import com.gtnewhorizon.cropsnh.items.ItemJournal;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
-import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
+import java.util.ArrayList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
+import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
+import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
+import com.gtnewhorizon.cropsnh.items.ItemJournal;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
 
 public abstract class MethodBase implements IMethod {
+
     private final String name;
 
     public MethodBase(String name) {
@@ -26,13 +28,13 @@ public abstract class MethodBase implements IMethod {
     }
 
     @Override
-    public final Object[] call(TileEntityPeripheral peripheral, World world, int x, int y, int z, ItemStack journal, Object... args) throws MethodException {
-        if(this.appliesToPeripheral() && (args==null || args.length==0)) {
+    public final Object[] call(TileEntityPeripheral peripheral, World world, int x, int y, int z, ItemStack journal,
+            Object... args) throws MethodException {
+        if (this.appliesToPeripheral() && (args == null || args.length == 0)) {
             return callMethodForPeripheral(peripheral, journal);
-        }
-        else if(this.appliesToCrop()) {
-            ForgeDirection dir=getDirection(args);
-            if (dir==ForgeDirection.UNKNOWN) {
+        } else if (this.appliesToCrop()) {
+            ForgeDirection dir = getDirection(args);
+            if (dir == ForgeDirection.UNKNOWN) {
                 throw new MethodException(this, "Invalid direction");
             }
             TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
@@ -48,33 +50,33 @@ public abstract class MethodBase implements IMethod {
     private ForgeDirection getDirection(Object... args) {
         for (Object obj : args) {
             ForgeDirection dir = ForgeDirection.UNKNOWN;
-            if(obj==null) {
+            if (obj == null) {
                 continue;
             }
-            if(obj instanceof Object[]) {
+            if (obj instanceof Object[]) {
                 dir = getDirection((Object[]) obj);
-            }
-            else if (obj instanceof String) {
+            } else if (obj instanceof String) {
                 dir = ForgeDirection.valueOf((String) obj);
             }
-            if (dir!=null && dir!=ForgeDirection.UNKNOWN) {
+            if (dir != null && dir != ForgeDirection.UNKNOWN) {
                 return dir;
             }
         }
         return ForgeDirection.UNKNOWN;
     }
 
-    private Object[] callMethodForPeripheral(TileEntityPeripheral peripheral, ItemStack journal) throws MethodException {
-        if(requiresJournal()) {
-            if(journal == null || journal.getItem() == null) {
+    private Object[] callMethodForPeripheral(TileEntityPeripheral peripheral, ItemStack journal)
+            throws MethodException {
+        if (requiresJournal()) {
+            if (journal == null || journal.getItem() == null) {
                 throw new MethodException(this, "Journal is missing");
             }
             ItemStack specimen = peripheral.getSpecimen();
             ItemStack seed = specimen.copy();
-            if(specimen.getItem() instanceof ITrowel) {
+            if (specimen.getItem() instanceof ITrowel) {
                 seed = ((ITrowel) specimen.getItem()).getSeed(specimen);
             }
-            if(!isSeedDiscovered(journal, seed)) {
+            if (!isSeedDiscovered(journal, seed)) {
                 throw new MethodException(this, "No information about this seed in the journal");
             }
         }
@@ -105,7 +107,7 @@ public abstract class MethodBase implements IMethod {
     protected abstract boolean requiresJournal();
 
     protected boolean isSeedDiscovered(ItemStack journal, ItemStack seed) {
-        if(journal == null || journal.getItem() == null || !(journal.getItem() instanceof ItemJournal)) {
+        if (journal == null || journal.getItem() == null || !(journal.getItem() instanceof ItemJournal)) {
             return false;
         }
         return ((ItemJournal) journal.getItem()).isSeedDiscovered(journal, seed);
@@ -113,10 +115,10 @@ public abstract class MethodBase implements IMethod {
 
     protected CropPlant getCropPlant(ItemStack specimen) {
         ItemStack seed = specimen;
-        if(specimen == null || specimen.getItem() == null) {
+        if (specimen == null || specimen.getItem() == null) {
             return null;
         }
-        if(specimen.getItem() instanceof ITrowel) {
+        if (specimen.getItem() instanceof ITrowel) {
             seed = ((ITrowel) specimen.getItem()).getSeed(specimen);
         }
         return CropPlantHandler.getPlantFromStack(seed);
@@ -125,6 +127,7 @@ public abstract class MethodBase implements IMethod {
     protected CropPlant getCropPlant(TileEntityCrop crop) {
         return crop.getPlant();
     }
+
     @Override
     public final String getDescription() {
         return StatCollector.translateToLocal("cropsnh_description.method." + this.getName());
@@ -134,8 +137,8 @@ public abstract class MethodBase implements IMethod {
     public final String signature() {
         StringBuilder signature = new StringBuilder(this.getName() + "(");
         boolean separator = false;
-        for(MethodParameter parameter:getParameters()) {
-            if(separator) {
+        for (MethodParameter parameter : getParameters()) {
+            if (separator) {
                 signature.append(", ");
             } else {
                 separator = true;

@@ -1,14 +1,8 @@
 package com.gtnewhorizon.cropsnh.items;
 
-import com.gtnewhorizon.cropsnh.api.v1.ICrop;
-import com.gtnewhorizon.cropsnh.api.v1.IRake;
-import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
-import com.gtnewhorizon.cropsnh.utility.LogHelper;
-import com.gtnewhorizon.cropsnh.utility.WeightedRandom;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
@@ -20,17 +14,25 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import java.util.List;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.api.v1.ICrop;
+import com.gtnewhorizon.cropsnh.api.v1.IRake;
+import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
+import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
+import com.gtnewhorizon.cropsnh.utility.WeightedRandom;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
- * Tool to uproot weeds.
- * Comes in a wooden and iron variant.
+ * Tool to uproot weeds. Comes in a wooden and iron variant.
  */
 public class ItemHandRake extends ItemCropsNH implements IRake {
+
     private static final int WOOD_VARIANT_META = 0;
     private static final int IRON_VARIANT_META = 1;
-    private static final int[] dropChance = new int[] {10, 25};
+    private static final int[] dropChance = new int[] { 10, 25 };
 
     private final IIcon[] icons = new IIcon[2];
 
@@ -46,12 +48,14 @@ public class ItemHandRake extends ItemCropsNH implements IRake {
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
         return false;
     }
 
     /**
      * Calculates the new weed growth age depending on the used tool variant
+     * 
      * @return 0, if iron variant is used, otherwise a random value of the interval [0, currentWeedMeta]
      */
     private int calculateGrowthStage(int toolMeta, int currentWeedMeta, Random random) {
@@ -59,7 +63,7 @@ public class ItemHandRake extends ItemCropsNH implements IRake {
             return 0;
         }
 
-        return Math.max(random.nextInt(currentWeedMeta/2+1)-1, 0)+currentWeedMeta/2;
+        return Math.max(random.nextInt(currentWeedMeta / 2 + 1) - 1, 0) + currentWeedMeta / 2;
     }
 
     @Override
@@ -77,7 +81,8 @@ public class ItemHandRake extends ItemCropsNH implements IRake {
         } else if (itemStack.getItemDamage() == IRON_VARIANT_META) {
             return base + ".iron";
         } else {
-            throw new IllegalArgumentException("Unsupported meta value of " + itemStack.getItemDamage() + " for ItemHandRake.");
+            throw new IllegalArgumentException(
+                    "Unsupported meta value of " + itemStack.getItemDamage() + " for ItemHandRake.");
         }
     }
 
@@ -91,8 +96,10 @@ public class ItemHandRake extends ItemCropsNH implements IRake {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister reg) {
         LogHelper.debug("registering icon for: " + this.getUnlocalizedName());
-        icons[0] = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.')+1)+"_wood");
-        icons[1] = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.')+1)+"_iron");
+        icons[0] = reg.registerIcon(
+                this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.') + 1) + "_wood");
+        icons[1] = reg.registerIcon(
+                this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.') + 1) + "_iron");
     }
 
     @Override
@@ -104,7 +111,7 @@ public class ItemHandRake extends ItemCropsNH implements IRake {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int meta) {
-        if(meta<=1) {
+        if (meta <= 1) {
             return this.icons[meta];
         }
         return null;
@@ -120,14 +127,20 @@ public class ItemHandRake extends ItemCropsNH implements IRake {
             int weedGrowthStage = world.getBlockMetadata(x, y, z);
             int newWeedGrowthStage = calculateGrowthStage(rake.getItemDamage(), weedGrowthStage, world.rand);
             crop.updateWeed(newWeedGrowthStage);
-            if(ConfigurationHandler.rakingDrops && !crop.hasWeed() && world.rand.nextInt(100)<dropChance[rake.getItemDamage()%dropChance.length]) {
+            if (ConfigurationHandler.rakingDrops && !crop.hasWeed()
+                    && world.rand.nextInt(100) < dropChance[rake.getItemDamage() % dropChance.length]) {
                 ItemStack drop = ItemDropRegistry.instance().getDrop(world.rand);
-                if(drop != null && drop.getItem() != null) {
+                if (drop != null && drop.getItem() != null) {
                     float f = 0.7F;
-                    double d0 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-                    double d1 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-                    double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-                    EntityItem entityitem = new EntityItem(world, (double) x + d0, (double) y + d1, (double) z + d2, drop);
+                    double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    EntityItem entityitem = new EntityItem(
+                            world,
+                            (double) x + d0,
+                            (double) y + d1,
+                            (double) z + d2,
+                            drop);
                     entityitem.delayBeforeCanPickup = 10;
                     world.spawnEntityInWorld(entityitem);
                 }
@@ -138,6 +151,7 @@ public class ItemHandRake extends ItemCropsNH implements IRake {
     }
 
     public static final class ItemDropRegistry {
+
         private static ItemDropRegistry INSTANCE;
 
         private final WeightedRandom<ItemStack> registry;
@@ -153,7 +167,7 @@ public class ItemHandRake extends ItemCropsNH implements IRake {
         }
 
         public static ItemDropRegistry instance() {
-            if(INSTANCE == null) {
+            if (INSTANCE == null) {
                 INSTANCE = new ItemDropRegistry();
             }
             return INSTANCE;

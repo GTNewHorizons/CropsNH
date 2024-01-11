@@ -12,38 +12,44 @@ import forestry.api.core.IClimateControlled;
  */
 public interface IAlvearyComponent {
 
-	/**
-	 * Implemented by alveary parts to apply a beeListener to the completed structure.
-	 */
-	interface BeeListener extends IAlvearyComponent {
-		IBeeListener getBeeListener();
-	}
+    /**
+     * Implemented by alveary parts to apply a beeListener to the completed structure.
+     */
+    interface BeeListener extends IAlvearyComponent {
 
-	/**
-	 * Implemented by alveary parts to apply a beeModifier to the completed structure.
-	 */
-	interface BeeModifier extends IAlvearyComponent {
-		IBeeModifier getBeeModifier();
-	}
+        IBeeListener getBeeListener();
+    }
 
-	/**
-	 * Implemented by alveary parts to apply a climate change to the completed structure.
-	 */
-	interface Climatiser extends IAlvearyComponent {
-		/**
-		 * Called every tick by the alveary.
-		 * @param tickCount the number of ticks in the world
-		 * @param alveary the climate controlled alveary
-		 */
-		void changeClimate(int tickCount, IClimateControlled alveary);
-	}
+    /**
+     * Implemented by alveary parts to apply a beeModifier to the completed structure.
+     */
+    interface BeeModifier extends IAlvearyComponent {
 
-	/**
-	 * Implemented by alveary parts to receive ticks from the completed structure.
-	 */
-	interface Active extends IAlvearyComponent {
-		void updateServer(int tickCount);
-		void updateClient(int tickCount);
-	}
+        IBeeModifier getBeeModifier();
+    }
+
+    /**
+     * Implemented by alveary parts to apply a climate change to the completed structure.
+     */
+    interface Climatiser extends IAlvearyComponent {
+
+        /**
+         * Called every tick by the alveary.
+         * 
+         * @param tickCount the number of ticks in the world
+         * @param alveary   the climate controlled alveary
+         */
+        void changeClimate(int tickCount, IClimateControlled alveary);
+    }
+
+    /**
+     * Implemented by alveary parts to receive ticks from the completed structure.
+     */
+    interface Active extends IAlvearyComponent {
+
+        void updateServer(int tickCount);
+
+        void updateClient(int tickCount);
+    }
 
 }

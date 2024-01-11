@@ -7,6 +7,7 @@ import li.cil.oc.api.manual.InteractiveImageRenderer;
  */
 @SuppressWarnings("UnusedDeclaration")
 public abstract class AbstractInteractiveImageRenderer implements InteractiveImageRenderer {
+
     @Override
     public String getTooltip(String tooltip) {
         return tooltip;

@@ -1,16 +1,18 @@
 package com.gtnewhorizon.cropsnh.renderers.player.renderhooks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBat;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class PlayerEffectRendererEntityBat extends PlayerEffectRendererEntity {
+
     protected PlayerEffectRendererEntityBat() {
         super();
     }
@@ -42,7 +44,9 @@ public class PlayerEffectRendererEntityBat extends PlayerEffectRendererEntity {
         return names;
     }
 
-    protected static class EntityBat extends net.minecraft.entity.passive.EntityBat implements IWrappedEntity<net.minecraft.entity.passive.EntityBat> {
+    protected static class EntityBat extends net.minecraft.entity.passive.EntityBat
+            implements IWrappedEntity<net.minecraft.entity.passive.EntityBat> {
+
         public EntityBat() {
             super(Minecraft.getMinecraft().theWorld);
             this.setIsBatHanging(false);
@@ -59,20 +63,18 @@ public class PlayerEffectRendererEntityBat extends PlayerEffectRendererEntity {
         }
 
         @Override
-        public void performAnimationUpdates() {
-        }
+        public void performAnimationUpdates() {}
 
         @Override
         public float[] getModelParameters() {
-            float wingAngle = (float) (20*(360 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL));
-            return new float[] {0, 0, wingAngle, 0, 0, 1};
+            float wingAngle = (float) (20 * (360 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL));
+            return new float[] { 0, 0, wingAngle, 0, 0, 1 };
         }
 
         @Override
         public int getFloatingVelocity() {
             return 15;
         }
-
 
     }
 }

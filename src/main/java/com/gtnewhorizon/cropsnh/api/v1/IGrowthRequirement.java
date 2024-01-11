@@ -1,47 +1,50 @@
 package com.gtnewhorizon.cropsnh.api.v1;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 /**
- * Preferred method to use this interface is to read or set data to existing GrowthRequirements, use IGrowthRequirementBuilder to create new ones
- * Creating your own implementation is possible, but should only be used in special cases.
+ * Preferred method to use this interface is to read or set data to existing GrowthRequirements, use
+ * IGrowthRequirementBuilder to create new ones Creating your own implementation is possible, but should only be used in
+ * special cases.
  */
 public interface IGrowthRequirement {
-	//Methods to check if a seed can grow
-	//-----------------------------------
-	/** @return true, if all the requirements are met */
-	boolean canGrow(World world, int x, int y, int z);
 
-	//public boolean canPlant(World world, int x, int y, int z);
+    // Methods to check if a seed can grow
+    // -----------------------------------
+    /** @return true, if all the requirements are met */
+    boolean canGrow(World world, int x, int y, int z);
 
-	/** @return true, if the correct base block is present **/
-	boolean isBaseBlockPresent(World world, int x, int y, int z);
+    // public boolean canPlant(World world, int x, int y, int z);
 
-	/** @return true, if the given block is a valid soil */
-	boolean isValidSoil(World world, int x, int y, int z);
+    /** @return true, if the correct base block is present **/
+    boolean isBaseBlockPresent(World world, int x, int y, int z);
 
-	/** @return true, if the given block is a valid soil */
-	boolean isValidSoil(BlockWithMeta soil);
+    /** @return true, if the given block is a valid soil */
+    boolean isValidSoil(World world, int x, int y, int z);
 
-	/** @return the required block as ItemStack of size 1 */
-	ItemStack requiredBlockAsItemStack();
+    /** @return true, if the given block is a valid soil */
+    boolean isValidSoil(BlockWithMeta soil);
 
-	RequirementType getRequiredType();
+    /** @return the required block as ItemStack of size 1 */
+    ItemStack requiredBlockAsItemStack();
 
-	//Methods to change specific requirements
-	//--------------------------------------
-	BlockWithMeta getSoil();
+    RequirementType getRequiredType();
 
-	void setSoil(BlockWithMeta soil);
+    // Methods to change specific requirements
+    // --------------------------------------
+    BlockWithMeta getSoil();
 
-	int[] getBrightnessRange();
+    void setSoil(BlockWithMeta soil);
 
-	void setBrightnessRange(int min, int max);
+    int[] getBrightnessRange();
 
-	void setRequiredBlock(BlockWithMeta requiredBlock, RequirementType requirementType, boolean oreDict);
+    void setBrightnessRange(int min, int max);
 
-	BlockWithMeta getRequiredBlock();
+    void setRequiredBlock(BlockWithMeta requiredBlock, RequirementType requirementType, boolean oreDict);
 
-	boolean isOreDict();
+    BlockWithMeta getRequiredBlock();
+
+    boolean isOreDict();
 
 }

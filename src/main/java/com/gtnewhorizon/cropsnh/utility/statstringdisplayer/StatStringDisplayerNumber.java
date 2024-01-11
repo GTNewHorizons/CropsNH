@@ -5,8 +5,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class StatStringDisplayerNumber extends StatStringDisplayer {
+
     @Override
     public String getStatDisplayString(int stat, int max) {
-        return ""+stat;
+        return "" + stat;
     }
 }

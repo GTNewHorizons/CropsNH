@@ -8,12 +8,16 @@ package forestry.api.core;
 import java.util.Set;
 
 public interface IErrorStateRegistry {
-	void registerErrorState(IErrorState state);
-	void addAlias(IErrorState state, String name);
 
-	IErrorState getErrorState(short id);
-	IErrorState getErrorState(String name);
-	Set<IErrorState> getErrorStates();
+    void registerErrorState(IErrorState state);
 
-	IErrorLogic createErrorLogic();
+    void addAlias(IErrorState state, String name);
+
+    IErrorState getErrorState(short id);
+
+    IErrorState getErrorState(String name);
+
+    Set<IErrorState> getErrorStates();
+
+    IErrorLogic createErrorLogic();
 }

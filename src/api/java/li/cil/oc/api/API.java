@@ -1,6 +1,7 @@
 package li.cil.oc.api;
 
 import com.typesafe.config.Config;
+
 import li.cil.oc.api.detail.DriverAPI;
 import li.cil.oc.api.detail.FileSystemAPI;
 import li.cil.oc.api.detail.ItemAPI;
@@ -12,11 +13,11 @@ import li.cil.oc.api.detail.NetworkAPI;
 /**
  * Central reference for the API.
  * <p/>
- * Don't use this class directly, prefer using the other classes in this
- * package instead. This class is initialized by OpenComputers in the
- * pre-init phase, so it should not be used before the init phase.
+ * Don't use this class directly, prefer using the other classes in this package instead. This class is initialized by
+ * OpenComputers in the pre-init phase, so it should not be used before the init phase.
  */
 public class API {
+
     public static final String ID_OWNER = "OpenComputers|Core";
     public static final String VERSION = "5.6.4";
 
@@ -48,6 +49,5 @@ public class API {
 
     // ----------------------------------------------------------------------- //
 
-    private API() {
-    }
+    private API() {}
 }

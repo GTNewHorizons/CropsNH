@@ -10,6 +10,6 @@ package forestry.api.genetics;
  */
 public interface IAlleleInteger extends IAllele {
 
-	int getValue();
+    int getValue();
 
 }

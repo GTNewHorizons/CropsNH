@@ -1,8 +1,10 @@
 package com.gtnewhorizon.cropsnh.reference;
 
 public final class Names {
-    //NBT tags
+
+    // NBT tags
     public static class NBT {
+
         public static final String growth = "growth";
         public static final String gain = "gain";
         public static final String strength = "strength";
@@ -37,16 +39,17 @@ public final class Names {
         public static final String multiBlock = "cropsnh_MultiBlock";
     }
 
-    //mod objects
+    // mod objects
     public static class Objects {
+
         public static final String crop = "crop";
         public static final String crops = "crops";
         public static final String farmland = "farmland";
         public static final String analyzer = "Analyzer";
         public static final String seed = "seed";
-        public static final String seedAnalyzer = seed+analyzer;
+        public static final String seedAnalyzer = seed + analyzer;
         public static final String waterPad = "waterPad";
-        public static final String waterPadFull = waterPad+"Full";
+        public static final String waterPadFull = waterPad + "Full";
         public static final String journal = "journal";
         public static final String trowel = "trowel";
         public static final String magnifyingGlass = "magnifyingGlass";
@@ -62,20 +65,23 @@ public final class Names {
         public static final String clipping = "clipping";
     }
 
-    //tile entities
+    // tile entities
     public static class TileEntity {
+
         public static final String tileEntity = "TileEntity";
     }
 
-    //ore dictionary entries
+    // ore dictionary entries
     public static class OreDict {
+
         public static final String listAllseed = "listAllseed";
         public static final String plankWood = "plankWood";
         public static final String slabWood = "slabWood";
     }
 
-    //mod ids
+    // mod ids
     public static class Mods {
+
         public static final String ancientWarfare = "AncientWarfare";
         public static final String arsMagica = "arsmagica2";
         public static final String bloodMagic = "AWWayofTime";

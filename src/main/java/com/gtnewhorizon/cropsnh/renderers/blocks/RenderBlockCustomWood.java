@@ -1,14 +1,18 @@
 package com.gtnewhorizon.cropsnh.renderers.blocks;
 
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCustomWood;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
+
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCustomWood;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public abstract class RenderBlockCustomWood<T extends TileEntityCustomWood> extends RenderBlockBase {
+
     protected T teDummy;
 
     protected RenderBlockCustomWood(Block block, T te, boolean inventory) {

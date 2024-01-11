@@ -1,13 +1,15 @@
 package com.gtnewhorizon.cropsnh.tileentity.storage;
 
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCustomWood;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileEntitySeedStorageController extends TileEntityCustomWood implements ISeedStorageController{
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCustomWood;
+
+public class TileEntitySeedStorageController extends TileEntityCustomWood implements ISeedStorageController {
+
     private final ArrayList<ISeedStorageControllable> controllables = new ArrayList<>();
     public boolean isControlling;
 
@@ -19,7 +21,7 @@ public class TileEntitySeedStorageController extends TileEntityCustomWood implem
     public boolean addStackToInventory(ItemStack stack) {
         boolean success = false;
         ISeedStorageControllable controllable = this.getControllable(stack);
-        if(controllable!=null) {
+        if (controllable != null) {
             success = controllable.addStackToInventory(stack);
         }
         return success;
@@ -28,8 +30,8 @@ public class TileEntitySeedStorageController extends TileEntityCustomWood implem
     @Override
     public List<ItemStack> getControlledSeeds() {
         ArrayList<ItemStack> stacks = new ArrayList<>();
-        for(ISeedStorageControllable controllable:controllables) {
-            if(controllable.hasLockedSeed()) {
+        for (ISeedStorageControllable controllable : controllables) {
+            if (controllable.hasLockedSeed()) {
                 stacks.add(controllable.getLockedSeed());
             }
         }
@@ -43,7 +45,7 @@ public class TileEntitySeedStorageController extends TileEntityCustomWood implem
 
     @Override
     public void addControllable(ISeedStorageControllable controllable) {
-        if(!controllable.hasController()) {
+        if (!controllable.hasController()) {
             this.controllables.add(controllable);
         }
     }
@@ -56,7 +58,7 @@ public class TileEntitySeedStorageController extends TileEntityCustomWood implem
     @Override
     public ArrayList<int[]> getControlledCoordinates() {
         ArrayList<int[]> coords = new ArrayList<>();
-        for(ISeedStorageControllable controllable:this.controllables) {
+        for (ISeedStorageControllable controllable : this.controllables) {
             coords.add(controllable.getCoords());
         }
         return coords;
@@ -64,15 +66,15 @@ public class TileEntitySeedStorageController extends TileEntityCustomWood implem
 
     @Override
     public int[] getCoordinates() {
-        return new int[] {this.xCoord, this.yCoord, this.zCoord};
+        return new int[] { this.xCoord, this.yCoord, this.zCoord };
     }
 
     @Override
     public int getControllableID(ISeedStorageControllable controllable) {
-        int id=-1;
-        for(int i=0;i<this.controllables.size() && id<0;i++) {
+        int id = -1;
+        for (int i = 0; i < this.controllables.size() && id < 0; i++) {
             ISeedStorageControllable currentControllable = this.controllables.get(i);
-            if(currentControllable==controllable) {
+            if (currentControllable == controllable) {
                 id = i;
             }
         }
@@ -82,10 +84,10 @@ public class TileEntitySeedStorageController extends TileEntityCustomWood implem
     @Override
     public ISeedStorageControllable getControllable(ItemStack stack) {
         ISeedStorageControllable controllable = null;
-        for(ISeedStorageControllable controlled:this.controllables) {
-            if(controlled!=null && controlled.hasLockedSeed()) {
+        for (ISeedStorageControllable controlled : this.controllables) {
+            if (controlled != null && controlled.hasLockedSeed()) {
                 ItemStack controlledStack = controlled.getLockedSeed();
-                if(controlledStack.isItemEqual(stack)) {
+                if (controlledStack.isItemEqual(stack)) {
                     controllable = controlled;
                     break;
                 }

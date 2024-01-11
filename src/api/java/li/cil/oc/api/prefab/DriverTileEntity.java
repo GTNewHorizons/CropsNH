@@ -4,6 +4,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public abstract class DriverTileEntity implements li.cil.oc.api.driver.Block {
+
     public abstract Class<?> getTileEntityClass();
 
     @Override

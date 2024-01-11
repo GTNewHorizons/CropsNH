@@ -1,133 +1,134 @@
 package thaumcraft.api.crafting;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
-import java.util.ArrayList;
+public class InfusionRecipe {
 
-public class InfusionRecipe
-{
-	protected AspectList aspects;
-	protected String research;
-	private final ItemStack[] components;
-	private final ItemStack recipeInput;
-	protected Object recipeOutput;
-	protected int instability;
+    protected AspectList aspects;
+    protected String research;
+    private final ItemStack[] components;
+    private final ItemStack recipeInput;
+    protected Object recipeOutput;
+    protected int instability;
 
-	public InfusionRecipe(String research, Object output, int inst,
-			AspectList aspects2, ItemStack input, ItemStack[] recipe) {
-		this.research = research;
-		this.recipeOutput = output;
-		this.recipeInput = input;
-		this.aspects = aspects2;
-		this.components = recipe;
-		this.instability = inst;
-	}
-
-	/**
-     * Used to check if a recipe matches current crafting inventory
-     * @param player
-     */
-	public boolean matches(ArrayList<ItemStack> input, ItemStack central, World world, EntityPlayer player) {
-		if (getRecipeInput()==null) return false;
-
-		if (research.length()>0 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), research)) {
-    		return false;
-    	}
-
-		ItemStack i2 = central.copy();
-		if (getRecipeInput().getItemDamage()==OreDictionary.WILDCARD_VALUE) {
-			i2.setItemDamage(OreDictionary.WILDCARD_VALUE);
-		}
-
-		if (!areItemStacksEqual(i2, getRecipeInput(), true)) return false;
-
-		ArrayList<ItemStack> ii = new ArrayList<>();
-		for (ItemStack is:input) {
-			ii.add(is.copy());
-		}
-
-		for (ItemStack comp:getComponents()) {
-			boolean b=false;
-			for (int a=0;a<ii.size();a++) {
-				 i2 = ii.get(a).copy();
-				if (comp.getItemDamage()==OreDictionary.WILDCARD_VALUE) {
-					i2.setItemDamage(OreDictionary.WILDCARD_VALUE);
-				}
-				if (areItemStacksEqual(i2, comp,true)) {
-					ii.remove(a);
-					b=true;
-					break;
-				}
-			}
-			if (!b) return false;
-		}
-		return ii.size()==0?true:false;
+    public InfusionRecipe(String research, Object output, int inst, AspectList aspects2, ItemStack input,
+            ItemStack[] recipe) {
+        this.research = research;
+        this.recipeOutput = output;
+        this.recipeInput = input;
+        this.aspects = aspects2;
+        this.components = recipe;
+        this.instability = inst;
     }
 
-	public static boolean areItemStacksEqual(ItemStack stack0, ItemStack stack1, boolean fuzzy)
-    {
-		if (stack0==null && stack1!=null) return false;
-		if (stack0!=null && stack1==null) return false;
-		if (stack0==null && stack1==null) return true;
+    /**
+     * Used to check if a recipe matches current crafting inventory
+     * 
+     * @param player
+     */
+    public boolean matches(ArrayList<ItemStack> input, ItemStack central, World world, EntityPlayer player) {
+        if (getRecipeInput() == null) return false;
 
-		//nbt
-		boolean t1=ThaumcraftApiHelper.areItemStackTagsEqualForCrafting(stack0, stack1);
-		if (!t1) return false;
+        if (research.length() > 0 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), research)) {
+            return false;
+        }
 
-		if (fuzzy) {
-			int od = OreDictionary.getOreID(stack0);
-			if (od!=-1) {
-				ItemStack[] ores = OreDictionary.getOres(od).toArray(new ItemStack[]{});
-				if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[]{stack1}, ores))
-					return true;
-			}
-		}
+        ItemStack i2 = central.copy();
+        if (getRecipeInput().getItemDamage() == OreDictionary.WILDCARD_VALUE) {
+            i2.setItemDamage(OreDictionary.WILDCARD_VALUE);
+        }
 
-		//damage
-		boolean damage = stack0.getItemDamage() == stack1.getItemDamage() ||
-				stack1.getItemDamage() == OreDictionary.WILDCARD_VALUE;
+        if (!areItemStacksEqual(i2, getRecipeInput(), true)) return false;
 
-        return stack0.getItem() != stack1.getItem() ? false : (!damage ? false : stack0.stackSize <= stack0.getMaxStackSize() );
+        ArrayList<ItemStack> ii = new ArrayList<>();
+        for (ItemStack is : input) {
+            ii.add(is.copy());
+        }
+
+        for (ItemStack comp : getComponents()) {
+            boolean b = false;
+            for (int a = 0; a < ii.size(); a++) {
+                i2 = ii.get(a).copy();
+                if (comp.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
+                    i2.setItemDamage(OreDictionary.WILDCARD_VALUE);
+                }
+                if (areItemStacksEqual(i2, comp, true)) {
+                    ii.remove(a);
+                    b = true;
+                    break;
+                }
+            }
+            if (!b) return false;
+        }
+        return ii.size() == 0 ? true : false;
+    }
+
+    public static boolean areItemStacksEqual(ItemStack stack0, ItemStack stack1, boolean fuzzy) {
+        if (stack0 == null && stack1 != null) return false;
+        if (stack0 != null && stack1 == null) return false;
+        if (stack0 == null && stack1 == null) return true;
+
+        // nbt
+        boolean t1 = ThaumcraftApiHelper.areItemStackTagsEqualForCrafting(stack0, stack1);
+        if (!t1) return false;
+
+        if (fuzzy) {
+            int od = OreDictionary.getOreID(stack0);
+            if (od != -1) {
+                ItemStack[] ores = OreDictionary.getOres(od).toArray(new ItemStack[] {});
+                if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[] { stack1 }, ores)) return true;
+            }
+        }
+
+        // damage
+        boolean damage = stack0.getItemDamage() == stack1.getItemDamage()
+                || stack1.getItemDamage() == OreDictionary.WILDCARD_VALUE;
+
+        return stack0.getItem() != stack1.getItem() ? false
+                : (!damage ? false : stack0.stackSize <= stack0.getMaxStackSize());
     }
 
     public Object getRecipeOutput() {
-		return getRecipeOutput(this.getRecipeInput());
+        return getRecipeOutput(this.getRecipeInput());
     }
 
     public AspectList getAspects() {
-		return getAspects(this.getRecipeInput());
+        return getAspects(this.getRecipeInput());
     }
 
     public int getInstability() {
-		return getInstability(this.getRecipeInput());
+        return getInstability(this.getRecipeInput());
     }
 
     public String getResearch() {
-		return research;
+        return research;
     }
 
-	public ItemStack getRecipeInput() {
-		return recipeInput;
-	}
+    public ItemStack getRecipeInput() {
+        return recipeInput;
+    }
 
-	public ItemStack[] getComponents() {
-		return components;
-	}
+    public ItemStack[] getComponents() {
+        return components;
+    }
 
-	public Object getRecipeOutput(ItemStack input) {
-		return recipeOutput;
+    public Object getRecipeOutput(ItemStack input) {
+        return recipeOutput;
     }
 
     public AspectList getAspects(ItemStack input) {
-		return aspects;
+        return aspects;
     }
 
     public int getInstability(ItemStack input) {
-		return instability;
+        return instability;
     }
 }

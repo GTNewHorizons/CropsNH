@@ -1,19 +1,19 @@
 package com.gtnewhorizon.cropsnh.utility;
 
-import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
-import com.gtnewhorizon.cropsnh.items.ItemNugget;
-import com.gtnewhorizon.cropsnh.reference.Data;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
+import com.gtnewhorizon.cropsnh.items.ItemNugget;
+import com.gtnewhorizon.cropsnh.reference.Data;
 
 public abstract class OreDictHelper {
 
@@ -39,14 +39,14 @@ public abstract class OreDictHelper {
         return nuggetMeta.get(name);
     }
 
-    //checks if an itemstack has this ore dictionary entry
+    // checks if an itemstack has this ore dictionary entry
     public static boolean hasOreId(ItemStack stack, String tag) {
-        if(stack==null || stack.getItem()==null) {
+        if (stack == null || stack.getItem() == null) {
             return false;
         }
         int[] ids = OreDictionary.getOreIDs(stack);
-        for(int id:ids) {
-            if(OreDictionary.getOreName(id).equals(tag)) {
+        for (int id : ids) {
+            if (OreDictionary.getOreName(id).equals(tag)) {
                 return true;
             }
         }
@@ -57,19 +57,19 @@ public abstract class OreDictHelper {
         return block != null && hasOreId(new ItemStack(block), tag);
     }
 
-    //checks if two blocks have the same ore dictionary entry
+    // checks if two blocks have the same ore dictionary entry
     public static boolean isSameOre(Block block1, int meta1, Block block2, int meta2) {
-        if(block1==block2 && meta1==meta2) {
+        if (block1 == block2 && meta1 == meta2) {
             return true;
         }
-        if(block1==null || block2==null) {
+        if (block1 == null || block2 == null) {
             return false;
         }
         int[] ids1 = OreDictionary.getOreIDs(new ItemStack(block1, 1, meta1));
         int[] ids2 = OreDictionary.getOreIDs(new ItemStack(block2, 1, meta2));
-        for (int id1:ids1) {
-            for (int id2:ids2) {
-                if (id1==id2) {
+        for (int id1 : ids1) {
+            for (int id2 : ids2) {
+                if (id1 == id2) {
                     return true;
                 }
             }
@@ -77,7 +77,7 @@ public abstract class OreDictHelper {
         return false;
     }
 
-    //finds the ingot for a nugget ore dictionary entry
+    // finds the ingot for a nugget ore dictionary entry
     public static ItemStack getIngot(String ore) {
         ItemStack ingot = null;
         ArrayList<ItemStack> entries = OreDictionary.getOres("ingot" + ore);
@@ -87,27 +87,27 @@ public abstract class OreDictHelper {
         return ingot;
     }
 
-    //finds what ores and nuggets are already registered in the ore dictionary
+    // finds what ores and nuggets are already registered in the ore dictionary
     public static void getRegisteredOres() {
-        //Vanilla
+        // Vanilla
         for (String oreName : Data.vanillaNuggets) {
             getOreBlock(oreName);
-            if(oreBlocks.get(oreName)!=null) {
+            if (oreBlocks.get(oreName) != null) {
                 getNugget(oreName);
             }
         }
-        //Modded
+        // Modded
         for (String[] data : Data.modResources) {
             String oreName = data[0];
             getOreBlock(oreName);
-            if(oreBlocks.get(oreName)!=null) {
+            if (oreBlocks.get(oreName) != null) {
                 getNugget(oreName);
             }
         }
     }
 
     private static void getOreBlock(String oreName) {
-        for (ItemStack itemStack : OreDictionary.getOres("ore"+oreName)) {
+        for (ItemStack itemStack : OreDictionary.getOres("ore" + oreName)) {
             if (itemStack.getItem() instanceof ItemBlock) {
                 ItemBlock block = (ItemBlock) itemStack.getItem();
 
@@ -126,7 +126,7 @@ public abstract class OreDictHelper {
             nuggetMeta.put(oreName, nuggets.get(0).getItemDamage());
         } else {
             ItemCropsNH nugget = new ItemNugget(oreName);
-            OreDictionary.registerOre("nugget"+oreName, nugget);
+            OreDictionary.registerOre("nugget" + oreName, nugget);
             OreDictHelper.nuggets.put(oreName, nugget);
             nuggetMeta.put(oreName, 0);
         }
@@ -140,16 +140,16 @@ public abstract class OreDictHelper {
         String seedModId = IOHelper.getModId(seed);
         ArrayList<ItemStack> fruits = new ArrayList<>();
 
-        for(int id:OreDictionary.getOreIDs(seed)) {
-            if(OreDictionary.getOreName(id).substring(0,4).equalsIgnoreCase("seed")) {
+        for (int id : OreDictionary.getOreIDs(seed)) {
+            if (OreDictionary.getOreName(id).substring(0, 4).equalsIgnoreCase("seed")) {
                 String name = OreDictionary.getOreName(id).substring(4);
-                ArrayList<ItemStack> fromOredict = OreDictionary.getOres("crop"+name);
-                for(ItemStack stack:fromOredict) {
-                    if(stack==null || stack.getItem()==null) {
+                ArrayList<ItemStack> fromOredict = OreDictionary.getOres("crop" + name);
+                for (ItemStack stack : fromOredict) {
+                    if (stack == null || stack.getItem() == null) {
                         continue;
                     }
                     String stackModId = IOHelper.getModId(stack);
-                    if((!sameMod) || seedModId.equals(stackModId)) {
+                    if ((!sameMod) || seedModId.equals(stackModId)) {
                         fruits.add(stack);
                     }
                 }

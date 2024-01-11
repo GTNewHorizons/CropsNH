@@ -1,14 +1,16 @@
 package tehnut.resourceful.crops.api.registry;
 
-import com.google.gson.GsonBuilder;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
+
+import com.google.gson.GsonBuilder;
+
 import tehnut.resourceful.crops.api.ModInformation;
 import tehnut.resourceful.crops.api.ResourcefulAPI;
 import tehnut.resourceful.crops.api.base.Seed;
 import tehnut.resourceful.crops.api.util.cache.PermanentCache;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SeedRegistry {
 
@@ -28,7 +30,8 @@ public class SeedRegistry {
                 ResourcefulAPI.logger.error("Seed { " + name + " } has been registered twice. Force adding the copy.");
                 ResourcefulAPI.seedCache.addObject(seed, name + badSeeds);
             } else {
-                ResourcefulAPI.logger.error("Seed { " + name + " } has been registered twice. Skipping the copy and continuing.");
+                ResourcefulAPI.logger
+                        .error("Seed { " + name + " } has been registered twice. Skipping the copy and continuing.");
             }
             badSeeds++;
         }

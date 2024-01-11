@@ -1,15 +1,8 @@
 package com.gtnewhorizon.cropsnh.compatibility.ganysMods;
 
-import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.api.v1.ICrop;
-import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
-import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
-import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
@@ -19,18 +12,26 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
+import com.gtnewhorizon.cropsnh.api.v1.ICrop;
+import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
+import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
+import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class CropPlantGanysNether extends CropPlant {
+
     private final Item seed;
     private final Block plant;
     private final ItemStack fruit;
 
     /**
-     * 0: like wheat
-     * 1: bush
-     * 2: stem
+     * 0: like wheat 1: bush 2: stem
      */
     private final int renderMethod;
 
@@ -73,7 +74,7 @@ public class CropPlantGanysNether extends CropPlant {
     public ArrayList<ItemStack> getFruitsOnHarvest(int gain, Random rand) {
         int amount = (int) (Math.ceil((gain + 0.00) / 3));
         ArrayList<ItemStack> list = new ArrayList<>();
-        while(amount>0) {
+        while (amount > 0) {
             list.add(getRandomFruit(rand));
             amount--;
         }
@@ -89,8 +90,7 @@ public class CropPlantGanysNether extends CropPlant {
     protected IGrowthRequirement initGrowthRequirement() {
         return GrowthRequirementHandler.getNewBuilder()
                 .soil(new BlockWithMeta((Block) Block.blockRegistry.getObject("ganysnether:tilledNetherrack")))
-                .requiredBlock(new BlockWithMeta(Blocks.lava), RequirementType.NEARBY, false)
-                .build();
+                .requiredBlock(new BlockWithMeta(Blocks.lava), RequirementType.NEARBY, false).build();
     }
 
     @Override
@@ -101,7 +101,7 @@ public class CropPlantGanysNether extends CropPlant {
     @Override
     @SideOnly(Side.CLIENT)
     public float getHeight(int meta) {
-        return Constants.UNIT*13;
+        return Constants.UNIT * 13;
     }
 
     @Override
@@ -121,14 +121,14 @@ public class CropPlantGanysNether extends CropPlant {
     public String getInformation() {
         String name = seed.getUnlocalizedName();
         String[] split = name.split("\\.");
-        return "cropsnh_journal.ganysNether_"+split[split.length-1];
+        return "cropsnh_journal.ganysNether_" + split[split.length - 1];
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void renderPlantInCrop(IBlockAccess world, int x, int y, int z, RenderBlocks renderer) {
-        switch(renderMethod) {
-            case 0 :
+        switch (renderMethod) {
+            case 0:
                 super.renderPlantInCrop(world, x, y, z, renderer);
                 break;
             case 1:
@@ -136,7 +136,16 @@ public class CropPlantGanysNether extends CropPlant {
                 break;
             case 2:
                 int meta = world.getBlockMetadata(x, y, z);
-                PlantRenderer.renderStemPlant(x, y, z, renderer, getPlantIcon(meta), meta, getBlock(), Blocks.skull, meta >= Constants.MATURE);
+                PlantRenderer.renderStemPlant(
+                        x,
+                        y,
+                        z,
+                        renderer,
+                        getPlantIcon(meta),
+                        meta,
+                        getBlock(),
+                        Blocks.skull,
+                        meta >= Constants.MATURE);
         }
     }
 }

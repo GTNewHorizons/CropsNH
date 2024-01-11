@@ -1,25 +1,29 @@
 package com.gtnewhorizon.cropsnh.gui.journal;
 
-import com.gtnewhorizon.cropsnh.gui.Component;
-import com.gtnewhorizon.cropsnh.items.ItemJournal;
-import com.gtnewhorizon.cropsnh.utility.IOHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.gtnewhorizon.cropsnh.gui.Component;
+import com.gtnewhorizon.cropsnh.items.ItemJournal;
+import com.gtnewhorizon.cropsnh.utility.IOHelper;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiJournal extends GuiScreen {
+
     /** Some dimensions and constants */
     private static final int MINIMUM_PAGES = 2;
     private final int xSize;
@@ -31,7 +35,7 @@ public class GuiJournal extends GuiScreen {
     private int currentPageNumber;
     private JournalPage currentPage;
 
-    /**Stuff to render */
+    /** Stuff to render */
     ArrayList<Component<String>> textComponents;
     ArrayList<Component<ResourceLocation>> textureComponents;
     ArrayList<Component<ItemStack>> itemComponents;
@@ -49,7 +53,7 @@ public class GuiJournal extends GuiScreen {
 
     @Override
     public void initGui() {
-        //half of the screen size minus the gui size to centre the gui, the -16 is to ignore the players item bar
+        // half of the screen size minus the gui size to centre the gui, the -16 is to ignore the players item bar
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - 16 - this.ySize) / 2;
         currentPage = getCurrentPage();
@@ -57,8 +61,8 @@ public class GuiJournal extends GuiScreen {
         textureComponents = currentPage.getTextureComponents();
         itemComponents = currentPage.getItemComponents();
         iconComponents = new HashMap<>();
-        for(ResourceLocation textureMap:currentPage.getTextureMaps()) {
-            if(textureMap == null) {
+        for (ResourceLocation textureMap : currentPage.getTextureMaps()) {
+            if (textureMap == null) {
                 continue;
             }
             iconComponents.put(textureMap, currentPage.getIconComponents(textureMap));
@@ -67,79 +71,81 @@ public class GuiJournal extends GuiScreen {
 
     @Override
     public void drawScreen(int x, int y, float opacity) {
-        //draw background
+        // draw background
         drawBackground(0);
-        //draw foreground
+        // draw foreground
         drawTexture(currentPage.getForeground());
-        //draw text components
-        if(textComponents != null) {
-            for(Component<String> textComponent:textComponents) {
+        // draw text components
+        if (textComponents != null) {
+            for (Component<String> textComponent : textComponents) {
                 drawTextComponent(textComponent);
             }
         }
-        //draw icon components
-        if(textureComponents != null) {
-            for(Component<ResourceLocation> iconComponent: textureComponents) {
+        // draw icon components
+        if (textureComponents != null) {
+            for (Component<ResourceLocation> iconComponent : textureComponents) {
                 drawTextureComponent(iconComponent);
             }
         }
-        if(iconComponents != null) {
-            for(Map.Entry<ResourceLocation, ArrayList<Component<IIcon>>> entry:iconComponents.entrySet()) {
-                if(entry.getValue() == null) {
+        if (iconComponents != null) {
+            for (Map.Entry<ResourceLocation, ArrayList<Component<IIcon>>> entry : iconComponents.entrySet()) {
+                if (entry.getValue() == null) {
                     continue;
                 }
                 Minecraft.getMinecraft().renderEngine.bindTexture(entry.getKey());
-                for(Component<IIcon> component: entry.getValue()) {
+                for (Component<IIcon> component : entry.getValue()) {
                     drawIconComponent(component);
                 }
             }
         }
-        //draw item components
-        if(itemComponents != null) {
-            for(Component<ItemStack> itemComponent:itemComponents) {
+        // draw item components
+        if (itemComponents != null) {
+            for (Component<ItemStack> itemComponent : itemComponents) {
                 drawItemComponent(itemComponent);
             }
         }
-        //draw navigation arrows
+        // draw navigation arrows
         drawNavigationArrows(x, y);
-        //draw tooltip
-        ArrayList<String> toolTip = currentPage.getTooltip(x-this.guiLeft, y-this.guiTop);
-        if(toolTip != null) {
+        // draw tooltip
+        ArrayList<String> toolTip = currentPage.getTooltip(x - this.guiLeft, y - this.guiTop);
+        if (toolTip != null) {
             this.drawTooltip(toolTip, x, y);
         }
     }
 
     @Override
     public void mouseClicked(int x, int y, int rightClick) {
-        //find number of pages to browse
+        // find number of pages to browse
         int pageIncrement = 0;
-        //clicked for next page or previous page
+        // clicked for next page or previous page
         if (y > this.guiTop + 172 && y <= this.guiTop + 172 + 16 && rightClick == 0) {
             if (x > this.guiLeft + 221 && x <= this.guiLeft + 221 + 16) {
-                //next page
+                // next page
                 pageIncrement = 1;
             } else if (x > this.guiLeft + 19 && x <= this.guiLeft + 19 + 16 && this.currentPageNumber > 0) {
-                //prev page
+                // prev page
                 pageIncrement = -1;
             }
-        //clicked to browse from within the page
+            // clicked to browse from within the page
         } else {
             pageIncrement = getCurrentPage().getPagesToBrowseOnMouseClick(x - this.guiLeft, y - this.guiTop);
         }
-        //go to new page
+        // go to new page
         int newPage = currentPageNumber + pageIncrement;
-        newPage = Math.max(0, newPage); //don't go negative
-        newPage = Math.min(newPage, getNumberOfPages()-1); //don't go outside array bounds
-        if(newPage != currentPageNumber) {
+        newPage = Math.max(0, newPage); // don't go negative
+        newPage = Math.min(newPage, getNumberOfPages() - 1); // don't go outside array bounds
+        if (newPage != currentPageNumber) {
             this.currentPageNumber = newPage;
             this.initGui();
         }
     }
 
     private JournalPage getCurrentPage() {
-        switch(currentPageNumber) {
-            case 0: return new JournalPageTitle();
-            case 1: return new JournalPageIntroduction();
+        switch (currentPageNumber) {
+            case 0:
+                return new JournalPageTitle();
+            case 1:
+                return new JournalPageIntroduction();
         }
         ArrayList<ItemStack> discoveredSeeds = getDiscoveredSeeds();
         return new JournalPageSeed(discoveredSeeds, currentPageNumber - MINIMUM_PAGES);
@@ -150,7 +156,7 @@ public class GuiJournal extends GuiScreen {
     }
 
     private int getNumberOfPages() {
-        return MINIMUM_PAGES+getDiscoveredSeeds().size();
+        return MINIMUM_PAGES + getDiscoveredSeeds().size();
     }
 
     @Override
@@ -166,7 +172,7 @@ public class GuiJournal extends GuiScreen {
 
     @SuppressWarnings("unchecked")
     private void drawTextComponent(Component<String> component) {
-        if(component != null) {
+        if (component != null) {
             float scale = component.scale();
             int x = this.guiLeft + component.xOffset();
             int y = this.guiTop + component.yOffset();
@@ -174,11 +180,14 @@ public class GuiJournal extends GuiScreen {
             GL11.glScalef(scale, scale, scale);
             for (String paragraph : text) {
                 List<String> split = this.fontRendererObj.listFormattedStringToWidth(paragraph, 200);
-                for(int i = 0; i < split.size(); i++) {
+                for (int i = 0; i < split.size(); i++) {
                     String string = split.get(i);
                     int xOffset = component.centered() ? -fontRendererObj.getStringWidth(string) / 2 : 0;
                     int yOffset = i * this.fontRendererObj.FONT_HEIGHT;
-                    this.fontRendererObj.drawString(string, (int) (x / scale) + xOffset, (int) (y / scale) + yOffset, 1644054);    //1644054 means black
+                    this.fontRendererObj
+                            .drawString(string, (int) (x / scale) + xOffset, (int) (y / scale) + yOffset, 1644054); // 1644054
+                                                                                                                    // means
+                                                                                                                    // black
 
                 }
                 y = y + (int) ((float) this.fontRendererObj.FONT_HEIGHT / scale);
@@ -188,7 +197,7 @@ public class GuiJournal extends GuiScreen {
     }
 
     private void drawTextureComponent(Component<ResourceLocation> component) {
-        if(component != null) {
+        if (component != null) {
             ResourceLocation texture = component.getComponent();
             int xSize = component.xSize();
             int ySize = component.ySize();
@@ -209,16 +218,21 @@ public class GuiJournal extends GuiScreen {
     }
 
     private void drawItemComponent(Component<ItemStack> component) {
-        if(component != null) {
+        if (component != null) {
             int x = this.guiLeft + component.xOffset();
             int y = this.guiTop + component.yOffset();
             ItemStack stack = component.getComponent();
-            GuiScreen.itemRender.renderItemIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, x, y);
+            GuiScreen.itemRender.renderItemIntoGUI(
+                    Minecraft.getMinecraft().fontRenderer,
+                    Minecraft.getMinecraft().getTextureManager(),
+                    stack,
+                    x,
+                    y);
         }
     }
 
     private void drawIconComponent(Component<IIcon> component) {
-        if(component != null) {
+        if (component != null) {
             IIcon icon = component.getComponent();
             int xSize = component.xSize();
             int ySize = component.ySize();
@@ -262,7 +276,6 @@ public class GuiJournal extends GuiScreen {
     private void drawTooltip(ArrayList<String> toolTip, int x, int y) {
         drawHoveringText(toolTip, x, y, fontRendererObj);
     }
-
 
     @Override
     public boolean doesGuiPauseGame() {

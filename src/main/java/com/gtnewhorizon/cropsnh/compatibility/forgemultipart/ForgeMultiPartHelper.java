@@ -1,21 +1,24 @@
 package com.gtnewhorizon.cropsnh.compatibility.forgemultipart;
 
-import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.utility.LeverHelper;
-import com.gtnewhorizon.cropsnh.utility.LogHelper;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.lang.reflect.Method;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.lang.reflect.Method;
-import java.util.List;
+import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
+import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.utility.LeverHelper;
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ForgeMultiPartHelper extends ModHelper {
+
     private static Class multiBlockClass;
     private static Method getTileMethod;
 
@@ -32,7 +35,7 @@ public class ForgeMultiPartHelper extends ModHelper {
     @Override
     @SuppressWarnings("unchecked")
     protected void onPostInit() {
-        if(FMLCommonHandler.instance().getSide() == Side.SERVER) {
+        if (FMLCommonHandler.instance().getSide() == Side.SERVER) {
             return;
         }
         try {
@@ -50,13 +53,13 @@ public class ForgeMultiPartHelper extends ModHelper {
         try {
             leverPartClass = Class.forName("codechicken.multipart.minecraft.LeverPart");
             getMetaDataMethod = leverPartClass.getMethod("getMetadata");
-        }catch (Exception e) {
+        } catch (Exception e) {
             LogHelper.printStackTrace(e);
         }
     }
 
     public static boolean isMultiPart(Block block) {
-        return multiBlockClass!=null && multiBlockClass.isInstance(block);
+        return multiBlockClass != null && multiBlockClass.isInstance(block);
     }
 
     @SideOnly(Side.CLIENT)
@@ -64,8 +67,8 @@ public class ForgeMultiPartHelper extends ModHelper {
         try {
             Object tileMultiPart = getTileMethod.invoke(null, world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
             List multiPartList = (List) getMultiPartsMethod.invoke(tileMultiPart);
-            for(Object obj:multiPartList) {
-                if(!isLeverPart(obj)) {
+            for (Object obj : multiPartList) {
+                if (!isLeverPart(obj)) {
                     continue;
                 }
                 try {
@@ -73,18 +76,18 @@ public class ForgeMultiPartHelper extends ModHelper {
                     if (LeverHelper.isLeverFacingBlock(metadata, dir)) {
                         return true;
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     LogHelper.printStackTrace(e);
                 }
             }
             return false;
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
 
     @SideOnly(Side.CLIENT)
     public static boolean isLeverPart(Object obj) {
-        return leverPartClass!=null && leverPartClass.isInstance(obj);
+        return leverPartClass != null && leverPartClass.isInstance(obj);
     }
 }

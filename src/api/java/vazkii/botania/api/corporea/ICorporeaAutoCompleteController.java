@@ -1,10 +1,8 @@
 /**
- * This class was created by <SoundLogic>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
+ * This class was created by <SoundLogic>. It's distributed as part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
+ * Botania is Open Source and distributed under the Botania License: http://botaniamod.net/license.php
  *
  * File Created @ [June 8, 2015, 1:04:05 PM (GMT)]
  */
@@ -18,10 +16,10 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public interface ICorporeaAutoCompleteController {
 
-	/**
-	 * Return true if auto completion should be enabled.
-	 */
-	@SideOnly(Side.CLIENT)
+    /**
+     * Return true if auto completion should be enabled.
+     */
+    @SideOnly(Side.CLIENT)
     boolean shouldAutoComplete();
 
 }

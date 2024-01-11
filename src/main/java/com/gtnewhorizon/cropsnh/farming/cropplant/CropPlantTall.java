@@ -1,24 +1,27 @@
 package com.gtnewhorizon.cropsnh.farming.cropplant;
 
-import com.gtnewhorizon.cropsnh.api.v1.ICrop;
-import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.gtnewhorizon.cropsnh.api.v1.ICrop;
+import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Basic abstract implementation for crops that are 2 blocks tall
  */
 public abstract class CropPlantTall extends CropPlant {
-    /** The metadata value for when the bottom block is "fully grown" and the second block starts growing*/
+
+    /** The metadata value for when the bottom block is "fully grown" and the second block starts growing */
     public abstract int maxMetaBottomBlock();
 
     @Override
     public boolean isMature(IBlockAccess world, int x, int y, int z) {
-        return world.getBlockMetadata(x, y, z)>=7;
+        return world.getBlockMetadata(x, y, z) >= 7;
     }
 
     @Override
@@ -31,7 +34,7 @@ public abstract class CropPlantTall extends CropPlant {
 
     @SideOnly(Side.CLIENT)
     public boolean renderTopLayer(int growthStage) {
-        return growthStage> maxMetaBottomBlock();
+        return growthStage > maxMetaBottomBlock();
     }
 
     @Override
@@ -39,7 +42,7 @@ public abstract class CropPlantTall extends CropPlant {
     public void renderPlantInCrop(IBlockAccess world, int x, int y, int z, RenderBlocks renderer) {
         int meta = world.getBlockMetadata(x, y, z);
         PlantRenderer.renderPlantLayer(world, x, y, z, renderAsFlower() ? 1 : 6, getBottomIcon(meta), 0);
-        if(renderTopLayer(meta)) {
+        if (renderTopLayer(meta)) {
             PlantRenderer.renderPlantLayer(world, x, y, z, renderAsFlower() ? 1 : 6, getPlantIcon(meta), 1);
         }
     }

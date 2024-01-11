@@ -1,9 +1,8 @@
 package powercrystals.minefactoryreloaded.api;
 
 /**
- * @author PowerCrystals
- * Defines a tool that can rotate MFR machines. Implement on an Item class. Requires no additional work on your part. 
+ * @author PowerCrystals Defines a tool that can rotate MFR machines. Implement on an Item class. Requires no additional
+ *         work on your part.
  */
-public interface IMFRHammer
-{
+public interface IMFRHammer {
 }

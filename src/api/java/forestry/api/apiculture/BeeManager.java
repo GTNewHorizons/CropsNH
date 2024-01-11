@@ -5,10 +5,11 @@
  ******************************************************************************/
 package forestry.api.apiculture;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import net.minecraft.item.ItemStack;
+
 /**
  *
  * Some miscellaneous lists and settings for bees.
@@ -17,38 +18,38 @@ import java.util.HashMap;
  */
 public class BeeManager {
 
-	/**
-	 * 0 - Common Village Bees 1 - Uncommon Village Bees (20 % of spawns)
-	 */
-	public static ArrayList<IBeeGenome>[] villageBees;
+    /**
+     * 0 - Common Village Bees 1 - Uncommon Village Bees (20 % of spawns)
+     */
+    public static ArrayList<IBeeGenome>[] villageBees;
 
-	/**
-	 * List of items that can induce swarming. Integer denotes x in 1000 chance.
-	 */
-	public static HashMap<ItemStack, Integer> inducers = new HashMap<>();
+    /**
+     * List of items that can induce swarming. Integer denotes x in 1000 chance.
+     */
+    public static HashMap<ItemStack, Integer> inducers = new HashMap<>();
 
-	/**
-	 * Convenient access to AlleleManager.alleleRegistry.getSpeciesRoot("rootBees")
-	 */
-	public static IBeeRoot beeRoot;
+    /**
+     * Convenient access to AlleleManager.alleleRegistry.getSpeciesRoot("rootBees")
+     */
+    public static IBeeRoot beeRoot;
 
-	/**
-	 * Used to create new bees.
-	 */
-	public static IBeeFactory beeFactory;
+    /**
+     * Used to create new bees.
+     */
+    public static IBeeFactory beeFactory;
 
-	/**
-	 * Used to create new bee mutations.
-	 */
-	public static IBeeMutationFactory beeMutationFactory;
+    /**
+     * Used to create new bee mutations.
+     */
+    public static IBeeMutationFactory beeMutationFactory;
 
-	/**
-	 * Used to get Forestry's jubilance implementations.
-	 */
-	public static IJubilanceFactory jubilanceFactory;
+    /**
+     * Used to get Forestry's jubilance implementations.
+     */
+    public static IJubilanceFactory jubilanceFactory;
 
-	/**
-	 * Used to check whether a player is wearing Apiarist Armor.
-	 */
-	public static IArmorApiaristHelper armorApiaristHelper;
+    /**
+     * Used to check whether a player is wearing Apiarist Armor.
+     */
+    public static IArmorApiaristHelper armorApiaristHelper;
 }

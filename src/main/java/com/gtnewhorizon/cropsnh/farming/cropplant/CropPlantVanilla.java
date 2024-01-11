@@ -1,11 +1,8 @@
 package com.gtnewhorizon.cropsnh.farming.cropplant;
 
-import com.gtnewhorizon.cropsnh.api.v1.ICrop;
-import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
-import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.item.ItemSeeds;
@@ -13,10 +10,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.api.v1.ICrop;
+import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class CropPlantVanilla extends CropPlant {
+
     private final BlockCrops plant;
     private final ItemSeeds seed;
 
@@ -24,6 +27,7 @@ public class CropPlantVanilla extends CropPlant {
         this.plant = crop;
         this.seed = seed;
     }
+
     @Override
     public int tier() {
         return 1;
@@ -55,7 +59,7 @@ public class CropPlantVanilla extends CropPlant {
     public ArrayList<ItemStack> getFruitsOnHarvest(int gain, Random rand) {
         int amount = (int) (Math.ceil((gain + 0.00) / 3));
         ArrayList<ItemStack> list = new ArrayList<>();
-        while(amount>0) {
+        while (amount > 0) {
             list.add(getRandomFruit(rand));
             amount--;
         }
@@ -66,7 +70,6 @@ public class CropPlantVanilla extends CropPlant {
     public boolean canBonemeal() {
         return true;
     }
-
 
     @Override
     protected IGrowthRequirement initGrowthRequirement() {
@@ -81,7 +84,7 @@ public class CropPlantVanilla extends CropPlant {
     @Override
     @SideOnly(Side.CLIENT)
     public float getHeight(int meta) {
-        return Constants.UNIT*13;
+        return Constants.UNIT * 13;
     }
 
     @Override
@@ -101,10 +104,10 @@ public class CropPlantVanilla extends CropPlant {
     public String getInformation() {
         String name = seed.getUnlocalizedName();
         int index = name.indexOf('_');
-        if(index<0) {
+        if (index < 0) {
             index = name.indexOf('.');
         }
-        name = name.substring(index+1);
-        return "cropsnh_journal."+name;
+        name = name.substring(index + 1);
+        return "cropsnh_journal." + name;
     }
 }
