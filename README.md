@@ -2,7 +2,7 @@
 
 ## License
 
-GTNH Modifications Copyright (c) 2022 mitchej123 and the GTNH Team
+GTNH Modifications Copyright (c) 2022-2024 mitchej123 and the GTNH Team
 
 Licensed under LGPL-3.0 or later - use this however you want, but please give back any modifications
 
