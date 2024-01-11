@@ -13,6 +13,7 @@ dependencies {
     compileOnlyApi('curse.maven:minefactory-reloaded-66672:2366150') { transitive = false }
     compileOnlyApi('curse.maven:computercraft-67504:2269339')
     compileOnlyApi('curse.maven:HydCraft-223036:2279482')
+    compileOnlyApi('curse.maven:Ancient-Warfare-224602:2285132')
 
     compileOnly("com.github.GTNewHorizons:CraftTweaker:3.3.0:dev") {
         transitive = false
