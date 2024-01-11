@@ -11,6 +11,7 @@ dependencies {
     compileOnlyApi("com.azanor:Thaumcraft:1.7.10-4.2.3.5:deobf")
     compileOnlyApi("com.github.GTNewHorizons:BloodMagic:1.5.0:dev")
     compileOnlyApi('curse.maven:minefactory-reloaded-66672:2366150') { transitive = false }
+    compileOnlyApi('curse.maven:computercraft-67504:2269339')
 
     compileOnly("com.github.GTNewHorizons:CraftTweaker:3.3.0:dev") {
         transitive = false
