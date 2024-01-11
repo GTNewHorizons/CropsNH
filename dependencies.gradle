@@ -9,6 +9,7 @@ dependencies {
     compileOnlyApi("com.github.GTNewHorizons:ForestryMC:4.8.2:dev")
     compileOnlyApi("com.github.GTNewHorizons:OpenComputers:1.10.6-GTNH:dev")
     compileOnlyApi("com.azanor:Thaumcraft:1.7.10-4.2.3.5:deobf")
+    compileOnlyApi('curse.maven:minefactory-reloaded-66672:2366150') { transitive = false }
 
     compileOnly("com.github.GTNewHorizons:CraftTweaker:3.3.0:dev") {
         transitive = false
