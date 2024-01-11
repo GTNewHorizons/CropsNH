@@ -12,6 +12,7 @@ dependencies {
     compileOnlyApi("com.github.GTNewHorizons:BloodMagic:1.5.0:dev")
     compileOnlyApi('curse.maven:minefactory-reloaded-66672:2366150') { transitive = false }
     compileOnlyApi('curse.maven:computercraft-67504:2269339')
+    compileOnlyApi('curse.maven:HydCraft-223036:2279482')
 
     compileOnly("com.github.GTNewHorizons:CraftTweaker:3.3.0:dev") {
         transitive = false
