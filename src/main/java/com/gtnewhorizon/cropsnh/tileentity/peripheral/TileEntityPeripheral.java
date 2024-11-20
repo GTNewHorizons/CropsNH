@@ -27,10 +27,6 @@ import com.gtnewhorizon.cropsnh.tileentity.peripheral.method.MethodNeedsBaseBloc
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dan200.computercraft.api.lua.ILuaContext;
-import dan200.computercraft.api.lua.LuaException;
-import dan200.computercraft.api.peripheral.IComputerAccess;
-import dan200.computercraft.api.peripheral.IPeripheral;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.ManagedPeripheral;
@@ -42,11 +38,10 @@ import java.util.HashMap;
 
 
 @Optional.InterfaceList( value = {
-        @Optional.Interface(modid = Names.Mods.computerCraft, iface = "dan200.computercraft.api.peripheral.IPeripheral"),
         @Optional.Interface(modid = Names.Mods.openComputers, iface = "li.cil.oc.api.network.SimpleComponent"),
         @Optional.Interface(modid = Names.Mods.openComputers, iface = "li.cil.oc.api.network.ManagedPeripheral")
 })
-public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPeripheral, SimpleComponent, ManagedPeripheral {
+public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements SimpleComponent, ManagedPeripheral {
     private static IMethod[] methods;
     private boolean mayAnalyze = false;
     /** Data to animate the peripheral client side */
@@ -213,46 +208,6 @@ public class TileEntityPeripheral extends TileEntitySeedAnalyzer implements IPer
                 new MethodIsMature(),
                 new MethodNeedsBaseBlock()
         };
-    }
-
-    //---------------------
-    //ComputerCraft methods
-    //---------------------
-    @Override
-    public String getType() {
-        return getName();
-    }
-
-    @Override
-    public String[] getMethodNames() {
-        return getAllMethodNames();
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.computerCraft)
-    public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments) throws LuaException, InterruptedException {
-        IMethod calledMethod = methods[method];
-        try {
-            return invokeMethod(calledMethod, arguments);
-        } catch(MethodException e) {
-            throw new LuaException(e.getDescription());
-        }
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.computerCraft)
-    public void attach(IComputerAccess computer) {
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.computerCraft)
-    public void detach(IComputerAccess computer) {
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.computerCraft)
-    public boolean equals(IPeripheral other) {
-        return other instanceof TileEntityPeripheral;
     }
 
     //---------------------

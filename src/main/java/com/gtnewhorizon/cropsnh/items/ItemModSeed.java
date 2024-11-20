@@ -19,11 +19,8 @@ import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import powercrystals.minefactoryreloaded.api.IFactoryPlantable;
-import powercrystals.minefactoryreloaded.api.ReplacementBlock;
 
-@Optional.Interface(modid = Names.Mods.mfr, iface = "powercrystals.minefactoryreloaded.api.IFactoryPlantable")
-public class ItemModSeed extends ItemSeeds implements ICropsNHSeed, IFactoryPlantable {
+public class ItemModSeed extends ItemSeeds implements ICropsNHSeed {
     @SideOnly(Side.CLIENT)
     private String information;
 
@@ -94,39 +91,4 @@ public class ItemModSeed extends ItemSeeds implements ICropsNHSeed, IFactoryPlan
         itemIcon = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.')+1));
     }
 
-    @Override
-    @Optional.Method(modid = Names.Mods.mfr)
-    public Item getSeed() {
-        return this;
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.mfr)
-    public boolean canBePlanted(ItemStack stack, boolean forFermenting) {
-        return false;
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.mfr)
-    public ReplacementBlock getPlantedBlock(World world, int x, int y, int z, ItemStack stack) {
-        return null;
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.mfr)
-    public boolean canBePlantedHere(World world, int x, int y, int z, ItemStack stack) {
-        return false;
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.mfr)
-    public void prePlant(World world, int x, int y, int z, ItemStack stack) {
-
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.mfr)
-    public void postPlant(World world, int x, int y, int z, ItemStack stack) {
-
-    }
 }

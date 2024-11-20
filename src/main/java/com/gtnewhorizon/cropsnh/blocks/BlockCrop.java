@@ -45,9 +45,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
-import net.shadowmage.ancientwarfare.api.IAncientWarfareFarmable;
-import powercrystals.minefactoryreloaded.api.FertilizerType;
-import powercrystals.minefactoryreloaded.api.IFactoryFertilizable;
 import vazkii.botania.api.item.IHornHarvestable;
 
 import java.util.ArrayList;
@@ -59,10 +56,8 @@ import java.util.Random;
  */
 @Optional.InterfaceList(value = {
         @Optional.Interface(modid = Names.Mods.botania, iface = "vazkii.botania.api.item.IHornHarvestable"),
-        @Optional.Interface(modid = Names.Mods.ancientWarfare, iface = "net.shadowmage.ancientwarfare.api.IAncientWarfareFarmable"),
-        @Optional.Interface(modid = Names.Mods.mfr, iface = "powercrystals.minefactoryreloaded.api.IFactoryFertilizable")
 })
-public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlantable, IHornHarvestable, IAncientWarfareFarmable, IFactoryFertilizable {
+public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlantable, IHornHarvestable {
     /** The set of icons used to render weeds. */
     @SideOnly(Side.CLIENT)
     private IIcon[] weedIcons;
@@ -478,33 +473,6 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
         return world.getBlockMetadata(x, y, z) >= Constants.MATURE;
     }
 
-    /**
-     * Handles the plant being harvested from Ancient Warfare crop farms.
-     * This is a separate method from {@link #onBlockHarvested(World, int, int, int, int, EntityPlayer)} which handles the crops breaking.
-     *
-     * @return a list of drops from the harvested plant.
-     */
-    @Override
-    public List<ItemStack> doHarvest(World world, int x, int y, int z, int fortune) {
-        ArrayList<ItemStack> drops = new ArrayList<>();
-        TileEntityCrop crop = (TileEntityCrop) world.getTileEntity(x, y, z);
-        if (crop.hasWeed()) {
-            crop.clearWeed();   //update is not needed because it is called in the clearWeed() method
-        } else if (crop.isCrossCrop()) {
-            crop.setCrossCrop(false);
-            drops.add(new ItemStack(Items.crops, 1));
-        } else if (crop.isMature() && crop.allowHarvest(null)) {
-            crop.getWorldObj().setBlockMetadataWithNotify(crop.xCoord, crop.yCoord, crop.zCoord, 2, 2);
-            for(ItemStack stack:crop.getFruits()) {
-                if(stack==null || stack.getItem()==null) {
-                    continue;
-                }
-                drops.add(stack);
-            }
-        }
-        return drops;
-    }
-
     /** Performs the needed action when this crop is clipped: check if there is a valid plant, drop a clipping and decrement the growth stage */
     public void onClipperUsed(World world, int x, int y, int z, TileEntityCrop crop) {
         if(!crop.hasPlant()) {
@@ -827,43 +795,4 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
         }
     }
 
-    @Override
-    @Optional.Method(modid = Names.Mods.mfr)
-    public Block getPlant() {
-        return this;
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.mfr)
-    public boolean canFertilize(World world, int x, int y, int z, FertilizerType type) {
-        TileEntity te = world.getTileEntity(x, y, z);
-        if(te == null || !(te instanceof TileEntityCrop)) {
-            return false;
-        }
-        TileEntityCrop crop = (TileEntityCrop) te;
-        if(this.isMature(world, x, y, z) || !crop.isFertile()) {
-            return false;
-        }
-        if(crop.isCrossCrop()) {
-            return ConfigurationHandler.bonemealMutation && type != FertilizerType.None;
-        }
-        if(!crop.hasPlant()) {
-            return false;
-        }
-        switch(type) {
-            case GrowPlant: return crop.canBonemeal();
-            case GrowMagicalCrop: return true;
-            default: return false;
-        }
-    }
-
-    @Override
-    @Optional.Method(modid = Names.Mods.mfr)
-    public boolean fertilize(World world, Random rand, int x, int y, int z, FertilizerType type) {
-        boolean success = this.canFertilize(world, x, y, z, type);
-        if(success) {
-            this.func_149853_b(world, rand, x, y, z);
-        }
-        return success;
-    }
 }

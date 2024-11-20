@@ -7,13 +7,10 @@ import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderPeripheral;
 import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
-import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dan200.computercraft.api.peripheral.IPeripheral;
-import dan200.computercraft.api.peripheral.IPeripheralProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -22,8 +19,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-@Optional.Interface(modid = Names.Mods.computerCraft, iface = "dan200.computercraft.api.peripheral.IPeripheralProvider")
-public class BlockPeripheral extends BlockSeedAnalyzer implements IPeripheralProvider {
+public class BlockPeripheral extends BlockSeedAnalyzer {
     @SideOnly(Side.CLIENT)
     private IIcon[] icons;
 
@@ -53,15 +49,6 @@ public class BlockPeripheral extends BlockSeedAnalyzer implements IPeripheralPro
         return Names.Objects.peripheral;
     }
 
-    @Override
-    @Optional.Method(modid = Names.Mods.computerCraft)
-    public IPeripheral getPeripheral(World world, int x, int y, int z, int side) {
-        TileEntity te = world.getTileEntity(x, y, z);
-        if(te==null || !(te instanceof TileEntityPeripheral)) {
-            return null;
-        }
-        return (TileEntityPeripheral) te;
-    }
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
