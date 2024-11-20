@@ -3,7 +3,7 @@ package com.gtnewhorizon.cropsnh.handler;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.api.v1.ICropPlant;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantAPIv1;
 import com.gtnewhorizon.cropsnh.renderers.player.renderhooks.RenderPlayerHooks;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
@@ -38,7 +38,7 @@ public class InterModComsHandler {
                                 "[IMC] CropPlant registering errored: " + message.getStringValue()
                                     + " does not have a valid constructor, constructor should be public with ItemStack as parameter");
                         }
-                        CropPlantHandler.addCropToRegister(new CropPlantAPIv1(cropPlant));
+                        CropRegistry.addCropToRegister(new CropPlantAPIv1(cropPlant));
                         LogHelper.error("[IMC] Successfully registered CropPlant for " + seed.getUnlocalizedName());
                     } else {
                         LogHelper.error(

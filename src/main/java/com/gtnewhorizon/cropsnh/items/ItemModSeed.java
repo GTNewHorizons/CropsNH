@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import com.gtnewhorizon.cropsnh.api.v1.ICropsNHSeed;
 import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
 import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
@@ -79,7 +79,7 @@ public class ItemModSeed extends ItemSeeds implements ICropsNHSeed {
                     .getUnlocalizedName() + " on crops");
             return true;
         }
-        if (CropPlantHandler.getGrowthRequirement(stack.getItem(), stack.getItemDamage())
+        if (CropRegistry.getGrowthRequirement(stack.getItem(), stack.getItemDamage())
             .isValidSoil(world, x, y, z)) {
             if (side != 1) {
                 return false;

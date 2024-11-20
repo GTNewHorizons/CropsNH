@@ -8,7 +8,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import com.gtnewhorizon.cropsnh.api.v1.IClipper;
 import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.items.ItemClipping;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.statstringdisplayer.StatStringDisplayer;
@@ -37,7 +37,7 @@ public class ItemToolTipHandler {
         if (stack == null || stack.getItem() == null) {
             return;
         }
-        if (CropPlantHandler.isValidSeed(stack) && stack.hasTagCompound()) {
+        if (CropRegistry.isValidSeed(stack) && stack.hasTagCompound()) {
             NBTTagCompound tag = stack.getTagCompound();
             if (tag.hasKey(Names.NBT.growth) && tag.hasKey(Names.NBT.gain)
                 && tag.hasKey(Names.NBT.strength)

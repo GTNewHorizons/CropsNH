@@ -8,7 +8,7 @@ import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
 
-public class PlantStats implements ISeedStats {
+public class SeedStats implements ISeedStats {
 
     private static final short MAX = (short) ConfigurationHandler.cropStatCap;
     private static final short MIN = 1;
@@ -18,15 +18,15 @@ public class PlantStats implements ISeedStats {
     private short strength;
     private boolean analyzed;
 
-    public PlantStats() {
+    public SeedStats() {
         this(MIN, MIN, MIN);
     }
 
-    public PlantStats(int growth, int gain, int strength) {
+    public SeedStats(int growth, int gain, int strength) {
         this(growth, gain, strength, false);
     }
 
-    public PlantStats(int growth, int gain, int strength, boolean analyzed) {
+    public SeedStats(int growth, int gain, int strength, boolean analyzed) {
         this.setStats(growth, gain, strength);
         this.analyzed = analyzed;
     }
@@ -81,11 +81,11 @@ public class PlantStats implements ISeedStats {
         return (short) Math.min(MAX, lowerLimit);
     }
 
-    public PlantStats copy() {
-        return new PlantStats(getGrowth(), getGain(), getStrength(), analyzed);
+    public SeedStats copy() {
+        return new SeedStats(getGrowth(), getGain(), getStrength(), analyzed);
     }
 
-    public static PlantStats getStatsFromStack(ItemStack stack) {
+    public static SeedStats getStatsFromStack(ItemStack stack) {
         if (stack == null || stack.getItem() == null) {
             return null;
         }
@@ -95,11 +95,11 @@ public class PlantStats implements ISeedStats {
         return readFromNBT(stack.getTagCompound());
     }
 
-    public static PlantStats readFromNBT(NBTTagCompound tag) {
+    public static SeedStats readFromNBT(NBTTagCompound tag) {
         if (tag != null && tag.hasKey(Names.NBT.growth)
             && tag.hasKey(Names.NBT.gain)
             && tag.hasKey(Names.NBT.strength)) {
-            PlantStats stats = new PlantStats();
+            SeedStats stats = new SeedStats();
             stats.setGrowth(tag.getShort(Names.NBT.growth));
             stats.setGain(tag.getShort(Names.NBT.gain));
             stats.setStrength(tag.getShort(Names.NBT.strength));

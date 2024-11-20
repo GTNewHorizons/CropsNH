@@ -14,7 +14,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.v1.IDebuggable;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.network.MessageTileEntitySeedStorage;
 import com.gtnewhorizon.cropsnh.network.NetworkWrapperCropsNH;
 import com.gtnewhorizon.cropsnh.reference.Names;
@@ -92,7 +92,7 @@ public class TileEntitySeedStorage extends TileEntityCustomWood
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     NBTTagCompound slotTag = tagList.getCompoundTagAt(i);
                     NBTTagCompound stackTag = new NBTTagCompound();
-                    CropPlantHandler.setSeedNBT(
+                    CropRegistry.setSeedNBT(
                         stackTag,
                         slotTag.getShort(Names.NBT.growth),
                         slotTag.getShort(Names.NBT.gain),
@@ -160,7 +160,7 @@ public class TileEntitySeedStorage extends TileEntityCustomWood
     @Override
     public boolean addStackToInventory(ItemStack stack) {
         boolean success = false;
-        if (!CropPlantHandler.isAnalyzedSeed(stack)) {
+        if (!CropRegistry.isAnalyzedSeed(stack)) {
             return false;
         }
         if (!this.worldObj.isRemote) {
@@ -253,7 +253,7 @@ public class TileEntitySeedStorage extends TileEntityCustomWood
     }
 
     private boolean isValidForSlot(int realSlot, ItemStack stack) {
-        if (!CropPlantHandler.isAnalyzedSeed(stack)) {
+        if (!CropRegistry.isAnalyzedSeed(stack)) {
             return false;
         }
         if (this.hasLockedSeed()) {
@@ -485,7 +485,7 @@ public class TileEntitySeedStorage extends TileEntityCustomWood
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
-        if (!CropPlantHandler.isAnalyzedSeed(stack)) {
+        if (!CropRegistry.isAnalyzedSeed(stack)) {
             return false;
         }
         if (this.hasLockedSeed()) {

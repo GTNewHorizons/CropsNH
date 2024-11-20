@@ -2,7 +2,7 @@ package com.gtnewhorizon.cropsnh.compatibility.minetweaker;
 
 import net.minecraft.item.ItemStack;
 
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 
 import minetweaker.IUndoableAction;
@@ -18,9 +18,9 @@ public class SpreadChance {
     @ZenMethod
     public static void override(IItemStack seed, int chance) {
         ItemStack seedToOverride = MineTweakerMC.getItemStack(seed);
-        if (CropPlantHandler.isValidSeed(seedToOverride)) {
+        if (CropRegistry.isValidSeed(seedToOverride)) {
             if (chance >= 0 && chance <= 100) {
-                MineTweakerAPI.apply(new OverrideAction(CropPlantHandler.getPlantFromStack(seedToOverride), chance));
+                MineTweakerAPI.apply(new OverrideAction(CropRegistry.getPlantFromStack(seedToOverride), chance));
             } else {
                 MineTweakerAPI.logError("Spread chance must be between 0 and 100 inclusive.");
             }

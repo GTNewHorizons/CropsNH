@@ -13,7 +13,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.compatibility.tconstruct.TinkersConstructHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
@@ -68,7 +68,7 @@ public class PlayerInteractEventHandler {
             if (ignoresVanillaPlantingSetting(seed)) {
                 return true;
             }
-            if (CropPlantHandler.isValidSeed(seed)) {
+            if (CropRegistry.isValidSeed(seed)) {
                 return false;
             }
             if (seed.getItem() == Items.potato) {
@@ -85,7 +85,7 @@ public class PlayerInteractEventHandler {
     }
 
     private static boolean ignoresVanillaPlantingSetting(ItemStack seed) {
-        CropPlant plant = CropPlantHandler.getPlantFromStack(seed);
+        CropPlant plant = CropRegistry.getPlantFromStack(seed);
         return plant != null && plant.ignoresVanillaPlantingRule();
     }
 

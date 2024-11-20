@@ -15,7 +15,7 @@ import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.v1.IMutation;
 import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationHandler;
 import com.gtnewhorizon.cropsnh.reference.Constants;
@@ -53,7 +53,7 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
             this.parent2 = new PositionedStack(parent2Stack, Constants.nei_X_parent2, Constants.nei_Y_seeds);
             this.result = new PositionedStack(resultStack, Constants.nei_X_result, Constants.nei_Y_seeds);
 
-            IGrowthRequirement growthReq = CropPlantHandler
+            IGrowthRequirement growthReq = CropRegistry
                 .getGrowthRequirement(result.item.getItem(), result.item.getItemDamage());
             if (growthReq.getSoil() != null) {
                 soils.add(
@@ -131,7 +131,7 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
     // loads the mutation recipes for a given mutation
     @Override
     protected void loadCraftingRecipesDo(ItemStack result) {
-        if (CropPlantHandler.isValidSeed(result)) {
+        if (CropRegistry.isValidSeed(result)) {
             IMutation[] mutations = MutationHandler.getInstance()
                 .getMutationsFromChild(result);
             for (IMutation mutation : mutations) {
@@ -150,7 +150,7 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
         if (ingredient == null || ingredient.getItem() == null) {
             return;
         }
-        if (CropPlantHandler.isValidSeed(ingredient)) {
+        if (CropRegistry.isValidSeed(ingredient)) {
             IMutation[] mutations = MutationHandler.getInstance()
                 .getMutationsFromParent(ingredient);
             for (IMutation mutation : mutations) {
@@ -170,7 +170,7 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
             IMutation[] mutations = MutationHandler.getInstance()
                 .getMutations();
             for (IMutation mutation : mutations) {
-                IGrowthRequirement req = CropPlantHandler.getGrowthRequirement(
+                IGrowthRequirement req = CropRegistry.getGrowthRequirement(
                     mutation.getResult()
                         .getItem(),
                     mutation.getResult()

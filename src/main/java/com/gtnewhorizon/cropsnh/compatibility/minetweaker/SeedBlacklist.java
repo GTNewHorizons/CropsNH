@@ -7,7 +7,7 @@ import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 
 import com.google.common.base.Joiner;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
@@ -71,7 +71,7 @@ public class SeedBlacklist {
 
         @Override
         public void apply() {
-            CropPlantHandler.addAllToSeedBlacklist(seeds);
+            CropRegistry.addAllToSeedBlacklist(seeds);
         }
 
         @Override
@@ -81,7 +81,7 @@ public class SeedBlacklist {
 
         @Override
         public void undo() {
-            CropPlantHandler.removeAllFromSeedBlacklist(seeds);
+            CropRegistry.removeAllFromSeedBlacklist(seeds);
         }
 
         @Override
@@ -112,7 +112,7 @@ public class SeedBlacklist {
 
         @Override
         public void apply() {
-            CropPlantHandler.removeAllFromSeedBlacklist(seeds);
+            CropRegistry.removeAllFromSeedBlacklist(seeds);
         }
 
         @Override
@@ -122,7 +122,7 @@ public class SeedBlacklist {
 
         @Override
         public void undo() {
-            CropPlantHandler.addAllToSeedBlacklist(seeds);
+            CropRegistry.addAllToSeedBlacklist(seeds);
         }
 
         @Override

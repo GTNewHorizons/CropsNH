@@ -12,7 +12,7 @@ import com.gtnewhorizon.cropsnh.api.v1.ICrop;
 import com.gtnewhorizon.cropsnh.api.v1.IMutation;
 import com.gtnewhorizon.cropsnh.api.v1.IMutationHandler;
 import com.gtnewhorizon.cropsnh.api.v1.IMutationLogic;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.utility.IOHelper;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
@@ -90,13 +90,13 @@ public class MutationHandler implements IMutationHandler {
         ItemStack parentStack1 = IOHelper.getStack(mutationData.substring(indexEquals + 1, indexPlus), false);
         ItemStack parentStack2 = IOHelper.getStack(mutationData.substring(indexPlus + 1), false);
 
-        if (!CropPlantHandler.isValidSeed(resultStack)) {
+        if (!CropRegistry.isValidSeed(resultStack)) {
             LogHelper.info("Error when reading mutation: resulting stack is not correct. (line: " + input + ")");
             return null;
-        } else if (!CropPlantHandler.isValidSeed(parentStack1)) {
+        } else if (!CropRegistry.isValidSeed(parentStack1)) {
             LogHelper.info("Error when reading mutation: first parent stack is not correct. (line: " + input + ")");
             return null;
-        } else if (!CropPlantHandler.isValidSeed(parentStack2)) {
+        } else if (!CropRegistry.isValidSeed(parentStack2)) {
             LogHelper.info("Error when reading mutation: second parent stack is not correct. (line: " + input + ")");
             return null;
         }
@@ -227,7 +227,7 @@ public class MutationHandler implements IMutationHandler {
     @Override
     public IMutation[] getMutationsFromChild(ItemStack stack) {
         ArrayList<IMutation> list = new ArrayList<>();
-        if (CropPlantHandler.isValidSeed(stack)) {
+        if (CropRegistry.isValidSeed(stack)) {
             for (IMutation mutation : mutations) {
                 if (mutation.getResult()
                     .getItem() == stack.getItem()
@@ -242,7 +242,7 @@ public class MutationHandler implements IMutationHandler {
 
     /**
      * Removes all mutations where the given parameter is the result of a mutation
-     * 
+     *
      * @return Removed mutations
      */
     @Override

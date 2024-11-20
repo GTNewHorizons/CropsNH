@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.api.v1.IMutation;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 
 public class Mutation implements IMutation {
@@ -23,7 +23,7 @@ public class Mutation implements IMutation {
 
     public Mutation(ItemStack result, ItemStack parent1, ItemStack parent2) {
         this(result, parent1, parent2, 100);
-        CropPlant plant = CropPlantHandler.getPlantFromStack(result);
+        CropPlant plant = CropRegistry.getPlantFromStack(result);
         this.chance = plant == null ? 0 : ((double) plant.getSpreadChance()) / 100.0D;
     }
 

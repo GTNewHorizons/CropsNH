@@ -11,7 +11,7 @@ import com.google.common.base.Joiner;
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
 
 import minetweaker.IUndoableAction;
@@ -172,7 +172,7 @@ public class Growing {
             ItemStack seedStack = MineTweakerMC.getItemStack(seed);
             ItemStack soilStack = MineTweakerMC.getItemStack(soil);
             String error = "Invalid first argument: has to be a seed";
-            boolean success = CropPlantHandler.isValidSeed(seedStack);
+            boolean success = CropRegistry.isValidSeed(seedStack);
             if (success) {
                 error = "Invalid second argument: has to be a block";
                 success = soilStack.getItem() != null && soilStack.getItem() instanceof ItemBlock;
@@ -218,7 +218,7 @@ public class Growing {
 
             @Override
             public void apply() {
-                IGrowthRequirement growthReq = CropPlantHandler.getGrowthRequirement(seed, meta);
+                IGrowthRequirement growthReq = CropRegistry.getGrowthRequirement(seed, meta);
                 oldSoil = growthReq.getSoil();
                 growthReq.setSoil(soil);
                 GrowthRequirementHandler.addSoil(soil);
@@ -231,7 +231,7 @@ public class Growing {
 
             @Override
             public void undo() {
-                IGrowthRequirement growthReq = CropPlantHandler.getGrowthRequirement(seed, meta);
+                IGrowthRequirement growthReq = CropRegistry.getGrowthRequirement(seed, meta);
                 growthReq.setSoil(oldSoil);
             }
 
@@ -265,7 +265,7 @@ public class Growing {
         public static void set(IItemStack seed, int min, int max) {
             ItemStack seedStack = MineTweakerMC.getItemStack(seed);
             String error = "Invalid first argument: has to be a seed";
-            boolean success = CropPlantHandler.isValidSeed(seedStack);
+            boolean success = CropRegistry.isValidSeed(seedStack);
             if (success) {
                 error = "Invalid second argument: has to be larger than or equal to 0";
                 success = min >= 0;
@@ -304,7 +304,7 @@ public class Growing {
 
             @Override
             public void apply() {
-                IGrowthRequirement growthReq = CropPlantHandler.getGrowthRequirement(seed, meta);
+                IGrowthRequirement growthReq = CropRegistry.getGrowthRequirement(seed, meta);
                 old = growthReq.getBrightnessRange();
                 growthReq.setBrightnessRange(min, max);
             }
@@ -316,7 +316,7 @@ public class Growing {
 
             @Override
             public void undo() {
-                IGrowthRequirement growthReq = CropPlantHandler.getGrowthRequirement(seed, meta);
+                IGrowthRequirement growthReq = CropRegistry.getGrowthRequirement(seed, meta);
                 growthReq.setBrightnessRange(old[0], old[1]);
             }
 
@@ -363,7 +363,7 @@ public class Growing {
                 MineTweakerAPI.logError("Type needs to be either 1 (below) or 2 (nearby)");
                 return;
             }
-            if (seed == null || !(CropPlantHandler.isValidSeed(seed))) {
+            if (seed == null || !(CropRegistry.isValidSeed(seed))) {
                 MineTweakerAPI.logError("Seeds has to be non-null and should be recognized by CropsNH as a seed.");
                 return;
             }
@@ -380,7 +380,7 @@ public class Growing {
         @ZenMethod
         public static void clear(IItemStack seed) {
             ItemStack seedIS = MineTweakerMC.getItemStack(seed);
-            if (seedIS == null || !(CropPlantHandler.isValidSeed(seedIS))) {
+            if (seedIS == null || !(CropRegistry.isValidSeed(seedIS))) {
                 MineTweakerAPI.logError("Seeds has to be non-null and should be recognized by CropsNH as a seed.");
                 return;
             }
@@ -412,7 +412,7 @@ public class Growing {
 
             @Override
             public void apply() {
-                IGrowthRequirement growthReq = CropPlantHandler.getGrowthRequirement(seed, seedMeta);
+                IGrowthRequirement growthReq = CropRegistry.getGrowthRequirement(seed, seedMeta);
                 oldReqBlock = growthReq.getRequiredBlock();
                 oldRequiredType = growthReq.getRequiredType();
                 oldReqBlockIsOreDict = growthReq.isOreDict();
@@ -426,7 +426,7 @@ public class Growing {
 
             @Override
             public void undo() {
-                IGrowthRequirement growthReq = CropPlantHandler.getGrowthRequirement(seed, seedMeta);
+                IGrowthRequirement growthReq = CropRegistry.getGrowthRequirement(seed, seedMeta);
                 growthReq.setRequiredBlock(oldReqBlock, oldRequiredType, oldReqBlockIsOreDict);
             }
 

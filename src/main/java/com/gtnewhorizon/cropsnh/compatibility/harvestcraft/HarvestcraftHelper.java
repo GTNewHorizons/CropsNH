@@ -8,7 +8,7 @@ import net.minecraft.item.ItemSeeds;
 
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
@@ -43,7 +43,7 @@ public final class HarvestcraftHelper extends ModHelper {
                             continue;
                         }
                         CropPlant plant = new CropPlantHarvestCraft(seed);
-                        CropPlantHandler.registerPlant(plant);
+                        CropRegistry.registerCrop(plant);
                         if (seed == Item.itemRegistry.getObject("harvestcraft:seaweedseedItem")
                             || seed == Item.itemRegistry.getObject("harvestcraft:riceseedItem")
                             || seed == Item.itemRegistry.getObject("harvestcraft:waterchestnutseedItem")

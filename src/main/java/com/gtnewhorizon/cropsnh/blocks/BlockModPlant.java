@@ -20,7 +20,7 @@ import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirementBuilder;
 import com.gtnewhorizon.cropsnh.api.v1.RenderMethod;
 import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
 import com.gtnewhorizon.cropsnh.compatibility.applecore.AppleCoreHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.CropProduce;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantCropsNHShearable;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
@@ -149,9 +149,9 @@ public class BlockModPlant extends BlockCrops implements ICropsNHPlant {
         // register this plant to the CropPlantHandler
         try {
             if (shearable == null) {
-                CropPlantHandler.registerPlant(this);
+                CropRegistry.registerCrop(this);
             } else {
-                CropPlantHandler.registerPlant(new CropPlantCropsNHShearable(this, shearable));
+                CropRegistry.registerCrop(new CropPlantCropsNHShearable(this, shearable));
             }
         } catch (Exception e) {
             LogHelper.printStackTrace(e);

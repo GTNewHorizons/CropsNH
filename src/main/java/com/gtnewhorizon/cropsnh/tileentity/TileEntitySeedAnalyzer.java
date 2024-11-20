@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.items.ItemJournal;
 import com.gtnewhorizon.cropsnh.reference.Names;
@@ -101,7 +101,7 @@ public class TileEntitySeedAnalyzer extends TileEntityCropsNH implements ISidedI
      * @return if the analyze slot contains a <em>valid</em> seed.
      */
     public final boolean hasSeed() {
-        return CropPlantHandler.isValidSeed(this.specimen);
+        return CropRegistry.isValidSeed(this.specimen);
     }
 
     /**
@@ -142,7 +142,7 @@ public class TileEntitySeedAnalyzer extends TileEntityCropsNH implements ISidedI
         }
 
         if (seed != null) {
-            CropPlant plant = CropPlantHandler.getPlantFromStack(seed);
+            CropPlant plant = CropRegistry.getPlantFromStack(seed);
             return plant == null ? 0 : plant.getTier() * 20;
         } else {
             return 0;
@@ -162,7 +162,7 @@ public class TileEntitySeedAnalyzer extends TileEntityCropsNH implements ISidedI
         if (stack.getItem() instanceof ITrowel) {
             return ((ITrowel) stack.getItem()).hasSeed(stack);
         }
-        if (!CropPlantHandler.isValidSeed(stack)) {
+        if (!CropRegistry.isValidSeed(stack)) {
             return false;
         }
         return true;
@@ -226,11 +226,11 @@ public class TileEntitySeedAnalyzer extends TileEntityCropsNH implements ISidedI
                 if (tag.hasKey(Names.NBT.growth) && tag.hasKey(Names.NBT.gain) && tag.hasKey(Names.NBT.strength)) {
                     tag.setBoolean(Names.NBT.analyzed, true);
                 } else {
-                    CropPlantHandler.setSeedNBT(tag, (short) 0, (short) 0, (short) 0, true);
+                    CropRegistry.setSeedNBT(tag, (short) 0, (short) 0, (short) 0, true);
                 }
             } else {
                 this.specimen.setTagCompound(new NBTTagCompound());
-                CropPlantHandler.setSeedNBT(this.specimen.stackTagCompound, (short) 0, (short) 0, (short) 0, true);
+                CropRegistry.setSeedNBT(this.specimen.stackTagCompound, (short) 0, (short) 0, (short) 0, true);
             }
         } else if (this.hasTrowel()) {
             ((ITrowel) this.specimen.getItem()).analyze(this.specimen);

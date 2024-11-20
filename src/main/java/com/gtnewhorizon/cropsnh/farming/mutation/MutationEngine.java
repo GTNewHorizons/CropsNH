@@ -8,7 +8,7 @@ import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.v1.IMutationEngine;
 import com.gtnewhorizon.cropsnh.api.v1.IMutationHandler;
 import com.gtnewhorizon.cropsnh.api.v1.IStatCalculator;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.mutation.statcalculator.StatCalculator;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
@@ -46,9 +46,9 @@ public class MutationEngine implements IMutationEngine {
     }
 
     private boolean resultIsValid(ICrossOverResult result) {
-        IGrowthRequirement growthReq = CropPlantHandler.getGrowthRequirement(result.getSeed(), result.getMeta());
+        IGrowthRequirement growthReq = CropRegistry.getGrowthRequirement(result.getSeed(), result.getMeta());
 
-        boolean valid = result.getSeed() != null && CropPlantHandler.isValidSeed(result.getSeed(), result.getMeta());
+        boolean valid = result.getSeed() != null && CropRegistry.isValidSeed(result.getSeed(), result.getMeta());
         return valid && growthReq.canGrow(crop.getWorldObj(), crop.xCoord, crop.yCoord, crop.zCoord);
     }
 

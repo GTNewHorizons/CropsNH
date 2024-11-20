@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 
 import com.gtnewhorizon.cropsnh.api.v1.ICrossOverResult;
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 
 /**
  * Represents the result of a specific <code>INewSeedStrategy</code> containing
@@ -36,7 +36,7 @@ public class CrossOverResult implements ICrossOverResult {
 
     @Override
     public void setSeedAndMeta(Item seed, int meta) {
-        if (CropPlantHandler.isValidSeed(seed, meta)) {
+        if (CropRegistry.isValidSeed(seed, meta)) {
             this.seed = seed;
             this.meta = meta;
         }

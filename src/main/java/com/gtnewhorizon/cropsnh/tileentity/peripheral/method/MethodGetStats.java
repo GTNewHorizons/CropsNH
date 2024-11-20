@@ -3,7 +3,7 @@ package com.gtnewhorizon.cropsnh.tileentity.peripheral.method;
 import java.util.ArrayList;
 
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
-import com.gtnewhorizon.cropsnh.farming.PlantStats;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
 
@@ -34,7 +34,7 @@ public class MethodGetStats extends MethodBase {
 
     @Override
     protected Object[] onMethodCalled(TileEntityPeripheral peripheral) throws MethodException {
-        ISeedStats stats = PlantStats.getStatsFromStack(peripheral.getSpecimen());
+        ISeedStats stats = SeedStats.getStatsFromStack(peripheral.getSpecimen());
         if (stats == null) {
             return null;
         }

@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.network.MessageContainerSeedStorage;
 import com.gtnewhorizon.cropsnh.network.NetworkWrapperCropsNH;
 import com.gtnewhorizon.cropsnh.tileentity.storage.ISeedStorageControllable;
@@ -107,7 +107,7 @@ public abstract class ContainerSeedStorageBase extends ContainerCropsNH {
             ItemStack notMergedStack = slot.getStack();
             originalStackInSlot = notMergedStack.copy();
             // try to move item from the player's inventory into the container
-            if (CropPlantHandler.isAnalyzedSeed(notMergedStack)) {
+            if (CropRegistry.isAnalyzedSeed(notMergedStack)) {
                 ISeedStorageControllable controllable = this.getControllable(notMergedStack);
                 if (controllable != null && controllable.hasLockedSeed()) {
                     ItemStack locked = controllable.getLockedSeed();

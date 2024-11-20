@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.items.ItemJournal;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
@@ -121,7 +121,7 @@ public abstract class MethodBase implements IMethod {
         if (specimen.getItem() instanceof ITrowel) {
             seed = ((ITrowel) specimen.getItem()).getSeed(specimen);
         }
-        return CropPlantHandler.getPlantFromStack(seed);
+        return CropRegistry.getPlantFromStack(seed);
     }
 
     protected CropPlant getCropPlant(TileEntityCrop crop) {

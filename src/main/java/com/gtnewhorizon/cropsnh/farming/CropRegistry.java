@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -19,7 +20,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import com.gtnewhorizon.cropsnh.api.v1.ICropsNHPlant;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.v1.ItemWithMeta;
-import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantCropsNH;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantNetherWart;
@@ -35,7 +35,7 @@ import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 import com.gtnewhorizon.cropsnh.utility.exception.DuplicateCropPlantException;
 
-public class CropPlantHandler {
+public class CropRegistry {
 
     /** HashMap containing all plants known to CropsNH */
     private static final HashMap<Item, HashMap<Integer, CropPlant>> cropPlants = new HashMap<>();
@@ -50,14 +50,14 @@ public class CropPlantHandler {
      * This command is a wrapper for the registerPlant(CropPlant plant). The ICropsNH plant is wrapped into a
      * CropPlantCropsNH in the process.
      *
-     * @see #registerPlant(CropPlant)
+     * @see #registerCrop(CropPlant)
      *
      * @param plant the plant to be registered.
      * @throws DuplicateCropPlantException thrown if the plant has already been registered. This could signal a major
      *                                     issue.
      */
-    public static void registerPlant(ICropsNHPlant plant) throws DuplicateCropPlantException {
-        registerPlant(new CropPlantCropsNH(plant));
+    public static void registerCrop(ICropsNHPlant plant) throws DuplicateCropPlantException {
+        registerCrop(new CropPlantCropsNH(plant));
     }
 
     /**
@@ -67,7 +67,7 @@ public class CropPlantHandler {
      * @throws DuplicateCropPlantException thrown if the plant has already been registered. This could signal a major
      *                                     issue.
      */
-    public static void registerPlant(CropPlant plant) throws DuplicateCropPlantException {
+    public static void registerCrop(CropPlant plant) throws DuplicateCropPlantException {
         ItemStack stack = plant.getSeed();
         LogHelper.debug("Registering plant for " + stack.getUnlocalizedName());
         Item seed = stack.getItem();
@@ -111,13 +111,13 @@ public class CropPlantHandler {
      *
      * This function is a wrapper for the registerPlant() function.
      *
-     * @see #registerPlant(CropPlant)
+     * @see #registerCrop(CropPlant)
      *
      * @param plant the plant to be registered.
      */
     private static void suppressedRegisterPlant(CropPlant plant) {
         try {
-            registerPlant(plant);
+            registerCrop(plant);
             GrowthRequirementHandler.addSoil(
                 plant.getGrowthRequirement()
                     .getSoil());
@@ -131,7 +131,7 @@ public class CropPlantHandler {
 
     /**
      * Adds a crop to the registration queue, to be registered during the initialization phase.
-     * 
+     *
      * @param plant the plant to be registered.
      */
     public static void addCropToRegister(CropPlant plant) {
@@ -144,7 +144,7 @@ public class CropPlantHandler {
 
     /**
      * Sets the growth requirement for a seed, effectively overriding the previously registered growth requirement
-     * 
+     *
      * @param seed The seed for which to set the growth requirement
      * @param req  The growth requirement to be set
      * @return if the growth requirement was successfully set
@@ -180,7 +180,7 @@ public class CropPlantHandler {
 
     /**
      * Tests to see if the provided stack is a valid {@link #cropPlants seed}.
-     * 
+     *
      * @param seed the stack to test as a seed.
      * @return if the stack is a valid seed.
      */
@@ -190,7 +190,7 @@ public class CropPlantHandler {
 
     /**
      * Tests to see if the provided ItemWithMeta is a valid {@link #cropPlants seed}.
-     * 
+     *
      * @param seed the item to test as a seed.
      * @return if the item is a valid seed.
      */
@@ -200,7 +200,7 @@ public class CropPlantHandler {
 
     /**
      * Tests to see if the provided stack is a valid {@link #cropPlants seed}, this takes the blacklist into account.
-     * 
+     *
      * @param seed the item to test as a seed.
      * @param meta the meta for the seed
      * @return if the item is a valid seed.
@@ -213,7 +213,7 @@ public class CropPlantHandler {
 
     /**
      * Checks if the seed is recognized by CropsNH, this does not take into account if the seed is blacklisted or not
-     * 
+     *
      * @param seed the item to test as a seed.
      * @param meta the meta for the seed
      * @return if the item is recognized as a seed
@@ -315,7 +315,7 @@ public class CropPlantHandler {
 
     /**
      * Gets a random seed which is recognized as a plant by CropsNH
-     * 
+     *
      * @param rand   Random object to be used
      * @param setTag If the seed should be initialized with an NBT tag containing random stats
      * @return an ItemStack containing a random seed
@@ -326,19 +326,19 @@ public class CropPlantHandler {
 
     /**
      * Gets a random seed which is recognized as a plant by CropsNH
-     * 
+     *
      * @param rand    Random object to be used
      * @param setTag  If the seed should be initialized with an NBT tag containing random stats
      * @param maxTier The maximum tier of the seed (inclusive)
      * @return an ItemStack containing a random seed
      */
     public static ItemStack getRandomSeed(Random rand, boolean setTag, int maxTier) {
-        return getRandomSeed(rand, setTag, CropPlantHandler.getPlantsUpToTier(maxTier));
+        return getRandomSeed(rand, setTag, CropRegistry.getPlantsUpToTier(maxTier));
     }
 
     /**
      * Gets a random seed from a list of plants
-     * 
+     *
      * @param rand   Random object to be used
      * @param setTag If the seed should be initialized with an NBT tag containing random stats
      * @param plants List of plants to grab a random seed from
@@ -369,7 +369,7 @@ public class CropPlantHandler {
     /**
      * Sets the NBT tag for a seed to have stats, this method modifies the NBTTagCompound it is given to add the needed
      * data and then returns it again
-     * 
+     *
      * @param tag      the NBT tag of the ItemStack, is returned again
      * @param growth   the growth stat
      * @param gain     the gain stat
@@ -389,7 +389,7 @@ public class CropPlantHandler {
 
     /**
      * Checks if a seed is BlackListed
-     * 
+     *
      * @param seed the seed to check
      * @return if the seed is blacklisted and should not be plantable on crop sticks
      */
@@ -412,7 +412,7 @@ public class CropPlantHandler {
 
     /**
      * Adds a seed to the blacklist
-     * 
+     *
      * @param seed the seed to add to the blacklist
      */
     public static void addSeedToBlackList(ItemStack seed) {
@@ -437,7 +437,7 @@ public class CropPlantHandler {
 
     /**
      * Adds a collection of seeds to the blacklist
-     * 
+     *
      * @param seeds collection containing all seeds to be added to the blacklist
      */
     public static void addAllToSeedBlacklist(Collection<? extends ItemStack> seeds) {
@@ -448,7 +448,7 @@ public class CropPlantHandler {
 
     /**
      * Removes a seed from the blacklist
-     * 
+     *
      * @param seed the seed to be removed from the blacklist
      */
     public static void removeFromSeedBlackList(ItemStack seed) {
@@ -479,7 +479,7 @@ public class CropPlantHandler {
 
     /**
      * Removes a collection of seeds from the blacklist
-     * 
+     *
      * @param seeds collection containing all seeds to be removed from the blacklist
      */
     public static void removeAllFromSeedBlacklist(Collection<? extends ItemStack> seeds) {
@@ -496,11 +496,6 @@ public class CropPlantHandler {
      * Finally initializes plants found in the ore dictionary.
      */
     public static void init() {
-        // Register vanilla plants. Now with less duplication.
-        OreDictionary.registerOre("seedMelon", Items.melon_seeds);
-        OreDictionary.registerOre("cropMelon", Items.melon);
-        OreDictionary.registerOre("seedPumpkin", Items.pumpkin_seeds);
-        OreDictionary.registerOre("cropPumpkin", Blocks.pumpkin);
 
         suppressedRegisterPlant(
             new CropPlantVanilla(

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.gtnewhorizon.cropsnh.apiimpl.APISelector;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationHandler;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
@@ -17,6 +17,7 @@ import com.gtnewhorizon.cropsnh.init.CustomCrops;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.init.Recipes;
 import com.gtnewhorizon.cropsnh.init.ResourceCrops;
+import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
 import com.gtnewhorizon.cropsnh.network.NetworkWrapperCropsNH;
 import com.gtnewhorizon.cropsnh.proxy.IProxy;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -36,7 +37,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 /**
  * Hard fork of Agricraft (originally by InfinityRaider) for the GTNH modpack
  * </p>
- * 
+ *
  * @author InfinityRaider, mitchej123, GTNHTeam
  */
 @Mod(
@@ -90,7 +91,8 @@ public class CropsNH {
         CustomCrops.init();
         Recipes.init();
         GrowthRequirementHandler.init();
-        CropPlantHandler.init();
+        OreDictLoader.init();
+        CropRegistry.init();
         CropProducts.init();
         CustomCrops.initGrassSeeds();
         ModHelper.postInit();

@@ -11,8 +11,8 @@ import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
 import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import com.gtnewhorizon.cropsnh.farming.PlantStats;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
@@ -72,7 +72,7 @@ public class ItemClipping extends ItemCropsNH {
             return true;
         }
         ItemStack seed = ItemStack.loadItemStackFromNBT(stack.getTagCompound());
-        ISeedStats stats = PlantStats.getStatsFromStack(seed);
+        ISeedStats stats = SeedStats.getStatsFromStack(seed);
         if (stats == null) {
             return false;
         }
@@ -90,10 +90,10 @@ public class ItemClipping extends ItemCropsNH {
             return text;
         }
         ItemStack seed = ItemStack.loadItemStackFromNBT(stack.stackTagCompound);
-        if (seed == null || seed.getItem() == null || !CropPlantHandler.isValidSeed(seed)) {
+        if (seed == null || seed.getItem() == null || !CropRegistry.isValidSeed(seed)) {
             return text;
         }
-        CropPlant plant = CropPlantHandler.getPlantFromStack(seed);
+        CropPlant plant = CropRegistry.getPlantFromStack(seed);
         if (plant == null) {
             return text;
         }

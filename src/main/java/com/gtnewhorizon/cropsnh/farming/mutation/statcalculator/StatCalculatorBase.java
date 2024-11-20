@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.api.v1.ICrop;
 import com.gtnewhorizon.cropsnh.api.v1.IMutation;
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
-import com.gtnewhorizon.cropsnh.farming.PlantStats;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationHandler;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 
@@ -17,7 +17,7 @@ public abstract class StatCalculatorBase extends StatCalculator {
 
     @Override
     public ISeedStats calculateStats(ItemStack result, List<? extends ICrop> input, boolean mutation) {
-        return result == null ? new PlantStats()
+        return result == null ? new SeedStats()
             : calculateStats(result.getItem(), result.getItemDamage(), input, mutation);
     }
 
@@ -55,7 +55,7 @@ public abstract class StatCalculatorBase extends StatCalculator {
         int meanGain = getMeanIgnoringNegativeValues(gain);
         int meanStrength = getMeanIgnoringNegativeValues(strength);
         int divisor = mutation ? ConfigurationHandler.cropStatDivisor : 1;
-        return new PlantStats(
+        return new SeedStats(
             calculateStats(meanGrowth, nrValidParents, divisor),
             calculateStats(meanGain, nrValidParents, divisor),
             calculateStats(meanStrength, nrValidParents, divisor));

@@ -13,7 +13,7 @@ import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.IMutation;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationHandler;
 import com.gtnewhorizon.cropsnh.gui.Component;
@@ -52,7 +52,7 @@ public class JournalPageSeed extends JournalPage {
     public JournalPageSeed(ArrayList<ItemStack> discoveredSeeds, int page) {
         this.discoveredSeeds = discoveredSeeds;
         this.page = page;
-        this.plant = CropPlantHandler.getPlantFromStack(discoveredSeeds.get(page));
+        this.plant = CropRegistry.getPlantFromStack(discoveredSeeds.get(page));
         this.fruits = getFruits();
         this.seeds = getSeeds();
     }
@@ -213,7 +213,7 @@ public class JournalPageSeed extends JournalPage {
 
     private ArrayList<Component<ItemStack>> getFruits() {
         if (this.plant == null) {
-            this.plant = CropPlantHandler.getPlantFromStack(discoveredSeeds.get(page));
+            this.plant = CropRegistry.getPlantFromStack(discoveredSeeds.get(page));
         }
         ArrayList<Component<ItemStack>> fruits = new ArrayList<>();
         ArrayList<ItemStack> allFruits = plant.getAllFruits();
@@ -348,7 +348,7 @@ public class JournalPageSeed extends JournalPage {
 
     private Component<ResourceLocation> getSoil() {
         ItemStack seed = plant.getSeed();
-        BlockWithMeta soil = CropPlantHandler.getGrowthRequirement(seed.getItem(), seed.getItemDamage())
+        BlockWithMeta soil = CropRegistry.getGrowthRequirement(seed.getItem(), seed.getItemDamage())
             .getSoil();
         ResourceLocation texture;
         if (soil != null) {

@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.storage.SeedStorageSlot;
 import com.gtnewhorizon.cropsnh.tileentity.storage.TileEntitySeedStorage;
@@ -47,7 +47,7 @@ public class MessageTileEntitySeedStorage extends MessageCropsNH {
 
     private NBTTagCompound getTag() {
         NBTTagCompound tag = new NBTTagCompound();
-        CropPlantHandler.setSeedNBT(tag, (short) growth, (short) gain, (short) strength, true);
+        CropRegistry.setSeedNBT(tag, (short) growth, (short) gain, (short) strength, true);
         return tag;
     }
 

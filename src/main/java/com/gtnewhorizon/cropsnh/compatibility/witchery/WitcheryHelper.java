@@ -15,7 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
@@ -70,43 +70,43 @@ public final class WitcheryHelper extends ModHelper {
     @Override
     protected void initPlants() {
         try {
-            CropPlantHandler.registerPlant(
+            CropRegistry.registerCrop(
                 new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedsbelladonna")));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            CropPlantHandler.registerPlant(new CropPlantMandrake());
+            CropRegistry.registerCrop(new CropPlantMandrake());
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            CropPlantHandler.registerPlant(
+            CropRegistry.registerCrop(
                 new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedsartichoke")));
-            CropPlantHandler.getGrowthRequirement((Item) Item.itemRegistry.getObject("witchery:seedsartichoke"), 0)
+            CropRegistry.getGrowthRequirement((Item) Item.itemRegistry.getObject("witchery:seedsartichoke"), 0)
                 .setSoil(new BlockWithMeta(Blocks.blockWaterPadFull));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            CropPlantHandler.registerPlant(
+            CropRegistry.registerCrop(
                 new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedssnowbell")));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            CropPlantHandler.registerPlant(new CropPlantWolfsbane());
+            CropRegistry.registerCrop(new CropPlantWolfsbane());
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            CropPlantHandler
-                .registerPlant(new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:garlic")));
+            CropRegistry
+                .registerCrop(new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:garlic")));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            CropPlantHandler.registerPlant(
+            CropRegistry.registerCrop(
                 new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedswormwood"), 4));
         } catch (Exception e) {
             e.printStackTrace();
@@ -169,7 +169,7 @@ public final class WitcheryHelper extends ModHelper {
         world.setBlockToAir(x, y, z + 1);
         world.setBlockToAir(x, y, z - 1);
         crop.clearPlant();
-        crop.setPlant(1, 1, 1, false, CropPlantHandler.getPlantFromStack(new ItemStack(wormwoodSeed, 0)));
+        crop.setPlant(1, 1, 1, false, CropRegistry.getPlantFromStack(new ItemStack(wormwoodSeed, 0)));
         if (!player.capabilities.isCreativeMode) {
             sprig.damageItem(1, player);
         }

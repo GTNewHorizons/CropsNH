@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.CropsNH;
 import com.gtnewhorizon.cropsnh.api.v1.IJournal;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.handler.GuiHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
@@ -122,7 +122,7 @@ public class ItemJournal extends ItemCropsNH implements IJournal {
     }
 
     public void addEntry(ItemStack journal, ItemStack newEntry) {
-        if (journal == null || journal.getItem() == null || !CropPlantHandler.isValidSeed(newEntry)) {
+        if (journal == null || journal.getItem() == null || !CropRegistry.isValidSeed(newEntry)) {
             return;
         }
         NBTTagList list = getDiscoveredSeedsTaglist(journal);
@@ -142,7 +142,7 @@ public class ItemJournal extends ItemCropsNH implements IJournal {
     }
 
     public boolean isSeedDiscovered(ItemStack journal, ItemStack seed) {
-        if (journal == null || journal.getItem() == null || !CropPlantHandler.isValidSeed(seed)) {
+        if (journal == null || journal.getItem() == null || !CropRegistry.isValidSeed(seed)) {
             return false;
         }
         return NBTHelper.listContainsStack(getDiscoveredSeedsTaglist(journal), seed);
@@ -161,7 +161,7 @@ public class ItemJournal extends ItemCropsNH implements IJournal {
                 NBTTagList tagList = tag.getTagList(Names.NBT.discoveredSeeds, 10); // 10 for tagCompound
                 for (int i = 0; i < tagList.tagCount(); i++) {
                     ItemStack seed = ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(i));
-                    if (CropPlantHandler.isValidSeed(seed)) {
+                    if (CropRegistry.isValidSeed(seed)) {
                         seeds.add(seed);
                     }
                 }

@@ -6,7 +6,7 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.api.v1.IMutation;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.mutation.Mutation;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationHandler;
 
@@ -26,8 +26,8 @@ public class SeedMutation {
         ItemStack parent1ToAdd = MineTweakerMC.getItemStack(parent1);
         ItemStack parent2ToAdd = MineTweakerMC.getItemStack(parent2);
 
-        if (CropPlantHandler.isValidSeed(resultToAdd) && CropPlantHandler.isValidSeed(parent1ToAdd)
-            && CropPlantHandler.isValidSeed(parent2ToAdd)) {
+        if (CropRegistry.isValidSeed(resultToAdd) && CropRegistry.isValidSeed(parent1ToAdd)
+            && CropRegistry.isValidSeed(parent2ToAdd)) {
             MineTweakerAPI.apply(new AddAction(resultToAdd, parent1ToAdd, parent2ToAdd));
         } else {
             MineTweakerAPI.logError(
@@ -39,7 +39,7 @@ public class SeedMutation {
     @ZenMethod
     public static void remove(IItemStack result) {
         ItemStack resultToRemove = MineTweakerMC.getItemStack(result);
-        if (CropPlantHandler.isValidSeed(resultToRemove)) {
+        if (CropRegistry.isValidSeed(resultToRemove)) {
             MineTweakerAPI.apply(new RemoveAction(resultToRemove));
         } else {
             MineTweakerAPI.logError(resultToRemove.getDisplayName() + " is not of type ItemSeeds.");

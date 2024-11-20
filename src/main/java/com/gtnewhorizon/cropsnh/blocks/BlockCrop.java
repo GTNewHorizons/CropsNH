@@ -30,7 +30,7 @@ import com.gtnewhorizon.cropsnh.api.v1.IRake;
 import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.compatibility.applecore.AppleCoreHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
@@ -209,11 +209,11 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
         if (!world.isRemote) {
             TileEntityCrop crop = (TileEntityCrop) world.getTileEntity(x, y, z);
             // is the cropEmpty a crosscrop or does it already have a plant
-            if (crop.isCrossCrop() || crop.hasPlant() || !(CropPlantHandler.isValidSeed(stack))) {
+            if (crop.isCrossCrop() || crop.hasPlant() || !(CropRegistry.isValidSeed(stack))) {
                 return false;
             }
             // the seed can be planted here
-            if (!CropPlantHandler.getGrowthRequirement(stack)
+            if (!CropRegistry.getGrowthRequirement(stack)
                 .isValidSoil(world, x, y - 1, z)) {
                 return false;
             }
@@ -276,7 +276,7 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
                 if (crop.hasPlant()) {
                     this.harvest(world, x, y, z, player, crop);
                 } else if (!crop.isCrossCrop() && !crop.hasWeed()) {
-                    CropPlant sugarcane = CropPlantHandler.getPlantFromStack(
+                    CropPlant sugarcane = CropRegistry.getPlantFromStack(
                         new ItemStack((ItemSeeds) Item.itemRegistry.getObject("CropsNH:seedSugarcane")));
                     if (sugarcane != null && sugarcane.getGrowthRequirement()
                         .canGrow(world, x, y, z)) {
@@ -335,7 +335,7 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
                 // harvest operation
                 this.harvest(world, x, y, z, player, crop);
                 // check to see if clicked with seeds
-                if (CropPlantHandler.isValidSeed(heldItem)) {
+                if (CropRegistry.isValidSeed(heldItem)) {
                     if (this.plantSeed(player.getCurrentEquippedItem(), world, x, y, z)) {
                         // take one seed away if the player is not in creative
                         player.getCurrentEquippedItem().stackSize = player.capabilities.isCreativeMode
@@ -562,7 +562,7 @@ public class BlockCrop extends BlockContainerCropsNH implements IGrowable, IPlan
 
     /**
      * Tries to uproot the plant: remove the plant, but keep the crop sticks in place
-     * 
+     *
      * @return false, since the crops can't uproot normally.
      */
     public boolean upRoot(World world, int x, int y, int z) {

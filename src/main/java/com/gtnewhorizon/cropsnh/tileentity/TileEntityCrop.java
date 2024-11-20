@@ -25,8 +25,8 @@ import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
 import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
 import com.gtnewhorizon.cropsnh.compatibility.applecore.AppleCoreHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import com.gtnewhorizon.cropsnh.farming.PlantStats;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationEngine;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
@@ -40,7 +40,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebuggable {
 
-    private PlantStats stats = new PlantStats();
+    private SeedStats stats = new SeedStats();
     private boolean crossCrop = false;
     private boolean weed = false;
     private CropPlant plant;
@@ -64,7 +64,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
 
     @Override
     public ISeedStats getStats() {
-        return this.hasPlant() ? stats.copy() : new PlantStats(-1, -1, -1);
+        return this.hasPlant() ? stats.copy() : new SeedStats(-1, -1, -1);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
         if ((!this.crossCrop) && (!this.hasPlant())) {
             if (plant != null) {
                 this.plant = plant;
-                this.stats = new PlantStats(growth, gain, strength, analyzed);
+                this.stats = new SeedStats(growth, gain, strength, analyzed);
                 this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 0, 3);
                 plant.onSeedPlanted(worldObj, xCoord, yCoord, zCoord, this);
                 IAdditionalCropData data = plant.getInitialCropData(worldObj, xCoord, yCoord, zCoord, this);
@@ -156,7 +156,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
             gain,
             strength,
             analyzed,
-            CropPlantHandler.getPlantFromStack(new ItemStack(seed, 1, seedMeta)));
+            CropRegistry.getPlantFromStack(new ItemStack(seed, 1, seedMeta)));
         if (plant != null) {
             plant.onSeedPlanted(this.getWorldObj(), xCoord, yCoord, zCoord, this);
         }
@@ -166,7 +166,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
     @Override
     public void clearPlant() {
         CropPlant oldPlant = getPlant();
-        this.stats = new PlantStats();
+        this.stats = new SeedStats();
         this.plant = null;
         this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 0, 3);
         this.markForUpdate();
@@ -233,7 +233,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
         ItemStack seed = plant.getSeed()
             .copy();
         NBTTagCompound tag = new NBTTagCompound();
-        CropPlantHandler.setSeedNBT(tag, getGrowth(), getGain(), getStrength(), stats.isAnalyzed());
+        CropRegistry.setSeedNBT(tag, getGrowth(), getGain(), getStrength(), stats.isAnalyzed());
         seed.setTagCompound(tag);
         return seed;
     }
@@ -395,7 +395,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
         tag.setBoolean(Names.NBT.crossCrop, crossCrop);
         tag.setBoolean(Names.NBT.weed, weed);
         if (this.plant != null) {
-            tag.setTag(Names.NBT.seed, CropPlantHandler.writePlantToNBT(plant));
+            tag.setTag(Names.NBT.seed, CropRegistry.writePlantToNBT(plant));
             if (getAdditionalCropData() != null) {
                 tag.setTag(Names.NBT.inventory, getAdditionalCropData().writeToNBT());
             }
@@ -407,11 +407,11 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
     @SuppressWarnings("deprecation")
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-        this.stats = PlantStats.readFromNBT(tag);
+        this.stats = SeedStats.readFromNBT(tag);
         this.crossCrop = tag.getBoolean(Names.NBT.crossCrop);
         this.weed = tag.getBoolean(Names.NBT.weed);
         if (tag.hasKey(Names.NBT.seed) && !tag.hasKey(Names.NBT.meta)) {
-            this.plant = CropPlantHandler.readPlantFromNBT(tag.getCompoundTag(Names.NBT.seed));
+            this.plant = CropRegistry.readPlantFromNBT(tag.getCompoundTag(Names.NBT.seed));
         } else {
             this.plant = null;
         }

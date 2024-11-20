@@ -14,7 +14,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
@@ -51,7 +51,7 @@ public abstract class IOHelper {
      * If the method runs into an error while attempting any of this, a message is printed to the log,
      * and the default data is returned.
      * </p>
-     * 
+     *
      * @param directory   the directory the file is in.
      * @param fileName    the name of the file, without the .txt ending.
      * @param defaultData the data to write to the file, or default to.
@@ -76,7 +76,7 @@ public abstract class IOHelper {
      * If the method runs into an error while attempting any of this, a message is printed to the log,
      * and the default data is returned.
      * </p>
-     * 
+     *
      * @param directory   the directory the file is in.
      * @param fileName    the name of the file, without the .txt ending.
      * @param defaultData the data to write to the file, or default to.
@@ -140,7 +140,7 @@ public abstract class IOHelper {
             boolean success = seedStack != null && seedStack.getItem() != null;
             String errorMsg = "Invalid seed";
             if (success) {
-                CropPlantHandler.addSeedToBlackList(seedStack);
+                CropRegistry.addSeedToBlackList(seedStack);
             } else {
                 LogHelper.info(
                     new StringBuffer("Error when adding seed to blacklist: ").append(errorMsg)
@@ -162,7 +162,7 @@ public abstract class IOHelper {
             LogHelper.debug("parsing " + line);
             if (success) {
                 ItemStack seedStack = IOHelper.getStack(data[0], false);
-                CropPlant plant = CropPlantHandler.getPlantFromStack(seedStack);
+                CropPlant plant = CropRegistry.getPlantFromStack(seedStack);
                 success = plant != null;
                 errorMsg = "Invalid seed";
                 if (success) {
@@ -204,7 +204,7 @@ public abstract class IOHelper {
             LogHelper.debug("parsing " + line);
             if (success) {
                 ItemStack seedStack = IOHelper.getStack(data[0], false);
-                CropPlant plant = CropPlantHandler.getPlantFromStack(seedStack);
+                CropPlant plant = CropRegistry.getPlantFromStack(seedStack);
                 success = plant != null;
                 errorMsg = "Invalid seed";
                 if (success) {
@@ -239,7 +239,7 @@ public abstract class IOHelper {
         for (String line : data) {
             LogHelper.debug(new StringBuffer("parsing ").append(line));
             ItemStack seedStack = IOHelper.getStack(line, false);
-            CropPlant plant = CropPlantHandler.getPlantFromStack(seedStack);
+            CropPlant plant = CropRegistry.getPlantFromStack(seedStack);
             boolean success = plant != null;
             String errorMsg = "Invalid seed";
             if (success) {

@@ -16,8 +16,8 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 import com.gtnewhorizon.cropsnh.container.ContainerSeedStorageBase;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import com.gtnewhorizon.cropsnh.farming.PlantStats;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.storage.ISeedStorageControllable;
 import com.gtnewhorizon.cropsnh.tileentity.storage.SeedStorageSlot;
@@ -342,7 +342,7 @@ public abstract class GuiSeedStorageBase extends GuiContainer {
                 short strength = stats.getStrength();
                 // draw the seed icon
                 ItemStack stack = new ItemStack(activeSeed, stats.amount, activeMeta);
-                stack.stackTagCompound = CropPlantHandler
+                stack.stackTagCompound = CropRegistry
                     .setSeedNBT(new NBTTagCompound(), growth, gain, strength, true);
                 itemRender.renderItemIntoGUI(
                     fontRendererObj,
@@ -426,7 +426,7 @@ public abstract class GuiSeedStorageBase extends GuiContainer {
                     short gain = stats.getGain();
                     short strength = stats.getStrength();
                     ItemStack stack = new ItemStack(activeSeed, stats.amount, activeMeta);
-                    stack.stackTagCompound = CropPlantHandler
+                    stack.stackTagCompound = CropRegistry
                         .setSeedNBT(new NBTTagCompound(), growth, gain, strength, true);
                     List toolTip = stack.getTooltip(Minecraft.getMinecraft().thePlayer, true);
                     drawHoveringText(toolTip, x - this.guiLeft, y - this.guiTop, fontRendererObj);
@@ -446,7 +446,7 @@ public abstract class GuiSeedStorageBase extends GuiContainer {
         return false;
     }
 
-    protected static class PlantStatsStorage extends PlantStats {
+    protected static class PlantStatsStorage extends SeedStats {
 
         private final int id;
         private final int amount;
@@ -455,7 +455,7 @@ public abstract class GuiSeedStorageBase extends GuiContainer {
             super();
             NBTTagCompound tag = stack.getTagCompound();
             if (tag != null) {
-                PlantStats temp = PlantStats.readFromNBT(tag);
+                SeedStats temp = SeedStats.readFromNBT(tag);
                 this.setStats(temp.getGrowth(), temp.getGain(), temp.getStrength());
             }
             this.amount = stack.stackSize;

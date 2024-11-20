@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import com.gtnewhorizon.cropsnh.farming.PlantStats;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
@@ -53,7 +53,7 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
         if (trowel == null || trowel.getItem() == null || trowel.stackTagCompound == null) {
             return false;
         }
-        return CropPlantHandler.readPlantFromNBT(trowel.stackTagCompound.getCompoundTag(Names.NBT.seed)) != null;
+        return CropRegistry.readPlantFromNBT(trowel.stackTagCompound.getCompoundTag(Names.NBT.seed)) != null;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
                 tag.setBoolean(Names.NBT.analyzed, true);
             } else {
                 NBTTagCompound tag = new NBTTagCompound();
-                CropPlantHandler.setSeedNBT(tag, (short) 1, (short) 1, (short) 1, true);
+                CropRegistry.setSeedNBT(tag, (short) 1, (short) 1, (short) 1, true);
                 trowel.setTagCompound(tag);
             }
         }
@@ -85,7 +85,7 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
             return null;
         }
         NBTTagCompound tag = trowel.getTagCompound();
-        CropPlant plant = CropPlantHandler.readPlantFromNBT(tag.getCompoundTag(Names.NBT.seed));
+        CropPlant plant = CropRegistry.readPlantFromNBT(tag.getCompoundTag(Names.NBT.seed));
         if (plant == null) {
             return null;
         }
@@ -94,7 +94,7 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
         short strength = tag.getShort(Names.NBT.strength);
         boolean analysed = tag.getBoolean(Names.NBT.analyzed);
         NBTTagCompound seedTag = new NBTTagCompound();
-        CropPlantHandler.setSeedNBT(seedTag, growth, gain, strength, analysed);
+        CropRegistry.setSeedNBT(seedTag, growth, gain, strength, analysed);
         ItemStack seed = plant.getSeed();
         seed.stackTagCompound = seedTag;
         return seed;
@@ -113,7 +113,7 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
         if (this.hasSeed(trowel)) {
             return false;
         }
-        CropPlant plant = CropPlantHandler.getPlantFromStack(seed);
+        CropPlant plant = CropRegistry.getPlantFromStack(seed);
         if (plant == null) {
             return false;
         }
@@ -128,8 +128,8 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
         boolean analysed = (initialised && seedTag.hasKey(Names.NBT.analyzed))
             && seedTag.getBoolean(Names.NBT.analyzed);
         NBTTagCompound tag = new NBTTagCompound();
-        CropPlantHandler.setSeedNBT(tag, growth, gain, strength, analysed);
-        tag.setTag(Names.NBT.seed, CropPlantHandler.writePlantToNBT(plant));
+        CropRegistry.setSeedNBT(tag, growth, gain, strength, analysed);
+        tag.setTag(Names.NBT.seed, CropRegistry.writePlantToNBT(plant));
         tag.setShort(Names.NBT.materialMeta, (short) growthStage);
         trowel.setTagCompound(tag);
         trowel.setItemDamage(1);
@@ -144,7 +144,7 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
 
     @Override
     public ISeedStats getStats(ItemStack trowel) {
-        return PlantStats.getStatsFromStack(getSeed(trowel));
+        return SeedStats.getStatsFromStack(getSeed(trowel));
     }
 
     @Override

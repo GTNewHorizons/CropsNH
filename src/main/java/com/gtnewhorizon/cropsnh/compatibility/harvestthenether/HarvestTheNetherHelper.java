@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
@@ -27,7 +27,7 @@ public class HarvestTheNetherHelper extends ModHelper {
         if (bloodSeed != null && bloodFruit != null && bloodPlant != null) {
             try {
                 CropPlant plant = new CropPlantHarvestTheNether(bloodSeed, bloodPlant, bloodFruit);
-                CropPlantHandler.registerPlant(plant);
+                CropRegistry.registerCrop(plant);
                 plant.getGrowthRequirement()
                     .setSoil(new BlockWithMeta(Blocks.soul_sand));
             } catch (DuplicateCropPlantException e) {
@@ -41,7 +41,7 @@ public class HarvestTheNetherHelper extends ModHelper {
         if (fleshRootSeed != null && fleshRootFruit != null && fleshRootPlant != null) {
             try {
                 CropPlant plant = new CropPlantHarvestTheNether(fleshRootSeed, fleshRootPlant, fleshRootFruit);
-                CropPlantHandler.registerPlant(plant);
+                CropRegistry.registerCrop(plant);
                 plant.getGrowthRequirement()
                     .setSoil(new BlockWithMeta(Blocks.soul_sand));
             } catch (DuplicateCropPlantException e) {
@@ -55,7 +55,7 @@ public class HarvestTheNetherHelper extends ModHelper {
         if (marrowBerrySeed != null && marrowBerryFruit != null && marrowBerryPlant != null) {
             try {
                 CropPlant plant = new CropPlantHarvestTheNether(marrowBerrySeed, marrowBerryPlant, marrowBerryFruit);
-                CropPlantHandler.registerPlant(plant);
+                CropRegistry.registerCrop(plant);
                 plant.getGrowthRequirement()
                     .setSoil(new BlockWithMeta(Blocks.soul_sand));
             } catch (DuplicateCropPlantException e) {
@@ -69,7 +69,7 @@ public class HarvestTheNetherHelper extends ModHelper {
         if (glowFlowerSeed != null && glowFlowerFruit != null && glowFlowerPlant != null) {
             try {
                 CropPlant plant = new CropPlantHarvestTheNether(glowFlowerSeed, glowFlowerPlant, glowFlowerFruit);
-                CropPlantHandler.registerPlant(plant);
+                CropRegistry.registerCrop(plant);
             } catch (DuplicateCropPlantException e) {
                 LogHelper.printStackTrace(e);
             }

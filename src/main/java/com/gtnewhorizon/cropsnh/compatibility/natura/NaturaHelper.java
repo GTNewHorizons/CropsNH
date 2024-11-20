@@ -13,7 +13,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
@@ -37,14 +37,14 @@ public final class NaturaHelper extends ModHelper {
     @Override
     protected void initPlants() {
         try {
-            CropPlantHandler.registerPlant(new CropPlantNatura(0));
+            CropRegistry.registerCrop(new CropPlantNatura(0));
         } catch (Exception e) {
             if (ConfigurationHandler.debug) {
                 e.printStackTrace();
             }
         }
         try {
-            CropPlantHandler.registerPlant(new CropPlantNatura(1));
+            CropRegistry.registerCrop(new CropPlantNatura(1));
         } catch (Exception e) {
             if (ConfigurationHandler.debug) {
                 e.printStackTrace();

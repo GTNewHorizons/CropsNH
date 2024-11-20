@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.exception.DuplicateCropPlantException;
@@ -23,7 +23,7 @@ public class BiomesOPlentyHelper extends ModHelper {
             return;
         }
         try {
-            CropPlantHandler.registerPlant(strawberry);
+            CropRegistry.registerCrop(strawberry);
         } catch (DuplicateCropPlantException e) {
             LogHelper.printStackTrace(e);
         }

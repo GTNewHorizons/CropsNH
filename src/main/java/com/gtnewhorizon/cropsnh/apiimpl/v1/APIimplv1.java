@@ -34,8 +34,8 @@ import com.gtnewhorizon.cropsnh.api.v1.ItemWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.SeedRequirementStatus;
 import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
 import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import com.gtnewhorizon.cropsnh.farming.PlantStats;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantAPIv1;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlantCropsNH;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
@@ -110,22 +110,22 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public boolean isHandledByCropsNH(ItemStack seed) {
-        return CropPlantHandler.isValidSeed(seed);
+        return CropRegistry.isValidSeed(seed);
     }
 
     @Override
     public void registerCropPlant(ICropPlant plant) {
-        CropPlantHandler.addCropToRegister(new CropPlantAPIv1(plant));
+        CropRegistry.addCropToRegister(new CropPlantAPIv1(plant));
     }
 
     @Override
     public void registerCropPlant(ICropsNHPlant plant) {
-        CropPlantHandler.addCropToRegister(new CropPlantCropsNH(plant));
+        CropRegistry.addCropToRegister(new CropPlantCropsNH(plant));
     }
 
     @Override
     public boolean registerGrowthRequirement(ItemWithMeta seed, IGrowthRequirement requirement) {
-        return CropPlantHandler.setGrowthRequirement(seed, requirement);
+        return CropRegistry.setGrowthRequirement(seed, requirement);
     }
 
     @Override
@@ -135,10 +135,10 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public IGrowthRequirement getGrowthRequirement(ItemStack seed) {
-        if (!CropPlantHandler.isValidSeed(seed)) {
+        if (!CropRegistry.isValidSeed(seed)) {
             return null;
         }
-        return CropPlantHandler.getGrowthRequirement(seed);
+        return CropRegistry.getGrowthRequirement(seed);
     }
 
     @Override
@@ -251,7 +251,7 @@ public class APIimplv1 implements APIv1 {
     public ISeedStats getStats(World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
         if (te == null || !(te instanceof TileEntityCrop)) {
-            return new PlantStats(-1, -1, -1);
+            return new SeedStats(-1, -1, -1);
         }
         TileEntityCrop crop = (TileEntityCrop) te;
         return crop.getStats();
@@ -343,14 +343,14 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public SeedRequirementStatus canApplySeeds(World world, int x, int y, int z, ItemStack seed) {
-        if (CropPlantHandler.isValidSeed(seed)) {
+        if (CropRegistry.isValidSeed(seed)) {
             TileEntity te = world.getTileEntity(x, y, z);
             if (te instanceof TileEntityCrop) {
                 TileEntityCrop crop = (TileEntityCrop) te;
                 if (crop.isCrossCrop() || crop.hasPlant() || crop.hasWeed()) {
                     return SeedRequirementStatus.BAD_LOCATION;
                 }
-                IGrowthRequirement growthRequirement = CropPlantHandler.getGrowthRequirement(seed);
+                IGrowthRequirement growthRequirement = CropRegistry.getGrowthRequirement(seed);
                 if (!growthRequirement.isValidSoil(world, x, y - 1, z)) {
                     return SeedRequirementStatus.WRONG_SOIL;
                 }
@@ -369,13 +369,13 @@ public class APIimplv1 implements APIv1 {
     @Override
     public boolean applySeeds(World world, int x, int y, int z, ItemStack seed) {
         if (!world.isRemote) {
-            if (CropPlantHandler.isValidSeed(seed)) {
+            if (CropRegistry.isValidSeed(seed)) {
                 TileEntity te = world.getTileEntity(x, y, z);
                 if (te instanceof TileEntityCrop) {
                     TileEntityCrop crop = (TileEntityCrop) te;
                     if (crop.isCrossCrop() || crop.hasPlant()
                         || crop.hasWeed()
-                        || !CropPlantHandler.getGrowthRequirement(seed)
+                        || !CropRegistry.getGrowthRequirement(seed)
                             .canGrow(world, x, y, z)) {
                         return false;
                     }
@@ -570,20 +570,20 @@ public class APIimplv1 implements APIv1 {
         }
         if (seed.stackTagCompound != null && seed.stackTagCompound.hasKey(Names.NBT.growth)
             && seed.stackTagCompound.getBoolean(Names.NBT.analyzed)) {
-            return PlantStats.readFromNBT(seed.stackTagCompound);
+            return SeedStats.readFromNBT(seed.stackTagCompound);
         } else {
-            return new PlantStats(-1, -1, -1);
+            return new SeedStats(-1, -1, -1);
         }
     }
 
     @Override
     public ICropPlant getCropPlant(ItemStack seed) {
-        return CropPlantHandler.getPlantFromStack(seed);
+        return CropRegistry.getPlantFromStack(seed);
     }
 
     @Override
     public void analyze(ItemStack seed) {
-        if (CropPlantHandler.isValidSeed(seed)) {
+        if (CropRegistry.isValidSeed(seed)) {
             if (seed.hasTagCompound()) {
                 NBTTagCompound tag = seed.getTagCompound();
                 String[] keys = { Names.NBT.growth, Names.NBT.gain, Names.NBT.strength };
@@ -647,26 +647,26 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public boolean isSeedBlackListed(ItemStack seed) {
-        return CropPlantHandler.isSeedBlackListed(seed);
+        return CropRegistry.isSeedBlackListed(seed);
     }
 
     @Override
     public void addToSeedBlackList(ItemStack seed) {
-        CropPlantHandler.addSeedToBlackList(seed);
+        CropRegistry.addSeedToBlackList(seed);
     }
 
     @Override
     public void addToSeedBlacklist(Collection<? extends ItemStack> seeds) {
-        CropPlantHandler.addAllToSeedBlacklist(seeds);
+        CropRegistry.addAllToSeedBlacklist(seeds);
     }
 
     @Override
     public void removeFromSeedBlackList(ItemStack seed) {
-        CropPlantHandler.removeFromSeedBlackList(seed);
+        CropRegistry.removeFromSeedBlackList(seed);
     }
 
     @Override
     public void removeFromSeedBlacklist(Collection<? extends ItemStack> seeds) {
-        CropPlantHandler.removeAllFromSeedBlacklist(seeds);
+        CropRegistry.removeAllFromSeedBlacklist(seeds);
     }
 }

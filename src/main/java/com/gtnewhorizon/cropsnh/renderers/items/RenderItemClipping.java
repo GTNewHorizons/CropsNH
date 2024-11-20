@@ -12,7 +12,7 @@ import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.farming.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 
@@ -143,7 +143,7 @@ public class RenderItemClipping extends RenderItemBase {
             return null;
         }
         ItemStack seed = ItemStack.loadItemStackFromNBT(stack.stackTagCompound);
-        CropPlant plant = CropPlantHandler.getPlantFromStack(seed);
+        CropPlant plant = CropRegistry.getPlantFromStack(seed);
         if (plant == null) {
             return null;
         }
