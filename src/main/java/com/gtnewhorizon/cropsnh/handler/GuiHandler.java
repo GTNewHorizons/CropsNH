@@ -1,5 +1,10 @@
 package com.gtnewhorizon.cropsnh.handler;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
 import com.gtnewhorizon.cropsnh.container.ContainerPeripheral;
 import com.gtnewhorizon.cropsnh.container.ContainerSeedAnalyzer;
 import com.gtnewhorizon.cropsnh.container.ContainerSeedStorage;
@@ -13,13 +18,11 @@ import com.gtnewhorizon.cropsnh.tileentity.TileEntitySeedAnalyzer;
 import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
 import com.gtnewhorizon.cropsnh.tileentity.storage.TileEntitySeedStorage;
 import com.gtnewhorizon.cropsnh.tileentity.storage.TileEntitySeedStorageController;
-import cpw.mods.fml.common.network.IGuiHandler;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
-public class GuiHandler implements IGuiHandler{
+import cpw.mods.fml.common.network.IGuiHandler;
+
+public class GuiHandler implements IGuiHandler {
+
     public static final int seedAnalyzerID = 1;
     public static final int journalID = 2;
     public static final int seedStorageID = 3;
@@ -29,22 +32,23 @@ public class GuiHandler implements IGuiHandler{
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
-        switch(ID) {
-            case(seedAnalyzerID):
-                if(te != null && te instanceof TileEntitySeedAnalyzer) {
+        switch (ID) {
+            case (seedAnalyzerID):
+                if (te != null && te instanceof TileEntitySeedAnalyzer) {
                     return new ContainerSeedAnalyzer(player.inventory, (TileEntitySeedAnalyzer) te);
                 }
-            case(journalID): break;
-            case(seedStorageID):
-                if(te != null && te instanceof TileEntitySeedStorage) {
+            case (journalID):
+                break;
+            case (seedStorageID):
+                if (te != null && te instanceof TileEntitySeedStorage) {
                     return new ContainerSeedStorage(player.inventory, (TileEntitySeedStorage) te);
                 }
-            case(seedStorageControllerID):
-                if(te != null && te instanceof TileEntitySeedStorageController) {
+            case (seedStorageControllerID):
+                if (te != null && te instanceof TileEntitySeedStorageController) {
                     return new ContainerSeedStorageController(player.inventory, (TileEntitySeedStorageController) te);
                 }
-            case(peripheralID):
-                if(te!= null && te instanceof TileEntityPeripheral) {
+            case (peripheralID):
+                if (te != null && te instanceof TileEntityPeripheral) {
                     return new ContainerPeripheral(player.inventory, (TileEntityPeripheral) te);
                 }
         }
@@ -70,8 +74,8 @@ public class GuiHandler implements IGuiHandler{
                 if (te != null && te instanceof TileEntitySeedStorageController) {
                     return new GuiSeedStorageController(player.inventory, (TileEntitySeedStorageController) te);
                 }
-            case (peripheralID)   :
-                if(te!= null && te instanceof TileEntityPeripheral) {
+            case (peripheralID):
+                if (te != null && te instanceof TileEntityPeripheral) {
                     return new GuiPeripheral(player.inventory, (TileEntityPeripheral) te);
                 }
             default:

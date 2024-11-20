@@ -2,15 +2,17 @@ package com.gtnewhorizon.cropsnh.utility.statstringdisplayer;
 
 import com.gtnewhorizon.cropsnh.api.v1.IStatStringDisplayer;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public abstract class StatStringDisplayer implements IStatStringDisplayer {
+
     private static IStatStringDisplayer INSTANCE;
 
     public static IStatStringDisplayer instance() {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = getInstance(ConfigurationHandler.statDisplay);
         }
         return INSTANCE;
@@ -21,20 +23,21 @@ public abstract class StatStringDisplayer implements IStatStringDisplayer {
     }
 
     private static IStatStringDisplayer getInstance(String config) {
-        if(config.equals("NUMBER")) {
+        if (config.equals("NUMBER")) {
             return new StatStringDisplayerNumber();
         }
-        if(config.equals("FRACTION")) {
+        if (config.equals("FRACTION")) {
             return new StatStringDisplayerFraction();
         }
         String[] splitConfig = config.split("-");
-        if(splitConfig.length>1) {
-            if (splitConfig[0].equals("CHARACTER")){
+        if (splitConfig.length > 1) {
+            if (splitConfig[0].equals("CHARACTER")) {
                 return new StatStringDisplayerCharacter(splitConfig[1].charAt(0));
             }
-            if(splitConfig[0].equals("KEYWORD")) {
-                String keyword = splitConfig.length>2?splitConfig[splitConfig.length-1]:splitConfig[1];
-                IStatStringDisplayer displayer = splitConfig.length>2?getInstance(concatenateBackwards(splitConfig)):new StatStringDisplayerNumber();
+            if (splitConfig[0].equals("KEYWORD")) {
+                String keyword = splitConfig.length > 2 ? splitConfig[splitConfig.length - 1] : splitConfig[1];
+                IStatStringDisplayer displayer = splitConfig.length > 2 ? getInstance(concatenateBackwards(splitConfig))
+                    : new StatStringDisplayerNumber();
                 return new StatStringDisplayerKeyword(displayer, keyword);
             }
         }
@@ -43,9 +46,9 @@ public abstract class StatStringDisplayer implements IStatStringDisplayer {
 
     private static String concatenateBackwards(String[] splitString) {
         StringBuilder builder = new StringBuilder();
-        for(int i = 1;i<splitString.length-1;i++) {
+        for (int i = 1; i < splitString.length - 1; i++) {
             builder.append(splitString[i]);
-            if(i<splitString.length-2) {
+            if (i < splitString.length - 2) {
                 builder.append("-");
             }
         }

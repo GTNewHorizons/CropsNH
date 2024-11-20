@@ -1,9 +1,7 @@
 package com.gtnewhorizon.cropsnh.blocks;
 
-import com.gtnewhorizon.cropsnh.init.Blocks;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -17,15 +15,21 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.List;
+import com.gtnewhorizon.cropsnh.init.Blocks;
+import com.gtnewhorizon.cropsnh.reference.Names;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockWaterPadFull extends BlockWaterPad {
+
     public BlockWaterPadFull() {
         super(Material.water);
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float fX, float fY, float fZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float fX, float fY,
+        float fZ) {
         ItemStack stack = player.getCurrentEquippedItem();
         if (stack == null || stack.getItem() == null) {
             return false;
@@ -40,18 +44,27 @@ public class BlockWaterPadFull extends BlockWaterPad {
                     ItemStack copy = stack.copy();
                     player.getCurrentEquippedItem().stackSize = player.getCurrentEquippedItem().stackSize - 1;
                     if (player.getCurrentEquippedItem().stackSize == 0) {
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, FluidContainerRegistry.fillFluidContainer(waterBucket, copy));
-                    } else if (!player.inventory.addItemStackToInventory(FluidContainerRegistry.fillFluidContainer(waterBucket, copy))) {
-                        if (world.getGameRules().getGameRuleBooleanValue("doTileDrops") && !world.restoringBlockSnapshots) {
-                            float f = 0.7F;
-                            double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                            double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                            double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                            EntityItem entityitem = new EntityItem(world, (double) x + d0, (double) y + d1, (double) z + d2, FluidContainerRegistry.fillFluidContainer(waterBucket, copy));
-                            entityitem.delayBeforeCanPickup = 10;
-                            world.spawnEntityInWorld(entityitem);
+                        player.inventory.setInventorySlotContents(
+                            player.inventory.currentItem,
+                            FluidContainerRegistry.fillFluidContainer(waterBucket, copy));
+                    } else if (!player.inventory
+                        .addItemStackToInventory(FluidContainerRegistry.fillFluidContainer(waterBucket, copy))) {
+                            if (world.getGameRules()
+                                .getGameRuleBooleanValue("doTileDrops") && !world.restoringBlockSnapshots) {
+                                float f = 0.7F;
+                                double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                                double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                                double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                                EntityItem entityitem = new EntityItem(
+                                    world,
+                                    (double) x + d0,
+                                    (double) y + d1,
+                                    (double) z + d2,
+                                    FluidContainerRegistry.fillFluidContainer(waterBucket, copy));
+                                entityitem.delayBeforeCanPickup = 10;
+                                world.spawnEntityInWorld(entityitem);
+                            }
                         }
-                    }
                 }
                 world.setBlock(x, y, z, Blocks.blockWaterPad, 0, 3);
             }
@@ -76,6 +89,7 @@ public class BlockWaterPadFull extends BlockWaterPad {
     }
 
     public static class ItemBlockWaterPadFull extends ItemBlockWaterPad {
+
         public ItemBlockWaterPadFull(Block block) {
             super(block);
         }

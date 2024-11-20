@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 
 /** This interface is for you to read data about a mutation and shouldn't be used to be implemented in your classes */
 public interface IMutation {
+
     /** returns the result */
     ItemStack getResult();
 
@@ -16,7 +17,8 @@ public interface IMutation {
      * Then there is a percentage chance weeds will spawn (if enabled in the config)
      * Then either a mutation happens or a spread happens based on the chance defined in the config.
      *
-     * If a mutation is chosen and this is te resulting mutation, this is the chance the mutation will actually be applied.
+     * If a mutation is chosen and this is te resulting mutation, this is the chance the mutation will actually be
+     * applied.
      *
      * @return the mutation chance
      */
@@ -24,6 +26,7 @@ public interface IMutation {
 
     /**
      * Sets the mutation chance for this mutation
+     * 
      * @param d the chance, should be in the interval [0, 1](0: mutation never passes, 1: mutation always passes)
      */
     void setChance(double d);

@@ -1,17 +1,20 @@
 package com.gtnewhorizon.cropsnh.network;
 
-import com.gtnewhorizon.cropsnh.CropsNH;
-import com.gtnewhorizon.cropsnh.container.ContainerSeedStorageBase;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import com.gtnewhorizon.cropsnh.CropsNH;
+import com.gtnewhorizon.cropsnh.container.ContainerSeedStorageBase;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import io.netty.buffer.ByteBuf;
+
 public class MessageContainerSeedStorage extends MessageCropsNH {
+
     private Item item;
     private int meta;
     private int amount;
@@ -48,12 +51,15 @@ public class MessageContainerSeedStorage extends MessageCropsNH {
     }
 
     public static class MessageHandler implements IMessageHandler<MessageContainerSeedStorage, IMessage> {
+
         @Override
         public IMessage onMessage(MessageContainerSeedStorage message, MessageContext context) {
             Container container = message.player.openContainer;
-            if(container!=null && container instanceof ContainerSeedStorageBase) {
+            if (container != null && container instanceof ContainerSeedStorageBase) {
                 ContainerSeedStorageBase storage = (ContainerSeedStorageBase) container;
-                storage.moveStackFromTileEntityToPlayer(message.slotId, new ItemStack(message.item, message.amount, message.meta));
+                storage.moveStackFromTileEntityToPlayer(
+                    message.slotId,
+                    new ItemStack(message.item, message.amount, message.meta));
             }
             return null;
         }

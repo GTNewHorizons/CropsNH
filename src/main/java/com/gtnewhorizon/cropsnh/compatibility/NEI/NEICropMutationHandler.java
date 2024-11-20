@@ -1,8 +1,16 @@
 package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
-import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.v1.IMutation;
@@ -12,26 +20,23 @@ import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandl
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationHandler;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import org.lwjgl.opengl.GL11;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
+import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public class NEICropMutationHandler extends CropsNHNEIHandler {
-    //this is a class which handles the recipe for crop mutation (has to contain a CachedRecipe for the mutation)
+
+    // this is a class which handles the recipe for crop mutation (has to contain a CachedRecipe for the mutation)
     private static final String name = StatCollector.translateToLocal("cropsnh_nei.mutation.title");
     private static final String id = "cropMutation";
 
     private static final int COLOR_BLACK = 1644054;
 
-    //the class defining a mutation recipe (must be contained in a TemplateRecipeHandler class)
+    // the class defining a mutation recipe (must be contained in a TemplateRecipeHandler class)
     public class CachedCropMutationRecipe extends TemplateRecipeHandler.CachedRecipe {
-        //the stacks needed for a recipe (parent1 + parent2 = mutation)
+
+        // the stacks needed for a recipe (parent1 + parent2 = mutation)
         PositionedStack parent1;
         PositionedStack parent2;
         PositionedStack result;
@@ -39,7 +44,7 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
         PositionedStack requiredBlock;
         RequirementType requiredType;
 
-        //constructor
+        // constructor
         public CachedCropMutationRecipe(IMutation mutation) {
             ItemStack resultStack = mutation.getResult();
             ItemStack parent1Stack = mutation.getParents()[0];
@@ -48,131 +53,152 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
             this.parent2 = new PositionedStack(parent2Stack, Constants.nei_X_parent2, Constants.nei_Y_seeds);
             this.result = new PositionedStack(resultStack, Constants.nei_X_result, Constants.nei_Y_seeds);
 
-            IGrowthRequirement growthReq = CropPlantHandler.getGrowthRequirement(result.item.getItem(), result.item.getItemDamage());
+            IGrowthRequirement growthReq = CropPlantHandler
+                .getGrowthRequirement(result.item.getItem(), result.item.getItemDamage());
             if (growthReq.getSoil() != null) {
-                soils.add(new PositionedStack(growthReq.getSoil().toStack(), Constants.nei_X_result, Constants.nei_Y_soil));
+                soils.add(
+                    new PositionedStack(
+                        growthReq.getSoil()
+                            .toStack(),
+                        Constants.nei_X_result,
+                        Constants.nei_Y_soil));
             } else {
                 for (BlockWithMeta blockWithMeta : GrowthRequirementHandler.defaultSoils) {
-                    soils.add(new PositionedStack(blockWithMeta.toStack(), Constants.nei_X_result, Constants.nei_Y_soil));
+                    soils.add(
+                        new PositionedStack(blockWithMeta.toStack(), Constants.nei_X_result, Constants.nei_Y_soil));
                 }
             }
 
             this.requiredType = growthReq.getRequiredType();
             if (requiredType != RequirementType.NONE) {
-                requiredBlock = new PositionedStack(growthReq.requiredBlockAsItemStack(), Constants.nei_X_result, Constants.nei_Y_base);
+                requiredBlock = new PositionedStack(
+                    growthReq.requiredBlockAsItemStack(),
+                    Constants.nei_X_result,
+                    Constants.nei_Y_base);
             }
         }
 
-        //Override and return null because a mutation recipe needs two ingredients
+        // Override and return null because a mutation recipe needs two ingredients
         @Override
         public PositionedStack getIngredient() {
             return null;
         }
 
-        //return ingredients
+        // return ingredients
         @Override
         public List<PositionedStack> getIngredients() {
             List<PositionedStack> list = new ArrayList<>();
             list.add(parent1);
             list.add(parent2);
             list.add(soils.get(NEICropMutationHandler.this.cycleticks / 20 % soils.size()));
-            if(requiredBlock!=null) {
+            if (requiredBlock != null) {
                 list.add(requiredBlock);
             }
             return list;
         }
 
-        //return result
+        // return result
         @Override
         public PositionedStack getResult() {
             return result;
         }
     }
 
-    //loads the mutation recipes for a given mutation
+    // loads the mutation recipes for a given mutation
     @Override
     protected void loadCraftingRecipesDo(String id, Object... results) {
-        if(id.equalsIgnoreCase(NEICropMutationHandler.id)) {
-            IMutation[] mutations = MutationHandler.getInstance().getMutations();
-            for (IMutation mutation:mutations) {
+        if (id.equalsIgnoreCase(NEICropMutationHandler.id)) {
+            IMutation[] mutations = MutationHandler.getInstance()
+                .getMutations();
+            for (IMutation mutation : mutations) {
                 ItemStack resultStack = mutation.getResult();
                 ItemStack parent1Stack = mutation.getParents()[0];
                 ItemStack parent2Stack = mutation.getParents()[1];
-                if (resultStack.getItem() != null &&parent1Stack.getItem() != null && parent2Stack.getItem() != null) {
+                if (resultStack.getItem() != null && parent1Stack.getItem() != null && parent2Stack.getItem() != null) {
                     arecipes.add(new CachedCropMutationRecipe(mutation));
                 }
             }
-        }
-        else if(id.equalsIgnoreCase("item")) {
+        } else if (id.equalsIgnoreCase("item")) {
             for (Object object : results) {
-                if (object instanceof ItemStack && getClass()==NEICropMutationHandler.class) {
-                    loadCraftingRecipes(new ItemStack(((ItemStack) object).getItem(), 1, ((ItemStack) object).getItemDamage()));
+                if (object instanceof ItemStack && getClass() == NEICropMutationHandler.class) {
+                    loadCraftingRecipes(
+                        new ItemStack(((ItemStack) object).getItem(), 1, ((ItemStack) object).getItemDamage()));
                 }
             }
         }
     }
 
-    //loads the mutation recipes for a given mutation
+    // loads the mutation recipes for a given mutation
     @Override
     protected void loadCraftingRecipesDo(ItemStack result) {
-        if(CropPlantHandler.isValidSeed(result)) {
-            IMutation[] mutations = MutationHandler.getInstance().getMutationsFromChild(result);
-            for(IMutation mutation:mutations) {
+        if (CropPlantHandler.isValidSeed(result)) {
+            IMutation[] mutations = MutationHandler.getInstance()
+                .getMutationsFromChild(result);
+            for (IMutation mutation : mutations) {
                 ItemStack parent1Stack = mutation.getParents()[0];
                 ItemStack parent2Stack = mutation.getParents()[1];
-                if (parent1Stack.getItem()!=null && parent2Stack.getItem()!=null) {
+                if (parent1Stack.getItem() != null && parent2Stack.getItem() != null) {
                     arecipes.add(new CachedCropMutationRecipe(mutation));
                 }
             }
         }
     }
 
-    //loads the mutation recipes for a given parent
+    // loads the mutation recipes for a given parent
     @Override
     protected void loadUsageRecipesDo(ItemStack ingredient) {
-        if(ingredient == null || ingredient.getItem() == null) {
+        if (ingredient == null || ingredient.getItem() == null) {
             return;
         }
-        if(CropPlantHandler.isValidSeed(ingredient)) {
-            IMutation[] mutations = MutationHandler.getInstance().getMutationsFromParent(ingredient);
-            for (IMutation mutation:mutations) {
+        if (CropPlantHandler.isValidSeed(ingredient)) {
+            IMutation[] mutations = MutationHandler.getInstance()
+                .getMutationsFromParent(ingredient);
+            for (IMutation mutation : mutations) {
                 ItemStack resultStack = mutation.getResult();
                 ItemStack parent1Stack = mutation.getParents()[0];
                 ItemStack parent2Stack = mutation.getParents()[1];
-                if (resultStack.getItem() != null && parent1Stack.getItem() != null && parent2Stack!= null && parent2Stack.getItem() != null) {
+                if (resultStack.getItem() != null && parent1Stack.getItem() != null
+                    && parent2Stack != null
+                    && parent2Stack.getItem() != null) {
                     arecipes.add(new CachedCropMutationRecipe(mutation));
                 }
             }
-        }
-        else if(ingredient.getItem() instanceof ItemBlock) {
-            BlockWithMeta block = new BlockWithMeta(((ItemBlock) ingredient.getItem()).field_150939_a, ingredient.getItemDamage());
-            IMutation[] mutations = MutationHandler.getInstance().getMutations();
-            for(IMutation mutation:mutations) {
-                IGrowthRequirement req = CropPlantHandler.getGrowthRequirement(mutation.getResult().getItem(), mutation.getResult().getItemDamage());
-                if(req.isValidSoil(block)) {
+        } else if (ingredient.getItem() instanceof ItemBlock) {
+            BlockWithMeta block = new BlockWithMeta(
+                ((ItemBlock) ingredient.getItem()).field_150939_a,
+                ingredient.getItemDamage());
+            IMutation[] mutations = MutationHandler.getInstance()
+                .getMutations();
+            for (IMutation mutation : mutations) {
+                IGrowthRequirement req = CropPlantHandler.getGrowthRequirement(
+                    mutation.getResult()
+                        .getItem(),
+                    mutation.getResult()
+                        .getItemDamage());
+                if (req.isValidSoil(block)) {
                     arecipes.add(new CachedCropMutationRecipe(mutation));
                     continue;
                 }
-                if(block.equals(req.getRequiredBlock())) {
+                if (block.equals(req.getRequiredBlock())) {
                     arecipes.add(new CachedCropMutationRecipe(mutation));
                 }
             }
         }
     }
 
-    //returns the name for this recipe
+    // returns the name for this recipe
     @Override
     public String getRecipeName() {
         return name;
     }
 
-    //returns the id for this recipe
+    // returns the id for this recipe
     @Override
     public String getOverlayIdentifier() {
         return id;
     }
 
-    //gets the texture to display the recipe in
+    // gets the texture to display the recipe in
     @Override
     public String getGuiTexture() {
         return new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/nei/cropMutation.png").toString();
@@ -183,7 +209,7 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
         return 1;
     }
 
-    //defines rectangles on the recipe gui which can be clicked to show all crop mutation recipes
+    // defines rectangles on the recipe gui which can be clicked to show all crop mutation recipes
     @Override
     public void loadTransferRects() {
         transferRects.add(new RecipeTransferRect(new Rectangle(65, 2, 4, 39), id));
@@ -205,8 +231,8 @@ public class NEICropMutationHandler extends CropsNHNEIHandler {
         if (mutationRecipe.requiredType != RequirementType.NONE) {
             String needs = StatCollector.translateToLocal("cropsnh_nei.needs");
             String modifier = mutationRecipe.requiredType == RequirementType.BELOW
-                    ? StatCollector.translateToLocal("cropsnh_nei.below")
-                    : StatCollector.translateToLocal("cropsnh_nei.nearby");
+                ? StatCollector.translateToLocal("cropsnh_nei.below")
+                : StatCollector.translateToLocal("cropsnh_nei.nearby");
 
             GuiDraw.drawStringR(needs + ":", Constants.nei_X_result - 7, Constants.nei_Y_base + 4, COLOR_BLACK, false);
             GuiDraw.drawString(modifier, Constants.nei_X_parent2 - 8, Constants.nei_Y_base + 4, COLOR_BLACK, false);

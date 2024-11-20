@@ -1,13 +1,14 @@
 package com.gtnewhorizon.cropsnh.compatibility.minetweaker;
 
+import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
 import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
-import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -28,8 +29,8 @@ public class SpreadChance {
         }
     }
 
-
     private static class OverrideAction implements IUndoableAction {
+
         private final CropPlant plant;
         private final int chance;
         private final int oldChance;
@@ -42,7 +43,7 @@ public class SpreadChance {
 
         @Override
         public void apply() {
-           plant.setSpreadChance(chance);
+            plant.setSpreadChance(chance);
         }
 
         @Override
@@ -57,12 +58,14 @@ public class SpreadChance {
 
         @Override
         public String describe() {
-            return "Overriding spread chance of " + plant.getSeed().getDisplayName() + " to " + chance;
+            return "Overriding spread chance of " + plant.getSeed()
+                .getDisplayName() + " to " + chance;
         }
 
         @Override
         public String describeUndo() {
-            return "Resetting spread chance of " + plant.getSeed().getDisplayName() + " to " + oldChance;
+            return "Resetting spread chance of " + plant.getSeed()
+                .getDisplayName() + " to " + oldChance;
         }
 
         @Override

@@ -1,19 +1,21 @@
 package com.gtnewhorizon.cropsnh.compatibility.minetweaker;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+
 import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
 import com.gtnewhorizon.cropsnh.farming.CropProduce;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.items.ItemModSeed;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
 import minetweaker.mc1710.item.MCItemStack;
 import minetweaker.mc1710.oredict.MCOreDictEntry;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -25,13 +27,16 @@ public class CropProduct {
         ItemStack seedToChange = MineTweakerMC.getItemStack(seed);
         ItemStack fruitToAdd = MineTweakerMC.getItemStack(fruit);
         String error = "Invalid Seed";
-        boolean success = seedToChange!=null && seedToChange.getItem()!=null && seedToChange.getItem() instanceof ItemModSeed;
-        if(success) {
+        boolean success = seedToChange != null && seedToChange.getItem() != null
+            && seedToChange.getItem() instanceof ItemModSeed;
+        if (success) {
             BlockModPlant crop = ((ItemModSeed) seedToChange.getItem()).getPlant();
             MineTweakerAPI.apply(new AddAction(crop, fruitToAdd, weight));
         }
-        if(!success) {
-            MineTweakerAPI.logError("Adding fruit: '"+fruitToAdd.getDisplayName()+"' to '"+seedToChange.getDisplayName()+"' failed: "+error);
+        if (!success) {
+            MineTweakerAPI.logError(
+                "Adding fruit: '" + fruitToAdd
+                    .getDisplayName() + "' to '" + seedToChange.getDisplayName() + "' failed: " + error);
         }
     }
 
@@ -40,33 +45,38 @@ public class CropProduct {
         ItemStack seedToChange = MineTweakerMC.getItemStack(seed);
         ItemStack fruitToRemove = MineTweakerMC.getItemStack(fruit);
         String error = "Invalid Seed";
-        boolean success = seedToChange!=null && seedToChange.getItem()!=null && seedToChange.getItem() instanceof ItemModSeed;
-        if(success) {
+        boolean success = seedToChange != null && seedToChange.getItem() != null
+            && seedToChange.getItem() instanceof ItemModSeed;
+        if (success) {
             BlockModPlant crop = ((ItemModSeed) seedToChange.getItem()).getPlant();
             MineTweakerAPI.apply((new RemoveAction(crop, fruitToRemove)));
         }
-        if(!success) {
-            MineTweakerAPI.logError("Removing fruit: '"+fruitToRemove.getDisplayName()+"' from '"+seedToChange.getDisplayName()+"' failed: "+error);
+        if (!success) {
+            MineTweakerAPI.logError(
+                "Removing fruit: '" + fruitToRemove
+                    .getDisplayName() + "' from '" + seedToChange.getDisplayName() + "' failed: " + error);
         }
     }
 
     private static class AddAction implements IUndoableAction {
+
         private final BlockModPlant crop;
         private final ItemStack fruit;
         private final int weight;
+
         public AddAction(BlockModPlant crop, ItemStack fruitToAdd, int weight) {
             this.crop = crop;
             this.fruit = fruitToAdd.copy();
             this.fruit.stackSize = 1;
-            this.weight= weight>0? weight: CropProduce.DEFAULT_WEIGHT;
+            this.weight = weight > 0 ? weight : CropProduce.DEFAULT_WEIGHT;
         }
 
         @Override
         public void apply() {
             crop.products.addProduce(fruit, weight);
             String oreDictTag = this.fruitTag();
-            LogHelper.debug("Registering "+fruit.getDisplayName()+" to the ore dictionary as "+oreDictTag);
-            if(ConfigurationHandler.registerCropProductsToOreDict && !OreDictHelper.hasOreId(fruit, oreDictTag)) {
+            LogHelper.debug("Registering " + fruit.getDisplayName() + " to the ore dictionary as " + oreDictTag);
+            if (ConfigurationHandler.registerCropProductsToOreDict && !OreDictHelper.hasOreId(fruit, oreDictTag)) {
                 OreDictionary.registerOre(oreDictTag, fruit);
             }
         }
@@ -79,7 +89,7 @@ public class CropProduct {
         @Override
         public void undo() {
             crop.products.removeProduce(fruit);
-            if(ConfigurationHandler.registerCropProductsToOreDict) {
+            if (ConfigurationHandler.registerCropProductsToOreDict) {
                 MCOreDictEntry ore = new MCOreDictEntry(this.fruitTag());
                 ore.remove(new MCItemStack(this.fruit));
             }
@@ -87,12 +97,16 @@ public class CropProduct {
 
         @Override
         public String describe() {
-            return "Adding fruit: '"+fruit.getDisplayName()+"' to '"+crop.getUnlocalizedName()+"' with weight "+weight;
+            return "Adding fruit: '" + fruit
+                .getDisplayName() + "' to '" + crop.getUnlocalizedName() + "' with weight " + weight;
         }
 
         @Override
         public String describeUndo() {
-            return "Removing previously added fruit'"+fruit.getDisplayName()+"' from '"+crop.getUnlocalizedName()+"'";
+            return "Removing previously added fruit'" + fruit.getDisplayName()
+                + "' from '"
+                + crop.getUnlocalizedName()
+                + "'";
         }
 
         @Override
@@ -101,14 +115,19 @@ public class CropProduct {
         }
 
         private String fruitTag() {
-            return crop.getUnlocalizedName().substring(crop.getUnlocalizedName().indexOf(':')+1);
+            return crop.getUnlocalizedName()
+                .substring(
+                    crop.getUnlocalizedName()
+                        .indexOf(':') + 1);
         }
     }
 
     private static class RemoveAction implements IUndoableAction {
+
         private final BlockModPlant crop;
         private final ItemStack fruit;
         private final int weight;
+
         public RemoveAction(BlockModPlant crop, ItemStack fruit) {
             this.crop = crop;
             this.fruit = fruit.copy();
@@ -119,7 +138,7 @@ public class CropProduct {
         @Override
         public void apply() {
             crop.products.removeProduce(fruit);
-            if(ConfigurationHandler.registerCropProductsToOreDict) {
+            if (ConfigurationHandler.registerCropProductsToOreDict) {
                 MCOreDictEntry ore = new MCOreDictEntry(this.fruitTag());
                 ore.remove(new MCItemStack(this.fruit));
             }
@@ -135,19 +154,22 @@ public class CropProduct {
             crop.products.addProduce(fruit, weight);
             String oreDictTag = this.fruitTag();
             LogHelper.debug("Registering " + fruit.getDisplayName() + " to the ore dictionary as " + oreDictTag);
-            if(ConfigurationHandler.registerCropProductsToOreDict && !OreDictHelper.hasOreId(fruit, oreDictTag)) {
+            if (ConfigurationHandler.registerCropProductsToOreDict && !OreDictHelper.hasOreId(fruit, oreDictTag)) {
                 OreDictionary.registerOre(oreDictTag, fruit);
             }
         }
 
         @Override
         public String describe() {
-            return "Removing fruit '"+fruit.getDisplayName()+"' from '"+crop.getUnlocalizedName()+"'";
+            return "Removing fruit '" + fruit.getDisplayName() + "' from '" + crop.getUnlocalizedName() + "'";
         }
 
         @Override
         public String describeUndo() {
-            return "Adding previously removed fruit'"+fruit.getDisplayName()+"' from '"+crop.getUnlocalizedName()+"'";
+            return "Adding previously removed fruit'" + fruit.getDisplayName()
+                + "' from '"
+                + crop.getUnlocalizedName()
+                + "'";
         }
 
         @Override
@@ -156,7 +178,10 @@ public class CropProduct {
         }
 
         private String fruitTag() {
-            return crop.getUnlocalizedName().substring(crop.getUnlocalizedName().indexOf(':')+1);
+            return crop.getUnlocalizedName()
+                .substring(
+                    crop.getUnlocalizedName()
+                        .indexOf(':') + 1);
         }
     }
 }

@@ -1,15 +1,18 @@
 package com.gtnewhorizon.cropsnh.network;
 
-import com.gtnewhorizon.cropsnh.api.v1.IFertiliser;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import com.gtnewhorizon.cropsnh.api.v1.IFertiliser;
+
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import io.netty.buffer.ByteBuf;
+
 public class MessageFertiliserApplied extends MessageCropsNH {
+
     private int x;
     private int y;
     private int z;
@@ -46,10 +49,16 @@ public class MessageFertiliserApplied extends MessageCropsNH {
     }
 
     public static class MessageHandler implements IMessageHandler<MessageFertiliserApplied, IMessage> {
+
         @Override
         public IMessage onMessage(MessageFertiliserApplied message, MessageContext ctx) {
-            if(message!=null && message.fertiliser!=null && message.fertiliser instanceof IFertiliser) {
-                ((IFertiliser) message.fertiliser).performClientAnimations(message.meta, Minecraft.getMinecraft().thePlayer.worldObj, message.x, message.y, message.z);
+            if (message != null && message.fertiliser != null && message.fertiliser instanceof IFertiliser) {
+                ((IFertiliser) message.fertiliser).performClientAnimations(
+                    message.meta,
+                    Minecraft.getMinecraft().thePlayer.worldObj,
+                    message.x,
+                    message.y,
+                    message.z);
             }
             return null;
         }

@@ -1,9 +1,9 @@
 package com.gtnewhorizon.cropsnh.api.v1;
 
-
-import com.google.common.hash.Hashing;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import com.google.common.hash.Hashing;
 
 public class ItemWithMeta {
 
@@ -39,8 +39,11 @@ public class ItemWithMeta {
 
     @Override
     public int hashCode() {
-        return Hashing.md5().newHasher()
-                .putInt(item.hashCode())
-                .putInt(meta).hash().asInt();
+        return Hashing.md5()
+            .newHasher()
+            .putInt(item.hashCode())
+            .putInt(meta)
+            .hash()
+            .asInt();
     }
 }

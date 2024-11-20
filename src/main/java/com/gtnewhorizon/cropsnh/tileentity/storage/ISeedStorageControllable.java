@@ -1,11 +1,12 @@
 package com.gtnewhorizon.cropsnh.tileentity.storage;
 
+import java.util.List;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 public interface ISeedStorageControllable {
+
     /**
      * Tries to add a stack to the inventory, returns true on success
      */
@@ -27,7 +28,8 @@ public interface ISeedStorageControllable {
     ItemStack decreaseStackSizeInSlot(int slotId, int amount);
 
     /**
-     * Returns a list of all the stacks in this inventory, all the slots in this inventory must have the same type of seed
+     * Returns a list of all the stacks in this inventory, all the slots in this inventory must have the same type of
+     * seed
      */
     List<ItemStack> getInventory();
 

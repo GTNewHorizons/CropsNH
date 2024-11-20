@@ -1,5 +1,13 @@
 package com.gtnewhorizon.cropsnh.farming.mutation;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.api.v1.ICrop;
 import com.gtnewhorizon.cropsnh.api.v1.IMutation;
 import com.gtnewhorizon.cropsnh.api.v1.IMutationHandler;
@@ -8,17 +16,12 @@ import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.utility.IOHelper;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 public class MutationHandler implements IMutationHandler {
+
     private static final MutationHandler INSTANCE = new MutationHandler();
 
     public static MutationHandler getInstance() {
@@ -31,18 +34,18 @@ public class MutationHandler implements IMutationHandler {
 
     private MutationHandler() {}
 
-    public  void init() {
-        //Read mutations & initialize the mutation arrays
+    public void init() {
+        // Read mutations & initialize the mutation arrays
         String[] data = IOHelper.getLinesArrayFromData(ConfigurationHandler.readMutationData());
 
         mutations = new ArrayList<>();
 
-      //print registered mutations to the log
+        // print registered mutations to the log
         LogHelper.info("Registered Mutations:");
 
-        for(String line:data) {
+        for (String line : data) {
             Mutation mutation = readMutation(line);
-            if(mutation!=null && !mutations.contains(mutation)) {
+            if (mutation != null && !mutations.contains(mutation)) {
                 mutations.add(mutation);
                 LogHelper.info(" - " + mutation.getFormula());
             }
@@ -51,66 +54,68 @@ public class MutationHandler implements IMutationHandler {
 
     @SideOnly(Side.CLIENT)
     public void syncFromServer(IMutation mutation, boolean finished) {
-        if(!isSyncing) {
+        if (!isSyncing) {
             LogHelper.info("Receiving mutations from server");
             mutations = new ArrayList<>();
             isSyncing = true;
         }
         mutations.add(mutation);
-        if(finished) {
+        if (finished) {
             isSyncing = false;
             LogHelper.info("Successfully received mutations from server");
         }
     }
 
-	private Mutation readMutation(String input) { //Removed some string concatenation, and de-nested the if statements.
+    private Mutation readMutation(String input) { // Removed some string concatenation, and de-nested the if statements.
 
-		Mutation mutation = null;
-		String[] data = IOHelper.getData(input);
+        Mutation mutation = null;
+        String[] data = IOHelper.getData(input);
 
         if (data.length == 0) {
             LogHelper.info("Error when reading mutation: invalid number of arguments. (line: " + input + ")");
             return null;
         }
 
-		String mutationData = data[0];
-		int indexEquals = mutationData.indexOf('=');
-		int indexPlus = mutationData.indexOf('+');
+        String mutationData = data[0];
+        int indexEquals = mutationData.indexOf('=');
+        int indexPlus = mutationData.indexOf('+');
 
-		if (!(indexEquals > 0 && indexPlus > indexEquals)) {
-			LogHelper.info("Error when reading mutation: mutation is not defined correctly. (line: " + input + ")");
-			return null;
-		}
+        if (!(indexEquals > 0 && indexPlus > indexEquals)) {
+            LogHelper.info("Error when reading mutation: mutation is not defined correctly. (line: " + input + ")");
+            return null;
+        }
 
-		// read the stacks
-		ItemStack resultStack = IOHelper.getStack(mutationData.substring(0, indexEquals), false);
-		ItemStack parentStack1 = IOHelper.getStack(mutationData.substring(indexEquals + 1, indexPlus), false);
-		ItemStack parentStack2 = IOHelper.getStack(mutationData.substring(indexPlus + 1), false);
+        // read the stacks
+        ItemStack resultStack = IOHelper.getStack(mutationData.substring(0, indexEquals), false);
+        ItemStack parentStack1 = IOHelper.getStack(mutationData.substring(indexEquals + 1, indexPlus), false);
+        ItemStack parentStack2 = IOHelper.getStack(mutationData.substring(indexPlus + 1), false);
 
-		if (!CropPlantHandler.isValidSeed(resultStack)) {
-			LogHelper.info("Error when reading mutation: resulting stack is not correct. (line: " + input + ")");
-			return null;
-		} else if (!CropPlantHandler.isValidSeed(parentStack1)) {
-			LogHelper .info("Error when reading mutation: first parent stack is not correct. (line: " + input + ")");
-			return null;
-		} else if (!CropPlantHandler.isValidSeed(parentStack2)) {
-			LogHelper.info("Error when reading mutation: second parent stack is not correct. (line: " + input + ")");
-			return null;
-		}
-		try {
-			mutation = new Mutation(resultStack, parentStack1, parentStack2);
-		} catch (Exception e) {
-			LogHelper.debug("Caught exception when trying to add mutation: "
-					+ resultStack.getUnlocalizedName() + "="
-					+ parentStack1.getUnlocalizedName() + "+"
-					+ parentStack2.getUnlocalizedName()
-					+ ", this seed is not registered");
-		}
+        if (!CropPlantHandler.isValidSeed(resultStack)) {
+            LogHelper.info("Error when reading mutation: resulting stack is not correct. (line: " + input + ")");
+            return null;
+        } else if (!CropPlantHandler.isValidSeed(parentStack1)) {
+            LogHelper.info("Error when reading mutation: first parent stack is not correct. (line: " + input + ")");
+            return null;
+        } else if (!CropPlantHandler.isValidSeed(parentStack2)) {
+            LogHelper.info("Error when reading mutation: second parent stack is not correct. (line: " + input + ")");
+            return null;
+        }
+        try {
+            mutation = new Mutation(resultStack, parentStack1, parentStack2);
+        } catch (Exception e) {
+            LogHelper.debug(
+                "Caught exception when trying to add mutation: " + resultStack.getUnlocalizedName()
+                    + "="
+                    + parentStack1.getUnlocalizedName()
+                    + "+"
+                    + parentStack2.getUnlocalizedName()
+                    + ", this seed is not registered");
+        }
 
-		return mutation;
-	}
+        return mutation;
+    }
 
-    //gets all the possible crossovers
+    // gets all the possible crossovers
     @Override
     public IMutation[] getCrossOvers(List<? extends ICrop> crops) {
         ICrop[] parents = filterParents(crops);
@@ -136,10 +141,10 @@ public class MutationHandler implements IMutationHandler {
         return cleanMutationArray(list.toArray(new IMutation[list.size()]));
     }
 
-    //gets an array of all the possible parents from the array containing all the neighbouring crops
+    // gets an array of all the possible parents from the array containing all the neighbouring crops
     private ICrop[] filterParents(List<? extends ICrop> input) {
         ArrayList<ICrop> list = new ArrayList<>();
-        for(ICrop crop:input) {
+        for (ICrop crop : input) {
             if (crop != null && crop.isMature()) {
                 list.add(crop);
             }
@@ -147,30 +152,36 @@ public class MutationHandler implements IMutationHandler {
         return list.toArray(new ICrop[list.size()]);
     }
 
-    //finds the product of two parents
+    // finds the product of two parents
     private ArrayList<IMutation> getMutationsFromParent(ICrop parent1, ICrop parent2) {
-        Item seed1 = parent1.getSeedStack().getItem();
-        Item seed2 = parent2.getSeedStack().getItem();
-        int meta1 = parent1.getSeedStack().getItemDamage();
-        int meta2 = parent2.getSeedStack().getItemDamage();
+        Item seed1 = parent1.getSeedStack()
+            .getItem();
+        Item seed2 = parent2.getSeedStack()
+            .getItem();
+        int meta1 = parent1.getSeedStack()
+            .getItemDamage();
+        int meta2 = parent2.getSeedStack()
+            .getItemDamage();
         ArrayList<IMutation> list = new ArrayList<>();
-        for (IMutation mutation:mutations) {
+        for (IMutation mutation : mutations) {
             ItemStack parent1Stack = mutation.getParents()[0];
             ItemStack parent2Stack = mutation.getParents()[1];
-            if ((seed1==parent1Stack.getItem() && seed2==parent2Stack.getItem()) && (meta1==parent1Stack.getItemDamage() && meta2==parent2Stack.getItemDamage())) {
+            if ((seed1 == parent1Stack.getItem() && seed2 == parent2Stack.getItem())
+                && (meta1 == parent1Stack.getItemDamage() && meta2 == parent2Stack.getItemDamage())) {
                 list.add(mutation);
             }
-            if ((seed1==parent2Stack.getItem() && seed2==parent1Stack.getItem()) && (meta1==parent2Stack.getItemDamage() && meta2==parent1Stack.getItemDamage())) {
+            if ((seed1 == parent2Stack.getItem() && seed2 == parent1Stack.getItem())
+                && (meta1 == parent2Stack.getItemDamage() && meta2 == parent1Stack.getItemDamage())) {
                 list.add(mutation);
             }
         }
         return list;
     }
 
-    //removes null instance from a mutations array
+    // removes null instance from a mutations array
     private IMutation[] cleanMutationArray(IMutation[] input) {
         ArrayList<IMutation> list = new ArrayList<>();
-        for(IMutation mutation:input) {
+        for (IMutation mutation : input) {
             if (mutation.getResult() != null) {
                 list.add(mutation);
             }
@@ -178,16 +189,15 @@ public class MutationHandler implements IMutationHandler {
         return list.toArray(new IMutation[list.size()]);
     }
 
+    // public methods to read data from the mutations and parents arrays
 
-    //public methods to read data from the mutations and parents arrays
-
-    //gets all the mutations
+    // gets all the mutations
     @Override
     public IMutation[] getMutations() {
         return mutations.toArray(new IMutation[mutations.size()]);
     }
 
-    //gets all the mutations this crop can mutate to
+    // gets all the mutations this crop can mutate to
     @Override
     public IMutation[] getMutationsFromParent(ItemStack stack) {
         ArrayList<IMutation> list = new ArrayList<>();
@@ -198,7 +208,8 @@ public class MutationHandler implements IMutationHandler {
                 list.add(new Mutation(mutation));
             }
             if (parent2Stack.getItem() == stack.getItem() && parent2Stack.getItemDamage() == stack.getItemDamage()) {
-                if(parent2Stack.getItem() == parent1Stack.getItem() && parent2Stack.getItemDamage() == parent1Stack.getItemDamage()) {
+                if (parent2Stack.getItem() == parent1Stack.getItem()
+                    && parent2Stack.getItemDamage() == parent1Stack.getItemDamage()) {
                     continue;
                 }
                 list.add(new Mutation(mutation));
@@ -212,13 +223,16 @@ public class MutationHandler implements IMutationHandler {
         return getMutationsFromChild(new ItemStack(seed, 1, meta));
     }
 
-    //gets the parents this crop mutates from
+    // gets the parents this crop mutates from
     @Override
     public IMutation[] getMutationsFromChild(ItemStack stack) {
         ArrayList<IMutation> list = new ArrayList<>();
-        if(CropPlantHandler.isValidSeed(stack)) {
-            for (IMutation mutation:mutations) {
-                if (mutation.getResult().getItem() == stack.getItem() && mutation.getResult().getItemDamage() == stack.getItemDamage()) {
+        if (CropPlantHandler.isValidSeed(stack)) {
+            for (IMutation mutation : mutations) {
+                if (mutation.getResult()
+                    .getItem() == stack.getItem()
+                    && mutation.getResult()
+                        .getItemDamage() == stack.getItemDamage()) {
                     list.add(new Mutation(mutation));
                 }
             }
@@ -228,14 +242,16 @@ public class MutationHandler implements IMutationHandler {
 
     /**
      * Removes all mutations where the given parameter is the result of a mutation
+     * 
      * @return Removed mutations
      */
     @Override
     public List<IMutation> removeMutationsByResult(ItemStack result) {
         List<IMutation> removedMutations = new ArrayList<>();
         for (Iterator<IMutation> iter = mutations.iterator(); iter.hasNext();) {
-           IMutation mutation = iter.next();
-            if (mutation.getResult().isItemEqual(result)) {
+            IMutation mutation = iter.next();
+            if (mutation.getResult()
+                .isItemEqual(result)) {
                 iter.remove();
                 removedMutations.add(mutation);
             }

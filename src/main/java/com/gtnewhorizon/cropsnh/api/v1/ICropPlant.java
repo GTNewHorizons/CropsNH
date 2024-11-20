@@ -1,8 +1,8 @@
 package com.gtnewhorizon.cropsnh.api.v1;
 
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,10 +12,13 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public interface ICropPlant {
+
     /**
      * This method returns the default tier of this plant, tiers can be overridden with the configs.
      * This should be in the interval [1, 5].
@@ -62,12 +65,13 @@ public interface ICropPlant {
      */
     ArrayList<ItemStack> getFruitsOnHarvest(int gain, Random rand);
 
-
     /**
-     * This method is called when this crop is harvested, but before any default CropsNH harvest logic has been executed.
+     * This method is called when this crop is harvested, but before any default CropsNH harvest logic has been
+     * executed.
      * It can be used as a notification to keep track of when one of your crops is harvested.
      * It can also be used to override CropsNH's harvesting behaviour.
-     * By returning false from this method, you prevent CropsNH from doing any further harvesting operations, effectively cancelling the harvest,
+     * By returning false from this method, you prevent CropsNH from doing any further harvesting operations,
+     * effectively cancelling the harvest,
      * you will then need to perform your own custom operations in this method.
      *
      * @param world  the World object for the crop
@@ -112,7 +116,8 @@ public interface ICropPlant {
     boolean canBonemeal();
 
     /**
-     * If you want your crop to have additional data, this is called when the plant is first applied to crop sticks, either trough planting, spreading or mutation
+     * If you want your crop to have additional data, this is called when the plant is first applied to crop sticks,
+     * either trough planting, spreading or mutation
      *
      * @param world the world object for the crop
      * @param x     the x-coordinate
@@ -121,10 +126,12 @@ public interface ICropPlant {
      * @param crop  the crop where this plant is planted on
      * @return initial IAdditionalCropData object (can be null if you don't need additional data)
      */
-    IAdditionalCropData getInitialCropData(World world, int x, int y, int z, com.gtnewhorizon.cropsnh.api.v1.ICrop crop);
+    IAdditionalCropData getInitialCropData(World world, int x, int y, int z,
+        com.gtnewhorizon.cropsnh.api.v1.ICrop crop);
 
     /**
-     * If this CropPlant should track additional data, this method will be called when the crop containing such a CropPlant is reading from NBT
+     * If this CropPlant should track additional data, this method will be called when the crop containing such a
+     * CropPlant is reading from NBT
      *
      * @param tag the same tag returned from the IAdditionalCropData.writeToNBT() method
      * @return an object holding the data
@@ -165,10 +172,13 @@ public interface ICropPlant {
     void onChunkUnload(World world, int x, int y, int z, ICrop crop);
 
     /**
-     * Gets the growth requirement for this plant, this is used to check if the plant can be planted or grow in certain locations
+     * Gets the growth requirement for this plant, this is used to check if the plant can be planted or grow in certain
+     * locations
      * <p>
-     * If you don't want to create your own class for this, you can use APIv1.getGrowthRequirementBuilder() to get a Builder object to build IGrowthRequirements
-     * If you just want to have vanilla crop behaviour, you can use APIv1.getDefaultGrowthRequirement() to get a growth requirement with default behaviour
+     * If you don't want to create your own class for this, you can use APIv1.getGrowthRequirementBuilder() to get a
+     * Builder object to build IGrowthRequirements
+     * If you just want to have vanilla crop behaviour, you can use APIv1.getDefaultGrowthRequirement() to get a growth
+     * requirement with default behaviour
      */
     IGrowthRequirement getGrowthRequirement();
 
@@ -240,7 +250,8 @@ public interface ICropPlant {
     String getInformation();
 
     /**
-     * Return true if you want to render the plant yourself, else cropsnh will render the plant based on the data returned by the getIcon and renderAsFlower methods
+     * Return true if you want to render the plant yourself, else cropsnh will render the plant based on the data
+     * returned by the getIcon and renderAsFlower methods
      */
     @SideOnly(Side.CLIENT)
     boolean overrideRendering();
@@ -257,7 +268,6 @@ public interface ICropPlant {
      */
     @SideOnly(Side.CLIENT)
     void renderPlantInCrop(IBlockAccess world, int x, int y, int z, RenderBlocks renderer);
-
 
     /**
      *

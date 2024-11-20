@@ -4,8 +4,9 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelPeripheralProbe extends ModelBase{
-    //fields
+public class ModelPeripheralProbe extends ModelBase {
+
+    // fields
     ModelRenderer Shaft;
     ModelRenderer Bar1;
     ModelRenderer Probe1;

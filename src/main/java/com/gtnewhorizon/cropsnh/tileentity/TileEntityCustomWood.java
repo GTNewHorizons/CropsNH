@@ -1,9 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity;
 
-import com.gtnewhorizon.cropsnh.api.v1.IDebuggable;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
@@ -12,7 +10,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
-import java.util.List;
+import com.gtnewhorizon.cropsnh.api.v1.IDebuggable;
+import com.gtnewhorizon.cropsnh.reference.Names;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * This class represents the root tile entity for all CropsNH custom wood blocks.
@@ -20,13 +22,13 @@ import java.util.List;
  */
 public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggable {
 
-	/** The default material to use. Currently is wood planks. */
+    /** The default material to use. Currently is wood planks. */
     private static final Block DEFAULT_MATERIAL = Blocks.planks;
 
     /** The default metadata to use. Currently is set to Oak(0) for Planks. */
     private static final int DEFAULT_META = 0;
 
-	/**
+    /**
      * A pointer to the the block the CustomWoodBlock is imitating.
      *
      * Defaults to {@link #DEFAULT_MATERIAL}.
@@ -42,7 +44,7 @@ public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggab
 
     @Override
     public void writeToNBT(NBTTagCompound tag) {
-    	tag.setString(Names.NBT.material, Block.blockRegistry.getNameForObject(this.getMaterial()));
+        tag.setString(Names.NBT.material, Block.blockRegistry.getNameForObject(this.getMaterial()));
         tag.setInteger(Names.NBT.materialMeta, this.getMaterialMeta());
         super.writeToNBT(tag);
     }
@@ -65,9 +67,10 @@ public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggab
      * @return if the construction materials for both entities are the same.
      */
     public final boolean isSameMaterial(TileEntityCustomWood tileEntity) {
-        return tileEntity!=null && this.getBlockMetadata()==tileEntity.getBlockMetadata() && this.getMaterial()==tileEntity.getMaterial() && this.getMaterialMeta()==tileEntity.getMaterialMeta();
+        return tileEntity != null && this.getBlockMetadata() == tileEntity.getBlockMetadata()
+            && this.getMaterial() == tileEntity.getMaterial()
+            && this.getMaterialMeta() == tileEntity.getMaterialMeta();
     }
-
 
     /**
      * Sets the CustomWood block's material, the material to mimic, from an NBTTag.
@@ -76,7 +79,7 @@ public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggab
      * @param tag the tag to set the block's material from.
      */
     private void setMaterial(NBTTagCompound tag) {
-        if(tag!=null && tag.hasKey(Names.NBT.material) && tag.hasKey(Names.NBT.materialMeta)) {
+        if (tag != null && tag.hasKey(Names.NBT.material) && tag.hasKey(Names.NBT.materialMeta)) {
             this.setMaterial(tag.getString(Names.NBT.material), tag.getInteger(Names.NBT.materialMeta));
         }
     }
@@ -87,30 +90,32 @@ public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggab
      * @param stack the ItemStack to set the block's material from.
      */
     public final void setMaterial(ItemStack stack) {
-        if(stack!=null && stack.getItem()!=null && stack.getItem() instanceof ItemBlock) {
-        	this.setMaterial(stack.stackTagCompound);
+        if (stack != null && stack.getItem() != null && stack.getItem() instanceof ItemBlock) {
+            this.setMaterial(stack.stackTagCompound);
         }
     }
 
     /**
-     * Sets the CustomWood block's material, the material to mimic, from the name of the material (block) and its metadata value.
+     * Sets the CustomWood block's material, the material to mimic, from the name of the material (block) and its
+     * metadata value.
      *
      * @param name the name of the material (block).
      * @param meta the metadata value of the material (block).
      */
     public final void setMaterial(String name, int meta) {
         Block block = (Block) Block.blockRegistry.getObject(name);
-        this.setMaterial(block==Blocks.air?DEFAULT_MATERIAL:block, block==Blocks.air?DEFAULT_META:meta);
+        this.setMaterial(block == Blocks.air ? DEFAULT_MATERIAL : block, block == Blocks.air ? DEFAULT_META : meta);
     }
 
     /**
-     * Sets the CustomWood block's material, the material to mimic, from the name of the material (block) and its metadata value.
+     * Sets the CustomWood block's material, the material to mimic, from the name of the material (block) and its
+     * metadata value.
      *
      * @param block the name of the material (block).
-     * @param meta the metadata value of the material (block).
+     * @param meta  the metadata value of the material (block).
      */
     public final void setMaterial(Block block, int meta) {
-        if(block!=null) {
+        if (block != null) {
             this.material = block;
             this.materialMeta = meta;
         }
@@ -122,7 +127,7 @@ public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggab
      * @return the material, in Block form.
      */
     public final Block getMaterial() {
-        return this.material==null?DEFAULT_MATERIAL:this.material;
+        return this.material == null ? DEFAULT_MATERIAL : this.material;
     }
 
     /**
@@ -131,7 +136,7 @@ public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggab
      * @return the metadata of the material.
      */
     public final int getMaterialMeta() {
-        return this.material==null?DEFAULT_META:this.materialMeta;
+        return this.material == null ? DEFAULT_META : this.materialMeta;
     }
 
     public final ItemStack getMaterialStack() {
@@ -165,7 +170,8 @@ public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggab
      * @return the icon, or texture, of the CustomWood.
      */
     public IIcon getIcon() {
-        return this.getMaterial().getIcon(0, this.getMaterialMeta());
+        return this.getMaterial()
+            .getIcon(0, this.getMaterialMeta());
     }
 
     @Override
@@ -180,7 +186,7 @@ public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggab
 
     @SideOnly(Side.CLIENT)
     public int colorMultiplier() {
-        if(this.worldObj==null) {
+        if (this.worldObj == null) {
             return 16777215;
         } else {
             return getBlockType().colorMultiplier(worldObj, xCoord, yCoord, zCoord);
@@ -191,7 +197,10 @@ public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggab
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void addWailaInformation(List information) {
-    	ItemStack mat = this.getMaterialStack();
-    	information.add(StatCollector.translateToLocal("cropsnh_tooltip.material")+": "+ mat.getItem().getItemStackDisplayName(mat));
+        ItemStack mat = this.getMaterialStack();
+        information.add(
+            StatCollector.translateToLocal("cropsnh_tooltip.material") + ": "
+                + mat.getItem()
+                    .getItemStackDisplayName(mat));
     }
 }

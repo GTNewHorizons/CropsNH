@@ -1,18 +1,21 @@
 package com.gtnewhorizon.cropsnh.gui.journal;
 
-import com.gtnewhorizon.cropsnh.gui.Component;
-import com.gtnewhorizon.cropsnh.reference.Reference;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-import java.util.ArrayList;
+import com.gtnewhorizon.cropsnh.gui.Component;
+import com.gtnewhorizon.cropsnh.reference.Reference;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class JournalPageIntroduction extends JournalPage {
+
     @Override
     public ResourceLocation getForeground() {
         return new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/journal/GuiJournalIntroduction.png");
@@ -26,7 +29,8 @@ public class JournalPageIntroduction extends JournalPage {
     @Override
     public ArrayList<Component<String>> getTextComponents() {
         ArrayList<Component<String>> textComponents = new ArrayList<>();
-        textComponents.add(new Component<>(StatCollector.translateToLocal("cropsnh_journal.introduction"), 24, 28, 0.5F));
+        textComponents
+            .add(new Component<>(StatCollector.translateToLocal("cropsnh_journal.introduction"), 24, 28, 0.5F));
         return textComponents;
     }
 

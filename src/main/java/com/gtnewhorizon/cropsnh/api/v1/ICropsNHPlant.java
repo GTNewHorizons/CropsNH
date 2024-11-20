@@ -1,18 +1,20 @@
 package com.gtnewhorizon.cropsnh.api.v1;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.IPlantable;
 
-import java.util.ArrayList;
-import java.util.Random;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /** should be implemented in Block class */
 public interface ICropsNHPlant extends IGrowable, IPlantable {
+
     /** Returns the GowthRequirement for this plant */
     IGrowthRequirement getGrowthRequirement();
 
@@ -31,7 +33,7 @@ public interface ICropsNHPlant extends IGrowable, IPlantable {
     /** Returns a random fruit for this plant */
     ItemStack getRandomFruit(Random rand);
 
-    /** Returns an ArrayList with amount of  random fruit stacks for this plant */
+    /** Returns an ArrayList with amount of random fruit stacks for this plant */
     ArrayList<ItemStack> getFruit(int amount, Random rand);
 
     /** Gets the icon for the growth stage, going from 0 to 7. 0 is a newly planted plant and 7 is a mature plant */

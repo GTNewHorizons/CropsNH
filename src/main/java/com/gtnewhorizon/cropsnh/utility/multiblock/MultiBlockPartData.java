@@ -1,9 +1,11 @@
 package com.gtnewhorizon.cropsnh.utility.multiblock;
 
-import com.gtnewhorizon.cropsnh.reference.Names;
 import net.minecraft.nbt.NBTTagCompound;
 
+import com.gtnewhorizon.cropsnh.reference.Names;
+
 public class MultiBlockPartData implements IMultiBlockPartData {
+
     private int posX;
     private int posY;
     private int posZ;
@@ -52,7 +54,7 @@ public class MultiBlockPartData implements IMultiBlockPartData {
 
     @Override
     public int size() {
-        return sizeX()*sizeY()*sizeZ();
+        return sizeX() * sizeY() * sizeZ();
     }
 
     @Override
@@ -77,6 +79,17 @@ public class MultiBlockPartData implements IMultiBlockPartData {
 
     @Override
     public String toString() {
-        return "(x: "+posX()+"/"+sizeX()+", y: "+posY()+"/"+sizeY()+", z: "+posZ()+"/"+sizeZ()+")";
+        return "(x: " + posX()
+            + "/"
+            + sizeX()
+            + ", y: "
+            + posY()
+            + "/"
+            + sizeY()
+            + ", z: "
+            + posZ()
+            + "/"
+            + sizeZ()
+            + ")";
     }
 }

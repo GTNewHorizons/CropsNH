@@ -1,15 +1,17 @@
 package com.gtnewhorizon.cropsnh.renderers.player.renderhooks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public abstract class PlayerEffectRendererParticles extends PlayerEffectRenderer {
+
     protected final ResourceLocation texture;
     private int counter = 0;
 

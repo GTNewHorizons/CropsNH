@@ -1,10 +1,12 @@
 package com.gtnewhorizon.cropsnh.farming.cropplant;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemSeeds;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class CropPlantOreDict extends CropPlantGeneric {
+
     public CropPlantOreDict(ItemSeeds seed) {
         super(seed);
     }
@@ -23,6 +25,6 @@ public class CropPlantOreDict extends CropPlantGeneric {
     @Override
     @SideOnly(Side.CLIENT)
     public String getInformation() {
-        return "cropsnh_journal."+getSeed().getUnlocalizedName();
+        return "cropsnh_journal." + getSeed().getUnlocalizedName();
     }
 }

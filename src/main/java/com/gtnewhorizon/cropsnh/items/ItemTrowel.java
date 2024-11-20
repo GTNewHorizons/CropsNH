@@ -1,5 +1,12 @@
 package com.gtnewhorizon.cropsnh.items;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
 import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
@@ -9,21 +16,17 @@ import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
 
 public class ItemTrowel extends ItemCropsNH implements ITrowel {
+
     private final IIcon[] icons = new IIcon[2];
 
     public ItemTrowel() {
         super();
-        this.maxStackSize=1;
+        this.maxStackSize = 1;
     }
 
     @Override
@@ -31,19 +34,23 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
         return Names.Objects.trowel;
     }
 
-    //I'm overriding this just to be sure
+    // I'm overriding this just to be sure
     @Override
-    public boolean canItemEditBlocks() {return true;}
+    public boolean canItemEditBlocks() {
+        return true;
+    }
 
-    //this is called when you right click with this item in hand
+    // this is called when you right click with this item in hand
     @Override
-    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        return false;   //return false or else no other use methods will be called (for instance "onBlockActivated" on the crops block)
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+        float hitX, float hitY, float hitZ) {
+        return false; // return false or else no other use methods will be called (for instance "onBlockActivated" on
+                      // the crops block)
     }
 
     @Override
     public boolean hasSeed(ItemStack trowel) {
-        if(trowel==null || trowel.getItem()==null || trowel.stackTagCompound==null) {
+        if (trowel == null || trowel.getItem() == null || trowel.stackTagCompound == null) {
             return false;
         }
         return CropPlantHandler.readPlantFromNBT(trowel.stackTagCompound.getCompoundTag(Names.NBT.seed)) != null;
@@ -51,16 +58,17 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
 
     @Override
     public boolean isSeedAnalysed(ItemStack trowel) {
-        if(!this.hasSeed(trowel)) {
+        if (!this.hasSeed(trowel)) {
             return false;
         }
-        return trowel.stackTagCompound.hasKey(Names.NBT.analyzed) && trowel.stackTagCompound.getBoolean(Names.NBT.analyzed);
+        return trowel.stackTagCompound.hasKey(Names.NBT.analyzed)
+            && trowel.stackTagCompound.getBoolean(Names.NBT.analyzed);
     }
 
     @Override
     public void analyze(ItemStack trowel) {
-        if(this.hasSeed(trowel)) {
-            if(trowel.hasTagCompound()) {
+        if (this.hasSeed(trowel)) {
+            if (trowel.hasTagCompound()) {
                 NBTTagCompound tag = trowel.getTagCompound();
                 tag.setBoolean(Names.NBT.analyzed, true);
             } else {
@@ -73,12 +81,12 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
 
     @Override
     public ItemStack getSeed(ItemStack trowel) {
-        if(!this.hasSeed(trowel)) {
+        if (!this.hasSeed(trowel)) {
             return null;
         }
         NBTTagCompound tag = trowel.getTagCompound();
         CropPlant plant = CropPlantHandler.readPlantFromNBT(tag.getCompoundTag(Names.NBT.seed));
-        if(plant == null) {
+        if (plant == null) {
             return null;
         }
         short growth = tag.getShort(Names.NBT.growth);
@@ -94,7 +102,7 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
 
     @Override
     public int getGrowthStage(ItemStack trowel) {
-        if(!this.hasSeed(trowel)) {
+        if (!this.hasSeed(trowel)) {
             return -1;
         }
         return trowel.stackTagCompound.getShort(Names.NBT.materialMeta);
@@ -102,19 +110,23 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
 
     @Override
     public boolean setSeed(ItemStack trowel, ItemStack seed, int growthStage) {
-        if(this.hasSeed(trowel)) {
+        if (this.hasSeed(trowel)) {
             return false;
         }
         CropPlant plant = CropPlantHandler.getPlantFromStack(seed);
-        if(plant == null) {
+        if (plant == null) {
             return false;
         }
         NBTTagCompound seedTag = seed.getTagCompound();
-        boolean initialised = seedTag!=null;
-        short growth = (initialised && seedTag.hasKey(Names.NBT.growth))?seedTag.getShort(Names.NBT.growth): Constants.DEFAULT_GROWTH;
-        short gain = (initialised && seedTag.hasKey(Names.NBT.gain))?seedTag.getShort(Names.NBT.gain): Constants.DEFAULT_GAIN;
-        short strength = (initialised && seedTag.hasKey(Names.NBT.strength))?seedTag.getShort(Names.NBT.strength): Constants.DEFAULT_STRENGTH;
-        boolean analysed = (initialised && seedTag.hasKey(Names.NBT.analyzed)) && seedTag.getBoolean(Names.NBT.analyzed);
+        boolean initialised = seedTag != null;
+        short growth = (initialised && seedTag.hasKey(Names.NBT.growth)) ? seedTag.getShort(Names.NBT.growth)
+            : Constants.DEFAULT_GROWTH;
+        short gain = (initialised && seedTag.hasKey(Names.NBT.gain)) ? seedTag.getShort(Names.NBT.gain)
+            : Constants.DEFAULT_GAIN;
+        short strength = (initialised && seedTag.hasKey(Names.NBT.strength)) ? seedTag.getShort(Names.NBT.strength)
+            : Constants.DEFAULT_STRENGTH;
+        boolean analysed = (initialised && seedTag.hasKey(Names.NBT.analyzed))
+            && seedTag.getBoolean(Names.NBT.analyzed);
         NBTTagCompound tag = new NBTTagCompound();
         CropPlantHandler.setSeedNBT(tag, growth, gain, strength, analysed);
         tag.setTag(Names.NBT.seed, CropPlantHandler.writePlantToNBT(plant));
@@ -139,8 +151,18 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister reg) {
         LogHelper.debug("registering icon for: " + this.getUnlocalizedName());
-        icons[0] = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.')+1)+"_empty");
-        icons[1] = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.')+1)+"_full");
+        icons[0] = reg.registerIcon(
+            this.getUnlocalizedName()
+                .substring(
+                    this.getUnlocalizedName()
+                        .indexOf('.') + 1)
+                + "_empty");
+        icons[1] = reg.registerIcon(
+            this.getUnlocalizedName()
+                .substring(
+                    this.getUnlocalizedName()
+                        .indexOf('.') + 1)
+                + "_full");
     }
 
     @Override
@@ -152,7 +174,7 @@ public class ItemTrowel extends ItemCropsNH implements ITrowel {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int meta) {
-        if(meta<=1) {
+        if (meta <= 1) {
             return this.icons[meta];
         }
         return null;

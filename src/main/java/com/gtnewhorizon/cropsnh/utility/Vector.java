@@ -1,10 +1,12 @@
 package com.gtnewhorizon.cropsnh.utility;
 
-import com.gtnewhorizon.cropsnh.reference.Names;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Vec3;
 
+import com.gtnewhorizon.cropsnh.reference.Names;
+
 public class Vector {
+
     private double x;
     private double y;
     private double z;
@@ -24,9 +26,15 @@ public class Vector {
     }
 
     public Vector(NBTTagCompound tag) throws UnknownPositionException {
-        if(!tag.hasKey(Names.NBT.x)) {throw new UnknownPositionException();}
-        if(!tag.hasKey(Names.NBT.y)) {throw new UnknownPositionException();}
-        if(!tag.hasKey(Names.NBT.z)) {throw new UnknownPositionException();}
+        if (!tag.hasKey(Names.NBT.x)) {
+            throw new UnknownPositionException();
+        }
+        if (!tag.hasKey(Names.NBT.y)) {
+            throw new UnknownPositionException();
+        }
+        if (!tag.hasKey(Names.NBT.z)) {
+            throw new UnknownPositionException();
+        }
         this.x = tag.getDouble(Names.NBT.x);
         this.y = tag.getDouble(Names.NBT.y);
         this.z = tag.getDouble(Names.NBT.z);
@@ -40,32 +48,44 @@ public class Vector {
         return tag;
     }
 
-    public void setX( double x) {this.x = x;}
+    public void setX(double x) {
+        this.x = x;
+    }
 
-    public void setY(double y) {this.y = y;}
+    public void setY(double y) {
+        this.y = y;
+    }
 
-    public void setZ(double z) {this.z = z;}
+    public void setZ(double z) {
+        this.z = z;
+    }
 
-    public  double getX() {return x;}
+    public double getX() {
+        return x;
+    }
 
-    public  double getY() {return y;}
+    public double getY() {
+        return y;
+    }
 
-    public  double getZ() {return z;}
+    public double getZ() {
+        return z;
+    }
 
     /** returns a new vector gotten by adding v to this vector (this + v) */
     public Vector add(Vector v) {
-        return new Vector(this.x+v.x, this.y+v.y, this.z+v.z);
+        return new Vector(this.x + v.x, this.y + v.y, this.z + v.z);
     }
 
-    /** returns a new vector gotten by substracting vector v from this vector (this - v)*/
+    /** returns a new vector gotten by substracting vector v from this vector (this - v) */
     public Vector substract(Vector v) {
-        return new Vector(this.x-v.x, this.y-v.y, this.z-v.z);
+        return new Vector(this.x - v.x, this.y - v.y, this.z - v.z);
     }
 
     /** returns a scaled copy of this vector */
     public Vector scale(double d) {
         Vector v = this.copy();
-        if(d!=1) {
+        if (d != 1) {
             v.x = v.x * d;
             v.y = v.y * d;
             v.z = v.z * d;
@@ -73,9 +93,9 @@ public class Vector {
         return this;
     }
 
-    /** Returns a normalised vector normal to this vector in the xz plane*/
+    /** Returns a normalised vector normal to this vector in the xz plane */
     public Vector getNormal() {
-        Vector normal = new Vector(1.0D/this.getX(), 0, -1.0/this.getZ());
+        Vector normal = new Vector(1.0D / this.getX(), 0, -1.0 / this.getZ());
         normal.normalize();
         return normal;
     }
@@ -84,16 +104,16 @@ public class Vector {
     public Vector getBiNormal() {
         Vector biNormal = crossProduct(this, this.getNormal());
         biNormal.normalize();
-        return  biNormal;
+        return biNormal;
     }
 
     /** Normalizes this vector */
     public Vector normalize() {
         double norm = norm();
-        if(norm==0) {
+        if (norm == 0) {
             return this;
         }
-        this.scale(1.0D/norm());
+        this.scale(1.0D / norm());
         return this;
     }
 
@@ -104,14 +124,14 @@ public class Vector {
 
     /** Calculates the dotproduct of a and b (a.b) */
     public static double dotProduct(Vector a, Vector b) {
-        return a.getX()*b.getX() + a.getY()*b.getY() + a.getZ()*b.getZ();
+        return a.getX() * b.getX() + a.getY() * b.getY() + a.getZ() * b.getZ();
     }
 
-    /** Calculates the crossproduct of a and b (axb)*/
+    /** Calculates the crossproduct of a and b (axb) */
     public static Vector crossProduct(Vector a, Vector b) {
-        double vX = a.y*b.z - a.z*b.y;
-        double vY = a.z*b.x - a.x-b.z;
-        double vZ = a.x*b.y - a.y*-b.x;
+        double vX = a.y * b.z - a.z * b.y;
+        double vY = a.z * b.x - a.x - b.z;
+        double vZ = a.x * b.y - a.y * -b.x;
         return new Vector(vX, vY, vZ);
     }
 
@@ -120,7 +140,7 @@ public class Vector {
         Vector copy = v.copy();
         copy.normalize();
         double norm = dotProduct(this, copy);
-        if(norm == 0) {
+        if (norm == 0) {
             return NULLVECTOR.copy();
         }
         copy.scale(norm);
@@ -133,6 +153,7 @@ public class Vector {
     }
 
     public static class UnknownPositionException extends Exception {
+
         public UnknownPositionException() {
             super("Position not found on NBT");
         }
@@ -140,7 +161,7 @@ public class Vector {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Vector) {
+        if (obj instanceof Vector) {
             Vector v = (Vector) obj;
             return v.x == this.x && v.y == this.y && v.z == this.z;
         }

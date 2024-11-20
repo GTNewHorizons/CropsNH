@@ -1,12 +1,13 @@
 package com.gtnewhorizon.cropsnh.tileentity.storage;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 public interface ISeedStorageController {
+
     /**
      * Tries to add a stack to the inventory, returns true on success
      */

@@ -1,12 +1,8 @@
 package com.gtnewhorizon.cropsnh.farming.cropplant;
 
-import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.api.v1.ICrop;
-import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
-import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -14,10 +10,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
+import com.gtnewhorizon.cropsnh.api.v1.ICrop;
+import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class CropPlantNetherWart extends CropPlant {
+
     @Override
     public int tier() {
         return 2;
@@ -63,7 +66,10 @@ public class CropPlantNetherWart extends CropPlant {
 
     @Override
     protected IGrowthRequirement initGrowthRequirement() {
-        return GrowthRequirementHandler.getNewBuilder().soil(new BlockWithMeta(Blocks.soul_sand)).brightnessRange(0, 8).build();
+        return GrowthRequirementHandler.getNewBuilder()
+            .soil(new BlockWithMeta(Blocks.soul_sand))
+            .brightnessRange(0, 8)
+            .build();
     }
 
     @Override
@@ -81,10 +87,9 @@ public class CropPlantNetherWart extends CropPlant {
     @SideOnly(Side.CLIENT)
     public IIcon getPlantIcon(int growthStage) {
         int meta = 1;
-        if(growthStage>=7) {
+        if (growthStage >= 7) {
             meta = 3;
-        }
-        else if(growthStage<4) {
+        } else if (growthStage < 4) {
             meta = 0;
         }
         return Blocks.nether_wart.getIcon(0, meta);

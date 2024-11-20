@@ -1,5 +1,16 @@
 package com.gtnewhorizon.cropsnh.apiimpl.v1;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
 import com.google.common.collect.Lists;
 import com.gtnewhorizon.cropsnh.api.API;
 import com.gtnewhorizon.cropsnh.api.APIBase;
@@ -8,8 +19,8 @@ import com.gtnewhorizon.cropsnh.api.v1.APIv1;
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.ICrop;
 import com.gtnewhorizon.cropsnh.api.v1.ICropPlant;
-import com.gtnewhorizon.cropsnh.api.v1.IFertiliser;
 import com.gtnewhorizon.cropsnh.api.v1.ICropsNHPlant;
+import com.gtnewhorizon.cropsnh.api.v1.IFertiliser;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirementBuilder;
 import com.gtnewhorizon.cropsnh.api.v1.IJournal;
@@ -39,20 +50,12 @@ import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 import com.gtnewhorizon.cropsnh.utility.exception.MissingArgumentsException;
 import com.gtnewhorizon.cropsnh.utility.statstringdisplayer.StatStringDisplayer;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
 
 public class APIimplv1 implements APIv1 {
+
     private final int version;
     private final APIStatus status;
 
@@ -132,7 +135,7 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public IGrowthRequirement getGrowthRequirement(ItemStack seed) {
-        if(!CropPlantHandler.isValidSeed(seed)) {
+        if (!CropPlantHandler.isValidSeed(seed)) {
             return null;
         }
         return CropPlantHandler.getGrowthRequirement(seed);
@@ -149,12 +152,11 @@ public class APIimplv1 implements APIv1 {
         }
     }
 
-
     @Override
     public boolean placeCrops(World world, int x, int y, int z, ItemStack crops) {
         if (canPlaceCrops(world, x, y, z, crops) && crops.stackSize >= 1) {
             if (!world.isRemote) {
-                world.setBlock(x, y, z, Blocks.blockCrop, 0 ,3);
+                world.setBlock(x, y, z, Blocks.blockCrop, 0, 3);
                 crops.stackSize--;
             }
             return true;
@@ -202,7 +204,7 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public ItemStack getPlantedSeed(World world, int x, int y, int z) {
-        if(!isCrops(world, x, y, z)) {
+        if (!isCrops(world, x, y, z)) {
             return null;
         }
         return ((TileEntityCrop) world.getTileEntity(x, y, z)).getSeedStack();
@@ -210,7 +212,7 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public Block getPlantedBlock(World world, int x, int y, int z) {
-        if(!isCrops(world, x, y, z)) {
+        if (!isCrops(world, x, y, z)) {
             return null;
         }
         return ((TileEntityCrop) world.getTileEntity(x, y, z)).getPlantBlock();
@@ -219,7 +221,7 @@ public class APIimplv1 implements APIv1 {
     @Override
     public ICropPlant getCropPlant(World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if(!(te instanceof TileEntityCrop)) {
+        if (!(te instanceof TileEntityCrop)) {
             return null;
         }
         return ((TileEntityCrop) te).getPlant();
@@ -238,7 +240,7 @@ public class APIimplv1 implements APIv1 {
     @Override
     public boolean isAnalyzed(World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if(te==null || !(te instanceof TileEntityCrop)) {
+        if (te == null || !(te instanceof TileEntityCrop)) {
             return false;
         }
         TileEntityCrop crop = (TileEntityCrop) te;
@@ -248,7 +250,7 @@ public class APIimplv1 implements APIv1 {
     @Override
     public ISeedStats getStats(World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if(te==null || !(te instanceof TileEntityCrop)) {
+        if (te == null || !(te instanceof TileEntityCrop)) {
             return new PlantStats(-1, -1, -1);
         }
         TileEntityCrop crop = (TileEntityCrop) te;
@@ -283,13 +285,13 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public boolean removeWeeds(World world, int x, int y, int z, ItemStack rake) {
-        if(world.isRemote) {
+        if (world.isRemote) {
             return false;
         }
         if (!ConfigurationHandler.enableWeeds) {
             return false;
         }
-        if(rake == null || rake.getItem() == null || !(rake.getItem() instanceof IRake)) {
+        if (rake == null || rake.getItem() == null || !(rake.getItem() instanceof IRake)) {
             return false;
         }
         TileEntity te = world.getTileEntity(x, y, z);
@@ -314,7 +316,7 @@ public class APIimplv1 implements APIv1 {
         TileEntity te = world.getTileEntity(x, y, z);
         if (te instanceof TileEntityCrop) {
             TileEntityCrop crop = (TileEntityCrop) te;
-            if(!crop.hasWeed() && !crop.isCrossCrop() && !crop.hasPlant()) {
+            if (!crop.hasWeed() && !crop.isCrossCrop() && !crop.hasPlant()) {
                 crop.setCrossCrop(true);
                 crops.stackSize--;
                 return true;
@@ -331,7 +333,7 @@ public class APIimplv1 implements APIv1 {
         TileEntity te = world.getTileEntity(x, y, z);
         if (te instanceof TileEntityCrop) {
             TileEntityCrop crop = (TileEntityCrop) te;
-            if(crop.isCrossCrop()) {
+            if (crop.isCrossCrop()) {
                 crop.setCrossCrop(false);
                 return new ItemStack(Items.crops, 1);
             }
@@ -349,7 +351,7 @@ public class APIimplv1 implements APIv1 {
                     return SeedRequirementStatus.BAD_LOCATION;
                 }
                 IGrowthRequirement growthRequirement = CropPlantHandler.getGrowthRequirement(seed);
-                if(!growthRequirement.isValidSoil(world, x, y-1, z)) {
+                if (!growthRequirement.isValidSoil(world, x, y - 1, z)) {
                     return SeedRequirementStatus.WRONG_SOIL;
                 }
                 if (!growthRequirement.canGrow(world, x, y, z)) {
@@ -366,18 +368,33 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public boolean applySeeds(World world, int x, int y, int z, ItemStack seed) {
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             if (CropPlantHandler.isValidSeed(seed)) {
                 TileEntity te = world.getTileEntity(x, y, z);
                 if (te instanceof TileEntityCrop) {
                     TileEntityCrop crop = (TileEntityCrop) te;
-                    if (crop.isCrossCrop() || crop.hasPlant() || crop.hasWeed() || !CropPlantHandler.getGrowthRequirement(seed).canGrow(world, x, y, z)) {
+                    if (crop.isCrossCrop() || crop.hasPlant()
+                        || crop.hasWeed()
+                        || !CropPlantHandler.getGrowthRequirement(seed)
+                            .canGrow(world, x, y, z)) {
                         return false;
                     }
                     if (seed.stackTagCompound != null && seed.stackTagCompound.hasKey(Names.NBT.growth)) {
-                        crop.setPlant(seed.stackTagCompound.getInteger(Names.NBT.growth), seed.stackTagCompound.getInteger(Names.NBT.gain), seed.stackTagCompound.getInteger(Names.NBT.strength), seed.stackTagCompound.getBoolean(Names.NBT.analyzed), seed.getItem(), seed.getItemDamage());
+                        crop.setPlant(
+                            seed.stackTagCompound.getInteger(Names.NBT.growth),
+                            seed.stackTagCompound.getInteger(Names.NBT.gain),
+                            seed.stackTagCompound.getInteger(Names.NBT.strength),
+                            seed.stackTagCompound.getBoolean(Names.NBT.analyzed),
+                            seed.getItem(),
+                            seed.getItemDamage());
                     } else {
-                        crop.setPlant(Constants.DEFAULT_GROWTH, Constants.DEFAULT_GAIN, Constants.DEFAULT_STRENGTH, false, seed.getItem(), seed.getItemDamage());
+                        crop.setPlant(
+                            Constants.DEFAULT_GROWTH,
+                            Constants.DEFAULT_GAIN,
+                            Constants.DEFAULT_STRENGTH,
+                            false,
+                            seed.getItem(),
+                            seed.getItemDamage());
                     }
                     seed.stackSize--;
                     return true;
@@ -395,9 +412,11 @@ public class APIimplv1 implements APIv1 {
         TileEntity te = world.getTileEntity(x, y, z);
         if (te instanceof TileEntityCrop) {
             TileEntityCrop crop = (TileEntityCrop) te;
-            if(crop.allowHarvest(null)) {
-                crop.getWorldObj().setBlockMetadataWithNotify(crop.xCoord, crop.yCoord, crop.zCoord, 2, 2);
-                return crop.getPlant().getFruitsOnHarvest(crop.getGain(), world.rand);
+            if (crop.allowHarvest(null)) {
+                crop.getWorldObj()
+                    .setBlockMetadataWithNotify(crop.xCoord, crop.yCoord, crop.zCoord, 2, 2);
+                return crop.getPlant()
+                    .getFruitsOnHarvest(crop.getGain(), world.rand);
             }
         }
         return null;
@@ -409,7 +428,7 @@ public class APIimplv1 implements APIv1 {
             return null;
         }
         List<ItemStack> result = Blocks.blockCrop.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
-        world.setBlockToAir(x,y,z);
+        world.setBlockToAir(x, y, z);
         world.removeTileEntity(x, y, z);
         return result;
     }
@@ -456,7 +475,8 @@ public class APIimplv1 implements APIv1 {
             world.playAuxSFX(2005, x, y, z, 0);
             return true;
         } else if (fertilizer.getItem() instanceof IFertiliser) {
-            ((TileEntityCrop) world.getTileEntity(x, y, z)).applyFertiliser((IFertiliser) fertilizer.getItem(), world.rand);
+            ((TileEntityCrop) world.getTileEntity(x, y, z))
+                .applyFertiliser((IFertiliser) fertilizer.getItem(), world.rand);
             fertilizer.stackSize--;
             world.playAuxSFX(2005, x, y, z, 0);
             return true;
@@ -466,34 +486,40 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public IMutation[] getRegisteredMutations() {
-        return MutationHandler.getInstance().getMutations();
+        return MutationHandler.getInstance()
+            .getMutations();
     }
 
     @Override
     public IMutation[] getRegisteredMutationsForParent(ItemStack parent) {
-        return MutationHandler.getInstance().getMutationsFromParent(parent);
+        return MutationHandler.getInstance()
+            .getMutationsFromParent(parent);
     }
 
     @Override
     public IMutation[] getRegisteredMutationsForChild(ItemStack child) {
-        return MutationHandler.getInstance().getMutationsFromChild(child);
+        return MutationHandler.getInstance()
+            .getMutationsFromChild(child);
     }
 
     @Override
     public boolean registerMutation(ItemStack result, ItemStack parent1, ItemStack parent2) {
-        MutationHandler.getInstance().add(new Mutation(result, parent1, parent2));
+        MutationHandler.getInstance()
+            .add(new Mutation(result, parent1, parent2));
         return false;
     }
 
     @Override
     public boolean registerMutation(ItemStack result, ItemStack parent1, ItemStack parent2, double d) {
-        MutationHandler.getInstance().add(new Mutation(result, parent1, parent2, d));
+        MutationHandler.getInstance()
+            .add(new Mutation(result, parent1, parent2, d));
         return true;
     }
 
     @Override
     public boolean removeMutation(ItemStack result) {
-        MutationHandler.getInstance().removeMutationsByResult(result);
+        MutationHandler.getInstance()
+            .removeMutationsByResult(result);
         return true;
     }
 
@@ -507,11 +533,10 @@ public class APIimplv1 implements APIv1 {
         }
     }
 
-
     @Override
     public ICrop getCrop(World world, int x, int y, int z) {
         final TileEntity te = world.getTileEntity(x, y, z);
-        if(te instanceof ICrop) {
+        if (te instanceof ICrop) {
             return (ICrop) te;
         }
         return null;
@@ -543,7 +568,8 @@ public class APIimplv1 implements APIv1 {
         if (!isHandledByCropsNH(seed)) {
             return null;
         }
-        if (seed.stackTagCompound != null && seed.stackTagCompound.hasKey(Names.NBT.growth) && seed.stackTagCompound.getBoolean(Names.NBT.analyzed)) {
+        if (seed.stackTagCompound != null && seed.stackTagCompound.hasKey(Names.NBT.growth)
+            && seed.stackTagCompound.getBoolean(Names.NBT.analyzed)) {
             return PlantStats.readFromNBT(seed.stackTagCompound);
         } else {
             return new PlantStats(-1, -1, -1);
@@ -557,11 +583,11 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public void analyze(ItemStack seed) {
-        if(CropPlantHandler.isValidSeed(seed)) {
-            if(seed.hasTagCompound()) {
+        if (CropPlantHandler.isValidSeed(seed)) {
+            if (seed.hasTagCompound()) {
                 NBTTagCompound tag = seed.getTagCompound();
-                String[] keys = {Names.NBT.growth, Names.NBT.gain, Names.NBT.strength};
-                for(String key:keys) {
+                String[] keys = { Names.NBT.growth, Names.NBT.gain, Names.NBT.strength };
+                for (String key : keys) {
                     if (!tag.hasKey(key)) {
                         tag.setShort(key, (short) 1);
                     }
@@ -585,7 +611,8 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public IGrowthRequirement createDefaultGrowthRequirement() {
-        return GrowthRequirementHandler.getNewBuilder().build();
+        return GrowthRequirementHandler.getNewBuilder()
+            .build();
     }
 
     @Override
@@ -596,7 +623,7 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public boolean isSeedDiscoveredInJournal(ItemStack journal, ItemStack seed) {
-        if(journal == null || journal.getItem() == null || !(journal.getItem() instanceof IJournal)) {
+        if (journal == null || journal.getItem() == null || !(journal.getItem() instanceof IJournal)) {
             return false;
         }
         return ((IJournal) journal.getItem()).isSeedDiscovered(journal, seed);
@@ -604,7 +631,7 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public void addEntryToJournal(ItemStack journal, ItemStack seed) {
-        if(journal == null || journal.getItem() == null || !(journal.getItem() instanceof IJournal)) {
+        if (journal == null || journal.getItem() == null || !(journal.getItem() instanceof IJournal)) {
             return;
         }
         ((IJournal) journal.getItem()).addEntry(journal, seed);
@@ -612,7 +639,7 @@ public class APIimplv1 implements APIv1 {
 
     @Override
     public ArrayList<ItemStack> getDiscoveredSeedsFromJournal(ItemStack journal) {
-        if(journal == null || journal.getItem() == null || !(journal.getItem() instanceof IJournal)) {
+        if (journal == null || journal.getItem() == null || !(journal.getItem() instanceof IJournal)) {
             return new ArrayList<>();
         }
         return ((IJournal) journal.getItem()).getDiscoveredSeeds(journal);

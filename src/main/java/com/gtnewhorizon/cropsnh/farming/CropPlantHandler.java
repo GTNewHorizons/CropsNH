@@ -1,5 +1,21 @@
 package com.gtnewhorizon.cropsnh.farming;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
+import net.minecraft.block.BlockCrops;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
+
 import com.gtnewhorizon.cropsnh.api.v1.ICropsNHPlant;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.v1.ItemWithMeta;
@@ -18,23 +34,9 @@ import com.gtnewhorizon.cropsnh.utility.IOHelper;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 import com.gtnewhorizon.cropsnh.utility.exception.DuplicateCropPlantException;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemSeeds;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
 
 public class CropPlantHandler {
+
     /** HashMap containing all plants known to CropsNH */
     private static final HashMap<Item, HashMap<Integer, CropPlant>> cropPlants = new HashMap<>();
     /** Queue to store plants registered via the API before the cropPlants HashMap has been initialized */
@@ -45,12 +47,14 @@ public class CropPlantHandler {
     /**
      * Registers the plant into the cropPlants HashMap.
      *
-     * This command is a wrapper for the registerPlant(CropPlant plant). The ICropsNH plant is wrapped into a CropPlantCropsNH in the process.
+     * This command is a wrapper for the registerPlant(CropPlant plant). The ICropsNH plant is wrapped into a
+     * CropPlantCropsNH in the process.
      *
      * @see #registerPlant(CropPlant)
      *
      * @param plant the plant to be registered.
-     * @throws DuplicateCropPlantException thrown if the plant has already been registered. This could signal a major issue.
+     * @throws DuplicateCropPlantException thrown if the plant has already been registered. This could signal a major
+     *                                     issue.
      */
     public static void registerPlant(ICropsNHPlant plant) throws DuplicateCropPlantException {
         registerPlant(new CropPlantCropsNH(plant));
@@ -60,7 +64,8 @@ public class CropPlantHandler {
      * Registers the plant into the cropPlants HashMap.
      *
      * @param plant the plant to be registered.
-     * @throws DuplicateCropPlantException thrown if the plant has already been registered. This could signal a major issue.
+     * @throws DuplicateCropPlantException thrown if the plant has already been registered. This could signal a major
+     *                                     issue.
      */
     public static void registerPlant(CropPlant plant) throws DuplicateCropPlantException {
         ItemStack stack = plant.getSeed();
@@ -68,28 +73,26 @@ public class CropPlantHandler {
         Item seed = stack.getItem();
         int meta = stack.getItemDamage();
         HashMap<Integer, CropPlant> entryForSeed = cropPlants.get(seed);
-        if(entryForSeed!=null) {
-            if(entryForSeed.get(meta)!=null) {
+        if (entryForSeed != null) {
+            if (entryForSeed.get(meta) != null) {
                 throw new DuplicateCropPlantException();
-            }
-            else {
+            } else {
                 entryForSeed.put(meta, plant);
             }
-        }
-        else {
+        } else {
             entryForSeed = new HashMap<>();
             entryForSeed.put(meta, plant);
             cropPlants.put(seed, entryForSeed);
         }
         Iterator<ItemStack> it = blacklist.iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             ItemStack blackListed = it.next();
-            //should never happen
-            if(blackListed == null || blackListed.getItem() == null) {
+            // should never happen
+            if (blackListed == null || blackListed.getItem() == null) {
                 it.remove();
                 continue;
             }
-            if(blackListed.getItem() == stack.getItem() && blackListed.getItemDamage() == stack.getItemDamage()) {
+            if (blackListed.getItem() == stack.getItem() && blackListed.getItemDamage() == stack.getItemDamage()) {
                 plant.setBlackListStatus(true);
                 it.remove();
                 break;
@@ -98,10 +101,13 @@ public class CropPlantHandler {
     }
 
     /**
-     * Registers the plant into the cropPlants HashMap, and automatically catches DuplicateCropPlantExceptions and BlacklistedCropPlantExeptions.
+     * Registers the plant into the cropPlants HashMap, and automatically catches DuplicateCropPlantExceptions and
+     * BlacklistedCropPlantExeptions.
      *
-     * This method replaces the many switch statements previously found in the init() function. In doing so we cut back on code duplication.
-     * Furthermore, this is a targeted switch statement, instead of a catch all, allowing exceptions that should not have been thrown to surface properly.
+     * This method replaces the many switch statements previously found in the init() function. In doing so we cut back
+     * on code duplication.
+     * Furthermore, this is a targeted switch statement, instead of a catch all, allowing exceptions that should not
+     * have been thrown to surface properly.
      *
      * This function is a wrapper for the registerPlant() function.
      *
@@ -110,64 +116,71 @@ public class CropPlantHandler {
      * @param plant the plant to be registered.
      */
     private static void suppressedRegisterPlant(CropPlant plant) {
-    	try {
-    		registerPlant(plant);
-            GrowthRequirementHandler.addSoil(plant.getGrowthRequirement().getSoil());
-    	} catch (DuplicateCropPlantException e) {
-    		LogHelper.debug("Unable to register duplicate plant: " + plant.getSeed().getUnlocalizedName());
-    		LogHelper.printStackTrace(e);
-    	}
+        try {
+            registerPlant(plant);
+            GrowthRequirementHandler.addSoil(
+                plant.getGrowthRequirement()
+                    .getSoil());
+        } catch (DuplicateCropPlantException e) {
+            LogHelper.debug(
+                "Unable to register duplicate plant: " + plant.getSeed()
+                    .getUnlocalizedName());
+            LogHelper.printStackTrace(e);
+        }
     }
 
     /**
      * Adds a crop to the registration queue, to be registered during the initialization phase.
+     * 
      * @param plant the plant to be registered.
      */
     public static void addCropToRegister(CropPlant plant) {
-        if(plantsToRegister != null) {
+        if (plantsToRegister != null) {
             plantsToRegister.add(plant);
-        }
-        else {
+        } else {
             suppressedRegisterPlant(plant);
         }
     }
 
     /**
      * Sets the growth requirement for a seed, effectively overriding the previously registered growth requirement
+     * 
      * @param seed The seed for which to set the growth requirement
-     * @param req The growth requirement to be set
+     * @param req  The growth requirement to be set
      * @return if the growth requirement was successfully set
      */
     public static boolean setGrowthRequirement(ItemWithMeta seed, IGrowthRequirement req) {
-        if(seed == null || seed.getItem() == null) {
+        if (seed == null || seed.getItem() == null) {
             return false;
         }
-        if(!isValidSeed(seed)) {
-            for(CropPlant plant:plantsToRegister) {
+        if (!isValidSeed(seed)) {
+            for (CropPlant plant : plantsToRegister) {
                 ItemStack plantSeed = plant.getSeed();
-                if(plantSeed == null || plantSeed.getItem() == null) {
+                if (plantSeed == null || plantSeed.getItem() == null) {
                     continue;
                 }
-                if(plantSeed.getItem() == seed.getItem() && plantSeed.getItemDamage() == seed.getMeta()) {
+                if (plantSeed.getItem() == seed.getItem() && plantSeed.getItemDamage() == seed.getMeta()) {
                     plant.setGrowthRequirement(req);
                     return true;
                 }
             }
             return false;
         }
-        cropPlants.get(seed.getItem()).get(seed.getMeta()).setGrowthRequirement(req);
+        cropPlants.get(seed.getItem())
+            .get(seed.getMeta())
+            .setGrowthRequirement(req);
         return true;
     }
 
     public static boolean isAnalyzedSeed(ItemStack seedStack) {
-        return isValidSeed(seedStack)
-                && (seedStack.hasTagCompound())
-                && (seedStack.stackTagCompound.hasKey(Names.NBT.analyzed))
-                && (seedStack.stackTagCompound.getBoolean(Names.NBT.analyzed));
+        return isValidSeed(seedStack) && (seedStack.hasTagCompound())
+            && (seedStack.stackTagCompound.hasKey(Names.NBT.analyzed))
+            && (seedStack.stackTagCompound.getBoolean(Names.NBT.analyzed));
     }
 
     /**
      * Tests to see if the provided stack is a valid {@link #cropPlants seed}.
+     * 
      * @param seed the stack to test as a seed.
      * @return if the stack is a valid seed.
      */
@@ -177,31 +190,38 @@ public class CropPlantHandler {
 
     /**
      * Tests to see if the provided ItemWithMeta is a valid {@link #cropPlants seed}.
+     * 
      * @param seed the item to test as a seed.
      * @return if the item is a valid seed.
      */
     public static boolean isValidSeed(ItemWithMeta seed) {
-        return (seed !=null) && isValidSeed(seed.getItem(), seed.getMeta());
+        return (seed != null) && isValidSeed(seed.getItem(), seed.getMeta());
     }
 
     /**
      * Tests to see if the provided stack is a valid {@link #cropPlants seed}, this takes the blacklist into account.
+     * 
      * @param seed the item to test as a seed.
      * @param meta the meta for the seed
      * @return if the item is a valid seed.
      */
     public static boolean isValidSeed(Item seed, int meta) {
-        return isRecognizedByCropsNH(seed, meta) && !cropPlants.get(seed).get(meta).isBlackListed();
+        return isRecognizedByCropsNH(seed, meta) && !cropPlants.get(seed)
+            .get(meta)
+            .isBlackListed();
     }
 
     /**
      * Checks if the seed is recognized by CropsNH, this does not take into account if the seed is blacklisted or not
+     * 
      * @param seed the item to test as a seed.
      * @param meta the meta for the seed
      * @return if the item is recognized as a seed
      */
     private static boolean isRecognizedByCropsNH(Item seed, int meta) {
-        return (seed != null) && cropPlants.containsKey(seed) && cropPlants.get(seed).containsKey(meta);
+        return (seed != null) && cropPlants.containsKey(seed)
+            && cropPlants.get(seed)
+                .containsKey(meta);
     }
 
     /**
@@ -213,7 +233,8 @@ public class CropPlantHandler {
      * @return a NBTTagCompound, the serialized representation of the plant.
      */
     public static NBTTagCompound writePlantToNBT(CropPlant plant) {
-        return plant.getSeed().writeToNBT(new NBTTagCompound());
+        return plant.getSeed()
+            .writeToNBT(new NBTTagCompound());
     }
 
     /**
@@ -236,21 +257,22 @@ public class CropPlantHandler {
      */
     public static CropPlant getPlantFromStack(ItemStack stack) {
         if (isValidSeed(stack)) {
-            return cropPlants.get(stack.getItem()).get(stack.getItemDamage());
-        }
-        else {
-        	return null;
+            return cropPlants.get(stack.getItem())
+                .get(stack.getItemDamage());
+        } else {
+            return null;
         }
     }
 
     public static IGrowthRequirement getGrowthRequirement(Item seed, int meta) {
-        CropPlant plant = cropPlants.get(seed).get(meta);
-        return plant==null? GrowthRequirementHandler.NULL:plant.getGrowthRequirement();
+        CropPlant plant = cropPlants.get(seed)
+            .get(meta);
+        return plant == null ? GrowthRequirementHandler.NULL : plant.getGrowthRequirement();
 
     }
 
     public static IGrowthRequirement getGrowthRequirement(ItemStack stack) {
-        if(stack==null || stack.getItem()==null) {
+        if (stack == null || stack.getItem() == null) {
             return GrowthRequirementHandler.NULL;
         }
         return getGrowthRequirement(stack.getItem(), stack.getItemDamage());
@@ -263,9 +285,9 @@ public class CropPlantHandler {
      */
     public static ArrayList<CropPlant> getPlants() {
         ArrayList<CropPlant> plants = new ArrayList<>();
-        for(HashMap<Integer, CropPlant> subMap:cropPlants.values()) {
-            for(CropPlant plant : subMap.values()) {
-                if(!plant.isBlackListed()) {
+        for (HashMap<Integer, CropPlant> subMap : cropPlants.values()) {
+            for (CropPlant plant : subMap.values()) {
+                if (!plant.isBlackListed()) {
                     plants.add(plant);
                 }
             }
@@ -281,9 +303,9 @@ public class CropPlantHandler {
      */
     public static ArrayList<CropPlant> getPlantsUpToTier(int tier) {
         ArrayList<CropPlant> plants = new ArrayList<>();
-        for(HashMap<Integer, CropPlant> subMap:cropPlants.values()) {
-            for(CropPlant plant : subMap.values()) {
-                if(plant.getTier() <= tier && !plant.isBlackListed()) {
+        for (HashMap<Integer, CropPlant> subMap : cropPlants.values()) {
+            for (CropPlant plant : subMap.values()) {
+                if (plant.getTier() <= tier && !plant.isBlackListed()) {
                     plants.add(plant);
                 }
             }
@@ -293,7 +315,8 @@ public class CropPlantHandler {
 
     /**
      * Gets a random seed which is recognized as a plant by CropsNH
-     * @param rand Random object to be used
+     * 
+     * @param rand   Random object to be used
      * @param setTag If the seed should be initialized with an NBT tag containing random stats
      * @return an ItemStack containing a random seed
      */
@@ -303,8 +326,9 @@ public class CropPlantHandler {
 
     /**
      * Gets a random seed which is recognized as a plant by CropsNH
-     * @param rand Random object to be used
-     * @param setTag If the seed should be initialized with an NBT tag containing random stats
+     * 
+     * @param rand    Random object to be used
+     * @param setTag  If the seed should be initialized with an NBT tag containing random stats
      * @param maxTier The maximum tier of the seed (inclusive)
      * @return an ItemStack containing a random seed
      */
@@ -314,7 +338,8 @@ public class CropPlantHandler {
 
     /**
      * Gets a random seed from a list of plants
-     * @param rand Random object to be used
+     * 
+     * @param rand   Random object to be used
      * @param setTag If the seed should be initialized with an NBT tag containing random stats
      * @param plants List of plants to grab a random seed from
      * @return an ItemStack containing a random seed
@@ -322,51 +347,63 @@ public class CropPlantHandler {
     public static ItemStack getRandomSeed(Random rand, boolean setTag, List<CropPlant> plants) {
         boolean flag = false;
         ItemStack seed = null;
-        while(!flag) {
+        while (!flag) {
             CropPlant plant = plants.get(rand.nextInt(plants.size()));
-            seed = plant.getSeed().copy();
-            flag = (seed.getItem()!=null);
+            seed = plant.getSeed()
+                .copy();
+            flag = (seed.getItem() != null);
         }
-        if(setTag) {
+        if (setTag) {
             NBTTagCompound tag = new NBTTagCompound();
-            setSeedNBT(tag, (short) (rand.nextInt(ConfigurationHandler.cropStatCap) / 2 + 1), (short) (rand.nextInt(ConfigurationHandler.cropStatCap) / 2 + 1), (short) (rand.nextInt(ConfigurationHandler.cropStatCap) / 2 + 1), false);
+            setSeedNBT(
+                tag,
+                (short) (rand.nextInt(ConfigurationHandler.cropStatCap) / 2 + 1),
+                (short) (rand.nextInt(ConfigurationHandler.cropStatCap) / 2 + 1),
+                (short) (rand.nextInt(ConfigurationHandler.cropStatCap) / 2 + 1),
+                false);
             seed.stackTagCompound = tag;
         }
         return seed;
     }
 
     /**
-     * Sets the NBT tag for a seed to have stats, this method modifies the NBTTagCompound it is given to add the needed data and then returns it again
-     * @param tag the NBT tag of the ItemStack, is returned again
-     * @param growth the growth stat
-     * @param gain the gain stat
+     * Sets the NBT tag for a seed to have stats, this method modifies the NBTTagCompound it is given to add the needed
+     * data and then returns it again
+     * 
+     * @param tag      the NBT tag of the ItemStack, is returned again
+     * @param growth   the growth stat
+     * @param gain     the gain stat
      * @param strength the strength stat
      * @param analyzed if the seed is analyzed
      * @return the NBT tag
      */
-    public static NBTTagCompound setSeedNBT(NBTTagCompound tag, short growth, short gain, short strength, boolean analyzed) {
+    public static NBTTagCompound setSeedNBT(NBTTagCompound tag, short growth, short gain, short strength,
+        boolean analyzed) {
         short cap = (short) ConfigurationHandler.cropStatCap;
-        tag.setShort(Names.NBT.growth, growth==0? Constants.DEFAULT_GROWTH:growth>cap?cap:growth);
-        tag.setShort(Names.NBT.gain, gain==0?Constants.DEFAULT_GAIN:gain>cap?cap:gain);
-        tag.setShort(Names.NBT.strength, strength==0?Constants.DEFAULT_GAIN:strength>cap?cap:strength);
+        tag.setShort(Names.NBT.growth, growth == 0 ? Constants.DEFAULT_GROWTH : growth > cap ? cap : growth);
+        tag.setShort(Names.NBT.gain, gain == 0 ? Constants.DEFAULT_GAIN : gain > cap ? cap : gain);
+        tag.setShort(Names.NBT.strength, strength == 0 ? Constants.DEFAULT_GAIN : strength > cap ? cap : strength);
         tag.setBoolean(Names.NBT.analyzed, analyzed);
         return tag;
     }
 
     /**
      * Checks if a seed is BlackListed
+     * 
      * @param seed the seed to check
      * @return if the seed is blacklisted and should not be plantable on crop sticks
      */
     public static boolean isSeedBlackListed(ItemStack seed) {
-        if(seed == null || seed.getItem() == null) {
+        if (seed == null || seed.getItem() == null) {
             return true;
         }
-        if(isRecognizedByCropsNH(seed.getItem(), seed.getItemDamage())) {
-            return cropPlants.get(seed.getItem()).get(seed.getItemDamage()).isBlackListed();
+        if (isRecognizedByCropsNH(seed.getItem(), seed.getItemDamage())) {
+            return cropPlants.get(seed.getItem())
+                .get(seed.getItemDamage())
+                .isBlackListed();
         }
-        for(ItemStack queued : blacklist) {
-            if(queued.getItem() == seed.getItem() || queued.getItemDamage() == seed.getItemDamage()) {
+        for (ItemStack queued : blacklist) {
+            if (queued.getItem() == seed.getItem() || queued.getItemDamage() == seed.getItemDamage()) {
                 return true;
             }
         }
@@ -375,64 +412,78 @@ public class CropPlantHandler {
 
     /**
      * Adds a seed to the blacklist
+     * 
      * @param seed the seed to add to the blacklist
      */
     public static void addSeedToBlackList(ItemStack seed) {
-        if(seed == null || seed.getItem() == null) {
+        if (seed == null || seed.getItem() == null) {
             return;
         }
-        if(isSeedBlackListed(seed)) {
+        if (isSeedBlackListed(seed)) {
             return;
         }
-        if(!isRecognizedByCropsNH(seed.getItem(), seed.getItemDamage())) {
+        if (!isRecognizedByCropsNH(seed.getItem(), seed.getItemDamage())) {
             blacklist.add(seed.copy());
             return;
         }
-        cropPlants.get(seed.getItem()).get(seed.getItemDamage()).setBlackListStatus(true);
-        LogHelper.debug("Added seed to blacklist: " + Item.itemRegistry.getNameForObject(seed.getItem()) + ":" + seed.getItemDamage());
+        cropPlants.get(seed.getItem())
+            .get(seed.getItemDamage())
+            .setBlackListStatus(true);
+        LogHelper.debug(
+            "Added seed to blacklist: " + Item.itemRegistry.getNameForObject(seed.getItem())
+                + ":"
+                + seed.getItemDamage());
     }
 
     /**
      * Adds a collection of seeds to the blacklist
+     * 
      * @param seeds collection containing all seeds to be added to the blacklist
      */
     public static void addAllToSeedBlacklist(Collection<? extends ItemStack> seeds) {
-        for(ItemStack seed : seeds) {
+        for (ItemStack seed : seeds) {
             addSeedToBlackList(seed);
         }
     }
 
     /**
      * Removes a seed from the blacklist
+     * 
      * @param seed the seed to be removed from the blacklist
      */
     public static void removeFromSeedBlackList(ItemStack seed) {
-        if(seed == null || seed.getItem() == null) {
+        if (seed == null || seed.getItem() == null) {
             return;
         }
-        if(!isSeedBlackListed(seed)) {
+        if (!isSeedBlackListed(seed)) {
             return;
         }
-        if(isRecognizedByCropsNH(seed.getItem(), seed.getItemDamage())) {
-            cropPlants.get(seed.getItem()).get(seed.getItemDamage()).setBlackListStatus(false);
-        }
-        else {
+        if (isRecognizedByCropsNH(seed.getItem(), seed.getItemDamage())) {
+            cropPlants.get(seed.getItem())
+                .get(seed.getItemDamage())
+                .setBlackListStatus(false);
+        } else {
             removeFromBlackListArray(seed);
         }
-        LogHelper.debug("Removed seed from blacklist: " + Item.itemRegistry.getNameForObject(seed.getItem()) + ":" + seed.getItemDamage());
+        LogHelper.debug(
+            "Removed seed from blacklist: " + Item.itemRegistry.getNameForObject(seed.getItem())
+                + ":"
+                + seed.getItemDamage());
     }
 
     /** Removes a seed from the blacklist array */
     private static void removeFromBlackListArray(ItemStack seed) {
-        blacklist.removeIf(queued -> seed.getItem() == queued.getItem() && seed.getItemDamage() == queued.getItemDamage());
+        blacklist
+            .removeIf(queued -> seed.getItem() == queued.getItem() && seed.getItemDamage() == queued.getItemDamage());
     }
 
     /**
      * Removes a collection of seeds from the blacklist
+     * 
      * @param seeds collection containing all seeds to be removed from the blacklist
      */
     public static void removeAllFromSeedBlacklist(Collection<? extends ItemStack> seeds) {
-        for(ItemStack seed : seeds) {
+        for (ItemStack seed : seeds) {
             removeFromSeedBlackList(seed);
         }
     }
@@ -440,51 +491,55 @@ public class CropPlantHandler {
     /**
      * The primary plant initialization function.
      *
-     * Begins by initializing vanilla plants, then moves to mod plants, followed by plants in the plantsToRegister queue.
+     * Begins by initializing vanilla plants, then moves to mod plants, followed by plants in the plantsToRegister
+     * queue.
      * Finally initializes plants found in the ore dictionary.
      */
     public static void init() {
-        //Register vanilla plants. Now with less duplication.
+        // Register vanilla plants. Now with less duplication.
         OreDictionary.registerOre("seedMelon", Items.melon_seeds);
         OreDictionary.registerOre("cropMelon", Items.melon);
         OreDictionary.registerOre("seedPumpkin", Items.pumpkin_seeds);
         OreDictionary.registerOre("cropPumpkin", Blocks.pumpkin);
 
-        suppressedRegisterPlant(new CropPlantVanilla((BlockCrops) net.minecraft.init.Blocks.wheat, (ItemSeeds) net.minecraft.init.Items.wheat_seeds));
+        suppressedRegisterPlant(
+            new CropPlantVanilla(
+                (BlockCrops) net.minecraft.init.Blocks.wheat,
+                (ItemSeeds) net.minecraft.init.Items.wheat_seeds));
         suppressedRegisterPlant(new CropPlantStem((ItemSeeds) Items.melon_seeds, Blocks.melon_block));
         suppressedRegisterPlant(new CropPlantStem((ItemSeeds) Items.pumpkin_seeds, Blocks.pumpkin));
         suppressedRegisterPlant(new CropPlantNetherWart());
 
-        //Register crops specified through the API.
+        // Register crops specified through the API.
         for (CropPlant plant : plantsToRegister) {
             suppressedRegisterPlant(plant);
         }
         plantsToRegister = null;
 
-        //Register mod crops.
+        // Register mod crops.
         ModHelper.initModPlants();
 
-        //Register crops found in the ore dictionary.
+        // Register crops found in the ore dictionary.
         ArrayList<ItemStack> seeds = OreDictionary.getOres(Names.OreDict.listAllseed);
         for (ItemStack seed : seeds) {
             if (!isValidSeed(seed) && (seed.getItem() instanceof ItemSeeds)) {
-            	ArrayList<ItemStack> fruits = OreDictHelper.getFruitsFromOreDict(seed);
+                ArrayList<ItemStack> fruits = OreDictHelper.getFruitsFromOreDict(seed);
                 if (fruits != null && fruits.size() > 0) {
-                	suppressedRegisterPlant(new CropPlantOreDict((ItemSeeds)seed.getItem()));
+                    suppressedRegisterPlant(new CropPlantOreDict((ItemSeeds) seed.getItem()));
                 }
             }
         }
 
-        //Set tier overrides
+        // Set tier overrides
         IOHelper.initSeedTiers();
 
-        //Initialize seed blacklist
+        // Initialize seed blacklist
         IOHelper.initSeedBlackList();
 
-        //Set spread chance overrides
+        // Set spread chance overrides
         IOHelper.initSpreadChancesOverrides();
 
-        //Set vanilla planting rule overrides
+        // Set vanilla planting rule overrides
         IOHelper.initVanillaPlantingOverrides();
     }
 }

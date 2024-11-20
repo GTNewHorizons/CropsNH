@@ -1,9 +1,11 @@
 package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
-import codechicken.nei.recipe.ShapedRecipeHandler;
 import net.minecraft.item.ItemStack;
 
+import codechicken.nei.recipe.ShapedRecipeHandler;
+
 public class NEICustomWoodRecipeHandler extends ShapedRecipeHandler {
+
     @Override
     public void loadCraftingRecipes(ItemStack result) {
 

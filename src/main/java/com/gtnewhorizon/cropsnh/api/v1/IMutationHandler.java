@@ -1,21 +1,26 @@
 package com.gtnewhorizon.cropsnh.api.v1;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.Collection;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+
 /**
- * The MutationHandler is a centralized class within cropsnh which handles everything related to mutations, it has only one instance.
+ * The MutationHandler is a centralized class within cropsnh which handles everything related to mutations, it has only
+ * one instance.
  * This instance can be retrieved via APIv3.getMutationHandler().
  *
  * IMPORTANT:
- * The IMutationHandler instance is initialized in onServerAboutToStartEvent() on the server, and its data is sent to clients connecting to it.
+ * The IMutationHandler instance is initialized in onServerAboutToStartEvent() on the server, and its data is sent to
+ * clients connecting to it.
  */
 public interface IMutationHandler {
+
     /**
-     * This method constructs an array of IMutations containing possible crossovers for the list of ICrop objects passed to it.
+     * This method constructs an array of IMutations containing possible crossovers for the list of ICrop objects passed
+     * to it.
      * The argument may be empty but can not be null.
+     * 
      * @param crops a list of ICrop objects.
      * @return an array with the possible mutation results for this list, can be length 0, but will never be null.
      */
@@ -28,20 +33,25 @@ public interface IMutationHandler {
 
     /**
      * Gets an array of IMutations which all have the argument as a parent
+     * 
      * @param stack the parent for a mutation
-     * @return an array containing all registered mutations with the argument as parent, may be length 0, but will never be null.
+     * @return an array containing all registered mutations with the argument as parent, may be length 0, but will never
+     *         be null.
      */
     IMutation[] getMutationsFromParent(ItemStack stack);
 
     /**
      * Gets an array of IMutations which all have the argument as the result
+     * 
      * @param stack the result of a mutation
-     * @return an array containing all registered mutations with the argument as result, may be length 0, but will never be null.
+     * @return an array containing all registered mutations with the argument as result, may be length 0, but will never
+     *         be null.
      */
     IMutation[] getMutationsFromChild(ItemStack stack);
 
     /**
      * This method removes registered mutations which have the argument as result
+     * 
      * @param result the resulting stack to remove all mutations for
      * @return A list with the removed mutations
      */
@@ -49,18 +59,21 @@ public interface IMutationHandler {
 
     /**
      * Registers a new mutation
+     * 
      * @param mutation the new mutation to register
      */
     void add(IMutation mutation);
 
     /**
      * Removes a currently registered mutation
+     * 
      * @param mutation the mutation to remove
      */
     void remove(IMutation mutation);
 
     /**
      * Registers a collection of mutations
+     * 
      * @param mutationsToAdd the mutations to register
      */
     void addAll(Collection<? extends IMutation> mutationsToAdd);
@@ -68,7 +81,8 @@ public interface IMutationHandler {
     /**
      * Creates a new IMutation instance which has the default CropsNH implementation.
      * This is the recommended approach to create new IMutation objects.
-     * @param result the resulting stack
+     * 
+     * @param result  the resulting stack
      * @param parent1 the first parent stack
      * @param parent2 the second parent stack
      * @return a new IMutation object
@@ -78,10 +92,11 @@ public interface IMutationHandler {
     /**
      * Creates a new IMutation instance which has the default CropsNH implementation.
      * This is the recommended approach to create new IMutation objects.
-     * @param result the resulting stack
+     * 
+     * @param result  the resulting stack
      * @param parent1 the first parent stack
      * @param parent2 the second parent stack
-     * @param chance the chance for the mutation to occur
+     * @param chance  the chance for the mutation to occur
      * @return a new IMutation object
      */
     IMutation createNewMutation(ItemStack result, ItemStack parent1, ItemStack parent2, double chance);
@@ -89,6 +104,7 @@ public interface IMutationHandler {
     /**
      * Sets the currently used IMutationLogic object to the argument.
      * This will effectively change the behaviour of CropsNH mutations to the logic within the passed object.
+     * 
      * @param logic an IMutationLogic object
      */
     void setMutationLogic(IMutationLogic logic);

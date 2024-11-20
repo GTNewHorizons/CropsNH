@@ -8,6 +8,7 @@ package com.gtnewhorizon.cropsnh.api.v1;
  * Use IMutationHandler.getMutationLogic() to get the currently used logic
  */
 public interface IMutationLogic {
+
     /**
      * This method is called when a spread action happens (spreads are mainly used to increase the stats on crops).
      *
@@ -17,7 +18,8 @@ public interface IMutationLogic {
     ICrossOverResult getSpreadingResult(IMutationEngine engine);
 
     /**
-     * This method is called when a mutation happens (mutations are mainly used to mutate two crops into a new type of crop).
+     * This method is called when a mutation happens (mutations are mainly used to mutate two crops into a new type of
+     * crop).
      *
      * @param engine the IMutationEngine object for the crop for which a mutation has been triggered
      * @return an ICrossOverResult object which will be applied to the crop

@@ -1,13 +1,14 @@
 package com.gtnewhorizon.cropsnh.tileentity.peripheral.method;
 
+import java.util.ArrayList;
+
 import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
 import com.gtnewhorizon.cropsnh.farming.PlantStats;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
 
-import java.util.ArrayList;
-
 public class MethodGetStats extends MethodBase {
+
     public MethodGetStats() {
         super("getSpecimenStats");
     }
@@ -19,11 +20,11 @@ public class MethodGetStats extends MethodBase {
 
     @Override
     protected Object[] onMethodCalled(TileEntityCrop crop) throws MethodException {
-        if(!crop.hasPlant() || !crop.isAnalyzed()) {
+        if (!crop.hasPlant() || !crop.isAnalyzed()) {
             return null;
         }
         ISeedStats stats = crop.getStats();
-        return new Object[] {stats.getGrowth(), stats.getGain(), stats.getStrength()};
+        return new Object[] { stats.getGrowth(), stats.getGain(), stats.getStrength() };
     }
 
     @Override
@@ -34,10 +35,10 @@ public class MethodGetStats extends MethodBase {
     @Override
     protected Object[] onMethodCalled(TileEntityPeripheral peripheral) throws MethodException {
         ISeedStats stats = PlantStats.getStatsFromStack(peripheral.getSpecimen());
-        if(stats==null) {
+        if (stats == null) {
             return null;
         }
-        return new Object[] {stats.getGrowth(), stats.getGain(), stats.getStrength()};
+        return new Object[] { stats.getGrowth(), stats.getGain(), stats.getStrength() };
     }
 
     @Override

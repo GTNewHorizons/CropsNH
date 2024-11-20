@@ -1,21 +1,24 @@
 package com.gtnewhorizon.cropsnh.renderers.particles;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public class RuneFX extends CropsNHFX {
+
     private final float uMin;
     private final float uMax;
     private final float vMin;
     private final float vMax;
 
-    public RuneFX(World world, double x, double y, double z, float gravity, Vec3 vector, ResourceLocation texture, float uMin, float vMin, float uMax, float vMax) {
+    public RuneFX(World world, double x, double y, double z, float gravity, Vec3 vector, ResourceLocation texture,
+        float uMin, float vMin, float uMax, float vMax) {
         super(world, x, y, z, 1.0F, gravity, vector, texture);
         this.particleMaxAge = 100;
         this.setSize(1f, 1f);
@@ -43,10 +46,30 @@ public class RuneFX extends CropsNHFX {
         Minecraft.getMinecraft().renderEngine.bindTexture(this.texture);
         tessellator.setColorRGBA_F(1, 1, 1, 1);
 
-        tessellator.addVertexWithUV((double) (f11 - f1 * f10 - f4 * f10), (double) (f12 - f2 * f10), (double) (f13 - f3 * f10 - f6 * f10), (double) f7, (double) f9);
-        tessellator.addVertexWithUV((double) (f11 - f1 * f10 + f4 * f10), (double) (f12 + f2 * f10), (double) (f13 - f3 * f10 + f6 * f10), (double) f7, (double) f8);
-        tessellator.addVertexWithUV((double) (f11 + f1 * f10 + f4 * f10), (double) (f12 + f2 * f10), (double) (f13 + f3 * f10 + f6 * f10), (double) f6, (double) f8);
-        tessellator.addVertexWithUV((double) (f11 + f1 * f10 - f4 * f10), (double) (f12 - f2 * f10), (double) (f13 + f3 * f10 - f6 * f10), (double) f6, (double) f9);
+        tessellator.addVertexWithUV(
+            (double) (f11 - f1 * f10 - f4 * f10),
+            (double) (f12 - f2 * f10),
+            (double) (f13 - f3 * f10 - f6 * f10),
+            (double) f7,
+            (double) f9);
+        tessellator.addVertexWithUV(
+            (double) (f11 - f1 * f10 + f4 * f10),
+            (double) (f12 + f2 * f10),
+            (double) (f13 - f3 * f10 + f6 * f10),
+            (double) f7,
+            (double) f8);
+        tessellator.addVertexWithUV(
+            (double) (f11 + f1 * f10 + f4 * f10),
+            (double) (f12 + f2 * f10),
+            (double) (f13 + f3 * f10 + f6 * f10),
+            (double) f6,
+            (double) f8);
+        tessellator.addVertexWithUV(
+            (double) (f11 + f1 * f10 - f4 * f10),
+            (double) (f12 - f2 * f10),
+            (double) (f13 + f3 * f10 - f6 * f10),
+            (double) f6,
+            (double) f9);
 
         tessellator.draw();
         tessellator.startDrawingQuads();

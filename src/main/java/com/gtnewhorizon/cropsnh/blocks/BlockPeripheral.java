@@ -1,16 +1,5 @@
 package com.gtnewhorizon.cropsnh.blocks;
 
-import com.gtnewhorizon.cropsnh.handler.GuiHandler;
-import com.gtnewhorizon.cropsnh.network.MessagePeripheralCheckNeighbours;
-import com.gtnewhorizon.cropsnh.network.NetworkWrapperCropsNH;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
-import com.gtnewhorizon.cropsnh.renderers.blocks.RenderPeripheral;
-import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,7 +8,21 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.gtnewhorizon.cropsnh.handler.GuiHandler;
+import com.gtnewhorizon.cropsnh.network.MessagePeripheralCheckNeighbours;
+import com.gtnewhorizon.cropsnh.network.NetworkWrapperCropsNH;
+import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
+import com.gtnewhorizon.cropsnh.renderers.blocks.RenderPeripheral;
+import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
+
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class BlockPeripheral extends BlockSeedAnalyzer {
+
     @SideOnly(Side.CLIENT)
     private IIcon[] icons;
 
@@ -29,14 +32,14 @@ public class BlockPeripheral extends BlockSeedAnalyzer {
 
     @Override
     protected void setBlockProps() {
-        //set mining statistics
+        // set mining statistics
         this.setHardness(1);
         this.setResistance(1);
     }
 
     @Override
     protected int getGuiID() {
-    	return GuiHandler.peripheralID;
+        return GuiHandler.peripheralID;
     }
 
     @Override
@@ -49,7 +52,6 @@ public class BlockPeripheral extends BlockSeedAnalyzer {
         return Names.Objects.peripheral;
     }
 
-
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         IMessage msg = new MessagePeripheralCheckNeighbours(x, y, z);
@@ -57,25 +59,47 @@ public class BlockPeripheral extends BlockSeedAnalyzer {
         NetworkWrapperCropsNH.wrapper.sendToAllAround(msg, point);
     }
 
-    //rendering stuff
+    // rendering stuff
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int i) {return true;}
+    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int i) {
+        return true;
+    }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister reg) {
         this.icons = new IIcon[4];
-        this.icons[0] = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.') + 1)+"Top");
-        this.icons[1] = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.') + 1)+"Side");
-        this.icons[2] = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.') + 1)+"Bottom");
-        this.icons[3] = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.') + 1)+"Inner");
+        this.icons[0] = reg.registerIcon(
+            this.getUnlocalizedName()
+                .substring(
+                    this.getUnlocalizedName()
+                        .indexOf('.') + 1)
+                + "Top");
+        this.icons[1] = reg.registerIcon(
+            this.getUnlocalizedName()
+                .substring(
+                    this.getUnlocalizedName()
+                        .indexOf('.') + 1)
+                + "Side");
+        this.icons[2] = reg.registerIcon(
+            this.getUnlocalizedName()
+                .substring(
+                    this.getUnlocalizedName()
+                        .indexOf('.') + 1)
+                + "Bottom");
+        this.icons[3] = reg.registerIcon(
+            this.getUnlocalizedName()
+                .substring(
+                    this.getUnlocalizedName()
+                        .indexOf('.') + 1)
+                + "Inner");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        side = side>=icons.length?icons.length-1:side;
-        side = side<0?0:side;
+        side = side >= icons.length ? icons.length - 1 : side;
+        side = side < 0 ? 0 : side;
         return icons[side];
     }
 

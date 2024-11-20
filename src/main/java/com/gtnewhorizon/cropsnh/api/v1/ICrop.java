@@ -1,16 +1,18 @@
 package com.gtnewhorizon.cropsnh.api.v1;
 
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Random;
-
 public interface ICrop {
+
     /**
      * @return if this crop has a plant
      */
@@ -58,6 +60,7 @@ public interface ICrop {
 
     /**
      * Converts this crop to a crosscrop or a regular crop
+     * 
      * @param status true for crosscrop, false for regular crop
      */
     void setCrossCrop(boolean status);
@@ -69,11 +72,12 @@ public interface ICrop {
 
     /**
      * Sets the plant onto this crop
-     * @param growth the growth stat for the plant
-     * @param gain the gain stat for the plant
+     * 
+     * @param growth   the growth stat for the plant
+     * @param gain     the gain stat for the plant
      * @param strength the strength stat for the plant
      * @param analyzed if the plant is analyzed
-     * @param seed the seed representing the plant
+     * @param seed     the seed representing the plant
      * @param seedMeta the metadata for the seed
      */
     void setPlant(int growth, int gain, int strength, boolean analyzed, Item seed, int seedMeta);
@@ -120,6 +124,7 @@ public interface ICrop {
 
     /**
      * Updates the growthstage of the weeds on this crop
+     * 
      * @param growthStage the growth stage to be applied, should be in [0, 8[. 0 means clearing weeds
      */
     void updateWeed(int growthStage);
@@ -131,6 +136,7 @@ public interface ICrop {
 
     /**
      * Checks if a certain fertilizer may be applied to this crop
+     * 
      * @param fertiliser the fertilizer to be checked
      * @return if the fertilizer may be applied
      */
@@ -138,13 +144,15 @@ public interface ICrop {
 
     /**
      * Apply fertilizer to this crop
+     * 
      * @param fertiliser the fertilizer to be applied
-     * @param rand a Random object
+     * @param rand       a Random object
      */
     void applyFertiliser(IFertiliser fertiliser, Random rand);
 
     /**
      * Harvests this crop
+     * 
      * @param player the player which harvests the crop, may be null if it is harvested by automation
      * @return if the harvest was successful
      */
@@ -152,6 +160,7 @@ public interface ICrop {
 
     /**
      * Utility method to get access to the TileEntity fields and methods for the crop
+     * 
      * @return the TileEntity implementing ICrop
      */
     TileEntity getTileEntity();

@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class StatStringDisplayerCharacter extends StatStringDisplayer {
+
     private final char c;
 
     public StatStringDisplayerCharacter(char c) {
@@ -14,7 +15,7 @@ public class StatStringDisplayerCharacter extends StatStringDisplayer {
     @Override
     public String getStatDisplayString(int stat, int max) {
         StringBuilder buff = new StringBuilder();
-        while(stat>0) {
+        while (stat > 0) {
             buff.append(c);
             stat--;
         }

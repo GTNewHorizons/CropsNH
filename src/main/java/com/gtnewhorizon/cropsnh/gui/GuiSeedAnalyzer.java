@@ -1,13 +1,5 @@
 package com.gtnewhorizon.cropsnh.gui;
 
-import com.gtnewhorizon.cropsnh.container.ContainerSeedAnalyzer;
-import com.gtnewhorizon.cropsnh.gui.journal.GuiJournal;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntitySeedAnalyzer;
-import com.gtnewhorizon.cropsnh.utility.NBTHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -18,11 +10,25 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+
 import org.lwjgl.opengl.GL11;
+
+import com.gtnewhorizon.cropsnh.container.ContainerSeedAnalyzer;
+import com.gtnewhorizon.cropsnh.gui.journal.GuiJournal;
+import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.reference.Reference;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntitySeedAnalyzer;
+import com.gtnewhorizon.cropsnh.utility.NBTHelper;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiSeedAnalyzer extends GuiContainer {
-    public static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/GuiSeedAnalyzer.png");
+
+    public static final ResourceLocation texture = new ResourceLocation(
+        Reference.MOD_ID.toLowerCase(),
+        "textures/gui/GuiSeedAnalyzer.png");
     public TileEntitySeedAnalyzer seedAnalyzer;
 
     private boolean journalOpen;
@@ -43,23 +49,25 @@ public class GuiSeedAnalyzer extends GuiContainer {
         this.buttonList.add(new GuiButton(0, this.guiLeft + 131, this.guiTop + 67, 18, 18, ""));
     }
 
-    //draw foreground
+    // draw foreground
     @Override
     public void drawGuiContainerForegroundLayer(int x, int y) {
         String name = StatCollector.translateToLocal("cropsnh_gui.seedAnalyzer");
-        int white = 4210752;        //the number for white
-        //write name: x coordinate is in the middle, 6 down from the top, and setting color to white
-        this.fontRendererObj.drawString(name, this.xSize/2 - this.fontRendererObj.getStringWidth(name)/2, 6, white);
+        int white = 4210752; // the number for white
+        // write name: x coordinate is in the middle, 6 down from the top, and setting color to white
+        this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, white);
         this.fontRendererObj.drawString(I18n.format("container.inventory"), 9, this.ySize - 96 + 2, white);
     }
 
-    //draw background
+    // draw background
     @Override
     protected void drawGuiContainerBackgroundLayer(float opacity, int x, int y) {
         GL11.glColor4f(1F, 1F, 1F, 1F);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+        Minecraft.getMinecraft()
+            .getTextureManager()
+            .bindTexture(texture);
         drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-        if(this.seedAnalyzer.getProgress() > 0) {
+        if (this.seedAnalyzer.getProgress() > 0) {
             int state = this.seedAnalyzer.getProgressScaled(40);
             drawTexturedModalRect(this.guiLeft + 68, this.guiTop + 79, this.xSize, 0, state, 5);
         }
@@ -67,7 +75,7 @@ public class GuiSeedAnalyzer extends GuiContainer {
 
     @Override
     public void drawScreen(int x, int y, float opacity) {
-        if(journalOpen) {
+        if (journalOpen) {
             guiJournal.initGui();
             guiJournal.drawScreen(x, y, 0);
         } else {
@@ -77,11 +85,11 @@ public class GuiSeedAnalyzer extends GuiContainer {
 
     @Override
     protected void actionPerformed(GuiButton button) {
-        if(journalOpen) {
+        if (journalOpen) {
             return;
         }
         ItemStack journal = seedAnalyzer.getStackInSlot(ContainerSeedAnalyzer.journalSlotId);
-        if(journal != null) {
+        if (journal != null) {
             if (journal.hasTagCompound()) {
                 NBTTagCompound tag = journal.stackTagCompound;
                 if (tag.hasKey(Names.NBT.discoveredSeeds)) {
@@ -97,13 +105,12 @@ public class GuiSeedAnalyzer extends GuiContainer {
     }
 
     @Override
-    protected void keyTyped(char key, int number)  {
-        if(this.journalOpen) {
-            if (number == 1 || number == this.mc.gameSettings.keyBindInventory.getKeyCode())  {
+    protected void keyTyped(char key, int number) {
+        if (this.journalOpen) {
+            if (number == 1 || number == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
                 this.journalOpen = false;
                 this.guiJournal = null;
-            }
-            else {
+            } else {
                 super.keyTyped(key, number);
             }
         } else {
@@ -111,7 +118,7 @@ public class GuiSeedAnalyzer extends GuiContainer {
         }
     }
 
-    //opening the gui doesn't pause the game
+    // opening the gui doesn't pause the game
     @Override
     public boolean doesGuiPauseGame() {
         return false;
@@ -119,10 +126,9 @@ public class GuiSeedAnalyzer extends GuiContainer {
 
     @Override
     protected void mouseClicked(int x, int y, int rightClick) {
-        if(journalOpen) {
+        if (journalOpen) {
             guiJournal.mouseClicked(x, y, rightClick);
-        }
-        else {
+        } else {
             super.mouseClicked(x, y, rightClick);
         }
     }

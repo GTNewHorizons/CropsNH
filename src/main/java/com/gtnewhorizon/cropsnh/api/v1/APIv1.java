@@ -1,15 +1,17 @@
 package com.gtnewhorizon.cropsnh.api.v1;
 
-import com.gtnewhorizon.cropsnh.api.APIBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import com.gtnewhorizon.cropsnh.api.APIBase;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * <h1>This is the CropsNH API, version 1 (Based on cropsnh API v3).</h1>
@@ -39,7 +41,7 @@ public interface APIv1 extends APIBase {
      * in a modpack for some items), or if a dimension is blacklisted.
      *
      * @param world
-     *            An optional world
+     *              An optional world
      */
     boolean isActive(World world);
 
@@ -67,7 +69,7 @@ public interface APIv1 extends APIBase {
      * is configured to prevent all native planting it can prevent.
      *
      * @param seed
-     *            Any ItemStack that is a seed.
+     *             Any ItemStack that is a seed.
      * @return True if the seed must be handled by CropsNH.
      */
     boolean isNativePlantingDisabled(ItemStack seed);
@@ -77,7 +79,7 @@ public interface APIv1 extends APIBase {
      * in crops.
      *
      * @param seed
-     *            Any ItemStack that is a seed.
+     *             Any ItemStack that is a seed.
      * @return True if the seed can be planted in crops.
      */
     boolean isHandledByCropsNH(ItemStack seed);
@@ -86,7 +88,7 @@ public interface APIv1 extends APIBase {
      * Gives the statistics for the given seeds.
      *
      * @param seed
-     *          Any ItemStack that is a seed.
+     *             Any ItemStack that is a seed.
      * @return An ISeedStats object that describes the given seeds, or null if the
      *         given item was no seed.
      */
@@ -94,6 +96,7 @@ public interface APIv1 extends APIBase {
 
     /**
      * Gets the ICropPlant object containing all the data CropsNH knows about this seed
+     * 
      * @param seed Stack holding the seed
      * @return an ICropPlant object if the seed is considered a seed for CropsNH, or null if not
      */
@@ -114,6 +117,7 @@ public interface APIv1 extends APIBase {
 
     /**
      * Register a default soil that any crop that doesn't require a specific soil can grow on
+     * 
      * @return true if the soil was successfully registered
      */
     boolean registerDefaultSoil(BlockWithMeta soil);
@@ -122,7 +126,7 @@ public interface APIv1 extends APIBase {
      * Checks the seeds planting requirements.
      *
      * @param seed
-     *            Any ItemStack that is a seed.
+     *             Any ItemStack that is a seed.
      * @return A {@link IGrowthRequirement} object or null if the parameter was no
      *         seed or has special requirements.
      */
@@ -137,11 +141,11 @@ public interface APIv1 extends APIBase {
      * </p>
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @param crops
-     *            An item stack of one of the items getCropsItems() returns.
+     *              An item stack of one of the items getCropsItems() returns.
      * @return True if the crops can be placed.
      */
     boolean canPlaceCrops(World world, int x, int y, int z, ItemStack crops);
@@ -152,12 +156,12 @@ public interface APIv1 extends APIBase {
      * be handled by this method.
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @param crops
-     *            An item stack of at least one of the items getCropsItems()
-     *            returns. Will be modified on success!
+     *              An item stack of at least one of the items getCropsItems()
+     *              returns. Will be modified on success!
      * @return True if the crops were successfully placed, false otherwise.
      */
     boolean placeCrops(World world, int x, int y, int z, ItemStack crops);
@@ -166,9 +170,9 @@ public interface APIv1 extends APIBase {
      * Checks if the given position contains crops.
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return True if there are crops.
      */
     boolean isCrops(World world, int x, int y, int z);
@@ -177,9 +181,9 @@ public interface APIv1 extends APIBase {
      * Checks if the given position contains crops with a mature plant in it.
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return True if there is a mature (harvestable) plant, false otherwise.
      */
     boolean isMature(World world, int x, int y, int z);
@@ -188,9 +192,9 @@ public interface APIv1 extends APIBase {
      * Checks if the given position contains crops with weeds in them.
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return True if there are weeds, false otherwise.
      */
     boolean isWeeds(World world, int x, int y, int z);
@@ -203,9 +207,9 @@ public interface APIv1 extends APIBase {
      * </p>
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return True if there are empty crops, false otherwise.
      */
     boolean isEmpty(World world, int x, int y, int z);
@@ -214,9 +218,9 @@ public interface APIv1 extends APIBase {
      * Checks if the given position contains crops with crosscrops.
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return True if there are crosscrops, false otherwise.
      */
 
@@ -224,34 +228,36 @@ public interface APIv1 extends APIBase {
      * Gets the seed currently planted on the crop sticks at this location
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
-     * @return an ItemStack with the seed currently planted on this crop, returns null if there is no crop there, or there is no seed planted
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
+     * @return an ItemStack with the seed currently planted on this crop, returns null if there is no crop there, or
+     *         there is no seed planted
      */
-        ItemStack getPlantedSeed(World world, int x, int y, int z);
+    ItemStack getPlantedSeed(World world, int x, int y, int z);
 
     /**
      * Gets the Block instance of the block currently planted on the crop sticks at this location
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
-     * @return an ItemStack with the seed currently planted on this crop, returns null if there is no crop there, or there is no seed planted
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
+     * @return an ItemStack with the seed currently planted on this crop, returns null if there is no crop there, or
+     *         there is no seed planted
      */
-        Block getPlantedBlock(World world, int x, int y, int z);
+    Block getPlantedBlock(World world, int x, int y, int z);
 
     /**
      * Gets the ICropPlant object containing all the data CropsNH knows about the seed planted on this crop
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return an ICropPlant object if there is a seed planted here, or null if not
      */
-        ICropPlant getCropPlant(World world, int x, int y, int z);
+    ICropPlant getCropPlant(World world, int x, int y, int z);
 
     /**
      * Checks if the plant that is in crops at the given position can grow. A
@@ -265,74 +271,75 @@ public interface APIv1 extends APIBase {
      * </ul>
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return True if the given plant can grow, false otherwise.
      */
-        boolean canGrow(World world, int x, int y, int z);
+    boolean canGrow(World world, int x, int y, int z);
 
     /**
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
-     * @return true if the crop at the location is analyzed, false if not, or if there is no crop with a plant at the location
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
+     * @return true if the crop at the location is analyzed, false if not, or if there is no crop with a plant at the
+     *         location
      */
-        boolean isAnalyzed(World world, int x, int y, int z);
+    boolean isAnalyzed(World world, int x, int y, int z);
 
     /**
      * Returns the stats of the crop at the given location.
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return ISeedStats object holding the stats or null if there is no crop there, or the crop doesn't have a plant
      */
-        ISeedStats getStats(World world, int x, int y, int z);
+    ISeedStats getStats(World world, int x, int y, int z);
 
     /**
      * Checks if CropsNH is configured to require rakes to remove weeds.
      *
      * @return True if weeds cannot be removed by hand.
      */
-        boolean isRakeRequiredForWeeding();
+    boolean isRakeRequiredForWeeding();
 
     /**
      * Tries to remove the weeds at the given position.
      *
-     * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param world  World object
+     * @param x      x-coordinate
+     * @param y      y-coordinate
+     * @param z      z-coordinate
      * @param byHand
-     *            True if the interaction should be considered as a player using
-     *            their bare hand or not. If not, it is assumed that the caller
-     *            is a machine that has an equivalent of rakes built in.
+     *               True if the interaction should be considered as a player using
+     *               their bare hand or not. If not, it is assumed that the caller
+     *               is a machine that has an equivalent of rakes built in.
      * @return True if weeds were removed. False if the removal failed, either
      *         because there were no weeds, or both isRakeRequiredForWeeding and
      *         byHand are true.
      */
-        boolean removeWeeds(World world, int x, int y, int z, boolean byHand);
+    boolean removeWeeds(World world, int x, int y, int z, boolean byHand);
 
     /**
      * Tries to remove the weeds at the given position with the given tool. If
      * the tool takes damage, this method will update the item stack.
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @param rake
-     *            An item stack of one of the items getRakeItems() returns. Will
-     *            possibly be modified on success!
+     *              An item stack of one of the items getRakeItems() returns. Will
+     *              possibly be modified on success!
      * @return True if weeds were removed. False if the removal failed, either
      *         because there were no weeds, or the given rake is not valid for
      *         the job.
      */
-        boolean removeWeeds(World world, int x, int y, int z, ItemStack rake);
+    boolean removeWeeds(World world, int x, int y, int z, ItemStack rake);
 
     /**
      * Tries to place crosscrops on the crops at the given position. On success
@@ -350,15 +357,15 @@ public interface APIv1 extends APIBase {
      * </ul>
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @param crops
-     *            An item stack of at least one of the items getCropsItems()
-     *            returns. Will be modified on success!
+     *              An item stack of at least one of the items getCropsItems()
+     *              returns. Will be modified on success!
      * @return True if the crosscrops were placed, false otherwise.
      */
-        boolean placeCrossCrops(World world, int x, int y, int z, ItemStack crops);
+    boolean placeCrossCrops(World world, int x, int y, int z, ItemStack crops);
 
     /**
      * Tries to remove crosscrops at the given position. The removed crops will
@@ -369,27 +376,27 @@ public interface APIv1 extends APIBase {
      * differentiate these cases.
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return An item stack with the removed crops or null if nothing was
      *         removed.
      */
-        ItemStack removeCrossCrops(World world, int x, int y, int z);
+    ItemStack removeCrossCrops(World world, int x, int y, int z);
 
     /**
      * Checks if the given seeds can be placed into the crops at the given
      * position. See {@link SeedRequirementStatus} for details.
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @param seed
-     *            An item stack of seeds.
+     *              An item stack of seeds.
      * @return A SeedRequirementStatus object.
      */
-        SeedRequirementStatus canApplySeeds(World world, int x, int y, int z, ItemStack seed);
+    SeedRequirementStatus canApplySeeds(World world, int x, int y, int z, ItemStack seed);
 
     /**
      * Tries to place the given seeds into the crops at the given position. On
@@ -402,14 +409,14 @@ public interface APIv1 extends APIBase {
      * </p>
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @param seed
-     *            An item stack of seeds. Will be modified on success!
+     *              An item stack of seeds. Will be modified on success!
      * @return True if the seeds were placed, false otherwise.
      */
-        boolean applySeeds(World world, int x, int y, int z, ItemStack seed);
+    boolean applySeeds(World world, int x, int y, int z, ItemStack seed);
 
     /**
      * Tries to harvest the content of the crops at the given position. This
@@ -424,12 +431,12 @@ public interface APIv1 extends APIBase {
      * </p>
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return A harvest result or null.
      */
-        List<ItemStack> harvest(World world, int x, int y, int z);
+    List<ItemStack> harvest(World world, int x, int y, int z);
 
     /**
      * Tries to destroy the crops at the given position. This equates to a
@@ -444,12 +451,12 @@ public interface APIv1 extends APIBase {
      * </p>
      *
      * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param x     x-coordinate
+     * @param y     y-coordinate
+     * @param z     z-coordinate
      * @return A list of dropped items or null.
      */
-        List<ItemStack> destroy(World world, int x, int y, int z);
+    List<ItemStack> destroy(World world, int x, int y, int z);
 
     /**
      * Checks if the given item is any form of supported fertilizer (e.g. bone
@@ -461,27 +468,26 @@ public interface APIv1 extends APIBase {
      * </p>
      *
      * @param fertilizer
-     *            Any item.
+     *                   Any item.
      * @return True if CropsNH knows how to handle the given item as
      *         fertilizer.
      */
-        boolean isSupportedFertilizer(ItemStack fertilizer);
+    boolean isSupportedFertilizer(ItemStack fertilizer);
 
     /**
      * Checks if the given fertilizer is valid for the plant in the crop at the
      * given position.
      *
-     * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param world      World object
+     * @param x          x-coordinate
+     * @param y          y-coordinate
+     * @param z          z-coordinate
      * @param fertilizer
-     *            Any item, preferable one that is a fertilizer.
+     *                   Any item, preferable one that is a fertilizer.
      * @return True if the item is a valid fertilizer and can be applied, false
      *         otherwise.
      */
-        boolean isValidFertilizer(World world, int x, int y, int z,
-                              ItemStack fertilizer);
+    boolean isValidFertilizer(World world, int x, int y, int z, ItemStack fertilizer);
 
     /**
      * Tries to apply the given fertilizer to the plant in the crop at the given
@@ -493,81 +499,89 @@ public interface APIv1 extends APIBase {
      * fertilizer, only if it was applied.
      * </p>
      *
-     * @param world World object
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
+     * @param world      World object
+     * @param x          x-coordinate
+     * @param y          y-coordinate
+     * @param z          z-coordinate
      * @param fertilizer
-     *            Any item, preferable one that is a fertilizer. Will be
-     *            modified on success!
+     *                   Any item, preferable one that is a fertilizer. Will be
+     *                   modified on success!
      * @return True if the fertilizer was applied successfully, false otherwise.
      */
-        boolean applyFertilizer(World world, int x, int y, int z,
-                            ItemStack fertilizer);
+    boolean applyFertilizer(World world, int x, int y, int z, ItemStack fertilizer);
 
     /**
      * Gets a list of all mutations currently registered
      * Mutations are populated onServerAboutToStartEvent, so any calls before that will return null
      */
-        IMutation[] getRegisteredMutations();
+    IMutation[] getRegisteredMutations();
 
     /**
      * Gets a list of all mutations that have this stack as a parent
      * Mutations are populated onServerAboutToStartEvent, so any calls before that will return null
      */
-        IMutation[] getRegisteredMutationsForParent(ItemStack parent);
+    IMutation[] getRegisteredMutationsForParent(ItemStack parent);
 
     /**
      * Gets a list of all mutations that have this stack as a child
      * Mutations are populated onServerAboutToStartEvent, so any calls before that will return null
      */
-        IMutation[] getRegisteredMutationsForChild(ItemStack child);
-
+    IMutation[] getRegisteredMutationsForChild(ItemStack child);
 
     /**
      * Registers a new mutation: result = parent1 + parent2
-     * @param result ItemStack containing the resulting seed of the mutation
+     * 
+     * @param result  ItemStack containing the resulting seed of the mutation
      * @param parent1 ItemStack containing one parent for the mutation
      * @param parent2 ItemStack containing the other parent for the mutation
      * @return True if successful
      */
-        boolean registerMutation(ItemStack result, ItemStack parent1, ItemStack parent2);
+    boolean registerMutation(ItemStack result, ItemStack parent1, ItemStack parent2);
 
     /**
      * Registers a new mutation: result = parent1 + parent2
-     * @param result ItemStack containing the resulting seed of the mutation
+     * 
+     * @param result  ItemStack containing the resulting seed of the mutation
      * @param parent1 ItemStack containing one parent for the mutation
      * @param parent2 ItemStack containing the other parent for the mutation
-     * @param chance the chance for this mutation to occur, default is 0.2D
+     * @param chance  the chance for this mutation to occur, default is 0.2D
      * @return True if successful
      */
-        boolean registerMutation(ItemStack result, ItemStack parent1, ItemStack parent2, double chance);
+    boolean registerMutation(ItemStack result, ItemStack parent1, ItemStack parent2, double chance);
 
     /**
      * Removes all mutations that give this stack as a result
+     * 
      * @param result ItemStack containing the resulting seed for all the mutations to be removed
      * @return True if successful
      */
-        boolean removeMutation(ItemStack result);
+    boolean removeMutation(ItemStack result);
 
     /**
      * This method creates the block and the seed for a new plant that is fully compatible with cropsnh.
-     * This method also registers this block and the item for the seed to the minecraft item/block registry and to the CropsNH CropPlantHandler.
+     * This method also registers this block and the item for the seed to the minecraft item/block registry and to the
+     * CropsNH CropPlantHandler.
+     * 
      * @param args: Arguments can be given in any order, parameters can be:
-     *               String name (needed)
-     *               ItemStack fruit(needed)
-     *               BlockWithMeta soil (optional, pass this argument before the RequirementType, else it will be interpreted as a baseblock)
-     *               RequirementType (optional)
-     *               BlockWithMeta baseBlock (optional, only if a RequirementType is specified first, else it will be set a a soil)
-     *               int tier (necessary)
-     *               RenderMethod renderType (necessary)
-     *               ItemStack shearDrop (optional, first ItemStack argument will be the regular fruit, second ItemStack argument is the shear drop)
+     *              String name (needed)
+     *              ItemStack fruit(needed)
+     *              BlockWithMeta soil (optional, pass this argument before the RequirementType, else it will be
+     *              interpreted as a baseblock)
+     *              RequirementType (optional)
+     *              BlockWithMeta baseBlock (optional, only if a RequirementType is specified first, else it will be set
+     *              a a soil)
+     *              int tier (necessary)
+     *              RenderMethod renderType (necessary)
+     *              ItemStack shearDrop (optional, first ItemStack argument will be the regular fruit, second ItemStack
+     *              argument is the shear drop)
      * @return
-     * The Block corresponding with the plant, return type will always be instance of Block as well ICropsNHPlant.
-     * The seed is instance of Item and implements ICropsNHSeed. It can be obtained by calling getSeed() on the returned object.
-     * This method will return null when not all necessary arguments are given.
+     *         The Block corresponding with the plant, return type will always be instance of Block as well
+     *         ICropsNHPlant.
+     *         The seed is instance of Item and implements ICropsNHSeed. It can be obtained by calling getSeed() on the
+     *         returned object.
+     *         This method will return null when not all necessary arguments are given.
      */
-        ICropsNHPlant createNewCrop(Object... args);
+    ICropsNHPlant createNewCrop(Object... args);
 
     /**
      * Register a cropPlant for CropsNH to recognise as a valid plant for crops
@@ -575,112 +589,130 @@ public interface APIv1 extends APIBase {
     void registerCropPlant(ICropPlant plant);
 
     /**
-     * Register a  soil that crop sticks can be placed on use this if you have your own ICropPlant which doesn't use IGrowthRequirement
+     * Register a soil that crop sticks can be placed on use this if you have your own ICropPlant which doesn't use
+     * IGrowthRequirement
+     * 
      * @return true if the soil was successfully registered
      */
-        boolean registerValidSoil(BlockWithMeta soil);
+    boolean registerValidSoil(BlockWithMeta soil);
 
     /**
      * @return the cap imposed to seed stats specified in the config
      */
-        short getStatCap();
+    short getStatCap();
 
     /**
      * Analyzes the seed in the stack
+     * 
      * @param seed the stack
      */
-        void analyze(ItemStack seed);
+    void analyze(ItemStack seed);
 
     /**
      * Gets the crop at the given location.
-     * Calling this method once and then calling needed methods on the ICrop object is much more efficient then calling the methods separately via the API.
-     * This only requires 1 call to world.getTileEntity(x, y, z) instead of multiple api.someMethod(world, x, y, z) and then api.someOtherMethod(world, x, y, z)
+     * Calling this method once and then calling needed methods on the ICrop object is much more efficient then calling
+     * the methods separately via the API.
+     * This only requires 1 call to world.getTileEntity(x, y, z) instead of multiple api.someMethod(world, x, y, z) and
+     * then api.someOtherMethod(world, x, y, z)
      *
      * @param world the World object
-     * @param x the x coordinate
-     * @param y the y coordinate
-     * @param z the z coordinate
+     * @param x     the x coordinate
+     * @param y     the y coordinate
+     * @param z     the z coordinate
      * @return ICrop object
      */
-        ICrop getCrop(World world, int x, int y, int z);
+    ICrop getCrop(World world, int x, int y, int z);
 
     /**
      * Method used to set custom stat calculation logic
+     * 
      * @param calculator the IStatCalculator Object to be used when calculating stats
      */
     void setStatCalculator(IStatCalculator calculator);
 
     /**
      * Gets a new IGrowthRequirementBuilder object used to create new IGrowthRequirement objects
+     * 
      * @return a new IGrowthRequirementBuilder instance
      */
-        IGrowthRequirementBuilder createGrowthRequirementBuilder();
+    IGrowthRequirementBuilder createGrowthRequirementBuilder();
 
     /**
-     * @return a new IGrowthRequirement object which has default vanilla behaviour, meaning no base block, soil is farmland and requires brightness
+     * @return a new IGrowthRequirement object which has default vanilla behaviour, meaning no base block, soil is
+     *         farmland and requires brightness
      */
-        IGrowthRequirement createDefaultGrowthRequirement();
+    IGrowthRequirement createDefaultGrowthRequirement();
 
     /**
      * Method used to set custom stat displaying methods
+     * 
      * @param displayer the IStatStringDisplayer Object to be used when displaying stat strings in tooltips
      */
-        @SideOnly(Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     void setStatStringDisplayer(IStatStringDisplayer displayer);
 
     /**
      * Checks if a seed is discovered in the journal
+     * 
      * @param journal an ItemStack holding the journal
-     * @param seed an ItemStack containing a seed
+     * @param seed    an ItemStack containing a seed
      * @return if the seed is discovered in the journal
      */
-        boolean isSeedDiscoveredInJournal(ItemStack journal, ItemStack seed);
+    boolean isSeedDiscoveredInJournal(ItemStack journal, ItemStack seed);
 
     /**
      * This adds an entry the journal, for example when a seed is analyzed in the seed analyzer this method is called.
      * This internally checks if the seed is discovered already before adding to prevent duplicate entries
+     * 
      * @param journal an ItemStack holding the journal
-     * @param seed an ItemStack containing a seed
+     * @param seed    an ItemStack containing a seed
      */
-        void addEntryToJournal(ItemStack journal, ItemStack seed);
+    void addEntryToJournal(ItemStack journal, ItemStack seed);
 
     /**
      * Gets an ArrayList containing all seeds discovered in this journal
+     * 
      * @param journal an ItemStack holding the journal
-     * @return an ArrayList containing an ItemStack for every discovered seed (the list may be empty but will never be null)
+     * @return an ArrayList containing an ItemStack for every discovered seed (the list may be empty but will never be
+     *         null)
      */
-        ArrayList<ItemStack> getDiscoveredSeedsFromJournal(ItemStack journal);
+    ArrayList<ItemStack> getDiscoveredSeedsFromJournal(ItemStack journal);
 
     /**
      * Checks if a seed is BlackListed
+     * 
      * @param seed the seed to check
      * @return if the seed is blacklisted and should not be plantable on crop sticks
      */
-        boolean isSeedBlackListed(ItemStack seed);
+    boolean isSeedBlackListed(ItemStack seed);
 
     /**
      * Adds a seed to the blacklist
+     * 
      * @param seed the seed to add to the blacklist
      */
-        void addToSeedBlackList(ItemStack seed);
+    void addToSeedBlackList(ItemStack seed);
 
     /**
      * Adds a collection of seeds to the blacklist
+     * 
      * @param seeds collection containing all seeds to be added to the blacklist
      */
-        void addToSeedBlacklist(Collection<? extends ItemStack> seeds);
+    void addToSeedBlacklist(Collection<? extends ItemStack> seeds);
 
     /**
      * Removes a seed from the blacklist
+     * 
      * @param seed the seed to be removed from the blacklist
      */
-        void removeFromSeedBlackList(ItemStack seed);
+    void removeFromSeedBlackList(ItemStack seed);
 
     /**
      * Removes a collection of seeds from the blacklist
+     * 
      * @param seeds collection containing all seeds to be removed from the blacklist
      */
-        void removeFromSeedBlacklist(Collection<? extends ItemStack> seeds);
+    void removeFromSeedBlacklist(Collection<? extends ItemStack> seeds);
 
     /**
      * @return The IMutationHandler object

@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.farming.mutation;
 
+import java.util.Random;
+
 import com.gtnewhorizon.cropsnh.api.v1.ICrop;
 import com.gtnewhorizon.cropsnh.api.v1.ICrossOverResult;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
@@ -11,14 +13,13 @@ import com.gtnewhorizon.cropsnh.farming.mutation.statcalculator.StatCalculator;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 
-import java.util.Random;
-
 /**
  * This class decides whether a plant is spreading or mutating and also
  * calculates the new stats (growth, gain, strength) of the new plant based on
  * the 4 neighbours.
  */
 public class MutationEngine implements IMutationEngine {
+
     private final TileEntityCrop crop;
     private final Random random;
 
@@ -36,7 +37,7 @@ public class MutationEngine implements IMutationEngine {
      */
     public void executeCrossOver() {
         ICrossOverResult result = rollAndExecuteStrategy();
-        if (result == null || result.getSeed()==null) {
+        if (result == null || result.getSeed() == null) {
             return;
         }
         if (resultIsValid(result) && random.nextDouble() < result.getChance()) {
@@ -53,9 +54,10 @@ public class MutationEngine implements IMutationEngine {
 
     public ICrossOverResult rollAndExecuteStrategy() {
         boolean spreading = random.nextDouble() > ConfigurationHandler.mutationChance;
-        return spreading ?
-                getMutationHandler().getMutationLogic().getSpreadingResult(this) :
-                getMutationHandler().getMutationLogic().getMutationResult(this);
+        return spreading ? getMutationHandler().getMutationLogic()
+            .getSpreadingResult(this)
+            : getMutationHandler().getMutationLogic()
+                .getMutationResult(this);
     }
 
     public ICrop getCrop() {

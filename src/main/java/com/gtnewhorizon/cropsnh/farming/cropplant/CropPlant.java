@@ -1,14 +1,8 @@
 package com.gtnewhorizon.cropsnh.farming.cropplant;
 
-import com.gtnewhorizon.cropsnh.api.v1.IAdditionalCropData;
-import com.gtnewhorizon.cropsnh.api.v1.ICrop;
-import com.gtnewhorizon.cropsnh.api.v1.ICropPlant;
-import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
-import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,10 +12,19 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.api.v1.IAdditionalCropData;
+import com.gtnewhorizon.cropsnh.api.v1.ICrop;
+import com.gtnewhorizon.cropsnh.api.v1.ICropPlant;
+import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class CropPlant implements ICropPlant {
+
     private IGrowthRequirement growthRequirement;
     private int tier;
     private int spreadChance;
@@ -30,7 +33,8 @@ public abstract class CropPlant implements ICropPlant {
 
     public CropPlant() {
         this.growthRequirement = initGrowthRequirement();
-        growthRequirement = growthRequirement == null ? GrowthRequirementHandler.getNewBuilder().build() : growthRequirement;
+        growthRequirement = growthRequirement == null ? GrowthRequirementHandler.getNewBuilder()
+            .build() : growthRequirement;
         this.setTier(tier());
         this.blackListed = false;
         this.ignoreVanillaPlantingRule = false;
@@ -38,13 +42,13 @@ public abstract class CropPlant implements ICropPlant {
 
     @Override
     public final int getGrowthRate() {
-    	int tier = getTier();
+        int tier = getTier();
 
-    	if (tier > 0 && tier <= Constants.GROWTH_TIER.length) {
-    		return Constants.GROWTH_TIER[tier];
-    	} else {
-    		return Constants.GROWTH_TIER[0];
-    	}
+        if (tier > 0 && tier <= Constants.GROWTH_TIER.length) {
+            return Constants.GROWTH_TIER[tier];
+        } else {
+            return Constants.GROWTH_TIER[0];
+        }
     }
 
     @Override
@@ -54,10 +58,10 @@ public abstract class CropPlant implements ICropPlant {
 
     @Override
     public final void setTier(int tier) {
-        tier = tier >= Constants.GROWTH_TIER.length ? Constants.GROWTH_TIER.length-1 : tier;
+        tier = tier >= Constants.GROWTH_TIER.length ? Constants.GROWTH_TIER.length - 1 : tier;
         tier = tier <= 0 ? 1 : tier;
         this.tier = tier;
-        this.spreadChance = 100/tier;
+        this.spreadChance = 100 / tier;
     }
 
     @Override
@@ -181,7 +185,6 @@ public abstract class CropPlant implements ICropPlant {
     @SideOnly(Side.CLIENT)
     public abstract String getInformation();
 
-
     @Override
     @SideOnly(Side.CLIENT)
     public boolean overrideRendering() {
@@ -191,6 +194,13 @@ public abstract class CropPlant implements ICropPlant {
     @Override
     @SideOnly(Side.CLIENT)
     public void renderPlantInCrop(IBlockAccess world, int x, int y, int z, RenderBlocks renderer) {
-        PlantRenderer.renderPlantLayer(world, x, y, z, renderAsFlower() ? 1 : 6, getPlantIcon(world.getBlockMetadata(x, y, z)), 0);
+        PlantRenderer.renderPlantLayer(
+            world,
+            x,
+            y,
+            z,
+            renderAsFlower() ? 1 : 6,
+            getPlantIcon(world.getBlockMetadata(x, y, z)),
+            0);
     }
 }

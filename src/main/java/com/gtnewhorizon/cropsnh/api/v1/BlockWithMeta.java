@@ -25,15 +25,16 @@ public class BlockWithMeta {
         this.meta = meta;
         this.ignoreMeta = fuzzy;
     }
-	public Block getBlock() {
+
+    public Block getBlock() {
         return block;
     }
 
-	public int getMeta() {
+    public int getMeta() {
         return meta;
     }
 
-	public boolean ignoreMeta() {
+    public boolean ignoreMeta() {
         return ignoreMeta;
     }
 
@@ -43,7 +44,7 @@ public class BlockWithMeta {
 
     @Override
     public String toString() {
-        return Block.blockRegistry.getNameForObject(this.block)+":"+this.meta;
+        return Block.blockRegistry.getNameForObject(this.block) + ":" + this.meta;
     }
 
     @Override
@@ -53,10 +54,9 @@ public class BlockWithMeta {
         }
         if (obj instanceof BlockWithMeta) {
             BlockWithMeta block = (BlockWithMeta) obj;
-            if(this.ignoreMeta || block.ignoreMeta) {
+            if (this.ignoreMeta || block.ignoreMeta) {
                 return block.block == this.block;
-            }
-            else {
+            } else {
                 return block.block == this.block && block.meta == this.meta;
             }
         }

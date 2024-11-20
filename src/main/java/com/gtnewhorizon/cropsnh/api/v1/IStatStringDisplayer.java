@@ -8,10 +8,12 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 @SideOnly(Side.CLIENT)
 public interface IStatStringDisplayer {
+
     /**
      * Used to display plant stats in tooltips and WAILA
+     * 
      * @param stat the level of the stat to be displayed
-     * @param max the maximum level of the stat
+     * @param max  the maximum level of the stat
      * @return the String which will be displayed
      */
     String getStatDisplayString(int stat, int max);

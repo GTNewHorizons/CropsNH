@@ -1,20 +1,22 @@
 package com.gtnewhorizon.cropsnh.compatibility.harvestthenether;
 
-import com.gtnewhorizon.cropsnh.api.v1.ICrop;
-import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
-import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
-import com.gtnewhorizon.cropsnh.reference.Constants;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.api.v1.ICrop;
+import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
+import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
+import com.gtnewhorizon.cropsnh.reference.Constants;
 
 public class CropPlantHarvestTheNether extends CropPlant {
+
     private final Item seed;
     private final Block plant;
     private final Item fruit;
@@ -57,7 +59,7 @@ public class CropPlantHarvestTheNether extends CropPlant {
     public ArrayList<ItemStack> getFruitsOnHarvest(int gain, Random rand) {
         int amount = (int) (Math.ceil((gain + 0.00) / 3));
         ArrayList<ItemStack> list = new ArrayList<>();
-        while(amount>0) {
+        while (amount > 0) {
             list.add(getRandomFruit(rand));
             amount--;
         }
@@ -71,7 +73,8 @@ public class CropPlantHarvestTheNether extends CropPlant {
 
     @Override
     protected IGrowthRequirement initGrowthRequirement() {
-        return GrowthRequirementHandler.getNewBuilder().build();
+        return GrowthRequirementHandler.getNewBuilder()
+            .build();
     }
 
     @Override
@@ -81,7 +84,7 @@ public class CropPlantHarvestTheNether extends CropPlant {
 
     @Override
     public float getHeight(int meta) {
-        return Constants.UNIT*13;
+        return Constants.UNIT * 13;
     }
 
     @Override
@@ -98,9 +101,9 @@ public class CropPlantHarvestTheNether extends CropPlant {
     public String getInformation() {
         String name = seed.getUnlocalizedName();
         int index = name.indexOf("seedItem");
-        name = index>0 ? name.substring(0, index) : name;
+        name = index > 0 ? name.substring(0, index) : name;
         index = name.indexOf('.');
-        name = index>0 ? name.substring(index+1) : name;
-        return "cropsnh_journal.harvestTheNether_"+name;
+        name = index > 0 ? name.substring(index + 1) : name;
+        return "cropsnh_journal.harvestTheNether_" + name;
     }
 }

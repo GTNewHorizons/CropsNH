@@ -3,6 +3,7 @@ package com.gtnewhorizon.cropsnh.utility.multiblock;
 import net.minecraft.nbt.NBTTagCompound;
 
 public interface IMultiBlockPartData {
+
     /**
      * @return the relative x-position in the multi-block structure
      */

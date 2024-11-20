@@ -1,22 +1,26 @@
 package com.gtnewhorizon.cropsnh.renderers.player.renderhooks;
 
-import com.gtnewhorizon.cropsnh.renderers.particles.DustFX;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.glu.Sphere;
 
-import java.util.ArrayList;
+import com.gtnewhorizon.cropsnh.renderers.particles.DustFX;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class PlayerEffectRendererNavi extends PlayerEffectRenderer {
+
     private short counter = 0;
     private final Sphere sphere;
     private final float f;
@@ -62,8 +66,8 @@ public class PlayerEffectRendererNavi extends PlayerEffectRenderer {
         double arg = Math.toRadians(360 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL);
         double vY = 5;
         double aY = 0.1F;
-        double dy = aY*Math.cos((vY*arg)%360);
-        return new double[] {0.5F, -1+dy, 1};
+        double dy = aY * Math.cos((vY * arg) % 360);
+        return new double[] { 0.5F, -1 + dy, 1 };
     }
 
     private void renderSphere() {
@@ -74,7 +78,9 @@ public class PlayerEffectRendererNavi extends PlayerEffectRenderer {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glScalef(scale, scale, scale);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+        Minecraft.getMinecraft()
+            .getTextureManager()
+            .bindTexture(texture);
         sphere.draw(f, detail, detail);
     }
 
@@ -83,8 +89,8 @@ public class PlayerEffectRendererNavi extends PlayerEffectRenderer {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
 
-        float arg = (float) Math.toRadians((20*360*(System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL)%360);
-        float sin = (float) (10*Math.sin(arg));
+        float arg = (float) Math.toRadians((20 * 360 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL) % 360);
+        float sin = (float) (10 * Math.sin(arg));
         float scale = 0.5F;
 
         GL11.glRotatef(90, 0, 1, 0);
@@ -97,29 +103,29 @@ public class PlayerEffectRendererNavi extends PlayerEffectRenderer {
         GL11.glTranslatef(0, 0.25F, 0);
         Minecraft.getMinecraft().renderEngine.bindTexture(smallWing);
         GL11.glScalef(0.5F, 0.5F, 0.5F);
-        //GL11.glRotatef(180, 1, 0, 0);
+        // GL11.glRotatef(180, 1, 0, 0);
         draw(tessellator, scale);
         GL11.glRotatef(2 * (45 + sin), 0, 1, 0);
         draw(tessellator, scale);
-        //GL11.glRotatef(180, -1, 0, 0);
+        // GL11.glRotatef(180, -1, 0, 0);
         GL11.glScalef(2F, 2F, 2F);
         GL11.glRotatef(-45 - sin, 0, 1, 0);
         GL11.glTranslatef(0, -0.25F, 0);
     }
 
     private void draw(Tessellator tessellator, float scale) {
-        //x-, y & z-axis
-        //this.drawAxisSystem();
+        // x-, y & z-axis
+        // this.drawAxisSystem();
 
         GL11.glRotatef(-0, 1, 0, 1);
         tessellator.startDrawingQuads();
 
-        //front
+        // front
         tessellator.addVertexWithUV(0, 0, 0, 0, 1);
         tessellator.addVertexWithUV(0, -scale, 0, 0, 0);
         tessellator.addVertexWithUV(-scale, -scale, 0, 1, 0);
         tessellator.addVertexWithUV(-scale, 0, 0, 1, 1);
-        //back
+        // back
         tessellator.addVertexWithUV(-scale, 0, 0, 1, 1);
         tessellator.addVertexWithUV(-scale, -scale, 0, 1, 0);
         tessellator.addVertexWithUV(0, -scale, 0, 0, 0);
@@ -131,23 +137,31 @@ public class PlayerEffectRendererNavi extends PlayerEffectRenderer {
     private void spawnParticles(EntityPlayer player, double y, float partialTick) {
         short delay = 20;
         counter++;
-        if (counter>=delay) {
+        if (counter >= delay) {
             counter = 0;
             double x = 0.5F;
-            y = y + (player==Minecraft.getMinecraft().thePlayer?0.62:0);
+            y = y + (player == Minecraft.getMinecraft().thePlayer ? 0.62 : 0);
             double z = -1;
-            double yaw = Math.toRadians(player.prevRenderYawOffset + (player.renderYawOffset-player.prevRenderYawOffset)*partialTick);
+            double yaw = Math.toRadians(
+                player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTick);
             double cos = Math.cos(yaw);
             double sin = Math.sin(yaw);
-            double xNew = x*cos - z*sin;
-            double zNew = x*sin + z*cos;
+            double xNew = x * cos - z * sin;
+            double zNew = x * sin + z * cos;
             Vec3 vector = Vec3.createVectorHelper(0, 0, 0);
             float scale = player.worldObj.rand.nextFloat();
-            double radius = 0.3*player.worldObj.rand.nextDouble();
+            double radius = 0.3 * player.worldObj.rand.nextDouble();
             double angle = Math.toRadians(player.worldObj.rand.nextInt(360));
-            DustFX particle = new DustFX(player.worldObj, player.posX+xNew+radius*Math.cos(angle), player.posY-2*y, +player.posZ+zNew+radius*Math.sin(angle), scale, 0.01F, vector, texture);
+            DustFX particle = new DustFX(
+                player.worldObj,
+                player.posX + xNew + radius * Math.cos(angle),
+                player.posY - 2 * y,
+                +player.posZ + zNew + radius * Math.sin(angle),
+                scale,
+                0.01F,
+                vector,
+                texture);
             Minecraft.getMinecraft().effectRenderer.addEffect(particle);
         }
     }
 }
-

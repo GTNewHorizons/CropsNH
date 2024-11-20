@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.utility;
 
 public final class CoordinateIterator {
+
     private boolean x;
     private boolean y;
     private boolean z;
@@ -42,15 +43,15 @@ public final class CoordinateIterator {
     }
 
     public int x() {
-        return x?offset:0;
+        return x ? offset : 0;
     }
 
     public int y() {
-        return y?offset:0;
+        return y ? offset : 0;
     }
 
     public int z() {
-        return z?offset:0;
+        return z ? offset : 0;
     }
 
     public int getOffset() {

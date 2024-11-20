@@ -1,32 +1,36 @@
 package com.gtnewhorizon.cropsnh.compatibility.minetweaker;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.ItemStack;
+
 import com.google.common.base.Joiner;
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
 import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
 import minetweaker.api.oredict.IOreDictEntry;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemSeeds;
-import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Growing {
-    /**Provides functionality to add and remove fertile soils*/
+
+    /** Provides functionality to add and remove fertile soils */
     @ZenClass("mods.cropsnh.growing.FertileSoils")
     public static class FertileSoils {
+
         @ZenMethod
         public static void add(IItemStack soil) {
-            add(new IItemStack[]{soil});
+            add(new IItemStack[] { soil });
         }
 
         @ZenMethod
@@ -35,13 +39,14 @@ public class Growing {
             if (areValidSoils(soilsToAdd)) {
                 MineTweakerAPI.apply(new AddAction(soilsToAdd));
             } else {
-                MineTweakerAPI.logError("Error adding soils to the whitelist. All provided items must be of type ItemBlock.");
+                MineTweakerAPI
+                    .logError("Error adding soils to the whitelist. All provided items must be of type ItemBlock.");
             }
         }
 
         @ZenMethod
         public static void remove(IItemStack soil) {
-            remove(new IItemStack[]{soil});
+            remove(new IItemStack[] { soil });
         }
 
         @ZenMethod
@@ -50,7 +55,8 @@ public class Growing {
             if (areValidSoils(soilsToRemove)) {
                 MineTweakerAPI.apply(new RemoveAction(soilsToRemove));
             } else {
-                MineTweakerAPI.logError("Error removing soils from the whitelist. All provided items must be of type ItemBlock.");
+                MineTweakerAPI
+                    .logError("Error removing soils from the whitelist. All provided items must be of type ItemBlock.");
             }
         }
 
@@ -72,8 +78,9 @@ public class Growing {
 
             public AddAction(ItemStack[] soils) {
                 this.soils = new ArrayList<>();
-                for(ItemStack stack:soils) {
-                    this.soils.add(new BlockWithMeta(((ItemBlock) stack.getItem()).field_150939_a, stack.getItemDamage()));
+                for (ItemStack stack : soils) {
+                    this.soils
+                        .add(new BlockWithMeta(((ItemBlock) stack.getItem()).field_150939_a, stack.getItemDamage()));
                 }
             }
 
@@ -94,12 +101,14 @@ public class Growing {
 
             @Override
             public String describe() {
-                return "Adding soils [" + Joiner.on(", ").join(soils) + "] to whitelist.";
+                return "Adding soils [" + Joiner.on(", ")
+                    .join(soils) + "] to whitelist.";
             }
 
             @Override
             public String describeUndo() {
-                return "Removing previously added soils [" + Joiner.on(", ").join(soils) + "] from the whitelist.";
+                return "Removing previously added soils [" + Joiner.on(", ")
+                    .join(soils) + "] from the whitelist.";
             }
 
             @Override
@@ -108,15 +117,15 @@ public class Growing {
             }
         }
 
-
         private static class RemoveAction implements IUndoableAction {
 
             private final List<BlockWithMeta> soils;
 
             public RemoveAction(ItemStack[] soils) {
                 this.soils = new ArrayList<>();
-                for(ItemStack stack:soils) {
-                    this.soils.add(new BlockWithMeta(((ItemBlock) stack.getItem()).field_150939_a, stack.getItemDamage()));
+                for (ItemStack stack : soils) {
+                    this.soils
+                        .add(new BlockWithMeta(((ItemBlock) stack.getItem()).field_150939_a, stack.getItemDamage()));
                 }
             }
 
@@ -137,12 +146,14 @@ public class Growing {
 
             @Override
             public String describe() {
-                return "Removing soils [" + Joiner.on(", ").join(soils) + "] from the whitelist.";
+                return "Removing soils [" + Joiner.on(", ")
+                    .join(soils) + "] from the whitelist.";
             }
 
             @Override
             public String describeUndo() {
-                return "Adding previously removed soils [" + Joiner.on(", ").join(soils) + "] to the whitelist.";
+                return "Adding previously removed soils [" + Joiner.on(", ")
+                    .join(soils) + "] to the whitelist.";
             }
 
             @Override
@@ -152,34 +163,39 @@ public class Growing {
         }
     }
 
-    /**Provides functionality to set or clear a specific soil for a plant*/
+    /** Provides functionality to set or clear a specific soil for a plant */
     @ZenClass("mods.cropsnh.growing.Soil")
     public static class Soil {
+
         @ZenMethod
         public static void set(IItemStack seed, IItemStack soil) {
             ItemStack seedStack = MineTweakerMC.getItemStack(seed);
             ItemStack soilStack = MineTweakerMC.getItemStack(soil);
             String error = "Invalid first argument: has to be a seed";
             boolean success = CropPlantHandler.isValidSeed(seedStack);
-            if(success) {
+            if (success) {
                 error = "Invalid second argument: has to be a block";
-                success = soilStack.getItem()!=null && soilStack.getItem() instanceof ItemBlock;
-                if(success) {
-                    MineTweakerAPI.apply(new SetAction(seedStack, new BlockWithMeta(((ItemBlock) soilStack.getItem()).field_150939_a, soilStack.getItemDamage())));
+                success = soilStack.getItem() != null && soilStack.getItem() instanceof ItemBlock;
+                if (success) {
+                    MineTweakerAPI.apply(
+                        new SetAction(
+                            seedStack,
+                            new BlockWithMeta(
+                                ((ItemBlock) soilStack.getItem()).field_150939_a,
+                                soilStack.getItemDamage())));
                 }
             }
-            if(!success) {
-                MineTweakerAPI.logError("Error when trying to set soil: "+error);
+            if (!success) {
+                MineTweakerAPI.logError("Error when trying to set soil: " + error);
             }
         }
 
         @ZenMethod
         public static void clear(IItemStack seed) {
             ItemStack seedStack = MineTweakerMC.getItemStack(seed);
-            if(seedStack.getItem()!=null && seedStack.getItem() instanceof ItemSeeds) {
+            if (seedStack.getItem() != null && seedStack.getItem() instanceof ItemSeeds) {
                 MineTweakerAPI.apply(new SetAction(seedStack, null));
-            }
-            else {
+            } else {
                 MineTweakerAPI.logError("Error when trying to set soil: Invalid argument: has to be a seed");
             }
         }
@@ -221,13 +237,15 @@ public class Growing {
 
             @Override
             public String describe() {
-                String soilText = soil != null ? soil.toStack().getDisplayName() : "DEFAULT";
+                String soilText = soil != null ? soil.toStack()
+                    .getDisplayName() : "DEFAULT";
                 return "Setting soil for " + seedStack.getDisplayName() + " to " + soilText;
             }
 
             @Override
             public String describeUndo() {
-                String soilText = oldSoil != null ? oldSoil.toStack().getDisplayName() : "DEFAULT";
+                String soilText = oldSoil != null ? oldSoil.toStack()
+                    .getDisplayName() : "DEFAULT";
                 return "Reverting soil for " + seedStack.getDisplayName() + " to " + soilText;
             }
 
@@ -237,33 +255,34 @@ public class Growing {
             }
         }
 
-
     }
 
-    /**Provides functionality to set the light level requirement for a plant*/
+    /** Provides functionality to set the light level requirement for a plant */
     @ZenClass("mods.cropsnh.growing.Brightness")
     public static class Brightness {
-        @ZenMethod public static void set(IItemStack seed, int min, int max) {
+
+        @ZenMethod
+        public static void set(IItemStack seed, int min, int max) {
             ItemStack seedStack = MineTweakerMC.getItemStack(seed);
             String error = "Invalid first argument: has to be a seed";
             boolean success = CropPlantHandler.isValidSeed(seedStack);
-            if(success) {
+            if (success) {
                 error = "Invalid second argument: has to be larger than or equal to 0";
-                success = min>=0;
-                if(success) {
+                success = min >= 0;
+                if (success) {
                     error = "maximum should be higher than the minimum";
-                    success = max>min;
-                    if(success) {
+                    success = max > min;
+                    if (success) {
                         error = "Invalid third argument: has to be smaller than or equal to 16";
-                        success = max<=16;
-                        if(success) {
+                        success = max <= 16;
+                        if (success) {
                             MineTweakerAPI.apply(new SetAction(seedStack, min, max));
                         }
                     }
                 }
             }
-            if(!success) {
-                MineTweakerAPI.logError("Error when trying to set brightness: "+error);
+            if (!success) {
+                MineTweakerAPI.logError("Error when trying to set brightness: " + error);
             }
         }
 
@@ -303,12 +322,14 @@ public class Growing {
 
             @Override
             public String describe() {
-                return "Setting brightness range of "+(new ItemStack(seed, 1, meta)).getDisplayName() + " to ["+min+", "+max+"[";
+                return "Setting brightness range of " + (new ItemStack(seed, 1, meta))
+                    .getDisplayName() + " to [" + min + ", " + max + "[";
             }
 
             @Override
             public String describeUndo() {
-                return "Resetting brightness range of "+(new ItemStack(seed, 1, meta)).getDisplayName() + " to ["+old[0]+", "+old[1]+"[";
+                return "Resetting brightness range of " + (new ItemStack(seed, 1, meta))
+                    .getDisplayName() + " to [" + old[0] + ", " + old[1] + "[";
             }
 
             @Override
@@ -318,7 +339,7 @@ public class Growing {
         }
     }
 
-    /**Provides functionality to set or clear a base block requirement for a plant*/
+    /** Provides functionality to set or clear a base block requirement for a plant */
     @ZenClass("mods.cropsnh.growing.BaseBlock")
     public static class BaseBlock {
 
@@ -351,8 +372,7 @@ public class Growing {
                 return;
             }
             BlockWithMeta baseWM = new BlockWithMeta(((ItemBlock) base.getItem()).field_150939_a, base.getItemDamage());
-            RequirementType reqType = type == 1 ? RequirementType.BELOW
-                                                : RequirementType.NEARBY;
+            RequirementType reqType = type == 1 ? RequirementType.BELOW : RequirementType.NEARBY;
             MineTweakerAPI.apply(new SetAction(seed, baseWM, reqType, oreDict));
 
         }
@@ -412,16 +432,18 @@ public class Growing {
 
             @Override
             public String describe() {
-                String blockString = base != null ? base.getBlock().getLocalizedName() : "DEFAULT";
-                return "Setting base block requirement for seed " + seedStack.getDisplayName() + " to "
-                        + blockString + " (" + type.toString() +  ")";
+                String blockString = base != null ? base.getBlock()
+                    .getLocalizedName() : "DEFAULT";
+                return "Setting base block requirement for seed " + seedStack
+                    .getDisplayName() + " to " + blockString + " (" + type.toString() + ")";
             }
 
             @Override
             public String describeUndo() {
-                String blockString = (oldReqBlock!=null && oldReqBlock.getBlock()!=null) ? oldReqBlock.getBlock().getLocalizedName() : "DEFAULT";
-                return "Resetting base block requirement for seed " + seedStack.getDisplayName() + " to "
-                        + blockString + " (" + oldRequiredType.toString() + ")";
+                String blockString = (oldReqBlock != null && oldReqBlock.getBlock() != null) ? oldReqBlock.getBlock()
+                    .getLocalizedName() : "DEFAULT";
+                return "Resetting base block requirement for seed " + seedStack
+                    .getDisplayName() + " to " + blockString + " (" + oldRequiredType.toString() + ")";
             }
 
             @Override

@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity.peripheral.method;
 
 public class MethodException extends Exception {
+
     private final IMethod method;
     private final String msg;
 
@@ -10,6 +11,6 @@ public class MethodException extends Exception {
     }
 
     public String getDescription() {
-        return "Method '"+method.getName()+"' errored: "+msg;
+        return "Method '" + method.getName() + "' errored: " + msg;
     }
 }

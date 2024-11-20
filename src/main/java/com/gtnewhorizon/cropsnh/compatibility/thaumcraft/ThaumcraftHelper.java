@@ -1,5 +1,11 @@
 package com.gtnewhorizon.cropsnh.compatibility.thaumcraft;
 
+import java.util.ArrayList;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.v1.RenderMethod;
 import com.gtnewhorizon.cropsnh.api.v1.RequirementType;
@@ -10,20 +16,20 @@ import com.gtnewhorizon.cropsnh.items.ItemModSeed;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
+import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class ThaumcraftHelper extends ModHelper {
+
     public static ArrayList<BlockModPlant> thaumcraftCrops = new ArrayList<>();
     public static ArrayList<ItemModSeed> thaumcraftSeeds = new ArrayList<>();
 
     @Override
     protected void onInit() {
-        FMLInterModComms.sendMessage(Names.Mods.thaumcraft, "harvestClickableCrop", new ItemStack(Blocks.blockCrop, 1, Constants.MATURE));
+        FMLInterModComms.sendMessage(
+            Names.Mods.thaumcraft,
+            "harvestClickableCrop",
+            new ItemStack(Blocks.blockCrop, 1, Constants.MATURE));
     }
 
     @Override
@@ -36,21 +42,31 @@ public class ThaumcraftHelper extends ModHelper {
         int vishroomMeta = 5;
         int taintPlantMeta = 12;
 
-        //cinderpearl
+        // cinderpearl
         try {
-            BlockModPlant cropCinderpearl = new BlockModPlant("Cinderpearl", new ItemStack(thaumcraftPlant, 1, cinderpearlMeta), new BlockWithMeta(net.minecraft.init.Blocks.sand), 3, RenderMethod.CROSSED);
+            BlockModPlant cropCinderpearl = new BlockModPlant(
+                "Cinderpearl",
+                new ItemStack(thaumcraftPlant, 1, cinderpearlMeta),
+                new BlockWithMeta(net.minecraft.init.Blocks.sand),
+                3,
+                RenderMethod.CROSSED);
             thaumcraftCrops.add(cropCinderpearl);
             thaumcraftSeeds.add(cropCinderpearl.getSeed());
         } catch (Exception e) {
             LogHelper.printStackTrace(e);
         }
 
-        //shimmerleaf
+        // shimmerleaf
         try {
-            BlockModPlant cropShimmerleaf = new BlockModPlant("Shimmerleaf", new ItemStack(thaumcraftPlant, 1, shimmerleafMeta), 3, RenderMethod.CROSSED);
+            BlockModPlant cropShimmerleaf = new BlockModPlant(
+                "Shimmerleaf",
+                new ItemStack(thaumcraftPlant, 1, shimmerleafMeta),
+                3,
+                RenderMethod.CROSSED);
             Block log = (Block) Block.blockRegistry.getObject("Thaumcraft:blockMagicalLog");
             if (log != null) {
-                cropShimmerleaf.getGrowthRequirement().setRequiredBlock(new BlockWithMeta(log, 1), RequirementType.NEARBY, false);
+                cropShimmerleaf.getGrowthRequirement()
+                    .setRequiredBlock(new BlockWithMeta(log, 1), RequirementType.NEARBY, false);
             }
             thaumcraftCrops.add(cropShimmerleaf);
             thaumcraftSeeds.add(cropShimmerleaf.getSeed());
@@ -58,27 +74,40 @@ public class ThaumcraftHelper extends ModHelper {
             LogHelper.printStackTrace(e);
         }
 
-        //vishroom
+        // vishroom
         try {
-            BlockModPlant cropVishroom = new BlockModPlant("Vishroom", new ItemStack(thaumcraftPlant, 1, vishroomMeta), new BlockWithMeta(net.minecraft.init.Blocks.mycelium), 3, RenderMethod.CROSSED);
+            BlockModPlant cropVishroom = new BlockModPlant(
+                "Vishroom",
+                new ItemStack(thaumcraftPlant, 1, vishroomMeta),
+                new BlockWithMeta(net.minecraft.init.Blocks.mycelium),
+                3,
+                RenderMethod.CROSSED);
             thaumcraftCrops.add(cropVishroom);
             thaumcraftSeeds.add(cropVishroom.getSeed());
-            cropVishroom.getGrowthRequirement().setBrightnessRange(0, 8);
+            cropVishroom.getGrowthRequirement()
+                .setBrightnessRange(0, 8);
         } catch (Exception e) {
             LogHelper.printStackTrace(e);
         }
 
-        //tainted root
+        // tainted root
         try {
-            BlockModPlant cropTaintedRoot = new BlockModPlant("TaintedRoot", new ItemStack(thaumcraftTaintPlant, 1, taintPlantMeta), new BlockWithMeta(blockTaint), RequirementType.BELOW, new BlockWithMeta(blockTaint, 0), 4, RenderMethod.CROSSED);
+            BlockModPlant cropTaintedRoot = new BlockModPlant(
+                "TaintedRoot",
+                new ItemStack(thaumcraftTaintPlant, 1, taintPlantMeta),
+                new BlockWithMeta(blockTaint),
+                RequirementType.BELOW,
+                new BlockWithMeta(blockTaint, 0),
+                4,
+                RenderMethod.CROSSED);
             thaumcraftCrops.add(cropTaintedRoot);
             thaumcraftSeeds.add(cropTaintedRoot.getSeed());
-            cropTaintedRoot.getGrowthRequirement().setSoil(new BlockWithMeta(blockTaint, 1));
+            cropTaintedRoot.getGrowthRequirement()
+                .setSoil(new BlockWithMeta(blockTaint, 1));
         } catch (Exception e) {
             LogHelper.printStackTrace(e);
         }
     }
-
 
     @Override
     protected void onPostInit() {

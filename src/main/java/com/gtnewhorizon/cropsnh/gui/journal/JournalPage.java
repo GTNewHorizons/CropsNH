@@ -1,18 +1,23 @@
 package com.gtnewhorizon.cropsnh.gui.journal;
 
-import com.gtnewhorizon.cropsnh.gui.Component;
-import com.gtnewhorizon.cropsnh.reference.Reference;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
+import com.gtnewhorizon.cropsnh.gui.Component;
+import com.gtnewhorizon.cropsnh.reference.Reference;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public abstract class JournalPage {
-    private static final ResourceLocation BACKGROUND = new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/journal/GuiJournalBackground.png");
+
+    private static final ResourceLocation BACKGROUND = new ResourceLocation(
+        Reference.MOD_ID.toLowerCase(),
+        "textures/gui/journal/GuiJournalBackground.png");
 
     /** Gets the background texture */
     public static ResourceLocation getBackground() {
@@ -34,12 +39,21 @@ public abstract class JournalPage {
     /** Gets a list of texture components to render on this page */
     public abstract ArrayList<Component<ResourceLocation>> getTextureComponents();
 
-    /** Gets a list of textureMaps from where IIcons have to be rendered on this page, empty list is allowed, but this should never return null */
+    /**
+     * Gets a list of textureMaps from where IIcons have to be rendered on this page, empty list is allowed, but this
+     * should never return null
+     */
     public abstract ArrayList<ResourceLocation> getTextureMaps();
 
-    /** Gets a list of IIcon components to render on this page, will only be called for ResourceLocations returned in getTextureMaps() */
+    /**
+     * Gets a list of IIcon components to render on this page, will only be called for ResourceLocations returned in
+     * getTextureMaps()
+     */
     public abstract ArrayList<Component<IIcon>> getIconComponents(ResourceLocation textureMap);
 
-    /** Gets the increment to the page number on a mouseclick, >0 means browse forwards, <0 means browse backwards and 0 means stay on this page */
+    /**
+     * Gets the increment to the page number on a mouseclick, >0 means browse forwards, <0 means browse backwards and 0
+     * means stay on this page
+     */
     public abstract int getPagesToBrowseOnMouseClick(int x, int y);
 }

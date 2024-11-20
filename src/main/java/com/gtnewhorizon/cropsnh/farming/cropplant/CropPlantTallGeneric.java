@@ -1,21 +1,24 @@
 package com.gtnewhorizon.cropsnh.farming.cropplant;
 
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Generic abstract implementation of CropPlantTall for two-blocks tall plants
  */
 public abstract class CropPlantTallGeneric extends CropPlantTall {
+
     private final ItemSeeds seed;
     private final ArrayList<ItemStack> fruits;
 
@@ -49,8 +52,9 @@ public abstract class CropPlantTallGeneric extends CropPlantTall {
     @Override
     public ItemStack getRandomFruit(Random rand) {
         ArrayList<ItemStack> list = fruits;
-        if(list!=null && list.size()>0) {
-            return list.get(rand.nextInt(list.size())).copy();
+        if (list != null && list.size() > 0) {
+            return list.get(rand.nextInt(list.size()))
+                .copy();
         }
         return null;
     }
@@ -59,7 +63,7 @@ public abstract class CropPlantTallGeneric extends CropPlantTall {
     public ArrayList<ItemStack> getFruitsOnHarvest(int gain, Random rand) {
         int amount = (int) (Math.ceil((gain + 0.00) / 3));
         ArrayList<ItemStack> list = new ArrayList<>();
-        while(amount>0) {
+        while (amount > 0) {
             list.add(getRandomFruit(rand));
             amount--;
         }
@@ -74,13 +78,13 @@ public abstract class CropPlantTallGeneric extends CropPlantTall {
     @Override
     @SideOnly(Side.CLIENT)
     public float getHeight(int meta) {
-        return (meta>maxMetaBottomBlock()?2:1)*Constants.UNIT*13;
+        return (meta > maxMetaBottomBlock() ? 2 : 1) * Constants.UNIT * 13;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getBottomIcon(int growthStage) {
-        if(growthStage<maxMetaBottomBlock()) {
+        if (growthStage < maxMetaBottomBlock()) {
             return getPlantIcon(growthStage);
         }
         return getPlantIcon(maxMetaBottomBlock());
@@ -89,7 +93,7 @@ public abstract class CropPlantTallGeneric extends CropPlantTall {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getPlantIcon(int growthStage) {
-        //for the Vanilla SeedItem class the arguments for this method are not used
+        // for the Vanilla SeedItem class the arguments for this method are not used
         return getBlock().getIcon(0, transformMeta(growthStage));
     }
 }

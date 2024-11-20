@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.init;
 
+import net.minecraft.block.Block;
+
 import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
 import com.gtnewhorizon.cropsnh.blocks.BlockPeripheral;
 import com.gtnewhorizon.cropsnh.blocks.BlockSeedAnalyzer;
@@ -10,9 +12,9 @@ import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
-import net.minecraft.block.Block;
 
 public class Blocks {
+
     public static Block blockCrop;
     public static Block blockSeedAnalyzer;
     public static Block blockWaterPad;
@@ -25,10 +27,11 @@ public class Blocks {
         blockSeedAnalyzer = new BlockSeedAnalyzer();
         blockWaterPad = new BlockWaterPad();
         blockWaterPadFull = new BlockWaterPadFull();
-        if(!ConfigurationHandler.disableSeedStorage) {
+        if (!ConfigurationHandler.disableSeedStorage) {
             blockSeedStorage = new BlockSeedStorage();
         }
-        if(ModHelper.allowIntegration(Names.Mods.computerCraft) || ModHelper.allowIntegration(Names.Mods.openComputers)) {
+        if (ModHelper.allowIntegration(Names.Mods.computerCraft)
+            || ModHelper.allowIntegration(Names.Mods.openComputers)) {
             blockPeripheral = new BlockPeripheral();
         }
         LogHelper.debug("Blocks registered");

@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Set;
 
 public class WeightedRandom<T> {
+
     private int totalWeight;
     private final HashMap<T, Integer> entries;
 
@@ -21,10 +22,12 @@ public class WeightedRandom<T> {
     }
 
     public void removeEntry(T entry) {
-        Iterator<Map.Entry<T, Integer>> iterator = entries.entrySet().iterator();
-        while(iterator.hasNext()) {
+        Iterator<Map.Entry<T, Integer>> iterator = entries.entrySet()
+            .iterator();
+        while (iterator.hasNext()) {
             Map.Entry<T, Integer> mapEntry = iterator.next();
-            if(mapEntry.getKey().equals(entry)) {
+            if (mapEntry.getKey()
+                .equals(entry)) {
                 totalWeight = totalWeight - mapEntry.getValue();
                 iterator.remove();
             }
@@ -35,7 +38,7 @@ public class WeightedRandom<T> {
         T result = null;
         Set<Map.Entry<T, Integer>> entries = this.entries.entrySet();
         double threshold = rand.nextDouble() * totalWeight;
-        for(Map.Entry<T, Integer> mapEntry:entries) {
+        for (Map.Entry<T, Integer> mapEntry : entries) {
             threshold = threshold - mapEntry.getValue();
             if (threshold <= 0.0D) {
                 result = mapEntry.getKey();
@@ -46,7 +49,7 @@ public class WeightedRandom<T> {
     }
 
     public int getWeight(T entry) {
-        for(Map.Entry<T, Integer> mapEntry:entries.entrySet()) {
+        for (Map.Entry<T, Integer> mapEntry : entries.entrySet()) {
             if (entry.equals(mapEntry.getKey())) {
                 return mapEntry.getValue();
             }

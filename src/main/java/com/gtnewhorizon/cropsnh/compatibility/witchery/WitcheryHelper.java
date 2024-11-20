@@ -1,13 +1,8 @@
 package com.gtnewhorizon.cropsnh.compatibility.witchery;
 
-import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
-import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import com.gtnewhorizon.cropsnh.init.Blocks;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
-import com.gtnewhorizon.cropsnh.utility.LogHelper;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -17,10 +12,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
+import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
+import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
+import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
+import com.gtnewhorizon.cropsnh.init.Blocks;
+import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 public final class WitcheryHelper extends ModHelper {
+
     private Item sprig;
     private Block wispyCotton;
     private Item wormwoodSeed;
@@ -68,7 +70,8 @@ public final class WitcheryHelper extends ModHelper {
     @Override
     protected void initPlants() {
         try {
-            CropPlantHandler.registerPlant(new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedsbelladonna")));
+            CropPlantHandler.registerPlant(
+                new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedsbelladonna")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,13 +81,16 @@ public final class WitcheryHelper extends ModHelper {
             e.printStackTrace();
         }
         try {
-            CropPlantHandler.registerPlant(new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedsartichoke")));
-            CropPlantHandler.getGrowthRequirement((Item) Item.itemRegistry.getObject("witchery:seedsartichoke"), 0).setSoil(new BlockWithMeta(Blocks.blockWaterPadFull));
+            CropPlantHandler.registerPlant(
+                new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedsartichoke")));
+            CropPlantHandler.getGrowthRequirement((Item) Item.itemRegistry.getObject("witchery:seedsartichoke"), 0)
+                .setSoil(new BlockWithMeta(Blocks.blockWaterPadFull));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            CropPlantHandler.registerPlant(new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedssnowbell")));
+            CropPlantHandler.registerPlant(
+                new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedssnowbell")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,12 +100,14 @@ public final class WitcheryHelper extends ModHelper {
             e.printStackTrace();
         }
         try {
-            CropPlantHandler.registerPlant(new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:garlic")));
+            CropPlantHandler
+                .registerPlant(new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:garlic")));
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            CropPlantHandler.registerPlant(new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedswormwood"), 4));
+            CropPlantHandler.registerPlant(
+                new CropPlantWitchery((ItemSeeds) Item.itemRegistry.getObject("witchery:seedswormwood"), 4));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -116,49 +124,57 @@ public final class WitcheryHelper extends ModHelper {
         return tools;
     }
 
-    protected boolean useTool(World world, int x, int y, int z, EntityPlayer player, ItemStack stack, BlockCrop block, TileEntityCrop crop) {
-        if(stack.getItem() == sprig) {
+    protected boolean useTool(World world, int x, int y, int z, EntityPlayer player, ItemStack stack, BlockCrop block,
+        TileEntityCrop crop) {
+        if (stack.getItem() == sprig) {
             return tryCreateWormWood(world, x, y, z, player, stack, crop);
         }
         return false;
     }
 
-    private boolean tryCreateWormWood(World world, int x, int y, int z, EntityPlayer player, ItemStack sprig, TileEntityCrop crop) {
-        //check for wheat and check if mature
-        if(!crop.hasPlant() || !crop.isMature() || crop.getPlant().getSeed().getItem() != Items.wheat_seeds) {
+    private boolean tryCreateWormWood(World world, int x, int y, int z, EntityPlayer player, ItemStack sprig,
+        TileEntityCrop crop) {
+        // check for wheat and check if mature
+        if (!crop.hasPlant() || !crop.isMature()
+            || crop.getPlant()
+                .getSeed()
+                .getItem() != Items.wheat_seeds) {
             return false;
         }
-        //check for wispy cotton
+        // check for wispy cotton
         int cottonCount = 0;
-        cottonCount = world.getBlock(x+1, y, z) == wispyCotton?cottonCount+1:cottonCount;
-        cottonCount = world.getBlock(x-1, y, z) == wispyCotton?cottonCount+1:cottonCount;
-        cottonCount = world.getBlock(x, y, z+1) == wispyCotton?cottonCount+1:cottonCount;
-        cottonCount = world.getBlock(x, y, z-1) == wispyCotton?cottonCount+1:cottonCount;
-        if(cottonCount<4) {
+        cottonCount = world.getBlock(x + 1, y, z) == wispyCotton ? cottonCount + 1 : cottonCount;
+        cottonCount = world.getBlock(x - 1, y, z) == wispyCotton ? cottonCount + 1 : cottonCount;
+        cottonCount = world.getBlock(x, y, z + 1) == wispyCotton ? cottonCount + 1 : cottonCount;
+        cottonCount = world.getBlock(x, y, z - 1) == wispyCotton ? cottonCount + 1 : cottonCount;
+        if (cottonCount < 4) {
             return false;
         }
-        //check for water
+        // check for water
         int waterCount = 0;
-        waterCount = world.getBlock(x+1, y-1, z+1) == net.minecraft.init.Blocks.water?waterCount+1:waterCount;
-        waterCount = world.getBlock(x+1, y-1, z-1) == net.minecraft.init.Blocks.water?waterCount+1:waterCount;
-        waterCount = world.getBlock(x-1, y-1, z+1) == net.minecraft.init.Blocks.water?waterCount+1:waterCount;
-        waterCount = world.getBlock(x-1, y-1, z-1) == net.minecraft.init.Blocks.water?waterCount+1:waterCount;
-        if(waterCount<4) {
+        waterCount = world.getBlock(x + 1, y - 1, z + 1) == net.minecraft.init.Blocks.water ? waterCount + 1
+            : waterCount;
+        waterCount = world.getBlock(x + 1, y - 1, z - 1) == net.minecraft.init.Blocks.water ? waterCount + 1
+            : waterCount;
+        waterCount = world.getBlock(x - 1, y - 1, z + 1) == net.minecraft.init.Blocks.water ? waterCount + 1
+            : waterCount;
+        waterCount = world.getBlock(x - 1, y - 1, z - 1) == net.minecraft.init.Blocks.water ? waterCount + 1
+            : waterCount;
+        if (waterCount < 4) {
             return false;
         }
-        //create wormwood
-        world.setBlockToAir(x+1, y, z);
-        world.setBlockToAir(x-1, y, z);
-        world.setBlockToAir(x, y, z+1);
-        world.setBlockToAir(x, y, z-1);
+        // create wormwood
+        world.setBlockToAir(x + 1, y, z);
+        world.setBlockToAir(x - 1, y, z);
+        world.setBlockToAir(x, y, z + 1);
+        world.setBlockToAir(x, y, z - 1);
         crop.clearPlant();
         crop.setPlant(1, 1, 1, false, CropPlantHandler.getPlantFromStack(new ItemStack(wormwoodSeed, 0)));
-        if(!player.capabilities.isCreativeMode) {
+        if (!player.capabilities.isCreativeMode) {
             sprig.damageItem(1, player);
         }
         return true;
     }
-
 
     @Override
     protected String modId() {
