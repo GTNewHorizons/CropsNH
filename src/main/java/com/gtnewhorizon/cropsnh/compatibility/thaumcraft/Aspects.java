@@ -1,7 +1,6 @@
 package com.gtnewhorizon.cropsnh.compatibility.thaumcraft;
 
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.compatibility.arsmagica.ArsMagicaHelper;
 import com.gtnewhorizon.cropsnh.compatibility.botania.BotaniaHelper;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
@@ -34,12 +33,6 @@ public class Aspects {
         //botania crops
         if(ModHelper.allowIntegration(Names.Mods.botania)) {
             for(ItemModSeed seed : BotaniaHelper.botaniaSeeds) {
-                ThaumcraftApi.registerObjectTag(new ItemStack(seed, 1, 0), new AspectList().add(Aspect.PLANT, 1).add(Aspect.MAGIC, 1));
-            }
-        }
-        //ars magica crops
-        if(ModHelper.allowIntegration(Names.Mods.arsMagica)) {
-            for(ItemModSeed seed : ArsMagicaHelper.arsMagicaSeeds) {
                 ThaumcraftApi.registerObjectTag(new ItemStack(seed, 1, 0), new AspectList().add(Aspect.PLANT, 1).add(Aspect.MAGIC, 1));
             }
         }

@@ -2,7 +2,6 @@ package com.gtnewhorizon.cropsnh.init;
 
 import com.gtnewhorizon.cropsnh.blocks.BlockCustomWood;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.compatibility.computercraft.ComputerCraftHelper;
 import com.gtnewhorizon.cropsnh.compatibility.opencomputers.OpenComputersHelper;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
@@ -13,7 +12,6 @@ import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
-import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -75,9 +73,6 @@ public class Recipes {
         }
         //peripheral
         if(Blocks.blockPeripheral!=null) {
-            if(ModHelper.allowIntegration(Names.Mods.computerCraft)) {
-                GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.blockPeripheral, 1), "iai", "rcr", "iri", 'i', "ingotIron", 'a', Blocks.blockSeedAnalyzer, 'r', net.minecraft.init.Items.comparator, 'c', ComputerCraftHelper.getComputerBlock()));
-            }
             if(ModHelper.allowIntegration(Names.Mods.openComputers)) {
                 GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.blockPeripheral, 1), "iai", "rcr", "iri", 'i', "ingotIron", 'a', Blocks.blockSeedAnalyzer, 'r', net.minecraft.init.Items.comparator, 'c', OpenComputersHelper.getComputerBlock()));
             }

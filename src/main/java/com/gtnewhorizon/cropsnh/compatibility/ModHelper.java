@@ -3,20 +3,11 @@ package com.gtnewhorizon.cropsnh.compatibility;
 import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
 import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIHelper;
 import com.gtnewhorizon.cropsnh.compatibility.applecore.AppleCoreHelper;
-import com.gtnewhorizon.cropsnh.compatibility.arsmagica.ArsMagicaHelper;
 import com.gtnewhorizon.cropsnh.compatibility.biomesoplenty.BiomesOPlentyHelper;
 import com.gtnewhorizon.cropsnh.compatibility.bloodmagic.BloodMagicHelper;
-import com.gtnewhorizon.cropsnh.compatibility.bluepower.BluePowerHelper;
 import com.gtnewhorizon.cropsnh.compatibility.botania.BotaniaHelper;
-import com.gtnewhorizon.cropsnh.compatibility.computercraft.ComputerCraftHelper;
-import com.gtnewhorizon.cropsnh.compatibility.ex_nihilo.ExNihiloHelper;
-import com.gtnewhorizon.cropsnh.compatibility.extrabiomesxl.ExtraBiomesXLHelper;
 import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryHelper;
 import com.gtnewhorizon.cropsnh.compatibility.forgemultipart.ForgeMultiPartHelper;
-import com.gtnewhorizon.cropsnh.compatibility.ganysMods.EtFuturumHelper;
-import com.gtnewhorizon.cropsnh.compatibility.ganysMods.GanysNetherHelper;
-import com.gtnewhorizon.cropsnh.compatibility.ganysMods.GanysSurfaceHelper;
-import com.gtnewhorizon.cropsnh.compatibility.harderwildlife.HarderWildLifeHelper;
 import com.gtnewhorizon.cropsnh.compatibility.harvestcraft.HarvestcraftHelper;
 import com.gtnewhorizon.cropsnh.compatibility.harvestthenether.HarvestTheNetherHelper;
 import com.gtnewhorizon.cropsnh.compatibility.hungeroverhaul.HungerOverhaulHelper;
@@ -26,7 +17,6 @@ import com.gtnewhorizon.cropsnh.compatibility.opencomputers.OpenComputersHelper;
 import com.gtnewhorizon.cropsnh.compatibility.tconstruct.TinkersConstructHelper;
 import com.gtnewhorizon.cropsnh.compatibility.thaumcraft.ThaumcraftHelper;
 import com.gtnewhorizon.cropsnh.compatibility.waila.WailaHelper;
-import com.gtnewhorizon.cropsnh.compatibility.weeeflowers.WeeeFlowersHelper;
 import com.gtnewhorizon.cropsnh.compatibility.witchery.WitcheryHelper;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
@@ -200,20 +190,11 @@ public abstract class ModHelper {
     public static void findHelpers() {
         Class[] classes = {
                 AppleCoreHelper.class,
-                ArsMagicaHelper.class,
                 BiomesOPlentyHelper.class,
                 BloodMagicHelper.class,
-                BluePowerHelper.class,
                 BotaniaHelper.class,
-                ComputerCraftHelper.class,
-                EtFuturumHelper.class,
-                ExNihiloHelper.class,
-                ExtraBiomesXLHelper.class,
                 ForestryHelper.class,
                 ForgeMultiPartHelper.class,
-                GanysNetherHelper.class,
-                GanysSurfaceHelper.class,
-                HarderWildLifeHelper.class,
                 HarvestcraftHelper.class,
                 HarvestTheNetherHelper.class,
                 HungerOverhaulHelper.class,
@@ -224,7 +205,6 @@ public abstract class ModHelper {
                 ThaumcraftHelper.class,
                 TinkersConstructHelper.class,
                 WailaHelper.class,
-                WeeeFlowersHelper.class,
                 WitcheryHelper.class
         };
         for(Class<? extends ModHelper> clazz:classes) {

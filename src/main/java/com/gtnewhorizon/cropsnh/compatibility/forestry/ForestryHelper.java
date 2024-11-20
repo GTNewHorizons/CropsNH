@@ -2,7 +2,6 @@ package com.gtnewhorizon.cropsnh.compatibility.forestry;
 
 import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.compatibility.arsmagica.ArsMagicaHelper;
 import com.gtnewhorizon.cropsnh.compatibility.botania.BotaniaHelper;
 import com.gtnewhorizon.cropsnh.compatibility.thaumcraft.ThaumcraftHelper;
 import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
@@ -42,12 +41,6 @@ public class ForestryHelper extends ModHelper {
         //botania crops
         if(ModHelper.allowIntegration(Names.Mods.botania)) {
             for(ItemModSeed seed : BotaniaHelper.botaniaSeeds) {
-                RecipeManagers.squeezerManager.addRecipe(10, new ItemStack[]{new ItemStack(seed, 1, 0)}, FluidRegistry.getFluidStack(seedOil, 10));
-            }
-        }
-        //ars magica crops
-        if(ModHelper.allowIntegration(Names.Mods.arsMagica)) {
-            for(ItemModSeed seed : ArsMagicaHelper.arsMagicaSeeds) {
                 RecipeManagers.squeezerManager.addRecipe(10, new ItemStack[]{new ItemStack(seed, 1, 0)}, FluidRegistry.getFluidStack(seedOil, 10));
             }
         }
