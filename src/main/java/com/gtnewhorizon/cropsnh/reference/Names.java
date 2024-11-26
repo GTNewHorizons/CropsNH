@@ -2,13 +2,24 @@ package com.gtnewhorizon.cropsnh.reference;
 
 public final class Names {
 
+    public static class L10N {
+
+        private static final String modPrefix = Reference.MOD_ID.toLowerCase() + "_";
+        private static final String genericSeedPrefix = modPrefix + "genericSeeds.";
+        private static final String growthReqPrefix = modPrefix + "growthReq.";
+        public static final String unknownSeed = genericSeedPrefix + "unknown";
+        public static final String invalidSeed = genericSeedPrefix + "invalid";
+        public static final String genericSeedFormat = genericSeedPrefix + "format";
+        public static final String blockUnderReqFormat = growthReqPrefix + "format";
+    }
+
     // NBT tags
     public static class NBT {
 
-        public static final String growth = "growth";
-        public static final String gain = "gain";
-        public static final String strength = "strength";
-        public static final String analyzed = "analyzed";
+        public static final String growth = "gr";
+        public static final String gain = "ga";
+        public static final String resistance = "re";
+        public static final String analyzed = "scan";
         public static final String crossCrop = "crossCrop";
         public static final String weed = "weed";
         public static final String discoveredSeeds = "discoveredSeeds";
@@ -42,9 +53,8 @@ public final class Names {
     // mod objects
     public static class Objects {
 
-        public static final String crop = "crop";
-        public static final String crops = "crops";
-        public static final String farmland = "farmland";
+        public static final String cropSticksTE = "cropSticksTE";
+        public static final String cropSticks = "cropSticks";
         public static final String analyzer = "Analyzer";
         public static final String seed = "seed";
         public static final String seedAnalyzer = seed + analyzer;
@@ -63,6 +73,10 @@ public final class Names {
         public static final String peripheral = "peripheral";
         public static final String clipper = "clipper";
         public static final String clipping = "clipping";
+        public static final String genericSeed = "genericSeed";
+
+        // crops
+        public static final String terraWart = "terraWart";
     }
 
     // tile entities
@@ -83,9 +97,11 @@ public final class Names {
     public static class Mods {
 
         public static final String ancientWarfare = "AncientWarfare";
+        public static final String appleCore = "AppleCore";
         public static final String arsMagica = "arsmagica2";
         public static final String bloodMagic = "AWWayofTime";
         public static final String bluePower = "bluepower";
+        public static final String biomesOPlenty = "BiomesOPlenty";
         public static final String botania = "Botania";
         public static final String chococraft = "chococraft";
         public static final String computerCraft = "ComputerCraft";

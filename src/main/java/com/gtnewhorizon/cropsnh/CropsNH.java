@@ -1,23 +1,14 @@
 package com.gtnewhorizon.cropsnh;
 
-import java.util.ArrayList;
-
-import com.gtnewhorizon.cropsnh.apiimpl.APISelector;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIHelper;
-import com.gtnewhorizon.cropsnh.farming.CropRegistry;
-import com.gtnewhorizon.cropsnh.farming.growthrequirement.GrowthRequirementHandler;
-import com.gtnewhorizon.cropsnh.farming.mutation.MutationHandler;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.handler.GuiHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
-import com.gtnewhorizon.cropsnh.init.CropProducts;
-import com.gtnewhorizon.cropsnh.init.Crops;
-import com.gtnewhorizon.cropsnh.init.CustomCrops;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.init.Recipes;
-import com.gtnewhorizon.cropsnh.init.ResourceCrops;
+import com.gtnewhorizon.cropsnh.loaders.CropLoader;
+import com.gtnewhorizon.cropsnh.loaders.FertilizerLoader;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
+import com.gtnewhorizon.cropsnh.loaders.SoilLoader;
 import com.gtnewhorizon.cropsnh.network.NetworkWrapperCropsNH;
 import com.gtnewhorizon.cropsnh.proxy.IProxy;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -32,7 +23,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 
 /**
  * Hard fork of Agricraft (originally by InfinityRaider) for the GTNH modpack
@@ -44,7 +34,17 @@ import cpw.mods.fml.common.network.NetworkRegistry;
     modid = Reference.MOD_ID,
     name = Reference.MOD_NAME,
     version = Reference.VERSION,
-    guiFactory = Reference.GUI_FACTORY_CLASS)
+    guiFactory = Reference.GUI_FACTORY_CLASS,
+    dependencies = "after:IC2; " + "after:GalacticraftCore; "
+        + "after:Mantle; "
+        + "after:Forestry; "
+        + "after:Natura; "
+        + "after:TConstruct; "
+        + "after:BiomesOPlenty; "
+        + "after:Thaumcraft; "
+        + "after:witchery; "
+        + "after:gregtech; "
+        + "after:TwilightForest; ")
 public class CropsNH {
 
     @Mod.Instance(Reference.MOD_ID)
@@ -64,9 +64,7 @@ public class CropsNH {
             .register(new ConfigurationHandler());
         ModHelper.findHelpers();
         Blocks.init();
-        Crops.init();
         Items.init();
-        APISelector.init();
         ModHelper.preInit();
         LogHelper.debug("Pre-Initialization Complete");
     }
@@ -76,7 +74,6 @@ public class CropsNH {
     public static void init(FMLInitializationEvent event) {
         LogHelper.debug("Starting Initialization");
         proxy.registerEventHandlers();
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
         proxy.registerRenderers();
         ModHelper.initHelpers();
         LogHelper.debug("Initialization Complete");
@@ -87,24 +84,21 @@ public class CropsNH {
     public static void postInit(FMLPostInitializationEvent event) {
         LogHelper.debug("Starting Post-Initialization");
         // Have to do this in postInit because some mods don't register their items/blocks until init
-        ResourceCrops.init();
-        CustomCrops.init();
-        Recipes.init();
-        GrowthRequirementHandler.init();
         OreDictLoader.init();
-        CropRegistry.init();
-        CropProducts.init();
-        CustomCrops.initGrassSeeds();
+        FertilizerLoader.init();
+        SoilLoader.init();
+        CropLoader.init();
+
+        Recipes.init();
         ModHelper.postInit();
+
         LogHelper.debug("Post-Initialization Complete");
     }
 
     @Mod.EventHandler
     @SuppressWarnings("unused")
     public void onServerAboutToStart(FMLServerAboutToStartEvent event) {
-        MutationHandler.getInstance()
-            .init();
-        NEIHelper.setServerConfigs();
+        // NEIHelper.setServerConfigs();
     }
 
     @Mod.EventHandler
@@ -113,15 +107,5 @@ public class CropsNH {
 
     @Mod.EventHandler
     @SuppressWarnings("unused")
-    public void onMissingMappings(FMLMissingMappingsEvent event) {
-        ArrayList<String> removedIds = new ArrayList<>();
-        removedIds.add("CropsNH:cropMelon");
-        removedIds.add("CropsNH:cropPumpkin");
-        removedIds.add("CropsNH:sprinklerItem");
-        for (FMLMissingMappingsEvent.MissingMapping missingMapping : event.get()) {
-            if (removedIds.contains(missingMapping.name)) {
-                missingMapping.ignore();
-            }
-        }
-    }
+    public void onMissingMappings(FMLMissingMappingsEvent event) {}
 }

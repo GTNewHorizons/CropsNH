@@ -8,21 +8,12 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.oredict.OreDictionary;
 
-import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
-import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.items.ItemModSeed;
-import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public abstract class RegisterHelper {
-
-    public static void registerBlock(Block block, String name) {
-        RegisterHelper.registerBlock(block, name, null);
-    }
 
     public static void registerBlock(Block block, String name, Class<? extends ItemBlock> itemClass) {
         block.setBlockName(Reference.MOD_ID.toLowerCase() + ':' + name);
@@ -34,33 +25,10 @@ public abstract class RegisterHelper {
         }
     }
 
-    public static void registerCrop(BlockModPlant plant, String name) {
-        name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
-        registerBlock(plant, Names.Objects.crop + name);
-        if (ConfigurationHandler.registerCropProductsToOreDict) {
-            for (ItemStack fruit : plant.products.getAllProducts()) {
-                if (fruit != null && fruit.getItem() != null
-                    && !OreDictHelper.hasOreId(fruit, Names.Objects.crop + name)) {
-                    OreDictionary.registerOre(Names.Objects.crop + name, fruit);
-                }
-            }
-        }
-    }
-
     public static void registerItem(Item item, String name) {
         item.setUnlocalizedName(Reference.MOD_ID.toLowerCase() + ':' + name);
         LogHelper.info("registering " + item.getUnlocalizedName());
         GameRegistry.registerItem(item, name);
-    }
-
-    public static void registerSeed(ItemModSeed seed, BlockModPlant plant) {
-        String name = Names.Objects.seed + plant.getUnlocalizedName()
-            .substring(
-                plant.getUnlocalizedName()
-                    .indexOf(':') + 5);
-        registerItem(seed, name);
-        OreDictionary.registerOre(name, seed);
-        OreDictionary.registerOre(Names.OreDict.listAllseed, seed);
     }
 
     public static void removeRecipe(ItemStack stack) {

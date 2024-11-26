@@ -3,123 +3,79 @@ package com.gtnewhorizon.cropsnh.farming;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.gtnewhorizon.cropsnh.api.v1.ISeedStats;
-import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
-import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
+import com.gtnewhorizon.cropsnh.api.ISeedStats;
+import com.gtnewhorizon.cropsnh.reference.Constants;
+import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 
 public class SeedStats implements ISeedStats {
 
-    private static final short MAX = (short) ConfigurationHandler.cropStatCap;
-    private static final short MIN = 1;
-
-    private short growth;
-    private short gain;
-    private short strength;
+    private final byte growth;
+    private final byte gain;
+    private final byte resistance;
     private boolean analyzed;
 
     public SeedStats() {
-        this(MIN, MIN, MIN);
+        this(Constants.MIN_SEED_STAT, Constants.MIN_SEED_STAT, Constants.MIN_SEED_STAT);
     }
 
-    public SeedStats(int growth, int gain, int strength) {
-        this(growth, gain, strength, false);
+    public SeedStats(byte growth, byte gain, byte resistance) {
+        this(growth, gain, resistance, false);
     }
 
-    public SeedStats(int growth, int gain, int strength, boolean analyzed) {
-        this.setStats(growth, gain, strength);
+    public SeedStats(byte growth, byte gain, byte resistance, boolean analyzed) {
+        this.growth = (byte) Math.max(Constants.MIN_SEED_STAT, Math.min(Constants.MAX_SEED_STAT, growth));
+        this.gain = (byte) Math.max(Constants.MIN_SEED_STAT, Math.min(Constants.MAX_SEED_STAT, gain));
+        this.resistance = (byte) Math.max(Constants.MIN_SEED_STAT, Math.min(Constants.MAX_SEED_STAT, resistance));
         this.analyzed = analyzed;
     }
 
-    public void setStats(int growth, int gain, int strength) {
-        setGrowth(growth);
-        setGain(gain);
-        setStrength(strength);
-    }
-
-    public short getGrowth() {
+    @Override
+    public byte getGrowth() {
         return growth;
     }
 
-    public short getGain() {
+    @Override
+    public byte getGain() {
         return gain;
     }
 
-    public short getStrength() {
-        return strength;
-    }
-
     @Override
-    public short getMaxGrowth() {
-        return MAX;
-    }
-
-    @Override
-    public short getMaxGain() {
-        return MAX;
-    }
-
-    @Override
-    public short getMaxStrength() {
-        return MAX;
-    }
-
-    public void setGrowth(int growth) {
-        this.growth = moveIntoBounds(growth);
-    }
-
-    public void setGain(int gain) {
-        this.gain = moveIntoBounds(gain);
-    }
-
-    public void setStrength(int strength) {
-        this.strength = moveIntoBounds(strength);
-    }
-
-    private short moveIntoBounds(int stat) {
-        int lowerLimit = Math.max(MIN, stat);
-        return (short) Math.min(MAX, lowerLimit);
+    public byte getResistance() {
+        return resistance;
     }
 
     public SeedStats copy() {
-        return new SeedStats(getGrowth(), getGain(), getStrength(), analyzed);
+        return new SeedStats(this.getGrowth(), this.getGain(), this.getResistance(), analyzed);
     }
 
     public static SeedStats getStatsFromStack(ItemStack stack) {
         if (stack == null || stack.getItem() == null) {
             return null;
         }
-        if (stack.getItem() instanceof ITrowel) {
-            ((ITrowel) stack.getItem()).getStats(stack);
-        }
         return readFromNBT(stack.getTagCompound());
     }
 
     public static SeedStats readFromNBT(NBTTagCompound tag) {
-        if (tag != null && tag.hasKey(Names.NBT.growth)
-            && tag.hasKey(Names.NBT.gain)
-            && tag.hasKey(Names.NBT.strength)) {
-            SeedStats stats = new SeedStats();
-            stats.setGrowth(tag.getShort(Names.NBT.growth));
-            stats.setGain(tag.getShort(Names.NBT.gain));
-            stats.setStrength(tag.getShort(Names.NBT.strength));
-            stats.analyzed = tag.hasKey(Names.NBT.analyzed) && tag.getBoolean(Names.NBT.analyzed);
-            return stats;
-        }
-        return null;
+        if (tag == null) return new SeedStats((byte) 1, (byte) 1, (byte) 1, false);
+        byte gr = tag.hasKey(Names.NBT.growth, Data.NBTType._byte) ? tag.getByte(Names.NBT.growth) : 1;
+        byte ga = tag.hasKey(Names.NBT.gain, Data.NBTType._byte) ? tag.getByte(Names.NBT.growth) : 1;
+        byte re = tag.hasKey(Names.NBT.resistance, Data.NBTType._byte) ? tag.getByte(Names.NBT.resistance) : 1;
+        boolean analyzed = tag.hasKey(Names.NBT.analyzed, Data.NBTType._boolean) && tag.getBoolean(Names.NBT.analyzed);
+        return new SeedStats(gr, ga, re, analyzed);
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-        tag.setShort(Names.NBT.growth, growth);
-        tag.setShort(Names.NBT.gain, gain);
-        tag.setShort(Names.NBT.strength, strength);
-        tag.setBoolean(Names.NBT.analyzed, analyzed);
+        tag.setShort(Names.NBT.growth, this.growth);
+        tag.setShort(Names.NBT.gain, this.gain);
+        tag.setShort(Names.NBT.resistance, this.resistance);
+        tag.setBoolean(Names.NBT.analyzed, this.analyzed);
         return tag;
     }
 
     @Override
     public boolean isAnalyzed() {
-        return analyzed;
+        return this.analyzed;
     }
 
     @Override

@@ -63,27 +63,6 @@ item.cropsnh:seedCinderpearl.name=Graines de perlecendre
 item.cropsnh:seedShimmerleaf.name=Graines de brillefeuille
 item.cropsnh:seedVishroom.name=Spores de chamvisgnon
 item.cropsnh:seedTaintedRoot.name=Graines de racine corrompue
-// Ars magica
-item.cropsnh:seedAum.name=Aum Seeds
-item.cropsnh:seedCerublossom.name=Cerublossom Seeds
-item.cropsnh:seedDesertNova.name=Desert Nova Seeds
-item.cropsnh:seedTarmaRoot.name=Tarma Root Seeds
-item.cropsnh:seedWakebloom.name=Wakebloom seeds
-
-item.cropsnh:seedFerranium.name=Graines de ferranium
-item.cropsnh:seedAurigold.name=Graines de aurigold
-item.cropsnh:seedDiamahlia.name=Graines de diamahlia
-item.cropsnh:seedLapender.name=Graines de lapender
-item.cropsnh:seedEmeryllis.name=Graines de émeryllis
-item.cropsnh:seedRedstodendron.name=Graines de redstodendron
-item.cropsnh:seedCuprosia.name=Graines de cuivrosia
-item.cropsnh:seedPetinia.name=Graines de pétainia
-item.cropsnh:seedPlombean.name=Graines de plombean
-item.cropsnh:seedSilverweed.name=Graines d'argentine
-item.cropsnh:seedJaslumine.name=Graines de jaslumine
-item.cropsnh:seedNiccissus.name=Graines de niccissus
-item.cropsnh:seedPlatiolus.name=Graines de platiolus
-item.cropsnh:seedOsmonium.name=Graines d'osmonium
 
 
 //blocks
@@ -136,27 +115,6 @@ tile.cropsnh:cropCinderpearl.name=Perlecendre
 tile.cropsnh:cropShimmerleaf.name=Brillefeuille
 tile.cropsnh:cropVishroom.name=Chamvisgnon
 tile.cropsnh:cropTaintedRoot.name=Racine corrompue
-// Ars magica
-tile.cropsnh:cropAum.name=Aum
-tile.cropsnh.cropCerublossom.name=Cerublossom
-tile.cropsnh.cropDesertNova.name=Desert Nova
-tile.cropsnh.cropTarmaRoot.name=Tarma Root
-tile.cropsnh.cropWakebloom.name=Wakebloom
-
-tile.cropsnh:cropFerranium.name=Ferranium
-tile.cropsnh:cropAurigold.name=Aurigold
-tile.cropsnh:cropDiamahlia.name=Diamahlia
-tile.cropsnh:cropLapender.name=Lapender
-tile.cropsnh:cropEmeryllis.name=Émeryllis
-tile.cropsnh:cropRedstodendron.name=Redstodendron
-tile.cropsnh:cropCuprosia.name=Cuivrosia
-tile.cropsnh:cropPetinia.name=Pétainia
-tile.cropsnh:cropPlombean.name=Plombean
-tile.cropsnh:cropSilverweed.name=Argentine
-tile.cropsnh:cropJaslumine.name=Jaslumine
-tile.cropsnh:cropNiccissus.name=Niccissus
-tile.cropsnh:cropPlatiolus.name=Platiolus
-tile.cropsnh:cropOsmonium.name=Osmonium
 
 //entities
 entity.cropsnh.villagerFarmer.name=Villageois
@@ -171,7 +129,7 @@ cropsnh_tooltip.unidentified=Inconnue
 cropsnh_tooltip.seed=Graines
 cropsnh_tooltip.growth=Croissance
 cropsnh_tooltip.gain=Gain
-cropsnh_tooltip.strength=Force
+cropsnh_tooltip.resistance=Résistance
 cropsnh_tooltip.analyzed=Cette graine n'a pas encore été analysée
 cropsnh_tooltip.fertile=Cette plante est fertile et peut croitre
 cropsnh_tooltip.notFertile=Cette plante ne peut pas croitre ici

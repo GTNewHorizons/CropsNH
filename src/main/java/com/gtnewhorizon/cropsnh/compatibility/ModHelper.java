@@ -3,29 +3,14 @@ package com.gtnewhorizon.cropsnh.compatibility;
 import java.util.HashMap;
 import java.util.List;
 
+import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
-import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIHelper;
-import com.gtnewhorizon.cropsnh.compatibility.applecore.AppleCoreHelper;
-import com.gtnewhorizon.cropsnh.compatibility.biomesoplenty.BiomesOPlentyHelper;
-import com.gtnewhorizon.cropsnh.compatibility.bloodmagic.BloodMagicHelper;
-import com.gtnewhorizon.cropsnh.compatibility.botania.BotaniaHelper;
-import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryHelper;
-import com.gtnewhorizon.cropsnh.compatibility.forgemultipart.ForgeMultiPartHelper;
-import com.gtnewhorizon.cropsnh.compatibility.harvestcraft.HarvestcraftHelper;
-import com.gtnewhorizon.cropsnh.compatibility.harvestthenether.HarvestTheNetherHelper;
-import com.gtnewhorizon.cropsnh.compatibility.hungeroverhaul.HungerOverhaulHelper;
-import com.gtnewhorizon.cropsnh.compatibility.minetweaker.MinetweakerHelper;
-import com.gtnewhorizon.cropsnh.compatibility.natura.NaturaHelper;
-import com.gtnewhorizon.cropsnh.compatibility.opencomputers.OpenComputersHelper;
-import com.gtnewhorizon.cropsnh.compatibility.tconstruct.TinkersConstructHelper;
-import com.gtnewhorizon.cropsnh.compatibility.thaumcraft.ThaumcraftHelper;
+import com.gtnewhorizon.cropsnh.blocks.BlockCropSticks;
 import com.gtnewhorizon.cropsnh.compatibility.waila.WailaHelper;
-import com.gtnewhorizon.cropsnh.compatibility.witchery.WitcheryHelper;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 
@@ -101,7 +86,7 @@ public abstract class ModHelper {
      * @return true to consume the right click
      */
     public static boolean handleRightClickOnCrop(World world, int x, int y, int z, EntityPlayer player, ItemStack stack,
-        BlockCrop block, TileEntityCrop crop) {
+        BlockCropSticks block, TileEntityCrop crop) {
         return isRightClickHandled(stack.getItem()) && modTools.get(stack.getItem())
             .useTool(world, x, y, z, player, stack, block, crop);
     }
@@ -120,8 +105,8 @@ public abstract class ModHelper {
      *
      * @return true to consume the right click
      */
-    protected boolean useTool(World world, int x, int y, int z, EntityPlayer player, ItemStack stack, BlockCrop block,
-        TileEntityCrop crop) {
+    protected boolean useTool(World world, int x, int y, int z, EntityPlayer player, ItemStack stack,
+        BlockCropSticks block, TileEntityCrop crop) {
         return false;
     }
 
@@ -202,11 +187,7 @@ public abstract class ModHelper {
     /** method holding all ModHelper classes */
     @SuppressWarnings("unchecked")
     public static void findHelpers() {
-        Class[] classes = { AppleCoreHelper.class, BiomesOPlentyHelper.class, BloodMagicHelper.class,
-            BotaniaHelper.class, ForestryHelper.class, ForgeMultiPartHelper.class, HarvestcraftHelper.class,
-            HarvestTheNetherHelper.class, HungerOverhaulHelper.class, MinetweakerHelper.class, NaturaHelper.class,
-            NEIHelper.class, OpenComputersHelper.class, ThaumcraftHelper.class, TinkersConstructHelper.class,
-            WailaHelper.class, WitcheryHelper.class };
+        Class[] classes = { WailaHelper.class, NEIHelper.class };
         for (Class<? extends ModHelper> clazz : classes) {
             if (ModHelper.class.isAssignableFrom(clazz)) {
                 createInstance(clazz);

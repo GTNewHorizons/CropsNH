@@ -8,8 +8,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import com.gtnewhorizon.cropsnh.api.v1.IDebuggable;
-
 /**
  * A class to aid in the management of debug data.
  */
@@ -55,12 +53,8 @@ public abstract class DebugHelper {
 
         TileEntity tile = world.getTileEntity(x, y, z);
 
-        if (tile != null && tile instanceof IDebuggable) {
-            ((IDebuggable) tile).addDebugInfo(debugData);
-        } else {
-            debugData.add("Block: " + Block.blockRegistry.getNameForObject(world.getBlock(x, y, z)));
-            debugData.add("Meta: " + world.getBlockMetadata(x, y, z));
-        }
+        debugData.add("Block: " + Block.blockRegistry.getNameForObject(world.getBlock(x, y, z)));
+        debugData.add("Meta: " + world.getBlockMetadata(x, y, z));
 
         debugData.add(" ");
 

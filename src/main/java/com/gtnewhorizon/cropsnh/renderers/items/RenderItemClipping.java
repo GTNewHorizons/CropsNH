@@ -12,8 +12,6 @@ import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
-import com.gtnewhorizon.cropsnh.farming.CropRegistry;
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 
 import cpw.mods.fml.relauncher.Side;
@@ -142,11 +140,13 @@ public class RenderItemClipping extends RenderItemBase {
         if (stack == null || stack.getItem() == null || stack.stackTagCompound == null) {
             return null;
         }
-        ItemStack seed = ItemStack.loadItemStackFromNBT(stack.stackTagCompound);
-        CropPlant plant = CropRegistry.getPlantFromStack(seed);
-        if (plant == null) {
-            return null;
-        }
-        return plant.getPlantIcon(7);
+        // TODO: IMPLEMENT CUSTOM SEED ICONS
+        // ItemStack seed = ItemStack.loadItemStackFromNBT(stack.stackTagCompound);
+        // CropPlant plant = CropRegistry.getPlantFromStack(seed);
+        // if (plant == null) {
+        // return null;
+        // }
+        // return plant.getPlantIcon(7);
+        return null;
     }
 }

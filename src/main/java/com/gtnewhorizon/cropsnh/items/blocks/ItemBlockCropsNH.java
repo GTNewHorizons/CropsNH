@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 
 import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
+import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
 
 /**
  * The root item for all CropsNH ItemBlocks.
@@ -24,6 +25,10 @@ public class ItemBlockCropsNH extends ItemBlock {
     public ItemBlockCropsNH(Block block) {
         super(block);
         this.setCreativeTab(CropsNHTab.cropsNHTab);
+    }
+
+    public RenderItemBase getItemRenderer() {
+        return null;
     }
 
 }

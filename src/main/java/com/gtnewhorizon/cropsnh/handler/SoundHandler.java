@@ -5,7 +5,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.sound.PlaySoundEvent17;
 
 import com.gtnewhorizon.cropsnh.CropsNH;
-import com.gtnewhorizon.cropsnh.blocks.BlockCrop;
+import com.gtnewhorizon.cropsnh.blocks.BlockCropSticks;
 
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -30,7 +30,7 @@ public class SoundHandler {
         int z = (int) (event.sound.getZPosF() - 0.5F);
         if (world != null) {
             Block block = world.getBlock(x, y, z);
-            if (block instanceof BlockCrop) {
+            if (block instanceof BlockCropSticks) {
                 event.setResult(Event.Result.DENY);
                 event.result = null;
             }

@@ -45,7 +45,6 @@ public class ConfigurationHandler {
     public static boolean generateDefaults;
     public static boolean customCrops;
     public static int cropsPerCraft;
-    public static int cropStatCap;
     public static boolean resourcePlants;
     public static boolean wipeTallGrassDrops;
     public static boolean renderBookInAnalyzer;
@@ -145,13 +144,6 @@ public class ConfigurationHandler {
             1,
             4,
             "The number of crops you get per crafting operation");
-        cropStatCap = config.getInt(
-            "Crop stat cap",
-            Categories.CATEGORY_CROPSNH,
-            10,
-            1,
-            10,
-            "The maximum attainable value of the stats on a crop");
         propGenerateDefaults = config.get(
             Categories.CATEGORY_CROPSNH,
             "GenerateDefaults",

@@ -7,15 +7,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.gtnewhorizon.cropsnh.api.v1.BlockWithMeta;
+import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.farming.CropRegistry;
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
 
@@ -95,166 +92,6 @@ public abstract class IOHelper {
             LogHelper.info("Caught IOException when reading " + path.getFileName());
         }
         return defaultData;
-    }
-
-    /**
-     * Utility method: splits the string in different lines so it will fit on the page.
-     *
-     * @param fontRendererObj the font renderer to check against.
-     * @param input           the line to split up.
-     * @param maxWidth        the maximum allowable width of the line before being wrapped.
-     * @param scale           the scale of the text to the width.
-     * @return the string split up into lines by the '\n' character.
-     */
-    public static String splitInLines(FontRenderer fontRendererObj, String input, float maxWidth, float scale) {
-        maxWidth = maxWidth / scale;
-        String notProcessed = input;
-        String output = "";
-        while (fontRendererObj.getStringWidth(notProcessed) > maxWidth) {
-            int index = 0;
-            if (notProcessed != null && !notProcessed.equals("")) {
-                // find the first index at which the string exceeds the size limit
-                while (notProcessed.length() - 1 > index
-                    && fontRendererObj.getStringWidth(notProcessed.substring(0, index)) < maxWidth) {
-                    index = (index + 1) < notProcessed.length() ? index + 1 : index;
-                }
-                // go back to the first space to cut the string in two lines
-                while (index > 0 && notProcessed.charAt(index) != ' ') {
-                    index--;
-                }
-                // update the data for the next iteration
-                output = output.equals("") ? output : output + '\n';
-                output = output + notProcessed.substring(0, index);
-                notProcessed = notProcessed.length() > index + 1 ? notProcessed.substring(index + 1) : notProcessed;
-            }
-        }
-        return output + '\n' + notProcessed;
-    }
-
-    // finds blacklisted crops
-    public static void initSeedBlackList() {
-        String[] data = IOHelper.getLinesArrayFromData(ConfigurationHandler.readSeedBlackList());
-        for (String line : data) {
-            LogHelper.debug(new StringBuffer("parsing ").append(line));
-            ItemStack seedStack = IOHelper.getStack(line, false);
-            boolean success = seedStack != null && seedStack.getItem() != null;
-            String errorMsg = "Invalid seed";
-            if (success) {
-                CropRegistry.addSeedToBlackList(seedStack);
-            } else {
-                LogHelper.info(
-                    new StringBuffer("Error when adding seed to blacklist: ").append(errorMsg)
-                        .append(" (line: ")
-                        .append(line)
-                        .append(")"));
-            }
-        }
-    }
-
-    // initializes the seed tier overrides
-    public static void initSeedTiers() {
-        String[] input = IOHelper.getLinesArrayFromData(ConfigurationHandler.readSeedTiers());
-        LogHelper.debug("reading seed tier overrides");
-        for (String line : input) {
-            String[] data = IOHelper.getData(line);
-            boolean success = data.length == 2;
-            String errorMsg = "Incorrect amount of arguments";
-            LogHelper.debug("parsing " + line);
-            if (success) {
-                ItemStack seedStack = IOHelper.getStack(data[0], false);
-                CropPlant plant = CropRegistry.getPlantFromStack(seedStack);
-                success = plant != null;
-                errorMsg = "Invalid seed";
-                if (success) {
-                    int tier = Integer.parseInt(data[1]);
-                    success = tier >= 1 && tier <= 5;
-                    errorMsg = "Tier should be between 1 and 5";
-                    if (success) {
-                        plant.setTier(tier);
-                        LogHelper.info(
-                            " - " + Item.itemRegistry.getNameForObject(
-                                plant.getSeed()
-                                    .getItem())
-                                + ':'
-                                + plant.getSeed()
-                                    .getItemDamage()
-                                + " - tier: "
-                                + tier);
-                    }
-                }
-            }
-            if (!success) {
-                LogHelper.info(
-                    new StringBuffer("Error when adding seed tier override: ").append(errorMsg)
-                        .append(" (line: ")
-                        .append(line)
-                        .append(")"));
-            }
-        }
-    }
-
-    public static void initSpreadChancesOverrides() {
-        // read mutation chance overrides & initialize the arrays
-        String[] input = IOHelper.getLinesArrayFromData(ConfigurationHandler.readSpreadChances());
-        LogHelper.debug("reading mutation chance overrides");
-        for (String line : input) {
-            String[] data = IOHelper.getData(line);
-            boolean success = data.length == 2;
-            String errorMsg = "Incorrect amount of arguments";
-            LogHelper.debug("parsing " + line);
-            if (success) {
-                ItemStack seedStack = IOHelper.getStack(data[0], false);
-                CropPlant plant = CropRegistry.getPlantFromStack(seedStack);
-                success = plant != null;
-                errorMsg = "Invalid seed";
-                if (success) {
-                    int chance = Integer.parseInt(data[1]);
-                    success = chance >= 0 && chance <= 100;
-                    errorMsg = "Chance should be between 0 and 100";
-                    if (success) {
-                        plant.setSpreadChance(chance);
-                        LogHelper.debug(
-                            "Set spread chance for " + Item.itemRegistry.getNameForObject(
-                                plant.getSeed()
-                                    .getItem())
-                                + ':'
-                                + plant.getSeed()
-                                    .getItemDamage()
-                                + " to "
-                                + chance
-                                + '%');
-                    }
-                }
-            }
-            if (!success) {
-                LogHelper.debug("Error when adding mutation chance override: " + errorMsg + " (line: " + line + ")");
-            }
-        }
-        LogHelper.debug("Registered Mutations Chances overrides:");
-    }
-
-    public static void initVanillaPlantingOverrides() {
-        LogHelper.debug("Registered seeds ignoring vanilla planting rule:");
-        String[] data = IOHelper.getLinesArrayFromData(ConfigurationHandler.readVanillaOverrides());
-        for (String line : data) {
-            LogHelper.debug(new StringBuffer("parsing ").append(line));
-            ItemStack seedStack = IOHelper.getStack(line, false);
-            CropPlant plant = CropRegistry.getPlantFromStack(seedStack);
-            boolean success = plant != null;
-            String errorMsg = "Invalid seed";
-            if (success) {
-                plant.setIgnoreVanillaPlantingRule(true);
-                LogHelper.debug(
-                    Item.itemRegistry.getNameForObject(
-                        plant.getSeed()
-                            .getItem())
-                        + ":"
-                        + plant.getSeed()
-                            .getItemDamage());
-            } else {
-                LogHelper.debug("Error when adding seed to vanilla overrides: " + errorMsg + " (line: " + line + ")");
-            }
-        }
     }
 
     // get the mutations file contents

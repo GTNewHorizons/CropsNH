@@ -60,10 +60,10 @@ public class RenderCrop extends RenderBlockBase {
     }
 
     private void renderPlant(IBlockAccess world, int x, int y, int z, TileEntityCrop crop, RenderBlocks renderer) {
-        if (crop.hasPlant()) {
+        if (crop.hasCrop()) {
             // render the plant
-            crop.getPlant()
-                .renderPlantInCrop(world, x, y, z, renderer);
+            crop.getCrop()
+                .render(world, x, y, z, crop, renderer);
         } else if (crop.hasWeed()) {
             // render weeds
             PlantRenderer.renderPlantLayer(world, x, y, z, 6, crop.getPlantIcon(), 0);

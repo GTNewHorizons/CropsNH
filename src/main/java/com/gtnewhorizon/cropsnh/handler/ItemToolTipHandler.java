@@ -1,17 +1,15 @@
 package com.gtnewhorizon.cropsnh.handler;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
-import com.gtnewhorizon.cropsnh.api.v1.IClipper;
-import com.gtnewhorizon.cropsnh.api.v1.ITrowel;
-import com.gtnewhorizon.cropsnh.farming.CropRegistry;
-import com.gtnewhorizon.cropsnh.items.ItemClipping;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.utility.statstringdisplayer.StatStringDisplayer;
+import com.gtnewhorizon.cropsnh.api.ICropCard;
+import com.gtnewhorizon.cropsnh.api.ISeedStats;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
+import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
+import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -25,83 +23,37 @@ public class ItemToolTipHandler {
     @SubscribeEvent
     public void addSeedStatsTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.itemStack;
-        if (stack == null || stack.getItem() == null) {
+        if (stack == null || !(stack.getItem() instanceof ItemGenericSeed) || !stack.hasTagCompound()) {
             return;
         }
-        if (stack.getItem() instanceof ItemClipping) {
-            if (!stack.hasTagCompound()) {
-                return;
-            }
-            stack = ItemStack.loadItemStackFromNBT(stack.getTagCompound());
-        }
-        if (stack == null || stack.getItem() == null) {
-            return;
-        }
-        if (CropRegistry.isValidSeed(stack) && stack.hasTagCompound()) {
-            NBTTagCompound tag = stack.getTagCompound();
-            if (tag.hasKey(Names.NBT.growth) && tag.hasKey(Names.NBT.gain)
-                && tag.hasKey(Names.NBT.strength)
-                && tag.hasKey(Names.NBT.analyzed)) {
-                if (tag.getBoolean(Names.NBT.analyzed)) {
-                    event.toolTip.add(
-                        EnumChatFormatting.GREEN + " - "
-                            + StatCollector.translateToLocal("cropsnh_tooltip.growth")
-                            + ": "
-                            + StatStringDisplayer.instance()
-                                .getStatDisplayString(
-                                    tag.getInteger(Names.NBT.growth),
-                                    ConfigurationHandler.cropStatCap));
-                    event.toolTip.add(
-                        EnumChatFormatting.GREEN + " - "
-                            + StatCollector.translateToLocal("cropsnh_tooltip.gain")
-                            + ": "
-                            + StatStringDisplayer.instance()
-                                .getStatDisplayString(
-                                    tag.getInteger(Names.NBT.gain),
-                                    ConfigurationHandler.cropStatCap));
-                    event.toolTip.add(
-                        EnumChatFormatting.GREEN + " - "
-                            + StatCollector.translateToLocal("cropsnh_tooltip.strength")
-                            + ": "
-                            + StatStringDisplayer.instance()
-                                .getStatDisplayString(
-                                    tag.getInteger(Names.NBT.strength),
-                                    ConfigurationHandler.cropStatCap));
-                } else {
-                    event.toolTip.add(" " + StatCollector.translateToLocal("cropsnh_tooltip.unidentified"));
-                }
-            }
-        }
-    }
+        ICropCard crop = CropRegistry.instance.get(stack);
+        if (crop == null) return;
 
-    /** Adds tooltips to items that are trowels (implementing ITrowel) */
-    @SubscribeEvent
-    public void addTrowelTooltip(ItemTooltipEvent event) {
-        ItemStack stack = event.itemStack;
-        if (stack == null || stack.getItem() == null || !(stack.getItem() instanceof ITrowel)) {
-            return;
-        }
-        ITrowel trowel = (ITrowel) stack.getItem();
-        if (stack.getItemDamage() == 0) {
-            event.toolTip.add(StatCollector.translateToLocal("cropsnh_tooltip.trowel"));
-        } else if (trowel.hasSeed(stack)) {
-            ItemStack seed = trowel.getSeed(stack);
+        ISeedStats stats = SeedStats.readFromNBT(stack.getTagCompound());
+        if (stats.isAnalyzed()) {
             event.toolTip.add(
-                StatCollector.translateToLocal("cropsnh_tooltip.seed") + ": "
-                    + seed.getItem()
-                        .getItemStackDisplayName(seed));
+                String.format(
+                    "%s- %s: %d%s",
+                    EnumChatFormatting.GREEN,
+                    StatCollector.translateToLocal("cropsnh_tooltip.growth"),
+                    stats.getGrowth(),
+                    EnumChatFormatting.RESET));
+            event.toolTip.add(
+                String.format(
+                    "%s- %s: %d%s",
+                    EnumChatFormatting.GREEN,
+                    StatCollector.translateToLocal("cropsnh_tooltip.gain"),
+                    stats.getGrowth(),
+                    EnumChatFormatting.RESET));
+            event.toolTip.add(
+                String.format(
+                    "%s- %s: %d%s",
+                    EnumChatFormatting.GREEN,
+                    StatCollector.translateToLocal("cropsnh_tooltip.resistance"),
+                    stats.getGrowth(),
+                    EnumChatFormatting.RESET));
+        } else {
+            event.toolTip.add(" " + StatCollector.translateToLocal("cropsnh_tooltip.unidentified"));
         }
-    }
-
-    /** Adds tooltips to items that are clippers (implementing IClipper) */
-    @SubscribeEvent
-    public void addClipperTooltip(ItemTooltipEvent event) {
-        ItemStack stack = event.itemStack;
-        if (stack == null || stack.getItem() == null || !(stack.getItem() instanceof IClipper)) {
-            return;
-        }
-        event.toolTip.add(StatCollector.translateToLocal("cropsnh_tooltip.clipper1"));
-        event.toolTip.add(StatCollector.translateToLocal("cropsnh_tooltip.clipper2"));
-        event.toolTip.add(StatCollector.translateToLocal("cropsnh_tooltip.clipper3"));
     }
 }

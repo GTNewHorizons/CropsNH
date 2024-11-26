@@ -12,13 +12,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.gtnewhorizon.cropsnh.blocks.BlockCropsNH;
-import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIConfig;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.handler.ItemToolTipHandler;
 import com.gtnewhorizon.cropsnh.handler.SoundHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
+import com.gtnewhorizon.cropsnh.items.blocks.ItemBlockCropsNH;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.player.renderhooks.RenderPlayerHooks;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
@@ -79,7 +79,7 @@ public class ClientProxy extends CommonProxy {
                 .isAssignableFrom(ItemCropsNH.class)) {
                 try {
                     Object obj = field.get(null);
-                    if (obj != null) {
+                    if (obj != null && obj instanceof ItemCropsNH) {
                         ((ItemCropsNH) obj).getItemRenderer();
                     }
                 } catch (IllegalAccessException e) {
@@ -107,8 +107,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void initNEI() {
-        NEIConfig configNEI = new NEIConfig();
-        configNEI.loadConfig();
+        // NEIConfig configNEI = new NEIConfig();
+        // configNEI.loadConfig();
     }
 
     @Override

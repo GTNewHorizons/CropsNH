@@ -2,7 +2,7 @@
 itemGroup.cropsnh=cropsnh
 
 //Items
-item.cropsnh:cropsItem.name=Crop Sticks
+item.cropsnh:cropSticksItem.name=Crop Sticks
 item.cropsnh:journal.name=Agricultural Journal
 item.cropsnh:trowel.name=Gardening Trowel
 item.cropsnh:magnifyingGlass.name=Magnifying Glass
@@ -11,6 +11,7 @@ item.cropsnh:handRake.wood.name=Wooden Hand Rake
 item.cropsnh:handRake.iron.name=Iron Hand Rake
 item.cropsnh:clipper.name=Clipper
 item.cropsnh:clipping.name=Clipping
+item.cropsnh:terraWart.name=Terra Wart
 
 item.cropsnh:nuggetDiamond.name=Diamond Nugget
 item.cropsnh:nuggetIron.name=Iron Nugget
@@ -87,7 +88,7 @@ item.cropsnh:seedOsmonium.name=Osmonium Seeds
 
 
 //blocks
-tile.cropsnh:crops.name=Crop Sticks
+tile.cropsnh:cropSticks.name=Crop Sticks
 tile.cropsnh:seedAnalyzer.name=Seed Analyzer
 tile.cropsnh:waterPad.name=Water Pad
 tile.cropsnh:waterPadFull.name=Water Pad
@@ -169,9 +170,15 @@ cropsnh_gui.peripheral=Computer Controlled Seed Analyzer
 //tooltips
 cropsnh_tooltip.unidentified=Unidentified
 cropsnh_tooltip.seed=Seed
+cropsnh_tooltip.isSick=Is sick, can't grow!
+cropsnh_tooltip.stats=Stats
 cropsnh_tooltip.growth=Growth
 cropsnh_tooltip.gain=Gain
-cropsnh_tooltip.strength=Strength
+cropsnh_tooltip.resistance=Strength
+cropsnh_tooltip.soil=Soil
+cropsnh_tooltip.fertilizer=Fertilizer
+cropsnh_tooltip.water=Water
+cropsnh_tooltip.weedEx=Weed Ex
 cropsnh_tooltip.analyzed=This seed is not yet analyzed
 cropsnh_tooltip.fertile=This plant is fertile and can grow
 cropsnh_tooltip.notFertile=This plant can not grow here
@@ -192,7 +199,7 @@ cropsnh_tooltip.state=State
 cropsnh_tooltip.empty=No seed planted
 cropsnh_tooltip.waterPadDry=Dig with a shovel in farmland to create a little pit
 cropsnh_tooltip.waterPadWet=then use a bucket of water to fill it up
-cropsnh_tooltip.growthStage=Growthstage
+cropsnh_tooltip.progress=Progress
 cropsnh_tooltip.mature=Mature
 cropsnh_tooltip.clipper1=Right click on crops to obtain clippings
 cropsnh_tooltip.clipper2=Clippings can be planted on other crops
@@ -410,3 +417,41 @@ cropsnh_journal.ganysSurface_camellia=Delicious tea can be extracted from this p
 
 //et futurum
 cropsnh_journal.etFuturum_beetRoot=The usually deep purple roots of beetroot are eaten either boiled, roasted or raw, either alone or combined with any salad vegetable.
+
+//generic seeds
+cropsnh_genericSeeds.unknown=Unknown
+cropsnh_genericSeeds.invalid=Invalid
+cropsnh_genericSeeds.format=%1$s Seeds
+
+//crop names
+cropsnh_crops.venomilia=Venomilia
+cropsnh_crops.stickreed=Stickreed
+cropsnh_crops.Cocoa=Cocoa
+cropsnh_crops.Ferru=Ferru
+cropsnh_crops.aurelia=Aurelia
+cropsnh_crops.redwheat=Redwheat
+cropsnh_crops.terraWart=Terra Wart
+cropsnh_crops.coffee=Coffee
+cropsnh_crops.hops=Hops
+cropsnh_crops.cyprium=Cyprium
+cropsnh_crops.stagnium=Stagnium
+cropsnh_crops.plumbiscus=Plumbiscus
+cropsnh_crops.shining=Shining
+cropsnh_crops.grayStoneLily=Gray Stone Lily
+cropsnh_crops.blackStoneLily=Black Stone Lily
+cropsnh_crops.redStoneLily=Red Stone Lily
+cropsnh_crops.yellowStoneLily=Yellow Stone Lily
+cropsnh_crops.netherStoneLily=Nether Stone Lily
+cropsnh_crops.whiteStoneLily=White Stone Lily
+cropsnh_crops.oakBonsai=Oak Bonsai
+cropsnh_crops.spruceBonsai=Spruce Bonsai
+cropsnh_crops.birchBonsai=Birch Bonsai
+cropsnh_crops.darkOakBonsai=Dark Oak Bonsai
+cropsnh_crops.jungleBonsai=Jungle Bonsai
+cropsnh_crops.acaciaBonsai=Acacia Bonsai
+cropsnh_crops.primordialBerry=Primordial Berry
+
+//block under growth requirements
+cropsnh_growthReq.blockUnder.format=Needs a block of %1$s below to grow.
+
+
