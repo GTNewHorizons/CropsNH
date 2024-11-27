@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -55,11 +56,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     private int waterStorage = 0;
     private int weedexStorage = 0;
     private int fertilizerStorage = 0;
+    private int spriteIndex = 0;
     // used to tell waila wtf is wrong with the crop.
     private @Nullable List<IWorldGrowthRequirement> failedChecks = null;
 
     public TileEntityCrop() {
-        this.ticker = XSTR.XSTR_INSTANCE.nextInt(256);
+        this.ticker = 0;//XSTR.XSTR_INSTANCE.nextInt(256);
     }
 
     @Override
@@ -130,7 +132,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public float getGrowthProgress() {
+    public int getGrowthProgress() {
+        return this.crop != null ? this.growthProgress : 0;
+    }
+
+    @Override
+    public float getGrowthPercent() {
         return this.crop != null
             ? Math.max(0.0f, Math.min(1.0f, (float) this.growthProgress / (float) crop.getGrowthDuration()))
             : 0.0f;
@@ -145,7 +152,9 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     @Override
     public void setCrossCrop(boolean status) {
         if (status != this.isCrossCrop) {
+            this.clear();
             this.isCrossCrop = status;
+            this.isDirty = true;
             if (!worldObj.isRemote && isCrossCrop) {
                 // play a plank noise
                 worldObj.playSoundEffect(
@@ -156,14 +165,6 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                     (net.minecraft.init.Blocks.leaves.stepSound.getVolume() + 1.0F) / 2.0F,
                     net.minecraft.init.Blocks.leaves.stepSound.getPitch() * 0.8F);
             }
-            // clear the crop stats for good measure
-            this.growthProgress = 0;
-            this.failedChecks = null;
-            this.isSick = false;
-            this.stats = null;
-            this.crop = null;
-            // and ask for an update.
-            this.isDirty = true;
         }
     }
 
@@ -174,12 +175,9 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     @Override
     public void plantSeed(ICropCard crop, ISeedStats stats) {
+        this.clear();
         this.crop = crop;
         this.stats = stats;
-        this.growthProgress = 0;
-        this.failedChecks = null;
-        this.isCrossCrop = false;
-        this.isSick = false;
         this.isDirty = true;
     }
 
@@ -321,11 +319,6 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         world.spawnEntityInWorld(entityItem);
     }
 
-    @Override
-    public void validate() {
-        this.canGrow();
-    }
-
     // this saves the data on the tile entity
     @Override
     public void writeToNBT(NBTTagCompound tag) {
@@ -348,7 +341,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     public void writeSeedNBT(NBTTagCompound tag) {
         // save crop information if a crop is planted exists
         if (crop != null) {
-            tag.setString(Names.NBT.id, this.crop.getId());
+            tag.setString(Names.NBT.crop, this.crop.getId());
             if (this.stats != null) {
                 stats.writeToNBT(tag);
             }
@@ -363,10 +356,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
         if (tag.hasKey(Names.NBT.crossCrop, Data.NBTType._boolean) && tag.getBoolean(Names.NBT.crossCrop)) {
-            this.isCrossCrop = true;
-            this.crop = null;
-            this.stats = null;
-            this.growthProgress = 0;
+            this.setCrossCrop(true);
         } else {
             isCrossCrop = false;
             // load crop data if it's not a cross crop
@@ -392,24 +382,25 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     public void loadCropNBT(NBTTagCompound tag) {
-        if (tag == null || !tag.hasKey(Names.NBT.id, Data.NBTType._string)) {
+        if (tag == null || !tag.hasKey(Names.NBT.crop, Data.NBTType._string)) {
             this.clear();
             return;
         }
-        String name = tag.getString(Names.NBT.id);
+        String name = tag.getString(Names.NBT.crop);
         this.crop = CropRegistry.instance.get(name);
         if (this.crop == null) {
             clear();
+        } else {
+            this.stats = SeedStats.readFromNBT(tag);
+            if (tag.hasKey("extra", Data.NBTType._object)) {
+                this.additionalCropData = crop.LoadAdditionalData(tag.getCompoundTag("extra"));
+            }
         }
-        this.stats = SeedStats.readFromNBT(tag);
-        if (tag.hasKey("extra", Data.NBTType._object)) {
-            this.additionalCropData = crop.LoadAdditionalData(tag.getCompoundTag("extra"));
-        }
+
         this.failedChecks = null;
         this.isSick = false;
         this.growthProgress = 0;
-        isDirty = true;
-
+        this.isDirty = true;
     }
 
     /**
@@ -471,12 +462,20 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     @Override
     public void onGrowthTick() {
-        if (this.hasCrop()) {
+        if (FMLCommonHandler.instance().getEffectiveSide().isClient()) return;
+        if (this.hasCrop() && this.canGrow()) {
+            crop.onGrowthTick(this);
             this.growthProgress += 125000;
             if (this.growthProgress > this.crop.getGrowthDuration()) {
                 this.growthProgress = this.crop.getGrowthDuration();
             }
-            this.isDirty = true;
+
+            // only request re-render when the crop is changing state to be rendered.
+            int spriteIndex = this.crop.getSpriteIndex(this);
+            if (spriteIndex != this.spriteIndex) {
+                this.spriteIndex = spriteIndex;
+                this.isDirty = true;
+            }
         }
     }
 
@@ -563,7 +562,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
                 // add growth progress
                 header = StatCollector.translateToLocal("cropsnh_tooltip.progress");
-                value = String.format("%3.2f", this.getGrowthProgress() * 100.0f);
+                value = String.format("%3.2f", this.getGrowthPercent() * 100.0f);
                 information.add(header + ": " + value + "%");
 
                 // do not display crop stats for weeds

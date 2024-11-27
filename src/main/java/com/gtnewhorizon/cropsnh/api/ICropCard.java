@@ -113,6 +113,13 @@ public interface ICropCard {
     void registerSprites(IIconRegister register);
 
     /**
+     * Used to determine when the te will be marked for a render update.
+     *
+     * @return The number of sprites states.
+     */
+    int getSpriteIndex(ICropStickTile tile);
+
+    /**
      * @param te The cropTE in which this crop is growing.
      * @return The sprite to display for this crop.
      */

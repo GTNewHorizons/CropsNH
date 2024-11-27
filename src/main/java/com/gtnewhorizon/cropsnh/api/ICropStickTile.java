@@ -162,9 +162,14 @@ public interface ICropStickTile {
     List<ICropStickTile> getMatureNeighbours();
 
     /**
+     * @return The current growth progress.
+     */
+    int getGrowthProgress();
+
+    /**
      * @return The growth progress of the seed.
      */
-    float getGrowthProgress();
+    float getGrowthPercent();
 
     /**
      * Fired when a player right-clicks the crop block.

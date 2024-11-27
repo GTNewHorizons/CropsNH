@@ -45,10 +45,10 @@ public class CropRegistry implements ICropRegistry {
         // check if it's a generic seed first.
         if (stack.getItem() instanceof ItemGenericSeed && stack.hasTagCompound()
             && stack.getTagCompound()
-                .hasKey(Names.NBT.id, 8)) {
+                .hasKey(Names.NBT.crop, 8)) {
             return cropRegistry.getOrDefault(
                 stack.getTagCompound()
-                    .getString(Names.NBT.id),
+                    .getString(Names.NBT.crop),
                 null);
         }
         // else just run a check on the seed registry

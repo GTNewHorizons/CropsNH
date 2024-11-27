@@ -165,6 +165,16 @@ public abstract class CropCard implements ICropCard {
     }
 
     @Override
+    public int getSpriteIndex(ICropStickTile te) {
+        if (this.sprites == null) return 0;
+        int max = this.sprites.length - 1;
+        int prog = te.getGrowthProgress();
+        int dur = this.getGrowthDuration();
+        if (prog >= dur) return max;
+        return Math.max(0, prog * max / dur);
+    }
+
+    @Override
     @SideOnly(value = Side.CLIENT)
     public IIcon getSprite(ICropStickTile te) {
         if (this.sprites == null || this.sprites.length < 2) return null;
@@ -172,7 +182,7 @@ public abstract class CropCard implements ICropCard {
         if (te.isMature()) return this.sprites[maxSpriteIndex];
         // no more randomly sized growth stages (if you want that feel free to repeat a stage in your icon array)
         int spriteIndex = Math
-            .max(0, Math.min(maxSpriteIndex, (int) Math.floor(te.getGrowthProgress() * maxSpriteIndex)));
+            .max(0, Math.min(maxSpriteIndex, (int) Math.floor(te.getGrowthPercent() * maxSpriteIndex)));
         return this.sprites[spriteIndex];
     }
 

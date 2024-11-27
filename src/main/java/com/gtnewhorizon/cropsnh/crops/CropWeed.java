@@ -31,6 +31,6 @@ public class CropWeed extends CropCard {
 
     @Override
     public boolean spreadsWeeds(ICropStickTile te) {
-        return te.getGrowthProgress() >= 0.5f;
+        return te.getGrowthPercent() >= 0.5f;
     }
 }
