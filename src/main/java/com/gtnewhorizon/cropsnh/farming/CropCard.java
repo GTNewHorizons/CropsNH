@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.crops.abstracts;
+package com.gtnewhorizon.cropsnh.farming;
 
 import java.util.Collections;
 import java.util.HashMap;

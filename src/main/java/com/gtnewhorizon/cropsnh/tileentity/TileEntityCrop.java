@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.gtnewhorizon.cropsnh.init.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,6 +27,7 @@ import com.gtnewhorizon.cropsnh.crops.CropWeed;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
+import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
@@ -316,12 +316,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         double dx = (double) world.rand.nextFloat() * f + (1.0 - f) * 0.5;
         double dy = (double) world.rand.nextFloat() * f + (1.0 - f) * 0.5;
         double dz = (double) world.rand.nextFloat() * f + (1.0 - f) * 0.5;
-        EntityItem entityItem = new EntityItem(
-            world,
-            x + dx,
-            y + dy,
-            z + dz,
-            drop);
+        EntityItem entityItem = new EntityItem(world, x + dx, y + dy, z + dz, drop);
         entityItem.delayBeforeCanPickup = 10;
         world.spawnEntityInWorld(entityItem);
     }
@@ -513,8 +508,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             if (this.crop.onRightClick(this, player)) {
                 return true;
             }
-        }
-        else if (this.isCrossCrop) {
+        } else if (this.isCrossCrop) {
             this.setCrossCrop(false);
             if (!player.capabilities.isCreativeMode) {
                 dropItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(Blocks.blockCrop, 1));

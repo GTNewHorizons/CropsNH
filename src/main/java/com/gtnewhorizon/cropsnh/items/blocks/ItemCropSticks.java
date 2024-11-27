@@ -1,9 +1,7 @@
 package com.gtnewhorizon.cropsnh.items.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -21,6 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickHandler {
 
     private IIcon icon;
+
     /**
      * The default constructor.
      * A super call to this is generally all that is needed in subclasses.
@@ -30,22 +29,22 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
     public ItemCropSticks(Block block) {
         super(block);
     }
-//
-//    @Override
-//    public void registerIcons(IIconRegister register) {
-//        super.registerIcons(register);
-//        this.icon = register.registerIcon("cropsnh:cropSticks");
-//    }
-//
-//    @Override
-//    public int getSpriteNumber() {
-//        return 1;
-//    }
-//
-//    @Override
-//    public IIcon getIcon(ItemStack stack, int pass) {
-//        return this.icon;
-//    }
+    //
+    // @Override
+    // public void registerIcons(IIconRegister register) {
+    // super.registerIcons(register);
+    // this.icon = register.registerIcon("cropsnh:cropSticks");
+    // }
+    //
+    // @Override
+    // public int getSpriteNumber() {
+    // return 1;
+    // }
+    //
+    // @Override
+    // public IIcon getIcon(ItemStack stack, int pass) {
+    // return this.icon;
+    // }
 
     @Override
     @SideOnly(Side.CLIENT)

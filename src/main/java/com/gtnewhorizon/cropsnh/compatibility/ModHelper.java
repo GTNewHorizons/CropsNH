@@ -3,13 +3,13 @@ package com.gtnewhorizon.cropsnh.compatibility;
 import java.util.HashMap;
 import java.util.List;
 
-import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.blocks.BlockCropSticks;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.NEIHelper;
 import com.gtnewhorizon.cropsnh.compatibility.waila.WailaHelper;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;

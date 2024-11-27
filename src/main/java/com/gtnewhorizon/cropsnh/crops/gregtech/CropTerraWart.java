@@ -9,7 +9,7 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropCard;
+import com.gtnewhorizon.cropsnh.farming.CropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.reference.Names;

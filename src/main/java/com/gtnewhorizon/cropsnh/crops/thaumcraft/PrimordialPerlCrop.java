@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropCard;
+import com.gtnewhorizon.cropsnh.farming.CropCard;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 
 import gregtech.api.enums.Materials;

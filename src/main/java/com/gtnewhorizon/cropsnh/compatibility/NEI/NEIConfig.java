@@ -1,6 +1,5 @@
 package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
-
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.CropsNH;
@@ -18,13 +17,13 @@ public class NEIConfig implements IConfigureNEI {
         // register NEI recipe handler
         LogHelper.debug("Registering NEI recipe handlers");
         // mutation handler
-        //NEICropMutationHandler mutationHandler = new NEICropMutationHandler();
-        //API.registerRecipeHandler(mutationHandler);
-        //API.registerUsageHandler(mutationHandler);
+        // NEICropMutationHandler mutationHandler = new NEICropMutationHandler();
+        // API.registerRecipeHandler(mutationHandler);
+        // API.registerUsageHandler(mutationHandler);
         // crop product handler
-        //NEICropProductHandler productHandler = new NEICropProductHandler();
-        //API.registerRecipeHandler(productHandler);
-        //API.registerUsageHandler(productHandler);
+        // NEICropProductHandler productHandler = new NEICropProductHandler();
+        // API.registerRecipeHandler(productHandler);
+        // API.registerUsageHandler(productHandler);
         // hide crop blocks in NEI
         hideItems();
     }

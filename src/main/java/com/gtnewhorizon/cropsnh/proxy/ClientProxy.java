@@ -18,7 +18,6 @@ import com.gtnewhorizon.cropsnh.handler.SoundHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
-import com.gtnewhorizon.cropsnh.items.blocks.ItemBlockCropsNH;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.player.renderhooks.RenderPlayerHooks;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;

@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropCard;
+import com.gtnewhorizon.cropsnh.farming.CropCard;
 
 /**
  * The generic weed crop that appears when a crop spreads weeds or a crop stick is left sitting for too long.

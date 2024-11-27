@@ -1,15 +1,11 @@
 package com.gtnewhorizon.cropsnh.blocks;
 
-import com.gtnewhorizon.cropsnh.api.ICropLeftClickHandler;
-import com.gtnewhorizon.cropsnh.init.Items;
-import com.gtnewhorizon.cropsnh.items.blocks.ItemCropSticks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -19,12 +15,13 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.gtnewhorizon.cropsnh.api.ICropLeftClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.init.Blocks;
-import com.gtnewhorizon.cropsnh.items.blocks.ItemBlockCropsNH;
+import com.gtnewhorizon.cropsnh.items.blocks.ItemCropSticks;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderCrop;
@@ -167,7 +164,8 @@ public class BlockCropSticks extends BlockContainerCropsNH {
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
         double d = 0.2;
-        return AxisAlignedBB.getBoundingBox((double)d, (double)0.0, (double)d, (double)(1.0 - d), (double)0.7, (double)(1.0 - d));
+        return AxisAlignedBB
+            .getBoundingBox((double) d, (double) 0.0, (double) d, (double) (1.0 - d), (double) 0.7, (double) (1.0 - d));
     }
 
     @Override
