@@ -27,7 +27,7 @@ public class PrimordialPerlCrop extends CropCard {
         ItemStack primPerl = thaumcraft.api.ItemApi.getItem("itemEldritchObject", 3)
             .copy();
         primPerl.stackSize = 1;
-        this.dropTable.put(primPerl, 1.0f);
+        this.dropTable.put(primPerl, 10000);
         // add alt seed
         this.altSeeds = new ItemStack[] { primPerl };
     }

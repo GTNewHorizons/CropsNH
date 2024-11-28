@@ -40,7 +40,7 @@ public class CropNetherwart extends CropCard {
 
     public CropNetherwart() {
         super("netherwart");
-        this.dropTable.put(new ItemStack(Items.nether_wart, 1), 1.0f);
+        this.dropTable.put(new ItemStack(Items.nether_wart, 1), 10000);
         this.alternateSeeds = new ItemStack[] { new ItemStack(Items.nether_wart, 1) };
     }
 

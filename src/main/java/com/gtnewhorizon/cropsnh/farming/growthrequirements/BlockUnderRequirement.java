@@ -65,8 +65,8 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement {
     public boolean canGrow(World world, ICropStickTile tile, int x, int y, int z) {
 
         // pre-flight checks
-        z -= -2;
-        if (z - 2 < 0) return false;
+        y -= 2;
+        if (y < 0) return false;
         if (world.isAirBlock(x, y, z)) return false;
 
         // get the block under
@@ -81,45 +81,37 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement {
         ItemStack stack = new ItemStack(block, 1, meta);
 
         // gt material check
-        if (this.materials != null) {
-            for (Materials material : this.materials) {
-                if (te != null && block instanceof BlockOresAbstract && te instanceof TileEntityOres) {
-                    Materials tMaterial = GregTechAPI.sGeneratedMaterials[((TileEntityOres) te).mMetaData % 1000];
-                    if (tMaterial != null && tMaterial != Materials._NULL && tMaterial == material) {
-                        return true;
-                    }
-                } else {
-                    ItemData association = GTOreDictUnificator.getAssociation(stack);
-                    if (association != null && (association.mPrefix.toString()
-                        .startsWith("ore") || association.mPrefix == OrePrefixes.block)
-                        && (association.mMaterial.mMaterial == material)) {
-                        return true;
-                    }
+        for (Materials material : this.materials) {
+            if (block instanceof BlockOresAbstract && te instanceof TileEntityOres) {
+                Materials tMaterial = GregTechAPI.sGeneratedMaterials[((TileEntityOres) te).mMetaData % 1000];
+                if (tMaterial != null && tMaterial != Materials._NULL && tMaterial == material) {
+                    return true;
+                }
+            } else {
+                ItemData association = GTOreDictUnificator.getAssociation(stack);
+                if (association != null && (association.mPrefix.toString()
+                    .startsWith("ore") || association.mPrefix == OrePrefixes.block)
+                    && (association.mMaterial.mMaterial == material)) {
+                    return true;
                 }
             }
         }
 
         // ore dictionary
-        if (this.oreDictionaries != null) {
-            for (String oreDict : this.oreDictionaries) {
-                for (int aux = 0; aux < OreDictionary.getOres(oreDict)
-                    .size(); ++aux) {
-                    ItemStack oreDictStack = OreDictionary.getOres(oreDict)
-                        .get(aux);
-                    if (oreDictStack.getItem() != stack.getItem()) continue;
-                    int dmg = oreDictStack.getItemDamage();
-                    if (dmg == OreDictionary.WILDCARD_VALUE) return true;
-                    if (dmg == stack.getItemDamage()) return true;
-                }
+        for (String oreDict : this.oreDictionaries) {
+            for (int aux = 0; aux < OreDictionary.getOres(oreDict)
+                .size(); ++aux) {
+                ItemStack oreDictStack = OreDictionary.getOres(oreDict)
+                    .get(aux);
+                if (oreDictStack.getItem() != stack.getItem()) continue;
+                int dmg = oreDictStack.getItemDamage();
+                if (dmg == OreDictionary.WILDCARD_VALUE) return true;
+                if (dmg == stack.getItemDamage()) return true;
             }
         }
 
         // direct block access
-        if (this.blocks != null) {
-            return blocks.contains(block, meta);
-        }
-
-        return false;
+        return blocks.contains(block, meta);
     }
 
 }

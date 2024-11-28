@@ -3,6 +3,7 @@ package com.gtnewhorizon.cropsnh.tileentity;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -198,6 +199,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         }
     }
 
+
+
     @Override
     public boolean canGrow() {
         // You can't grow something that doesn't exist.
@@ -227,7 +230,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         }
         // update the list of failed checks if necessary.
         if (failedReqs != null) this.failedChecks = failedReqs;
-        return this.failedChecks != null;
+        return this.failedChecks == null;
     }
 
     @Override
@@ -273,33 +276,56 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public @Nullable ItemStack[] harvest() {
+    public @Nullable ArrayList<ItemStack> harvest() {
+        // TODO: IMPLEMENT NEW DROP COUNT CALCULATION
         // must be fully grown to harvest
         if (this.crop == null || this.stats == null || !this.isMature()) return null;
+
+        crop.onHarvest(this);
+        this.growthProgress = 0;
+        this.spriteIndex = 0;
+        this.isDirty = true;
+
         double chance = this.crop.getDropChance();
         int dropCount = (int) Math.max(
             0L,
             Math.round(
                 XSTR.XSTR_INSTANCE.nextGaussian() * (chance *= Math.pow(1.03, this.stats.getGain())) * 0.6827
                     + chance));
-        // TODO: IMPLEMENT PROPPER DROP TABLES
-        // ItemStack[] ret = new ItemStack[dropCount];
-        for (int i = 0; i < dropCount; ++i) {
-            // ret[i] = this.crop.getGain(this);
-            // if (ret[i] == null || IC2.random.nextInt(100) > this.statGain) continue;
-            // ++ret[i].stackSize;
+
+        if (dropCount <= 0) return null;
+        // check if we got a drop
+        Map<ItemStack, Integer> dropTable = this.crop.getDropTable();
+        if (dropTable == null) return null;
+        // roll drop table
+        ArrayList<ItemStack> ret = new ArrayList<>();
+        for (Map.Entry<ItemStack, Integer> drop : dropTable.entrySet()) {
+            int count = 0;
+            int gainBonus = 0;
+            // merge re-rolls into the same stack.
+            for (int i = 0; i < dropCount; i++) {
+                if (XSTR.XSTR_INSTANCE.nextInt(10000) < drop.getValue()) {
+                    if (XSTR.XSTR_INSTANCE.nextInt(100) <= this.stats.getGain()) {
+                        gainBonus += 1;
+                    }
+                    count++;
+                }
+            }
+            if (count > 0) {
+                ItemStack stack = drop.getKey().copy();
+                stack.stackSize *= count;
+                stack.stackSize += gainBonus;
+                ret.add(stack);
+            }
         }
-        crop.onHarvest(this);
-        this.growthProgress = 0;
-        this.isDirty = true;
-        return null;
+        return ret;
     }
 
     public boolean doPlayerHarvest() {
         // check if we can harvest this crop
         if (this.crop == null || this.stats == null || !this.isMature()) return false;
-        ItemStack[] drops = harvest();
-        if (drops == null) return false;
+        ArrayList<ItemStack> drops = harvest();
+        if (drops == null) return true;
         for (ItemStack drop : drops) {
             if (drop == null || drop.getItem() == null) {
                 continue;
@@ -460,12 +486,18 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         }
     }
 
+    public int calcGrowthRate() {
+        // TODO: CREATE CUSTOM GROWTH FORMULA
+        return 375000;
+    }
+
     @Override
     public void onGrowthTick() {
+        // do not run growth ticks on the client
         if (FMLCommonHandler.instance().getEffectiveSide().isClient()) return;
         if (this.hasCrop() && this.canGrow()) {
             crop.onGrowthTick(this);
-            this.growthProgress += 125000;
+            this.growthProgress += this.calcGrowthRate();
             if (this.growthProgress > this.crop.getGrowthDuration()) {
                 this.growthProgress = this.crop.getGrowthDuration();
             }

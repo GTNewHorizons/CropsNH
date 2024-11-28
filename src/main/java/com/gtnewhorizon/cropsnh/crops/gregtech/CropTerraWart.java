@@ -28,7 +28,7 @@ public class CropTerraWart extends CropCard {
 
     public CropTerraWart() {
         super(Names.Objects.terraWart);
-        this.dropTable.put(new ItemStack(Items.terraWart, 1), 1.0f);
+        this.dropTable.put(new ItemStack(Items.terraWart, 1), 10000);
         this.alternateSeeds = new ItemStack[] { new ItemStack(Items.terraWart, 1) };
     }
 

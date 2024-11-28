@@ -19,7 +19,7 @@ public class CropWeed extends CropCard {
     }
 
     @Override
-    public Map<ItemStack, Float> getDropTable() {
+    public Map<ItemStack, Integer> getDropTable() {
         // no drop table by default, if you want weeds use a trowel
         return null;
     }

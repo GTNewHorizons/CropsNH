@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -149,7 +150,7 @@ public interface ICropStickTile {
      * @return The items that were dropped
      */
     @Nullable
-    ItemStack[] harvest();
+    ArrayList<ItemStack> harvest();
 
     /**
      * @return a list of ICrop objects containing all neighbouring crops

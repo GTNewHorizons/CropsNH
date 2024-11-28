@@ -87,7 +87,7 @@ public interface ICropCard {
     /**
      * @return The drop table for the crop. 1.0 is a guarenteed drop.
      */
-    Map<ItemStack, Float> getDropTable();
+    Map<ItemStack, Integer> getDropTable();
 
     /**
      * @return The items that can be used as seeds to plant this crop aside from the generic seeds.

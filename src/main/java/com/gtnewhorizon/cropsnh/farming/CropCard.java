@@ -41,7 +41,7 @@ public abstract class CropCard implements ICropCard {
 
     protected final String id;
     private IIcon[] sprites = null;
-    protected HashMap<ItemStack, Float> dropTable = new HashMap<ItemStack, Float>();
+    protected HashMap<ItemStack, Integer> dropTable = new HashMap<>();
 
     protected CropCard(String id) {
         this.id = Reference.MOD_ID + ":" + id;
@@ -103,7 +103,7 @@ public abstract class CropCard implements ICropCard {
     }
 
     @Override
-    public Map<ItemStack, Float> getDropTable() {
+    public Map<ItemStack, Integer> getDropTable() {
         return this.dropTable;
     }
 
