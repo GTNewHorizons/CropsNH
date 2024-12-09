@@ -66,9 +66,9 @@ public class SeedStats implements ISeedStats {
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-        tag.setShort(Names.NBT.growth, this.growth);
-        tag.setShort(Names.NBT.gain, this.gain);
-        tag.setShort(Names.NBT.resistance, this.resistance);
+        tag.setByte(Names.NBT.growth, this.growth);
+        tag.setByte(Names.NBT.gain, this.gain);
+        tag.setByte(Names.NBT.resistance, this.resistance);
         tag.setBoolean(Names.NBT.analyzed, this.analyzed);
         return tag;
     }

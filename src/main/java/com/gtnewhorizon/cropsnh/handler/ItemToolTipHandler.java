@@ -43,14 +43,14 @@ public class ItemToolTipHandler {
                     "%s- %s: %d%s",
                     EnumChatFormatting.GREEN,
                     StatCollector.translateToLocal("cropsnh_tooltip.gain"),
-                    stats.getGrowth(),
+                    stats.getGain(),
                     EnumChatFormatting.RESET));
             event.toolTip.add(
                 String.format(
                     "%s- %s: %d%s",
                     EnumChatFormatting.GREEN,
                     StatCollector.translateToLocal("cropsnh_tooltip.resistance"),
-                    stats.getGrowth(),
+                    stats.getResistance(),
                     EnumChatFormatting.RESET));
         } else {
             event.toolTip.add(" " + StatCollector.translateToLocal("cropsnh_tooltip.unidentified"));
