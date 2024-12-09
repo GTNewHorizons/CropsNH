@@ -65,7 +65,6 @@ public class ItemSpade extends ItemCropsNH implements ICropLeftClickHandler, ICr
     @Override
     public boolean onLeftClick(ICropStickTile te, EntityPlayer player, ItemStack heldItem) {
         return this.doWork(te, true);
-
     }
 
     @Override
@@ -80,6 +79,7 @@ public class ItemSpade extends ItemCropsNH implements ICropLeftClickHandler, ICr
     }
 
     private boolean doWork(ICropStickTile te, boolean clearAfter) {
+        if (te.isCrossCrop()) return false;
         // if it's weeds clear them
         if (te.hasWeed()) {
             // drop tall grass if it's mature

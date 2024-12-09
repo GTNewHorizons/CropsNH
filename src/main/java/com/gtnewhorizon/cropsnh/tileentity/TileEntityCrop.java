@@ -670,6 +670,13 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             }
             this.clear();
         }
+        if (this.isCrossCrop) {
+            this.setCrossCrop(false);
+            if (!player.capabilities.isCreativeMode) {
+                dropItem(new ItemStack(Blocks.blockCrop, 1));
+            }
+            return true;
+        }
         return true;
     }
 

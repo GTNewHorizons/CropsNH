@@ -100,8 +100,9 @@ public class BlockCropSticks extends BlockContainerCropsNH {
 
         // if it can interact with crops deffer to that tool's logic.
         if (heldItem != null && heldItem.getItem() instanceof ICropLeftClickHandler) {
-            ((ICropLeftClickHandler) heldItem.getItem()).onLeftClick(crop, player, heldItem);
-            return;
+            if (((ICropLeftClickHandler) heldItem.getItem()).onLeftClick(crop, player, heldItem)) {
+                return;
+            }
         }
 
         // else we let it go to the crop tile
