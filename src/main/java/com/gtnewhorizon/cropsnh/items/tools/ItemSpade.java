@@ -33,6 +33,7 @@ public class ItemSpade extends ItemCropsNH implements ICropLeftClickHandler, ICr
         this.setHasSubtypes(true);
     }
 
+
     @Override
     protected String getInternalName() {
         return Names.Objects.spade;
@@ -73,6 +74,11 @@ public class ItemSpade extends ItemCropsNH implements ICropLeftClickHandler, ICr
         return this.doWork(te, false);
     }
 
+    @Override
+    public boolean isFull3D() {
+        return true;
+    }
+
     private boolean doWork(ICropStickTile te, boolean clearAfter) {
         // if it's weeds clear them
         if (te.hasWeed()) {
@@ -105,7 +111,7 @@ public class ItemSpade extends ItemCropsNH implements ICropLeftClickHandler, ICr
         // every 10 resil you get 1 more seed
         int seedCount = resist / 10;
         // and then you get a percent chance based on the resil eg 11 = 1 seed + 10% for a 2nd
-        seedCount += XSTR.XSTR_INSTANCE.nextInt(10) > (resist % 10) ? 1 : 0;
+        seedCount += XSTR.XSTR_INSTANCE.nextInt(10) < (resist % 10) ? 1 : 0;
         return seedCount;
     }
 }
