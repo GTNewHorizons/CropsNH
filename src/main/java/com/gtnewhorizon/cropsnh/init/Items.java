@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.init;
 
+import com.gtnewhorizon.cropsnh.items.tools.ItemSpade;
 import net.minecraft.item.Item;
 
 import com.gtnewhorizon.cropsnh.items.tools.ItemDebugger;
@@ -14,13 +15,14 @@ public class Items {
     public static Item debugItem;
     public static Item genericSeed;
     public static Item terraWart;
-    public static Item cropSticks;
+    public static Item spade;
 
     public static void init() {
         magnifyingGlass = new ItemMagnifyingGlass();
         debugItem = new ItemDebugger();
         terraWart = new ItemTerraWart();
         genericSeed = new ItemGenericSeed();
+        spade = new ItemSpade();
 
         LogHelper.debug("Items Registered");
     }
