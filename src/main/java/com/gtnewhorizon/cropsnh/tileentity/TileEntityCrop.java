@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
@@ -274,8 +275,9 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     @Override
     public boolean addFertilizer(int amount, int threshold, int maxStorage) {
-        if (this.fertilizerStorage >= threshold) return false;
+        if (this.fertilizerStorage > threshold) return false;
         this.fertilizerStorage = Math.min(maxStorage, this.fertilizerStorage + amount);
+        this.isDirty = true;
         return true;
     }
 
@@ -283,6 +285,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     public boolean addWater(int amount, int threshold, int maxStorage) {
         if (this.waterStorage >= threshold) return false;
         this.waterStorage = Math.min(maxStorage, this.waterStorage + amount);
+        this.isDirty = true;
         return true;
     }
 
@@ -601,8 +604,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                 int spriteIndex = this.crop.getSpriteIndex(this);
                 if (spriteIndex != this.spriteIndex) {
                     this.spriteIndex = spriteIndex;
-                    this.isDirty = true;
                 }
+                this.isDirty = true;
             }
             if (this.crop.spreadsWeeds(this) && XSTR.XSTR_INSTANCE.nextInt(50) - this.stats.getGrowth() <= 2) {
                 this.spreadWeed();
@@ -627,11 +630,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             // check if it's a fertilizer
             int fertilizerPotency = FertilizerRegistry.instance.getPotnecy(heldItem);
             if (fertilizerPotency > 0) {
-                this.addFertilizer(fertilizerPotency, 90, 100);
-                if (!player.capabilities.isCreativeMode) {
-                    heldItem.stackSize--;
+                if (this.addFertilizer(fertilizerPotency, 90, 100))  {
+                    if (!player.capabilities.isCreativeMode) {
+                        heldItem.stackSize--;
+                    }
+                    return true;
                 }
-                return true;
             }
             // try planting it
             if (tryPlantSeed(heldItem)) {
@@ -720,13 +724,13 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                 // do not display crop stats for weeds
                 if (!(this.crop instanceof CropWeed)) {
                     if (this.isSick) {
-                        information.add(StatCollector.translateToLocal("cropsnh_tooltip.isSick"));
+                        information.add(EnumChatFormatting.RED + StatCollector.translateToLocal("cropsnh_tooltip.isSick") + EnumChatFormatting.RESET);
                     }
 
                     List<IWorldGrowthRequirement> failedReqs = this.failedChecks;
                     if (failedReqs != null) {
                         for (IWorldGrowthRequirement req : failedReqs) {
-                            information.add(StatCollector.translateToLocal(req.getDescription()));
+                            information.add(EnumChatFormatting.RED + StatCollector.translateToLocal(req.getDescription()) + EnumChatFormatting.RESET);
                         }
                     }
 

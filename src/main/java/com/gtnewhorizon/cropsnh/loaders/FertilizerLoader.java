@@ -13,7 +13,7 @@ public class FertilizerLoader {
 
     public static void init() {
         // vanilla bonemeal
-        FertilizerRegistry.instance.register(Items.dye, 16, 10);
+        FertilizerRegistry.instance.register(Items.dye, 15, 10);
 
         // ic2 fertilizer
         if (Mods.IndustrialCraft2.isModLoaded()) {

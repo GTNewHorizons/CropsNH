@@ -84,7 +84,7 @@ public class ItemSpade extends ItemCropsNH implements ICropLeftClickHandler, ICr
         if (te.hasWeed()) {
             // drop tall grass if it's mature
             if (te.isMature()) {
-                te.dropItem(new ItemStack(Blocks.tallgrass, 1));
+                te.dropItem(new ItemStack(Blocks.tallgrass, 1, 1));
             }
             te.clear();
             return true;

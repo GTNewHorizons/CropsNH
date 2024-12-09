@@ -26,7 +26,7 @@ public abstract class NHCropCard extends CropCard {
 
     @Override
     public String getUnlocalizedName() {
-        return "cropnh_crop:" + internalId;
+        return "cropsnh_crops." + internalId;
     }
 
     @Override

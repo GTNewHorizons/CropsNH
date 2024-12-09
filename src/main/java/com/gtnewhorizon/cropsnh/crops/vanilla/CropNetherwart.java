@@ -59,7 +59,7 @@ public class CropNetherwart extends NHCropCard {
 
     @Override
     public int getMaxGrowthStage() {
-        return 1;
+        return 2;
     }
 
     @Override
