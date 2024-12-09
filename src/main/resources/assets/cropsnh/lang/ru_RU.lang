@@ -1,285 +1,33 @@
-//made by Malcanteth for version 1.3.1
+# Original by Malcanteth
 
-//Creative Tabs
-itemGroup.cropsnh=cropsnh
+# Creative Tabs
+itemGroup.cropsnh=Crops NH
 
-//Items
-item.cropsnh:cropsItem.name=Жёрдочки
-item.cropsnh:journal.name=Журнал агронома
-item.cropsnh:trowel.name=Садовый совок
+# Blocks
+item.cropsnh:cropSticksItem.name=Жёрдочки
 item.cropsnh:magnifyingGlass.name=Лупа
+item.cropsnh:spade.name=Лопатка садовода
 item.cropsnh:debugger.name=Отладчик
 item.cropsnh:handRake.wood.name=Деревянные ручные грабли
 item.cropsnh:handRake.iron.name=Железные ручные грабли
-item.cropsnh:nuggetDiamond.name=Алмазный самородок
-item.cropsnh:nuggetIron.name=Железный самородок
-item.cropsnh:nuggetEmerald.name=Изумрудный самородок
-item.cropsnh:nuggetTin.name=Оловянный самородок
-item.cropsnh:nuggetLead.name=Свинцовый самородок
-item.cropsnh:nuggetSilver.name=Серебряный самородок
-item.cropsnh:nuggetAluminum.name=Алюминиевый самородок
-item.cropsnh:nuggetNickel.name=Никелевый самородок
-item.cropsnh:nuggetPlatinum.name=Платиновый самородок
-item.cropsnh:nuggetOsmium.name=Осмиевый самородок
 
-item.cropsnh:seedPotato.name=Семена картофеля
-item.cropsnh:seedCarrot.name=Семена моркови
-item.cropsnh:seedSugarcane.name=Семена сахарного тростника
-item.cropsnh:seedDandelion.name=Семя одуванчика
-item.cropsnh:seedPoppy.name=Семя мака
-item.cropsnh:seedOrchid.name=Семя синей орхидеи
-item.cropsnh:seedAllium.name=Семя лука
-item.cropsnh:seedTulipRed.name=Семя красного тюльпана
-item.cropsnh:seedTulipOrange.name=Семя оранжевого тюльпана
-item.cropsnh:seedTulipWhite.name=Семя белого тюльпана
-item.cropsnh:seedTulipPink.name=Семя розового тюльпана
-item.cropsnh:seedDaisy.name=Семя нивяника
-item.cropsnh:seedCactus.name=Семена кактуса
-item.cropsnh:seedShroomRed.name=Споры красного гриба
-item.cropsnh:seedShroomBrown.name=Споры коричневого гриба
-item.cropsnh:seedNitorWart.name=Споры ниторного нароста
+# Blocks
+tile.cropsnh:cropSticks.name=Жёрдочки
 
-item.cropsnh:seedBotaniaWhite.name=Семя мистического белого цветка
-item.cropsnh:seedBotaniaOrange.name=Семя мистического оранжевого цветка
-item.cropsnh:seedBotaniaMagenta.name=Семя мистического фиолетового цветка
-item.cropsnh:seedBotaniaLightBlue.name=Семя мистического светло-синего цветка
-item.cropsnh:seedBotaniaYellow.name=Семя мистического жёлтого цветка
-item.cropsnh:seedBotaniaLime.name=Семя мистического светло-зелёного цветка
-item.cropsnh:seedBotaniaPink.name=Семя мистического розового цветка
-item.cropsnh:seedBotaniaGray.name=Семя мистического серого цветка
-item.cropsnh:seedBotaniaLightGray.name=Семя мистического светло-серого цветка
-item.cropsnh:seedBotaniaCyan.name=Семя мистического бирюзового цветка
-item.cropsnh:seedBotaniaPurple.name=Семя мистического фиолетового цветка
-item.cropsnh:seedBotaniaBlue.name=Семя мистического синего цветка
-item.cropsnh:seedBotaniaBrown.name=Семя мистического коричневого цветка
-item.cropsnh:seedBotaniaGreen.name=Семя мистического зелёного цветка
-item.cropsnh:seedBotaniaRed.name=Семя мистического красного цветка
-item.cropsnh:seedBotaniaBlack.name=Семя мистического чёрного цветка
-
-item.cropsnh:seedFerranium.name=Семена феррани
-item.cropsnh:seedAurigold.name=Семена золотков
-item.cropsnh:seedDiamahlia.name=Семена алмангины
-item.cropsnh:seedLapender.name=Семена лапанды
-item.cropsnh:seedEmeryllis.name=Семена изумрилиса
-item.cropsnh:seedRedstodendron.name=Семена краснодендрона
-item.cropsnh:seedCuprosia.name=Семена купрозии
-item.cropsnh:seedPetinia.name=Семена оловунии
-item.cropsnh:seedPlombean.name=Семена свинцоли
-item.cropsnh:seedSilverweed.name=Семена сребротрава
-item.cropsnh:seedJaslumine.name=Семена жаслюмина
-item.cropsnh:seedNiccissus.name=Семена никисса
-item.cropsnh:seedPlatiolus.name=Семена платиолуса
-item.cropsnh:seedOsmonium.name=Семена осмония
-
-
-//blocks
-tile.cropsnh:crops.name=Жёрдочки
-tile.cropsnh:seedAnalyzer.name=Анализатор семян
-
-tile.cropsnh:cropPotato.name=Картофель
-tile.cropsnh:cropCarrot.name=Морковь
-tile.cropsnh:cropSugarcane.name=Сахарный тростник
-tile.cropsnh:cropMelon.name=Арбуз
-tile.cropsnh:cropPumpkin.name=Тыква
-tile.cropsnh:cropDandelion.name=Одуванчик
-tile.cropsnh:cropPoppy.name=Мак
-tile.cropsnh:cropOrchid.name=Орхидея
-tile.cropsnh:cropAllium.name=Лук
-tile.cropsnh:cropTulipRed.name=Красный тюльпан
-tile.cropsnh:cropTulipOrange.name=Оранжевый тюльпан
-tile.cropsnh:cropTulipWhite.name=Белый тюльпан
-tile.cropsnh:cropTulipPink.name=Розовый тюльпан
-tile.cropsnh:cropDaisy.name=Нивяник
-tile.cropsnh:cropCactus.name=Кактус
-tile.cropsnh:cropShroomRed.name=Красный гриб
-tile.cropsnh:cropShroomBrown.name=Коричневый гриб
-tile.cropsnh:cropNitorWart.name=Ниторный нарост
-
-tile.cropsnh:cropBotaniaWhite.name=Мистический белый цветок
-tile.cropsnh:cropBotaniaOrange.name=Мистический оранжевый цветок
-tile.cropsnh:cropBotaniaMagenta.name=Мистический фиолетовый цветок
-tile.cropsnh:cropBotaniaLightBlue.name=Мистический светло-синий цветок
-tile.cropsnh:cropBotaniaYellow.name=Мистический жёлтый цветок
-tile.cropsnh:cropBotaniaLime.name=Мистический светло-зелёный цветок
-tile.cropsnh:cropBotaniaPink.name=Мистический розовый цветок
-tile.cropsnh:cropBotaniaGray.name=Мистический серый цветок
-tile.cropsnh:cropBotaniaLightGray.name=Мистический светло-серый цветок
-tile.cropsnh:cropBotaniaCyan.name=Мистический бирюзовый цветок
-tile.cropsnh:cropBotaniaPurple.name=Мистический фиолетовый цветок
-tile.cropsnh:cropBotaniaBlue.name=Мистический синий цветок
-tile.cropsnh:cropBotaniaBrown.name=Мистический коричневый цветок
-tile.cropsnh:cropBotaniaGreen.name=Мистический зелёный цветок
-tile.cropsnh:cropBotaniaRed.name=Мистический красный цветок
-tile.cropsnh:cropBotaniaBlack.name=Мистический чёрный цветок
-
-tile.cropsnh:cropFerranium.name=Феррань
-tile.cropsnh:cropAurigold.name=Золотки
-tile.cropsnh:cropDiamahlia.name=Алмангина
-tile.cropsnh:cropLapender.name=Лапанда
-tile.cropsnh:cropEmeryllis.name=Изумрилис
-tile.cropsnh:cropRedstodendron.name=Краснодендрон
-tile.cropsnh:cropCuprosia.name=Купрозия
-tile.cropsnh:cropPetinia.name=Оловуния
-tile.cropsnh:cropPlombean.name=Свинцоль
-tile.cropsnh:cropSilverweed.name=Сребротрав
-tile.cropsnh:cropJaslumine.name=Жаслюмин
-tile.cropsnh:cropNiccissus.name=Никисс
-tile.cropsnh:cropPlatiolus.name=Платиолус
-tile.cropsnh:cropOsmonium.name=Осмоний
-
-//tooltips
+# Tooltips
 cropsnh_tooltip.unidentified=Неопознанный
 cropsnh_tooltip.seed=Семя
 cropsnh_tooltip.growth=Рост
 cropsnh_tooltip.gain=Урожай
 cropsnh_tooltip.resistance=Сопротивляемость
-cropsnh_tooltip.analyzed=Эти семена ещё не проанализированы
-cropsnh_tooltip.fertile=Это растение плодоносно и может вырасти
-cropsnh_tooltip.notFertile=Это растение не может расти здесь
-cropsnh_tooltip.discoveredSeeds=Обнаруженные семена
-cropsnh_tooltip.material=Материал
-cropsnh_tooltip.waterLevel=Уровень воды
-cropsnh_tooltip.cropWithPlant=На этих жёрдочках есть растение
-cropsnh_tooltip.crossCrop=Это скрещенные жёрдочки
 cropsnh_tooltip.weeds=Здесь проросли сорняки
-cropsnh_tooltip.cropWithoutPlant=На этих жёрдочках нет растений
-cropsnh_tooltip.notCrop=Это не жёрдочки
-cropsnh_tooltip.trowel=Используется для перемещения растений между жёрдочками
 cropsnh_tooltip.magnifyingGlass=Используется для проверки жёрдочек
 cropsnh_tooltip.handRake=Используются для удаления сорняков с жёрдочек
-cropsnh_tooltip.closed=Закрыто
-cropsnh_tooltip.open=Открыто
-cropsnh_tooltip.state=Состояние
 cropsnh_tooltip.empty=Нет посаженных семян
 
-// nei GUI
+# NEI GUI
 cropsnh_nei.mutation.title=Мутации растений
 cropsnh_nei.soil=Почва
 cropsnh_nei.needs=Требования
 cropsnh_nei.below=Ниже
 cropsnh_nei.nearby=Рядом
-
-//journal entries
-//---------------
-//headers
-cropsnh_journal.introduction=Добро пожаловать в аграрное земледелие, сегодня я научу вас основам огородничества. Для начала вам потребуется положить 4 палочки в сетку крафта для получения жёрдочек. Жёрдочки можно установить на пашню и посадить на них семена. Также можно установить жёрдочки на уже установленные жёрдочки поперёк и получить скрещенные жёрдочки. Если посадить два и более растения вокруг скрещенных жёрдочек, есть вероятность возникновения мутации. В этом журнале вы можете отслеживать найденные мутации растений. Для регистрации обнаруженных семян положите журнал в анализатор семян и проведите анализ семян. Так вы сможете увидеть свойства семян и запишете их в журнал. Если вам захочется скопировать журнал, положите его в сетку крафта с чистой книгой с пером.
-cropsnh_journal.information=Информация
-cropsnh_journal.tier=Уровень
-cropsnh_journal.fruits=Фрукты
-cropsnh_journal.growthStages=Стадии роста
-cropsnh_journal.mutations=Мутации
-
-//cropsnh seeds
-cropsnh_journal.potato=Картофель - основа почти любого питания, а некоторые даже нашли способ готовить из него напитки.
-cropsnh_journal.carrot=Морковь - овощ, подходящий для любой диеты.
-cropsnh_journal.sugarcane=Обычно тростник растёт только у воды, но агроном может вывести сорта, растущие в любом месте.
-cropsnh_journal.dandelion=Одуванчики - жёлтые цветы, часто встречаются в солнечных местах.
-cropsnh_journal.poppy=Довольно распространённый, но всё равно очень красивый тёмно-красный цветок.
-cropsnh_journal.orchid=Цветок, готовый стать украшением любого сада. Фактически, сад выглядит не завешённым без орхидей.
-cropsnh_journal.allium=Лук - цветок, который выращивают ради фиолетовых лепестков.
-cropsnh_journal.tulipPink=Тюльпаны бывают разных расцветок, но среди истинных агрономов особенно ценятся розовые.
-cropsnh_journal.tulipOrange=Оранжевый - один из многих цветов в палитре тюльпанов.
-cropsnh_journal.tulipRed=Существует поговорка: "есть 50 оттенков тюльпанов, но самый красивый из них - красный".
-cropsnh_journal.tulipWhite=Белых цветов много, но по слухам белый тюльпан - самый белый из всех цветов.
-cropsnh_journal.daisy=Ромашки довольно распространены, но это не умаляет красоты этих белых цветов.
-cropsnh_journal.cactus=Кактусы можно выращивать для получения зелёного вещества, заменяющего краситель.
-cropsnh_journal.shroomRed=Этот красный гриб весьма приятен на вкус, он отлично подходит для готовки тушёных грибов.
-cropsnh_journal.shroomBrown=Этот коричневый гриб весьма приятен на вкус, он отлично подходит для готовки тушёных грибов.
-cropsnh_journal.nitorWart=Считалось, что это растение из нижнего мира было истреблено. Старейшины говорят, оно впитывает частички светопыли из окружения для придания пыльце яркости.
-cropsnh_journal.diamahlia=Многие до сих пор считают, что этот цветок существует только в сказках и преданиях. Однако некоторые агрономы утверждают, что преуспели в получении этого легендарного растения.
-cropsnh_journal.aurigold=Золотки - редкий легендарный цветок, который питается крошечными частицами золота в почве. Только очень опытный и терпеливый агроном способен культивировать это сокровище.
-cropsnh_journal.ferranium=Корни этого необычного растения не нуждаются в воде. Они просто закапываются в почву и поглощают частицы железа.
-cropsnh_journal.lapender=Помимо красивой голубизны, этот цветок ещё производит блестящие камешки.
-cropsnh_journal.emeryllis=Поговорив с деревенским агрономом, вы услышите истории об этом растении и сказочном богатстве, которое оно может принести.
-cropsnh_journal.redstodendron=Кажется, кусты краснодендрона испускают некую ауру.
-cropsnh_journal.cuprosia=Купрозия - необычный цветок, высасывающий медь из почвы для закручивания своих красивых лепестков.
-cropsnh_journal.petinia=Этот цветок расцветает только на почвах, богатых оловом.
-cropsnh_journal.plombean=Иногда люди принимают это растение за простую фасоль и умирают от отравления свинцом.
-cropsnh_journal.silverweed=Иногда неопытные агрономы путают это ценное растение с сорняком и избавляются от него.
-cropsnh_journal.jaslumine=Вопреки сомнениям кузнецов, многие считают алюминий полезным и стараются вырастить данный цветок.
-cropsnh_journal.niccissus=Когда он цветёт, в его цветках можно найти никелевые самородки. Как это растение может расти - до сих пор загадка.
-cropsnh_journal.platiolus=Платина - очень редкий материал. Большинство металлургов станет скорее агрономом, чем шахтёром, чтобы добыть её.
-cropsnh_journal.osmonium=Агроном, вырастивший этот цветок, будет пользоваться большим спросом среди инженеров.
-
-//botania seeds
-cropsnh_journal.botaniaWhite=У этого растения красивые белые лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaOrange=У этого растения красивые оранжевые лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaMagenta=У этого растения красивые фиолетовые лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaLightBlue=У этого растения красивые светло-синие лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaYellow=У этого растения красивые жёлтые лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaLime=У этого растения красивые светло-зелёные лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaPink=У этого растения красивые розовые лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaGray=У этого растения красивые серые лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaLightGray=У этого растения красивые светло-серые лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaCyan=У этого растения красивые бирюзовые лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaPurple=У этого растения красивые фиолетовые лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaBlue=У этого растения красивые синие лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaBrown=У этого растения красивые коричневые лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal. botaniaGreen=У этого растения красивые зелёные лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaRed=У этого растения красивые красные лепестки. Кто знает, где они могут пригодиться.
-cropsnh_journal.botaniaBlack=У этого растения красивые чёрные лепестки. Кто знает, где они могут пригодиться.
-
-//minecraft seeds
-cropsnh_journal.wheat=Пшеница - очень распространённый и очень питательный злак.
-cropsnh_journal.pumpkin=Для одних тыква - декоративный овощ, для других - вкусная начинка для пирога.
-cropsnh_journal.melon=Все любят арбуз за то, что он сладкий и сочный.
-
-//natura seeds
-cropsnh_journal.barleyNatura=Некоторые любят ячменный хлеб больше пшеничного, остальные не замечают разницы во вкусе.
-cropsnh_journal.cottonNatura=Хлопок пользуется большим спросом в текстильной промышленности и потому представляет большую ценность.
-
-//harvestcraft seeds
-cropsnh_journal.hc_Artichoke=Съедобная часть артишока состоит из нераскрывшихся бутонов.
-cropsnh_journal.hc_Asparagus=Спаржа - не только овощ, но и лекарство. У неё очень изысканный вкус.
-cropsnh_journal.hc_BambooShoot=Побеги бамбука или бамбуковые стебли - съедобные стебли, используемые во многих восточных блюдах.
-cropsnh_journal.hc_Bean=Фасоль - летнее растение, ей требуется много тепла.
-cropsnh_journal.hc_Beet=Обычные фиолетовые корнеплоды свёклы едят сырыми, жареными, варёными или запечёнными.
-cropsnh_journal.hc_Bellpepper=Чаще всего сладкие перцы бывают зелёными, жёлтыми, оранжевыми и красными.
-cropsnh_journal.hc_Blackberry=Эти мягкие ягоды популярны в составе десертов, желе, а иногда и вин.
-cropsnh_journal.hc_Blueberry=Черника - многолетнее цветущее растение с ягодами цвета индиго.
-cropsnh_journal.hc_Broccoli=Брокколи - съедобное зелёное растение семейства крестоцветных, большие соцветия которого используются в пищу.
-cropsnh_journal.hc_BrusselsSprout=Брюссельская капуста уже давно пользуется популярностью в Брюсселе, и, возможно, там и возникла.
-cropsnh_journal.hc_Cabbage=Капуста, как правило, выращивается ради кочанов, образующихся в первой половине двухгодичного цикла.
-cropsnh_journal.hc_CactusFruit=На этих фруктах обычно растут колючки, будьте осторожнее с ними.
-cropsnh_journal.hc_CandleBerry=Свечное дерево - мелкий кустарник, и плоды у него мелкие.
-cropsnh_journal.hc_Cantaloupe=Дыню обычно едят свежей, или как десерт с мороженым или кремом.
-cropsnh_journal.hc_Cauliflower=Цветную капусту можно жарить, варить, запекать, готовить на пару  или есть сырой.
-cropsnh_journal.hc_Celery=Стебель сельдерея нередко используется в пищу.
-cropsnh_journal.hc_ChiliPepper=У острого чили перца есть много кулинарных применений, от соусов до придания остроты любому блюду.
-cropsnh_journal.hc_Coffee=Эти бобы - основа для горячей кружки кофе, с которой вы начинаете день, по сути, основа вашего дня.
-cropsnh_journal.hc_Corn=Из-за коротких корней кукуруза очень восприимчива к засухам, нетерпима к бедным почвам и уязвима перед сильными ветрами.
-cropsnh_journal.hc_Cranberry=Клюквенный сок, как правило, подслащивают или смешивают с другими соками, чтобы разбавить его кислоту.
-cropsnh_journal.hc_Cucumber=Огурец - это ползучая лоза со съедобными плодами цилиндрической формы.
-cropsnh_journal.hc_Eggplant=В сыром виде этот овощ сильно горчит, но смягчается от кулинарной обработки и приобретает сложный, насыщенный вкус.
-cropsnh_journal.hc_Garlic=Чеснок довольно неприхотлив, в умеренном климате его можно выращивать круглый год.
-cropsnh_journal.hc_Ginger=Имбирь образует соцветия из белых и розовых бутонов, которые распускаются жёлтыми цветами.
-cropsnh_journal.hc_Grape=Плоды винограда - ягоды, растущие гроздьями на плетях древесной лозы. Их можно есть сырыми, а можно сделать из них вино, варенье, сок, желе, изюм, уксус, а из косточек делаются вытяжка и масло.
-cropsnh_journal.hc_Kiwi=Киви можно выращивать в умеренном климате, если летом достаточно жарко.
-cropsnh_journal.hc_Leek=Вместо формирования плотной луковицы, как у обычного лука, у порея образуется длинный цилиндр сросшихся оснований листьев, потерявших цвет из-за нахождения под землёй.
-cropsnh_journal.hc_Lettuce=Обычно салат растится как холодостойкое однолетнее растение. Его легко культивировать, но он требует сравнительно низких температур, чтобы дольше удерживать его от цветения.
-cropsnh_journal.hc_Mustard=Семя горчицы обычно прорастают за срок от трёх до десяти дней, если поместить их в надлежащие условия, включающие в себя прохладную среду и влажную почву.
-cropsnh_journal.hc_Oats=Овёс съедобен для человека в виде овсянки или геркулеса, но чаще его выращивают на корм скоту.
-cropsnh_journal.hc_Okra=Растения окры ценны своими съедобными зелёными семенными коробочками.
-cropsnh_journal.hc_Onion=Луковое растение обладает голубовато-зелёными полыми листьями, называемыми перьями. Луковица у основания начинает набухать с достижением определённой продолжительности светового дня.
-cropsnh_journal.hc_Parsnip=Пастернак - корнеплод, неразлучно связанный с морковью и петрушкой.
-cropsnh_journal.hc_Peanut=Арахис имеет много применений. Его можно есть сырым и использовать в готовке, делать из него растворители и масла, лекарства и текстиль, арахисовое масло и многое другое.
-cropsnh_journal.hc_Peas=С точки зрения ботаники, горох - фрукт, так как его семена развиваются из завязи цветка (стручка).
-cropsnh_journal.hc_Pineapple=Ананасы едят как свежими, так и приготовленными, из них отжимают сок, консервируют и используют для приготовления различных блюд европейской кухни.
-cropsnh_journal.hc_Radish=Редис чаще всего используется в салатах, но в Европе он входит в состав самых разнообразных блюд.
-cropsnh_journal.hc_Raspberry=Кусты малины нельзя сажать там, где выращивались картофель, помидоры, перец, баклажаны или лук, без предварительной фумигации почвы.
-cropsnh_journal.hc_Rhubarb=Перед употреблением в пищу черешки нарезают небольшими кусочками и тушат (или варят) с добавлением сахара.
-cropsnh_journal.hc_Rice=Традиционный метод выращивания риса - заливание полей во время или сразу после посадки молодой рассады.
-cropsnh_journal.hc_Rutabaga=Некоторые вырезают на корнеплодах разные орнаменты, чаще всего лица, и используют их в качестве фонарей против злых духов.
-cropsnh_journal.hc_Rye=Рожь выращивается повсеместно, как и пшеница, как зерновая, покровная или даже кормовая культура.
-cropsnh_journal.hc_Scallion=Шалот имеет довольно мягкий луковый вкус, его можно есть сырым или использовать в готовке.
-cropsnh_journal.hc_Seaweed=Водоросли используются в салатных заправках и соусах, в диабетических блюдах, а также в качестве консерванта в мясных и рыбных продуктах, молочных изделиях и выпечке.
-cropsnh_journal.hc_Soybean=Традиционно применение неферментированных соевых бобов включает в себя соевое молоко, а из него, в свою очередь, тофу и соевую спаржу.
-cropsnh_journal.hc_SpiceLeaf=Листья пряностей - это не просто травы. Это части зелёных растений, которые добавляют в пищу для придания особого вкуса и аромата или в качестве гарнира.
-cropsnh_journal.hc_Strawberry=Клубника пользуется популярностью, и это неспроста: она отлично растёт в домашних условиях, как на ягоды, так и в декоративных целях.
-cropsnh_journal.hc_Sweetpotato=Хотя листья и побеги съедобны, крахмалистые клубни - самая ценная часть.
-cropsnh_journal.hc_Tea=Чай готовится путём заваривания высушенных листьев чайного растения в кипятке.
-cropsnh_journal.hc_Tomato=Помидоры можно есть сырыми, а можно добавлять их в различные блюда, соусы, салаты и напитки.
-cropsnh_journal.hc_Turnip=Репа - крупный белый корнеплод, выращиваемый в районах с умеренным климатом по всему миру.
-cropsnh_journal.hc_WhiteMushroom=Если вы хотите улететь выше облаков, это не те грибы, которые вы ищете.
-cropsnh_journal.hc_WinterSquash=Зимнюю тыкву можно срывать, когда её кожица затвердеет и приобретёт насыщенный однородный цвет.
-cropsnh_journal.hc_Zucchini=Цукини обычно подаётся в жареном виде, но его можно приготовить и другими способами, например потушить, отварить, нафаршировать и запечь, поджарить на гриле или во фритюре.

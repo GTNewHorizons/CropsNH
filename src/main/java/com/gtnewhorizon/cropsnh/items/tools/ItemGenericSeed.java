@@ -1,20 +1,18 @@
-package com.gtnewhorizon.cropsnh.items;
+package com.gtnewhorizon.cropsnh.items.tools;
 
-import net.minecraft.entity.player.EntityPlayer;
+import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
-import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
-import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
 
-public class ItemGenericSeed extends ItemCropsNH implements ICropRightClickHandler {
+public class ItemGenericSeed extends ItemCropsNH {
 
     @Override
     protected String getInternalName() {
@@ -58,22 +56,5 @@ public class ItemGenericSeed extends ItemCropsNH implements ICropRightClickHandl
         return StatCollector.translateToLocalFormatted(
             Names.L10N.genericSeedFormat,
             StatCollector.translateToLocal(this.getUnlocalizedName(itemStack)));
-    }
-
-    @Override
-    public boolean onRightClick(ICropStickTile te, EntityPlayer player, ItemStack heldItem) {
-        if (heldItem == null || heldItem.stackSize <= 0) return false;
-        // attempt to load the seed
-        ICropCard cropCard = CropRegistry.instance.get(heldItem);
-        if (cropCard == null) return false;
-        // attempt to load the stats
-        ISeedStats stats = SeedStats.getStatsFromStack(heldItem);
-        if (stats == null) return false;
-
-        te.plantSeed(cropCard, stats);
-        if (!player.capabilities.isCreativeMode) {
-            heldItem.stackSize--;
-        }
-        return true;
     }
 }

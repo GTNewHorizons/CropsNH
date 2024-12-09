@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.reference.Names;
 
 public class SoilLoader {
 
@@ -32,6 +31,6 @@ public class SoilLoader {
         registry.register("nether", soulSand, netherrack);
         registry.register("end", endstone);
         registry.register("stone", stone, cobblestone);
-        registry.register(Names.Objects.terraWart, soulSand, snow);
+        registry.register("snow", snow);
     }
 }

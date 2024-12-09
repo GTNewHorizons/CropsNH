@@ -66,9 +66,6 @@ public class BlockCropSticks extends BlockContainerCropsNH {
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float fX, float fY,
         float fZ) {
 
-        // only make things happen serverside
-        if (world.isRemote) return true;
-
         // else ensure that we have a crop tile
         final TileEntity te = world.getTileEntity(x, y, z);
         if (!(te instanceof ICropStickTile)) return true;
@@ -77,11 +74,14 @@ public class BlockCropSticks extends BlockContainerCropsNH {
 
         // if it can interact with crops deffer to that tool's logic.
         if (heldItem != null && heldItem.getItem() instanceof ICropRightClickHandler) {
-            if (((ICropRightClickHandler) heldItem.getItem()).onRightClick(crop, player, heldItem)) {
+            if (((ICropRightClickHandler) heldItem.getItem()).onRightClick(world, crop, player, heldItem)) {
                 // only abort if the tool consumed the interaction.
                 return true;
             }
         }
+
+        // only make things happen serverside
+        if (world.isRemote) return true;
 
         // else we let it go to the crop tile
         return crop.onRightClick(player, heldItem);

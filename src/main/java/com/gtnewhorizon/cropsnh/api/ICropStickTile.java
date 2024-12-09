@@ -3,8 +3,6 @@ package com.gtnewhorizon.cropsnh.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -71,23 +69,27 @@ public interface ICropStickTile {
     boolean canPlantSeed();
 
     /**
-     * Sets the plant onto this crop
+     * Attempts to plant a crop using the provided stack.
      *
-     * @param crop       The crop to be planted
-     * @param gr         The growth stat for the plant
-     * @param ga         The gain stat for the plant
-     * @param re         The resistance stat for the plant
-     * @param isAnalized True if the plant is analyzed
+     * @param seedStack The seed being planted.
      */
-    void plantSeed(ICropCard crop, byte gr, byte ga, byte re, boolean isAnalized);
+    boolean tryPlantSeed(ItemStack seedStack);
 
     /**
-     * Sets the plant onto this crop
+     * Attempts to plant a crop.
      *
-     * @param crop  The crop to be planted
-     * @param stats The stats of the seed.
+     * @param cc    The seed being planted.
+     * @param stats The stats of the seed being planted.
      */
-    void plantSeed(ICropCard crop, ISeedStats stats);
+    boolean tryPlantSeed(ICropCard cc, ISeedStats stats);
+
+    /**
+     * Sets the crop in the crop stick, and resets the growth progress.
+     *
+     * @param cc    The crop to plant.
+     * @param stats The stats of the new crop.
+     */
+    void plantSeed(ICropCard cc, ISeedStats stats);
 
     /**
      * Clears the plant from this crop
@@ -149,8 +151,19 @@ public interface ICropStickTile {
      *
      * @return The items that were dropped
      */
-    @Nullable
     ArrayList<ItemStack> harvest();
+
+    /**
+     * Harvests the crop and drops the items in the TE's world.
+     *
+     * @return True if the crop was harvested.
+     */
+    boolean doPlayerHarvest();
+
+    /**
+     * Drops and item at the position of the crop sticks.
+     */
+    void dropItem(ItemStack drop);
 
     /**
      * @return a list of ICrop objects containing all neighbouring crops
@@ -179,7 +192,7 @@ public interface ICropStickTile {
      * @param heldItem The item held by the player or a nullable item.
      * @return True if an item interaction occured.
      */
-    boolean onRightClick(EntityPlayer player, @Nullable ItemStack heldItem);
+    boolean onRightClick(EntityPlayer player, ItemStack heldItem);
 
     /**
      * Fired when a player left-clicks the crop block.
@@ -188,7 +201,7 @@ public interface ICropStickTile {
      * @param heldItem The item held by the player or a nullable item.
      * @return True if an item interaction occured.
      */
-    boolean onLeftClick(EntityPlayer player, @Nullable ItemStack heldItem);
+    boolean onLeftClick(EntityPlayer player, ItemStack heldItem);
 
     /**
      * Fired when the crop block is destroyed.

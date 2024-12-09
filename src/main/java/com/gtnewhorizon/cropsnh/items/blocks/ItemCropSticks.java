@@ -29,22 +29,7 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
     public ItemCropSticks(Block block) {
         super(block);
     }
-    //
-    // @Override
-    // public void registerIcons(IIconRegister register) {
-    // super.registerIcons(register);
-    // this.icon = register.registerIcon("cropsnh:cropSticks");
-    // }
-    //
-    // @Override
-    // public int getSpriteNumber() {
-    // return 1;
-    // }
-    //
-    // @Override
-    // public IIcon getIcon(ItemStack stack, int pass) {
-    // return this.icon;
-    // }
+
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -99,7 +84,8 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
     }
 
     @Override
-    public boolean onRightClick(ICropStickTile te, EntityPlayer player, ItemStack heldItem) {
+    public boolean onRightClick(World world, ICropStickTile te, EntityPlayer player, ItemStack heldItem) {
+        if (world.isRemote) return true;
         // ignore if the held item is bad or if the crop sticks can't be upgraded.
         if (heldItem == null || heldItem.stackSize < 1 || !te.canUpgrade()) return false;
         // upgrade the crop stick to a cross

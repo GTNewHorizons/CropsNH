@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropRegistry;
-import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
+import com.gtnewhorizon.cropsnh.items.tools.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.MetaMap;
@@ -81,7 +81,7 @@ public class CropRegistry implements ICropRegistry {
     }
 
     private static void registerAlternateSeeds(MetaMap<Item, ICropCard> map, ICropCard crop) {
-        ItemStack[] alternateSeeds = crop.getAlternateSeeds();
+        Iterable<ItemStack> alternateSeeds = crop.getAlternateSeeds();
         if (alternateSeeds == null) return;
         for (ItemStack alternateSeed : alternateSeeds) {
             map.putIfAbsent(alternateSeed.getItem(), alternateSeed.getItemDamage(), crop);

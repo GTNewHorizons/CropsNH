@@ -1,23 +1,18 @@
 package com.gtnewhorizon.cropsnh.crops.vanilla;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.IAdditionalCropData;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.farming.CropCard;
+import com.gtnewhorizon.cropsnh.farming.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.reference.Data;
@@ -26,22 +21,15 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import gregtech.api.objects.XSTR;
 
-public class CropNetherwart extends CropCard {
+public class CropNetherwart extends NHCropCard {
 
-    private final ItemStack[] alternateSeeds;
     private final ISoilList soil = SoilRegistry.instance.get("soulsand");
-    private final HashSet<BiomeDictionary.Type> likedBiomes = new HashSet<BiomeDictionary.Type>() {
-
-        {
-            add(BiomeDictionary.Type.NETHER);
-            add(BiomeDictionary.Type.HOT);
-        }
-    };
 
     public CropNetherwart() {
         super("netherwart");
-        this.dropTable.put(new ItemStack(Items.nether_wart, 1), 10000);
-        this.alternateSeeds = new ItemStack[] { new ItemStack(Items.nether_wart, 1) };
+        this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.HOT);
+        this.addDrop(new ItemStack(Items.nether_wart, 1), 10000);
+        this.addAlternateSeeds(new ItemStack(Items.nether_wart, 1));
     }
 
     @Override
@@ -65,19 +53,21 @@ public class CropNetherwart extends CropCard {
     }
 
     @Override
-    public Set<BiomeDictionary.Type> getLikedBiomeTags() {
-        return this.likedBiomes;
+    public int getMinGrowthStage() {
+        return 0;
     }
 
     @Override
-    public IIcon[] getTextures(IIconRegister register) {
-        return getTextures(register, "nether_wart_stage_", 0, 2);
+    public int getMaxGrowthStage() {
+        return 1;
     }
 
     @Override
-    public ItemStack[] getAlternateSeeds() {
-        return this.alternateSeeds;
+    public String getBaseTexturePath() {
+        return "nether_wart_stage_";
     }
+
+    // region terrawart transformation
 
     public boolean onRightClick(ICropStickTile te, EntityPlayer player) {
         IAdditionalCropData dataUnparsed = te.getAdditionalCropData();
@@ -109,8 +99,7 @@ public class CropNetherwart extends CropCard {
         return false;
     }
 
-    @Override
-    public IAdditionalCropData LoadAdditionalData(NBTTagCompound nbt) {
+    public IAdditionalCropData readAdditionalData(NBTTagCompound nbt) {
         return new AdditionalData(nbt);
     }
 
@@ -154,4 +143,5 @@ public class CropNetherwart extends CropCard {
         }
     }
 
+    // endregion terrawart transformation
 }

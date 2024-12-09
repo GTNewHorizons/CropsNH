@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.items;
+package com.gtnewhorizon.cropsnh.items.produce;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;

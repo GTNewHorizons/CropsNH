@@ -58,7 +58,7 @@ public interface ICropCard {
     /**
      * @return The amount of damage a player takes when walking through this crop.
      */
-    int getPlayerDamage();
+    int getEntityDamage();
 
     /**
      * @return The list of biome tags a crop will grow faster in.
@@ -92,7 +92,7 @@ public interface ICropCard {
     /**
      * @return The items that can be used as seeds to plant this crop aside from the generic seeds.
      */
-    ItemStack[] getAlternateSeeds();
+    Iterable<ItemStack> getAlternateSeeds();
 
     /**
      * @return A multiplier for the number of drops at base.
@@ -160,7 +160,7 @@ public interface ICropCard {
      * @param nbt The unparsed nbt
      * @return The rehydrated additional crop data or null if no data needs to be loaded.
      */
-    IAdditionalCropData LoadAdditionalData(NBTTagCompound nbt);
+    IAdditionalCropData readAdditionalData(NBTTagCompound nbt);
 
     // event handlers;
 

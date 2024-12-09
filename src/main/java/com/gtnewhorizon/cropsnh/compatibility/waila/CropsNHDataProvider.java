@@ -40,7 +40,7 @@ public class CropsNHDataProvider implements IWailaDataProvider {
     public List<String> getWailaBody(ItemStack itemStack, List<String> list, IWailaDataAccessor dataAccessor,
         IWailaConfigHandler configHandler) {
         TileEntity te = dataAccessor.getTileEntity();
-        if (te != null && te instanceof TileEntityCropsNH) {
+        if (te instanceof TileEntityCropsNH) {
             ((TileEntityCropsNH) te).addWailaInformation(list);
         }
         return list;

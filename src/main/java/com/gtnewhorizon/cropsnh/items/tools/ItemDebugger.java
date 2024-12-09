@@ -1,5 +1,6 @@
-package com.gtnewhorizon.cropsnh.items;
+package com.gtnewhorizon.cropsnh.items.tools;
 
+import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import net.minecraft.block.IGrowable;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;

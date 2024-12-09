@@ -1,35 +1,26 @@
 package com.gtnewhorizon.cropsnh.crops.thaumcraft;
 
-import java.util.ArrayList;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
-import com.gtnewhorizon.cropsnh.farming.CropCard;
+import com.gtnewhorizon.cropsnh.farming.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 
 import gregtech.api.enums.Materials;
 
-public class PrimordialPerlCrop extends CropCard {
-
-    private final ArrayList<IWorldGrowthRequirement> growthReqs = new ArrayList<>();
-    private final ItemStack[] altSeeds;
+public class PrimordialPerlCrop extends NHCropCard {
 
     public PrimordialPerlCrop() {
         super("primordialBerry");
-        // add ichorium gorwth req
-        this.growthReqs.add(
-            new BlockUnderRequirement("Ichorium").addMaterial(Materials.Ichorium)
-                .addOreDict("oreIchorium", "blockIchorium"));
-        // add drops
         ItemStack primPerl = thaumcraft.api.ItemApi.getItem("itemEldritchObject", 3)
             .copy();
         primPerl.stackSize = 1;
-        this.dropTable.put(primPerl, 10000);
-        // add alt seed
-        this.altSeeds = new ItemStack[] { primPerl };
+        this.addDrop(primPerl, 10000);
+        this.addLikedBiomes(BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.SPOOKY);
+        this.addAlternateSeeds(primPerl);
+        this.addGrowthRequirements(
+            new BlockUnderRequirement("ichorium").addMaterial(Materials.Ichorium)
+                .addOreDict("oreIchorium", "blockIchorium"));
     }
 
     @Override
@@ -38,18 +29,7 @@ public class PrimordialPerlCrop extends CropCard {
     }
 
     @Override
-    public ItemStack[] getAlternateSeeds() {
-        return this.altSeeds;
-    }
-
-    @Override
-    public Iterable<IWorldGrowthRequirement> getWorldGrowthRequirements() {
-        return this.growthReqs;
-    }
-
-    @Override
     public int getGrowthDuration() {
-        // slow ass crop
         return 375_000;
     }
 
@@ -76,8 +56,4 @@ public class PrimordialPerlCrop extends CropCard {
         return -1.0f;
     }
 
-    @Override
-    public IIcon[] getTextures(IIconRegister register) {
-        return getTextures(register, "cropsnh:cropPrimordialBerry", 4);
-    }
 }

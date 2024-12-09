@@ -5,11 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
-import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,7 +14,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.cropsnh.api.IAdditionalCropData;
@@ -31,9 +27,12 @@ import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.init.Items;
+import com.gtnewhorizon.cropsnh.items.tools.ItemGenericSeed;
+import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
+import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -58,11 +57,11 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     private int weedexStorage = 0;
     private int fertilizerStorage = 0;
     private int spriteIndex = 0;
-    // used to tell waila wtf is wrong with the crop.
-    private @Nullable List<IWorldGrowthRequirement> failedChecks = null;
+    // used to tell waila why the crop ain't growing.
+    private List<IWorldGrowthRequirement> failedChecks = null;
 
     public TileEntityCrop() {
-        this.ticker = 0;//XSTR.XSTR_INSTANCE.nextInt(256);
+        this.ticker = XSTR.XSTR_INSTANCE.nextInt(256);
     }
 
     @Override
@@ -113,7 +112,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public @Nullable ISeedStats getStats() {
+    public ISeedStats getStats() {
         return this.crop == null || this.hasWeed() ? null : stats.copy();
     }
 
@@ -170,19 +169,6 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public void plantSeed(ICropCard crop, byte gr, byte ga, byte re, boolean isAnalized) {
-        plantSeed(crop, new SeedStats(gr, ga, re, isAnalized));
-    }
-
-    @Override
-    public void plantSeed(ICropCard crop, ISeedStats stats) {
-        this.clear();
-        this.crop = crop;
-        this.stats = stats;
-        this.isDirty = true;
-    }
-
-    @Override
     public void clear() {
         ICropCard oldCrop = this.crop;
         this.crop = null;
@@ -199,8 +185,6 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         }
     }
 
-
-
     @Override
     public boolean canGrow() {
         // You can't grow something that doesn't exist.
@@ -212,29 +196,70 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         if (this.crop instanceof CropWeed) {
             this.failedChecks = null;
             return true;
-        } ;
+        }
         // Check the world growth requirements
         Iterable<IWorldGrowthRequirement> reqs = this.crop.getWorldGrowthRequirements();
         // abort early if no reqs
         if (reqs == null) {
             this.failedChecks = null;
             return true;
-        } ;
+        }
 
         LinkedList<IWorldGrowthRequirement> failedReqs = null;
         for (IWorldGrowthRequirement req : reqs) {
             if (!req.canGrow(this.worldObj, this, this.xCoord, this.yCoord, this.zCoord)) {
                 if (failedReqs == null) failedReqs = new LinkedList<>();
-                failedReqs.addLast(req);
+                failedReqs.add(req);
             }
         }
-        // update the list of failed checks if necessary.
-        if (failedReqs != null) this.failedChecks = failedReqs;
-        return this.failedChecks == null;
+        return (this.failedChecks = failedReqs) == null;
     }
 
     @Override
-    public @Nullable ItemStack getSeedStack() {
+    public boolean tryPlantSeed(ItemStack seedStack) {
+        // can't plant nothing
+        if (!this.canPlantSeed() || seedStack == null || seedStack.getItem() == null || seedStack.stackSize <= 0)
+            return false;
+
+        // check if it's a valid seed
+        ICropCard cc = CropRegistry.instance.get(seedStack);
+        if (cc == null) {
+            return false;
+        }
+
+        // alternate seeds get 1/1/1 analyzed seeds
+        ISeedStats stats = seedStack.getItem() instanceof ItemGenericSeed ? SeedStats.getStatsFromStack(seedStack)
+            : new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
+
+        // run the crop specific checks next
+        return this.tryPlantSeed(cc, stats);
+    }
+
+    @Override
+    public boolean tryPlantSeed(ICropCard cc, ISeedStats stats) {
+        // check if it can be planted on this soil.
+        Block block = this.worldObj.getBlock(this.xCoord, this.yCoord - 1, this.zCoord);
+        int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord - 1, this.zCoord);
+        if (!cc.getSoilTypes()
+            .isRegistered(block, meta)) {
+            return false;
+        }
+        // all good we can plant the seed
+        this.plantSeed(cc, stats);
+        return true;
+    }
+
+    @Override
+    public void plantSeed(ICropCard cc, ISeedStats stats) {
+        this.clear();
+        // this should be the only place stats and crop are ever set to a non-null value.
+        this.crop = cc;
+        this.stats = stats;
+        this.isDirty = true;
+    }
+
+    @Override
+    public ItemStack getSeedStack() {
         // validate if seed is valid
         if (this.crop == null || this.stats == null) return null;
 
@@ -245,20 +270,6 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         ItemStack seed = new ItemStack(Items.genericSeed, 1);
         seed.setTagCompound(tag);
         return seed;
-    }
-
-    @Override
-    public void spawnWeed() {
-        // if we have weed-ex remaining, stop the weeding.
-        if (this.weedexStorage >= 0) {
-            this.weedexStorage--;
-            return;
-        }
-        // else weed this thing
-        this.clear();
-        this.plantSeed(
-            CropRegistry.instance.get(Reference.MOD_ID + ":weeds"),
-            new SeedStats((byte) 31, (byte) 1, (byte) 1, true));
     }
 
     @Override
@@ -276,7 +287,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public @Nullable ArrayList<ItemStack> harvest() {
+    public ArrayList<ItemStack> harvest() {
         // TODO: IMPLEMENT NEW DROP COUNT CALCULATION
         // must be fully grown to harvest
         if (this.crop == null || this.stats == null || !this.isMature()) return null;
@@ -312,7 +323,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                 }
             }
             if (count > 0) {
-                ItemStack stack = drop.getKey().copy();
+                ItemStack stack = drop.getKey()
+                    .copy();
                 stack.stackSize *= count;
                 stack.stackSize += gainBonus;
                 ret.add(stack);
@@ -321,28 +333,26 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         return ret;
     }
 
+    @Override
     public boolean doPlayerHarvest() {
         // check if we can harvest this crop
-        if (this.crop == null || this.stats == null || !this.isMature()) return false;
+        if (this.worldObj.isRemote || this.crop == null || this.stats == null || this.hasWeed() || !this.isMature())
+            return false;
         ArrayList<ItemStack> drops = harvest();
         if (drops == null) return true;
         for (ItemStack drop : drops) {
             if (drop == null || drop.getItem() == null) {
                 continue;
             }
-            dropItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, drop);
+            this.dropItem(drop);
         }
         return true;
     }
 
-    private static void dropItem(World world, int x, int y, int z, ItemStack drop) {
-        double f = 0.7;
-        double dx = (double) world.rand.nextFloat() * f + (1.0 - f) * 0.5;
-        double dy = (double) world.rand.nextFloat() * f + (1.0 - f) * 0.5;
-        double dz = (double) world.rand.nextFloat() * f + (1.0 - f) * 0.5;
-        EntityItem entityItem = new EntityItem(world, x + dx, y + dy, z + dz, drop);
-        entityItem.delayBeforeCanPickup = 10;
-        world.spawnEntityInWorld(entityItem);
+    @Override
+    public void dropItem(ItemStack drop) {
+        if (this.worldObj.isRemote) return;
+        WorldUtils.dropItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, drop);
     }
 
     // this saves the data on the tile entity
@@ -350,29 +360,29 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     public void writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
         if (this.crop != null) {
-            // save crop specific state
+            // save crop specific empty
             writeSeedNBT(tag);
-            if (this.crop != null && this.isSick) tag.setBoolean("sick", true);
-            tag.setInteger("progress", this.growthProgress);
+            if (this.crop != null && this.isSick) tag.setBoolean(Names.NBT.sick, true);
+            tag.setInteger(Names.NBT.progress, this.growthProgress);
         } else if (this.isCrossCrop) {
             // ignore crop state if it's a cross
             tag.setBoolean(Names.NBT.crossCrop, true);
         }
         // save crop state
-        tag.setInteger("water", this.waterStorage);
-        tag.setInteger("fert", this.fertilizerStorage);
-        tag.setInteger("weedex", this.weedexStorage);
+        tag.setInteger(Names.NBT.water, this.waterStorage);
+        tag.setInteger(Names.NBT.fertilizer, this.fertilizerStorage);
+        tag.setInteger(Names.NBT.weedEx, this.weedexStorage);
     }
 
     public void writeSeedNBT(NBTTagCompound tag) {
         // save crop information if a crop is planted exists
-        if (crop != null) {
+        if (this.crop != null) {
             tag.setString(Names.NBT.crop, this.crop.getId());
             if (this.stats != null) {
-                stats.writeToNBT(tag);
+                this.stats.writeToNBT(tag);
             }
             if (this.additionalCropData != null) {
-                tag.setTag("extra", additionalCropData.writeToNBT());
+                tag.setTag(Names.NBT.extra, additionalCropData.writeToNBT());
             }
         }
     }
@@ -384,26 +394,26 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         if (tag.hasKey(Names.NBT.crossCrop, Data.NBTType._boolean) && tag.getBoolean(Names.NBT.crossCrop)) {
             this.setCrossCrop(true);
         } else {
-            isCrossCrop = false;
+            this.isCrossCrop = false;
             // load crop data if it's not a cross crop
-            loadCropNBT(tag);
+            this.loadCropNBT(tag);
             // only update the growth progress
             if (this.crop != null) {
-                if (tag.hasKey("progress", Data.NBTType._int)) {
-                    this.growthProgress = tag.getInteger("progress");
+                if (tag.hasKey(Names.NBT.progress, Data.NBTType._int)) {
+                    this.growthProgress = tag.getInteger(Names.NBT.progress);
                 }
-                if (tag.hasKey("sick", Data.NBTType._boolean)) {
-                    this.isSick = tag.getBoolean("sick");
+                if (tag.hasKey(Names.NBT.sick, Data.NBTType._boolean)) {
+                    this.isSick = tag.getBoolean(Names.NBT.sick);
                 }
             }
         }
 
         // get crop status stuff
-        this.waterStorage = tag.hasKey("water", Data.NBTType._int) ? tag.getInteger("water") : this.waterStorage;
-        this.fertilizerStorage = tag.hasKey("fert", Data.NBTType._int) ? tag.getInteger("fert")
-            : this.fertilizerStorage;
-        this.weedexStorage = tag.hasKey("weedex", Data.NBTType._int) ? tag.getInteger("weedex") : this.weedexStorage;
-        this.failedChecks = null;
+        this.waterStorage = tag.hasKey(Names.NBT.water, Data.NBTType._int) ? tag.getInteger(Names.NBT.water) : 0;
+        this.fertilizerStorage = tag.hasKey(Names.NBT.fertilizer, Data.NBTType._int)
+            ? tag.getInteger(Names.NBT.fertilizer)
+            : 0;
+        this.weedexStorage = tag.hasKey(Names.NBT.weedEx, Data.NBTType._int) ? tag.getInteger(Names.NBT.weedEx) : 0;
         this.isDirty = true;
     }
 
@@ -413,20 +423,16 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             return;
         }
         String name = tag.getString(Names.NBT.crop);
-        this.crop = CropRegistry.instance.get(name);
-        if (this.crop == null) {
+        ICropCard cc = CropRegistry.instance.get(name);
+        if (cc == null) {
             clear();
         } else {
-            this.stats = SeedStats.readFromNBT(tag);
-            if (tag.hasKey("extra", Data.NBTType._object)) {
-                this.additionalCropData = crop.LoadAdditionalData(tag.getCompoundTag("extra"));
+            ISeedStats stats = SeedStats.readFromNBT(tag);
+            this.plantSeed(cc, stats);
+            if (tag.hasKey(Names.NBT.extra, Data.NBTType._object)) {
+                this.additionalCropData = crop.readAdditionalData(tag.getCompoundTag(Names.NBT.extra));
             }
         }
-
-        this.failedChecks = null;
-        this.isSick = false;
-        this.growthProgress = 0;
-        this.isDirty = true;
     }
 
     /**
@@ -488,31 +494,134 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     public int calcGrowthRate() {
         // TODO: CREATE CUSTOM GROWTH FORMULA
-        return 375000;
+        return 100;
     }
 
-    @Override
-    public void onGrowthTick() {
-        // do not run growth ticks on the client
-        if (FMLCommonHandler.instance().getEffectiveSide().isClient()) return;
-        if (this.hasCrop() && this.canGrow()) {
-            crop.onGrowthTick(this);
-            this.growthProgress += this.calcGrowthRate();
-            if (this.growthProgress > this.crop.getGrowthDuration()) {
-                this.growthProgress = this.crop.getGrowthDuration();
-            }
+    public static int getGrowthRate(boolean inLikedBiome, boolean onLikedSoil, boolean canSeeSky, int waterStorage,
+        int fertilizerStorage, int tier, int growth) {
+        // calculate growth modifier for environment values
+        double mult = 1.0D;
+        // max of 2
+        mult += inLikedBiome ? 2.0D : 0.0D;
+        // max of 2
+        mult += (double) ((waterStorage + 24) / 25) * 0.25D;
+        // max of 1
+        mult += canSeeSky ? 1.0D : 0.0D;
+        // max of 1
+        mult += onLikedSoil ? 1.0D : 0.0D;
+        // max of 4
+        mult += (double) ((fertilizerStorage + 24) / 25) * 0.5D;
+        // apply tier debuff
+        mult *= Math.pow(0.95D, tier);
 
-            // only request re-render when the crop is changing state to be rendered.
-            int spriteIndex = this.crop.getSpriteIndex(this);
-            if (spriteIndex != this.spriteIndex) {
-                this.spriteIndex = spriteIndex;
-                this.isDirty = true;
+        double base = 10 * mult + growth;
+        return (int) base;
+    }
+
+    // region weed generation
+
+    @Override
+    public void spawnWeed() {
+        // if we have weed-ex remaining, stop the weeding.
+        if (this.weedexStorage > 0) {
+            this.weedexStorage = Math.max(this.weedexStorage - 5, 0);
+            return;
+        }
+        // else weed this thing
+        ICropCard weed = CropRegistry.instance.get(Reference.MOD_ID + ":weed");
+        ISeedStats stats = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
+        this.plantSeed(weed, stats);
+        this.isDirty = true;
+    }
+
+    public void spreadWeed() {
+        // when non-weed crops have a resistance stat equal or above their growth stat, the stats
+        if (!this.hasWeed() && this.stats != null && this.stats.getResistance() >= this.stats.getGrowth())
+            if (this.weedexStorage > 0) {
+                this.weedexStorage = Math.max(this.weedexStorage - 5, 0);
+                return;
+            }
+        // pick a random nearby block
+        int x = this.xCoord;
+        int y = this.yCoord;
+        int z = this.zCoord;
+        switch (XSTR.XSTR_INSTANCE.nextInt(4)) {
+            case 0:
+                ++x;
+                break;
+            case 1:
+                --x;
+                break;
+            case 2:
+                ++z;
+                break;
+            case 3:
+                --z;
+                break;
+        }
+        // If the block is a crop stick, try to spawn a weed in it.
+        if (this.worldObj.getTileEntity(x, y, z) instanceof ICropStickTile) {
+            ICropStickTile neighbourTE = (ICropStickTile) this.worldObj.getTileEntity(x, y, z);
+            // it will handle the weed-ex drain on its own.
+            neighbourTE.spawnWeed();
+        }
+        // If the block is air, try putting some tall grass on it.
+        else if (this.worldObj.isAirBlock(x, y, z)) {
+            Block block = this.worldObj.getBlock(x, y - 1, z);
+            // Only possible when the air block is over grass, dirt or farmland, might want to make a loader to add more
+            // replaceable blocks on the fly.
+            if (block == net.minecraft.init.Blocks.grass || block == net.minecraft.init.Blocks.dirt
+                || block == net.minecraft.init.Blocks.farmland) {
+                this.worldObj.setBlock(x, y - 1, z, net.minecraft.init.Blocks.grass, 0, 7);
+                this.worldObj.setBlock(x, y, z, net.minecraft.init.Blocks.tallgrass, 1, 7);
             }
         }
     }
 
+    // endregion weed generation
+
+    // region event handling
+
     @Override
-    public boolean onRightClick(EntityPlayer player, @Nullable ItemStack heldItem) {
+    public void onGrowthTick() {
+        // let the can grow logic run on the client so that it's able to tell the player why a crop isn't growing.
+        boolean canGrow = this.canGrow();
+        if (worldObj.isRemote) return;
+        if (this.hasCrop()) {
+            // run the growth check on client too so that the player can see why it's not growing.
+            if (canGrow) {
+                crop.onGrowthTick(this);
+                if (this.growthProgress < this.crop.getGrowthDuration()) {
+                    this.growthProgress += this.calcGrowthRate();
+                    if (this.growthProgress > this.crop.getGrowthDuration()) {
+                        this.growthProgress = this.crop.getGrowthDuration();
+                    }
+                }
+                // only request re-render when the crop is changing state to be rendered.
+                int spriteIndex = this.crop.getSpriteIndex(this);
+                if (spriteIndex != this.spriteIndex) {
+                    this.spriteIndex = spriteIndex;
+                    this.isDirty = true;
+                }
+            }
+            if (this.crop.spreadsWeeds(this) && XSTR.XSTR_INSTANCE.nextInt(50) - this.stats.getGrowth() <= 2) {
+                this.spreadWeed();
+            }
+        } else {
+            // if it's empty spawn a weed 1% of the time, the spawn weed function handles the weed-ex drain.
+            if (XSTR.XSTR_INSTANCE.nextInt(100) == 0) {
+                this.spawnWeed();
+            }
+        }
+
+        // consume resources if available
+        if (this.fertilizerStorage > 0) this.fertilizerStorage--;
+        if (this.waterStorage > 0) this.waterStorage--;
+    }
+
+    @Override
+    public boolean onRightClick(EntityPlayer player, ItemStack heldItem) {
+        if (worldObj.isRemote) return true;
         // items that implement ICropRightClickHandler will be able to
         if (heldItem != null && heldItem.stackSize > 0) {
             // check if it's a fertilizer
@@ -524,11 +633,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                 }
                 return true;
             }
-            // check if it's a known seed alternate
-            ICropCard crop = CropRegistry.instance.fromAlternateSeed(heldItem);
-            if (this.canPlantSeed()) {
-                stats = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
-                this.plantSeed(crop, stats);
+            // try planting it
+            if (tryPlantSeed(heldItem)) {
                 if (!player.capabilities.isCreativeMode) {
                     heldItem.stackSize--;
                 }
@@ -542,7 +648,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         } else if (this.isCrossCrop) {
             this.setCrossCrop(false);
             if (!player.capabilities.isCreativeMode) {
-                dropItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, new ItemStack(Blocks.blockCrop, 1));
+                dropItem(new ItemStack(Blocks.blockCrop, 1));
             }
             return true;
         }
@@ -554,10 +660,15 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public boolean onLeftClick(EntityPlayer player, @Nullable ItemStack heldItem) {
+    public boolean onLeftClick(EntityPlayer player, ItemStack heldItem) {
         if (this.hasCrop() && !this.hasWeed()) {
+            if (this.isMature()) {
+                this.doPlayerHarvest();
+            }
+            if (this.stats.getResistance() > XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT)) {
+                dropItem(this.getSeedStack());
+            }
             this.clear();
-            // TODO: IMPLEMENT SEED DROP LOGIC
         }
         return true;
     }
@@ -577,10 +688,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     }
 
+    // endregion event handling
+
     @Override
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
-    public void addWailaInformation(List information) {
+    public void addWailaInformation(List<String> information) {
         if (this.crop != null) {
             if (this.hasWeed()) {
                 information.add(StatCollector.translateToLocal("cropsnh_tooltip.weeds"));
@@ -606,7 +719,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                     List<IWorldGrowthRequirement> failedReqs = this.failedChecks;
                     if (failedReqs != null) {
                         for (IWorldGrowthRequirement req : failedReqs) {
-                            information.add(req.getDescription());
+                            information.add(StatCollector.translateToLocal(req.getDescription()));
                         }
                     }
 

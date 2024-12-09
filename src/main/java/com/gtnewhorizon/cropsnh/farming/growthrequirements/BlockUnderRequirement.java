@@ -1,19 +1,18 @@
 package com.gtnewhorizon.cropsnh.farming.growthrequirements;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
-import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.MetaSet;
 
 import gregtech.api.GregTechAPI;
@@ -39,12 +38,12 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement {
     }
 
     public BlockUnderRequirement addMaterial(Materials... args) {
-        for (Materials arg : args) this.materials.add(arg);
+        this.materials.addAll(Arrays.asList(args));
         return this;
     }
 
     public BlockUnderRequirement addOreDict(String... args) {
-        for (String arg : args) this.oreDictionaries.add(arg);
+        this.oreDictionaries.addAll(Arrays.asList(args));
         return this;
     }
 
@@ -57,8 +56,7 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement {
 
     @Override
     public String getDescription() {
-        String materialName = StatCollector.translateToLocal(this.materialDescription);
-        return StatCollector.translateToLocalFormatted(Names.L10N.blockUnderReqFormat, materialName);
+        return "cropsnh_growthReq.blockUnder." + materialDescription;
     }
 
     @Override

@@ -16,36 +16,33 @@ public final class Names {
     // NBT tags
     public static class NBT {
 
+        // #region seed stuff
+        public static final String crop = "crop";
         public static final String growth = "gr";
         public static final String gain = "ga";
         public static final String resistance = "re";
         public static final String analyzed = "scan";
+        // #endregio seed stuff
+
+        // #region crop stick stuff
+        public static final String failedChecks = "issues";
         public static final String crossCrop = "crossCrop";
-        public static final String weed = "weed";
-        public static final String discoveredSeeds = "discoveredSeeds";
-        public static final String currentPage = "currentPage";
-        public static final String wood = "wood";
-        public static final String connected = "nrTanks";
-        public static final String level = "level";
-        public static final String crop = "crop";
-        public static final String meta = "meta";
+        public static final String sick = "sick";
+        public static final String progress = "progress";
+        public static final String extra = "extra";
+        public static final String water = "water";
+        public static final String fertilizer = "fert";
+        public static final String weedEx = "weedex";
+        // #endregion crop stick stuff
+
         public static final String material = "material";
         public static final String materialMeta = "matMeta";
-        public static final String isSprinkled = "isSprinkled";
-        public static final String power = "powerrrr";
-        public static final String inventory = "cropsnhInv";
-        public static final String size = "size";
-        public static final String count = "count";
-        public static final String seed = "seed";
-        public static final String tag = "tag";
         public static final String x = "cropsnhX";
         public static final String y = "cropsnhY";
         public static final String z = "cropsnhZ";
         public static final String x2 = "cropsnhX2";
         public static final String y2 = "cropsnhY2";
         public static final String z2 = "cropsnhZ2";
-        public static final String override = "override";
-        public static final String flag = "ac_Flag";
         public static final String direction = "direction";
         public static final String multiBlock = "cropsnh_MultiBlock";
     }
@@ -55,24 +52,9 @@ public final class Names {
 
         public static final String cropSticksTE = "cropSticksTE";
         public static final String cropSticks = "cropSticks";
-        public static final String analyzer = "Analyzer";
         public static final String seed = "seed";
-        public static final String seedAnalyzer = seed + analyzer;
-        public static final String waterPad = "waterPad";
-        public static final String waterPadFull = waterPad + "Full";
-        public static final String journal = "journal";
-        public static final String trowel = "trowel";
         public static final String magnifyingGlass = "magnifyingGlass";
-        public static final String nugget = "nugget";
-        public static final String ingot = "ingot";
-        public static final String ore = "ore";
-        public static final String sprinkler = "sprinkler";
-        public static final String seedStorage = "seedStorage";
-        public static final String seedStorageController = "seedStorageController";
-        public static final String handRake = "handRake";
-        public static final String peripheral = "peripheral";
-        public static final String clipper = "clipper";
-        public static final String clipping = "clipping";
+        public static final String spade = "spade";
         public static final String genericSeed = "genericSeed";
 
         // crops

@@ -36,37 +36,7 @@ public class Recipes {
                 new ItemStack(net.minecraft.init.Items.stick, 4 / ConfigurationHandler.cropsPerCraft),
                 new ItemStack(Blocks.blockCrop));
         }
-        // magnifying glass
-        if (ConfigurationHandler.enableMagnifyingGlass && Items.magnifyingGlass != null) {
-            GameRegistry.addRecipe(
-                new ShapedOreRecipe(
-                    new ItemStack(Items.magnifyingGlass, 1, 0),
-                    "sgs",
-                    " s ",
-                    " s ",
-                    's',
-                    "stickWood",
-                    'g',
-                    "paneGlass"));
-        }
-        // hand rakes
-        if (ConfigurationHandler.enableHandRake && Items.handRake != null) {
-            GameRegistry.addRecipe(
-                new ShapedOreRecipe(
-                    new ItemStack(Items.handRake, 1, 0),
-                    "fs",
-                    'f',
-                    net.minecraft.init.Blocks.fence,
-                    's',
-                    "stickWood"));
-            GameRegistry.addRecipe(
-                new ShapedOreRecipe(
-                    new ItemStack(Items.handRake, 1, 1),
-                    "fs",
-                    'f',
-                    net.minecraft.init.Blocks.iron_bars,
-                    's',
-                    "stickWood"));
-        }
+        // TODO: add magnifying glass recipe (copy plant lens)
+        // TODO: add spade recipe (copy crop++ spade)
     }
 }

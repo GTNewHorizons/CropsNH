@@ -1,35 +1,27 @@
 package com.gtnewhorizon.cropsnh.crops.gregtech;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.farming.CropCard;
+import com.gtnewhorizon.cropsnh.farming.NHCropCard;
+import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.reference.Names;
 
-public class CropTerraWart extends CropCard {
+public class CropTerraWart extends NHCropCard {
 
-    private final ItemStack[] alternateSeeds;
-    private final ISoilList soils = SoilRegistry.instance.get(Names.Objects.terraWart);
-    private final HashSet<BiomeDictionary.Type> likedBiomes = new HashSet<BiomeDictionary.Type>() {
-
-        {
-            add(BiomeDictionary.Type.SNOWY);
-            add(BiomeDictionary.Type.COLD);
-        }
-    };
+    private final ISoilList soil = SoilRegistry.instance.get("soulsand");
 
     public CropTerraWart() {
         super(Names.Objects.terraWart);
-        this.dropTable.put(new ItemStack(Items.terraWart, 1), 10000);
-        this.alternateSeeds = new ItemStack[] { new ItemStack(Items.terraWart, 1) };
+        this.addDrop(new ItemStack(Items.terraWart, 1), 10000);
+        this.addLikedBiomes(BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD);
+        this.addAlternateSeeds(new ItemStack(Items.terraWart, 1));
+        this.addGrowthRequirements(new BlockUnderRequirement("snow").addBlock(new BlockWithMeta(Blocks.snow)));
     }
 
     @Override
@@ -43,27 +35,12 @@ public class CropTerraWart extends CropCard {
     }
 
     @Override
-    public Set<BiomeDictionary.Type> getLikedBiomeTags() {
-        return this.likedBiomes;
-    }
-
-    @Override
     public ISoilList getSoilTypes() {
-        return this.soils;
-    }
-
-    @Override
-    public ItemStack[] getAlternateSeeds() {
-        return this.alternateSeeds;
+        return this.soil;
     }
 
     @Override
     public String getUnlocalizedName() {
         return "item.cropsnh:terraWart.name";
-    }
-
-    @Override
-    public IIcon[] getTextures(IIconRegister register) {
-        return getTextures(register, "cropsnh:cropTerraWart", 3);
     }
 }

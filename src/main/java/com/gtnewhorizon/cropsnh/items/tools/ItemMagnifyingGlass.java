@@ -1,13 +1,15 @@
-package com.gtnewhorizon.cropsnh.items;
+package com.gtnewhorizon.cropsnh.items.tools;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
@@ -62,7 +64,8 @@ public class ItemMagnifyingGlass extends ItemCropsNH implements ICropRightClickH
     }
 
     @Override
-    public boolean onRightClick(ICropStickTile te, EntityPlayer player, ItemStack heldItem) {
+    public boolean onRightClick(World world, ICropStickTile te, EntityPlayer player, ItemStack heldItem) {
+        if (!world.isRemote) return true;
         // analyze the crop if there is a crop
         ISeedStats stats = te.getStats();
         if (te.hasCrop() && stats != null) {
