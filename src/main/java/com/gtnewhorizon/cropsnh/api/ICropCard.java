@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.api;
 
+import java.awt.Color;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,6 +38,26 @@ public interface ICropCard {
      * @return The description of the crop.
      */
     String getFlavourText();
+
+    /**
+     * @return The color to tint the seeds by.
+     */
+    Color getPrimarySeedColor();
+
+    /**
+     * @return The color to tint the seeds by.
+     */
+    Color getSecondarySeedColor();
+
+    /**
+     * @return The color to tint the seeds by.
+     */
+    ISeedShape getSeedShape();
+
+    /**
+     * @return True if the seed should have the enchanted item glint.
+     */
+    boolean isSeedEnchanted();
 
     /**
      * @return The tier of the crop, used to increase the growth requirement of some crops or to indicate how hard it is

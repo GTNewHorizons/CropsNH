@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.crops.vanilla;
 
+import java.awt.Color;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -10,8 +12,10 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.IAdditionalCropData;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
+import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
+import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.farming.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
@@ -26,10 +30,15 @@ public class CropNetherwart extends NHCropCard {
     private final ISoilList soil = SoilRegistry.instance.get("soulsand");
 
     public CropNetherwart() {
-        super("netherwart");
+        super("netherwart", new Color(0x4d1115), new Color(0xbe3f4a));
         this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.HOT);
         this.addDrop(new ItemStack(Items.nether_wart, 1), 10000);
         this.addAlternateSeeds(new ItemStack(Items.nether_wart, 1));
+    }
+
+    @Override
+    public ISeedShape getSeedShape() {
+        return SeedShape.SPORE;
     }
 
     @Override

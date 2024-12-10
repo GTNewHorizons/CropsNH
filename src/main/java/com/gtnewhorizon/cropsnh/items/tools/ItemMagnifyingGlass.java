@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.items.tools;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,6 +13,7 @@ import net.minecraft.world.World;
 import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
+import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
@@ -65,16 +65,21 @@ public class ItemMagnifyingGlass extends ItemCropsNH implements ICropRightClickH
 
     @Override
     public boolean onRightClick(World world, ICropStickTile te, EntityPlayer player, ItemStack heldItem) {
-        if (!world.isRemote) return true;
         // analyze the crop if there is a crop
         ISeedStats stats = te.getStats();
         if (te.hasCrop() && stats != null) {
             stats.setAnalyzed(true);
         }
-        // display some info text to the player about the crop
+
+        if (!world.isRemote) {
+            te.updateState();
+            return true;
+        }
+
+        // display some info text to the player about the crop if it's on the client side.
         if (te instanceof TileEntityCrop) {
             List<String> info = new ArrayList<>();
-            ((TileEntityCrop) te).addWailaInformation(info);
+            ((TileEntityCrop) te).getMagnifyingGlassStatus(info);
             for (String line : info) {
                 player.addChatComponentMessage(new ChatComponentText(line));
             }

@@ -1,12 +1,12 @@
 package com.gtnewhorizon.cropsnh.items.tools;
 
-import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import net.minecraft.block.IGrowable;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
 import com.gtnewhorizon.cropsnh.utility.DebugHelper;
 

@@ -1,12 +1,12 @@
 package com.gtnewhorizon.cropsnh.init;
 
-import com.gtnewhorizon.cropsnh.items.tools.ItemSpade;
 import net.minecraft.item.Item;
 
-import com.gtnewhorizon.cropsnh.items.tools.ItemDebugger;
-import com.gtnewhorizon.cropsnh.items.tools.ItemGenericSeed;
-import com.gtnewhorizon.cropsnh.items.tools.ItemMagnifyingGlass;
+import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.items.produce.ItemTerraWart;
+import com.gtnewhorizon.cropsnh.items.tools.ItemDebugger;
+import com.gtnewhorizon.cropsnh.items.tools.ItemMagnifyingGlass;
+import com.gtnewhorizon.cropsnh.items.tools.ItemSpade;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 public class Items {

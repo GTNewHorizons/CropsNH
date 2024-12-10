@@ -30,7 +30,6 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
         super(block);
     }
 
-
     @Override
     @SideOnly(Side.CLIENT)
     public RenderItemBase getItemRenderer() {

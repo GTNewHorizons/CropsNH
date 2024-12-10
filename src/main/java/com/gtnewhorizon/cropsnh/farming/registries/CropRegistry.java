@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropRegistry;
-import com.gtnewhorizon.cropsnh.items.tools.ItemGenericSeed;
+import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.MetaMap;
@@ -27,6 +27,11 @@ public class CropRegistry implements ICropRegistry {
      * Contain the id mappings for crops, used during nbt rehydration.
      */
     private final HashMap<String, ICropCard> cropRegistry = new HashMap<>();
+
+    @Override
+    public Iterable<ICropCard> getAll() {
+        return this.cropRegistry.values();
+    }
 
     @Override
     public @Nullable ICropCard get(String id) {

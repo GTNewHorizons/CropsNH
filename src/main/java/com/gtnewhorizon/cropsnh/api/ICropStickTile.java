@@ -137,7 +137,7 @@ public interface ICropStickTile {
      * @param amount     The amount of the water to add.
      * @param threshold  Water won't be applied unless the water level is below this value.
      * @param maxStorage The cap of the water storage.
-     * @return True if the fertilizer was consumed.
+     * @return True if the water was consumed.
      */
     boolean addWater(int amount, int threshold, int maxStorage);
 
@@ -145,6 +145,21 @@ public interface ICropStickTile {
      * @return The amount of water currently stored in the crop sticks.
      */
     int getWaterStorage();
+
+    /**
+     * Adds weed-ex to this crop stick.
+     *
+     * @param amount     The amount of the weed-ex to add.
+     * @param threshold  Weed-ex won't be applied unless the weed-ex level is below this value.
+     * @param maxStorage The cap of the weed-ex storage.
+     * @return True if the weed-ex was consumed.
+     */
+    boolean addWeedEx(int amount, int threshold, int maxStorage);
+
+    /**
+     * @return The amount of weed-ex currently stored in the crop sticks.
+     */
+    int getWeedExStorage();
 
     /**
      * Harvests this crop and returns the items that were dropped.

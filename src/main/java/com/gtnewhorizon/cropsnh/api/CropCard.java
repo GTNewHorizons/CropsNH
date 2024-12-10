@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.api;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,9 +32,15 @@ public abstract class CropCard implements ICropCard {
     protected final ArrayList<IWorldGrowthRequirement> growthRequirements = new ArrayList<>();
     protected final HashSet<BiomeDictionary.Type> likedBiomes = new HashSet<>();
     protected final ArrayList<ItemStack> alternateSeeds = new ArrayList<>();
+    protected final Color[] colors;
 
-    public CropCard(String modId, String id) {
+    public CropCard(String modId, String id, Color color) {
+        this(modId, id, color, color);
+    }
+
+    public CropCard(String modId, String id, Color color1, Color color2) {
         this.id = modId + ":" + id;
+        this.colors = new Color[] { color1, color2 };
     }
 
     @Override
@@ -49,6 +56,26 @@ public abstract class CropCard implements ICropCard {
     @Override
     public String getFlavourText() {
         return null;
+    }
+
+    @Override
+    public Color getPrimarySeedColor() {
+        return this.colors[0];
+    }
+
+    @Override
+    public Color getSecondarySeedColor() {
+        return this.colors[1];
+    }
+
+    @Override
+    public ISeedShape getSeedShape() {
+        return SeedShape.VANILLA;
+    }
+
+    @Override
+    public boolean isSeedEnchanted() {
+        return false;
     }
 
     @Override

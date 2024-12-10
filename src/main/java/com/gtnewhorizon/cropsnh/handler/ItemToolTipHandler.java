@@ -9,7 +9,7 @@ import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
-import com.gtnewhorizon.cropsnh.items.tools.ItemGenericSeed;
+import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;

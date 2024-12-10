@@ -2,15 +2,8 @@ package com.gtnewhorizon.cropsnh.compatibility.waila;
 
 import java.util.List;
 
-import com.gtnewhorizon.cropsnh.api.ICropStickTile;
-import com.gtnewhorizon.cropsnh.api.ISeedStats;
-import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
-import com.gtnewhorizon.cropsnh.crops.CropWeed;
-import com.gtnewhorizon.cropsnh.farming.SeedStats;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -18,17 +11,30 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import com.gtnewhorizon.cropsnh.blocks.BlockCropsNH;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropsNH;
+import com.gtnewhorizon.cropsnh.api.ISeedStats;
+import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
+import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 
-public class CropsNHDataProvider implements IWailaDataProvider {
+public class CropStickWailaProvider implements IWailaDataProvider {
+
+    private final static ItemStack weedStack = new ItemStack(Blocks.tallgrass, 1, 1);
 
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor dataAccessor, IWailaConfigHandler configHandler) {
+        TileEntity te = dataAccessor.getTileEntity();
+        if (te instanceof TileEntityCrop) {
+            TileEntityCrop cropTE = (TileEntityCrop) te;
+            if (cropTE.hasWeed()) {
+                return weedStack;
+            }
+            return ((TileEntityCrop) te).getSeedStack();
+        }
         return null;
     }
 
@@ -53,22 +59,28 @@ public class CropsNHDataProvider implements IWailaDataProvider {
 
                     // Add the seed name
                     header = StatCollector.translateToLocal("cropsnh_tooltip.seed");
-                    value = StatCollector.translateToLocal(teCrop.getCrop().getUnlocalizedName());
+                    value = StatCollector.translateToLocal(
+                        teCrop.getCrop()
+                            .getUnlocalizedName());
                     information.add(header + ": " + value);
 
                     // add growth progress
-                    header = StatColl1ector.translateToLocal("cropsnh_tooltip.progress");
+                    header = StatCollector.translateToLocal("cropsnh_tooltip.progress");
                     value = String.format("%3.2f", nbt.getFloat("waila_perc") * 100.0f);
                     information.add(header + ": " + value + "%");
 
                     if (nbt.getBoolean(Names.NBT.sick)) {
-                        information.add(EnumChatFormatting.RED + StatCollector.translateToLocal("cropsnh_tooltip.isSick") + EnumChatFormatting.RESET);
+                        information.add(
+                            EnumChatFormatting.RED + StatCollector.translateToLocal("cropsnh_tooltip.isSick")
+                                + EnumChatFormatting.RESET);
                     }
 
                     List<IWorldGrowthRequirement> failedReqs = teCrop.getFailedChecks();
                     if (failedReqs != null) {
                         for (IWorldGrowthRequirement req : failedReqs) {
-                            information.add(EnumChatFormatting.RED + StatCollector.translateToLocal(req.getDescription()) + EnumChatFormatting.RESET);
+                            information.add(
+                                EnumChatFormatting.RED + StatCollector.translateToLocal(req.getDescription())
+                                    + EnumChatFormatting.RESET);
                         }
                     }
 

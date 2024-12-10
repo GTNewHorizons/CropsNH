@@ -126,6 +126,21 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
+    public void addItemInNEI(ItemStack stack) {
+        Iterator<ModContainer> mods = Loader.instance()
+            .getActiveModList()
+            .iterator();
+        ModContainer modContainer;
+        while (mods.hasNext()) {
+            modContainer = (ModContainer) mods.next();
+            if (modContainer.getModId()
+                .equalsIgnoreCase("NotEnoughItems")) {
+                API.addItemVariant(stack.getItem(), stack);
+            }
+        }
+    }
+
+    @Override
     public int getRenderId(Block block) {
         return RenderBlockBase.getRenderId(block);
     }

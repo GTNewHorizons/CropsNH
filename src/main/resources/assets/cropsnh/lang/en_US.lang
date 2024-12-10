@@ -71,6 +71,7 @@ cropsnh_genericSeeds.invalid=Invalid
 cropsnh_genericSeeds.format=%1$s Seeds
 
 # Crop Names
+cropsnh_crops.weed=Weed
 cropsnh_crops.venomilia=Venomilia
 cropsnh_crops.stickreed=Stickreed
 cropsnh_crops.Cocoa=Cocoa

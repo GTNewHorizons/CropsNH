@@ -34,6 +34,9 @@ public interface IProxy {
     /** Hides an ItemStack from NEI on the client, does nothing on the server */
     void hideItemInNEI(ItemStack stack);
 
+    /** Adds an item variant in NEI on the client, does nothing on the server */
+    void addItemInNEI(ItemStack stack);
+
     /** Registers all the needed event handlers to the correct event bus */
     void registerEventHandlers();
 

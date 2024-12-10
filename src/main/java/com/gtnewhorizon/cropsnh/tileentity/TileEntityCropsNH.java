@@ -1,7 +1,5 @@
 package com.gtnewhorizon.cropsnh.tileentity;
 
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -137,15 +135,6 @@ public abstract class TileEntityCropsNH extends TileEntity {
         Minecraft.getMinecraft().renderGlobal.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 
     }
-
-    /**
-     * Add the waila information to a list.
-     * I reccomend a call to the super method where applicable.
-     *
-     * @param information the list to add to.
-     */
-    @SideOnly(Side.CLIENT)
-    public abstract void addWailaInformation(List<String> information);
 
     private boolean isMultiBlock() {
         return this instanceof IMultiBlockComponent;

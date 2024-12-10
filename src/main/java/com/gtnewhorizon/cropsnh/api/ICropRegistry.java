@@ -9,6 +9,11 @@ import com.gtnewhorizon.cropsnh.utility.exception.DuplicateCropPlantException;
 public interface ICropRegistry {
 
     /**
+     * Gets a lit of all registered crops.
+     */
+    public Iterable<ICropCard> getAll();
+
+    /**
      * Gets the crop for a given id.
      *
      * @param id The id of the crop.

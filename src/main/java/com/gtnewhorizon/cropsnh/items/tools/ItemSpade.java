@@ -2,7 +2,6 @@ package com.gtnewhorizon.cropsnh.items.tools;
 
 import java.util.List;
 
-import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -13,6 +12,7 @@ import net.minecraft.world.World;
 import com.gtnewhorizon.cropsnh.api.ICropLeftClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
+import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
@@ -32,7 +32,6 @@ public class ItemSpade extends ItemCropsNH implements ICropLeftClickHandler, ICr
         this.setMaxStackSize(1);
         this.setHasSubtypes(true);
     }
-
 
     @Override
     protected String getInternalName() {

@@ -1,8 +1,12 @@
 package com.gtnewhorizon.cropsnh.crops.thaumcraft;
 
+import java.awt.Color;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.ISeedShape;
+import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.farming.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 
@@ -11,7 +15,7 @@ import gregtech.api.enums.Materials;
 public class PrimordialPerlCrop extends NHCropCard {
 
     public PrimordialPerlCrop() {
-        super("primordialBerry");
+        super("primordialBerry", new Color(0x652150), new Color(0xA1D3A9));
         ItemStack primPerl = thaumcraft.api.ItemApi.getItem("itemEldritchObject", 3)
             .copy();
         primPerl.stackSize = 1;
@@ -21,6 +25,16 @@ public class PrimordialPerlCrop extends NHCropCard {
         this.addGrowthRequirements(
             new BlockUnderRequirement("ichorium").addMaterial(Materials.Ichorium)
                 .addOreDict("oreIchorium", "blockIchorium"));
+    }
+
+    @Override
+    public ISeedShape getSeedShape() {
+        return SeedShape.MAGIC;
+    }
+
+    @Override
+    public boolean isSeedEnchanted() {
+        return true;
     }
 
     @Override
