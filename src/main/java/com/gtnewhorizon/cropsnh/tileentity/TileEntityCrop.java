@@ -479,21 +479,6 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         return icon;
     }
 
-    // event handlers
-
-    @Override
-    public void updateEntity() {
-        super.updateEntity();
-        this.ticker = ++this.ticker % TICK_RATE;
-        if (this.ticker == 0) {
-            this.onGrowthTick();
-        }
-        if (this.isDirty) {
-            this.isDirty = false;
-            this.markForUpdate();
-            this.worldObj.updateLightByType(EnumSkyBlock.Block, this.xCoord, this.yCoord, this.zCoord);
-        }
-    }
 
     public int calcGrowthRate() {
         // TODO: CREATE CUSTOM GROWTH FORMULA
@@ -586,6 +571,20 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     // region event handling
 
     @Override
+    public void updateEntity() {
+        super.updateEntity();
+        this.ticker = ++this.ticker % TICK_RATE;
+        if (this.ticker == 0) {
+            this.onGrowthTick();
+        }
+        if (this.isDirty) {
+            this.isDirty = false;
+            this.markForUpdate();
+            this.worldObj.updateLightByType(EnumSkyBlock.Block, this.xCoord, this.yCoord, this.zCoord);
+        }
+    }
+
+    @Override
     public void onGrowthTick() {
         // let the can grow logic run on the client so that it's able to tell the player why a crop isn't growing.
         boolean canGrow = this.canGrow();
@@ -604,8 +603,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                 int spriteIndex = this.crop.getSpriteIndex(this);
                 if (spriteIndex != this.spriteIndex) {
                     this.spriteIndex = spriteIndex;
+                    this.isDirty = true;
                 }
-                this.isDirty = true;
             }
             if (this.crop.spreadsWeeds(this) && XSTR.XSTR_INSTANCE.nextInt(50) - this.stats.getGrowth() <= 2) {
                 this.spreadWeed();
@@ -763,5 +762,9 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                 this.waterStorage,
                 StatCollector.translateToLocal("cropsnh_tooltip.weedEx"),
                 this.weedexStorage));
+    }
+
+    public List<IWorldGrowthRequirement> getFailedChecks() {
+        return this.failedChecks;
     }
 }
