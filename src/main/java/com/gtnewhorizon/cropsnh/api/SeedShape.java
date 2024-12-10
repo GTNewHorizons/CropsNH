@@ -8,6 +8,11 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public enum SeedShape implements ISeedShape {
 
+    // TODO: ORE BERRY SEED SHAPE
+    // TODO: PAM SEED SHAPE
+    // TODO: BONSAI SEED SHAPE
+    // TODO: STONE LILY SEED SHAPE
+    // TODO: MOB CROP SEED SHAPE
     BOTANIA,
     FLOWER,
     GRAINS,
