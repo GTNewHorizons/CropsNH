@@ -11,7 +11,7 @@ public interface ICropRegistry {
     /**
      * Gets a lit of all registered crops.
      */
-    public Iterable<ICropCard> getAll();
+    public ICropCard[] getAll();
 
     /**
      * Gets the crop for a given id.

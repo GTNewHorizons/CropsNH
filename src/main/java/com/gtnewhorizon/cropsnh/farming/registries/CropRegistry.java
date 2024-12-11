@@ -29,8 +29,8 @@ public class CropRegistry implements ICropRegistry {
     private final HashMap<String, ICropCard> cropRegistry = new HashMap<>();
 
     @Override
-    public Iterable<ICropCard> getAll() {
-        return this.cropRegistry.values();
+    public ICropCard[] getAll() {
+        return this.cropRegistry.values().toArray(new ICropCard[0]);
     }
 
     @Override
