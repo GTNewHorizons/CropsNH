@@ -29,10 +29,13 @@ public abstract class PlantRenderer {
             if (resetColor) {
                 tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
             }
-            if (renderType != 6) {
-                renderCrossPattern(tessellator, icon, layer);
-            } else {
-                renderHashTagPattern(tessellator, icon, layer);
+            switch (renderType) {
+                case 1:
+                    renderXPattern(tessellator, icon, layer);
+                    break;
+                default:
+                    renderHashTagPattern(tessellator, icon, layer);
+                    break;
             }
             tessellator.addTranslation(-x, -y, -z);
         }
@@ -168,89 +171,33 @@ public abstract class PlantRenderer {
         addScaledVertexWithUV(tessellator, 12.001F, minY, -2, 16, 16, icon);
     }
 
-    public static void renderStemPlant(int x, int y, int z, RenderBlocks renderer, IIcon icon, int meta, Block vine,
-        Block block, boolean mature) {
-        Tessellator tessellator = Tessellator.instance;
-        int translation = meta >= 6 ? 0 : 5 - meta;
-        tessellator.setBrightness(vine.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z));
-        int l = vine.getRenderColor(meta);
-        float f = (float) (l >> 16 & 255) / 255.0F;
-        float f1 = (float) (l >> 8 & 255) / 255.0F;
-        float f2 = (float) (l & 255) / 255.0F;
-        tessellator.setColorOpaque_F(f, f1, f2);
-        tessellator.addTranslation(x, y - Constants.UNIT * 2 * translation, z);
-        // render the vines
-        if (mature) {
-            renderStemPattern(tessellator, icon);
-        } else {
-            renderCrossPattern(tessellator, icon, 0);
-        }
-        tessellator.addTranslation(-x, -y + Constants.UNIT * 2 * translation, -z);
-        // render the block
-        if (mature) {
-            float u = Constants.UNIT;
-            boolean renderFacesSetting = renderer.renderAllFaces;
-            renderer.renderAllFaces = true;
-
-            renderer.setRenderBounds(7 * u, 0, 2 * u, 11 * u, 4 * u, 6 * u);
-            renderer.renderStandardBlock(block, x, y, z);
-
-            renderer.setRenderBounds(10 * u, 0, 7 * u, 14 * u, 4 * u, 11 * u);
-            renderer.renderStandardBlock(block, x, y, z);
-
-            renderer.setRenderBounds(5 * u, 0, 10 * u, 9 * u, 4 * u, 14 * u);
-            renderer.renderStandardBlock(block, x, y, z);
-
-            renderer.setRenderBounds(2 * u, 0, 5 * u, 6 * u, 4 * u, 9 * u);
-            renderer.renderStandardBlock(block, x, y, z);
-
-            renderer.renderAllFaces = renderFacesSetting;
-        }
-    }
-
-    private static void renderStemPattern(Tessellator tessellator, IIcon icon) {
-        int minY = 0;
-        int maxY = 12;
-        // plane 1 front left
-        addScaledVertexWithUV(tessellator, -2, minY, 3.999F, 16, 16, icon);
-        addScaledVertexWithUV(tessellator, -2, maxY, 3.999F, 16, 0, icon);
-        addScaledVertexWithUV(tessellator, 10, maxY, 3.999F, 0, 0, icon);
-        addScaledVertexWithUV(tessellator, 10, minY, 3.999F, 0, 16, icon);
-        // plane 1 back left
-        addScaledVertexWithUV(tessellator, -2, minY, 3.999F, 16, 16, icon);
-        addScaledVertexWithUV(tessellator, 10, minY, 3.999F, 0, 16, icon);
-        addScaledVertexWithUV(tessellator, 10, maxY, 3.999F, 0, 0, icon);
-        addScaledVertexWithUV(tessellator, -2, maxY, 3.999F, 16, 0, icon);
-        // plane 2 front right
-        addScaledVertexWithUV(tessellator, 3.999F, minY, 6, 0, 16, icon);
-        addScaledVertexWithUV(tessellator, 3.999F, minY, 18, 16, 16, icon);
-        addScaledVertexWithUV(tessellator, 3.999F, maxY, 18, 16, 0, icon);
-        addScaledVertexWithUV(tessellator, 3.999F, maxY, 6, 0, 0, icon);
-        // plane 2 back right
-        addScaledVertexWithUV(tessellator, 3.999F, minY, 6, 0, 16, icon);
-        addScaledVertexWithUV(tessellator, 3.999F, maxY, 6, 0, 0, icon);
-        addScaledVertexWithUV(tessellator, 3.999F, maxY, 18, 16, 0, icon);
-        addScaledVertexWithUV(tessellator, 3.999F, minY, 18, 16, 16, icon);
-        // plane 3 front right
-        addScaledVertexWithUV(tessellator, 6, minY, 11.999F, 0, 16, icon);
-        addScaledVertexWithUV(tessellator, 18, minY, 11.999F, 16, 16, icon);
-        addScaledVertexWithUV(tessellator, 18, maxY, 11.999F, 16, 0, icon);
-        addScaledVertexWithUV(tessellator, 6, maxY, 11.999F, 0, 0, icon);
-        // plane 3 back right
-        addScaledVertexWithUV(tessellator, 6, minY, 11.999F, 0, 16, icon);
-        addScaledVertexWithUV(tessellator, 6, maxY, 11.999F, 0, 0, icon);
-        addScaledVertexWithUV(tessellator, 18, maxY, 11.999F, 16, 0, icon);
-        addScaledVertexWithUV(tessellator, 18, minY, 11.999F, 16, 16, icon);
-        // plane 4 front left
-        addScaledVertexWithUV(tessellator, 12.001F, minY, 10, 0, 16, icon);
-        addScaledVertexWithUV(tessellator, 12.001F, minY, -2, 16, 16, icon);
-        addScaledVertexWithUV(tessellator, 12.001F, maxY, -2, 16, 0, icon);
-        addScaledVertexWithUV(tessellator, 12.001F, maxY, 10, 0, 0, icon);
-        // plane 4 back left
-        addScaledVertexWithUV(tessellator, 12.001F, minY, 10, 0, 16, icon);
-        addScaledVertexWithUV(tessellator, 12.001F, maxY, 10, 0, 0, icon);
-        addScaledVertexWithUV(tessellator, 12.001F, maxY, -2, 16, 0, icon);
-        addScaledVertexWithUV(tessellator, 12.001F, minY, -2, 16, 16, icon);
+    private static void renderXPattern(Tessellator tessellator, IIcon icon, int layer) {
+        int minY = 12 * layer;
+        int maxY = 12 * (layer + 1);
+        int minX = 2;
+        int maxX = 14;
+        int minZ = 2;
+        int maxZ = 14;
+        // plane 1 front
+        addScaledVertexWithUV(tessellator, minX, minY, minZ, 16, 16, icon);
+        addScaledVertexWithUV(tessellator, minX, maxY, minZ, 16, 0, icon);
+        addScaledVertexWithUV(tessellator, maxX, maxY, maxZ, 0, 0, icon);
+        addScaledVertexWithUV(tessellator, maxX, minY, maxZ, 0, 16, icon);
+        // plane 1 back
+        addScaledVertexWithUV(tessellator, maxX, minY, maxZ, 16, 16, icon);
+        addScaledVertexWithUV(tessellator, maxX, maxY, maxZ, 16, 0, icon);
+        addScaledVertexWithUV(tessellator, minX, maxY, minZ, 0, 0, icon);
+        addScaledVertexWithUV(tessellator, minX, minY, minZ, 0, 16, icon);
+        // plane 2 front
+        addScaledVertexWithUV(tessellator, minX, minY, maxZ, 0, 16, icon);
+        addScaledVertexWithUV(tessellator, maxX, minY, minZ, 16, 16, icon);
+        addScaledVertexWithUV(tessellator, maxX, maxY, minZ, 16, 0, icon);
+        addScaledVertexWithUV(tessellator, minX, maxY, maxZ, 0, 0, icon);
+        // plane 2 front
+        addScaledVertexWithUV(tessellator, maxX, minY, minZ, 0, 16, icon);
+        addScaledVertexWithUV(tessellator, minX, minY, maxZ, 16, 16, icon);
+        addScaledVertexWithUV(tessellator, minX, maxY, maxZ, 16, 0, icon);
+        addScaledVertexWithUV(tessellator, maxX, maxY, minZ, 0, 0, icon);
     }
 
     /**

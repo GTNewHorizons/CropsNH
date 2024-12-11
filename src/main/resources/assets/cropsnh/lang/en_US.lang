@@ -72,6 +72,16 @@ cropsnh_genericSeeds.format=%1$s Seeds
 
 # Crop Names
 cropsnh_crops.weed=Weed
+# Vanilla Crops
+
+# Bonsais
+cropsnh_crops.oakBonsai=Oak Bonsai
+cropsnh_crops.spruceBonsai=Spruce Bonsai
+cropsnh_crops.birchBonsai=Birch Bonsai
+cropsnh_crops.darkOakBonsai=Dark Oak Bonsai
+cropsnh_crops.jungleBonsai=Jungle Bonsai
+cropsnh_crops.acaciaBonsai=Acacia Bonsai
+# Custom Crops
 cropsnh_crops.venomilia=Venomilia
 cropsnh_crops.stickreed=Stickreed
 cropsnh_crops.Cocoa=Cocoa
@@ -91,12 +101,7 @@ cropsnh_crops.redStoneLily=Red Stone Lily
 cropsnh_crops.yellowStoneLily=Yellow Stone Lily
 cropsnh_crops.netherStoneLily=Nether Stone Lily
 cropsnh_crops.whiteStoneLily=White Stone Lily
-cropsnh_crops.oakBonsai=Oak Bonsai
-cropsnh_crops.spruceBonsai=Spruce Bonsai
-cropsnh_crops.birchBonsai=Birch Bonsai
-cropsnh_crops.darkOakBonsai=Dark Oak Bonsai
-cropsnh_crops.jungleBonsai=Jungle Bonsai
-cropsnh_crops.acaciaBonsai=Acacia Bonsai
+
 cropsnh_crops.primordialBerry=Primordial Berry
 
 # Growth Requirements

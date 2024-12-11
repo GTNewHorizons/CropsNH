@@ -10,7 +10,7 @@ public enum SeedShape implements ISeedShape {
 
     // TODO: ORE BERRY SEED SHAPE
     // TODO: PAM SEED SHAPE
-    // TODO: BONSAI SEED SHAPE
+    BONSAI,
     // TODO: STONE LILY SEED SHAPE
     // TODO: MOB CROP SEED SHAPE
     BOTANIA,

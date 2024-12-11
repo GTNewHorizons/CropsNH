@@ -3,8 +3,6 @@ package com.gtnewhorizon.cropsnh.crops;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
-import com.gtnewhorizon.cropsnh.api.ISeedShape;
-import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.farming.NHCropCard;
 
 /**
