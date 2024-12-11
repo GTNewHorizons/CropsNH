@@ -655,8 +655,11 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         // If the block is a crop stick, try to spawn a weed in it.
         if (this.worldObj.getTileEntity(x, y, z) instanceof ICropStickTile) {
             ICropStickTile neighbourTE = (ICropStickTile) this.worldObj.getTileEntity(x, y, z);
-            // it will handle the weed-ex drain on its own.
-            neighbourTE.spawnWeed();
+            // don't override weeds with weeds.
+            if (!neighbourTE.hasWeed()) {
+                // it will handle the weed-ex drain on its own.
+                neighbourTE.spawnWeed();
+            }
         }
         // If the block is air, try putting some tall grass on it.
         else if (this.worldObj.isAirBlock(x, y, z)) {
