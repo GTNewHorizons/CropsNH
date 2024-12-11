@@ -75,12 +75,12 @@ cropsnh_crops.weed=Weed
 # Vanilla Crops
 
 # Bonsais
-cropsnh_crops.oakBonsai=Oak Bonsai
-cropsnh_crops.spruceBonsai=Spruce Bonsai
-cropsnh_crops.birchBonsai=Birch Bonsai
-cropsnh_crops.darkOakBonsai=Dark Oak Bonsai
-cropsnh_crops.jungleBonsai=Jungle Bonsai
-cropsnh_crops.acaciaBonsai=Acacia Bonsai
+cropsnh_crops.bonsaiOak=Oak Bonsai
+cropsnh_crops.bonsaiSpruce=Spruce Bonsai
+cropsnh_crops.bonsaiBirch=Birch Bonsai
+cropsnh_crops.bonsaiJungle=Jungle Bonsai
+cropsnh_crops.bonsaiAcacia=Acacia Bonsai
+cropsnh_crops.bonsaiDarkOak=Dark Oak Bonsai
 # Custom Crops
 cropsnh_crops.venomilia=Venomilia
 cropsnh_crops.stickreed=Stickreed
