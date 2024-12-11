@@ -114,8 +114,8 @@ public abstract class CropCard implements ICropCard {
     }
 
     @Override
-    public boolean renderAsFlower() {
-        return false;
+    public int getRenderShape() {
+        return PlantRenderer.RENDER_HASHTAG;
     }
 
     @Override
@@ -175,7 +175,7 @@ public abstract class CropCard implements ICropCard {
     public void render(IBlockAccess world, int x, int y, int z, ICropStickTile te, RenderBlocks renderer) {
         IIcon sprite = this.getSprite(te);
         if (sprite == null) sprite = getMissingTexture();
-        PlantRenderer.renderPlantLayer(world, x, y, z, renderAsFlower() ? 1 : 6, sprite, 0);
+        PlantRenderer.renderPlantLayer(world, x, y, z, this.getRenderShape(), sprite, 0, te.isSick());
     }
 
     @Override

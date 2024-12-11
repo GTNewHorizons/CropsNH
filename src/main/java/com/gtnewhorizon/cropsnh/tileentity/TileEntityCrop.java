@@ -88,6 +88,11 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
+    public boolean isSick() {
+        return this.hasCrop() && !this.hasWeed() && this.isSick;
+    }
+
+    @Override
     public boolean canUpgrade() {
         return this.crop == null && !this.isCrossCrop;
     }
@@ -146,7 +151,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     @Override
     public boolean canGrow() {
         // You can't grow something that doesn't exist.
-        if (this.crop == null) {
+        if (this.crop == null || this.isSick) {
             this.failedChecks = null;
             return false;
         }

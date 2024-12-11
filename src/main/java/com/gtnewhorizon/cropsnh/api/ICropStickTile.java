@@ -25,6 +25,11 @@ public interface ICropStickTile {
     boolean hasWeed();
 
     /**
+     * @return true if the crop has weeds
+     */
+    boolean isSick();
+
+    /**
      * @return the ICrop instance planted on this crop
      */
     ICropCard getCrop();

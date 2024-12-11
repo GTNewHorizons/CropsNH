@@ -1,5 +1,8 @@
 package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -14,11 +17,6 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import codechicken.nei.api.IConfigureNEI;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedList;
 
 public class NEIConfig implements IConfigureNEI {
 
@@ -43,7 +41,9 @@ public class NEIConfig implements IConfigureNEI {
         CropsNH.proxy.hideItemInNEI(new ItemStack(Items.genericSeed));
         // add registered seeds
         SeedStats stats = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
-        for (ICropCard cc : Arrays.stream(CropRegistry.instance.getAll()).sorted(Comparator.comparing(ICropCard::getId)).toArray(ICropCard[]::new)) {
+        for (ICropCard cc : Arrays.stream(CropRegistry.instance.getAll())
+            .sorted(Comparator.comparing(ICropCard::getId))
+            .toArray(ICropCard[]::new)) {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString(Names.NBT.crop, cc.getId());
             stats.writeToNBT(tag);

@@ -12,7 +12,6 @@ import net.minecraft.world.IBlockAccess;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 
 import cpw.mods.fml.relauncher.Side;
@@ -64,9 +63,6 @@ public class RenderCrop extends RenderBlockBase {
             // render the plant
             crop.getCrop()
                 .render(world, x, y, z, crop, renderer);
-        } else if (crop.hasWeed()) {
-            // render weeds
-            PlantRenderer.renderPlantLayer(world, x, y, z, 6, crop.getPlantIcon(), 0);
         }
     }
 

@@ -30,7 +30,8 @@ public class CropRegistry implements ICropRegistry {
 
     @Override
     public ICropCard[] getAll() {
-        return this.cropRegistry.values().toArray(new ICropCard[0]);
+        return this.cropRegistry.values()
+            .toArray(new ICropCard[0]);
     }
 
     @Override

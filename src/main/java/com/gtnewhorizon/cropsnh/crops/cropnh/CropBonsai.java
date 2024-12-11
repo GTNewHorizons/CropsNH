@@ -2,13 +2,14 @@ package com.gtnewhorizon.cropsnh.crops.cropnh;
 
 import java.awt.Color;
 
-import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
+import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.farming.NHCropCard;
+import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 public class CropBonsai extends NHCropCard {
 
@@ -58,8 +59,8 @@ public class CropBonsai extends NHCropCard {
     }
 
     @Override
-    public boolean renderAsFlower() {
-        return true;
+    public int getRenderShape() {
+        return PlantRenderer.RENDER_X;
     }
 
     @Override

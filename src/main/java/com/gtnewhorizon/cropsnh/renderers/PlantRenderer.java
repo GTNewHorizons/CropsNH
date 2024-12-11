@@ -1,7 +1,5 @@
 package com.gtnewhorizon.cropsnh.renderers;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
@@ -15,24 +13,34 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public abstract class PlantRenderer {
 
-    public static void renderPlantLayer(IBlockAccess world, int x, int y, int z, int renderType, IIcon icon,
-        int layer) {
-        renderPlantLayer(world, x, y, z, renderType, icon, layer, true);
-    }
+    public static final int RENDER_CROSS = 2;
+    public static final int RENDER_X = 1;
+    public static final int RENDER_HASHTAG = 0;
 
     public static void renderPlantLayer(IBlockAccess world, int x, int y, int z, int renderType, IIcon icon, int layer,
-        boolean resetColor) {
+        boolean isSick) {
+        renderPlantLayer2(world, x, y, z, renderType, icon, layer, isSick);
+    }
+
+    public static void renderPlantLayer2(IBlockAccess world, int x, int y, int z, int renderType, IIcon icon, int layer,
+        boolean isSick) {
         if (icon != null) {
             Tessellator tessellator = Tessellator.instance;
             tessellator.addTranslation(x, y, z);
             tessellator.setBrightness(Blocks.wheat.getMixedBrightnessForBlock(world, x, y, z));
-            if (resetColor) {
+            if (isSick) {
+                tessellator.setColorOpaque_F(0.0F, 1.0F, 0.0F);
+            } else {
                 tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
             }
             switch (renderType) {
-                case 1:
+                case RENDER_CROSS:
+                    renderCrossPattern(tessellator, icon, layer);
+                    break;
+                case RENDER_X:
                     renderXPattern(tessellator, icon, layer);
                     break;
+                case RENDER_HASHTAG:
                 default:
                     renderHashTagPattern(tessellator, icon, layer);
                     break;

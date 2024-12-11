@@ -121,9 +121,9 @@ public interface ICropCard {
     float getDropChance();
 
     /**
-     * @return If true, the crop will render the sprite as an X like flowers instead of the usual # of normal crops.
+     * @return The id of the render shape you want 0 = #, 1 = X, 2 = # but it's 4 crops in the coners
      */
-    boolean renderAsFlower();
+    int getRenderShape();
 
     /**
      * Called during game load to register the sprites.
