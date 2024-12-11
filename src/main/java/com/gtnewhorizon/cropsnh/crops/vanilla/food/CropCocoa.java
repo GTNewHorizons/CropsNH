@@ -8,12 +8,12 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropVanillaFood;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.MinLightLevelRequirement;
 
-public class CropWheat extends CropVanillaFood {
+public class CropCocoa extends CropVanillaFood {
 
-    public CropWheat() {
-        super("wheat", new Color(0xB7BB3F), new Color(0x00E210));
-        this.addDrop(new ItemStack(Items.wheat, 1), 10_000);
-        this.addAlternateSeeds(new ItemStack(Items.wheat_seeds, 1));
+    public CropCocoa() {
+        super("cocoa", new Color(0x41220D), new Color(0x976746));
+        this.addDrop(new ItemStack(Items.dye, 1, 3), 10_000);
+        this.addAlternateSeeds(new ItemStack(Items.dye, 1, 3));
         this.addGrowthRequirements(new MinLightLevelRequirement(12));
     }
 
@@ -24,32 +24,17 @@ public class CropWheat extends CropVanillaFood {
 
     @Override
     public String getUnlocalizedName() {
-        return "item.wheat.name";
+        return "tile.cocoa.name";
     }
 
     @Override
     public int getTier() {
-        return 1;
+        return 3;
     }
 
     @Override
     public int getGrowthDuration() {
-        return 1000;
-    }
-
-    @Override
-    public int getMinGrowthStage() {
-        return 0;
-    }
-
-    @Override
-    public int getMaxGrowthStage() {
-        return 7;
-    }
-
-    @Override
-    protected String getBaseTexturePath() {
-        return "wheat_stage_";
+        return 1700;
     }
 
 }

@@ -16,7 +16,7 @@ import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
-import com.gtnewhorizon.cropsnh.farming.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.reference.Data;
@@ -34,6 +34,11 @@ public class CropNetherwart extends NHCropCard {
         this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.HOT);
         this.addDrop(new ItemStack(Items.nether_wart, 1), 10000);
         this.addAlternateSeeds(new ItemStack(Items.nether_wart, 1));
+    }
+
+    @Override
+    public String getCreator() {
+        return "Notch";
     }
 
     @Override

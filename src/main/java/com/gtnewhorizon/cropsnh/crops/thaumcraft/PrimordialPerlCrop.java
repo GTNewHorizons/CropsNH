@@ -7,8 +7,9 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
-import com.gtnewhorizon.cropsnh.farming.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 import gregtech.api.enums.Materials;
 
@@ -25,6 +26,11 @@ public class PrimordialPerlCrop extends NHCropCard {
         this.addGrowthRequirements(
             new BlockUnderRequirement("ichorium").addMaterial(Materials.Ichorium)
                 .addOreDict("oreIchorium", "blockIchorium"));
+    }
+
+    @Override
+    public int getRenderShape() {
+        return PlantRenderer.RENDER_X;
     }
 
     @Override

@@ -73,6 +73,9 @@ cropsnh_genericSeeds.format=%1$s Seeds
 # Crop Names
 cropsnh_crops.weed=Weed
 # Vanilla Crops
+cropsnh_crops.sugarCane=Sugar Cane
+cropsnh_crops.redMushroom=Red Mushroom
+cropsnh_crops.brownMushroom=Brown Mushroom
 
 # Bonsais
 cropsnh_crops.bonsaiOak=Oak Bonsai

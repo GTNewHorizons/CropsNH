@@ -25,6 +25,8 @@ public class SoilLoader {
         // register vanilla soils
         registry.register("farmland", farmland);
         registry.register("sugarcane", sand, dirt, grass);
+        registry.register("sand", sand);
+        registry.register("mushroom", stone, cobblestone, dirt, grass, mycelium);
         registry.register("soulsand", soulSand);
         registry.register("dirt", dirt, grass);
         registry.register("mycelium", mycelium);

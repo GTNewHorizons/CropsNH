@@ -10,7 +10,17 @@ import com.gtnewhorizon.cropsnh.crops.CropWeed;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropBonsai;
 import com.gtnewhorizon.cropsnh.crops.gregtech.CropTerraWart;
 import com.gtnewhorizon.cropsnh.crops.thaumcraft.PrimordialPerlCrop;
+import com.gtnewhorizon.cropsnh.crops.vanilla.CropCactus;
 import com.gtnewhorizon.cropsnh.crops.vanilla.CropNetherwart;
+import com.gtnewhorizon.cropsnh.crops.vanilla.CropSugarCane;
+import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropCarrot;
+import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropCocoa;
+import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropMelon;
+import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropPotato;
+import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropPumpkin;
+import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropWheat;
+import com.gtnewhorizon.cropsnh.crops.vanilla.mushrooms.CropBrownMushroom;
+import com.gtnewhorizon.cropsnh.crops.vanilla.mushrooms.CropRedMushroom;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 
 public class CropLoader {
@@ -19,7 +29,19 @@ public class CropLoader {
         // weeds
         CropRegistry.instance.register(new CropWeed());
 
-        // Vanilla
+        // Vanilla food
+        CropRegistry.instance.register(new CropCarrot());
+        CropRegistry.instance.register(new CropCocoa());
+        CropRegistry.instance.register(new CropMelon());
+        CropRegistry.instance.register(new CropPotato());
+        CropRegistry.instance.register(new CropPumpkin());
+        CropRegistry.instance.register(new CropWheat());
+        // vanilla mushrooms
+        CropRegistry.instance.register(new CropRedMushroom());
+        CropRegistry.instance.register(new CropBrownMushroom());
+        // vanilla misc
+        CropRegistry.instance.register(new CropCactus());
+        CropRegistry.instance.register(new CropSugarCane());
         CropRegistry.instance.register(new CropNetherwart());
         // spotless:off
         CropRegistry.instance.register(new CropBonsai("bonsaiOak",     new Color(0x7F6139), new Color(0x57AD3F), "Notch", 1, new ItemStack(Blocks.sapling, 1, 0), new ItemStack(Blocks.log, 1, 0)).addDrop(new ItemStack(Items.apple, 2), 500));

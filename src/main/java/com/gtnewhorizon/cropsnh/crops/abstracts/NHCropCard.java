@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.farming;
+package com.gtnewhorizon.cropsnh.crops.abstracts;
 
 import java.awt.Color;
 
