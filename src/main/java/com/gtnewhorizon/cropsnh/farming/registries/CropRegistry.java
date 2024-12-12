@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.farming.registries;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import javax.annotation.Nullable;
 
@@ -28,10 +29,10 @@ public class CropRegistry implements ICropRegistry {
      */
     private final HashMap<String, ICropCard> cropRegistry = new HashMap<>();
 
-    @Override
-    public ICropCard[] getAll() {
-        return this.cropRegistry.values()
-            .toArray(new ICropCard[0]);
+    private final LinkedList<ICropCard> registrationOrder = new LinkedList<>();
+
+    public Iterable<ICropCard> getAllInRegistrationOrder() {
+        return this.registrationOrder;
     }
 
     @Override
@@ -68,6 +69,7 @@ public class CropRegistry implements ICropRegistry {
             return;
         }
         this.cropRegistry.putIfAbsent(crop.getId(), crop);
+        this.registrationOrder.add(crop);
         registerAlternateSeeds(alternateSeedList, crop);
     }
 

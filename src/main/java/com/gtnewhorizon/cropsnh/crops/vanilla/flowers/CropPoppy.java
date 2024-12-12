@@ -8,12 +8,12 @@ import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropVanillaFlower;
 
-public class CropAzureBluet extends CropVanillaFlower {
+public class CropPoppy extends CropVanillaFlower {
 
-    public CropAzureBluet() {
-        super("azureBluet", new Color(0x3D3D4C), new Color(0xE4EAF2));
-        this.addDrop(new ItemStack(Items.dye, 1, 7), 10_000);
-        this.addAlternateSeeds(new ItemStack(Blocks.red_flower, 1, 3));
+    public CropPoppy() {
+        super("poppy", new Color(0x3A0102), new Color(0xBA050B));
+        this.addDrop(new ItemStack(Items.dye, 1, 1), 10_000);
+        this.addAlternateSeeds(new ItemStack(Blocks.red_flower, 1, 0));
     }
 
     @Override
@@ -23,7 +23,7 @@ public class CropAzureBluet extends CropVanillaFlower {
 
     @Override
     public String getUnlocalizedName() {
-        return "tile.flower2.houstonia.name";
+        return "tile.flower2.poppy.name";
     }
 
     @Override

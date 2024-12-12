@@ -29,7 +29,7 @@ public class CropBrownMushroom extends CropMushroom {
 
     @Override
     public int getMaxGrowthStage() {
-        return 3;
+        return 4;
     }
 
     @Override

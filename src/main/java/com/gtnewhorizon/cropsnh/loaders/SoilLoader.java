@@ -11,6 +11,7 @@ public class SoilLoader {
 
         SoilRegistry registry = SoilRegistry.instance;
         BlockWithMeta farmland = new BlockWithMeta(Blocks.farmland);
+        // also includes podzol
         BlockWithMeta dirt = new BlockWithMeta(Blocks.dirt);
         BlockWithMeta grass = new BlockWithMeta(Blocks.grass);
         BlockWithMeta soulSand = new BlockWithMeta(Blocks.soul_sand);

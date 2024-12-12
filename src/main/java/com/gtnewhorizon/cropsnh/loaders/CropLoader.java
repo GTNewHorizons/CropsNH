@@ -13,6 +13,16 @@ import com.gtnewhorizon.cropsnh.crops.thaumcraft.PrimordialPerlCrop;
 import com.gtnewhorizon.cropsnh.crops.vanilla.CropCactus;
 import com.gtnewhorizon.cropsnh.crops.vanilla.CropNetherwart;
 import com.gtnewhorizon.cropsnh.crops.vanilla.CropSugarCane;
+import com.gtnewhorizon.cropsnh.crops.vanilla.flowers.CropAllium;
+import com.gtnewhorizon.cropsnh.crops.vanilla.flowers.CropAzureBluet;
+import com.gtnewhorizon.cropsnh.crops.vanilla.flowers.CropBlueOrchid;
+import com.gtnewhorizon.cropsnh.crops.vanilla.flowers.CropDandelion;
+import com.gtnewhorizon.cropsnh.crops.vanilla.flowers.CropOrangeTulip;
+import com.gtnewhorizon.cropsnh.crops.vanilla.flowers.CropOxeyeDaisy;
+import com.gtnewhorizon.cropsnh.crops.vanilla.flowers.CropPinkTulip;
+import com.gtnewhorizon.cropsnh.crops.vanilla.flowers.CropPoppy;
+import com.gtnewhorizon.cropsnh.crops.vanilla.flowers.CropRedTulip;
+import com.gtnewhorizon.cropsnh.crops.vanilla.flowers.CropWhiteTulip;
 import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropCarrot;
 import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropCocoa;
 import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropMelon;
@@ -39,6 +49,17 @@ public class CropLoader {
         // vanilla mushrooms
         CropRegistry.instance.register(new CropRedMushroom());
         CropRegistry.instance.register(new CropBrownMushroom());
+        // vanilla flowers
+        CropRegistry.instance.register(new CropDandelion());
+        CropRegistry.instance.register(new CropPoppy());
+        CropRegistry.instance.register(new CropBlueOrchid());
+        CropRegistry.instance.register(new CropAllium());
+        CropRegistry.instance.register(new CropAzureBluet());
+        CropRegistry.instance.register(new CropRedTulip());
+        CropRegistry.instance.register(new CropOrangeTulip());
+        CropRegistry.instance.register(new CropWhiteTulip());
+        CropRegistry.instance.register(new CropPinkTulip());
+        CropRegistry.instance.register(new CropOxeyeDaisy());
         // vanilla misc
         CropRegistry.instance.register(new CropCactus());
         CropRegistry.instance.register(new CropSugarCane());
