@@ -11,7 +11,7 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 public class CropWeed extends NHCropCard {
 
     public CropWeed() {
-        super("weed", Color.green);
+        super("weed", Color.green, Color.green);
     }
 
     @Override

@@ -21,10 +21,6 @@ public abstract class NHCropCard extends CropCard {
     private IIcon[] sprites = null;
     protected final String internalId;
 
-    public NHCropCard(String id, Color color) {
-        this(id, color, color);
-    }
-
     public NHCropCard(String id, Color color1, Color color2) {
         super(Reference.MOD_ID, id, color1, color2);
         this.internalId = id;

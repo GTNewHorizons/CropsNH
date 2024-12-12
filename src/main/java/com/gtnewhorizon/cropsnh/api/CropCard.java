@@ -34,10 +34,6 @@ public abstract class CropCard implements ICropCard {
     protected final ArrayList<ItemStack> alternateSeeds = new ArrayList<>();
     protected final Color[] colors;
 
-    public CropCard(String modId, String id, Color color) {
-        this(modId, id, color, color);
-    }
-
     public CropCard(String modId, String id, Color color1, Color color2) {
         this.id = modId + ":" + id;
         this.colors = new Color[] { color1, color2 };
