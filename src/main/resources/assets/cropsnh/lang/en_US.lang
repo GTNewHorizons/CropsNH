@@ -76,7 +76,6 @@ cropsnh_crops.weed=Weed
 cropsnh_crops.sugarCane=Sugar Cane
 cropsnh_crops.redMushroom=Red Mushroom
 cropsnh_crops.brownMushroom=Brown Mushroom
-
 # Bonsais
 cropsnh_crops.bonsaiOak=Oak Bonsai
 cropsnh_crops.bonsaiSpruce=Spruce Bonsai
@@ -84,20 +83,19 @@ cropsnh_crops.bonsaiBirch=Birch Bonsai
 cropsnh_crops.bonsaiJungle=Jungle Bonsai
 cropsnh_crops.bonsaiAcacia=Acacia Bonsai
 cropsnh_crops.bonsaiDarkOak=Dark Oak Bonsai
-# Custom Crops
-cropsnh_crops.venomilia=Venomilia
-cropsnh_crops.stickreed=Stickreed
-cropsnh_crops.Cocoa=Cocoa
-cropsnh_crops.Ferru=Ferru
+# IC2 Crops
 cropsnh_crops.aurelia=Aurelia
-cropsnh_crops.redwheat=Redwheat
-cropsnh_crops.terraWart=Terra Wart
 cropsnh_crops.coffee=Coffee
-cropsnh_crops.hops=Hops
 cropsnh_crops.cyprium=Cyprium
-cropsnh_crops.stagnium=Stagnium
+cropsnh_crops.ferru=Ferru
+cropsnh_crops.hops=Hops
 cropsnh_crops.plumbiscus=Plumbiscus
+cropsnh_crops.redwheat=Redwheat
 cropsnh_crops.shining=Shining
+cropsnh_crops.stagnium=Stagnium
+cropsnh_crops.stickReed=Stickreed
+cropsnh_crops.venomilia=Venomilia
+# Custom Crops
 cropsnh_crops.grayStoneLily=Gray Stone Lily
 cropsnh_crops.blackStoneLily=Black Stone Lily
 cropsnh_crops.redStoneLily=Red Stone Lily
@@ -108,7 +106,18 @@ cropsnh_crops.whiteStoneLily=White Stone Lily
 cropsnh_crops.primordialBerry=Primordial Berry
 
 # Growth Requirements
-cropsnh_growthReq.blockUnder.ichorium=Needs a block of ichorium under it to grow.
+cropsnh_growthReq.blockUnder.iron=Needs a block of Iron under it to grow.
+cropsnh_growthReq.blockUnder.gold=Needs a block of Gold under it to grow.
+cropsnh_growthReq.blockUnder.diamond=Needs a block of Diamond under it to grow.
+cropsnh_growthReq.blockUnder.redstone=Needs a block of Redstone under it to grow.
+cropsnh_growthReq.blockUnder.lapis=Needs a block of Lapis under it to grow.
+cropsnh_growthReq.blockUnder.tin=Needs a block of Tin under it to grow.
+cropsnh_growthReq.blockUnder.copper=Needs a block of Copper under it to grow.
+cropsnh_growthReq.blockUnder.nickel=Needs a block of Nickel under it to grow.
+cropsnh_growthReq.blockUnder.lead=Needs a block of Lead under it to grow.
+cropsnh_growthReq.blockUnder.silver=Needs a block of Silver under it to grow.
+cropsnh_growthReq.blockUnder.ichorium=Needs a block of Ichorium under it to grow.
+
 cropsnh_growthReq.blockUnder.snow=Needs a block of snow under it to grow.
 
 

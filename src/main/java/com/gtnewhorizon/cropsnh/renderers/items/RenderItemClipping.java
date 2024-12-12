@@ -140,13 +140,6 @@ public class RenderItemClipping extends RenderItemBase {
         if (stack == null || stack.getItem() == null || stack.stackTagCompound == null) {
             return null;
         }
-        // TODO: IMPLEMENT CUSTOM SEED ICONS
-        // ItemStack seed = ItemStack.loadItemStackFromNBT(stack.stackTagCompound);
-        // CropPlant plant = CropRegistry.getPlantFromStack(seed);
-        // if (plant == null) {
-        // return null;
-        // }
-        // return plant.getPlantIcon(7);
         return null;
     }
 }

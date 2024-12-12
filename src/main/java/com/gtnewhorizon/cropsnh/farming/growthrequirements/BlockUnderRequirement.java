@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.farming.growthrequirements;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,12 +29,21 @@ import gregtech.common.blocks.TileEntityOres;
  */
 public class BlockUnderRequirement implements IWorldGrowthRequirement {
 
+    private static final HashMap<String, BlockUnderRequirement> registrations = new HashMap<>();
+
+    public static BlockUnderRequirement get(String name) {
+        if (!registrations.containsKey(name)) {
+            registrations.put(name, new BlockUnderRequirement(name));
+        }
+        return registrations.get(name);
+    }
+
     private final String materialDescription;
     private final Set<Materials> materials = new HashSet<>();
     private final Set<String> oreDictionaries = new HashSet<String>();
     private final MetaSet<Block> blocks = new MetaSet<>();
 
-    public BlockUnderRequirement(String materialDescription) {
+    private BlockUnderRequirement(String materialDescription) {
         this.materialDescription = materialDescription;
     }
 
@@ -45,6 +55,16 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement {
     public BlockUnderRequirement addOreDict(String... args) {
         this.oreDictionaries.addAll(Arrays.asList(args));
         return this;
+    }
+
+    public BlockUnderRequirement addBlockAndOreDict() {
+        // just capitalize the mat description
+        return this
+            .addOreDict(Character.toUpperCase(this.materialDescription.charAt(0)) + materialDescription.substring(1));
+    }
+
+    public BlockUnderRequirement addBlockAndOreDict(String name) {
+        return this.addOreDict("block" + name, "ore" + name);
     }
 
     public BlockUnderRequirement addBlock(BlockWithMeta... args) {

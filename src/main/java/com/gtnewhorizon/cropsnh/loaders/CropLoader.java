@@ -2,13 +2,24 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.crops.ic2.CropVenomilia;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.CropWeed;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropBonsai;
-import com.gtnewhorizon.cropsnh.crops.gregtech.CropTerraWart;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropAurelia;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropCoffee;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropCyprium;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropFerru;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropHops;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropPlumbiscus;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropRedwheat;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropShining;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropStagnium;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropStickReed;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropTerraWart;
 import com.gtnewhorizon.cropsnh.crops.thaumcraft.PrimordialPerlCrop;
 import com.gtnewhorizon.cropsnh.crops.vanilla.CropCactus;
 import com.gtnewhorizon.cropsnh.crops.vanilla.CropNetherwart;
@@ -32,6 +43,8 @@ import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropWheat;
 import com.gtnewhorizon.cropsnh.crops.vanilla.mushrooms.CropBrownMushroom;
 import com.gtnewhorizon.cropsnh.crops.vanilla.mushrooms.CropRedMushroom;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
+
+import gregtech.api.enums.Mods;
 
 public class CropLoader {
 
@@ -64,6 +77,7 @@ public class CropLoader {
         CropRegistry.instance.register(new CropCactus());
         CropRegistry.instance.register(new CropSugarCane());
         CropRegistry.instance.register(new CropNetherwart());
+        // vanilla bonsais
         // spotless:off
         CropRegistry.instance.register(new CropBonsai("bonsaiOak",     new Color(0x7F6139), new Color(0x57AD3F), "Notch", 1, new ItemStack(Blocks.sapling, 1, 0), new ItemStack(Blocks.log, 1, 0)).addDrop(new ItemStack(Items.apple, 2), 500));
         CropRegistry.instance.register(new CropBonsai("bonsaiSpruce",  new Color(0x50361A), new Color(0x395A39), "Notch", 1, new ItemStack(Blocks.sapling, 1, 1), new ItemStack(Blocks.log, 1, 1)));
@@ -72,11 +86,26 @@ public class CropLoader {
         CropRegistry.instance.register(new CropBonsai("bonsaiAcacia",  new Color(0x795A0D), new Color(0x71881B), "Notch", 1, new ItemStack(Blocks.sapling, 1, 4), new ItemStack(Blocks.log2, 1, 0)));
         CropRegistry.instance.register(new CropBonsai("bonsaiDarkOak", new Color(0x684C29), new Color(0x459633), "Notch", 1, new ItemStack(Blocks.sapling, 1, 5), new ItemStack(Blocks.log2, 1, 1)));
         // spotless:on
-
-        // CropNH
+        // IC2
+        if (Mods.GregTech.isModLoaded()) {
+            CropRegistry.instance.register(new CropAurelia());
+            CropRegistry.instance.register(new CropCoffee());
+            CropRegistry.instance.register(new CropCyprium());
+            CropRegistry.instance.register(new CropFerru());
+            CropRegistry.instance.register(new CropHops());
+            CropRegistry.instance.register(new CropPlumbiscus());
+            CropRegistry.instance.register(new CropRedwheat());
+            CropRegistry.instance.register(new CropShining());
+            CropRegistry.instance.register(new CropStagnium());
+            CropRegistry.instance.register(new CropStickReed());
+            CropRegistry.instance.register(new CropVenomilia());
+        }
+        // terrawart was part of ic2 but is now part of this mod
         CropRegistry.instance.register(new CropTerraWart());
 
-        // Thaum
-        CropRegistry.instance.register(new PrimordialPerlCrop());
+        // Thaumcraft
+        if (Mods.Thaumcraft.isModLoaded()) {
+            CropRegistry.instance.register(new PrimordialPerlCrop());
+        }
     }
 }

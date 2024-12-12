@@ -11,8 +11,6 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
-import gregtech.api.enums.Materials;
-
 public class PrimordialPerlCrop extends NHCropCard {
 
     public PrimordialPerlCrop() {
@@ -20,12 +18,10 @@ public class PrimordialPerlCrop extends NHCropCard {
         ItemStack primPerl = thaumcraft.api.ItemApi.getItem("itemEldritchObject", 3)
             .copy();
         primPerl.stackSize = 1;
-        this.addDrop(primPerl, 10000);
+        this.addDrop(primPerl.copy(), 10000);
         this.addLikedBiomes(BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.SPOOKY);
-        this.addAlternateSeeds(primPerl);
-        this.addGrowthRequirements(
-            new BlockUnderRequirement("ichorium").addMaterial(Materials.Ichorium)
-                .addOreDict("oreIchorium", "blockIchorium"));
+        this.addAlternateSeeds(primPerl.copy());
+        this.addGrowthRequirements(BlockUnderRequirement.get("ichorium"));
     }
 
     @Override

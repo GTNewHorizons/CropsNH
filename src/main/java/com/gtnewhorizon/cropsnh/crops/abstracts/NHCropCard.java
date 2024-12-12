@@ -27,6 +27,11 @@ public abstract class NHCropCard extends CropCard {
     }
 
     @Override
+    public String getCreator() {
+        return "CropsNH Team";
+    }
+
+    @Override
     public String getUnlocalizedName() {
         return "cropsnh_crops." + internalId;
     }

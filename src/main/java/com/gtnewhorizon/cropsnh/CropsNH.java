@@ -5,6 +5,7 @@ import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.init.Recipes;
+import com.gtnewhorizon.cropsnh.loaders.BlockUnderRequirementLoader;
 import com.gtnewhorizon.cropsnh.loaders.CropLoader;
 import com.gtnewhorizon.cropsnh.loaders.FertilizerLoader;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
@@ -28,7 +29,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
  * Hard fork of Agricraft (originally by InfinityRaider) for the GTNH modpack
  * </p>
  *
- * @author InfinityRaider, mitchej123, GTNHTeam
+ * @author InfinityRaider, mitchej123, C0bra5, GTNHTeam
  */
 @Mod(
     modid = Reference.MOD_ID,
@@ -87,6 +88,7 @@ public class CropsNH {
         OreDictLoader.init();
         FertilizerLoader.init();
         SoilLoader.init();
+        BlockUnderRequirementLoader.init();
         CropLoader.init();
 
         Recipes.init();

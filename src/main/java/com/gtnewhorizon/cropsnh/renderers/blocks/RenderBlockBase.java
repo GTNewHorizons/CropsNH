@@ -479,8 +479,6 @@ public abstract class RenderBlockBase extends TileEntitySpecialRenderer
      * <p>
      * This is for use up to the point that a way to rotate lower down is found. (IE. OpenGL).
      * </p>
-     *
-     * TODO: Test up/down rotations more thoroughly.
      */
     public float[] rotatePrism(float minX, float minY, float minZ, float maxX, float maxY, float maxZ,
         ForgeDirection direction) {
