@@ -18,7 +18,7 @@ public class CropSugarCane extends NHCropCard {
 
     public CropSugarCane() {
         super("sugarCane", new Color(0x698747), new Color(0xAADB74));
-        this.addDrop(new ItemStack(Items.reeds, 1), 10_000);
+        this.addDrop(new ItemStack(Items.reeds, 2), 10_000);
         this.addAlternateSeeds(new ItemStack(Items.reeds, 1));
     }
 

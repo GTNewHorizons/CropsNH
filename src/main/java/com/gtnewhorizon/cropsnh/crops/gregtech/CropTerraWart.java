@@ -29,18 +29,14 @@ public class CropTerraWart extends NHCropCard {
     }
 
     @Override
-    public Color getPrimarySeedColor() {
-        return new Color(0x0F213A);
-    }
-
-    @Override
-    public Color getSecondarySeedColor() {
-        return new Color(0x2664A1);
-    }
-
-    @Override
     public ISeedShape getSeedShape() {
         return SeedShape.SPORE;
+    }
+
+    @Override
+    public int getGrowthDuration() {
+        // half of what it used to be since it was getting 2x the growth on snow and now it requires snow under.
+        return 1000;
     }
 
     @Override

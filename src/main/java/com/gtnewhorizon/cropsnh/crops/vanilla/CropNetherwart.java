@@ -42,6 +42,11 @@ public class CropNetherwart extends NHCropCard {
     }
 
     @Override
+    public int getGrowthDuration() {
+        return 2000;
+    }
+
+    @Override
     public ISeedShape getSeedShape() {
         return SeedShape.SPORE;
     }
