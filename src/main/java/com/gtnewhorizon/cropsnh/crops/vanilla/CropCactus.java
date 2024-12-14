@@ -57,7 +57,7 @@ public class CropCactus extends NHCropCard {
     }
 
     @Override
-    public int getEntityDamage() {
-        return 1;
+    public float getEntityDamage() {
+        return 1.0F;
     }
 }

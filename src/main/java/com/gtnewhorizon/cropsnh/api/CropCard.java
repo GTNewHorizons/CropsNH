@@ -86,7 +86,7 @@ public abstract class CropCard implements ICropCard {
     }
 
     @Override
-    public int getEntityDamage() {
+    public float getEntityDamage() {
         return -1;
     }
 

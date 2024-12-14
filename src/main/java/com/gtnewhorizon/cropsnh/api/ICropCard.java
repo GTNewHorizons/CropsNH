@@ -79,7 +79,7 @@ public interface ICropCard {
     /**
      * @return The amount of damage a player takes when walking through this crop.
      */
-    int getEntityDamage();
+    float getEntityDamage();
 
     /**
      * @return The list of biome tags a crop will grow faster in.

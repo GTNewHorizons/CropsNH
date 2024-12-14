@@ -7,10 +7,12 @@ import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -797,8 +799,33 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public void onEntityCollision(Entity entity) {
+    public void onEntityCollision(Entity target) {
+        // only on living entities plz
+        if(!(target instanceof EntityLivingBase)) {
+            return;
+        }
+        EntityLivingBase entity = (EntityLivingBase) target;
+        // always prevent collision events if the entity is sneaking
+        if (this.crop != null && !entity.isSneaking()) {
+            if (this.crop.getEntityDamage() > 0) {
+                damageEntity(entity, this.crop.getEntityDamage());
+            }
+            crop.onEntityCollision(this, target);
+        }
+    }
 
+    /**
+     * Used to apply contact damage from crops.
+     * @param entity The entity to damage.
+     * @param damage The damage to apply.
+     */
+    private void damageEntity(EntityLivingBase entity, float damage) {
+        // don't damage immune targets
+        if (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.disableDamage) {
+            return;
+        }
+        // We could probably use a custom damage source so that when you die to crops you don't get confused.
+        entity.attackEntityFrom(DamageSource.cactus, damage);
     }
 
     @Override

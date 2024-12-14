@@ -173,8 +173,7 @@ public class BlockCropSticks extends BlockContainerCropsNH {
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         final TileEntity te = world.getTileEntity(x, y, z);
         if (!(te instanceof ICropStickTile)) return;
-        final ICropStickTile crop = (ICropStickTile) te;
-        crop.onEntityCollision(entity);
+        ((ICropStickTile) te).onEntityCollision(entity);
     }
 
     /**
