@@ -33,7 +33,7 @@ public class CropTerraWart extends NHCropCard {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.SPORE;
+        return SeedShape.spore;
     }
 
     @Override

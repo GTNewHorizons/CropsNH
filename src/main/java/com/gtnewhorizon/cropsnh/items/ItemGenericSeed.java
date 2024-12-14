@@ -110,7 +110,7 @@ public class ItemGenericSeed extends ItemCropsNH {
     public IIcon getIcon(ItemStack stack, int pass) {
         // load the crop card
         ICropCard cropCard = CropRegistry.instance.get(stack);
-        ISeedShape shape = cropCard == null ? SeedShape.VANILLA : cropCard.getSeedShape();
+        ISeedShape shape = cropCard == null ? SeedShape.vanilla : cropCard.getSeedShape();
         return pass == 0 ? shape.getDarkIcon() : shape.getLightIcon();
     }
 

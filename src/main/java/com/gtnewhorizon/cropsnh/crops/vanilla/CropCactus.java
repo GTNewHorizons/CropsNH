@@ -38,7 +38,7 @@ public class CropCactus extends NHCropCard {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.GRAINS;
+        return SeedShape.grains;
     }
 
     @Override

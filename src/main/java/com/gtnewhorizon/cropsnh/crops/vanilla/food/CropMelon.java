@@ -46,6 +46,6 @@ public class CropMelon extends CropVanillaFood {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.GRAINS;
+        return SeedShape.grains;
     }
 }

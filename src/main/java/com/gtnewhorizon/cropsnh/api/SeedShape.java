@@ -8,17 +8,17 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public enum SeedShape implements ISeedShape {
 
-    // TODO: ORE BERRY SEED SHAPE
+    oreberry,
     // TODO: PAM SEED SHAPE
-    BONSAI,
+    bonsai,
     // TODO: STONE LILY SEED SHAPE
     // TODO: MOB CROP SEED SHAPE
-    BOTANIA,
-    FLOWER,
-    GRAINS,
-    MAGIC,
-    SPORE,
-    VANILLA;
+    botania,
+    flower,
+    grains,
+    magic,
+    spore,
+    vanilla;
 
     final String texturePath;
     IIcon darkIcon = null;

@@ -39,6 +39,6 @@ public class CropRedMushroom extends CropMushroom {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.SPORE;
+        return SeedShape.spore;
     }
 }

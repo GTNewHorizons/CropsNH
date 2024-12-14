@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
@@ -46,7 +47,7 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement {
     }
 
     public void validate() {
-        if (!this.materials.isEmpty() || !this.oreDictionaries.isEmpty() || !this.blocks.isEmpty()) {
+        if (this.materials.isEmpty() && this.oreDictionaries.isEmpty() && this.blocks.isEmpty()) {
             LogHelper.warn("Block under requirement hasn't been given anything to look for: " + this.materialDescription);
         }
     }
@@ -109,7 +110,7 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement {
 
     public boolean canGrow(Block block, int meta, TileEntity te) {
         // non-world dependent check for the GoBlyn
-        ItemStack stack = new ItemStack(block, 1, meta);
+        ItemStack stack = new ItemStack(Item.getItemFromBlock(block), 1, meta);
 
         // gt material check
         for (Materials material : this.materials) {

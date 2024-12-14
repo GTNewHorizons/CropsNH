@@ -30,15 +30,23 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("diamond").addBlockAndOreDict().addMaterial(Materials.Diamond);
         BlockUnderRequirement.get("redstone").addBlockAndOreDict().addMaterial(Materials.Redstone);
         BlockUnderRequirement.get("lapis").addBlockAndOreDict().addMaterial(Materials.Lapis);
+        BlockUnderRequirement.get("aluminium").addBlockAndOreDict().addMaterial(Materials.Aluminium);
         BlockUnderRequirement.get("tin").addBlockAndOreDict().addMaterial(Materials.Tin);
         BlockUnderRequirement.get("copper").addBlockAndOreDict().addMaterial(Materials.Copper);
         BlockUnderRequirement.get("nickel").addBlockAndOreDict().addMaterial(Materials.Nickel);
         BlockUnderRequirement.get("lead").addBlockAndOreDict().addMaterial(Materials.Lead);
         BlockUnderRequirement.get("silver").addBlockAndOreDict().addMaterial(Materials.Silver);
         BlockUnderRequirement.get("garnetGem").addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow);
+        BlockUnderRequirement.get("knightmetal").addBlockAndOreDict().addMaterial(Materials.Knightmetal);
+        BlockUnderRequirement.get("thaumium").addBlockAndOreDict().addMaterial(Materials.Thaumium);
+        BlockUnderRequirement.get("thauminite").addOreDict("blockThauminite");
+        BlockUnderRequirement.get("void").addBlockAndOreDict().addMaterial(Materials.Void);
+        BlockUnderRequirement.get("cobalt").addBlockAndOreDict().addMaterial(Materials.Cobalt);
+        BlockUnderRequirement.get("ardite").addBlockAndOreDict().addMaterial(Materials.Ardite);
         BlockUnderRequirement.get("ichorium").addBlockAndOreDict().addMaterial(Materials.Ichorium);
         // others
         BlockUnderRequirement.get("snow").addOreDict("blockSnow").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.snow));
+        BlockUnderRequirement.get("skull").addOreDict("itemSkull").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.skull));
         // spotless:on
     }
 }

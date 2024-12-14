@@ -31,7 +31,7 @@ public class PrimordialPerlCrop extends NHCropCard {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.MAGIC;
+        return SeedShape.magic;
     }
 
     @Override

@@ -49,7 +49,7 @@ public class CropSugarCane extends NHCropCard {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.GRAINS;
+        return SeedShape.grains;
     }
 
     @Override

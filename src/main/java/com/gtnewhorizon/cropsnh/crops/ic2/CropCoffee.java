@@ -22,7 +22,7 @@ public class CropCoffee extends NHCropCard {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.GRAINS;
+        return SeedShape.grains;
     }
 
     @Override

@@ -32,6 +32,6 @@ public abstract class CropVanillaFlower extends NHCropCard {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.FLOWER;
+        return SeedShape.flower;
     }
 }

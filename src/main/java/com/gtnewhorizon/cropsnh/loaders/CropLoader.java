@@ -4,6 +4,18 @@ import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 import com.gtnewhorizon.cropsnh.crops.gregtech.CropGarnydnia;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropAluminiumOreBerry;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropArditeOreBerry;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropCobaltOreBerry;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropCopperOreBerry;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropEssenceOreBerry;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropGoldOreBerry;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropIronOreBerry;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropKnightmetalBerries;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropThauminiteOreBerry;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropThaumiumOreBerry;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropTinOreBerry;
+import com.gtnewhorizon.cropsnh.crops.oreBerries.CropVoidOreBerry;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.CropBasaltLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.CropBlackGraniteLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.CropEndStoneLily;
@@ -102,42 +114,61 @@ public class CropLoader {
         CropRegistry.instance.register(new CropBonsai("bonsaiDarkOak", new Color(0x684C29), new Color(0x459633), "Notch", 1, new ItemStack(Blocks.sapling, 1, 5), new ItemStack(Blocks.log2, 1, 1)));
         // spotless:on
         // IC2
-        if (Mods.GregTech.isModLoaded()) {
-            CropRegistry.instance.register(new CropAurelia());
-            CropRegistry.instance.register(new CropCoffee());
-            CropRegistry.instance.register(new CropCyprium());
-            CropRegistry.instance.register(new CropFerru());
-            CropRegistry.instance.register(new CropHops());
-            CropRegistry.instance.register(new CropPlumbiscus());
-            CropRegistry.instance.register(new CropRedwheat());
-            CropRegistry.instance.register(new CropShining());
-            CropRegistry.instance.register(new CropStagnium());
-            CropRegistry.instance.register(new CropStickReed());
-            CropRegistry.instance.register(new CropVenomilia());
-        }
+        CropRegistry.instance.register(new CropAurelia());
+        CropRegistry.instance.register(new CropCoffee());
+        CropRegistry.instance.register(new CropCyprium());
+        CropRegistry.instance.register(new CropFerru());
+        CropRegistry.instance.register(new CropHops());
+        CropRegistry.instance.register(new CropPlumbiscus());
+        CropRegistry.instance.register(new CropRedwheat());
+        CropRegistry.instance.register(new CropShining());
+        CropRegistry.instance.register(new CropStagnium());
+        CropRegistry.instance.register(new CropStickReed());
+        CropRegistry.instance.register(new CropVenomilia());
         // terrawart was part of ic2 but is now part of this mod
         CropRegistry.instance.register(new CropTerraWart());
         // Stone Lilies
-        if (Mods.GregTech.isModLoaded()) {
-            CropRegistry.instance.register(new CropStoneLily());
-            CropRegistry.instance.register(new CropSandLily());
-            CropRegistry.instance.register(new CropNetherStoneLily());
-            CropRegistry.instance.register(new CropSoulSandLily());
-            CropRegistry.instance.register(new CropEndStoneLily());
-            CropRegistry.instance.register(new CropRedGraniteLily());
-            CropRegistry.instance.register(new CropBlackGraniteLily());
-            CropRegistry.instance.register(new CropBasaltLily());
-            CropRegistry.instance.register(new CropMarbleLily());
-        }
+        CropRegistry.instance.register(new CropStoneLily());
+        CropRegistry.instance.register(new CropSandLily());
+        CropRegistry.instance.register(new CropNetherStoneLily());
+        CropRegistry.instance.register(new CropSoulSandLily());
+        CropRegistry.instance.register(new CropEndStoneLily());
+        CropRegistry.instance.register(new CropRedGraniteLily());
+        CropRegistry.instance.register(new CropBlackGraniteLily());
+        CropRegistry.instance.register(new CropBasaltLily());
+        CropRegistry.instance.register(new CropMarbleLily());
         if (Mods.Botania.isModLoaded()) {
             CropRegistry.instance.register(new CropAndesiteLily());
             CropRegistry.instance.register(new CropDioriteLily());
             CropRegistry.instance.register(new CropGraniteLily());
         }
+        // Crops++ gt crops
         CropRegistry.instance.register(new CropGarnydnia());
-        // Thaumcraft
+        // Ore Berries
+        if (Mods.TinkerConstruct.isModLoaded()) {
+            CropRegistry.instance.register(new CropAluminiumOreBerry());
+            CropRegistry.instance.register(new CropCopperOreBerry());
+            CropRegistry.instance.register(new CropEssenceOreBerry());
+            CropRegistry.instance.register(new CropGoldOreBerry());
+            CropRegistry.instance.register(new CropIronOreBerry());
+            CropRegistry.instance.register(new CropTinOreBerry());
+            CropRegistry.instance.register(new CropArditeOreBerry());
+            CropRegistry.instance.register(new CropCobaltOreBerry());
+        }
+        if (Mods.Thaumcraft.isModLoaded()) {
+            CropRegistry.instance.register(new CropThaumiumOreBerry());
+            CropRegistry.instance.register(new CropVoidOreBerry());
+        }
+        if (Mods.ThaumicBases.isModLoaded()) {
+            CropRegistry.instance.register(new CropThauminiteOreBerry());
+        }
+        // thaumcraft
         if (Mods.Thaumcraft.isModLoaded()) {
             CropRegistry.instance.register(new PrimordialPerlCrop());
+        }
+        // Crops++ Twilight Forest
+        if (Mods.TwilightForest.isModLoaded()) {
+            CropRegistry.instance.register(new CropKnightmetalBerries());
         }
     }
 }

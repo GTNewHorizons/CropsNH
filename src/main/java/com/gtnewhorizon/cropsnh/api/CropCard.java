@@ -67,7 +67,7 @@ public abstract class CropCard implements ICropCard {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.VANILLA;
+        return SeedShape.vanilla;
     }
 
     @Override

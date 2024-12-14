@@ -48,7 +48,7 @@ public class CropNetherwart extends NHCropCard {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.SPORE;
+        return SeedShape.spore;
     }
 
     @Override

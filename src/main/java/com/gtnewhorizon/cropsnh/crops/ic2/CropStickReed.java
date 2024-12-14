@@ -47,7 +47,7 @@ public class CropStickReed extends NHCropCard {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.GRAINS;
+        return SeedShape.grains;
     }
 
     @Override

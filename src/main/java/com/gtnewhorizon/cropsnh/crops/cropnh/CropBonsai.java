@@ -45,7 +45,7 @@ public class CropBonsai extends NHCropCard {
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.BONSAI;
+        return SeedShape.bonsai;
     }
 
     @Override
