@@ -3,11 +3,14 @@ package com.gtnewhorizon.cropsnh.farming.growthrequirements;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -36,6 +39,16 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement {
             registrations.put(name, new BlockUnderRequirement(name));
         }
         return registrations.get(name);
+    }
+
+    public static void validateRegistry() {
+        registrations.values().forEach(BlockUnderRequirement::validate);
+    }
+
+    public void validate() {
+        if (!this.materials.isEmpty() || !this.oreDictionaries.isEmpty() || !this.blocks.isEmpty()) {
+            LogHelper.warn("Block under requirement hasn't been given anything to look for: " + this.materialDescription);
+        }
     }
 
     private final String materialDescription;
@@ -76,7 +89,7 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement {
 
     @Override
     public String getDescription() {
-        return "cropsnh_growthReq.blockUnder." + materialDescription;
+        return StatCollector.translateToLocal( "cropsnh_growthReq.blockUnder." + materialDescription);
     }
 
     @Override

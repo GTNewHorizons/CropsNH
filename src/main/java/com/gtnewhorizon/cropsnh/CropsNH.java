@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh;
 
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
+import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.init.Items;
@@ -90,6 +91,7 @@ public class CropsNH {
         SoilLoader.init();
         BlockUnderRequirementLoader.init();
         CropLoader.init();
+        BlockUnderRequirement.validateRegistry();
 
         Recipes.init();
         ModHelper.postInit();

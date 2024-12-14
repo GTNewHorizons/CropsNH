@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.crops.abstracts;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
@@ -44,6 +45,11 @@ public abstract class NHCropCard extends CropCard {
     @Override
     public ISoilList getSoilTypes() {
         return DEFAULT_SOIL;
+    }
+
+    public CropCard addBlockUnderRequirement(String id) {
+        this.growthRequirements.add(BlockUnderRequirement.get(id));
+        return this;
     }
 
     @Override

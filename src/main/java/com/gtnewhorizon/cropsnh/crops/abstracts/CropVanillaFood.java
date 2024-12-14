@@ -8,6 +8,6 @@ public abstract class CropVanillaFood extends NHCropCard {
 
     public CropVanillaFood(String id, Color color1, Color color2) {
         super(id, color1, color2);
-        this.addGrowthRequirements(new MinLightLevelRequirement(12));
+        this.addGrowthRequirements(new MinLightLevelRequirement(9));
     }
 }

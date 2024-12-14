@@ -2,7 +2,22 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
+import com.gtnewhorizon.cropsnh.crops.gregtech.CropGarnydnia;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.CropBasaltLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.CropBlackGraniteLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.CropEndStoneLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.CropMarbleLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.CropNetherStoneLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.CropRedGraniteLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.CropSandLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.CropSoulSandLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.CropStoneLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropAndesiteLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropDioriteLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropGraniteLily;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropVenomilia;
+import gregtech.api.enums.Materials;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -102,7 +117,24 @@ public class CropLoader {
         }
         // terrawart was part of ic2 but is now part of this mod
         CropRegistry.instance.register(new CropTerraWart());
-
+        // Stone Lilies
+        if (Mods.GregTech.isModLoaded()) {
+            CropRegistry.instance.register(new CropStoneLily());
+            CropRegistry.instance.register(new CropSandLily());
+            CropRegistry.instance.register(new CropNetherStoneLily());
+            CropRegistry.instance.register(new CropSoulSandLily());
+            CropRegistry.instance.register(new CropEndStoneLily());
+            CropRegistry.instance.register(new CropRedGraniteLily());
+            CropRegistry.instance.register(new CropBlackGraniteLily());
+            CropRegistry.instance.register(new CropBasaltLily());
+            CropRegistry.instance.register(new CropMarbleLily());
+        }
+        if (Mods.Botania.isModLoaded()) {
+            CropRegistry.instance.register(new CropAndesiteLily());
+            CropRegistry.instance.register(new CropDioriteLily());
+            CropRegistry.instance.register(new CropGraniteLily());
+        }
+        CropRegistry.instance.register(new CropGarnydnia());
         // Thaumcraft
         if (Mods.Thaumcraft.isModLoaded()) {
             CropRegistry.instance.register(new PrimordialPerlCrop());

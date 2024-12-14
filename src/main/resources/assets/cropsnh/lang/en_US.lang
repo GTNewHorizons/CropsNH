@@ -95,28 +95,52 @@ cropsnh_crops.shining=Shining
 cropsnh_crops.stagnium=Stagnium
 cropsnh_crops.stickReed=Stickreed
 cropsnh_crops.venomilia=Venomilia
-# Custom Crops
-cropsnh_crops.grayStoneLily=Gray Stone Lily
-cropsnh_crops.blackStoneLily=Black Stone Lily
-cropsnh_crops.redStoneLily=Red Stone Lily
-cropsnh_crops.yellowStoneLily=Yellow Stone Lily
+# Stone Lilies
+cropsnh_crops.stoneLily=Stone Lily
+cropsnh_crops.sandLily=Sand Lily
+cropsnh_crops.endStoneLily=End Stone Lily
 cropsnh_crops.netherStoneLily=Nether Stone Lily
-cropsnh_crops.whiteStoneLily=White Stone Lily
-
+cropsnh_crops.soulSandLily=Soul Sand Lily
+cropsnh_crops.blackGraniteLily=Black Granite Lily
+cropsnh_crops.redGraniteLily=Red Granite Lily
+cropsnh_crops.basaltLily=Basalt Lily
+cropsnh_crops.marbleLily=Marble Lily
+cropsnh_crops.graniteLily=Granite Lily
+cropsnh_crops.andesiteLily=Andesite Lily
+cropsnh_crops.dioriteLily=Diorite Lily
+# Crops++ GregTech Crops
+cropsnh_crops.garnydinia=garnydinia
+# Crops++ Thaumcraft Crops
 cropsnh_crops.primordialBerry=Primordial Berry
 
 # Growth Requirements
-cropsnh_growthReq.blockUnder.iron=Needs a block of Iron under it to grow.
-cropsnh_growthReq.blockUnder.gold=Needs a block of Gold under it to grow.
-cropsnh_growthReq.blockUnder.diamond=Needs a block of Diamond under it to grow.
-cropsnh_growthReq.blockUnder.redstone=Needs a block of Redstone under it to grow.
-cropsnh_growthReq.blockUnder.lapis=Needs a block of Lapis under it to grow.
-cropsnh_growthReq.blockUnder.tin=Needs a block of Tin under it to grow.
-cropsnh_growthReq.blockUnder.copper=Needs a block of Copper under it to grow.
-cropsnh_growthReq.blockUnder.nickel=Needs a block of Nickel under it to grow.
-cropsnh_growthReq.blockUnder.lead=Needs a block of Lead under it to grow.
-cropsnh_growthReq.blockUnder.silver=Needs a block of Silver under it to grow.
-cropsnh_growthReq.blockUnder.ichorium=Needs a block of Ichorium under it to grow.
+cropsnh_growthReq.minLight.format=Needs a light Level of %1$d or higher.
+cropsnh_growthReq.maxLight.format=Needs a light Level of %1$d or lower.
+cropsnh_growthReq.blockUnder.iron=Needs a block of iron under it to grow.
+cropsnh_growthReq.blockUnder.gold=Needs a block of gold under it to grow.
+cropsnh_growthReq.blockUnder.diamond=Needs a block of diamond under it to grow.
+cropsnh_growthReq.blockUnder.redstone=Needs a block of redstone under it to grow.
+cropsnh_growthReq.blockUnder.lapis=Needs a block of lapis under it to grow.
+cropsnh_growthReq.blockUnder.tin=Needs a block of tin under it to grow.
+cropsnh_growthReq.blockUnder.copper=Needs a block of copper under it to grow.
+cropsnh_growthReq.blockUnder.nickel=Needs a block of nickel under it to grow.
+cropsnh_growthReq.blockUnder.lead=Needs a block of lead under it to grow.
+cropsnh_growthReq.blockUnder.silver=Needs a block of silver under it to grow.
+cropsnh_growthReq.blockUnder.garnetGem=Needs a block of red or yellow garnet under it to grow.
+cropsnh_growthReq.blockUnder.ichorium=Needs a block of ichorium under it to grow.
+
+cropsnh_growthReq.blockUnder.botaniaAndesite=Needs a block of andesite under it to grow.
+cropsnh_growthReq.blockUnder.botaniaDiorite=Needs a block of diorite under it to grow.
+cropsnh_growthReq.blockUnder.botaniaGranite=Needs a block of granite under it to grow.
+cropsnh_growthReq.blockUnder.basalt=Needs a block of basalt under it to grow.
+cropsnh_growthReq.blockUnder.blackGranite=Needs a block of black granite under it to grow.
+cropsnh_growthReq.blockUnder.endStone=Needs a block of end stone under it to grow.
+cropsnh_growthReq.blockUnder.marble=Needs a block of marble under it to grow.
+cropsnh_growthReq.blockUnder.netherrack=Needs a block of netherrack under it to grow.
+cropsnh_growthReq.blockUnder.redGranite=Needs a block of red granite under it to grow.
+cropsnh_growthReq.blockUnder.sand=Needs a block of sand or sandstone under it to grow.
+cropsnh_growthReq.blockUnder.soulSand=Needs a block of soul sand under it to grow.
+cropsnh_growthReq.blockUnder.stone=Needs a block of stone under it to grow.
 
 cropsnh_growthReq.blockUnder.snow=Needs a block of snow under it to grow.
 

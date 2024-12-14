@@ -4,11 +4,26 @@ import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.Mods;
+import net.minecraft.init.Blocks;
 
 public class BlockUnderRequirementLoader {
 
     public static void init() {
         // spotless:off
+        // stones
+        BlockUnderRequirement.get("stone").addBlock(new BlockWithMeta(Blocks.stone), new BlockWithMeta(Blocks.cobblestone));
+        BlockUnderRequirement.get("sand").addBlock(new BlockWithMeta(Blocks.sand), new BlockWithMeta(Blocks.sandstone));
+        BlockUnderRequirement.get("soulSand").addBlock(new BlockWithMeta(Blocks.soul_sand));
+        BlockUnderRequirement.get("netherrack").addBlock(new BlockWithMeta(Blocks.netherrack));
+        BlockUnderRequirement.get("endStone").addBlock(new BlockWithMeta(Blocks.end_stone));
+        BlockUnderRequirement.get("redGranite").addOreDict("stoneGraniteRed");
+        BlockUnderRequirement.get("blackGranite").addOreDict("stoneGraniteBlack");
+        BlockUnderRequirement.get("marble").addOreDict("stoneMarble");
+        BlockUnderRequirement.get("basalt").addOreDict("stoneBasalt");
+        BlockUnderRequirement.get("botaniaAndesite").addOreDict("stoneAndesite");
+        BlockUnderRequirement.get("botaniaDiorite").addOreDict("stoneDiorite");
+        BlockUnderRequirement.get("botaniaGranite").addOreDict("stoneGranite");
         // ores
         BlockUnderRequirement.get("iron").addBlockAndOreDict().addMaterial(Materials.Iron);
         BlockUnderRequirement.get("gold").addBlockAndOreDict().addMaterial(Materials.Gold);
@@ -20,6 +35,7 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("nickel").addBlockAndOreDict().addMaterial(Materials.Nickel);
         BlockUnderRequirement.get("lead").addBlockAndOreDict().addMaterial(Materials.Lead);
         BlockUnderRequirement.get("silver").addBlockAndOreDict().addMaterial(Materials.Silver);
+        BlockUnderRequirement.get("garnetGem").addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow);
         BlockUnderRequirement.get("ichorium").addBlockAndOreDict().addMaterial(Materials.Ichorium);
         // others
         BlockUnderRequirement.get("snow").addOreDict("blockSnow").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.snow));

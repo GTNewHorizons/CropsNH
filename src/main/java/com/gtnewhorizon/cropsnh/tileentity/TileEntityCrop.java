@@ -203,7 +203,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                     if (failedReqs != null) {
                         for (IWorldGrowthRequirement req : failedReqs) {
                             information.add(
-                                EnumChatFormatting.RED + StatCollector.translateToLocal(req.getDescription())
+                                EnumChatFormatting.RED + req.getDescription()
                                     + EnumChatFormatting.RESET);
                         }
                     }

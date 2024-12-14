@@ -79,7 +79,7 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     if (failedReqs != null) {
                         for (IWorldGrowthRequirement req : failedReqs) {
                             information.add(
-                                EnumChatFormatting.RED + StatCollector.translateToLocal(req.getDescription())
+                                EnumChatFormatting.RED + req.getDescription()
                                     + EnumChatFormatting.RESET);
                         }
                     }

@@ -14,7 +14,6 @@ public class CropCocoa extends CropVanillaFood {
         super("cocoa", new Color(0x734120), new Color(0x976746));
         this.addDrop(new ItemStack(Items.dye, 1, 3), 10_000);
         this.addAlternateSeeds(new ItemStack(Items.dye, 1, 3));
-        this.addGrowthRequirements(new MinLightLevelRequirement(12));
     }
 
     @Override

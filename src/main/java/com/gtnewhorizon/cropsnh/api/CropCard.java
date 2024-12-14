@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -186,6 +187,10 @@ public abstract class CropCard implements ICropCard {
     }
 
     public CropCard addDrop(ItemStack stack, int chance) {
+        if (stack == null) {
+            LogHelper.warn("Attempted to add a null drop to " + this.getId());
+            return this;
+        }
         this.dropTable.put(stack, chance);
         return this;
     }

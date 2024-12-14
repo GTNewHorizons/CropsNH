@@ -14,7 +14,6 @@ public class CropCarrot extends CropVanillaFood {
         super("carrot", new Color(0xE58700), new Color(0xEEAE7D));
         this.addDrop(new ItemStack(Items.carrot, 1), 10_000);
         this.addAlternateSeeds(new ItemStack(Items.carrot, 1));
-        this.addGrowthRequirements(new MinLightLevelRequirement(12));
     }
 
     @Override

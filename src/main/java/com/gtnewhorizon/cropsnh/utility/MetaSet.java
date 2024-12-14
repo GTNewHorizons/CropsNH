@@ -46,4 +46,7 @@ public class MetaSet<K> {
         return metaSet == null || metaSet.contains(meta);
     }
 
+    public boolean isEmpty() {
+        return this.map.isEmpty();
+    }
 }

@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.farming.growthrequirements;
 
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
@@ -18,7 +19,7 @@ public class MinLightLevelRequirement implements IWorldGrowthRequirement {
 
     @Override
     public String getDescription() {
-        return null;
+        return StatCollector.translateToLocalFormatted("cropsnh_growthReq.minLight.format", minLightLevel);
     }
 
     @Override

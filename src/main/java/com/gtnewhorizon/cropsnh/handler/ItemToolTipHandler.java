@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.handler;
 
+import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -52,6 +53,12 @@ public class ItemToolTipHandler {
                     StatCollector.translateToLocal("cropsnh_tooltip.resistance"),
                     stats.getResistance(),
                     EnumChatFormatting.RESET));
+            Iterable<IWorldGrowthRequirement> reqs = crop.getWorldGrowthRequirements();
+            if (reqs != null) {
+                for (IWorldGrowthRequirement req : reqs) {
+                    event.toolTip.add(req.getDescription());
+                }
+            }
         } else {
             event.toolTip.add(" " + StatCollector.translateToLocal("cropsnh_tooltip.unidentified"));
         }
