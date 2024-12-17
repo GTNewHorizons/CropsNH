@@ -1,11 +1,11 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
+import net.minecraft.init.Blocks;
+
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.Mods;
-import net.minecraft.init.Blocks;
 
 public class BlockUnderRequirementLoader {
 

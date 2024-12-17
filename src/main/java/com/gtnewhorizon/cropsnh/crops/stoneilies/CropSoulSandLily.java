@@ -1,10 +1,11 @@
 package com.gtnewhorizon.cropsnh.crops.stoneilies;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
+import java.awt.Color;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-import java.awt.Color;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 
 public class CropSoulSandLily extends CropBaseStoneLily {
 

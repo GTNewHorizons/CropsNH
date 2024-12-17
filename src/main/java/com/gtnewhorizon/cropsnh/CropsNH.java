@@ -37,8 +37,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
     name = Reference.MOD_NAME,
     version = Reference.VERSION,
     guiFactory = Reference.GUI_FACTORY_CLASS,
-    dependencies = "required-after:gregtech; "
-        + "after:IC2; "
+    dependencies = "required-after:gregtech; " + "after:IC2; "
         + "after:GalacticraftCore; "
         + "after:Mantle; "
         + "after:Forestry; "

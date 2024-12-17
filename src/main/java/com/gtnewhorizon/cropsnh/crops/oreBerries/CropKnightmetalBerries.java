@@ -1,12 +1,11 @@
 package com.gtnewhorizon.cropsnh.crops.oreBerries;
 
+import java.awt.Color;
+
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
-import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
-import net.minecraft.item.ItemStack;
-import tconstruct.world.TinkerWorld;
-
-import java.awt.Color;
 
 public class CropKnightmetalBerries extends CropOreBerry {
 

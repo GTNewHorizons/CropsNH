@@ -1,14 +1,16 @@
 package com.gtnewhorizon.cropsnh.crops.ic2;
 
+import java.awt.Color;
+
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import gregtech.api.enums.ItemList;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 
-import java.awt.Color;
+import gregtech.api.enums.ItemList;
 
 public class CropVenomilia extends NHCropCard {
 

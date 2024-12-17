@@ -78,9 +78,7 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     List<IWorldGrowthRequirement> failedReqs = teCrop.getFailedChecks();
                     if (failedReqs != null) {
                         for (IWorldGrowthRequirement req : failedReqs) {
-                            information.add(
-                                EnumChatFormatting.RED + req.getDescription()
-                                    + EnumChatFormatting.RESET);
+                            information.add(EnumChatFormatting.RED + req.getDescription() + EnumChatFormatting.RESET);
                         }
                     }
 

@@ -1,11 +1,9 @@
 package com.gtnewhorizon.cropsnh.crops.stoneilies.botania;
 
-import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
-
 import java.awt.Color;
+
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
+import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropGraniteLily extends CropBaseStoneLily {
 

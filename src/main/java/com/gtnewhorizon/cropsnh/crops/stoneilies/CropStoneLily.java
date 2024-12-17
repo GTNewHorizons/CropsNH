@@ -1,12 +1,10 @@
 package com.gtnewhorizon.cropsnh.crops.stoneilies;
 
-import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
-import gregtech.api.enums.Materials;
-
 import java.awt.Color;
+
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
+
+import gregtech.api.enums.Materials;
 
 public class CropStoneLily extends CropBaseStoneLily {
 

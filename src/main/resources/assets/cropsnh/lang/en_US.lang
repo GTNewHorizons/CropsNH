@@ -127,6 +127,7 @@ cropsnh_crops.primordialBerry=Primordial Berry
 # Crops++ Twilight Forest Crops
 cropsnh_crops.knightmetalOreBerry=Knightly Ore Berry
 
+
 # Light Growth Requirements
 cropsnh_growthReq.minLight.format=Needs a light Level of %1$d or higher.
 cropsnh_growthReq.maxLight.format=Needs a light Level of %1$d or lower.

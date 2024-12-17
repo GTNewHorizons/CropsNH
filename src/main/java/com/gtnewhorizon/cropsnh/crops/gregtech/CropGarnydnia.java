@@ -1,14 +1,15 @@
 package com.gtnewhorizon.cropsnh.crops.gregtech;
 
+import java.awt.Color;
+
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
+
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTOreDictUnificator;
-
-import java.awt.Color;
 
 public class CropGarnydnia extends NHCropCard {
 

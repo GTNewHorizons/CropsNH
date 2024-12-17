@@ -1,6 +1,5 @@
 package com.gtnewhorizon.cropsnh.handler;
 
-import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -8,6 +7,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
+import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;

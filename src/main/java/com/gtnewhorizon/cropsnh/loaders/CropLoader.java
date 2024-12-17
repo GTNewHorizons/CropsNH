@@ -2,8 +2,25 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+
+import com.gtnewhorizon.cropsnh.crops.CropWeed;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropBonsai;
 import com.gtnewhorizon.cropsnh.crops.gregtech.CropGarnydnia;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropAurelia;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropCoffee;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropCyprium;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropFerru;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropHops;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropPlumbiscus;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropRedwheat;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropShining;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropStagnium;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropStickReed;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropTerraWart;
+import com.gtnewhorizon.cropsnh.crops.ic2.CropVenomilia;
 import com.gtnewhorizon.cropsnh.crops.oreBerries.CropAluminiumOreBerry;
 import com.gtnewhorizon.cropsnh.crops.oreBerries.CropArditeOreBerry;
 import com.gtnewhorizon.cropsnh.crops.oreBerries.CropCobaltOreBerry;
@@ -28,25 +45,6 @@ import com.gtnewhorizon.cropsnh.crops.stoneilies.CropStoneLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropAndesiteLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropDioriteLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropGraniteLily;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropVenomilia;
-import gregtech.api.enums.Materials;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-
-import com.gtnewhorizon.cropsnh.crops.CropWeed;
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropBonsai;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropAurelia;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropCoffee;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropCyprium;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropFerru;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropHops;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropPlumbiscus;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropRedwheat;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropShining;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropStagnium;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropStickReed;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropTerraWart;
 import com.gtnewhorizon.cropsnh.crops.thaumcraft.PrimordialPerlCrop;
 import com.gtnewhorizon.cropsnh.crops.vanilla.CropCactus;
 import com.gtnewhorizon.cropsnh.crops.vanilla.CropNetherwart;
@@ -69,6 +67,15 @@ import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropPumpkin;
 import com.gtnewhorizon.cropsnh.crops.vanilla.food.CropWheat;
 import com.gtnewhorizon.cropsnh.crops.vanilla.mushrooms.CropBrownMushroom;
 import com.gtnewhorizon.cropsnh.crops.vanilla.mushrooms.CropRedMushroom;
+import com.gtnewhorizon.cropsnh.crops.witchery.CropBelladonna;
+import com.gtnewhorizon.cropsnh.crops.witchery.CropEmberMoss;
+import com.gtnewhorizon.cropsnh.crops.witchery.CropGarlic;
+import com.gtnewhorizon.cropsnh.crops.witchery.CropGlintWeed;
+import com.gtnewhorizon.cropsnh.crops.witchery.CropMandrake;
+import com.gtnewhorizon.cropsnh.crops.witchery.CropSnowbell;
+import com.gtnewhorizon.cropsnh.crops.witchery.CropSpanishMoss;
+import com.gtnewhorizon.cropsnh.crops.witchery.CropWaterArtichoke;
+import com.gtnewhorizon.cropsnh.crops.witchery.CropWolfsbane;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 
 import gregtech.api.enums.Mods;
@@ -169,6 +176,18 @@ public class CropLoader {
         // Crops++ Twilight Forest
         if (Mods.TwilightForest.isModLoaded()) {
             CropRegistry.instance.register(new CropKnightmetalBerries());
+        }
+        // Crops++ Witchery
+        if (Mods.Witchery.isModLoaded()) {
+            CropRegistry.instance.register(new CropBelladonna());
+            CropRegistry.instance.register(new CropEmberMoss());
+            CropRegistry.instance.register(new CropGarlic());
+            CropRegistry.instance.register(new CropGlintWeed());
+            CropRegistry.instance.register(new CropMandrake());
+            CropRegistry.instance.register(new CropSnowbell());
+            CropRegistry.instance.register(new CropSpanishMoss());
+            CropRegistry.instance.register(new CropWaterArtichoke());
+            CropRegistry.instance.register(new CropWolfsbane());
         }
     }
 }

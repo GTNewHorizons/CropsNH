@@ -6,7 +6,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropVanillaFood;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.MinLightLevelRequirement;
 
 public class CropPotato extends CropVanillaFood {
 

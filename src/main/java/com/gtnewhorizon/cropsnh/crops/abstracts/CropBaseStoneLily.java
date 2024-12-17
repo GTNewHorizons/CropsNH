@@ -1,12 +1,9 @@
 package com.gtnewhorizon.cropsnh.crops.abstracts;
 
-import com.gtnewhorizon.cropsnh.api.ICropStickTile;
+import java.awt.Color;
+
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.world.IBlockAccess;
-
-import java.awt.Color;
 
 public abstract class CropBaseStoneLily extends NHCropCard {
 
@@ -14,7 +11,7 @@ public abstract class CropBaseStoneLily extends NHCropCard {
     private final String materialName;
 
     public CropBaseStoneLily(String materialName, Color color1, Color color2) {
-        super(materialName+"Lily", color1, color2);
+        super(materialName + "Lily", color1, color2);
         this.materialName = materialName;
     }
 

@@ -1,11 +1,13 @@
 package com.gtnewhorizon.cropsnh.crops.oreBerries;
 
+import java.awt.Color;
+
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
-import net.minecraft.item.ItemStack;
-import tconstruct.world.TinkerWorld;
 
-import java.awt.Color;
+import tconstruct.world.TinkerWorld;
 
 public class CropGoldOreBerry extends CropOreBerry {
 
@@ -19,12 +21,12 @@ public class CropGoldOreBerry extends CropOreBerry {
 
     @Override
     public Color getPrimarySeedColor() {
-        return new Color(255, 255,  30).darker();
+        return new Color(255, 255, 30).darker();
     }
 
     @Override
     public Color getSecondarySeedColor() {
-        return new Color(255, 255,  30);
+        return new Color(255, 255, 30);
     }
 
     @Override

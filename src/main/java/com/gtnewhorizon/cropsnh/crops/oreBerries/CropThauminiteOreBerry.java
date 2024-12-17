@@ -1,10 +1,10 @@
 package com.gtnewhorizon.cropsnh.crops.oreBerries;
 
+import java.awt.Color;
+
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
-
-import java.awt.Color;
 
 public class CropThauminiteOreBerry extends CropOreBerry {
 

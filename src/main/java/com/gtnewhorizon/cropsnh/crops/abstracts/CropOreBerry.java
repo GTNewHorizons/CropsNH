@@ -1,17 +1,18 @@
 package com.gtnewhorizon.cropsnh.crops.abstracts;
 
+import java.awt.Color;
+
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-
-import java.awt.Color;
 
 public abstract class CropOreBerry extends NHCropCard {
 
     private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
 
     private final String materialName;
+
     public CropOreBerry(String materialName, Color color1, Color color2) {
         super(materialName + "OreBerry", color1, color2);
         this.materialName = materialName;

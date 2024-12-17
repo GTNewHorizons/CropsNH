@@ -1,13 +1,14 @@
 package com.gtnewhorizon.cropsnh.crops.oreBerries;
 
+import java.awt.Color;
+
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import net.minecraft.item.ItemStack;
-import tconstruct.world.TinkerWorld;
 
-import java.awt.Color;
+import tconstruct.world.TinkerWorld;
 
 public class CropEssenceOreBerry extends CropOreBerry {
 

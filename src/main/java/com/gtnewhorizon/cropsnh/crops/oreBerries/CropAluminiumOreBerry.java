@@ -1,11 +1,11 @@
 package com.gtnewhorizon.cropsnh.crops.oreBerries;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
+import java.awt.Color;
+
 import net.minecraft.item.ItemStack;
 
-import java.awt.Color;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
+import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
 
 import tconstruct.world.TinkerWorld;
 
