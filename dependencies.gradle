@@ -14,4 +14,16 @@ dependencies {
     api("com.github.GTNewHorizons:OpenComputers:1.10.27-GTNH:dev")
     api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
 
+    // for testing purposes
+    // runtimeOnly("com.github.GTNewHorizons:twilightforest:2.6.35:dev")
+    // runtimeOnly("com.github.GTNewHorizons:ThaumicBases:1.7.7:dev")
+    // runtimeOnly(deobfCurse('witchery-69673:2234410'))
+
+    // for comparing to ic2 stuff only
+    runtimeOnly("com.github.GTNewHorizons:ServerUtilities:2.0.88:dev")
+    runtimeOnly("com.github.GTNewHorizons:Crops-plus-plus:1.7.13:dev")
+    runtimeOnly("com.github.GTNewHorizons:WAILAPlugins:0.6.0:dev")
+    runtimeOnly("com.github.GTNewHorizons:BeeBetterAtBees-GTNH:0.4.2-GTNH:dev")
+    runtimeOnly("com.github.GTNewHorizons:neiaddons:1.16.0:dev")
 }
+it's'

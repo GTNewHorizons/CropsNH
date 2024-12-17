@@ -204,9 +204,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                     List<IWorldGrowthRequirement> failedReqs = this.failedChecks;
                     if (failedReqs != null) {
                         for (IWorldGrowthRequirement req : failedReqs) {
-                            information.add(
-                                EnumChatFormatting.RED + req.getDescription()
-                                    + EnumChatFormatting.RESET);
+                            information.add(EnumChatFormatting.RED + req.getDescription() + EnumChatFormatting.RESET);
                         }
                     }
 
@@ -801,7 +799,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     @Override
     public void onEntityCollision(Entity target) {
         // only on living entities plz
-        if(!(target instanceof EntityLivingBase)) {
+        if (!(target instanceof EntityLivingBase)) {
             return;
         }
         EntityLivingBase entity = (EntityLivingBase) target;
@@ -816,12 +814,13 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     /**
      * Used to apply contact damage from crops.
+     * 
      * @param entity The entity to damage.
      * @param damage The damage to apply.
      */
     private void damageEntity(EntityLivingBase entity, float damage) {
         // don't damage immune targets
-        if (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.disableDamage) {
+        if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.disableDamage) {
             return;
         }
         // We could probably use a custom damage source so that when you die to crops you don't get confused.
