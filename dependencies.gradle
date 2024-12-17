@@ -6,6 +6,9 @@ dependencies {
     compileOnly("com.github.GTNewHorizons:twilightforest:2.6.35:dev") {
         transitive = false
     }
+    compileOnly("com.github.GTNewHorizons:Natura:2.7.5:dev") {
+        transitive = false
+    }
     compileOnly(deobf("https://media.forgecdn.net/files/2499/612/BiomesOPlenty-1.7.10-2.1.0.2308-universal.jar"))
     api("com.github.GTNewHorizons:CodeChickenCore:1.3.10:dev")
     api("com.github.GTNewHorizons:NotEnoughItems:2.6.46-GTNH:dev")
@@ -20,6 +23,7 @@ dependencies {
     // runtimeOnly("com.github.GTNewHorizons:ThaumicBases:1.7.7:dev")
     // runtimeOnly(deobfCurse('witchery-69673:2234410'))
     // runtimeOnly(deobf("https://media.forgecdn.net/files/2499/612/BiomesOPlenty-1.7.10-2.1.0.2308-universal.jar"))
+    // runtimeOnly("com.github.GTNewHorizons:Natura:2.7.5:dev")
 
     // for comparing to ic2 stuff only
     runtimeOnly("com.github.GTNewHorizons:ServerUtilities:2.0.88:dev")
