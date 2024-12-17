@@ -814,7 +814,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     /**
      * Used to apply contact damage from crops.
-     * 
+     *
      * @param entity The entity to damage.
      * @param damage The damage to apply.
      */
