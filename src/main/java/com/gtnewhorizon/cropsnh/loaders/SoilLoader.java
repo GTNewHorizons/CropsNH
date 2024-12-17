@@ -35,5 +35,6 @@ public class SoilLoader {
         registry.register("end", endstone);
         registry.register("stone", stone, cobblestone);
         registry.register("snow", snow);
+        registry.register("netherrack", netherrack);
     }
 }

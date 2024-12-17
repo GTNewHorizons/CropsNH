@@ -1,15 +1,17 @@
 package com.gtnewhorizon.cropsnh.crops.bomesoplenty;
 
-import biomesoplenty.api.content.BOPCBlocks;
-import biomesoplenty.api.content.BOPCItems;
+import java.awt.Color;
+
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import net.minecraft.item.ItemStack;
 
-import java.awt.Color;
+import biomesoplenty.api.content.BOPCBlocks;
 
 public class CropBamboo extends NHCropCard {
+
     public CropBamboo() {
         super("bamboo", new Color(0x83A81A), new Color(0xC7DB72));
         this.addDrop(new ItemStack(BOPCBlocks.bamboo, 2), 100_00);

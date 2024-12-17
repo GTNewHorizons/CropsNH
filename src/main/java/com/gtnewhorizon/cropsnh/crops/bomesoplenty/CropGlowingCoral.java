@@ -1,14 +1,17 @@
 package com.gtnewhorizon.cropsnh.crops.bomesoplenty;
 
-import biomesoplenty.api.content.BOPCBlocks;
+import java.awt.Color;
+
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import net.minecraft.item.ItemStack;
 
-import java.awt.Color;
+import biomesoplenty.api.content.BOPCBlocks;
 
 public class CropGlowingCoral extends NHCropCard {
+
     public CropGlowingCoral() {
         super("glowingCoral", new Color(0x7832DC), new Color(0xD6A1FF));
         this.addDrop(new ItemStack(BOPCBlocks.coral1, 2, 15), 100_00);

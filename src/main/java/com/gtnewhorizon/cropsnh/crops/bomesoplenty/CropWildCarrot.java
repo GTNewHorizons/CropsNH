@@ -1,14 +1,17 @@
 package com.gtnewhorizon.cropsnh.crops.bomesoplenty;
 
-import biomesoplenty.api.content.BOPCItems;
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import java.awt.Color;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-import java.awt.Color;
+import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+
+import biomesoplenty.api.content.BOPCItems;
 
 public class CropWildCarrot extends NHCropCard {
+
     public CropWildCarrot() {
         super("wildCarrot", new Color(0x96927E), new Color(0xD9D2B7));
         this.addDrop(new ItemStack(BOPCItems.food, 1, 2), 100_00);
@@ -32,11 +35,8 @@ public class CropWildCarrot extends NHCropCard {
 
     @Override
     protected IIcon[] registerTextures(IIconRegister register) {
-        return new IIcon[] {
-            register.registerIcon("carrots_stage_0"),
-            register.registerIcon("carrots_stage_1"),
+        return new IIcon[] { register.registerIcon("carrots_stage_0"), register.registerIcon("carrots_stage_1"),
             register.registerIcon("carrots_stage_2"),
-            register.registerIcon("cropsnh:crops/" + this.internalId + "/3")
-        };
+            register.registerIcon("cropsnh:crops/" + this.internalId + "/3") };
     }
 }

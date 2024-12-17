@@ -18,6 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
@@ -25,7 +26,6 @@ import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 
 public abstract class CropCard implements ICropCard {
 
@@ -202,8 +202,11 @@ public abstract class CropCard implements ICropCard {
     }
 
     public CropCard addAlternateSeed(String oreDict) {
-        for (int i = 0; i < OreDictionary.getOres(oreDict).size(); i++) {
-            ItemStack stack = OreDictionary.getOres(oreDict).get(i).copy();
+        for (int i = 0; i < OreDictionary.getOres(oreDict)
+            .size(); i++) {
+            ItemStack stack = OreDictionary.getOres(oreDict)
+                .get(i)
+                .copy();
             stack.stackSize = 1;
             this.addAlternateSeed(stack);
         }

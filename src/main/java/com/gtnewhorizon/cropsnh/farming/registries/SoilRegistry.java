@@ -69,6 +69,15 @@ public class SoilRegistry implements ISoilRegistry {
     }
 
     @Override
+    public ISoilList getCompound(String... types) {
+        CompoundSoilList compooundList = new CompoundSoilList(types.length);
+        for (String type : types) {
+            compooundList.add(this.get(type));
+        }
+        return compooundList;
+    }
+
+    @Override
     public void register(String type, BlockWithMeta... soils) {
         if (!this.soilTypes.containsKey(type)) {
             this.soilTypes.put(type, new SoilList(this, false));

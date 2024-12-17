@@ -2,21 +2,22 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+
+import com.gtnewhorizon.cropsnh.crops.CropWeed;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropBamboo;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropBoPBerry;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropEyebulb;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropFloweringVine;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropGlowflower;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropGlowingCoral;
+import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropGlowshroom;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropIvy;
+import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropMoss;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropTurnip;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropWildCarrot;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-
-import com.gtnewhorizon.cropsnh.crops.CropWeed;
-import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropMoss;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropBonsai;
 import com.gtnewhorizon.cropsnh.crops.gregtech.CropGarnydnia;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropAurelia;
@@ -200,6 +201,7 @@ public class CropLoader {
             CropRegistry.instance.register(new CropFloweringVine());
             CropRegistry.instance.register(new CropGlowflower());
             CropRegistry.instance.register(new CropGlowingCoral());
+            CropRegistry.instance.register(new CropGlowshroom());
             CropRegistry.instance.register(new CropIvy());
             CropRegistry.instance.register(new CropTurnip());
             CropRegistry.instance.register(new CropWildCarrot());

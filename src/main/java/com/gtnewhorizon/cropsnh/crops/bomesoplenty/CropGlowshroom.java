@@ -9,17 +9,18 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 import biomesoplenty.api.content.BOPCBlocks;
 
-public class CropEyebulb extends NHCropCard {
+public class CropGlowshroom extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("netherrack");
+    private final static ISoilList soilTypes = SoilRegistry.instance.getCompound("dirt", "netherrack");
 
-    public CropEyebulb() {
-        super("eyebulb", new Color(0x552323), new Color(0x875D5D));
-        this.addDrop(new ItemStack(BOPCBlocks.flowers, 1, 13), 100_00);
-        this.addAlternateSeed(new ItemStack(BOPCBlocks.flowers, 1, 13));
+    public CropGlowshroom() {
+        super("glowshroom", new Color(0x45AD32), new Color(0x63FA48));
+        this.addDrop(new ItemStack(BOPCBlocks.mushrooms, 1, 3), 100_00);
+        this.addAlternateSeed(new ItemStack(BOPCBlocks.mushrooms, 1, 3));
     }
 
     @Override
@@ -33,22 +34,27 @@ public class CropEyebulb extends NHCropCard {
     }
 
     @Override
-    public int getTier() {
-        return 1;
+    public int getGrowthDuration() {
+        return 600;
     }
 
     @Override
-    public int getGrowthDuration() {
-        return 450;
+    public int getTier() {
+        return 3;
     }
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.flower;
+        return SeedShape.spore;
+    }
+
+    @Override
+    public int getRenderShape() {
+        return PlantRenderer.RENDER_X;
     }
 
     @Override
     public int getMaxGrowthStage() {
-        return 3;
+        return 5;
     }
 }
