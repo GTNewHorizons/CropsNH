@@ -18,7 +18,7 @@ public class CropCactus extends NHCropCard {
     public CropCactus() {
         super("cactus", new Color(0x094210), new Color(0x117F20));
         this.addDrop(new ItemStack(Blocks.cactus, 1), 10_000);
-        this.addAlternateSeeds(new ItemStack(Blocks.cactus, 1));
+        this.addAlternateSeed(new ItemStack(Blocks.cactus, 1));
     }
 
     @Override

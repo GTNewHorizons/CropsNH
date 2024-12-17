@@ -17,7 +17,7 @@ public class CropShining extends NHCropCard {
         // TODO: SEE IF WE KEEP PLUMBISCUS SINCE PLUMBILIA EXISTS
         super("shining", new Color(0xB3B3D0), new Color(0xD0D0F1));
         this.addDrop(Materials.Silver.getDustTiny(1), 100_00);
-        this.addGrowthRequirements(BlockUnderRequirement.get("silver"));
+        this.addGrowthRequirement(BlockUnderRequirement.get("silver"));
     }
 
     @Override

@@ -13,7 +13,7 @@ public class CropDandelion extends CropVanillaFlower {
     public CropDandelion() {
         super("dandelion", new Color(0x8E6B13), new Color(0xE7E769));
         this.addDrop(new ItemStack(Items.dye, 1, 11), 10_000);
-        this.addAlternateSeeds(new ItemStack(Blocks.yellow_flower, 1, 0));
+        this.addAlternateSeed(new ItemStack(Blocks.yellow_flower, 1, 0));
     }
 
     @Override

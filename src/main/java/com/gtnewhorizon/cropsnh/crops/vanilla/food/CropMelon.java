@@ -14,7 +14,7 @@ public class CropMelon extends CropVanillaFood {
 
     public CropMelon() {
         super("melon", new Color(0x2A220B), new Color(0x615535));
-        this.addAlternateSeeds(new ItemStack(Items.melon_seeds, 1));
+        this.addAlternateSeed(new ItemStack(Items.melon_seeds, 1));
         this.addDrop(new ItemStack(Items.melon, 4), 6666);
         this.addDrop(new ItemStack(Blocks.melon_block, 1), 3333);
     }

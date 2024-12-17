@@ -22,8 +22,8 @@ public class CropTerraWart extends NHCropCard {
         super(Names.Objects.terraWart, new Color(0x0F213A), new Color(0x2664A1));
         this.addDrop(new ItemStack(Items.terraWart, 1), 10000);
         this.addLikedBiomes(BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD);
-        this.addAlternateSeeds(new ItemStack(Items.terraWart, 1));
-        this.addGrowthRequirements(BlockUnderRequirement.get("snow"));
+        this.addAlternateSeed(new ItemStack(Items.terraWart, 1));
+        this.addGrowthRequirement(BlockUnderRequirement.get("snow"));
     }
 
     @Override

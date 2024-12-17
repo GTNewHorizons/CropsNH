@@ -14,9 +14,9 @@ public class CropGoldOreBerry extends CropOreBerry {
     public CropGoldOreBerry() {
         super("gold", new Color(0x797900), new Color(0xDEC600));
         this.addDrop(new ItemStack(TinkerWorld.oreBerries, 6, 1), 100_00);
-        this.addAlternateSeeds(new ItemStack(TinkerWorld.oreBerries, 1, 1));
+        this.addAlternateSeed(new ItemStack(TinkerWorld.oreBerries, 1, 1));
         this.addBlockUnderRequirement("gold");
-        this.addGrowthRequirements(new MaxLightLevelRequirement(10));
+        this.addGrowthRequirement(new MaxLightLevelRequirement(10));
     }
 
     @Override

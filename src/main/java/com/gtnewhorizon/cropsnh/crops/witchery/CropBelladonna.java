@@ -11,7 +11,7 @@ public class CropBelladonna extends NHCropCard {
 
     public CropBelladonna() {
         super("belladonna", new Color(0x000000), new Color(0x947999));
-        this.addAlternateSeeds(OreDictHelper.getCopiedOreStack("seedBelladonna", 1));
+        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("seedBelladonna", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("itemBelladonna", 1), 100_00);
     }
 

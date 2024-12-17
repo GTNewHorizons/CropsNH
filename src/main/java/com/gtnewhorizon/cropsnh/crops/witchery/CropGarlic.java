@@ -11,7 +11,7 @@ public class CropGarlic extends NHCropCard {
 
     public CropGarlic() {
         super("garlic", new Color(0xA88F7B), new Color(0xF3E7DC));
-        this.addAlternateSeeds(OreDictHelper.getCopiedOreStack("cropGarlic", 1));
+        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropGarlic", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("cropGarlic", 1), 100_00);
     }
 

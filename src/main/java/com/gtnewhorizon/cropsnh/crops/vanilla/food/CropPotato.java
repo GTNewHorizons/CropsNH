@@ -12,7 +12,7 @@ public class CropPotato extends CropVanillaFood {
     public CropPotato() {
         super("potato", new Color(0xC0A51B), new Color(0xFBE6BC));
         this.addDrop(new ItemStack(Items.potato, 1), 10_000);
-        this.addAlternateSeeds(new ItemStack(Items.potato, 1));
+        this.addAlternateSeed(new ItemStack(Items.potato, 1));
     }
 
     @Override

@@ -13,7 +13,7 @@ public class CropPoppy extends CropVanillaFlower {
     public CropPoppy() {
         super("poppy", new Color(0x3A0102), new Color(0xBA050B));
         this.addDrop(new ItemStack(Items.dye, 1, 1), 10_000);
-        this.addAlternateSeeds(new ItemStack(Blocks.red_flower, 1, 0));
+        this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 0));
     }
 
     @Override

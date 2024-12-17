@@ -25,6 +25,7 @@ import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 
 public abstract class CropCard implements ICropCard {
 
@@ -195,13 +196,22 @@ public abstract class CropCard implements ICropCard {
         return this;
     }
 
-    public CropCard addAlternateSeeds(ItemStack... alternateSeeds) {
-        this.alternateSeeds.addAll(Arrays.asList(alternateSeeds));
+    public CropCard addAlternateSeed(ItemStack alternateSeed) {
+        this.alternateSeeds.add(alternateSeed);
         return this;
     }
 
-    public CropCard addGrowthRequirements(IWorldGrowthRequirement... growthRequirements) {
-        this.growthRequirements.addAll(Arrays.asList(growthRequirements));
+    public CropCard addAlternateSeed(String oreDict) {
+        for (int i = 0; i < OreDictionary.getOres(oreDict).size(); i++) {
+            ItemStack stack = OreDictionary.getOres(oreDict).get(i).copy();
+            stack.stackSize = 1;
+            this.addAlternateSeed(stack);
+        }
+        return this;
+    }
+
+    public CropCard addGrowthRequirement(IWorldGrowthRequirement growthRequirement) {
+        this.growthRequirements.add(growthRequirement);
         return this;
     }
 

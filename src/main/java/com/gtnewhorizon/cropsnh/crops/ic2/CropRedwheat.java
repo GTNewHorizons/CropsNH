@@ -6,7 +6,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.MinLightLevelRequirement;
 
@@ -15,10 +14,9 @@ public class CropRedwheat extends NHCropCard {
     public CropRedwheat() {
         super("redwheat", new Color(0x6C4B17), new Color(0xD45555));
         this.addDrop(new ItemStack(Items.redstone), 100_00);
-        this.addGrowthRequirements(
-            new MinLightLevelRequirement(5),
-            new MaxLightLevelRequirement(10),
-            BlockUnderRequirement.get("redstone"));
+        this.addGrowthRequirement(new MinLightLevelRequirement(5));
+        this.addGrowthRequirement(new MaxLightLevelRequirement(10));
+        this.addBlockUnderRequirement("redstone");
     }
 
     @Override

@@ -14,7 +14,7 @@ public class CropRedMushroom extends CropMushroom {
     public CropRedMushroom() {
         super("redMushroom", new Color(0xA61313), new Color(0xE21212));
         this.addDrop(new ItemStack(Blocks.red_mushroom, 1), 10_000);
-        this.addAlternateSeeds(new ItemStack(Blocks.red_mushroom, 1));
+        this.addAlternateSeed(new ItemStack(Blocks.red_mushroom, 1));
     }
 
     @Override

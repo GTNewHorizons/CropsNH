@@ -12,7 +12,7 @@ public class CropEmberMoss extends NHCropCard {
 
     public CropEmberMoss() {
         super("emberMoss", new Color(0x9C4D2C), new Color(0xE06F3F));
-        this.addAlternateSeeds(OreDictHelper.getCopiedOreStack("cropEmberMoss", 1));
+        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropEmberMoss", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("cropEmberMoss", 1), 100_00);
     }
 

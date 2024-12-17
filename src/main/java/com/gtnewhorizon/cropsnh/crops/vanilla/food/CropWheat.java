@@ -12,7 +12,7 @@ public class CropWheat extends CropVanillaFood {
     public CropWheat() {
         super("wheat", new Color(0xB7BB3F), new Color(0x00E210));
         this.addDrop(new ItemStack(Items.wheat, 1), 10_000);
-        this.addAlternateSeeds(new ItemStack(Items.wheat_seeds, 1));
+        this.addAlternateSeed(new ItemStack(Items.wheat_seeds, 1));
     }
 
     @Override

@@ -17,7 +17,7 @@ public class CropStagnium extends NHCropCard {
         // TODO: SEE IF WE KEEP STAGNIUM SINCE TINE EXISTS
         super("stagnium", new Color(0x6C6C6C), new Color(0x7F7F7F));
         this.addDrop(Materials.Tin.getDustTiny(1), 100_00);
-        this.addGrowthRequirements(BlockUnderRequirement.get("tin"));
+        this.addGrowthRequirement(BlockUnderRequirement.get("tin"));
     }
 
     @Override

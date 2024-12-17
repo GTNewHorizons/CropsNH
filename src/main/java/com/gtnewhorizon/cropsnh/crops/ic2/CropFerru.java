@@ -16,7 +16,7 @@ public class CropFerru extends NHCropCard {
     public CropFerru() {
         super("ferru", new Color(0xA1A1A1), new Color(0xE6E6E6));
         this.addDrop(Materials.Copper.getDustTiny(1), 100_00);
-        this.addGrowthRequirements(BlockUnderRequirement.get("iron"));
+        this.addGrowthRequirement(BlockUnderRequirement.get("iron"));
     }
 
     @Override

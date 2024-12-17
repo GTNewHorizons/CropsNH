@@ -14,9 +14,9 @@ public class CropTinOreBerry extends CropOreBerry {
     public CropTinOreBerry() {
         super("tin", new Color(0x8F8F8F), new Color(0xDCDCDC));
         this.addDrop(new ItemStack(TinkerWorld.oreBerries, 6, 3), 100_00);
-        this.addAlternateSeeds(new ItemStack(TinkerWorld.oreBerries, 1, 3));
+        this.addAlternateSeed(new ItemStack(TinkerWorld.oreBerries, 1, 3));
         this.addBlockUnderRequirement("tin");
-        this.addGrowthRequirements(new MaxLightLevelRequirement(10));
+        this.addGrowthRequirement(new MaxLightLevelRequirement(10));
     }
 
     @Override

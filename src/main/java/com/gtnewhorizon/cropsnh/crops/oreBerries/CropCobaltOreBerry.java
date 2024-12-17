@@ -13,7 +13,7 @@ public class CropCobaltOreBerry extends CropOreBerry {
         super("cobalt", new Color(0x3737AD), new Color(0x5050FA));
         this.addDrop(Materials.Cobalt.getNuggets(1), 100_00);
         this.addBlockUnderRequirement("cobalt");
-        this.addGrowthRequirements(new MaxLightLevelRequirement(10));
+        this.addGrowthRequirement(new MaxLightLevelRequirement(10));
     }
 
     @Override

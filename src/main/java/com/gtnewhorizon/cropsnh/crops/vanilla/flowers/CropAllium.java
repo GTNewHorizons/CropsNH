@@ -13,7 +13,7 @@ public class CropAllium extends CropVanillaFlower {
     public CropAllium() {
         super("allium", new Color(0x6B2166), new Color(0xDB7AD5));
         this.addDrop(new ItemStack(Items.dye, 1, 13), 10_000);
-        this.addAlternateSeeds(new ItemStack(Blocks.red_flower, 1, 2));
+        this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 2));
     }
 
     @Override

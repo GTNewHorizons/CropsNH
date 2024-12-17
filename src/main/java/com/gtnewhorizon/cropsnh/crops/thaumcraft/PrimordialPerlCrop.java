@@ -20,8 +20,8 @@ public class PrimordialPerlCrop extends NHCropCard {
         primPerl.stackSize = 1;
         this.addDrop(primPerl.copy(), 10000);
         this.addLikedBiomes(BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.SPOOKY);
-        this.addAlternateSeeds(primPerl.copy());
-        this.addGrowthRequirements(BlockUnderRequirement.get("ichorium"));
+        this.addAlternateSeed(primPerl.copy());
+        this.addGrowthRequirement(BlockUnderRequirement.get("ichorium"));
     }
 
     @Override

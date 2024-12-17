@@ -33,7 +33,7 @@ public class CropNetherwart extends NHCropCard {
         super("netherwart", new Color(0x4d1115), new Color(0xbe3f4a));
         this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.HOT);
         this.addDrop(new ItemStack(Items.nether_wart, 1), 10000);
-        this.addAlternateSeeds(new ItemStack(Items.nether_wart, 1));
+        this.addAlternateSeed(new ItemStack(Items.nether_wart, 1));
     }
 
     @Override

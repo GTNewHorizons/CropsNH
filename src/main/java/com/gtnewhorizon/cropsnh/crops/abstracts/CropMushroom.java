@@ -12,7 +12,7 @@ public abstract class CropMushroom extends NHCropCard {
 
     public CropMushroom(String id, Color color1, Color color2) {
         super(id, color1, color2);
-        this.addGrowthRequirements(new MaxLightLevelRequirement(9));
+        this.addGrowthRequirement(new MaxLightLevelRequirement(9));
     }
 
     @Override

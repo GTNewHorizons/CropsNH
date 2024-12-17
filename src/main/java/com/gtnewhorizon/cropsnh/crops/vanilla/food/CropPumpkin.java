@@ -13,7 +13,7 @@ public class CropPumpkin extends CropVanillaFood {
     public CropPumpkin() {
         super("pumpkin", new Color(0xCAB16E), new Color(0xC8D4AA));
         this.addDrop(new ItemStack(Blocks.pumpkin, 1), 10_000);
-        this.addAlternateSeeds(new ItemStack(Items.pumpkin_seeds, 1));
+        this.addAlternateSeed(new ItemStack(Items.pumpkin_seeds, 1));
     }
 
     @Override

@@ -11,7 +11,7 @@ public class CropMandrake extends NHCropCard {
 
     public CropMandrake() {
         super("mandrake", new Color(0x755239), new Color(0xBD9A61));
-        this.addAlternateSeeds(OreDictHelper.getCopiedOreStack("seedMandrake", 1));
+        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("seedMandrake", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("itemMandrake", 1), 100_00);
     }
 

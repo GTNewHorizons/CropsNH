@@ -13,7 +13,7 @@ public class CropOxeyeDaisy extends CropVanillaFlower {
     public CropOxeyeDaisy() {
         super("oxeyeDaisy", new Color(0x3D3D4C), new Color(0xC8C8C8));
         this.addDrop(new ItemStack(Items.dye, 1, 7), 10_000);
-        this.addAlternateSeeds(new ItemStack(Blocks.red_flower, 1, 8));
+        this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 8));
     }
 
     @Override

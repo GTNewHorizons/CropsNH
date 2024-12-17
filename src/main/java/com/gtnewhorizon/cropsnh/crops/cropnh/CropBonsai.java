@@ -30,7 +30,7 @@ public class CropBonsai extends NHCropCard {
         this.addDrop(sapling, 3000);
         this.addDrop(logDrop, 6000);
         // alt seed
-        this.addAlternateSeeds(sapling);
+        this.addAlternateSeed(sapling);
     }
 
     @Override

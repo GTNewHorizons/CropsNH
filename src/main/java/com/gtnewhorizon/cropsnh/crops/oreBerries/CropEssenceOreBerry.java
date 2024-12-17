@@ -17,7 +17,7 @@ public class CropEssenceOreBerry extends CropOreBerry {
     public CropEssenceOreBerry() {
         super("essence", new Color(0xFF6BB324, true), new Color(0x99FF33));
         this.addDrop(new ItemStack(TinkerWorld.oreBerries, 6, 5), 100_00);
-        this.addAlternateSeeds(new ItemStack(TinkerWorld.oreBerries, 1, 5));
+        this.addAlternateSeed(new ItemStack(TinkerWorld.oreBerries, 1, 5));
         this.addBlockUnderRequirement("skull");
     }
 

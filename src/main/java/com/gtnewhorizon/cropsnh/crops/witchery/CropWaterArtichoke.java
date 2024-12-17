@@ -12,7 +12,7 @@ public class CropWaterArtichoke extends NHCropCard {
 
     public CropWaterArtichoke() {
         super("waterArtichoke", new Color(0x6F644E), new Color(0x968C74));
-        this.addAlternateSeeds(OreDictHelper.getCopiedOreStack("cropArtichoke", 1));
+        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropArtichoke", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("cropArtichoke", 1), 100_00);
     }
 

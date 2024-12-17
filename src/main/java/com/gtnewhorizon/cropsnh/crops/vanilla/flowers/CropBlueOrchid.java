@@ -14,7 +14,7 @@ public class CropBlueOrchid extends CropVanillaFlower {
     public CropBlueOrchid() {
         super("blueOrchid", new Color(0x2F5488), new Color(0x8FB9F4));
         this.addDrop(new ItemStack(Items.dye, 1, 12), 10_000);
-        this.addAlternateSeeds(new ItemStack(Blocks.red_flower, 1, 1));
+        this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 1));
     }
 
     @Override

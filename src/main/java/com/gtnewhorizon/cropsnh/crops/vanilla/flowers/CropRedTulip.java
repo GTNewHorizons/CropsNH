@@ -13,7 +13,7 @@ public class CropRedTulip extends CropVanillaFlower {
     public CropRedTulip() {
         super("redTulip", new Color(0x7A0707), new Color(0xD24343));
         this.addDrop(new ItemStack(Items.dye, 1, 1), 10_000);
-        this.addAlternateSeeds(new ItemStack(Blocks.red_flower, 1, 4));
+        this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 4));
     }
 
     @Override

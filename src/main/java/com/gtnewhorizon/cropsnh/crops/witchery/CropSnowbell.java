@@ -12,7 +12,7 @@ public class CropSnowbell extends NHCropCard {
 
     public CropSnowbell() {
         super("snowbell", new Color(0x33A9FF), new Color(0xA5D9FF));
-        this.addAlternateSeeds(OreDictHelper.getCopiedOreStack("seedSnowbell", 1));
+        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("seedSnowbell", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("itemSnowbell", 1), 100_00);
     }
 
