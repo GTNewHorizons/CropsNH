@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.crops.oreBerries;
+package com.gtnewhorizon.cropsnh.crops.oreberries;
 
 import java.awt.Color;
 
@@ -7,12 +7,12 @@ import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirem
 
 import gregtech.api.enums.Materials;
 
-public class CropCobaltOreBerry extends CropOreBerry {
+public class CropArditeOreBerry extends CropOreBerry {
 
-    public CropCobaltOreBerry() {
-        super("cobalt", new Color(0x3737AD), new Color(0x5050FA));
-        this.addDrop(Materials.Cobalt.getNuggets(1), 100_00);
-        this.addBlockUnderRequirement("cobalt");
+    public CropArditeOreBerry() {
+        super("ardite", new Color(0xAD5A00), new Color(0xFA8100));
+        this.addDrop(Materials.Ardite.getNuggets(1), 100_00);
+        this.addBlockUnderRequirement("ardite");
         this.addGrowthRequirement(new MaxLightLevelRequirement(10));
     }
 

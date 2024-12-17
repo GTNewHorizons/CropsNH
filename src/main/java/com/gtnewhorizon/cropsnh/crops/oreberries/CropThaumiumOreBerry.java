@@ -1,17 +1,18 @@
-package com.gtnewhorizon.cropsnh.crops.oreBerries;
+package com.gtnewhorizon.cropsnh.crops.oreberries;
 
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
-import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
-public class CropThauminiteOreBerry extends CropOreBerry {
+import gregtech.api.enums.Materials;
 
-    public CropThauminiteOreBerry() {
-        super("thauminite", new Color(0x515A9C), new Color(0x7581E0));
-        this.addDrop(OreDictHelper.getCopiedOreStack("nuggetThauminite", 1), 100_00);
-        this.addBlockUnderRequirement("thauminite");
+public class CropThaumiumOreBerry extends CropOreBerry {
+
+    public CropThaumiumOreBerry() {
+        super("thaumium", new Color(0x67458A), new Color(0x9664C8));
+        this.addDrop(Materials.Thaumium.getNuggets(1), 100_00);
+        this.addBlockUnderRequirement("thaumium");
         this.addGrowthRequirement(new MaxLightLevelRequirement(10));
     }
 
@@ -22,7 +23,7 @@ public class CropThauminiteOreBerry extends CropOreBerry {
 
     @Override
     public int getGrowthDuration() {
-        return 4500;
+        return 3000;
     }
 
     @Override

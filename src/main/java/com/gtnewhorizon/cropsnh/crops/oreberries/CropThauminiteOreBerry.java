@@ -1,19 +1,17 @@
-package com.gtnewhorizon.cropsnh.crops.oreBerries;
+package com.gtnewhorizon.cropsnh.crops.oreberries;
 
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
+import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
-import gregtech.api.enums.Materials;
+public class CropThauminiteOreBerry extends CropOreBerry {
 
-public class CropVoidOreBerry extends CropOreBerry {
-
-    public CropVoidOreBerry() {
-        super("void", new Color(0x130426), new Color(0x1C0639));
-        this.addDrop(Materials.Void.getNuggets(1), 100_00);
-        this.addAlternateSeed(thaumcraft.api.ItemApi.getItem("itemResource", 17));
-        this.addBlockUnderRequirement("void");
+    public CropThauminiteOreBerry() {
+        super("thauminite", new Color(0x515A9C), new Color(0x7581E0));
+        this.addDrop(OreDictHelper.getCopiedOreStack("nuggetThauminite", 1), 100_00);
+        this.addBlockUnderRequirement("thauminite");
         this.addGrowthRequirement(new MaxLightLevelRequirement(10));
     }
 
