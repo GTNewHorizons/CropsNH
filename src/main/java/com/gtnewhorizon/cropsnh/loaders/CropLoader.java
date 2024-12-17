@@ -32,6 +32,21 @@ import com.gtnewhorizon.cropsnh.crops.ic2.CropStagnium;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropStickReed;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropTerraWart;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropVenomilia;
+import com.gtnewhorizon.cropsnh.crops.natura.CropBarley;
+import com.gtnewhorizon.cropsnh.crops.natura.CropBlackberry;
+import com.gtnewhorizon.cropsnh.crops.natura.CropBlueberry;
+import com.gtnewhorizon.cropsnh.crops.natura.CropCotton;
+import com.gtnewhorizon.cropsnh.crops.natura.CropMaloberry;
+import com.gtnewhorizon.cropsnh.crops.natura.CropRaspberry;
+import com.gtnewhorizon.cropsnh.crops.natura.CropSaguaroCactus;
+import com.gtnewhorizon.cropsnh.crops.natura.nether.CropBlightberry;
+import com.gtnewhorizon.cropsnh.crops.natura.nether.CropBlueGlowshroom;
+import com.gtnewhorizon.cropsnh.crops.natura.nether.CropDuskberry;
+import com.gtnewhorizon.cropsnh.crops.natura.nether.CropGreenGlowshroom;
+import com.gtnewhorizon.cropsnh.crops.natura.nether.CropPurpleGlowshroom;
+import com.gtnewhorizon.cropsnh.crops.natura.nether.CropSkyberry;
+import com.gtnewhorizon.cropsnh.crops.natura.nether.CropStingberry;
+import com.gtnewhorizon.cropsnh.crops.natura.nether.CropThornvine;
 import com.gtnewhorizon.cropsnh.crops.oreberries.CropAluminiumOreBerry;
 import com.gtnewhorizon.cropsnh.crops.oreberries.CropArditeOreBerry;
 import com.gtnewhorizon.cropsnh.crops.oreberries.CropCobaltOreBerry;
@@ -217,6 +232,24 @@ public class CropLoader {
             CropRegistry.instance.register(new CropSpanishMoss());
             CropRegistry.instance.register(new CropWaterArtichoke());
             CropRegistry.instance.register(new CropWolfsbane());
+        }
+        // Crops++ Natura
+        if (Mods.Natura.isModLoaded()) {
+            CropRegistry.instance.register(new CropBlightberry());
+            CropRegistry.instance.register(new CropBlueGlowshroom());
+            CropRegistry.instance.register(new CropDuskberry());
+            CropRegistry.instance.register(new CropGreenGlowshroom());
+            CropRegistry.instance.register(new CropPurpleGlowshroom());
+            CropRegistry.instance.register(new CropSkyberry());
+            CropRegistry.instance.register(new CropStingberry());
+            CropRegistry.instance.register(new CropThornvine());
+            CropRegistry.instance.register(new CropBarley());
+            CropRegistry.instance.register(new CropBlackberry());
+            CropRegistry.instance.register(new CropBlueberry());
+            CropRegistry.instance.register(new CropCotton());
+            CropRegistry.instance.register(new CropRaspberry());
+            CropRegistry.instance.register(new CropMaloberry());
+            CropRegistry.instance.register(new CropSaguaroCactus());
         }
     }
 }

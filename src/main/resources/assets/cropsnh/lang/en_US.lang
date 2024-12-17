@@ -138,7 +138,23 @@ cropsnh_crops.glowshroom=Glowshroom
 cropsnh_crops.ivy=Ivy
 cropsnh_crops.turnip=Turnip
 cropsnh_crops.wildCarrot=Wild Carrot
-
+# Crops++ Natura
+cropsnh_crops.barley=Barley
+cropsnh_crops.blackberry=Blackberry
+cropsnh_crops.blueberry=Blueberry
+cropsnh_crops.cotton=Cotton
+cropsnh_crops.maloberry=Maloberry
+cropsnh_crops.raspberry=Raspberry
+cropsnh_crops.saguaroCactus=Saguaro Cactus
+# Crops++ Natura Nether
+cropsnh_crops.blightberry=Blightberry
+cropsnh_crops.blueGlowshroom=Blue Glowshroom
+cropsnh_crops.duskberry=Duskberry
+cropsnh_crops.greenGlowshroom=Green Glowshroom
+cropsnh_crops.purpleGlowshroom=Purple Glowshroom
+cropsnh_crops.skyberry=Skyberry
+cropsnh_crops.stingberry=Stingberry
+cropsnh_crops.thornvine=Thronvine
 
 # Light Growth Requirements
 cropsnh_growthReq.minLight.format=Needs a light Level of %1$d or higher.
