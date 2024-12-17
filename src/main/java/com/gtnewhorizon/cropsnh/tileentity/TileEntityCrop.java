@@ -615,6 +615,10 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     @Override
     public void spawnWeed() {
+        // crop with 31 resistance survive getting weeded.
+        if (this.crop != null && this.stats != null && this.stats.getResistance() >= Constants.MAX_SEED_STAT) {
+            return;
+        }
         // if we have weed-ex remaining, stop the weeding.
         if (this.weedexStorage > 0) {
             this.weedexStorage = Math.max(this.weedexStorage - 5, 0);
