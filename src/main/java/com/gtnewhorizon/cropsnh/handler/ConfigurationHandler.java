@@ -5,9 +5,7 @@ import java.io.File;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
-import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizon.cropsnh.utility.IOHelper;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -20,6 +18,7 @@ public class ConfigurationHandler {
 
     public static class Categories {
 
+        public static final String CATEGORY_WEEDS = "weeds";
         public static final String CATEGORY_CROPSNH = "cropsnh";
         public static final String CATEGORY_FARMING = "farming";
         public static final String CATEGORY_TOOLS = "tools";
@@ -39,43 +38,17 @@ public class ConfigurationHandler {
 
     // COMMON
     // ------
-    // debug
-    public static boolean debug;
     // cropsnh
     public static boolean generateDefaults;
-    public static boolean customCrops;
     public static int cropsPerCraft;
     public static boolean resourcePlants;
-    public static boolean wipeTallGrassDrops;
-    public static boolean renderBookInAnalyzer;
-    public static boolean registerCropProductsToOreDict;
-    public static boolean onlyCreateWaterPadWhileSneaking;
-    // farming
-    public static boolean disableVanillaFarming;
-    public static double mutationChance;
-    public static boolean singleSpreadsIncrement;
-    public static int validParents;
-    public static boolean otherCropsAffectStatsNegatively;
-    public static boolean hardCoreStats;
-    public static int cropStatDivisor;
+    public static float growthMultiplier;
+    public static boolean debug;
+    // weeds
     public static boolean enableWeeds;
     public static boolean weedsWipePlants;
-    public static int weedGrowthMultiplier;
-    public static int weedGrowthRate;
-    public static float weedSpawnChance;
-    public static boolean bonemealMutation;
-    public static boolean onlyMatureDropSeeds;
-    public static boolean weedsDestroyCropSticks;
-    public static float growthMultiplier;
-    public static boolean rakingDrops;
-    public static boolean modSpecifDrops;
-    // tools
-    public static boolean enableHandRake;
-    public static boolean enableTrowel;
-    public static boolean enableMagnifyingGlass;
-    public static boolean enableClipper;
-    // seed storage
-    public static boolean disableSeedStorage;
+    public static int weedSpawnChance;
+    public static int weedSpreadChance;
     // rendering
     public static boolean renderCropPlantsAsTESR;
 
@@ -131,12 +104,15 @@ public class ConfigurationHandler {
 
     // read values from the config
     private static void loadConfiguration() {
-        // cropsnh
+
+        // region CATEGORY_CROPSNH
+
         resourcePlants = config.getBoolean(
             "Resource Crops",
             Categories.CATEGORY_CROPSNH,
             true,
             "set to true if you wish to enable resource crops");
+
         cropsPerCraft = config.getInt(
             "Crops per craft",
             Categories.CATEGORY_CROPSNH,
@@ -144,117 +120,19 @@ public class ConfigurationHandler {
             1,
             4,
             "The number of crops you get per crafting operation");
+
         propGenerateDefaults = config.get(
             Categories.CATEGORY_CROPSNH,
             "GenerateDefaults",
             false,
             "set to true to regenerate a default mutations file (will turn back to false afterwards)");
+
         generateDefaults = propGenerateDefaults.getBoolean();
-        customCrops = config.getBoolean(
-            "Custom crops",
-            Categories.CATEGORY_CROPSNH,
-            false,
-            "set to true if you wish to create your own crops");
-        wipeTallGrassDrops = config.getBoolean(
-            "Clear tall grass drops",
-            Categories.CATEGORY_CROPSNH,
-            false,
-            "set to true to clear the list of items dropping from tall grass (Will run before adding seeds defined in the grass drops config).");
-        renderBookInAnalyzer = config.getBoolean(
-            "Render journal in analyzer",
-            Categories.CATEGORY_CROPSNH,
-            true,
-            "set to false to not render the journal on the analyzer");
-        registerCropProductsToOreDict = config.getBoolean(
-            "Register crop products in the ore dict",
-            Categories.CATEGORY_CROPSNH,
-            true,
-            "set to false to not register crop products to the ore dictionary if you are experiencing issues with GregTech (note that disabling this will have the side effect that seeds will no longer work with the Phytogenic Insulator");
-        onlyCreateWaterPadWhileSneaking = config.getBoolean(
-            "Only create water pad while sneaking",
-            Categories.CATEGORY_CROPSNH,
-            false,
-            "set to true to only create water pads while sneaking");
-        // farming
-        disableVanillaFarming = config.getBoolean(
-            "Disable Vanilla Farming",
-            Categories.CATEGORY_FARMING,
-            false,
-            "set to true to disable vanilla farming, meaning you can only grow plants on crops");
-        mutationChance = (double) config.getFloat(
-            "Mutation Chance",
-            Categories.CATEGORY_FARMING,
-            Constants.DEFAULT_MUTATION_CHANCE,
-            0,
-            1,
-            "Define mutation chance (0.0 means no mutations, only spreading and 1.0 means only mutations no spreading");
-        singleSpreadsIncrement = config.getBoolean(
-            "Single spread stat increase",
-            Categories.CATEGORY_FARMING,
-            false,
-            "Set to true to allow crops that spread from one single crop to increase stats");
-        validParents = config.getInt(
-            "Valid parents",
-            Categories.CATEGORY_FARMING,
-            2,
-            1,
-            3,
-            "What are considered valid parents for stat increasing: 1 = Any. 2 = Mutation parents and identical crops. 3 = Only identical crops");
-        otherCropsAffectStatsNegatively = config.getBoolean(
-            "Non parent crops affect stats negatively",
-            Categories.CATEGORY_FARMING,
-            true,
-            "True means any crop that is not considered a valid parent will affect stat gain negatively");
-        hardCoreStats = config.getBoolean(
-            "Hardcore stats",
-            Categories.CATEGORY_FARMING,
-            false,
-            "Set to true to enable hardcore mode for stat increasing: 1 parent: 3/4 decrement, 1/4 nothing.\n 2 parents: 2/4 decrement, 1/4 nothing, 1/4 increment.\n 3 parents: 1/4 decrement, 1/2 nothing, 1/4 increment.\n 4 parents: 1/4 decrement, 1/4 nothing, 1/2 increment.");
-        cropStatDivisor = config.getInt(
-            "Crop stat divisor",
-            Categories.CATEGORY_FARMING,
-            2,
-            1,
-            3,
-            "On a mutation the stats on the crop will be divided by this number");
-        enableWeeds = config
-            .getBoolean("Enable weeds", Categories.CATEGORY_FARMING, true, "set to false if you wish to disable weeds");
-        weedGrowthMultiplier = config
-            .getInt("Weed Growth Multiplier", Categories.CATEGORY_FARMING, 2, 1, 2, "Ranges from 1-2 inclusive.");
-        weedGrowthRate = config.getInt(
-            "Weed Growth Rate",
-            Categories.CATEGORY_FARMING,
-            50,
-            10,
-            50,
-            "The average number of growth ticks for the weed to grow.");
-        weedSpawnChance = config.getFloat(
-            "Weed Spawn Chance",
-            Categories.CATEGORY_FARMING,
-            0.15f,
-            0.05f,
-            0.95f,
-            "The percent chance of weeds to spawn or spread. At 95% abandon all hope of farming. Range 0.05-0.95.");
-        weedsWipePlants = enableWeeds && config.getBoolean(
-            "Weeds can overtake plants",
-            Categories.CATEGORY_FARMING,
-            true,
-            "set to false if you don't want weeds to be able to overgrow other plants");
-        bonemealMutation = config.getBoolean(
-            "Bonemeal Mutations",
-            Categories.CATEGORY_FARMING,
-            false,
-            "set to false if you wish to disable using bonemeal on a cross crop to force a mutation");
-        onlyMatureDropSeeds = config.getBoolean(
-            "Only mature crops drop seeds",
-            Categories.CATEGORY_FARMING,
-            false,
-            "set this to true to make only mature crops drop seeds (to encourage trowel usage)");
-        weedsDestroyCropSticks = config.getBoolean(
-            "Weeds destroy crop sticks",
-            Categories.CATEGORY_FARMING,
-            false,
-            "set this to true to have weeds destroy the crop sticks when they are broken with weeds (to encourage rake usage)");
+
+        // debug mode
+        debug = config
+            .getBoolean("debug", Categories.CATEGORY_DEBUG, false, "Set to true if you wish to enable debug mode");
+
         growthMultiplier = config.getFloat(
             "Growth rate multiplier",
             Categories.CATEGORY_FARMING,
@@ -262,37 +140,38 @@ public class ConfigurationHandler {
             0.0F,
             2.0F,
             "This is a global growth rate multiplier");
-        rakingDrops = config.getBoolean(
-            "Raking weeds drops items",
-            Categories.CATEGORY_FARMING,
+
+        // endregion CATEGORY_CROPSNH
+
+        // region CATEGORY_WEEDS
+
+        enableWeeds = config
+            .getBoolean("Enable weeds", Categories.CATEGORY_WEEDS, true, "set to false if you wish to disable weeds");
+
+        weedSpawnChance = config.getInt(
+            "Weed Spread Chance",
+            Categories.CATEGORY_WEEDS,
+            100,
+            1,
+            Integer.MAX_VALUE,
+            "Lower values increase the speed at which weeds spawn in empty crop sticks. actual chance is measured as 1 / value.");
+
+        weedSpreadChance = config.getInt(
+            "Weed Spread Chance",
+            Categories.CATEGORY_WEEDS,
+            50,
+            2,
+            Integer.MAX_VALUE,
+            "Lower values increase the speed at which crops spread weeds, actual chance is (rand(value)-growth) <= 2.");
+
+        weedsWipePlants = enableWeeds && config.getBoolean(
+            "Weeds can overtake plants",
+            Categories.CATEGORY_WEEDS,
             true,
-            "set to false if you wish to disable drops from raking weeds");
-        modSpecifDrops = config.getBoolean(
-            "Mod specific drops",
-            Categories.CATEGORY_FARMING,
-            true,
-            "set to false to disable mod specific drops, this will (for instance) cause Natura berries to drop from Harvestcraft berry crops");
-        // tools
-        enableHandRake = config
-            .getBoolean("Enable Hand Rake", Categories.CATEGORY_TOOLS, true, "Set to false to disable the Hand Rake");
-        enableMagnifyingGlass = config.getBoolean(
-            "Enable Magnifying Glass",
-            Categories.CATEGORY_TOOLS,
-            true,
-            "Set to false to disable the Magnifying Glass");
-        enableTrowel = config
-            .getBoolean("Enable Trowel", Categories.CATEGORY_TOOLS, true, "Set to false to disable the Trowel");
-        enableClipper = config
-            .getBoolean("Enable Clipper", Categories.CATEGORY_TOOLS, true, "Set to false to disable the Clipper");
-        // storage
-        disableSeedStorage = config.getBoolean(
-            "Disable seed storage system",
-            Categories.CATEGORY_STORAGE,
-            false,
-            "set to true to disable the seed storage systems");
-        // debug mode
-        debug = config
-            .getBoolean("debug", Categories.CATEGORY_DEBUG, false, "Set to true if you wish to enable debug mode");
+            "Set to false if you don't want weeds to be able to overgrow other plants.");
+
+        // endregion CATEGORY_WEEDS
+
         // rendering
         renderCropPlantsAsTESR = config.getBoolean(
             "Crop rendering setting",
@@ -323,45 +202,6 @@ public class ConfigurationHandler {
             config.save();
         }
         return flag;
-    }
-
-    public static String readGrassDrops() {
-        return IOHelper.readOrWrite(directory, "GrassDrops", IOHelper.getGrassDrops());
-    }
-
-    public static String readCustomCrops() {
-        return IOHelper.readOrWrite(directory, "CustomCrops", IOHelper.getCustomCropInstructions());
-    }
-
-    public static String readMutationData() {
-        String data = IOHelper.readOrWrite(directory, "Mutations", IOHelper.getDefaultMutations(), generateDefaults);
-        if (generateDefaults) {
-            ConfigurationHandler.propGenerateDefaults.setToDefault();
-            config.save();
-        }
-        return data;
-    }
-
-    public static String readSpreadChances() {
-        return IOHelper
-            .readOrWrite(directory, "SpreadChancesOverrides", IOHelper.getSpreadChancesOverridesInstructions());
-    }
-
-    public static String readSeedTiers() {
-        return IOHelper.readOrWrite(directory, "SeedTiers", IOHelper.getSeedTierOverridesInstructions());
-    }
-
-    public static String readSeedBlackList() {
-        return IOHelper.readOrWrite(directory, "SeedBlackList", IOHelper.getSeedBlackListInstructions());
-    }
-
-    public static String readVanillaOverrides() {
-        return IOHelper
-            .readOrWrite(directory, "VanillaPlantingExceptions", IOHelper.getPlantingExceptionsInstructions());
-    }
-
-    public static String readSoils() {
-        return IOHelper.readOrWrite(directory, "SoilWhitelist", IOHelper.getSoilWhitelistData());
     }
 
     @SubscribeEvent

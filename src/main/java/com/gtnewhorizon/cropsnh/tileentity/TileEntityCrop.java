@@ -28,6 +28,7 @@ import com.gtnewhorizon.cropsnh.crops.CropWeed;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
+import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
@@ -40,6 +41,7 @@ import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.objects.XSTR;
+import gregtech.api.util.GTUtility;
 
 public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile {
 
@@ -616,7 +618,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     @Override
     public void spawnWeed() {
         // crop with 31 resistance survive getting weeded.
-        if (this.crop != null && this.stats != null && this.stats.getResistance() >= Constants.MAX_SEED_STAT) {
+        if (this.crop != null && this.stats != null
+            && (!ConfigurationHandler.weedsWipePlants || this.stats.getResistance() >= Constants.MAX_SEED_STAT)) {
             return;
         }
         // if we have weed-ex remaining, stop the weeding.
@@ -706,7 +709,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             if (canGrow) {
                 crop.onGrowthTick(this);
                 if (this.growthProgress < this.crop.getGrowthDuration()) {
-                    this.growthProgress += this.calcGrowthRate();
+                    this.growthProgress += GTUtility
+                        .safeInt((long) (this.calcGrowthRate() * ConfigurationHandler.growthMultiplier));
                     if (this.growthProgress > this.crop.getGrowthDuration()) {
                         this.growthProgress = this.crop.getGrowthDuration();
                     }
@@ -718,12 +722,14 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                     this.isDirty = true;
                 }
             }
-            if (this.crop.spreadsWeeds(this) && XSTR.XSTR_INSTANCE.nextInt(50) - this.stats.getGrowth() <= 2) {
+            if (ConfigurationHandler.enableWeeds && this.crop.spreadsWeeds(this)
+                && XSTR.XSTR_INSTANCE.nextInt(ConfigurationHandler.weedSpreadChance) - this.stats.getGrowth() <= 2) {
                 this.spreadWeed();
             }
         } else {
             // if it's empty spawn a weed 1% of the time, the spawn weed function handles the weed-ex drain.
-            if (XSTR.XSTR_INSTANCE.nextInt(100) == 0) {
+            if (ConfigurationHandler.enableWeeds
+                && XSTR.XSTR_INSTANCE.nextInt(ConfigurationHandler.weedSpawnChance) == 0) {
                 this.spawnWeed();
             }
         }
