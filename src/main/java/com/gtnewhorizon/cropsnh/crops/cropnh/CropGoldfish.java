@@ -56,10 +56,9 @@ public class CropGoldfish extends NHCropCard {
 
     @Override
     public void onEntityCollision(ICropStickTile crop, Entity entity) {
-        if (entity instanceof EntityPlayer) {
-            if (crop instanceof TileEntityCrop) {
-                this.scream((TileEntityCrop) crop);
-            }
+        if (ConfigurationHandler.goldfishScreamWhenSteppedOn && entity instanceof EntityPlayer
+            && crop instanceof TileEntityCrop) {
+            this.scream((TileEntityCrop) crop);
         }
     }
 

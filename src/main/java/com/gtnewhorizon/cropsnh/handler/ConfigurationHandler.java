@@ -37,6 +37,7 @@ public class ConfigurationHandler {
     public static float growthMultiplier;
     public static boolean putAnEndToExistentialDread;
     public static String goldfishScream;
+    public static boolean goldfishScreamWhenSteppedOn;
     // weeds
     public static boolean enableWeeds;
     public static boolean weedsWipePlants;
@@ -112,6 +113,12 @@ public class ConfigurationHandler {
             Categories.CATEGORY_CROPS,
             "mob.ghast.scream",
             "The noise used for goldfish screams");
+
+        goldfishScreamWhenSteppedOn = config.getBoolean(
+            "Goldfish screams when stepped on",
+            Categories.CATEGORY_CROPS,
+            true,
+            "If you are fine with the random screams but not with the EXTREME HOWL that comes with walking on them, turn this off.");
 
         // endregion CATEGORY_CROPS
 
