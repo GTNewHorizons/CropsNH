@@ -20,6 +20,7 @@ public class ConfigurationHandler {
 
         public static final String CATEGORY_WEEDS = "weeds";
         public static final String CATEGORY_CROPSNH = "cropsnh";
+        public static final String CATEGORY_CROPS = "crops";
         public static final String CATEGORY_COMPATIBILITY = "compatibility";
         public static final String CATEGORY_CLIENT = "clientside config";
         public static final String CATEGORY_RENDERING = "rendering";
@@ -27,16 +28,16 @@ public class ConfigurationHandler {
 
     public static Configuration config;
     private static String directory;
-    private static Property propGenerateDefaults = new Property("RegenDefaults", "false", Property.Type.BOOLEAN);
 
     // COMMON
     // ------
     // cropsnh
-    public static boolean generateDefaults;
     public static int cropsPerCraft;
+    public static boolean debug;
+    // crops
     public static float growthMultiplier;
     public static boolean putAnEndToExistentialDread;
-    public static boolean debug;
+    public static String goldfishScream;
     // weeds
     public static boolean enableWeeds;
     public static boolean weedsWipePlants;
@@ -76,8 +77,6 @@ public class ConfigurationHandler {
     // read values from the config
     private static void loadConfiguration() {
 
-        generateDefaults = propGenerateDefaults.getBoolean();
-
         // region CATEGORY_CROPSNH
 
         cropsPerCraft = config.getInt(
@@ -88,32 +87,37 @@ public class ConfigurationHandler {
             4,
             "The number of crops you get per crafting operation");
 
-        propGenerateDefaults = config.get(
-            Categories.CATEGORY_CROPSNH,
-            "GenerateDefaults",
-            false,
-            "set to true to regenerate a default mutations file (will turn back to false afterwards)");
-
 
         debug = config
             .getBoolean("debug", Categories.CATEGORY_CROPSNH, false, "Set to true if you wish to enable debug mode");
 
+        // endregion CATEGORY_CROPSNH
+
+        // region CATEGORY_CROPS
+
         growthMultiplier = config.getFloat(
             "Growth rate multiplier",
-            Categories.CATEGORY_CROPSNH,
+            Categories.CATEGORY_CROPS,
             1.0F,
             0.0F,
             2.0F,
             "This is a global growth rate multiplier");
 
         putAnEndToExistentialDread = config.getBoolean(
-            "Disable sounds",
-            Categories.CATEGORY_CROPSNH,
+            "Disable crop sounds",
+            Categories.CATEGORY_CROPS,
             false,
-            "Set to true if you prefer your crops with out a side of existential screaming."
+            "Set to true if you prefer your crops without a side of existential screaming."
         );
 
-        // endregion CATEGORY_CROPSNH
+        goldfishScream = config.getString(
+            "Goldfish sound",
+            Categories.CATEGORY_CROPS,
+            "mob.ghast.scream",
+            "The noise used for goldfish screams"
+        );
+
+        // endregion CATEGORY_CROPS
 
         // region CATEGORY_WEEDS
 

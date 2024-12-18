@@ -9,6 +9,7 @@ item.cropsnh:debugger.name=Debugger
 item.cropsnh:handRake.wood.name=Wooden Hand Rake
 item.cropsnh:handRake.iron.name=Iron Hand Rake
 item.cropsnh:terraWart.name=Terra Wart
+item.cropsnh:goldfish.name=Goldfish
 
 # Blocks
 tile.cropsnh:cropSticks.name=Crop Sticks
@@ -155,6 +156,9 @@ cropsnh_crops.purpleGlowshroom=Purple Glowshroom
 cropsnh_crops.skyberry=Skyberry
 cropsnh_crops.stingberry=Stingberry
 cropsnh_crops.thornvine=Thronvine
+# Crops++ native
+cropsnh_crops.goldfish=Goldfish
+cropsnh_crops.goldfish.flavour=Screams.
 
 # Light Growth Requirements
 cropsnh_growthReq.minLight.format=Needs a light Level of %1$d or higher.

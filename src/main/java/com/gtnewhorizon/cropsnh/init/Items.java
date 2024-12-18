@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.init;
 
+import com.gtnewhorizon.cropsnh.items.produce.ItemGoldfish;
 import net.minecraft.item.Item;
 
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
@@ -16,6 +17,7 @@ public class Items {
     public static Item genericSeed;
     public static Item terraWart;
     public static Item spade;
+    public static Item goldfish;
 
     public static void init() {
         magnifyingGlass = new ItemMagnifyingGlass();
@@ -23,6 +25,7 @@ public class Items {
         terraWart = new ItemTerraWart();
         genericSeed = new ItemGenericSeed();
         spade = new ItemSpade();
+        goldfish = new ItemGoldfish();
 
         LogHelper.debug("Items Registered");
     }

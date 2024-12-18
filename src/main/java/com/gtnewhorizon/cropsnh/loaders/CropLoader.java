@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropGoldfish;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -251,5 +252,7 @@ public class CropLoader {
             CropRegistry.instance.register(new CropMaloberry());
             CropRegistry.instance.register(new CropSaguaroCactus());
         }
+        // Crops++ native
+        CropRegistry.instance.register(new CropGoldfish());
     }
 }

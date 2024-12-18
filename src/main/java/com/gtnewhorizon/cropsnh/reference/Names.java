@@ -49,7 +49,6 @@ public final class Names {
 
     // mod objects
     public static class Objects {
-
         public static final String cropSticksTE = "cropSticksTE";
         public static final String cropSticks = "cropSticks";
         public static final String seed = "seed";
@@ -57,8 +56,9 @@ public final class Names {
         public static final String spade = "spade";
         public static final String genericSeed = "genericSeed";
 
-        // crops
+        // produce
         public static final String terraWart = "terraWart";
+        public static final String goldfish = "goldfish";
     }
 
     // tile entities

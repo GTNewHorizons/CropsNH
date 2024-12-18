@@ -59,6 +59,9 @@ public class ItemToolTipHandler {
                     event.toolTip.add(req.getDescription());
                 }
             }
+            if (crop.getFlavourText() == null) {
+                event.toolTip.add(StatCollector.translateToLocal(crop.getFlavourText()));
+            }
         } else {
             event.toolTip.add(" " + StatCollector.translateToLocal("cropsnh_tooltip.unidentified"));
         }

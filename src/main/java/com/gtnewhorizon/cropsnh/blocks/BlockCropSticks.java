@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.blocks;
 
+import com.gtnewhorizon.cropsnh.api.ICropCard;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
@@ -125,7 +126,16 @@ public class BlockCropSticks extends BlockContainerCropsNH {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         // check if crops can stay
         final TileEntity te = world.getTileEntity(x, y, z);
-        if (!this.canBlockStay(world, x, y, z)) {
+        boolean shouldRemove = !this.canBlockStay(world, x, y, z);
+        if (!shouldRemove && te instanceof ICropStickTile) {
+            ICropStickTile cropTE = (ICropStickTile) te;
+            if (cropTE.getCrop() != null) {
+                Block b = world.getBlock(x,y-1,z);
+                int meta = world.getBlockMetadata(x,y-1,z);
+                shouldRemove = !cropTE.getCrop().getSoilTypes().isRegistered(b, meta);
+            }
+        }
+        if (shouldRemove) {
             // Attempt to notify the TE of it's impending doom.
             if (te instanceof ICropStickTile) {
                 ((ICropStickTile) te).onDestroyed();
