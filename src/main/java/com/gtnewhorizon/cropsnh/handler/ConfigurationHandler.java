@@ -20,13 +20,6 @@ public class ConfigurationHandler {
 
         public static final String CATEGORY_WEEDS = "weeds";
         public static final String CATEGORY_CROPSNH = "cropsnh";
-        public static final String CATEGORY_FARMING = "farming";
-        public static final String CATEGORY_TOOLS = "tools";
-        public static final String CATEGORY_DEBUG = "debug";
-        public static final String CATEGORY_WORLDGEN = "world gen";
-        public static final String CATEGORY_IRRIGATION = "irrigation";
-        public static final String CATEGORY_STORAGE = "storage";
-        public static final String CATEGORY_DECORATION = "decoration";
         public static final String CATEGORY_COMPATIBILITY = "compatibility";
         public static final String CATEGORY_CLIENT = "clientside config";
         public static final String CATEGORY_RENDERING = "rendering";
@@ -41,8 +34,8 @@ public class ConfigurationHandler {
     // cropsnh
     public static boolean generateDefaults;
     public static int cropsPerCraft;
-    public static boolean resourcePlants;
     public static float growthMultiplier;
+    public static boolean putAnEndToExistentialDread;
     public static boolean debug;
     // weeds
     public static boolean enableWeeds;
@@ -54,10 +47,6 @@ public class ConfigurationHandler {
 
     // CLIENT
     // ------
-    public static boolean condenseCustomWoodInNei;
-    public static boolean disableParticles;
-    public static String statDisplay;
-    public static boolean disableSounds;
 
     public static void init(FMLPreInitializationEvent event) {
         checkAndCreateConfig(event);
@@ -79,24 +68,6 @@ public class ConfigurationHandler {
     public static void initClientConfigs(FMLPreInitializationEvent event) {
         checkAndCreateConfig(event);
 
-        condenseCustomWoodInNei = config.getBoolean(
-            "condense custom wood blocks in NEI",
-            Categories.CATEGORY_CLIENT,
-            true,
-            "set to true to condense all entries for custom wood blocks into one entry in NEI");
-        disableParticles = config.getBoolean(
-            "Disable particles",
-            Categories.CATEGORY_CLIENT,
-            false,
-            "set to true to disable particles for the sprinklers");
-        statDisplay = config.getString(
-            "Stat Display",
-            Categories.CATEGORY_CLIENT,
-            "NUMBER",
-            "This defines how to display the stats of plants. Possible settings are 'NUMBER': just display a simple number (ex: \"6\"), 'FRACTION': number/maximum (ex: \"6/10\"), 'CHARACTER-'char'': number of characters equal to the stats (ex: CHARACTER-� will give \"������\") and 'KEYWORD-'type'-'keyword'': keyword followed by the type and then the stat, type is any of the previous types (ex: KEYWORD-FRACTION-Rank will give \"Rank: 6/10\") . Invalid entries will default to NUMBER ");
-        disableSounds = config
-            .getBoolean("Disable sounds", Categories.CATEGORY_CLIENT, false, "Set to true to disable sounds.");
-
         if (config.hasChanged()) {
             config.save();
         }
@@ -105,13 +76,9 @@ public class ConfigurationHandler {
     // read values from the config
     private static void loadConfiguration() {
 
-        // region CATEGORY_CROPSNH
+        generateDefaults = propGenerateDefaults.getBoolean();
 
-        resourcePlants = config.getBoolean(
-            "Resource Crops",
-            Categories.CATEGORY_CROPSNH,
-            true,
-            "set to true if you wish to enable resource crops");
+        // region CATEGORY_CROPSNH
 
         cropsPerCraft = config.getInt(
             "Crops per craft",
@@ -127,19 +94,24 @@ public class ConfigurationHandler {
             false,
             "set to true to regenerate a default mutations file (will turn back to false afterwards)");
 
-        generateDefaults = propGenerateDefaults.getBoolean();
 
-        // debug mode
         debug = config
-            .getBoolean("debug", Categories.CATEGORY_DEBUG, false, "Set to true if you wish to enable debug mode");
+            .getBoolean("debug", Categories.CATEGORY_CROPSNH, false, "Set to true if you wish to enable debug mode");
 
         growthMultiplier = config.getFloat(
             "Growth rate multiplier",
-            Categories.CATEGORY_FARMING,
+            Categories.CATEGORY_CROPSNH,
             1.0F,
             0.0F,
             2.0F,
             "This is a global growth rate multiplier");
+
+        putAnEndToExistentialDread = config.getBoolean(
+            "Disable sounds",
+            Categories.CATEGORY_CROPSNH,
+            false,
+            "Set to true if you prefer your crops with out a side of existential screaming."
+        );
 
         // endregion CATEGORY_CROPSNH
 

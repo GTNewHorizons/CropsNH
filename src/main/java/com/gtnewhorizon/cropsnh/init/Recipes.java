@@ -26,16 +26,6 @@ public class Recipes {
                 "ss",
                 's',
                 "stickWood"));
-        if (ConfigurationHandler.cropsPerCraft == 3) {
-            GameRegistry.addShapelessRecipe(
-                new ItemStack(net.minecraft.init.Items.stick, 6 / ConfigurationHandler.cropsPerCraft),
-                new ItemStack(Blocks.blockCrop),
-                new ItemStack(Blocks.blockCrop));
-        } else {
-            GameRegistry.addShapelessRecipe(
-                new ItemStack(net.minecraft.init.Items.stick, 4 / ConfigurationHandler.cropsPerCraft),
-                new ItemStack(Blocks.blockCrop));
-        }
         // TODO: add magnifying glass recipe (copy plant lens)
         // TODO: add spade recipe (copy crop++ spade)
     }

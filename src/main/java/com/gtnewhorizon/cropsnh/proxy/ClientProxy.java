@@ -14,7 +14,6 @@ import net.minecraftforge.common.MinecraftForge;
 import com.gtnewhorizon.cropsnh.blocks.BlockCropsNH;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.handler.ItemToolTipHandler;
-import com.gtnewhorizon.cropsnh.handler.SoundHandler;
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
@@ -99,9 +98,6 @@ public class ClientProxy extends CommonProxy {
 
         RenderPlayerHooks renderPlayerHooks = new RenderPlayerHooks();
         MinecraftForge.EVENT_BUS.register(renderPlayerHooks);
-
-        SoundHandler soundHandler = new SoundHandler();
-        MinecraftForge.EVENT_BUS.register(soundHandler);
     }
 
     @Override
