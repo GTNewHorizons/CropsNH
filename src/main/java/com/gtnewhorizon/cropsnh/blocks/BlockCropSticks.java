@@ -1,6 +1,5 @@
 package com.gtnewhorizon.cropsnh.blocks;
 
-import com.gtnewhorizon.cropsnh.api.ICropCard;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
@@ -130,9 +129,11 @@ public class BlockCropSticks extends BlockContainerCropsNH {
         if (!shouldRemove && te instanceof ICropStickTile) {
             ICropStickTile cropTE = (ICropStickTile) te;
             if (cropTE.getCrop() != null) {
-                Block b = world.getBlock(x,y-1,z);
-                int meta = world.getBlockMetadata(x,y-1,z);
-                shouldRemove = !cropTE.getCrop().getSoilTypes().isRegistered(b, meta);
+                Block b = world.getBlock(x, y - 1, z);
+                int meta = world.getBlockMetadata(x, y - 1, z);
+                shouldRemove = !cropTE.getCrop()
+                    .getSoilTypes()
+                    .isRegistered(b, meta);
             }
         }
         if (shouldRemove) {

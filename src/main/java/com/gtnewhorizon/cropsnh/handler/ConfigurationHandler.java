@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.handler;
 import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
@@ -87,7 +86,6 @@ public class ConfigurationHandler {
             4,
             "The number of crops you get per crafting operation");
 
-
         debug = config
             .getBoolean("debug", Categories.CATEGORY_CROPSNH, false, "Set to true if you wish to enable debug mode");
 
@@ -107,15 +105,13 @@ public class ConfigurationHandler {
             "Disable crop sounds",
             Categories.CATEGORY_CROPS,
             false,
-            "Set to true if you prefer your crops without a side of existential screaming."
-        );
+            "Set to true if you prefer your crops without a side of existential screaming.");
 
         goldfishScream = config.getString(
             "Goldfish sound",
             Categories.CATEGORY_CROPS,
             "mob.ghast.scream",
-            "The noise used for goldfish screams"
-        );
+            "The noise used for goldfish screams");
 
         // endregion CATEGORY_CROPS
 

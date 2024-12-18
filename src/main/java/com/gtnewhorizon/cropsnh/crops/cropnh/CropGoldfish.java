@@ -2,15 +2,18 @@ package com.gtnewhorizon.cropsnh.crops.cropnh;
 
 import java.awt.Color;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.Items;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+
 import gregtech.api.objects.XSTR;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 public class CropGoldfish extends NHCropCard {
 
@@ -47,6 +50,11 @@ public class CropGoldfish extends NHCropCard {
     }
 
     @Override
+    public void registerSprites(IIconRegister register) {
+        super.registerSprites(register);
+    }
+
+    @Override
     public void onEntityCollision(ICropStickTile crop, Entity entity) {
         if (entity instanceof EntityPlayer) {
             if (crop instanceof TileEntityCrop) {
@@ -62,13 +70,13 @@ public class CropGoldfish extends NHCropCard {
 
     private void scream(TileEntityCrop crop) {
         if (ConfigurationHandler.putAnEndToExistentialDread) return;
-        crop.getWorldObj().playSoundEffect(
-            crop.xCoord,
-            crop.yCoord,
-            crop.zCoord,
-            ConfigurationHandler.goldfishScream,
-            crop.isMature() ? 5.0f : 3.0f * crop.getGrowthPercent(),
-            crop.isMature() ? 0.5f : (4.0f - crop.getGrowthPercent())
-        );
+        crop.getWorldObj()
+            .playSoundEffect(
+                crop.xCoord,
+                crop.yCoord,
+                crop.zCoord,
+                ConfigurationHandler.goldfishScream,
+                crop.isMature() ? 5.0f : 3.0f * crop.getGrowthPercent(),
+                crop.isMature() ? 0.5f : (4.0f - crop.getGrowthPercent()));
     }
 }

@@ -19,7 +19,7 @@ public abstract class NHCropCard extends CropCard {
 
     // DEFAULTS
     private static final ISoilList DEFAULT_SOIL = SoilRegistry.instance.get("farmland");
-    private IIcon[] sprites = null;
+    protected IIcon[] sprites = null;
     protected final String internalId;
 
     public NHCropCard(String id, Color color1, Color color2) {

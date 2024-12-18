@@ -173,7 +173,7 @@ public abstract class CropCard implements ICropCard {
     public void render(IBlockAccess world, int x, int y, int z, ICropStickTile te, RenderBlocks renderer) {
         IIcon sprite = this.getSprite(te);
         if (sprite == null) sprite = getMissingTexture();
-        PlantRenderer.renderPlantLayer(world, x, y, z, this.getRenderShape(), sprite, 0, te.isSick());
+        PlantRenderer.renderPlantLayer(world, x, y, z, this.getRenderShape(), sprite, te.isSick());
     }
 
     @Override

@@ -49,6 +49,7 @@ public final class Names {
 
     // mod objects
     public static class Objects {
+
         public static final String cropSticksTE = "cropSticksTE";
         public static final String cropSticks = "cropSticks";
         public static final String seed = "seed";

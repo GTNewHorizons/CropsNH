@@ -1,10 +1,7 @@
 package com.gtnewhorizon.cropsnh.items.produce;
 
-import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +9,12 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.List;
+import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
+import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemGoldfish extends ItemFood {
 
@@ -39,7 +41,7 @@ public class ItemGoldfish extends ItemFood {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
-                                  float hitX, float hitY, float hitZ) {
+        float hitX, float hitY, float hitZ) {
         if (!ConfigurationHandler.putAnEndToExistentialDread) {
             player.playSound(ConfigurationHandler.goldfishScream, 5, (float) 0.5);
         }

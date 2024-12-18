@@ -1,9 +1,9 @@
 package com.gtnewhorizon.cropsnh.init;
 
-import com.gtnewhorizon.cropsnh.items.produce.ItemGoldfish;
 import net.minecraft.item.Item;
 
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
+import com.gtnewhorizon.cropsnh.items.produce.ItemGoldfish;
 import com.gtnewhorizon.cropsnh.items.produce.ItemTerraWart;
 import com.gtnewhorizon.cropsnh.items.tools.ItemDebugger;
 import com.gtnewhorizon.cropsnh.items.tools.ItemMagnifyingGlass;

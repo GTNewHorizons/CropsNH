@@ -2,7 +2,6 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropGoldfish;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -20,6 +19,7 @@ import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropMoss;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropTurnip;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropWildCarrot;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropBonsai;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropGoldfish;
 import com.gtnewhorizon.cropsnh.crops.gregtech.CropGarnydnia;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropAurelia;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropCoffee;
