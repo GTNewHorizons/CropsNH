@@ -10,6 +10,11 @@ item.cropsnh:handRake.wood.name=Wooden Hand Rake
 item.cropsnh:handRake.iron.name=Iron Hand Rake
 item.cropsnh:terraWart.name=Terra Wart
 item.cropsnh:goldfish.name=Goldfish
+item.cropsnh:berry.huckle.name=Huckleberry
+item.cropsnh:berry.sugarbeet.name=Sugar Beet
+item.cropsnh:modifier.space.name=Space Flower
+item.cropsnh:modifier.magic.name=Magic Essence
+item.cropsnh:modifier.NaNCertificate.name=Certificate of not being a noob anymore
 
 # Blocks
 tile.cropsnh:cropSticks.name=Crop Sticks
@@ -33,6 +38,14 @@ cropsnh_tooltip.spade=Use this to get more seeds from your crops
 cropsnh_tooltip.empty=Nothing planted
 cropsnh_tooltip.progress=Progress
 cropsnh_tooltip.none=none
+cropsnh_tooltip.berry.huckle.1=Huckle-dae-Duckle-dae-Doo
+cropsnh_tooltip.berry.huckle.2=A sweet treat!
+cropsnh_tooltip.berry.sugarbeet.1=A sweet beet, commonly found in France, Germany, Russia and China.
+cropsnh_tooltip.berry.sugarbeet.2=Industrial Sugar!
+cropsnh_tooltip.goldfish="Hozuki no Reitetsu! A truly hellish planimal?!"
+cropsnh_tooltip.modifier.magic=Pure Magic!
+cropsnh_tooltip.modifier.space=Space Radiation caught in a Flower!
+cropsnh_tooltip.modifier.NaNCertificate=Challenge Accepted!
 
 # Open Computers Compat
 # cropsnh_description.peripheralHelp=Method Help
@@ -159,6 +172,14 @@ cropsnh_crops.thornvine=Thronvine
 # Crops++ native
 cropsnh_crops.goldfish=Goldfish
 cropsnh_crops.goldfish.flavour=Screams.
+cropsnh_crops.huckleberry=Huckleberry
+cropsnh_crops.magicalNightshade=Magical Nightshade
+cropsnh_crops.papyrus=Papyrus
+cropsnh_crops.spaceFlower=Space Flower
+cropsnh_crops.strawberry=Strawberry
+cropsnh_crops.sugarBeet=Sugar Beet
+cropsnh_crops.vine=Vine
+cropsnh_crops.waterLily=Water Lily
 
 # Light Growth Requirements
 cropsnh_growthReq.minLight.format=Needs a light Level of %1$d or higher.
@@ -200,5 +221,6 @@ cropsnh_growthReq.blockUnder.soulSand=Needs a block of soul sand under it to gro
 cropsnh_growthReq.blockUnder.stone=Needs a block of stone under it to grow.
 cropsnh_growthReq.blockUnder.snow=Needs a block of snow under it to grow.
 cropsnh_growthReq.blockUnder.glowstone=Needs a block of glowstone under it to grow.
+cropsnh_growthReq.blockUnder.moon=Needs a block of from the moon under it to grow.
 
 

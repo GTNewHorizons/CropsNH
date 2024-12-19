@@ -2,6 +2,10 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropStrawberry;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropSugarBeet;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropVine;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropWaterlily;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -20,6 +24,10 @@ import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropTurnip;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropWildCarrot;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropBonsai;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropGoldfish;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropHuckleberry;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropMagicalNightshade;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropPapyrus;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropSpaceFlower;
 import com.gtnewhorizon.cropsnh.crops.gregtech.CropGarnydnia;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropAurelia;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropCoffee;
@@ -254,5 +262,14 @@ public class CropLoader {
         }
         // Crops++ native
         CropRegistry.instance.register(new CropGoldfish());
+        CropRegistry.instance.register(new CropHuckleberry());
+        CropRegistry.instance.register(new CropMagicalNightshade());
+        CropRegistry.instance.register(new CropPapyrus());
+        CropRegistry.instance.register(new CropSpaceFlower());
+        CropRegistry.instance.register(new CropStrawberry());
+        CropRegistry.instance.register(new CropSugarBeet());
+        CropRegistry.instance.register(new CropVine());
+        CropRegistry.instance.register(new CropWaterlily());
+
     }
 }

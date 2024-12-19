@@ -7,6 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
@@ -35,7 +36,7 @@ public class ItemGoldfish extends ItemFood {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        list.add("Hozuki no Reitetsu! A truely hellish planimal?!");
+        list.add(StatCollector.translateToLocal("cropsnh_tooltip.goldfish"));
     }
 
     @Override

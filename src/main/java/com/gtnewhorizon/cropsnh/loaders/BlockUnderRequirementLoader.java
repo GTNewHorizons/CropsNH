@@ -6,6 +6,8 @@ import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.Mods;
+import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 
 public class BlockUnderRequirementLoader {
 
@@ -48,6 +50,10 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("snow").addOreDict("blockSnow").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.snow));
         BlockUnderRequirement.get("skull").addOreDict("itemSkull").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.skull));
         BlockUnderRequirement.get("glowstone").addOreDict("stoneGlowstone", "glowstone").addBlock(new BlockWithMeta(Blocks.glowstone));
+        // galacticraft
+        if (Mods.GalacticraftCore.isModLoaded()) {
+            BlockUnderRequirement.get("moon").addBlock(new BlockWithMeta(GCBlocks.blockMoon));
+        }
         // spotless:on
     }
 }
