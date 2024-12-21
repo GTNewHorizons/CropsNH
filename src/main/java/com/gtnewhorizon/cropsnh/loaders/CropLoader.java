@@ -2,10 +2,6 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropStrawberry;
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropSugarBeet;
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropVine;
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropWaterlily;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -28,19 +24,23 @@ import com.gtnewhorizon.cropsnh.crops.cropnh.CropHuckleberry;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropMagicalNightshade;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropPapyrus;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropSpaceFlower;
-import com.gtnewhorizon.cropsnh.crops.gregtech.CropGarnydnia;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropAurelia;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropStrawberry;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropSugarBeet;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropVine;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropWaterlily;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropCoffee;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropCyprium;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropFerru;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropHops;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropPlumbiscus;
-import com.gtnewhorizon.cropsnh.crops.ic2.CropRedwheat;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropShining;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropStagnium;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropStickReed;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropTerraWart;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropVenomilia;
+import com.gtnewhorizon.cropsnh.crops.material.CropAurelia;
+import com.gtnewhorizon.cropsnh.crops.material.CropGarnydnia;
+import com.gtnewhorizon.cropsnh.crops.material.CropRedwheat;
 import com.gtnewhorizon.cropsnh.crops.natura.CropBarley;
 import com.gtnewhorizon.cropsnh.crops.natura.CropBlackberry;
 import com.gtnewhorizon.cropsnh.crops.natura.CropBlueberry;
@@ -80,7 +80,10 @@ import com.gtnewhorizon.cropsnh.crops.stoneilies.CropStoneLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropAndesiteLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropDioriteLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropGraniteLily;
-import com.gtnewhorizon.cropsnh.crops.thaumcraft.PrimordialPerlCrop;
+import com.gtnewhorizon.cropsnh.crops.thaumcraft.CropCinderpearl;
+import com.gtnewhorizon.cropsnh.crops.thaumcraft.CropManaBean;
+import com.gtnewhorizon.cropsnh.crops.thaumcraft.CropPrimordialBerry;
+import com.gtnewhorizon.cropsnh.crops.thaumcraft.CropShimmerleaf;
 import com.gtnewhorizon.cropsnh.crops.twilightforest.CropTorchberry;
 import com.gtnewhorizon.cropsnh.crops.vanilla.CropCactus;
 import com.gtnewhorizon.cropsnh.crops.vanilla.CropNetherwart;
@@ -207,7 +210,10 @@ public class CropLoader {
         }
         // thaumcraft
         if (Mods.Thaumcraft.isModLoaded()) {
-            CropRegistry.instance.register(new PrimordialPerlCrop());
+            CropRegistry.instance.register(new CropCinderpearl());
+            CropRegistry.instance.register(new CropShimmerleaf());
+            CropRegistry.instance.register(new CropManaBean());
+            CropRegistry.instance.register(new CropPrimordialBerry());
         }
         // Crops++ Twilight Forest
         if (Mods.TwilightForest.isModLoaded()) {

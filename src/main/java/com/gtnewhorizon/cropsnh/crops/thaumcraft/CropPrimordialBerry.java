@@ -11,9 +11,9 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
-public class PrimordialPerlCrop extends NHCropCard {
+public class CropPrimordialBerry extends NHCropCard {
 
-    public PrimordialPerlCrop() {
+    public CropPrimordialBerry() {
         super("primordialBerry", new Color(0x652150), new Color(0xA1D3A9));
         ItemStack primPerl = thaumcraft.api.ItemApi.getItem("itemEldritchObject", 3)
             .copy();

@@ -5,13 +5,18 @@ import net.minecraft.init.Blocks;
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
+import gregtech.api.enums.Mods;
+import thaumcraft.common.config.ConfigBlocks;
+
 public class SoilLoader {
 
     public static void init() {
 
         SoilRegistry registry = SoilRegistry.instance;
+
+        // register vanilla soils
         BlockWithMeta farmland = new BlockWithMeta(Blocks.farmland);
-        // also includes podzol
+        // also includes podzol and that weird non-grass growing dirt
         BlockWithMeta dirt = new BlockWithMeta(Blocks.dirt);
         BlockWithMeta grass = new BlockWithMeta(Blocks.grass);
         BlockWithMeta soulSand = new BlockWithMeta(Blocks.soul_sand);
@@ -23,7 +28,6 @@ public class SoilLoader {
         BlockWithMeta endstone = new BlockWithMeta(Blocks.end_stone);
         BlockWithMeta snow = new BlockWithMeta(Blocks.snow);
 
-        // register vanilla soils
         registry.register("farmland", farmland);
         registry.register("sugarcane", sand, dirt, grass);
         registry.register("sand", sand);
@@ -36,5 +40,25 @@ public class SoilLoader {
         registry.register("stone", stone, cobblestone);
         registry.register("snow", snow);
         registry.register("netherrack", netherrack);
+
+        // thaumcraft soils
+        if (Mods.Thaumcraft.isModLoaded()) {
+            BlockWithMeta greatwoodLog1 = new BlockWithMeta(ConfigBlocks.blockMagicalLog, 0);
+            BlockWithMeta greatwoodLog2 = new BlockWithMeta(ConfigBlocks.blockMagicalLog, 4);
+            BlockWithMeta greatwoodLog3 = new BlockWithMeta(ConfigBlocks.blockMagicalLog, 8);
+            BlockWithMeta silverwoodLog1 = new BlockWithMeta(ConfigBlocks.blockMagicalLog, 1);
+            BlockWithMeta silverwoodLog2 = new BlockWithMeta(ConfigBlocks.blockMagicalLog, 5);
+            BlockWithMeta silverwoodLog3 = new BlockWithMeta(ConfigBlocks.blockMagicalLog, 9);
+
+            registry.register(
+                "thaumLogs",
+                greatwoodLog1,
+                greatwoodLog2,
+                greatwoodLog3,
+                silverwoodLog1,
+                silverwoodLog2,
+                silverwoodLog3);
+            registry.register("silverwoodLog", silverwoodLog1, silverwoodLog2, silverwoodLog3);
+        }
     }
 }

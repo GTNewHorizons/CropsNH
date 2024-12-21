@@ -1,9 +1,9 @@
 package com.gtnewhorizon.cropsnh.crops.cropnh;
 
+import java.awt.Color;
+
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
-
-import java.awt.Color;
 
 public class CropStrawberry extends NHCropCard {
 

@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.crops.gregtech;
+package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 

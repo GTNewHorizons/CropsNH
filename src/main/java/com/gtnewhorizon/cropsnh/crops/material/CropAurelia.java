@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.crops.ic2;
+package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 

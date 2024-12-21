@@ -8,6 +8,7 @@ import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
+import thaumcraft.common.config.ConfigBlocks;
 
 public class BlockUnderRequirementLoader {
 
@@ -50,6 +51,11 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("snow").addOreDict("blockSnow").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.snow));
         BlockUnderRequirement.get("skull").addOreDict("itemSkull").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.skull));
         BlockUnderRequirement.get("glowstone").addOreDict("stoneGlowstone", "glowstone").addBlock(new BlockWithMeta(Blocks.glowstone));
+        BlockUnderRequirement.get("quicksilver").addOreDict("blockQuicksilver");
+        BlockUnderRequirement.get("blaze").addOreDict("blockBlaze");
+        if (Mods.Thaumcraft.isModLoaded()) {
+            BlockUnderRequirement.get("mixedCrystalCluster").addBlock(new BlockWithMeta(ConfigBlocks.blockCrystal, 6));
+        }
         // galacticraft
         if (Mods.GalacticraftCore.isModLoaded()) {
             BlockUnderRequirement.get("moon").addBlock(new BlockWithMeta(GCBlocks.blockMoon));

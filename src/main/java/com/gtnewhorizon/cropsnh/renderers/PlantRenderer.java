@@ -7,10 +7,8 @@ import net.minecraft.world.IBlockAccess;
 
 import com.gtnewhorizon.cropsnh.reference.Constants;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.Mods;
 
 @SideOnly(Side.CLIENT)
 public abstract class PlantRenderer {
@@ -27,16 +25,6 @@ public abstract class PlantRenderer {
     public static void renderPlantLayer2(IBlockAccess world, int x, int y, int z, int renderType, IIcon icon,
         boolean isSick) {
         if (icon != null) {
-
-            if (Mods.HodgePodge.isModLoaded()
-                && icon instanceof com.mitchej123.hodgepodge.textures.IPatchedTextureAtlasSprite) {
-                ((com.mitchej123.hodgepodge.textures.IPatchedTextureAtlasSprite) icon).markNeedsAnimationUpdate();
-            } else if (Loader.isModLoaded("angelica")
-                && icon instanceof com.gtnewhorizons.angelica.mixins.interfaces.IPatchedTextureAtlasSprite) {
-                    ((com.gtnewhorizons.angelica.mixins.interfaces.IPatchedTextureAtlasSprite) icon)
-                        .markNeedsAnimationUpdate();
-                }
-
             Tessellator tessellator = Tessellator.instance;
             tessellator.addTranslation(x, y, z);
             tessellator.setBrightness(Blocks.wheat.getMixedBrightnessForBlock(world, x, y, z));

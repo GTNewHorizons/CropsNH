@@ -1,12 +1,13 @@
 package com.gtnewhorizon.cropsnh.crops.cropnh;
 
-import com.gtnewhorizon.cropsnh.api.ISeedShape;
-import com.gtnewhorizon.cropsnh.api.SeedShape;
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import java.awt.Color;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-import java.awt.Color;
+import com.gtnewhorizon.cropsnh.api.ISeedShape;
+import com.gtnewhorizon.cropsnh.api.SeedShape;
+import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 public class CropVine extends NHCropCard {
 

@@ -139,6 +139,9 @@ cropsnh_crops.thauminiteOreBerry=Thauminite Ore Berry
 cropsnh_crops.knightmetalOreBerry=Knightly Ore Berry
 # Crops++ Thaumcraft Crops
 cropsnh_crops.primordialBerry=Primordial Berry
+cropsnh_crops.cinderpearl=Cinderpearl
+cropsnh_crops.shimmerleaf=Shimmerleaf
+cropsnh_crops.manaBean=Mana Bean
 # Crops++ Twilight Forest Crops
 cropsnh_crops.torchberry=Torchberry
 # Crops++ BoP
@@ -205,6 +208,7 @@ cropsnh_growthReq.blockUnder.knightmetal=Needs a block of knightmetal under it t
 cropsnh_growthReq.blockUnder.cobalt=Needs a block of cobalt under it to grow.
 cropsnh_growthReq.blockUnder.ardite=Needs a block of ardite under it to grow.
 cropsnh_growthReq.blockUnder.ichorium=Needs a block of ichorium under it to grow.
+cropsnh_growthReq.blockUnder.quicksilver=Needs a block of quicksilver under it to grow.
 # Botania Stone Growth Requirements
 cropsnh_growthReq.blockUnder.botaniaAndesite=Needs a block of andesite under it to grow.
 cropsnh_growthReq.blockUnder.botaniaDiorite=Needs a block of diorite under it to grow.
@@ -219,8 +223,11 @@ cropsnh_growthReq.blockUnder.redGranite=Needs a block of red granite under it to
 cropsnh_growthReq.blockUnder.sand=Needs a block of sand or sandstone under it to grow.
 cropsnh_growthReq.blockUnder.soulSand=Needs a block of soul sand under it to grow.
 cropsnh_growthReq.blockUnder.stone=Needs a block of stone under it to grow.
+# Misc
 cropsnh_growthReq.blockUnder.snow=Needs a block of snow under it to grow.
 cropsnh_growthReq.blockUnder.glowstone=Needs a block of glowstone under it to grow.
 cropsnh_growthReq.blockUnder.moon=Needs a block of from the moon under it to grow.
+cropsnh_growthReq.blockUnder.blaze=Needs a block of blaze under it to grow.
+cropsnh_growthReq.blockUnder.mixedCrystalCluster=Needs a mixed crystal cluster under it to grow.
 
 
