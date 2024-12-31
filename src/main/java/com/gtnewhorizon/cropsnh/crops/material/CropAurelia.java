@@ -41,6 +41,6 @@ public class CropAurelia extends NHCropCard {
 
     @Override
     public int getMaxGrowthStage() {
-        return 5;
+        return 4;
     }
 }
