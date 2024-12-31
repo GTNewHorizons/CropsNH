@@ -10,6 +10,7 @@ import java.util.Set;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,9 +24,12 @@ import net.minecraftforge.oredict.OreDictionary;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.gtnewhorizons.angelica.api.TextureServices;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.Mods;
 
 public abstract class CropCard implements ICropCard {
 
@@ -171,9 +175,19 @@ public abstract class CropCard implements ICropCard {
     @Override
     @SideOnly(Side.CLIENT)
     public void render(IBlockAccess world, int x, int y, int z, ICropStickTile te, RenderBlocks renderer) {
-        IIcon sprite = this.getSprite(te);
-        if (sprite == null) sprite = getMissingTexture();
-        PlantRenderer.renderPlantLayer(world, x, y, z, this.getRenderShape(), sprite, te.isSick());
+        IIcon icon = this.getSprite(te);
+        if (icon == null) icon = getMissingTexture();
+        // only angelica and hodgepodge to do the thing right if the icon is actually animated
+        if (icon instanceof TextureAtlasSprite && (((TextureAtlasSprite) icon).hasAnimationMetadata())
+            && ((TextureAtlasSprite) icon).getFrameCount() > 1) {
+            if (Mods.HodgePodge.isModLoaded()
+                && icon instanceof com.mitchej123.hodgepodge.textures.IPatchedTextureAtlasSprite) {
+                ((com.mitchej123.hodgepodge.textures.IPatchedTextureAtlasSprite) icon).markNeedsAnimationUpdate();
+            } else if (ModUtils.Angelica.isLoaded()) {
+                TextureServices.updateBlockTextureAnimation(icon, renderer);
+            }
+        }
+        PlantRenderer.renderPlantLayer(world, x, y, z, this.getRenderShape(), icon, te.isSick());
     }
 
     @Override

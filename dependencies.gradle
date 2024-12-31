@@ -18,7 +18,7 @@ dependencies {
     api("com.github.GTNewHorizons:OpenComputers:1.10.27-GTNH:dev")
     api("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev")
     implementation("com.github.GTNewHorizons:Hodgepodge:2.5.82:dev")
-    implementation("com.github.GTNewHorizons:Angelica:1.0.0-beta25:dev")
+    implementation("com.github.GTNewHorizons:Angelica:1.0.0-beta28:dev")
     compileOnly("com.github.GTNewHorizons:Galacticraft:3.2.8-GTNH:dev") {
         transitive = false
     }
