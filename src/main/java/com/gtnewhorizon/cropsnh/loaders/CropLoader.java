@@ -2,6 +2,8 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropHemp;
+import com.gtnewhorizon.cropsnh.crops.material.CropSaltyRoot;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -276,6 +278,9 @@ public class CropLoader {
         CropRegistry.instance.register(new CropSugarBeet());
         CropRegistry.instance.register(new CropVine());
         CropRegistry.instance.register(new CropWaterlily());
+        // GT crops
+        CropRegistry.instance.register(new CropHemp());
+        CropRegistry.instance.register(new CropSaltyRoot());
 
     }
 }
