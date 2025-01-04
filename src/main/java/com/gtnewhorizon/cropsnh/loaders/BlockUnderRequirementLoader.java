@@ -56,7 +56,7 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("tin").addBlockAndOreDict().addMaterial(Materials.Tin);
         BlockUnderRequirement.get("titanium").addBlockAndOreDict().addMaterial(Materials.Titanium);
         BlockUnderRequirement.get("tungsten").addBlockAndOreDict().addMaterial(Materials.Tungsten);
-        BlockUnderRequirement.get("uranium").addBlockAndOreDict().addMaterial(Materials.Uranium);
+        BlockUnderRequirement.get("uranium").addBlockAndOreDict().addBlockAndOreDict("Uranium235", "Uranium238").addMaterial(Materials.Uranium, Materials.Uranium235);
         BlockUnderRequirement.get("zinc").addBlockAndOreDict().addMaterial(Materials.Zinc);
         // gem ores
         BlockUnderRequirement.get("garnetGem").addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow);

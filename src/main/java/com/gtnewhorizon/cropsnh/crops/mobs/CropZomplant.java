@@ -5,10 +5,14 @@ import java.awt.Color;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 public class CropZomplant extends NHCropCard {
+
+    private final static ISoilList soilTypes = SoilRegistry.instance.get("graveyard");
 
     public CropZomplant() {
         super("zomplant", new Color(0x3A6529), new Color(0x679056));
@@ -28,6 +32,11 @@ public class CropZomplant extends NHCropCard {
     @Override
     public int getRenderShape() {
         return PlantRenderer.RENDER_X;
+    }
+
+    @Override
+    public ISoilList getSoilTypes() {
+        return soilTypes;
     }
 
     @Override

@@ -2,8 +2,6 @@ package com.gtnewhorizon.cropsnh.items;
 
 import java.util.List;
 
-import com.gtnewhorizon.cropsnh.CropsNH;
-import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +20,7 @@ import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
 
@@ -108,6 +107,10 @@ public class ItemGenericSeed extends ItemCropsNH {
 
         ISeedStats stats = SeedStats.readFromNBT(stack.getTagCompound());
         if (stats.isAnalyzed()) {
+            if (crop.getFlavourText() != null) {
+                toolTip.add(StatCollector.translateToLocal(crop.getFlavourText()));
+            }
+
             toolTip.add(
                 String.format(
                     "%s- %s: %d%s",
@@ -134,9 +137,6 @@ public class ItemGenericSeed extends ItemCropsNH {
                 for (IWorldGrowthRequirement req : reqs) {
                     toolTip.add(req.getDescription());
                 }
-            }
-            if (crop.getFlavourText() == null) {
-                toolTip.add(StatCollector.translateToLocal(crop.getFlavourText()));
             }
         } else {
             toolTip.add(" " + StatCollector.translateToLocal("cropsnh_tooltip.unidentified"));

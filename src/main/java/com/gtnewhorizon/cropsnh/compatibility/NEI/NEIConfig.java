@@ -1,15 +1,10 @@
 package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 import com.gtnewhorizon.cropsnh.CropsNH;
-import com.gtnewhorizon.cropsnh.api.ICropCard;
-import com.gtnewhorizon.cropsnh.farming.SeedStats;
-import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
-import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 

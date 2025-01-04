@@ -18,6 +18,11 @@ public class CropTitania extends NHCropCard {
     }
 
     @Override
+    public String getFlavourText() {
+        return "cropsnh_crops.titania.flavour";
+    }
+
+    @Override
     public int getTier() {
         return 9;
     }
