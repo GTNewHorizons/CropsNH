@@ -29,8 +29,8 @@ import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.init.Blocks;
-import com.gtnewhorizon.cropsnh.init.Items;
+import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Data;
@@ -443,7 +443,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         NBTTagCompound tag = new NBTTagCompound();
         this.writeSeedNBT(tag);
         // create seed with tags
-        ItemStack seed = new ItemStack(Items.genericSeed, 1);
+        ItemStack seed = new ItemStack(CropsNHItems.genericSeed, 1);
         seed.setTagCompound(tag);
         return seed;
     }
@@ -769,7 +769,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         } else if (this.isCrossCrop) {
             this.setCrossCrop(false);
             if (!player.capabilities.isCreativeMode) {
-                dropItem(new ItemStack(Blocks.blockCrop, 1));
+                dropItem(new ItemStack(CropsNHBlocks.blockCrop, 1));
             }
             return true;
         }
@@ -794,7 +794,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         if (this.isCrossCrop) {
             this.setCrossCrop(false);
             if (!player.capabilities.isCreativeMode) {
-                dropItem(new ItemStack(Blocks.blockCrop, 1));
+                dropItem(new ItemStack(CropsNHBlocks.blockCrop, 1));
             }
             return true;
         }
