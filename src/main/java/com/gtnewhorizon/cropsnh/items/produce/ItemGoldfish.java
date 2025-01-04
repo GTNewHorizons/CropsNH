@@ -19,8 +19,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemGoldfish extends ItemFood {
 
-    // TODO: FIGURE OUT WHY IT'S NOT RENDERING THE ANIMATED TEXTURE
-
     public ItemGoldfish() {
         super(1, 2, false);
         this.setCreativeTab(CreativeTabs.tabFood);

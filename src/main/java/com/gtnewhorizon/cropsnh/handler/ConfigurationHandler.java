@@ -33,6 +33,7 @@ public class ConfigurationHandler {
     // cropsnh
     public static int cropsPerCraft;
     public static boolean debug;
+    public static boolean enableEasterEggs;
     // crops
     public static float growthMultiplier;
     public static boolean putAnEndToExistentialDread;
@@ -89,6 +90,9 @@ public class ConfigurationHandler {
 
         debug = config
             .getBoolean("debug", Categories.CATEGORY_CROPSNH, false, "Set to true if you wish to enable debug mode");
+
+        enableEasterEggs = config
+            .getBoolean("Enable easter eggs", Categories.CATEGORY_CROPSNH, true, "Set tot true to enable easter eggs.");
 
         // endregion CATEGORY_CROPSNH
 

@@ -4,11 +4,11 @@ import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
-public class CropWaterArtichoke extends NHCropCard {
+public class CropWaterArtichoke extends CropFood {
 
     public CropWaterArtichoke() {
         super("waterArtichoke", new Color(0x6F644E), new Color(0x968C74));

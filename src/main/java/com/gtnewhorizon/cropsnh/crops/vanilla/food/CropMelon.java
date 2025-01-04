@@ -8,9 +8,9 @@ import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropVanillaFood;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 
-public class CropMelon extends CropVanillaFood {
+public class CropMelon extends CropFood {
 
     public CropMelon() {
         super("melon", new Color(0x2A220B), new Color(0x615535));

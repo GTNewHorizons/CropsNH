@@ -14,7 +14,7 @@ public class CropShining extends NHCropCard {
     private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
 
     public CropShining() {
-        // TODO: SEE IF WE KEEP PLUMBISCUS SINCE PLUMBILIA EXISTS
+        // TODO: SEE IF WE KEEP SHINING SINCE ARGENTIA EXISTS
         super("shining", new Color(0xB3B3D0), new Color(0xD0D0F1));
         this.addDrop(Materials.Silver.getDustTiny(1), 100_00);
         this.addGrowthRequirement(BlockUnderRequirement.get("silver"));

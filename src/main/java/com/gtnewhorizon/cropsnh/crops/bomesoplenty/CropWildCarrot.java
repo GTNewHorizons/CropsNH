@@ -6,11 +6,11 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 
 import biomesoplenty.api.content.BOPCItems;
 
-public class CropWildCarrot extends NHCropCard {
+public class CropWildCarrot extends CropFood {
 
     public CropWildCarrot() {
         super("wildCarrot", new Color(0x96927E), new Color(0xD9D2B7));

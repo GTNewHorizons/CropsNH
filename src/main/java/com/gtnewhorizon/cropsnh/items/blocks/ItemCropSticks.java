@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.Blocks;
+import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
 
 import cpw.mods.fml.relauncher.Side;
@@ -55,7 +55,7 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
                 && (player.capabilities.isCreativeMode || stack.stackSize >= 2);
 
             // place the crop stick block
-            world.setBlock(x, y + 1, z, Blocks.blockCrop);
+            world.setBlock(x, y + 1, z, CropsNHBlocks.blockCrop);
             // upgrade it if necessary
             if (isPlacingCross) {
                 TileEntity te = world.getTileEntity(x, y, z);

@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.init.Blocks;
+import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 
@@ -21,7 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class RenderCrop extends RenderBlockBase {
 
     public RenderCrop() {
-        super(Blocks.blockCrop, new TileEntityCrop(), false);
+        super(CropsNHBlocks.blockCrop, new TileEntityCrop(), false);
     }
 
     @Override

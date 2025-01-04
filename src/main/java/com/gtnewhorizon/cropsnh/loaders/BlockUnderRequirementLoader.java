@@ -38,7 +38,8 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("redstone").addBlockAndOreDict().addMaterial(Materials.Redstone);
         BlockUnderRequirement.get("lapis").addBlockAndOreDict().addMaterial(Materials.Lapis);
         // modded ores
-        BlockUnderRequirement.get("aluminium").addBlockAndOreDict().addMaterial(Materials.Aluminium);
+        BlockUnderRequirement.get("aluminium").addBlockAndOreDict("aluminium", "aluminum").addMaterial(Materials.Aluminium);
+        BlockUnderRequirement.get("aluminiumBauxite").addBlockAndOreDict("aluminium", "aluminum","bauxite").addMaterial(Materials.Aluminium, Materials.Bauxite);
         BlockUnderRequirement.get("copper").addBlockAndOreDict().addMaterial(Materials.Copper);
         BlockUnderRequirement.get("iridium").addBlockAndOreDict().addMaterial(Materials.Iridium);
         BlockUnderRequirement.get("lead").addBlockAndOreDict().addMaterial(Materials.Lead);

@@ -1,20 +1,52 @@
 # Creative Tabs
 itemGroup.cropsnh=Crops NH
 
-# Items
+# Generic Items
 item.cropsnh:cropSticksItem.name=Crop Sticks
 item.cropsnh:magnifyingGlass.name=Magnifying Glass
 item.cropsnh:spade.name=Spade
 item.cropsnh:debugger.name=Debugger
 item.cropsnh:handRake.wood.name=Wooden Hand Rake
 item.cropsnh:handRake.iron.name=Iron Hand Rake
+item.cropsnh:nanCertificate.name=Certificate of not being a noob anymore
+# Crop Produce Items
 item.cropsnh:terraWart.name=Terra Wart
 item.cropsnh:goldfish.name=Goldfish
 item.cropsnh:berry.huckle.name=Huckleberry
 item.cropsnh:berry.sugarbeet.name=Sugar Beet
-item.cropsnh:modifier.space.name=Space Flower
-item.cropsnh:modifier.magic.name=Magic Essence
-item.cropsnh:modifier.NaNCertificate.name=Certificate of not being a noob anymore
+item.cropsnh:materialLeaf.bauxiaLeaf.name=Bauxia Leaf
+item.cropsnh:materialLeaf.canolaFLower.name=Canola Flower
+item.cropsnh:materialLeaf.copponFiber.name=Coppon Fiber
+item.cropsnh:materialLeaf.galvaniaLeaf.name=Galvania Leaf
+item.cropsnh:materialLeaf.indigoBlossom.name=Indigo Blossom
+item.cropsnh:materialLeaf.iridineFlower.name=Iridine Leaf
+item.cropsnh:materialLeaf.magicEssence.name=Magic Essence
+item.cropsnh:materialLeaf.micadiaFlower.name=Micadia Essence
+item.cropsnh:materialLeaf.milkwart.name=Milkwart
+item.cropsnh:materialLeaf.nickelbackLeaf.name=Nickelback
+item.cropsnh:materialLeaf.oilBerry.name=Oil Berry
+item.cropsnh:materialLeaf.osmianthFlower.name=Osmianth Flower
+item.cropsnh:materialLeaf.platinaLeaf.name=Platina Leaf
+item.cropsnh:materialLeaf.pyrolusiumLeaf.name=Pyrolusium Leaf
+item.cropsnh:materialLeaf.reactoriaLeaf.name=Reactoria Leaf
+item.cropsnh:materialLeaf.reactoriaStem.name=Reactoria Stem
+item.cropsnh:materialLeaf.scheeliniumLeaf.name=Scheelinium Leaf
+item.cropsnh:materialLeaf.spaceFlower.name=Space Flower
+item.cropsnh:materialLeaf.stargatiumLeaf.name=Stargatium Leaf
+item.cropsnh:materialLeaf.thunderFlower.name=Thunder Flower
+item.cropsnh:materialLeaf.tineTwig.name=Tine Twig
+item.cropsnh:materialLeaf.titaniaLeaf.name=Titania Leaf
+item.cropsnh:materialLeaf.uuaBerry.name=UUA Berry
+item.cropsnh:materialLeaf.uumBerry.name=UUM Berry
+item.cropsnh:materialLeaf.saltyRoot.name=Salty Root
+item.cropsnh:materialLeaf.plumbiliaLeaf.name=Plumbilia Leaf
+item.cropsnh:materialLeaf.argentiaLeaf.name=Argentia Leaf
+item.cropsnh:materialLeaf.ferruLeaf.name=Ferru Leaf
+item.cropsnh:materialLeaf.aureliaLeaf.name=Aurelia Leaf
+item.cropsnh:materialLeaf.teaLeaf.name=Tea Leaf
+item.cropsnh:materialLeaf.bobsYerUncleBerry.name=Bobs-Yer-Uncle-Berry
+
+# 
 
 # Blocks
 tile.cropsnh:cropSticks.name=Crop Sticks
@@ -38,14 +70,56 @@ cropsnh_tooltip.spade=Use this to get more seeds from your crops
 cropsnh_tooltip.empty=Nothing planted
 cropsnh_tooltip.progress=Progress
 cropsnh_tooltip.none=none
+cropsnh_tooltip.NaNCertificate=Challenge Accepted!
+# Crop Produce Flavour Text
 cropsnh_tooltip.berry.huckle.1=Huckle-dae-Duckle-dae-Doo
 cropsnh_tooltip.berry.huckle.2=A sweet treat!
 cropsnh_tooltip.berry.sugarbeet.1=A sweet beet, commonly found in France, Germany, Russia and China.
 cropsnh_tooltip.berry.sugarbeet.2=Industrial Sugar!
 cropsnh_tooltip.goldfish="Hozuki no Reitetsu! A truly hellish planimal?!"
-cropsnh_tooltip.modifier.magic=Pure Magic!
-cropsnh_tooltip.modifier.space=Space Radiation caught in a Flower!
-cropsnh_tooltip.modifier.NaNCertificate=Challenge Accepted!
+cropsnh_tooltip.pyrolusiumLeaf.normal=Maybe one day they'll get it right.
+cropsnh_tooltip.pyrolusiumLeaf.banana=How did this happen?
+cropsnh_tooltip.pyrolusiumLeaf.canada=Wow, they did it!
+cropsnh_tooltip.copponFiber=ORANGE WOOOOOOOL!!!
+cropsnh_tooltip.stargatiumLeaf=Not actually made out of stargates.
+
+# Material Leaf Tooltips
+cropsnh_tooltip.leaf.copper=A Source of Copper.
+cropsnh_tooltip.leaf.lead=A Source of Lead.
+cropsnh_tooltip.leaf.silver=A Source of Silver.
+cropsnh_tooltip.leaf.iron=A Source of Iron.
+cropsnh_tooltip.leaf.gold=A Source of Gold.
+cropsnh_tooltip.leaf.tea=A Source of Tea.
+cropsnh_tooltip.leaf.emerald=A source of Emerald.
+cropsnh_tooltip.leaf.milk=A Source of Milk.
+cropsnh_tooltip.leaf.bauxite=A Source of Bauxite.
+cropsnh_tooltip.leaf.titanium=A Source of Titanium.
+cropsnh_tooltip.leaf.uranium=A Source of Uranium.
+cropsnh_tooltip.leaf.thorium=A Source of Thorium.
+cropsnh_tooltip.leaf.nickel=A Source of Nickel.
+cropsnh_tooltip.leaf.zinc=A Source of Zinc.
+cropsnh_tooltip.leaf.manganese=A Source of Manganese.
+cropsnh_tooltip.leaf.tungsten=A Source of Tungsten.
+cropsnh_tooltip.leaf.platinum=A Source of Platinum.
+cropsnh_tooltip.leaf.iridium=A Source of Iridium.
+cropsnh_tooltip.leaf.osmium=A Source of Osmium.
+cropsnh_tooltip.leaf.naquadah=A Source of Naquadah.
+cropsnh_tooltip.leaf.mica=A Source of Mica.
+cropsnh_tooltip.leaf.tin=A Source of Tin.
+cropsnh_tooltip.leaf.blueDye=A Source of Blue Dye.
+cropsnh_tooltip.leaf.seedOil=A Source of Seed Oil.
+cropsnh_tooltip.leaf.sugar=A Source of Sugar.
+cropsnh_tooltip.leaf.magic=Pure Magic!
+cropsnh_tooltip.leaf.space=Radiation Caught in a Flower!
+cropsnh_tooltip.leaf.salt=A Source of Salt
+# Merial Leaf Berries
+cropsnh_tooltip.leaf.oil=Oil in Berry Form.
+cropsnh_tooltip.leaf.uua=UUA in Berry Form.
+cropsnh_tooltip.leaf.uum=UUM in Berry Form.
+
+
+
+
 
 # Open Computers Compat
 # cropsnh_description.peripheralHelp=Method Help
@@ -124,6 +198,8 @@ cropsnh_crops.andesiteLily=Andesite Lily
 cropsnh_crops.dioriteLily=Diorite Lily
 # Crops++ GregTech Crops
 cropsnh_crops.garnydinia=garnydinia
+# TiC Crops
+cropsnh_crops.bonsaiSlimy=Slimy Bonsai
 # Ore Berries
 cropsnh_crops.aluminiumOreBerry=Aluminium Ore Berry
 cropsnh_crops.copperOreBerry=Copper Ore Berry
@@ -187,7 +263,7 @@ cropsnh_crops.waterLily=Water Lily
 cropsnh_crops.argentia=Argentia
 cropsnh_crops.bauxia=Bauxia
 cropsnh_crops.blazereed=Blazereed
-cropsnh_crops.bobsyeruncleranks=Bobsyeruncleranks
+cropsnh_crops.bobsYerUncleRanks=Bobs-Yer-Uncle-Ranks
 cropsnh_crops.canola=Canola
 cropsnh_crops.chilly=Chilly
 cropsnh_crops.coppon=Coppon
@@ -196,7 +272,8 @@ cropsnh_crops.corpseplant=Corpseplant
 cropsnh_crops.creeperweed=Creeperweed
 cropsnh_crops.cucumber=Cucumber
 cropsnh_crops.diareed=Diareed
-cropsnh_crops.eggplant=Eggplant
+cropsnh_crops.eggPlant=Egg Plant
+cropsnh_crops.eggPlant.flavour=Not to be Confused With Eggplants.
 cropsnh_crops.enderbloom=Enderbloom
 cropsnh_crops.evilOre=Evil Ore
 cropsnh_crops.fertilia=Fertilia
@@ -206,25 +283,29 @@ cropsnh_crops.glowheat=Glowheat
 cropsnh_crops.godOfThunder=God of Thunder
 cropsnh_crops.grape=Grape
 cropsnh_crops.hemp=Hemp
+cropsnh_crops.hemp.flavour=It prefers dry biomes. Inedible.
 cropsnh_crops.indigo=Indigo
+cropsnh_crops.iridine=Iridine
 cropsnh_crops.lazulia=Lazulia
 cropsnh_crops.lemon=Lemon
-cropsnh_crops.liveroots=Liveroots
+cropsnh_crops.liveroot=Liveroot
 cropsnh_crops.meatrose=Meatrose
 cropsnh_crops.micadia=Micadia
 cropsnh_crops.milkwart=Milkwart
 cropsnh_crops.nickelback=Nickelback
-cropsnh_crops.oilberries=Oilberries
+cropsnh_crops.nickelback.flavour=Makes a nice hum in the wind.
+cropsnh_crops.oilBerry=Oil Berry
 cropsnh_crops.olivia=Olivia
 cropsnh_crops.onion=Onion
+cropsnh_crops.osmianth=Osmianth
 cropsnh_crops.platina=Platina
 cropsnh_crops.plumbilia=Plumbilia
 cropsnh_crops.pyrolusium=Pyrolusium
-cropsnh_crops.quantaria=Quantaria
+cropsnh_crops.pyrolusium.flavour=It's trying it's best.
 cropsnh_crops.reactoria=Reactoria
 cropsnh_crops.saltyRoot=Salty Root
 cropsnh_crops.sapphirum=Sapphirum
-cropsnh_crops.scheelinium=Scheelinium
+cropsnh_crops.scheelinium=scheelinium
 cropsnh_crops.slimeplant=Slimeplant
 cropsnh_crops.spidernip=Spidernip
 cropsnh_crops.stargatium=Stargatium
@@ -234,9 +315,11 @@ cropsnh_crops.tea=Tea
 cropsnh_crops.tearstalks=Tearstalks
 cropsnh_crops.tine=Tine
 cropsnh_crops.titania=Titania
+cropsnh_crops.titania.flavour=The queen of crops.
 cropsnh_crops.tomato=Tomato
 cropsnh_crops.transformium=Transformium
 cropsnh_crops.trollplant=Trollplant
+cropsnh_crops.trollplant.flavour=Trololololol, lololol, lololol!
 cropsnh_crops.withereed=Withereed
 cropsnh_crops.zomplant=Zomplant
 
@@ -269,6 +352,7 @@ cropsnh_growthReq.blockUnder.redstone=Needs a block of redstone under it to grow
 cropsnh_growthReq.blockUnder.lapis=Needs a block of lapis under it to grow.
 # Modded Ore Growth Requirements
 cropsnh_growthReq.blockUnder.aluminium=Needs a block of aluminium under it to grow.
+cropsnh_growthReq.blockUnder.aluminiumBauxite=Needs a block of aluminium or bauxite under it to grow.
 cropsnh_growthReq.blockUnder.copper=Needs a block of copper under it to grow.
 cropsnh_growthReq.blockUnder.iridium=Needs a block of iridium under it to grow.
 cropsnh_growthReq.blockUnder.lead=Needs a block of lead under it to grow.

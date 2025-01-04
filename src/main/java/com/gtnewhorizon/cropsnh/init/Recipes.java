@@ -21,7 +21,7 @@ public class Recipes {
         // crop item
         GameRegistry.addRecipe(
             new ShapedOreRecipe(
-                new ItemStack(Blocks.blockCrop, ConfigurationHandler.cropsPerCraft),
+                new ItemStack(CropsNHBlocks.blockCrop, ConfigurationHandler.cropsPerCraft),
                 "ss",
                 "ss",
                 's',

@@ -4,11 +4,11 @@ import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 
 import gregtech.api.enums.Materials;
 
-public class CropCoffee extends NHCropCard {
+public class CropCoffee extends CropFood {
 
     public CropCoffee() {
         super("coffee", new Color(0x3D1E00), new Color(0x964F05));

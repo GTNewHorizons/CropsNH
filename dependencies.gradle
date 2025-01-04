@@ -38,7 +38,7 @@ dependencies {
     runtimeOnly("com.github.GTNewHorizons:Galacticraft:3.2.8-GTNH:dev")
 
     // for comparing to ic2 stuff only
-    runtimeOnly("com.github.GTNewHorizons:ServerUtilities:2.0.88:dev")
+    runtimeOnly("com.github.GTNewHorizons:ServerUtilities:2.1.12:dev")
     runtimeOnly("com.github.GTNewHorizons:Crops-plus-plus:1.7.13:dev")
     runtimeOnly("com.github.GTNewHorizons:WAILAPlugins:0.6.0:dev")
     runtimeOnly("com.github.GTNewHorizons:BeeBetterAtBees-GTNH:0.4.2-GTNH:dev")

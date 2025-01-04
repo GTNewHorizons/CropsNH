@@ -8,7 +8,7 @@ import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.init.Items;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
@@ -35,22 +35,23 @@ public class NEIConfig implements IConfigureNEI {
 
     private static void hideItems() {
         // hide invalid seed
-        CropsNH.proxy.hideItemInNEI(new ItemStack(Items.genericSeed));
+        CropsNH.proxy.hideItemInNEI(new ItemStack(CropsNHItems.genericSeed));
         // add registered seeds
         SeedStats stats = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
         for (ICropCard cc : CropRegistry.instance.getAllInRegistrationOrder()) {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString(Names.NBT.crop, cc.getId());
             stats.writeToNBT(tag);
-            ItemStack toRegister = new ItemStack(Items.genericSeed, 1, 1);
+            ItemStack toRegister = new ItemStack(CropsNHItems.genericSeed, 1, 1);
             toRegister.setTagCompound(tag);
             CropsNH.proxy.addItemInNEI(toRegister);
         }
+
         LogHelper.debug("Hiding stuff in nei");
         for (int i = 0; i < 16; i++) {
             // hide debugger
             if (!ConfigurationHandler.debug) {
-                CropsNH.proxy.hideItemInNEI(new ItemStack(Items.debugItem, 1, i));
+                CropsNH.proxy.hideItemInNEI(new ItemStack(CropsNHItems.debugItem, 1, i));
             }
         }
     }

@@ -1,23 +1,23 @@
 package com.gtnewhorizon.cropsnh.crops.cropnh;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import goodgenerator.util.ItemRefer;
-import gtPlusPlus.core.util.math.MathUtils;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.BiomeDictionary;
-
 import java.awt.Color;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+
+import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+
 public class CropHemp extends NHCropCard {
+
     public CropHemp() {
         super("hemp", new Color(0x275600), new Color(0xBBB49D));
+        // TODO: CONSIDER IF WE WANT TO KEEP FLAX OR HEMP AROUND
         this.addDrop(new ItemStack(Items.string, 2, 0), 100_00);
     }
 
     @Override
     public String getFlavourText() {
-        return "It prefers dry biomes. Inedible.";
+        return "cropsnh_crops.hemp.flavour";
     }
 
     @Override

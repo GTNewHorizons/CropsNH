@@ -4,9 +4,9 @@ import java.awt.Color;
 
 import net.minecraft.item.ItemStack;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 
-public class CropBoPBerry extends NHCropCard {
+public class CropBoPBerry extends CropFood {
 
     public CropBoPBerry() {
         super("bopBerry", new Color(0xB33636), new Color(0xFF4C4C));

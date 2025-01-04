@@ -3,7 +3,7 @@ package com.gtnewhorizon.cropsnh.creativetab;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-import com.gtnewhorizon.cropsnh.init.Items;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public class CropsNHTab {
@@ -12,7 +12,7 @@ public class CropsNHTab {
 
         @Override
         public Item getTabIconItem() {
-            return Items.debugItem;
+            return CropsNHItems.debugItem;
         }
     };
 }

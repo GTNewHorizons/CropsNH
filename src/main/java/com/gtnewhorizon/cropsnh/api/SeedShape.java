@@ -18,7 +18,8 @@ public enum SeedShape implements ISeedShape {
     grains,
     magic,
     spore,
-    vanilla;
+    vanilla,
+    troll;
 
     final String texturePath;
     IIcon darkIcon = null;

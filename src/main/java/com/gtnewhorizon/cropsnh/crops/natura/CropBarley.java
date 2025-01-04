@@ -2,10 +2,10 @@ package com.gtnewhorizon.cropsnh.crops.natura;
 
 import java.awt.Color;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
-public class CropBarley extends NHCropCard {
+public class CropBarley extends CropFood {
 
     public CropBarley() {
         super("barley", new Color(0x285221), new Color(0x84C63D));

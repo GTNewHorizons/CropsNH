@@ -27,8 +27,8 @@ public class CropBonsai extends NHCropCard {
         logDrop.stackSize = 10;
         ItemStack sapplingDrop = sapling.copy();
         sapplingDrop.stackSize = 2;
-        this.addDrop(sapling, 3000);
-        this.addDrop(logDrop, 6000);
+        this.addDrop(sapling, 30_00);
+        this.addDrop(logDrop, 60_00);
         // alt seed
         this.addAlternateSeed(sapling);
     }

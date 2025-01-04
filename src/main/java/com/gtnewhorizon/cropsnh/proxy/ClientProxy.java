@@ -13,9 +13,8 @@ import net.minecraftforge.common.MinecraftForge;
 
 import com.gtnewhorizon.cropsnh.blocks.BlockCropsNH;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.handler.ItemToolTipHandler;
-import com.gtnewhorizon.cropsnh.init.Blocks;
-import com.gtnewhorizon.cropsnh.init.Items;
+import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.player.renderhooks.RenderPlayerHooks;
@@ -56,7 +55,7 @@ public class ClientProxy extends CommonProxy {
     public void registerRenderers() {
         // BLOCKS
         // ------
-        for (Field field : Blocks.class.getDeclaredFields()) {
+        for (Field field : CropsNHBlocks.class.getDeclaredFields()) {
             if (field.getType()
                 .isAssignableFrom(BlockCropsNH.class)) {
                 try {
@@ -72,7 +71,7 @@ public class ClientProxy extends CommonProxy {
 
         // ITEMS
         // -----
-        for (Field field : Items.class.getDeclaredFields()) {
+        for (Field field : CropsNHItems.class.getDeclaredFields()) {
             if (field.getType()
                 .isAssignableFrom(ItemCropsNH.class)) {
                 try {
@@ -92,9 +91,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerEventHandlers() {
         super.registerEventHandlers();
-
-        ItemToolTipHandler itemToolTipHandler = new ItemToolTipHandler();
-        MinecraftForge.EVENT_BUS.register(itemToolTipHandler);
 
         RenderPlayerHooks renderPlayerHooks = new RenderPlayerHooks();
         MinecraftForge.EVENT_BUS.register(renderPlayerHooks);

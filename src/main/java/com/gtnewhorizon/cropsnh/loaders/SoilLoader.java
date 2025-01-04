@@ -6,6 +6,7 @@ import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 import gregtech.api.enums.Mods;
+import tconstruct.tools.TinkerTools;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class SoilLoader {
@@ -27,6 +28,7 @@ public class SoilLoader {
         BlockWithMeta netherrack = new BlockWithMeta(Blocks.netherrack);
         BlockWithMeta endstone = new BlockWithMeta(Blocks.end_stone);
         BlockWithMeta snow = new BlockWithMeta(Blocks.snow);
+        BlockWithMeta brick = new BlockWithMeta(Blocks.brick_block);
 
         registry.register("farmland", farmland);
         registry.register("sugarcane", sand, dirt, grass);
@@ -40,6 +42,7 @@ public class SoilLoader {
         registry.register("stone", stone, cobblestone);
         registry.register("snow", snow);
         registry.register("netherrack", netherrack);
+        registry.register("brick", brick);
 
         // thaumcraft soils
         if (Mods.Thaumcraft.isModLoaded()) {
@@ -59,6 +62,12 @@ public class SoilLoader {
                 silverwoodLog2,
                 silverwoodLog3);
             registry.register("silverwoodLog", silverwoodLog1, silverwoodLog2, silverwoodLog3);
+        }
+
+        if (Mods.TinkerConstruct.isModLoaded()) {
+            // TiC blocks
+            BlockWithMeta graveyardSoil = new BlockWithMeta(TinkerTools.craftedSoil, 3);
+            registry.register("graveyard", graveyardSoil);
         }
     }
 }

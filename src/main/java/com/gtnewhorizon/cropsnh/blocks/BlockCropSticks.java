@@ -20,7 +20,7 @@ import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.Blocks;
+import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.items.blocks.ItemCropSticks;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
@@ -309,7 +309,7 @@ public class BlockCropSticks extends BlockContainerCropsNH {
 
     @Override
     public ItemStack getWailaStack(BlockCropsNH block, TileEntityCropsNH tea) {
-        return new ItemStack(Blocks.blockCrop, 1, 0);
+        return new ItemStack(CropsNHBlocks.blockCrop, 1, 0);
     }
 
 }

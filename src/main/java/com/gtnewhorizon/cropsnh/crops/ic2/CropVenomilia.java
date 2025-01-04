@@ -2,8 +2,12 @@ package com.gtnewhorizon.cropsnh.crops.ic2;
 
 import java.awt.Color;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
@@ -11,6 +15,7 @@ import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 import gregtech.api.enums.ItemList;
+import gregtech.api.objects.XSTR;
 
 public class CropVenomilia extends NHCropCard {
 
@@ -55,8 +60,11 @@ public class CropVenomilia extends NHCropCard {
         return SeedShape.flower;
     }
 
-    // TODO: MAKE VENOMILIA POISON ENTITY PASSING THOUGH IT
-    // NOTHING HAPPENS IF SNEAKING (YOU USED TO HAVE A 1/50 TO STILL GET POISONED, THAT'S GETTING YEETED)
-    // IF FULLY GROWN LOOSE 33% GROWTH PROGRESS
-    // POISON DURATION IS (random.nextInt(10) + 5) * 20
+    @Override
+    public void onEntityCollision(ICropStickTile te, Entity entity) {
+        if (te.isMature() && entity instanceof EntityLivingBase) {
+            int duration = (XSTR.XSTR_INSTANCE.nextInt(10) + 5) * 20;
+            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, duration, 0));
+        }
+    }
 }

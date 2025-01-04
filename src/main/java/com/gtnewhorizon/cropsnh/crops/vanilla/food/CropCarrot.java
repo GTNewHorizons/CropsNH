@@ -5,9 +5,9 @@ import java.awt.Color;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropVanillaFood;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 
-public class CropCarrot extends CropVanillaFood {
+public class CropCarrot extends CropFood {
 
     public CropCarrot() {
         super("carrot", new Color(0xE58700), new Color(0xEEAE7D));

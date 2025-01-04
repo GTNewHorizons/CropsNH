@@ -13,9 +13,9 @@ public class CropRedwheat extends NHCropCard {
 
     public CropRedwheat() {
         super("redwheat", new Color(0x6C4B17), new Color(0xD45555));
-        this.addDrop(new ItemStack(Items.redstone), 100_00);
+        this.addDrop(new ItemStack(Items.redstone, 1, 0), 100_00);
         this.addGrowthRequirement(new MinLightLevelRequirement(5));
-        this.addGrowthRequirement(new MaxLightLevelRequirement(10));
+        this.addGrowthRequirement(new MaxLightLevelRequirement(12));
         this.addBlockUnderRequirement("redstone");
     }
 
@@ -26,12 +26,12 @@ public class CropRedwheat extends NHCropCard {
 
     @Override
     public float getDropChance() {
-        return 0.5f;
+        return 0.85f;
     }
 
     @Override
     public int getGrowthDuration() {
-        return 3000;
+        return 1500;
     }
 
     @Override

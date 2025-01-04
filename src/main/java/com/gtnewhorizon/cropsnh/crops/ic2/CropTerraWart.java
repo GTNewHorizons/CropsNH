@@ -11,7 +11,7 @@ import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.Items;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Names;
 
 public class CropTerraWart extends NHCropCard {
@@ -20,9 +20,9 @@ public class CropTerraWart extends NHCropCard {
 
     public CropTerraWart() {
         super(Names.Objects.terraWart, new Color(0x0F213A), new Color(0x2664A1));
-        this.addDrop(new ItemStack(Items.terraWart, 1), 10000);
+        this.addDrop(new ItemStack(CropsNHItems.terraWart, 1), 10000);
         this.addLikedBiomes(BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD);
-        this.addAlternateSeed(new ItemStack(Items.terraWart, 1));
+        this.addAlternateSeed(new ItemStack(CropsNHItems.terraWart, 1));
         this.addGrowthRequirement(BlockUnderRequirement.get("snow"));
     }
 

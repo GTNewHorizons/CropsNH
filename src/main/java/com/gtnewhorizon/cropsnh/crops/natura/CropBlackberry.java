@@ -4,11 +4,11 @@ import java.awt.Color;
 
 import net.minecraft.item.ItemStack;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 
 import mods.natura.common.NContent;
 
-public class CropBlackberry extends NHCropCard {
+public class CropBlackberry extends CropFood {
 
     public CropBlackberry() {
         super("blackberry", new Color(0x141C22), new Color(0x4D5A66));

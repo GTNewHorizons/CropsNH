@@ -6,8 +6,7 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-
-import gregtech.api.enums.ItemList;
+import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
 
 public class CropAurelia extends NHCropCard {
 
@@ -15,7 +14,7 @@ public class CropAurelia extends NHCropCard {
 
     public CropAurelia() {
         super("aurelia", new Color(0xABA600), new Color(0xEFE913));
-        this.addDrop(ItemList.Crop_Drop_Aurelia.get(1L), 10_000);
+        this.addDrop(CropsNHItemList.aureliaLeaf.get(1), 10_000);
         this.addGrowthRequirement(BlockUnderRequirement.get("gold"));
     }
 

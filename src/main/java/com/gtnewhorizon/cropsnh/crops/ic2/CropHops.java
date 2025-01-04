@@ -2,11 +2,11 @@ package com.gtnewhorizon.cropsnh.crops.ic2;
 
 import java.awt.Color;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 
 import gregtech.api.enums.ItemList;
 
-public class CropHops extends NHCropCard {
+public class CropHops extends CropFood {
 
     public CropHops() {
         super("hops", new Color(0x6B5C0E), new Color(0x86BB00));

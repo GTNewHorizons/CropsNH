@@ -78,8 +78,11 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement {
             .addOreDict(Character.toUpperCase(this.materialDescription.charAt(0)) + materialDescription.substring(1));
     }
 
-    public BlockUnderRequirement addBlockAndOreDict(String name) {
-        return this.addOreDict("block" + name, "ore" + name);
+    public BlockUnderRequirement addBlockAndOreDict(String... names) {
+        for (String name : names) {
+            this.addOreDict("block" + name, "ore" + name);
+        }
+        return this;
     }
 
     public BlockUnderRequirement addBlock(BlockWithMeta... args) {

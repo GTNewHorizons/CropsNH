@@ -6,9 +6,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.CropVanillaFood;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 
-public class CropPumpkin extends CropVanillaFood {
+public class CropPumpkin extends CropFood {
 
     public CropPumpkin() {
         super("pumpkin", new Color(0xCAB16E), new Color(0xC8D4AA));

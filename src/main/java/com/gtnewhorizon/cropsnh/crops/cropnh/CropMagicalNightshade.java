@@ -2,18 +2,16 @@ package com.gtnewhorizon.cropsnh.crops.cropnh;
 
 import java.awt.Color;
 
-import net.minecraft.item.ItemStack;
-
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.init.Items;
+import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
 
 public class CropMagicalNightshade extends NHCropCard {
 
     public CropMagicalNightshade() {
         super("magicalNightshade", new Color(0x20001B), new Color(0xB4009C));
-        this.addDrop(new ItemStack(Items.modifier, 1, 1), 100_00);
+        this.addDrop(CropsNHItemList.magicEssence.get(1), 100_00);
         this.addBlockUnderRequirement("ichorium");
     }
 

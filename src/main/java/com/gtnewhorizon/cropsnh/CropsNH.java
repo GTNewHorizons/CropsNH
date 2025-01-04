@@ -3,8 +3,8 @@ package com.gtnewhorizon.cropsnh;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.init.Blocks;
-import com.gtnewhorizon.cropsnh.init.Items;
+import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.init.Recipes;
 import com.gtnewhorizon.cropsnh.loaders.BlockUnderRequirementLoader;
 import com.gtnewhorizon.cropsnh.loaders.CropLoader;
@@ -65,8 +65,8 @@ public class CropsNH {
             .bus()
             .register(new ConfigurationHandler());
         ModHelper.findHelpers();
-        Blocks.init();
-        Items.init();
+        CropsNHBlocks.init();
+        CropsNHItems.init();
         ModHelper.preInit();
         LogHelper.debug("Pre-Initialization Complete");
     }

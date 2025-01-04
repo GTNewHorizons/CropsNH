@@ -5,10 +5,10 @@ import java.awt.Color;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
-public class CropTurnip extends NHCropCard {
+public class CropTurnip extends CropFood {
 
     public CropTurnip() {
         super("turnip", new Color(0x321F1C), new Color(0x6C3E32));

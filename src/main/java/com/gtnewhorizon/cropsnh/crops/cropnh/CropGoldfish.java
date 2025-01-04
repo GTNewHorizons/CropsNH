@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.init.Items;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 
 import gregtech.api.objects.XSTR;
@@ -19,7 +19,7 @@ public class CropGoldfish extends NHCropCard {
 
     public CropGoldfish() {
         super("goldfish", new Color(0xF8910F), new Color(0xFAC815));
-        this.addDrop(new ItemStack(Items.goldfish, 1), 100_00);
+        this.addDrop(new ItemStack(CropsNHItems.goldfish, 1), 100_00);
     }
 
     @Override

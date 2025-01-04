@@ -2,8 +2,6 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropHemp;
-import com.gtnewhorizon.cropsnh.crops.material.CropSaltyRoot;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -21,15 +19,24 @@ import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropMoss;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropTurnip;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropWildCarrot;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropBonsai;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropFertilia;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropFlax;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropGoldfish;
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropHuckleberry;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropHemp;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropMagicalNightshade;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropPapyrus;
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropSpaceFlower;
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropStrawberry;
-import com.gtnewhorizon.cropsnh.crops.cropnh.CropSugarBeet;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropTea;
+import com.gtnewhorizon.cropsnh.crops.cropnh.CropTransformium;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropVine;
 import com.gtnewhorizon.cropsnh.crops.cropnh.CropWaterlily;
+import com.gtnewhorizon.cropsnh.crops.food.CropChilly;
+import com.gtnewhorizon.cropsnh.crops.food.CropGrape;
+import com.gtnewhorizon.cropsnh.crops.food.CropHuckleberry;
+import com.gtnewhorizon.cropsnh.crops.food.CropLemon;
+import com.gtnewhorizon.cropsnh.crops.food.CropOnion;
+import com.gtnewhorizon.cropsnh.crops.food.CropStrawberry;
+import com.gtnewhorizon.cropsnh.crops.food.CropSugarBeet;
+import com.gtnewhorizon.cropsnh.crops.food.CropTomato;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropCoffee;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropCyprium;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropFerru;
@@ -40,9 +47,55 @@ import com.gtnewhorizon.cropsnh.crops.ic2.CropStagnium;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropStickReed;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropTerraWart;
 import com.gtnewhorizon.cropsnh.crops.ic2.CropVenomilia;
+import com.gtnewhorizon.cropsnh.crops.material.CropArgentia;
 import com.gtnewhorizon.cropsnh.crops.material.CropAurelia;
+import com.gtnewhorizon.cropsnh.crops.material.CropBauxia;
+import com.gtnewhorizon.cropsnh.crops.material.CropBobsYerUncleRanks;
+import com.gtnewhorizon.cropsnh.crops.material.CropCanola;
+import com.gtnewhorizon.cropsnh.crops.material.CropCoppon;
+import com.gtnewhorizon.cropsnh.crops.material.CropDiareed;
+import com.gtnewhorizon.cropsnh.crops.material.CropEvilOre;
+import com.gtnewhorizon.cropsnh.crops.material.CropGalvania;
 import com.gtnewhorizon.cropsnh.crops.material.CropGarnydnia;
+import com.gtnewhorizon.cropsnh.crops.material.CropGlowheat;
+import com.gtnewhorizon.cropsnh.crops.material.CropGodOfThunder;
+import com.gtnewhorizon.cropsnh.crops.material.CropIndigo;
+import com.gtnewhorizon.cropsnh.crops.material.CropIridine;
+import com.gtnewhorizon.cropsnh.crops.material.CropLazulia;
+import com.gtnewhorizon.cropsnh.crops.material.CropLiveroot;
+import com.gtnewhorizon.cropsnh.crops.material.CropMicadia;
+import com.gtnewhorizon.cropsnh.crops.material.CropMilkwart;
+import com.gtnewhorizon.cropsnh.crops.material.CropNickelback;
+import com.gtnewhorizon.cropsnh.crops.material.CropOilBerry;
+import com.gtnewhorizon.cropsnh.crops.material.CropOlivia;
+import com.gtnewhorizon.cropsnh.crops.material.CropOsmianth;
+import com.gtnewhorizon.cropsnh.crops.material.CropPlatina;
+import com.gtnewhorizon.cropsnh.crops.material.CropPlumbilia;
+import com.gtnewhorizon.cropsnh.crops.material.CropPyrolusium;
+import com.gtnewhorizon.cropsnh.crops.material.CropReactoria;
 import com.gtnewhorizon.cropsnh.crops.material.CropRedwheat;
+import com.gtnewhorizon.cropsnh.crops.material.CropSaltyRoot;
+import com.gtnewhorizon.cropsnh.crops.material.CropSapphirum;
+import com.gtnewhorizon.cropsnh.crops.material.CropScheelinium;
+import com.gtnewhorizon.cropsnh.crops.material.CropSpaceFlower;
+import com.gtnewhorizon.cropsnh.crops.material.CropStargatium;
+import com.gtnewhorizon.cropsnh.crops.material.CropStarwart;
+import com.gtnewhorizon.cropsnh.crops.material.CropSteeleafranks;
+import com.gtnewhorizon.cropsnh.crops.material.CropTine;
+import com.gtnewhorizon.cropsnh.crops.material.CropTitania;
+import com.gtnewhorizon.cropsnh.crops.material.CropTrollplant;
+import com.gtnewhorizon.cropsnh.crops.material.CropWithereed;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropBlazereed;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropCorium;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropCorpseplant;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropCreeperweed;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropEggPlant;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropEnderbloom;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropMeatrose;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropSlimeplant;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropSpidernip;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropTearstalks;
+import com.gtnewhorizon.cropsnh.crops.mobs.CropZomplant;
 import com.gtnewhorizon.cropsnh.crops.natura.CropBarley;
 import com.gtnewhorizon.cropsnh.crops.natura.CropBlackberry;
 import com.gtnewhorizon.cropsnh.crops.natura.CropBlueberry;
@@ -118,169 +171,233 @@ import com.gtnewhorizon.cropsnh.crops.witchery.CropSpanishMoss;
 import com.gtnewhorizon.cropsnh.crops.witchery.CropWaterArtichoke;
 import com.gtnewhorizon.cropsnh.crops.witchery.CropWolfsbane;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHCrops;
 
 import gregtech.api.enums.Mods;
+import tconstruct.world.TinkerWorld;
 
 public class CropLoader {
 
     public static void init() {
         // weeds
-        CropRegistry.instance.register(new CropWeed());
+        CropRegistry.instance.register(CropsNHCrops.Weed = new CropWeed());
 
         // Vanilla food
-        CropRegistry.instance.register(new CropCarrot());
-        CropRegistry.instance.register(new CropCocoa());
-        CropRegistry.instance.register(new CropMelon());
-        CropRegistry.instance.register(new CropPotato());
-        CropRegistry.instance.register(new CropPumpkin());
-        CropRegistry.instance.register(new CropWheat());
+        CropRegistry.instance.register(CropsNHCrops.Carrot = new CropCarrot());
+        CropRegistry.instance.register(CropsNHCrops.Cocoa = new CropCocoa());
+        CropRegistry.instance.register(CropsNHCrops.Melon = new CropMelon());
+        CropRegistry.instance.register(CropsNHCrops.Potato = new CropPotato());
+        CropRegistry.instance.register(CropsNHCrops.Pumpkin = new CropPumpkin());
+        CropRegistry.instance.register(CropsNHCrops.Wheat = new CropWheat());
         // vanilla mushrooms
-        CropRegistry.instance.register(new CropRedMushroom());
-        CropRegistry.instance.register(new CropBrownMushroom());
+        CropRegistry.instance.register(CropsNHCrops.RedMushroom = new CropRedMushroom());
+        CropRegistry.instance.register(CropsNHCrops.BrownMushroom = new CropBrownMushroom());
         // vanilla flowers
-        CropRegistry.instance.register(new CropDandelion());
-        CropRegistry.instance.register(new CropPoppy());
-        CropRegistry.instance.register(new CropBlueOrchid());
-        CropRegistry.instance.register(new CropAllium());
-        CropRegistry.instance.register(new CropAzureBluet());
-        CropRegistry.instance.register(new CropRedTulip());
-        CropRegistry.instance.register(new CropOrangeTulip());
-        CropRegistry.instance.register(new CropWhiteTulip());
-        CropRegistry.instance.register(new CropPinkTulip());
-        CropRegistry.instance.register(new CropOxeyeDaisy());
+        CropRegistry.instance.register(CropsNHCrops.Dandelion = new CropDandelion());
+        CropRegistry.instance.register(CropsNHCrops.Poppy = new CropPoppy());
+        CropRegistry.instance.register(CropsNHCrops.BlueOrchid = new CropBlueOrchid());
+        CropRegistry.instance.register(CropsNHCrops.Allium = new CropAllium());
+        CropRegistry.instance.register(CropsNHCrops.AzureBluet = new CropAzureBluet());
+        CropRegistry.instance.register(CropsNHCrops.RedTulip = new CropRedTulip());
+        CropRegistry.instance.register(CropsNHCrops.OrangeTulip = new CropOrangeTulip());
+        CropRegistry.instance.register(CropsNHCrops.WhiteTulip = new CropWhiteTulip());
+        CropRegistry.instance.register(CropsNHCrops.PinkTulip = new CropPinkTulip());
+        CropRegistry.instance.register(CropsNHCrops.OxeyeDaisy = new CropOxeyeDaisy());
         // vanilla misc
-        CropRegistry.instance.register(new CropCactus());
-        CropRegistry.instance.register(new CropSugarCane());
-        CropRegistry.instance.register(new CropNetherwart());
+        CropRegistry.instance.register(CropsNHCrops.Cactus = new CropCactus());
+        CropRegistry.instance.register(CropsNHCrops.SugarCane = new CropSugarCane());
+        CropRegistry.instance.register(CropsNHCrops.Netherwart = new CropNetherwart());
         // vanilla bonsais
         // spotless:off
-        CropRegistry.instance.register(new CropBonsai("bonsaiOak",     new Color(0x7F6139), new Color(0x57AD3F), "Notch", 1, new ItemStack(Blocks.sapling, 1, 0), new ItemStack(Blocks.log, 1, 0)).addDrop(new ItemStack(Items.apple, 2), 500));
-        CropRegistry.instance.register(new CropBonsai("bonsaiSpruce",  new Color(0x50361A), new Color(0x395A39), "Notch", 1, new ItemStack(Blocks.sapling, 1, 1), new ItemStack(Blocks.log, 1, 1)));
-        CropRegistry.instance.register(new CropBonsai("bonsaiBirch",   new Color(0xCFE3BA), new Color(0x648D38), "Notch", 1, new ItemStack(Blocks.sapling, 1, 2), new ItemStack(Blocks.log, 1, 2)));
-        CropRegistry.instance.register(new CropBonsai("bonsaiJungle",  new Color(0x393D0D), new Color(0x378020), "Notch", 1, new ItemStack(Blocks.sapling, 1, 3), new ItemStack(Blocks.log, 1, 3)));
-        CropRegistry.instance.register(new CropBonsai("bonsaiAcacia",  new Color(0x795A0D), new Color(0x71881B), "Notch", 1, new ItemStack(Blocks.sapling, 1, 4), new ItemStack(Blocks.log2, 1, 0)));
-        CropRegistry.instance.register(new CropBonsai("bonsaiDarkOak", new Color(0x684C29), new Color(0x459633), "Notch", 1, new ItemStack(Blocks.sapling, 1, 5), new ItemStack(Blocks.log2, 1, 1)));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiOak = new CropBonsai("bonsaiOak",     new Color(0x7F6139), new Color(0x57AD3F), "Notch", 1, new ItemStack(Blocks.sapling, 1, 0), new ItemStack(Blocks.log, 1, 0)).addDrop(new ItemStack(Items.apple, 2), 500));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiSpruce = new CropBonsai("bonsaiSpruce",  new Color(0x50361A), new Color(0x395A39), "Notch", 1, new ItemStack(Blocks.sapling, 1, 1), new ItemStack(Blocks.log, 1, 1)));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiBirch = new CropBonsai("bonsaiBirch",   new Color(0xCFE3BA), new Color(0x648D38), "Notch", 1, new ItemStack(Blocks.sapling, 1, 2), new ItemStack(Blocks.log, 1, 2)));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiJungle = new CropBonsai("bonsaiJungle",  new Color(0x393D0D), new Color(0x378020), "Notch", 1, new ItemStack(Blocks.sapling, 1, 3), new ItemStack(Blocks.log, 1, 3)));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiAcacia = new CropBonsai("bonsaiAcacia",  new Color(0x795A0D), new Color(0x71881B), "Notch", 1, new ItemStack(Blocks.sapling, 1, 4), new ItemStack(Blocks.log2, 1, 0)));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiDarkOak = new CropBonsai("bonsaiDarkOak", new Color(0x684C29), new Color(0x459633), "Notch", 1, new ItemStack(Blocks.sapling, 1, 5), new ItemStack(Blocks.log2, 1, 1)));
         // spotless:on
+        CropRegistry.instance.register(CropsNHCrops.Aurelia = new CropAurelia());
+        CropRegistry.instance.register(CropsNHCrops.Coffee = new CropCoffee());
+        CropRegistry.instance.register(CropsNHCrops.Cyprium = new CropCyprium());
+        CropRegistry.instance.register(CropsNHCrops.Ferru = new CropFerru());
+        CropRegistry.instance.register(CropsNHCrops.Hops = new CropHops());
+        CropRegistry.instance.register(CropsNHCrops.Plumbiscus = new CropPlumbiscus());
+        CropRegistry.instance.register(CropsNHCrops.Redwheat = new CropRedwheat());
+        CropRegistry.instance.register(CropsNHCrops.Shining = new CropShining());
+        CropRegistry.instance.register(CropsNHCrops.Stagnium = new CropStagnium());
+        CropRegistry.instance.register(CropsNHCrops.StickReed = new CropStickReed());
+        CropRegistry.instance.register(CropsNHCrops.Venomilia = new CropVenomilia());
         // IC2
-        CropRegistry.instance.register(new CropAurelia());
-        CropRegistry.instance.register(new CropCoffee());
-        CropRegistry.instance.register(new CropCyprium());
-        CropRegistry.instance.register(new CropFerru());
-        CropRegistry.instance.register(new CropHops());
-        CropRegistry.instance.register(new CropPlumbiscus());
-        CropRegistry.instance.register(new CropRedwheat());
-        CropRegistry.instance.register(new CropShining());
-        CropRegistry.instance.register(new CropStagnium());
-        CropRegistry.instance.register(new CropStickReed());
-        CropRegistry.instance.register(new CropVenomilia());
         // terrawart was part of ic2 but is now part of this mod
-        CropRegistry.instance.register(new CropTerraWart());
+        CropRegistry.instance.register(CropsNHCrops.TerraWart = new CropTerraWart());
         // Stone Lilies
-        CropRegistry.instance.register(new CropStoneLily());
-        CropRegistry.instance.register(new CropSandLily());
-        CropRegistry.instance.register(new CropNetherStoneLily());
-        CropRegistry.instance.register(new CropSoulSandLily());
-        CropRegistry.instance.register(new CropEndStoneLily());
-        CropRegistry.instance.register(new CropRedGraniteLily());
-        CropRegistry.instance.register(new CropBlackGraniteLily());
-        CropRegistry.instance.register(new CropBasaltLily());
-        CropRegistry.instance.register(new CropMarbleLily());
+        CropRegistry.instance.register(CropsNHCrops.StoneLily = new CropStoneLily());
+        CropRegistry.instance.register(CropsNHCrops.SandLily = new CropSandLily());
+        CropRegistry.instance.register(CropsNHCrops.NetherStoneLily = new CropNetherStoneLily());
+        CropRegistry.instance.register(CropsNHCrops.SoulSandLily = new CropSoulSandLily());
+        CropRegistry.instance.register(CropsNHCrops.EndStoneLily = new CropEndStoneLily());
+        CropRegistry.instance.register(CropsNHCrops.RedGraniteLily = new CropRedGraniteLily());
+        CropRegistry.instance.register(CropsNHCrops.BlackGraniteLily = new CropBlackGraniteLily());
+        CropRegistry.instance.register(CropsNHCrops.BasaltLily = new CropBasaltLily());
+        CropRegistry.instance.register(CropsNHCrops.MarbleLily = new CropMarbleLily());
         if (Mods.Botania.isModLoaded()) {
-            CropRegistry.instance.register(new CropAndesiteLily());
-            CropRegistry.instance.register(new CropDioriteLily());
-            CropRegistry.instance.register(new CropGraniteLily());
+            CropRegistry.instance.register(CropsNHCrops.AndesiteLily = new CropAndesiteLily());
+            CropRegistry.instance.register(CropsNHCrops.DioriteLily = new CropDioriteLily());
+            CropRegistry.instance.register(CropsNHCrops.GraniteLily = new CropGraniteLily());
         }
         // Crops++ gt crops
-        CropRegistry.instance.register(new CropGarnydnia());
         // Ore Berries
         if (Mods.TinkerConstruct.isModLoaded()) {
-            CropRegistry.instance.register(new CropAluminiumOreBerry());
-            CropRegistry.instance.register(new CropCopperOreBerry());
-            CropRegistry.instance.register(new CropEssenceOreBerry());
-            CropRegistry.instance.register(new CropGoldOreBerry());
-            CropRegistry.instance.register(new CropIronOreBerry());
-            CropRegistry.instance.register(new CropTinOreBerry());
-            CropRegistry.instance.register(new CropArditeOreBerry());
-            CropRegistry.instance.register(new CropCobaltOreBerry());
+            CropRegistry.instance.register(
+                CropsNHCrops.BonsaiSlimy = new CropBonsai(
+                    "bonsaiSlimy",
+                    new Color(0x27C74D),
+                    new Color(0x96EEED),
+                    "C0bra5",
+                    1,
+                    new ItemStack(TinkerWorld.slimeSapling, 1, 0),
+                    new ItemStack(TinkerWorld.slimeGel, 1, 0)));
+            CropRegistry.instance.register(CropsNHCrops.AluminiumOreBerry = new CropAluminiumOreBerry());
+            CropRegistry.instance.register(CropsNHCrops.CopperOreBerry = new CropCopperOreBerry());
+            CropRegistry.instance.register(CropsNHCrops.EssenceOreBerry = new CropEssenceOreBerry());
+            CropRegistry.instance.register(CropsNHCrops.GoldOreBerry = new CropGoldOreBerry());
+            CropRegistry.instance.register(CropsNHCrops.IronOreBerry = new CropIronOreBerry());
+            CropRegistry.instance.register(CropsNHCrops.TinOreBerry = new CropTinOreBerry());
+            CropRegistry.instance.register(CropsNHCrops.ArditeOreBerry = new CropArditeOreBerry());
+            CropRegistry.instance.register(CropsNHCrops.CobaltOreBerry = new CropCobaltOreBerry());
         }
         if (Mods.Thaumcraft.isModLoaded()) {
-            CropRegistry.instance.register(new CropThaumiumOreBerry());
-            CropRegistry.instance.register(new CropVoidOreBerry());
+            CropRegistry.instance.register(CropsNHCrops.ThaumiumOreBerry = new CropThaumiumOreBerry());
+            CropRegistry.instance.register(CropsNHCrops.VoidOreBerry = new CropVoidOreBerry());
         }
         if (Mods.ThaumicBases.isModLoaded()) {
-            CropRegistry.instance.register(new CropThauminiteOreBerry());
+            CropRegistry.instance.register(CropsNHCrops.ThauminiteOreBerry = new CropThauminiteOreBerry());
         }
         // thaumcraft
         if (Mods.Thaumcraft.isModLoaded()) {
-            CropRegistry.instance.register(new CropCinderpearl());
-            CropRegistry.instance.register(new CropShimmerleaf());
-            CropRegistry.instance.register(new CropManaBean());
-            CropRegistry.instance.register(new CropPrimordialBerry());
+            CropRegistry.instance.register(CropsNHCrops.Cinderpearl = new CropCinderpearl());
+            CropRegistry.instance.register(CropsNHCrops.Shimmerleaf = new CropShimmerleaf());
+            CropRegistry.instance.register(CropsNHCrops.ManaBean = new CropManaBean());
+            CropRegistry.instance.register(CropsNHCrops.PrimordialBerry = new CropPrimordialBerry());
         }
         // Crops++ Twilight Forest
         if (Mods.TwilightForest.isModLoaded()) {
-            CropRegistry.instance.register(new CropKnightmetalBerries());
-            CropRegistry.instance.register(new CropTorchberry());
+            CropRegistry.instance.register(CropsNHCrops.KnightmetalBerries = new CropKnightmetalBerries());
+            CropRegistry.instance.register(CropsNHCrops.Torchberry = new CropTorchberry());
         }
         if (Mods.TwilightForest.isModLoaded() && Mods.BiomesOPlenty.isModLoaded()) {
-            CropRegistry.instance.register(new CropMoss());
+            CropRegistry.instance.register(CropsNHCrops.Moss = new CropMoss());
         }
         // Crops++ BoP
         if (Mods.BiomesOPlenty.isModLoaded()) {
-            CropRegistry.instance.register(new CropBamboo());
-            CropRegistry.instance.register(new CropBoPBerry());
-            CropRegistry.instance.register(new CropEyebulb());
-            CropRegistry.instance.register(new CropFloweringVine());
-            CropRegistry.instance.register(new CropGlowflower());
-            CropRegistry.instance.register(new CropGlowingCoral());
-            CropRegistry.instance.register(new CropGlowshroom());
-            CropRegistry.instance.register(new CropIvy());
-            CropRegistry.instance.register(new CropTurnip());
-            CropRegistry.instance.register(new CropWildCarrot());
+            CropRegistry.instance.register(CropsNHCrops.Bamboo = new CropBamboo());
+            CropRegistry.instance.register(CropsNHCrops.BoPBerry = new CropBoPBerry());
+            CropRegistry.instance.register(CropsNHCrops.Eyebulb = new CropEyebulb());
+            CropRegistry.instance.register(CropsNHCrops.FloweringVine = new CropFloweringVine());
+            CropRegistry.instance.register(CropsNHCrops.Glowflower = new CropGlowflower());
+            CropRegistry.instance.register(CropsNHCrops.GlowingCoral = new CropGlowingCoral());
+            CropRegistry.instance.register(CropsNHCrops.Glowshroom = new CropGlowshroom());
+            CropRegistry.instance.register(CropsNHCrops.Ivy = new CropIvy());
+            CropRegistry.instance.register(CropsNHCrops.Turnip = new CropTurnip());
+            CropRegistry.instance.register(CropsNHCrops.WildCarrot = new CropWildCarrot());
         }
         // Crops++ Witchery
         if (Mods.Witchery.isModLoaded()) {
-            CropRegistry.instance.register(new CropBelladonna());
-            CropRegistry.instance.register(new CropEmberMoss());
-            CropRegistry.instance.register(new CropGarlic());
-            CropRegistry.instance.register(new CropGlintWeed());
-            CropRegistry.instance.register(new CropMandrake());
-            CropRegistry.instance.register(new CropSnowbell());
-            CropRegistry.instance.register(new CropSpanishMoss());
-            CropRegistry.instance.register(new CropWaterArtichoke());
-            CropRegistry.instance.register(new CropWolfsbane());
+            CropRegistry.instance.register(CropsNHCrops.Belladonna = new CropBelladonna());
+            CropRegistry.instance.register(CropsNHCrops.EmberMoss = new CropEmberMoss());
+            CropRegistry.instance.register(CropsNHCrops.Garlic = new CropGarlic());
+            CropRegistry.instance.register(CropsNHCrops.GlintWeed = new CropGlintWeed());
+            CropRegistry.instance.register(CropsNHCrops.Mandrake = new CropMandrake());
+            CropRegistry.instance.register(CropsNHCrops.Snowbell = new CropSnowbell());
+            CropRegistry.instance.register(CropsNHCrops.SpanishMoss = new CropSpanishMoss());
+            CropRegistry.instance.register(CropsNHCrops.WaterArtichoke = new CropWaterArtichoke());
+            CropRegistry.instance.register(CropsNHCrops.Wolfsbane = new CropWolfsbane());
         }
         // Crops++ Natura
         if (Mods.Natura.isModLoaded()) {
-            CropRegistry.instance.register(new CropBlightberry());
-            CropRegistry.instance.register(new CropBlueGlowshroom());
-            CropRegistry.instance.register(new CropDuskberry());
-            CropRegistry.instance.register(new CropGreenGlowshroom());
-            CropRegistry.instance.register(new CropPurpleGlowshroom());
-            CropRegistry.instance.register(new CropSkyberry());
-            CropRegistry.instance.register(new CropStingberry());
-            CropRegistry.instance.register(new CropThornvine());
-            CropRegistry.instance.register(new CropBarley());
-            CropRegistry.instance.register(new CropBlackberry());
-            CropRegistry.instance.register(new CropBlueberry());
-            CropRegistry.instance.register(new CropCotton());
-            CropRegistry.instance.register(new CropRaspberry());
-            CropRegistry.instance.register(new CropMaloberry());
-            CropRegistry.instance.register(new CropSaguaroCactus());
+            CropRegistry.instance.register(CropsNHCrops.Blightberry = new CropBlightberry());
+            CropRegistry.instance.register(CropsNHCrops.BlueGlowshroom = new CropBlueGlowshroom());
+            CropRegistry.instance.register(CropsNHCrops.Duskberry = new CropDuskberry());
+            CropRegistry.instance.register(CropsNHCrops.GreenGlowshroom = new CropGreenGlowshroom());
+            CropRegistry.instance.register(CropsNHCrops.PurpleGlowshroom = new CropPurpleGlowshroom());
+            CropRegistry.instance.register(CropsNHCrops.Skyberry = new CropSkyberry());
+            CropRegistry.instance.register(CropsNHCrops.Stingberry = new CropStingberry());
+            CropRegistry.instance.register(CropsNHCrops.Thornvine = new CropThornvine());
+            CropRegistry.instance.register(CropsNHCrops.Barley = new CropBarley());
+            CropRegistry.instance.register(CropsNHCrops.Blackberry = new CropBlackberry());
+            CropRegistry.instance.register(CropsNHCrops.Blueberry = new CropBlueberry());
+            CropRegistry.instance.register(CropsNHCrops.Cotton = new CropCotton());
+            CropRegistry.instance.register(CropsNHCrops.Raspberry = new CropRaspberry());
+            CropRegistry.instance.register(CropsNHCrops.Maloberry = new CropMaloberry());
+            CropRegistry.instance.register(CropsNHCrops.SaguaroCactus = new CropSaguaroCactus());
         }
         // Crops++ native
-        CropRegistry.instance.register(new CropGoldfish());
-        CropRegistry.instance.register(new CropHuckleberry());
-        CropRegistry.instance.register(new CropMagicalNightshade());
-        CropRegistry.instance.register(new CropPapyrus());
-        CropRegistry.instance.register(new CropSpaceFlower());
-        CropRegistry.instance.register(new CropStrawberry());
-        CropRegistry.instance.register(new CropSugarBeet());
-        CropRegistry.instance.register(new CropVine());
-        CropRegistry.instance.register(new CropWaterlily());
+        CropRegistry.instance.register(CropsNHCrops.Goldfish = new CropGoldfish());
+        CropRegistry.instance.register(CropsNHCrops.Huckleberry = new CropHuckleberry());
+        CropRegistry.instance.register(CropsNHCrops.MagicalNightshade = new CropMagicalNightshade());
+        CropRegistry.instance.register(CropsNHCrops.Papyrus = new CropPapyrus());
+        CropRegistry.instance.register(CropsNHCrops.SpaceFlower = new CropSpaceFlower());
+        CropRegistry.instance.register(CropsNHCrops.Strawberry = new CropStrawberry());
+        CropRegistry.instance.register(CropsNHCrops.SugarBeet = new CropSugarBeet());
+        CropRegistry.instance.register(CropsNHCrops.Vine = new CropVine());
+        CropRegistry.instance.register(CropsNHCrops.Waterlily = new CropWaterlily());
         // GT crops
-        CropRegistry.instance.register(new CropHemp());
-        CropRegistry.instance.register(new CropSaltyRoot());
+        CropRegistry.instance.register(CropsNHCrops.Hemp = new CropHemp());
+        CropRegistry.instance.register(CropsNHCrops.SaltyRoot = new CropSaltyRoot());
+        CropRegistry.instance.register(CropsNHCrops.Argentia = new CropArgentia());
+        CropRegistry.instance.register(CropsNHCrops.Bauxia = new CropBauxia());
+        CropRegistry.instance.register(CropsNHCrops.Blazereed = new CropBlazereed());
+        CropRegistry.instance.register(CropsNHCrops.BobsYerUncleRanks = new CropBobsYerUncleRanks());
+        CropRegistry.instance.register(CropsNHCrops.Canola = new CropCanola());
+        CropRegistry.instance.register(CropsNHCrops.Chilly = new CropChilly());
+        CropRegistry.instance.register(CropsNHCrops.Coppon = new CropCoppon());
+        CropRegistry.instance.register(CropsNHCrops.Corium = new CropCorium());
+        CropRegistry.instance.register(CropsNHCrops.Corpseplant = new CropCorpseplant());
+        CropRegistry.instance.register(CropsNHCrops.Creeperweed = new CropCreeperweed());
+        CropRegistry.instance.register(CropsNHCrops.Diareed = new CropDiareed());
+        CropRegistry.instance.register(CropsNHCrops.EggPlant = new CropEggPlant());
+        CropRegistry.instance.register(CropsNHCrops.Enderbloom = new CropEnderbloom());
+        CropRegistry.instance.register(CropsNHCrops.EvilOre = new CropEvilOre());
+        CropRegistry.instance.register(CropsNHCrops.Fertilia = new CropFertilia());
+        CropRegistry.instance.register(CropsNHCrops.Flax = new CropFlax());
+        CropRegistry.instance.register(CropsNHCrops.Galvania = new CropGalvania());
+        CropRegistry.instance.register(CropsNHCrops.Garnydnia = new CropGarnydnia());
+        CropRegistry.instance.register(CropsNHCrops.Glowheat = new CropGlowheat());
+        CropRegistry.instance.register(CropsNHCrops.GodOfThunder = new CropGodOfThunder());
+        CropRegistry.instance.register(CropsNHCrops.Grape = new CropGrape());
+        CropRegistry.instance.register(CropsNHCrops.Indigo = new CropIndigo());
+        CropRegistry.instance.register(CropsNHCrops.Iridine = new CropIridine());
+        CropRegistry.instance.register(CropsNHCrops.Lazulia = new CropLazulia());
+        CropRegistry.instance.register(CropsNHCrops.Lemon = new CropLemon());
+        CropRegistry.instance.register(CropsNHCrops.Liveroot = new CropLiveroot());
+        CropRegistry.instance.register(CropsNHCrops.Meatrose = new CropMeatrose());
+        CropRegistry.instance.register(CropsNHCrops.Micadia = new CropMicadia());
+        CropRegistry.instance.register(CropsNHCrops.Milkwart = new CropMilkwart());
+        CropRegistry.instance.register(CropsNHCrops.Nickelback = new CropNickelback());
+        CropRegistry.instance.register(CropsNHCrops.OilBerry = new CropOilBerry());
+        CropRegistry.instance.register(CropsNHCrops.Olivia = new CropOlivia());
+        CropRegistry.instance.register(CropsNHCrops.Onion = new CropOnion());
+        CropRegistry.instance.register(CropsNHCrops.Osmianth = new CropOsmianth());
+        CropRegistry.instance.register(CropsNHCrops.Platina = new CropPlatina());
+        CropRegistry.instance.register(CropsNHCrops.Plumbilia = new CropPlumbilia());
+        CropRegistry.instance.register(CropsNHCrops.Pyrolusium = new CropPyrolusium());
+        CropRegistry.instance.register(CropsNHCrops.Reactoria = new CropReactoria());
+        CropRegistry.instance.register(CropsNHCrops.Sapphirum = new CropSapphirum());
+        CropRegistry.instance.register(CropsNHCrops.Scheelinium = new CropScheelinium());
+        CropRegistry.instance.register(CropsNHCrops.Slimeplant = new CropSlimeplant());
+        CropRegistry.instance.register(CropsNHCrops.Spidernip = new CropSpidernip());
+        CropRegistry.instance.register(CropsNHCrops.Stargatium = new CropStargatium());
+        CropRegistry.instance.register(CropsNHCrops.Starwart = new CropStarwart());
+        CropRegistry.instance.register(CropsNHCrops.Steeleafranks = new CropSteeleafranks());
+        CropRegistry.instance.register(CropsNHCrops.Tea = new CropTea());
+        CropRegistry.instance.register(CropsNHCrops.Tearstalks = new CropTearstalks());
+        CropRegistry.instance.register(CropsNHCrops.Tine = new CropTine());
+        CropRegistry.instance.register(CropsNHCrops.Titania = new CropTitania());
+        CropRegistry.instance.register(CropsNHCrops.Tomato = new CropTomato());
+        CropRegistry.instance.register(CropsNHCrops.Transformium = new CropTransformium());
+        CropRegistry.instance.register(CropsNHCrops.Trollplant = new CropTrollplant());
+        CropRegistry.instance.register(CropsNHCrops.Withereed = new CropWithereed());
+        CropRegistry.instance.register(CropsNHCrops.Zomplant = new CropZomplant());
 
     }
 }

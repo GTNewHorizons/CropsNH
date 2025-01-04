@@ -14,7 +14,6 @@ public class CropCyprium extends NHCropCard {
     private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
 
     public CropCyprium() {
-        // TODO: CHECK IF WE WANT TO ADD A COPPER LEAF
         super("cyprium", new Color(0xB26003), new Color(0xD77106));
         this.addDrop(Materials.Copper.getDustTiny(1), 100_00);
         this.addGrowthRequirement(BlockUnderRequirement.get("copper"));

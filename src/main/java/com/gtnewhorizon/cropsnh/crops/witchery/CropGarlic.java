@@ -4,10 +4,10 @@ import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
-import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
-public class CropGarlic extends NHCropCard {
+public class CropGarlic extends CropFood {
 
     public CropGarlic() {
         super("garlic", new Color(0xA88F7B), new Color(0xF3E7DC));
