@@ -34,18 +34,6 @@ public class NEIConfig implements IConfigureNEI {
     }
 
     private static void hideItems() {
-        // hide invalid seed
-        CropsNH.proxy.hideItemInNEI(new ItemStack(CropsNHItems.genericSeed));
-        // add registered seeds
-        SeedStats stats = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
-        for (ICropCard cc : CropRegistry.instance.getAllInRegistrationOrder()) {
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setString(Names.NBT.crop, cc.getId());
-            stats.writeToNBT(tag);
-            ItemStack toRegister = new ItemStack(CropsNHItems.genericSeed, 1, 1);
-            toRegister.setTagCompound(tag);
-            CropsNH.proxy.addItemInNEI(toRegister);
-        }
 
         LogHelper.debug("Hiding stuff in nei");
         for (int i = 0; i < 16; i++) {

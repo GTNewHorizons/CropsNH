@@ -2,10 +2,15 @@ package com.gtnewhorizon.cropsnh.items;
 
 import java.util.List;
 
+import com.gtnewhorizon.cropsnh.CropsNH;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -25,6 +30,25 @@ public class ItemGenericSeed extends ItemCropsNH {
     @Override
     protected String getInternalName() {
         return Names.Objects.genericSeed;
+    }
+
+    @Override
+    public boolean getHasSubtypes() {
+        return true;
+    }
+
+    @Override
+    public void getSubItems(Item item, CreativeTabs creativeTab, List list) {
+        // add registered seeds
+        SeedStats stats = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
+        for (ICropCard cc : CropRegistry.instance.getAllInRegistrationOrder()) {
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setString(Names.NBT.crop, cc.getId());
+            stats.writeToNBT(tag);
+            ItemStack toRegister = new ItemStack(CropsNHItems.genericSeed, 1, 0);
+            toRegister.setTagCompound(tag);
+            list.add(toRegister);
+        }
     }
 
     // region tooltip
