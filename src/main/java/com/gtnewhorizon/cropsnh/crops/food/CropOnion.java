@@ -3,6 +3,7 @@ package com.gtnewhorizon.cropsnh.crops.food;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 import gregtech.api.enums.ItemList;
@@ -15,6 +16,12 @@ public class CropOnion extends CropFood {
         this.addDrop(ItemList.Crop_Drop_Onion.get(1), 100_00);
         this.addAlternateSeed("seedOnion");
         this.addAlternateSeed("cropOnion");
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.food.register(this);
     }
 
     @Override

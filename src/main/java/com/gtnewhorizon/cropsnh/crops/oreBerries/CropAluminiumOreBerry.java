@@ -5,7 +5,7 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 
 import tconstruct.world.TinkerWorld;
 
@@ -16,7 +16,7 @@ public class CropAluminiumOreBerry extends CropOreBerry {
         this.addDrop(new ItemStack(TinkerWorld.oreBerries, 6, 4), 100_00);
         this.addAlternateSeed(new ItemStack(TinkerWorld.oreBerries, 1, 4));
         this.addBlockUnderRequirement("aluminium");
-        this.addGrowthRequirement(new MaxLightLevelRequirement(10));
+        this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
     }
 
     @Override

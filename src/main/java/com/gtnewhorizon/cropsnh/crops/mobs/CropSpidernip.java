@@ -7,6 +7,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropSpidernip extends NHCropCard {
 
@@ -15,6 +16,13 @@ public class CropSpidernip extends NHCropCard {
         this.addDrop(new ItemStack(Items.string, 1, 0), 66_66);
         this.addDrop(new ItemStack(Items.spider_eye, 1, 0), 16_67);
         this.addDrop(new ItemStack(Blocks.web, 1, 0), 16_67);
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.aggresiveMob.register(this);
+        CropsNHMutationPools.nether.register(this);
     }
 
     @Override

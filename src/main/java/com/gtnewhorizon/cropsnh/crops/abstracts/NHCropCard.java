@@ -8,8 +8,8 @@ import net.minecraft.util.IIcon;
 import com.gtnewhorizon.cropsnh.api.CropCard;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import cpw.mods.fml.relauncher.Side;

@@ -34,8 +34,9 @@ import gregtech.api.enums.Mods;
 public abstract class CropCard implements ICropCard {
 
     protected final String id;
+    private int numericId = 0;
     protected final HashMap<ItemStack, Integer> dropTable = new HashMap<>();
-    protected final ArrayList<IWorldGrowthRequirement> growthRequirements = new ArrayList<>();
+    protected final ArrayList<IGrowthRequirement> growthRequirements = new ArrayList<>();
     protected final HashSet<BiomeDictionary.Type> likedBiomes = new HashSet<>();
     protected final ArrayList<ItemStack> alternateSeeds = new ArrayList<>();
     protected final Color[] colors;
@@ -48,6 +49,19 @@ public abstract class CropCard implements ICropCard {
     @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public void setNumericId(int numericId) {
+        if (this.numericId != 0) {
+            throw new RuntimeException("Attempted to re-initialize the numeric id of a crop.");
+        }
+        this.numericId = numericId;
+    }
+
+    @Override
+    public int getNumericId() {
+        return this.numericId;
     }
 
     @Override
@@ -101,7 +115,7 @@ public abstract class CropCard implements ICropCard {
     }
 
     @Override
-    public Iterable<IWorldGrowthRequirement> getWorldGrowthRequirements() {
+    public Iterable<IGrowthRequirement> getGrowthRequirements() {
         return this.growthRequirements;
     }
 
@@ -128,11 +142,6 @@ public abstract class CropCard implements ICropCard {
     @Override
     public float getBreedingThreshold() {
         return 0.8f;
-    }
-
-    @Override
-    public boolean isAllowedInGoBlyn() {
-        return true;
     }
 
     @Override
@@ -233,6 +242,9 @@ public abstract class CropCard implements ICropCard {
     }
 
     // event handlers
+
+    @Override
+    public void registerToPools() {}
 
     @Override
     public void onPlanted(ICropStickTile te) {}

@@ -10,6 +10,7 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropCactus extends NHCropCard {
 
@@ -19,6 +20,13 @@ public class CropCactus extends NHCropCard {
         super("cactus", new Color(0x094210), new Color(0x117F20));
         this.addDrop(new ItemStack(Blocks.cactus, 1), 10_000);
         this.addAlternateSeed(new ItemStack(Blocks.cactus, 1));
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.cactus.register(this);
+        CropsNHMutationPools.decorative.register(this);
     }
 
     @Override

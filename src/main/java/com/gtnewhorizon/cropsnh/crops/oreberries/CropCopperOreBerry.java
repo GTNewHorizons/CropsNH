@@ -5,7 +5,8 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import tconstruct.world.TinkerWorld;
 
@@ -16,7 +17,13 @@ public class CropCopperOreBerry extends CropOreBerry {
         this.addDrop(new ItemStack(TinkerWorld.oreBerries, 6, 2), 100_00);
         this.addAlternateSeed(new ItemStack(TinkerWorld.oreBerries, 1, 2));
         this.addBlockUnderRequirement("copper");
-        this.addGrowthRequirement(new MaxLightLevelRequirement(10));
+        this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.lowTierOreBerries.register(this);
     }
 
     @Override

@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import mods.natura.common.NContent;
 
@@ -18,6 +19,12 @@ public class CropDuskberry extends NHCropCard {
         super("duskberry", new Color(0x595959), new Color(0xB4B4B4));
         this.addDrop(new ItemStack(NContent.netherBerryItem, 2, 1), 100_00);
         this.addAlternateSeed(new ItemStack(NContent.netherBerryItem, 1, 1));
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.nether.register(this);
     }
 
     @Override

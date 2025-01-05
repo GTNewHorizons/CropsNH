@@ -8,12 +8,19 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropVine extends NHCropCard {
 
     public CropVine() {
         super("vine", new Color(0x173A0A), new Color(0x2C7310));
         this.addDrop(new ItemStack(Blocks.vine, 2), 100_00);
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.decorative.register(this);
     }
 
     @Override

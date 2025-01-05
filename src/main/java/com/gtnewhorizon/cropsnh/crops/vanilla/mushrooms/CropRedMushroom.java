@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropMushroom;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropRedMushroom extends CropMushroom {
 
@@ -15,6 +16,12 @@ public class CropRedMushroom extends CropMushroom {
         super("redMushroom", new Color(0xA61313), new Color(0xE21212));
         this.addDrop(new ItemStack(Blocks.red_mushroom, 1), 10_000);
         this.addAlternateSeed(new ItemStack(Blocks.red_mushroom, 1));
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.mushroom.register(this);
     }
 
     @Override

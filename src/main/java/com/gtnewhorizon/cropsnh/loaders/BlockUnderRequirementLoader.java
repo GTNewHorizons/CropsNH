@@ -3,7 +3,7 @@ package com.gtnewhorizon.cropsnh.loaders;
 import net.minecraft.init.Blocks;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Mods;

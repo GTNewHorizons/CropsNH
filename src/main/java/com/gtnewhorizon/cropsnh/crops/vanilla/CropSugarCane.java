@@ -10,6 +10,7 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 public class CropSugarCane extends NHCropCard {
@@ -20,6 +21,12 @@ public class CropSugarCane extends NHCropCard {
         super("sugarCane", new Color(0x698747), new Color(0xAADB74));
         this.addDrop(new ItemStack(Items.reeds, 2), 10_000);
         this.addAlternateSeed(new ItemStack(Items.reeds, 1));
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.decorative.register(this);
     }
 
     @Override

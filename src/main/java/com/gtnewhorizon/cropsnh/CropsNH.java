@@ -1,7 +1,7 @@
 package com.gtnewhorizon.cropsnh;
 
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
@@ -9,6 +9,7 @@ import com.gtnewhorizon.cropsnh.init.Recipes;
 import com.gtnewhorizon.cropsnh.loaders.BlockUnderRequirementLoader;
 import com.gtnewhorizon.cropsnh.loaders.CropLoader;
 import com.gtnewhorizon.cropsnh.loaders.FertilizerLoader;
+import com.gtnewhorizon.cropsnh.loaders.MutationLoader;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
 import com.gtnewhorizon.cropsnh.loaders.SoilLoader;
 import com.gtnewhorizon.cropsnh.network.NetworkWrapperCropsNH;
@@ -92,6 +93,7 @@ public class CropsNH {
         BlockUnderRequirementLoader.init();
         CropLoader.init();
         BlockUnderRequirement.validateRegistry();
+        MutationLoader.init();
 
         Recipes.init();
         ModHelper.postInit();

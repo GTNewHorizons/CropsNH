@@ -39,6 +39,9 @@ public class ConfigurationHandler {
     public static boolean putAnEndToExistentialDread;
     public static String goldfishScream;
     public static boolean goldfishScreamWhenSteppedOn;
+    public static int breedingChance;
+    public static int breedingLow;
+    public static int breedingHigh;
     // weeds
     public static boolean enableWeeds;
     public static boolean weedsWipePlants;
@@ -124,6 +127,30 @@ public class ConfigurationHandler {
             true,
             "If you are fine with the random screams but not with the EXTREME HOWL that comes with walking on them, turn this off.");
 
+        breedingChance = config.getInt(
+            "Weed Spread Chance",
+            Categories.CATEGORY_WEEDS,
+            10,
+            1,
+            Integer.MAX_VALUE,
+            "Lower values increase the speed at which crops attempt to breed themselves. actual chance is measured as 1 / value every growth tick.");
+
+        breedingLow = config.getInt(
+            "Weed Spread Chance",
+            Categories.CATEGORY_WEEDS,
+            -1,
+            -31,
+            0,
+            "The lowest bound of the stat variation while breeding.");
+
+        breedingHigh = config.getInt(
+            "Weed Spread Chance",
+            Categories.CATEGORY_WEEDS,
+            2,
+            0,
+            31,
+            "The highest bound of the stat variation while breeding.");
+
         // endregion CATEGORY_CROPS
 
         // region CATEGORY_WEEDS
@@ -137,7 +164,7 @@ public class ConfigurationHandler {
             100,
             1,
             Integer.MAX_VALUE,
-            "Lower values increase the speed at which weeds spawn in empty crop sticks. actual chance is measured as 1 / value.");
+            "Lower values increase the speed at which weeds spawn in empty crop sticks. actual chance is measured as 1 / value every growth tick.");
 
         weedSpreadChance = config.getInt(
             "Weed Spread Chance",

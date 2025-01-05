@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropWaterlily extends NHCropCard {
 
@@ -17,6 +18,12 @@ public class CropWaterlily extends NHCropCard {
         this.addDrop(new ItemStack(Items.dye, 2, 9), 20_000);
         this.addDrop(new ItemStack(Blocks.waterlily, 2), 80_000);
         this.addAlternateSeed(new ItemStack(Blocks.waterlily, 2));
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.decorative.register(this);
     }
 
     @Override

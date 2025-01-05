@@ -5,7 +5,8 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropKnightmetalBerries extends CropOreBerry {
 
@@ -13,7 +14,13 @@ public class CropKnightmetalBerries extends CropOreBerry {
         super("knightmetal", new Color(0x90A68A), new Color(0xD2F0C8));
         this.addDrop(new ItemStack(twilightforest.item.TFItems.armorShard, 4), 100_00);
         this.addBlockUnderRequirement("knightmetal");
-        this.addGrowthRequirement(new MaxLightLevelRequirement(10));
+        this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.lowTierOreBerries.register(this);
     }
 
     @Override

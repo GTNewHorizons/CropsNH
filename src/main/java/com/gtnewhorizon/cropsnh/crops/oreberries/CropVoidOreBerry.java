@@ -3,7 +3,7 @@ package com.gtnewhorizon.cropsnh.crops.oreberries;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 
 import gregtech.api.enums.Materials;
 
@@ -14,7 +14,7 @@ public class CropVoidOreBerry extends CropOreBerry {
         this.addDrop(Materials.Void.getNuggets(1), 100_00);
         this.addAlternateSeed(thaumcraft.api.ItemApi.getItem("itemResource", 17));
         this.addBlockUnderRequirement("void");
-        this.addGrowthRequirement(new MaxLightLevelRequirement(10));
+        this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
     }
 
     @Override

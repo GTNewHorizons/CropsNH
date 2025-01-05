@@ -196,6 +196,16 @@ public interface ICropStickTile {
     List<ICropStickTile> getMatureNeighbours();
 
     /**
+     * @return true if the crop in the crop stick can cross
+     */
+    boolean canCross();
+
+    /**
+     * @return true if the crop in the crop stick can breed
+     */
+    boolean canBreed();
+
+    /**
      * @return The current growth progress.
      */
     int getGrowthProgress();

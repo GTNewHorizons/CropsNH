@@ -9,6 +9,7 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import mods.natura.common.NContent;
 
@@ -20,6 +21,12 @@ public class CropGreenGlowshroom extends NHCropCard {
         super("greenGlowshroom", new Color(0x7CFF1B), new Color(0xC6FF50));
         this.addDrop(new ItemStack(NContent.glowshroom, 1, 0), 100_00);
         this.addAlternateSeed(new ItemStack(NContent.glowshroom, 1, 0));
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.nether.register(this);
     }
 
     @Override

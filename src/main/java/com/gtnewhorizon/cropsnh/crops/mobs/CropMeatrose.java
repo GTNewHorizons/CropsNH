@@ -16,7 +16,7 @@ public class CropMeatrose extends CropFood {
     private final static ISoilList soilTypes = SoilRegistry.instance.get("dirt");
 
     public CropMeatrose() {
-        super("eggPlant", new Color(0xDD3830), new Color(0xEF7070));
+        super("meatrose", new Color(0xDD3830), new Color(0xEF7070));
         // TODO: MOVE ITEM DROP TO CROPS NH OR SOMETHING
         this.addDrop(new ItemStack(Items.dye, 1, 9), 60_00);
         this.addDrop(new ItemStack(Items.chicken, 1, 0), 10_00);

@@ -3,6 +3,7 @@ package com.gtnewhorizon.cropsnh.crops.stoneilies;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import gregtech.api.enums.Materials;
 
@@ -12,5 +13,11 @@ public class CropNetherStoneLily extends CropBaseStoneLily {
         super("netherStone", new Color(0x911717), new Color(0xC21F1F));
         this.addDrop(Materials.Netherrack.getDust(9), 100_00);
         this.addBlockUnderRequirement("netherrack");
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.stoneLilies.register(this);
     }
 }

@@ -5,6 +5,7 @@ import java.awt.Color;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
@@ -14,6 +15,12 @@ public class CropWolfsbane extends NHCropCard {
         super("wolfsbane", new Color(0x76716E), new Color(0xDAD0CE));
         this.addAlternateSeed(OreDictHelper.getCopiedOreStack("seedWolfsBane", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("itemWolfsBane", 1), 100_00);
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.decorative.register(this);
     }
 
     @Override

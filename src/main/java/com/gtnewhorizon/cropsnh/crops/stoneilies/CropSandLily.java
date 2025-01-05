@@ -6,6 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropSandLily extends CropBaseStoneLily {
 
@@ -13,5 +14,11 @@ public class CropSandLily extends CropBaseStoneLily {
         super("sand", new Color(0x87836B), new Color(0xC4BD97));
         this.addDrop(new ItemStack(Blocks.sand, 4), 100_00);
         this.addBlockUnderRequirement("sand");
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.stoneLilies.register(this);
     }
 }

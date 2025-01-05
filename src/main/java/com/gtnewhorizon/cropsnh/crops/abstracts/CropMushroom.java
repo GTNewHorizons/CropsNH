@@ -3,8 +3,8 @@ package com.gtnewhorizon.cropsnh.crops.abstracts;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.MaxLightLevelRequirement;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 
 public abstract class CropMushroom extends NHCropCard {
 
@@ -12,7 +12,7 @@ public abstract class CropMushroom extends NHCropCard {
 
     public CropMushroom(String id, Color color1, Color color2) {
         super(id, color1, color2);
-        this.addGrowthRequirement(new MaxLightLevelRequirement(9));
+        this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(9));
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.gtnewhorizon.cropsnh.init;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
+import com.gtnewhorizon.cropsnh.farming.mutation.CropMutation;
+import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 
 public class CropsNHCrops {
 
@@ -174,4 +176,19 @@ public class CropsNHCrops {
     public static ICropCard Trollplant;
     public static ICropCard Withereed;
     public static ICropCard Zomplant;
+
+    public static void registerMutations() {
+        new CropMutation(Milkwart, Corium, Netherwart).register();
+        new CropMutation(Glowheat, Glowflower, Wheat).register();
+        new CropMutation(Indigo, BlueOrchid, AzureBluet).register();
+        new CropMutation(Meatrose, Goldfish, EggPlant, Corium).register();
+        new CropMutation(StickReed, BonsaiJungle, SugarCane).register();
+        new CropMutation(BlueGlowshroom, BlueOrchid, Glowflower).register();
+        new CropMutation(GreenGlowshroom, Cactus, Glowflower).register();
+        new CropMutation(PurpleGlowshroom, Indigo, Glowflower).register();
+        new CropMutation(PurpleGlowshroom, Indigo, Glowflower).register();
+
+        CropRegistry.instance.getAllInRegistrationOrder()
+            .forEach(ICropCard::registerToPools);
+    }
 }

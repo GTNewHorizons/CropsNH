@@ -1,9 +1,9 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
-import com.gtnewhorizon.cropsnh.farming.CopponFiberVariant;
-import com.gtnewhorizon.cropsnh.farming.MaterialLeafVariant;
-import com.gtnewhorizon.cropsnh.farming.PyrolusiumLeafVariant;
-import com.gtnewhorizon.cropsnh.farming.StargatiumLeafVariant;
+import com.gtnewhorizon.cropsnh.farming.materialleaf.CopponFiberVariant;
+import com.gtnewhorizon.cropsnh.farming.materialleaf.MaterialLeafVariant;
+import com.gtnewhorizon.cropsnh.farming.materialleaf.PyrolusiumLeafVariant;
+import com.gtnewhorizon.cropsnh.farming.materialleaf.StargatiumLeafVariant;
 import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 
 public class MaterialLeafLoader {

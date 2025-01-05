@@ -25,6 +25,18 @@ public interface ICropCard {
     String getId();
 
     /**
+     * Sets the numeric Id of the crop, this is only used for breeding recipe checks.
+     *
+     * @param numericId The numeric id of the crop.
+     */
+    void setNumericId(int numericId);
+
+    /**
+     * @return The numeric id of the crop, this is only used for breeding recipe checks.
+     */
+    int getNumericId();
+
+    /**
      * @return The unlocalized name of the crop.
      */
     String getUnlocalizedName();
@@ -96,14 +108,9 @@ public interface ICropCard {
      * These checks are run every 1000 growth ticks and when the seed is initially planted.
      * Certain checks will be recognized by the GoBlyn, and some other will be ignored.
      *
-     * @return The of in-world growth requirements that must be met for the crop to grow.
+     * @return The growth requirements that must be met for the crop to grow.
      */
-    Iterable<IWorldGrowthRequirement> getWorldGrowthRequirements();
-
-    /**
-     * @return False if the crop isn't allowed to grow in the GoBlyn.
-     */
-    boolean isAllowedInGoBlyn();
+    Iterable<IGrowthRequirement> getGrowthRequirements();
 
     /**
      * @return The drop table for the crop. 1.0 is a guarenteed drop.
@@ -266,4 +273,9 @@ public interface ICropCard {
      * @param te The cropTE in which this crop is growing.
      */
     void onRemoved(ICropStickTile te);
+
+    /**
+     * Registers a crop its pools.
+     */
+    void registerToPools();
 }

@@ -14,9 +14,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
+import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
-import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
@@ -132,9 +132,9 @@ public class ItemGenericSeed extends ItemCropsNH {
                     StatCollector.translateToLocal("cropsnh_tooltip.resistance"),
                     stats.getResistance(),
                     EnumChatFormatting.RESET));
-            Iterable<IWorldGrowthRequirement> reqs = crop.getWorldGrowthRequirements();
+            Iterable<IGrowthRequirement> reqs = crop.getGrowthRequirements();
             if (reqs != null) {
-                for (IWorldGrowthRequirement req : reqs) {
+                for (IGrowthRequirement req : reqs) {
                     toolTip.add(req.getDescription());
                 }
             }

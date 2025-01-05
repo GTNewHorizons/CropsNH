@@ -9,6 +9,7 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import thaumcraft.common.config.ConfigBlocks;
 
@@ -21,6 +22,12 @@ public class CropShimmerleaf extends NHCropCard {
         this.addDrop(new ItemStack(ConfigBlocks.blockCustomPlant, 1, 2), 100_00);
         this.addAlternateSeed(new ItemStack(ConfigBlocks.blockCustomPlant, 1, 2));
         this.addBlockUnderRequirement("quicksilver");
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.flower.register(this);
     }
 
     @Override

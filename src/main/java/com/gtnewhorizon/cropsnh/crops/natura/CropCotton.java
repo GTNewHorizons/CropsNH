@@ -5,7 +5,8 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.growthrequirements.MinLightLevelRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.growth.MinLightLevelGrowthRequirement;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 import mods.natura.common.NContent;
@@ -17,7 +18,13 @@ public class CropCotton extends NHCropCard {
         this.addDrop(new ItemStack(NContent.plantItem, 1, 3), 100_00);
         this.addAlternateSeed("cropCotton");
         this.addAlternateSeed("seedCotton");
-        this.addGrowthRequirement(new MinLightLevelRequirement(9));
+        this.addGrowthRequirement(new MinLightLevelGrowthRequirement(9));
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.decorative.register(this);
     }
 
     @Override

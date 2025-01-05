@@ -5,6 +5,7 @@ import java.awt.Color;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
@@ -14,6 +15,12 @@ public class CropEmberMoss extends NHCropCard {
         super("emberMoss", new Color(0x9C4D2C), new Color(0xE06F3F));
         this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropEmberMoss", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("cropEmberMoss", 1), 100_00);
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.decorative.register(this);
     }
 
     @Override

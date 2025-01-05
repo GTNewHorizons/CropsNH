@@ -5,6 +5,7 @@ import java.awt.Color;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
@@ -14,6 +15,12 @@ public class CropGlintWeed extends NHCropCard {
         super("glintWeed", new Color(0xB3890B), new Color(0xB3890B));
         this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropGlintWeed", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("cropGlintWeed", 1), 100_00);
+    }
+
+    @Override
+    public void registerToPools() {
+        super.registerToPools();
+        CropsNHMutationPools.decorative.register(this);
     }
 
     @Override

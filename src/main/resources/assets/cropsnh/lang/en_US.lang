@@ -323,7 +323,12 @@ cropsnh_crops.trollplant.flavour=Trololololol, lololol, lololol!
 cropsnh_crops.withereed=Withereed
 cropsnh_crops.zomplant=Zomplant
 
-
+# Lockout Breeding Requirements
+cropsnh_breedingReq.lockout.machineOnly=Can only be bred using the crop breeder.
+cropsnh_breedingReq.lockout.worldOnly=Can only be bred with crop stick.
+# Lockout Growth Requirements
+cropsnh_growthReq.lockout.machineOnly=Can only be grown in the industrial garden.
+cropsnh_growthReq.lockout.worldOnly=Can only be grown in a crop stick.
 # Light Growth Requirements
 cropsnh_growthReq.minLight.format=Needs a light Level of %1$d or higher.
 cropsnh_growthReq.maxLight.format=Needs a light Level of %1$d or lower.

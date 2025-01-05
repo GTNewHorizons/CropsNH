@@ -2,15 +2,11 @@ package com.gtnewhorizon.cropsnh.api;
 
 import net.minecraft.world.World;
 
-public interface IWorldGrowthRequirement {
+public interface IWorldGrowthRequirement extends IGrowthRequirement {
 
     /**
-     * A short description shown in the seed's tooltip.
-     */
-    String getDescription();
-
-    /**
-     *
+     * Checks if the crop in the crop stick can grow.
+     * 
      * @param world The world the crop is growing in
      * @param tile  The tile holding the seed
      * @param x     The X coordinate of the crop

@@ -11,8 +11,8 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
-import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
@@ -75,9 +75,9 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                                 + EnumChatFormatting.RESET);
                     }
 
-                    List<IWorldGrowthRequirement> failedReqs = teCrop.getFailedChecks();
+                    List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
                     if (failedReqs != null) {
-                        for (IWorldGrowthRequirement req : failedReqs) {
+                        for (IGrowthRequirement req : failedReqs) {
                             information.add(EnumChatFormatting.RED + req.getDescription() + EnumChatFormatting.RESET);
                         }
                     }

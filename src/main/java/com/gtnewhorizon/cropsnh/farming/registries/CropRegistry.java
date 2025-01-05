@@ -13,12 +13,13 @@ import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropRegistry;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.MetaMap;
 
 public class CropRegistry implements ICropRegistry {
 
     public final static CropRegistry instance = new CropRegistry();
+    // START AT ONE SO THAT 0 CAN BE ASSUMED AS NO PARENT FOR BREEDING CHECKS
+    private int cropIdCounter = 1;
 
     /**
      * Contains the mappings for stuff like vanilla wheat seeds.
@@ -31,7 +32,7 @@ public class CropRegistry implements ICropRegistry {
 
     private final LinkedList<ICropCard> registrationOrder = new LinkedList<>();
 
-    public Iterable<ICropCard> getAllInRegistrationOrder() {
+    public LinkedList<ICropCard> getAllInRegistrationOrder() {
         return this.registrationOrder;
     }
 
@@ -65,11 +66,11 @@ public class CropRegistry implements ICropRegistry {
     @Override
     public void register(ICropCard crop) {
         if (this.cropRegistry.containsKey(crop.getId())) {
-            LogHelper.warn("Duplicate crop id, crop not registered: " + crop.getId());
-            return;
+            throw new RuntimeException("Duplicate crop id, crop not registered: " + crop.getId());
         }
-        this.cropRegistry.putIfAbsent(crop.getId(), crop);
+        this.cropRegistry.put(crop.getId(), crop);
         this.registrationOrder.add(crop);
+        crop.setNumericId(cropIdCounter++);
         registerAlternateSeeds(alternateSeedList, crop);
     }
 
