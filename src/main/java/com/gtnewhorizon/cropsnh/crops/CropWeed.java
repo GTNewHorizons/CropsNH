@@ -23,4 +23,9 @@ public class CropWeed extends NHCropCard {
     public boolean spreadsWeeds(ICropStickTile te) {
         return te.getGrowthPercent() >= 0.5f;
     }
+
+    @Override
+    public int startsSpreadingWeedsAt() {
+        return 0;
+    }
 }

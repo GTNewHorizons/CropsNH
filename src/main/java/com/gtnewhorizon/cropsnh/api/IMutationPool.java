@@ -18,7 +18,7 @@ public interface IMutationPool {
 
     /**
      * Checks if a crop is registered in the pool.
-     * 
+     *
      * @param crop The crop to look for
      * @return True if the crop is registered in the pool.
      */
@@ -33,4 +33,10 @@ public interface IMutationPool {
      */
     boolean isMatch(Collection<ICropCard> parents);
 
+    /**
+     * Used to dump the contents of the pool at runtime.
+     * 
+     * @return Something that describes the content of the pool.
+     */
+    void dump(StringBuilder sb);
 }

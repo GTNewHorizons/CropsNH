@@ -17,7 +17,7 @@ public class CropSaltyRoot extends NHCropCard {
 
     @Override
     public String getFlavourText() {
-        return "It prefers dry biomes. Inedible.";
+        return "cropsnh_crops.saltyRoot.flavour";
     }
 
     @Override

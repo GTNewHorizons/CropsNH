@@ -50,34 +50,4 @@ public abstract class OreDictHelper {
         }
         return false;
     }
-
-    public static ArrayList<ItemStack> getFruitsFromOreDict(ItemStack seed) {
-        return getFruitsFromOreDict(seed, true);
-    }
-
-    public static ArrayList<ItemStack> getFruitsFromOreDict(ItemStack seed, boolean sameMod) {
-        String seedModId = IOHelper.getModId(seed);
-        ArrayList<ItemStack> fruits = new ArrayList<>();
-
-        for (int id : OreDictionary.getOreIDs(seed)) {
-            if (OreDictionary.getOreName(id)
-                .substring(0, 4)
-                .equalsIgnoreCase("seed")) {
-                String name = OreDictionary.getOreName(id)
-                    .substring(4);
-                ArrayList<ItemStack> fromOredict = OreDictionary.getOres("crop" + name);
-                for (ItemStack stack : fromOredict) {
-                    if (stack == null || stack.getItem() == null) {
-                        continue;
-                    }
-                    String stackModId = IOHelper.getModId(stack);
-                    if ((!sameMod) || seedModId.equals(stackModId)) {
-                        fruits.add(stack);
-                    }
-                }
-            }
-        }
-
-        return fruits;
-    }
 }

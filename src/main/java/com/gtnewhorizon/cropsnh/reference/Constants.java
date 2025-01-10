@@ -18,7 +18,7 @@ public final class Constants {
     /**
      * The minimum growth stat for weeds to start spreading.
      */
-    public static final int SPREAD_WEED_WHEN_GROWTH_ABOVE = 23;
+    public static final int SPREAD_WEED_WHEN_GROWTH_AT_DEFAULT = 24;
 
     /**
      * The number of units in a block.

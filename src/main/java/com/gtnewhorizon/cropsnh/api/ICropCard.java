@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.api;
 
 import java.awt.Color;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -110,7 +111,7 @@ public interface ICropCard {
      *
      * @return The growth requirements that must be met for the crop to grow.
      */
-    Iterable<IGrowthRequirement> getGrowthRequirements();
+    Collection<IGrowthRequirement> getGrowthRequirements();
 
     /**
      * @return The drop table for the crop. 1.0 is a guarenteed drop.
@@ -120,7 +121,7 @@ public interface ICropCard {
     /**
      * @return The items that can be used as seeds to plant this crop aside from the generic seeds.
      */
-    Iterable<ItemStack> getAlternateSeeds();
+    Collection<ItemStack> getAlternateSeeds();
 
     /**
      * @return A multiplier for the number of drops at base.
@@ -130,7 +131,7 @@ public interface ICropCard {
     /**
      * @return The id of the render shape you want 0 = #, 1 = X, 2 = # but it's 4 crops in the coners
      */
-    int getRenderShape();
+    IPlantRenderShape getRenderShape();
 
     /**
      * Called during game load to register the sprites.
@@ -162,6 +163,11 @@ public interface ICropCard {
      * @return The % of growth a crop must reach in order to be able to breed. Negative values prevent breeding.
      */
     float getBreedingThreshold();
+
+    /**
+     * @return The growth value at which the crop starts spreading weeds.
+     */
+    int startsSpreadingWeedsAt();
 
     /**
      * @param te The cropTE in which this crop is growing.

@@ -6,9 +6,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
+import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropVanillaFlower;
 import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
-import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 public class CropBlueOrchid extends CropVanillaFlower {
 
@@ -35,8 +36,8 @@ public class CropBlueOrchid extends CropVanillaFlower {
     }
 
     @Override
-    public int getRenderShape() {
-        return PlantRenderer.RENDER_X;
+    public IPlantRenderShape getRenderShape() {
+        return PlantRenderShape.X;
     }
 
     @Override

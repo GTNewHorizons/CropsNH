@@ -6,14 +6,19 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import net.minecraft.util.StatCollector;
+
+import com.gtnewhorizon.cropsnh.api.IBreedingRequirement;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropMutation;
 import com.gtnewhorizon.cropsnh.api.IMutationPool;
 import com.gtnewhorizon.cropsnh.api.IMutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationMap;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationPool;
+import com.gtnewhorizon.cropsnh.utility.DebugHelper;
 
 public class MutationRegistry implements IMutationRegistry {
 
@@ -110,5 +115,66 @@ public class MutationRegistry implements IMutationRegistry {
             .sorted(Comparator.comparing(ICropCard::getNumericId))
             .distinct()
             .collect(Collectors.toList());
+    }
+
+    /**
+     * @return a csv dump of all the registered deterministic mutations
+     */
+    public String dumpDeterministicMutations() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(DebugHelper.makeCSVLine("output", "parent1", "parent2", "parent3", "parent4", "conditions"));
+        sb.append(System.lineSeparator());
+        this.map.dump()
+            .forEach(m -> {
+                StringBuilder sbm = new StringBuilder();
+                sbm.append(
+                    DebugHelper.sanitizeCSVString(
+                        StatCollector.translateToLocal(
+                            m.getOutput()
+                                .getUnlocalizedName())));
+                int i = 0;
+                for (ICropCard cc : m.getParents()) {
+                    sbm.append(",");
+                    sbm.append(DebugHelper.sanitizeCSVString(StatCollector.translateToLocal(cc.getUnlocalizedName())));
+                    i++;
+                }
+                for (; i < 4; i++) {
+                    sbm.append(",");
+                }
+                Collection<IBreedingRequirement> reqs = m.getRequirements();
+                if (reqs != null && !reqs.isEmpty()) {
+                    for (IBreedingRequirement req : reqs) {
+                        sbm.append(",");
+                        sbm.append(DebugHelper.sanitizeCSVString(req.getDescription()));
+                    }
+                }
+                sbm.append(System.lineSeparator());
+                sb.append(sbm);
+            });
+        sb.delete(
+            sb.length() - System.lineSeparator()
+                .length(),
+            sb.length());
+        return sb.toString();
+    }
+
+    /**
+     * @return a text dump of all the registered mutation pools
+     */
+    public String dumpMutationPools() {
+        return this.pools.entrySet()
+            .stream()
+            .sorted(Map.Entry.comparingByKey())
+            .map(e -> {
+                StringBuilder sbm = new StringBuilder();
+                // always display the name we have for it, since that's what the registry will look for
+                sbm.append(e.getKey());
+                sbm.append(System.lineSeparator());
+                e.getValue()
+                    .dump(sbm);
+                sbm.append(System.lineSeparator());
+                return sbm.toString();
+            })
+            .collect(Collectors.joining(System.lineSeparator()));
     }
 }

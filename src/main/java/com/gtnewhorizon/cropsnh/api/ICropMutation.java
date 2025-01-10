@@ -20,4 +20,6 @@ public interface ICropMutation {
     boolean canBreed(ArrayList<ICropCard> parents, World world, ICropStickTile tile, int x, int y, int z);
 
     boolean canBreed(ArrayList<ICropCard> parents, TileEntity te, ItemStack[] catalysts);
+
+    Collection<IBreedingRequirement> getRequirements();
 }

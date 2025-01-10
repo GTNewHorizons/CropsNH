@@ -2,9 +2,10 @@ package com.gtnewhorizon.cropsnh.crops.food;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
+import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
-import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 import gregtech.api.enums.ItemList;
 
@@ -35,8 +36,8 @@ public class CropOnion extends CropFood {
     }
 
     @Override
-    public int getRenderShape() {
-        return PlantRenderer.RENDER_X;
+    public IPlantRenderShape getRenderShape() {
+        return PlantRenderShape.X;
     }
 
     @Override

@@ -110,4 +110,9 @@ public class CropMutation implements ICropMutation {
         boolean p4 = this.parent4 == null || parents.contains(this.parent4);
         return p1 && p2 && p3 && p4;
     }
+
+    @Override
+    public Collection<IBreedingRequirement> getRequirements() {
+        return this.requirements;
+    }
 }

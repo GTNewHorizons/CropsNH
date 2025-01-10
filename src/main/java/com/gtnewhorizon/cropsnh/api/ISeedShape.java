@@ -25,4 +25,9 @@ public interface ISeedShape {
      * @return The gray-scale icon to use for this seed shape.
      */
     IIcon getLightIcon();
+
+    /**
+     * @return The name of the shape.
+     */
+    String getName();
 }

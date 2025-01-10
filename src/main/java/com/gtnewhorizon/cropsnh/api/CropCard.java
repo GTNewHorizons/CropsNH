@@ -3,6 +3,7 @@ package com.gtnewhorizon.cropsnh.api;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -115,7 +116,7 @@ public abstract class CropCard implements ICropCard {
     }
 
     @Override
-    public Iterable<IGrowthRequirement> getGrowthRequirements() {
+    public Collection<IGrowthRequirement> getGrowthRequirements() {
         return this.growthRequirements;
     }
 
@@ -125,13 +126,13 @@ public abstract class CropCard implements ICropCard {
     }
 
     @Override
-    public Iterable<ItemStack> getAlternateSeeds() {
+    public Collection<ItemStack> getAlternateSeeds() {
         return this.alternateSeeds;
     }
 
     @Override
-    public int getRenderShape() {
-        return PlantRenderer.RENDER_HASHTAG;
+    public IPlantRenderShape getRenderShape() {
+        return PlantRenderShape.Hash;
     }
 
     @Override
@@ -160,13 +161,9 @@ public abstract class CropCard implements ICropCard {
         return stats.getGrowth() > startsSpreadingWeedsAt();
     }
 
-    /**
-     * Overridable for stuff like venomilia.
-     *
-     * @return The last growth stage before weeds start sprouting because growth is too high.
-     */
+    @Override
     public int startsSpreadingWeedsAt() {
-        return Constants.SPREAD_WEED_WHEN_GROWTH_ABOVE;
+        return Constants.SPREAD_WEED_WHEN_GROWTH_AT_DEFAULT;
     }
 
     private static IIcon MISSING_TEXTURE = null;

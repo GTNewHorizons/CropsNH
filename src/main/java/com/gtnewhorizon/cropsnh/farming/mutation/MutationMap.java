@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropMutation;
@@ -56,5 +57,13 @@ public class MutationMap implements IMutationMap {
         map.get(parent)
             .findMatches(parents, index + 1, matches);
 
+    }
+
+    public Stream<ICropMutation> dump() {
+        return Stream.concat(
+            this.list.stream(),
+            this.map.values()
+                .stream()
+                .flatMap(MutationMap::dump));
     }
 }

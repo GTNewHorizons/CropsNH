@@ -118,7 +118,14 @@ cropsnh_tooltip.leaf.uua=UUA in Berry Form.
 cropsnh_tooltip.leaf.uum=UUM in Berry Form.
 
 
-
+# NEI Compat
+nei.options.tools.dump.cropsnh=Crops NH
+nei.options.tools.dump.cropsnh.alternateSeed=Alternate Seeds
+nei.options.tools.dump.cropsnh.cropregistry=Crops
+nei.options.tools.dump.cropsnh.deterministicmutations=Deterministic Mutations
+nei.options.tools.dump.cropsnh.fertilizerregistry=Fertilizers
+nei.options.tools.dump.cropsnh.mutationpoolregistry=Mutation Pools
+nei.options.tools.dump.cropsnh.soilregistry=Soils
 
 
 # Open Computers Compat
@@ -304,6 +311,7 @@ cropsnh_crops.pyrolusium=Pyrolusium
 cropsnh_crops.pyrolusium.flavour=It's trying it's best.
 cropsnh_crops.reactoria=Reactoria
 cropsnh_crops.saltyRoot=Salty Root
+cropsnh_crops.saltyRoot.flavour=It prefers dry biomes. Inedible.
 cropsnh_crops.sapphirum=Sapphirum
 cropsnh_crops.scheelinium=scheelinium
 cropsnh_crops.slimeplant=Slimeplant

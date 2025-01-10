@@ -17,12 +17,10 @@ import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.reference.Data;
-import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import gregtech.api.objects.XSTR;
 
@@ -111,7 +109,7 @@ public class CropNetherwart extends NHCropCard {
             if (data.getChance() > XSTR.XSTR_INSTANCE.nextInt(10000)) {
                 ISeedStats stats = te.getStats();
                 te.clear();
-                te.plantSeed(CropRegistry.instance.get(Reference.MOD_ID + ":" + Names.Objects.terraWart), stats);
+                te.plantSeed(CropsNHCrops.TerraWart, stats);
             } else {
                 // Increase the chance just to make it slightly more likely and to act a bad luck protection.
                 // At most, I'd like players to spend a stack of snow blocks on this.

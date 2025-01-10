@@ -94,7 +94,7 @@ public class BlockUnderRequirement
 
     public BlockUnderRequirement addBlock(BlockWithMeta... args) {
         for (BlockWithMeta arg : args) {
-            this.blocks.add(arg.getBlock(), arg.ignoreMeta() ? -1 : arg.getMeta());
+            this.blocks.add(arg.getBlock(), arg.ignoreMeta() ? OreDictionary.WILDCARD_VALUE : arg.getMeta());
         }
         return this;
     }

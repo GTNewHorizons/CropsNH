@@ -15,8 +15,15 @@ public interface ISoilList {
 
     /**
      * Adds a list of soil to this soil list.
-     * 
+     *
      * @param soils The list of soils to add to the list.
      */
     void registerSoil(BlockWithMeta... soils);
+
+    /**
+     * Dumps the contents of the string builder at runtime.
+     * 
+     * @param sb The string builder to append to.
+     */
+    void dump(StringBuilder sb);
 }

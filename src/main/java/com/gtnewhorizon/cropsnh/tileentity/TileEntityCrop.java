@@ -37,12 +37,12 @@ import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
+import com.gtnewhorizon.cropsnh.init.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 
 import cpw.mods.fml.relauncher.Side;
@@ -636,7 +636,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             return;
         }
         // else weed this thing
-        ICropCard weed = CropRegistry.instance.get(Reference.MOD_ID + ":weed");
+        ICropCard weed = CropsNHCrops.Weed;
         ISeedStats stats = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
         this.plantSeed(weed, stats);
         this.isDirty = true;
@@ -882,8 +882,55 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         if (this.isMature()) {
             this.doPlayerHarvest();
         }
-        // // TODO: DELETE IC2 DROP SIMULATOR ONCE ALL CROPS ARE PORTED OVER
+        // TODO: DELETE IC2 DROP SIMULATOR ONCE ALL CROPS ARE PORTED OVER
         // if (heldItem != null) {
+        // ArrayList<Pair<Float, String>> a = new ArrayList<Pair<Float, String>>();
+        // System.out.println("--------------------------");
+        // StringBuilder sb = new StringBuilder();
+        // for (ic2.api.crops.CropCard cc : Crops.instance.getCrops()
+        // .stream()
+        // .sorted(Comparator.comparing(ic2.api.crops.CropCard::getId))
+        // .collect(Collectors.toList())) {
+        // sb.append(
+        // String.format(
+        // "{\"id\":%d,\"name\":\"%s\",\"rus\":\"\",\"tier\":%d,\"stats\":{\"che\":%d,\"foo\":%d,\"def\":%d,\"col\":%d,\"wee\":%d},\"attributes\":\"%s\",\"mod\":\"\"},\n",
+        // cc.getId(),
+        // StatCollector.translateToLocal(cc.displayName()),
+        // cc.tier(),
+        // cc.stat(0),
+        // cc.stat(1),
+        // cc.stat(2),
+        // cc.stat(3),
+        // cc.stat(4),
+        // String.join(" ", cc.attributes())));
+        // float l = 0;
+        // FakeTileEntityCrop te = new FakeTileEntityCrop(
+        // cc,
+        // this.xCoord,
+        // this.yCoord,
+        // this.zCoord,
+        // this.worldObj);
+        // for (int j = 0; j < 1000; j++) {
+        // if (cc == Crops.instance.getCropCard("IC2", "stickreed")) {
+        // for (int i = 3 - XSTR.XSTR_INSTANCE.nextInt(3); i < cc.maxSize(); i++) {
+        // te.setSize((byte) i);
+        // l += cc.growthDuration(te);
+        // }
+        // } else {
+        // for (int i = cc.getSizeAfterHarvest(te); i < cc.maxSize(); i++) {
+        // te.setSize((byte) i);
+        // l += cc.growthDuration(te);
+        // }
+        // }
+        // }
+        // a.add(new Pair<>(l / 1000, cc.displayName()));
+        // }
+        // System.out.println("\n" + sb.toString());
+        // a.sort(Comparator.comparing(p -> p.getKey()));
+        // System.out.println("--------------------------");
+        // for (Pair<Float, String> p : a) {
+        // System.out.println(p.getValue() + ": " + p.getKey());
+        // }
         // ic2.api.crops.CropCard cc = Crops.instance.getCropCard(heldItem);
         // if (cc == null) return true;
         // FakeTileEntityCrop te = new FakeTileEntityCrop(cc, this.xCoord, this.yCoord, this.zCoord, this.worldObj);

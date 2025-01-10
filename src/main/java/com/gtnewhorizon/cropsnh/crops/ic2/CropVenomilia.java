@@ -41,11 +41,6 @@ public class CropVenomilia extends NHCropCard {
     }
 
     @Override
-    public boolean spreadsWeeds(ICropStickTile te) {
-        return super.spreadsWeeds(te);
-    }
-
-    @Override
     public int startsSpreadingWeedsAt() {
         return 8;
     }

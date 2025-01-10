@@ -1,6 +1,8 @@
 package com.gtnewhorizon.cropsnh.farming.registries;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -27,19 +29,14 @@ public class SoilRegistry implements ISoilRegistry {
 
     public SoilRegistry() {
         // register the global soil list.
-        this.allSoils = new SoilList(this, true);
-        // default with a couple vanilla soil types
-        this.soilTypes.put("farmland", new SoilList(this, false));
-        this.soilTypes.put("sand", new SoilList(this, false));
-        this.soilTypes.put("mycelium", new SoilList(this, false));
-        this.soilTypes.put("soulsand", new SoilList(this, false));
+        this.allSoils = new SoilList("global", this, true);
     }
 
     /**
      * Used to register a soil that was registered to a child to the global soil list
      *
      * @param soils The soils to add to the global soil list
-     * @see SoilList#SoilList(SoilRegistry, boolean)
+     * @see SoilList#SoilList(String, SoilRegistry, boolean)
      */
     void registerGlobalSoil(BlockWithMeta... soils) {
         this.allSoils.registerSoil(soils);
@@ -63,7 +60,7 @@ public class SoilRegistry implements ISoilRegistry {
         // append empty group if a new soil type is requested so that it can be filled in later if the response is
         // cached.
         if (!this.soilTypes.containsKey(type)) {
-            this.soilTypes.put(type, new SoilList(this, false));
+            this.soilTypes.put(type, new SoilList(type, this, false));
         }
         return this.soilTypes.get(type);
     }
@@ -80,9 +77,29 @@ public class SoilRegistry implements ISoilRegistry {
     @Override
     public void register(String type, BlockWithMeta... soils) {
         if (!this.soilTypes.containsKey(type)) {
-            this.soilTypes.put(type, new SoilList(this, false));
+            this.soilTypes.put(type, new SoilList(type, this, false));
         }
         this.soilTypes.get(type)
             .registerSoil(soils);
+    }
+
+    /**
+     * @return a dump of all the registered soils
+     */
+    public String dump() {
+        return this.soilTypes.entrySet()
+            .stream()
+            .sorted(Map.Entry.comparingByKey())
+            .map(e -> {
+                StringBuilder sb = new StringBuilder();
+                // always display the name we have since that's what the registry looks for.
+                sb.append(e.getKey());
+                sb.append(System.lineSeparator());
+                e.getValue()
+                    .dump(sb);
+                sb.append(System.lineSeparator());
+                return sb.toString();
+            })
+            .collect(Collectors.joining(System.lineSeparator()));
     }
 }

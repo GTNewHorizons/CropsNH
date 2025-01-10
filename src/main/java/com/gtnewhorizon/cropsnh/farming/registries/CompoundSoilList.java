@@ -1,6 +1,8 @@
 package com.gtnewhorizon.cropsnh.farming.registries;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 import net.minecraft.block.Block;
 
@@ -10,6 +12,14 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 public class CompoundSoilList implements ISoilList {
 
     private final ArrayList<ISoilList> soils;
+
+    CompoundSoilList(Collection<ISoilList> soilList) {
+        this.soils = new ArrayList<>(soilList);
+    }
+
+    CompoundSoilList(ISoilList... soilList) {
+        this.soils = new ArrayList<>(Arrays.asList(soilList));
+    }
 
     CompoundSoilList(int initialCapacity) {
         this.soils = new ArrayList<>(initialCapacity);
@@ -32,5 +42,28 @@ public class CompoundSoilList implements ISoilList {
     @Override
     public void registerSoil(BlockWithMeta... soils) {
         // empty on purpose
+    }
+
+    @Override
+    public void dump(StringBuilder sb) {
+        // note that it's empty if it is empty
+        if (this.soils.isEmpty()) {
+            sb.append("# empty");
+            return;
+        }
+        int i = 0;
+        sb.append("# compound list");
+        for (ISoilList soil : this.soils) {
+            sb.append("# inner list ");
+            sb.append(i++);
+            sb.append(System.lineSeparator());
+            soil.dump(sb);
+            sb.append(System.lineSeparator());
+        }
+        // trim excess newline
+        sb.delete(
+            sb.length() - System.lineSeparator()
+                .length(),
+            sb.length());
     }
 }

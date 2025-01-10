@@ -5,10 +5,11 @@ import java.awt.Color;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
+import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -46,8 +47,8 @@ public class CropWithereed extends NHCropCard {
     }
 
     @Override
-    public int getRenderShape() {
-        return PlantRenderer.RENDER_X;
+    public IPlantRenderShape getRenderShape() {
+        return PlantRenderShape.X;
     }
 
     @Override

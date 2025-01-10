@@ -5,11 +5,12 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
+import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
-import com.gtnewhorizon.cropsnh.renderers.PlantRenderer;
 
 public class CropPrimordialBerry extends NHCropCard {
 
@@ -25,8 +26,8 @@ public class CropPrimordialBerry extends NHCropCard {
     }
 
     @Override
-    public int getRenderShape() {
-        return PlantRenderer.RENDER_X;
+    public IPlantRenderShape getRenderShape() {
+        return PlantRenderShape.X;
     }
 
     @Override

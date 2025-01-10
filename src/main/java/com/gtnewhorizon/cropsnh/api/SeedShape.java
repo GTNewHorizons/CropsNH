@@ -34,6 +34,11 @@ public enum SeedShape implements ISeedShape {
     }
 
     @Override
+    public String getName() {
+        return this.name();
+    }
+
+    @Override
     public void registerIcons(IIconRegister reg) {
         this.darkIcon = reg.registerIcon(texturePath + "1");
         this.lightIcon = reg.registerIcon(texturePath + "2");
@@ -48,4 +53,5 @@ public enum SeedShape implements ISeedShape {
     public IIcon getLightIcon() {
         return this.lightIcon;
     }
+
 }
