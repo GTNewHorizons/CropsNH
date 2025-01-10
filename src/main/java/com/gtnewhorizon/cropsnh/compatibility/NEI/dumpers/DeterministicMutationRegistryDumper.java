@@ -11,7 +11,7 @@ import codechicken.nei.config.DataDumper;
 public class DeterministicMutationRegistryDumper extends DataDumper {
 
     public DeterministicMutationRegistryDumper() {
-        super("tools.dump.cropsnh.deterministicmutations");
+        super("tools.dump.cropsnh.deterministicMutations");
     }
 
     @Override

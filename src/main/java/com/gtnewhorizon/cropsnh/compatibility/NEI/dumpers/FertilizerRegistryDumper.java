@@ -11,7 +11,7 @@ import codechicken.nei.config.DataDumper;
 public class FertilizerRegistryDumper extends DataDumper {
 
     public FertilizerRegistryDumper() {
-        super("tools.dump.cropsnh.fertilizerregistry");
+        super("tools.dump.cropsnh.fertilizers");
     }
 
     @Override

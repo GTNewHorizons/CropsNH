@@ -11,7 +11,7 @@ import codechicken.nei.config.DataDumper;
 public class SoilRegistryDumper extends DataDumper {
 
     public SoilRegistryDumper() {
-        super("tools.dump.cropsnh.soilregistry");
+        super("tools.dump.cropsnh.soilRegistry");
     }
 
     @Override

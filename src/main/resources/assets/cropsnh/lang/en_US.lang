@@ -121,11 +121,11 @@ cropsnh_tooltip.leaf.uum=UUM in Berry Form.
 # NEI Compat
 nei.options.tools.dump.cropsnh=Crops NH
 nei.options.tools.dump.cropsnh.alternateSeed=Alternate Seeds
-nei.options.tools.dump.cropsnh.cropregistry=Crops
-nei.options.tools.dump.cropsnh.deterministicmutations=Deterministic Mutations
-nei.options.tools.dump.cropsnh.fertilizerregistry=Fertilizers
-nei.options.tools.dump.cropsnh.mutationpoolregistry=Mutation Pools
-nei.options.tools.dump.cropsnh.soilregistry=Soils
+nei.options.tools.dump.cropsnh.cropRegistry=Crops
+nei.options.tools.dump.cropsnh.deterministicMutations=Deterministic Mutations
+nei.options.tools.dump.cropsnh.fertilizers=Fertilizers
+nei.options.tools.dump.cropsnh.mutationPools=Mutation Pools
+nei.options.tools.dump.cropsnh.soilRegistry=Soils
 
 
 # Open Computers Compat

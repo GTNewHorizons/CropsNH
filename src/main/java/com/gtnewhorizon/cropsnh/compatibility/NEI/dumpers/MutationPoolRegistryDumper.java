@@ -11,7 +11,7 @@ import codechicken.nei.config.DataDumper;
 public class MutationPoolRegistryDumper extends DataDumper {
 
     public MutationPoolRegistryDumper() {
-        super("tools.dump.cropsnh.mutationpoolregistry");
+        super("tools.dump.cropsnh.mutationPools");
     }
 
     @Override
