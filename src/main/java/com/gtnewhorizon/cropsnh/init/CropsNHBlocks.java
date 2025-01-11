@@ -9,7 +9,7 @@ public class CropsNHBlocks {
 
     public static Block blockCrop;
 
-    public static void init() {
+    public static void preInit() {
         blockCrop = new BlockCropSticks();
         LogHelper.debug("Blocks registered");
     }

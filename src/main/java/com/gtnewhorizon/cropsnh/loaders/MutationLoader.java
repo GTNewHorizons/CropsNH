@@ -4,7 +4,7 @@ import com.gtnewhorizon.cropsnh.init.CropsNHCrops;
 
 public class MutationLoader {
 
-    public static void init() {
+    public static void postInit() {
         CropsNHCrops.registerMutations();
     }
 }

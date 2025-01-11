@@ -179,7 +179,7 @@ import tconstruct.world.TinkerWorld;
 
 public class CropLoader {
 
-    public static void init() {
+    public static void postInit() {
         // weeds
         CropRegistry.instance.register(CropsNHCrops.Weed = new CropWeed());
 

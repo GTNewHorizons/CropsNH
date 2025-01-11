@@ -17,7 +17,7 @@ public class Recipes {
     /** Holds all the custom woods for CustomWood items, will get filled on init() */
     private static List<ItemStack> woodList;
 
-    public static void init() {
+    public static void postInit() {
         // crop item
         GameRegistry.addRecipe(
             new ShapedOreRecipe(

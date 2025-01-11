@@ -66,8 +66,8 @@ public class CropsNH {
             .bus()
             .register(new ConfigurationHandler());
         ModHelper.findHelpers();
-        CropsNHBlocks.init();
-        CropsNHItems.init();
+        CropsNHBlocks.preInit();
+        CropsNHItems.preInit();
         ModHelper.preInit();
         LogHelper.debug("Pre-Initialization Complete");
     }
@@ -87,15 +87,15 @@ public class CropsNH {
     public static void postInit(FMLPostInitializationEvent event) {
         LogHelper.debug("Starting Post-Initialization");
         // Have to do this in postInit because some mods don't register their items/blocks until init
-        OreDictLoader.init();
-        FertilizerLoader.init();
-        SoilLoader.init();
-        BlockUnderRequirementLoader.init();
-        CropLoader.init();
+        OreDictLoader.postInit();
+        FertilizerLoader.postInit();
+        SoilLoader.postInit();
+        BlockUnderRequirementLoader.postInit();
+        CropLoader.postInit();
         BlockUnderRequirement.validateRegistry();
-        MutationLoader.init();
+        MutationLoader.postInit();
 
-        Recipes.init();
+        Recipes.postInit();
         ModHelper.postInit();
 
         LogHelper.debug("Post-Initialization Complete");

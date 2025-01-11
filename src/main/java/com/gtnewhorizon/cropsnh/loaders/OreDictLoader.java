@@ -7,7 +7,7 @@ import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 
 public class OreDictLoader {
 
-    public static void init() {
+    public static void postInit() {
         register(new ItemStack(CropsNHItems.goldfish, 1, 0), "listAllfishraw");
         register(new ItemStack(CropsNHItems.berry, 1, 0), "cropHuckleberry", "listAllberry", "listAllfruit");
         register(new ItemStack(CropsNHItems.berry, 1, 1), "cropSugarbeet", "listAllveggie", "listAllrootveggie");

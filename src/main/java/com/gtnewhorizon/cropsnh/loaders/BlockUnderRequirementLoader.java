@@ -12,7 +12,7 @@ import thaumcraft.common.config.ConfigBlocks;
 
 public class BlockUnderRequirementLoader {
 
-    public static void init() {
+    public static void postInit() {
         // spotless:off
         // Vanilla Stone Lilies
         BlockUnderRequirement.get("stone").addBlock(new BlockWithMeta(Blocks.stone), new BlockWithMeta(Blocks.cobblestone));

@@ -11,7 +11,7 @@ import ic2.core.Ic2Items;
 
 public class FertilizerLoader {
 
-    public static void init() {
+    public static void postInit() {
         // vanilla bonemeal
         FertilizerRegistry.instance.register(Items.dye, 15, 10);
 

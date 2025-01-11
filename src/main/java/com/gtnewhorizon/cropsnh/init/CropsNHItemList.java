@@ -45,7 +45,8 @@ public enum CropsNHItemList {
     ferruLeaf,
     aureliaLeaf,
     teaLeaf,
-    bobsYerUncleBerry;
+    bobsYerUncleBerry,
+    starwart;
 
     private ItemStack stack = null;
 

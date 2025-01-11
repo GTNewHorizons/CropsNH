@@ -40,6 +40,7 @@ public class MaterialLeafLoader {
     public final static MaterialLeafVariant aureliaLeaf       = new MaterialLeafVariant(  28, "aureliaLeaf",       "gold");
     public final static MaterialLeafVariant teaLeaf           = new MaterialLeafVariant(  29, "teaLeaf",           "tea");
     public final static MaterialLeafVariant bobsYerUncleBerry = new MaterialLeafVariant(  30, "bobsYerUncleBerry", "emerald");
+    public final static MaterialLeafVariant starwart          = new MaterialLeafVariant(  31, "starwart",          "netherstar");
     //spotless:on
 
     public static void init() {
@@ -74,6 +75,7 @@ public class MaterialLeafLoader {
         ItemMaterialLeaf.registerVariant(aureliaLeaf);
         ItemMaterialLeaf.registerVariant(teaLeaf);
         ItemMaterialLeaf.registerVariant(bobsYerUncleBerry);
+        ItemMaterialLeaf.registerVariant(starwart);
     }
 
 }

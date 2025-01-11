@@ -11,7 +11,7 @@ import thaumcraft.common.config.ConfigBlocks;
 
 public class SoilLoader {
 
-    public static void init() {
+    public static void postInit() {
 
         SoilRegistry registry = SoilRegistry.instance;
 
