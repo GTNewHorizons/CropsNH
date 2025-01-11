@@ -28,9 +28,6 @@ public interface IProxy {
     /** Registers the renderers on the client, does nothing on the server */
     void registerRenderers();
 
-    /** Initializes the NEI configuration */
-    void initNEI();
-
     /** Hides an ItemStack from NEI on the client, does nothing on the server */
     void hideItemInNEI(ItemStack stack);
 

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 
-import com.gtnewhorizon.cropsnh.CropsNH;
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
 import com.gtnewhorizon.cropsnh.reference.Names;
 
@@ -22,9 +21,7 @@ public class NEIHelper extends ModHelper {
     }
 
     @Override
-    protected void onPostInit() {
-        CropsNH.proxy.initNEI();
-    }
+    protected void onPostInit() {}
 
     public static void setServerConfigs() {
         if (!ModHelper.allowIntegration(Names.Mods.nei)) return;

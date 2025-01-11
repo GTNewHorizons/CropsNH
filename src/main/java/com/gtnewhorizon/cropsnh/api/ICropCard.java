@@ -284,4 +284,20 @@ public interface ICropCard {
      * Registers a crop its pools.
      */
     void registerToPools();
+
+    /**
+     * @return A list of all the blocks that go under the crop card.
+     */
+    Collection<ItemStack> getSoilsForNEI(boolean useCache);
+
+    /**
+     * @return A list of all the blocks that are required to be under the crop for it to grow.
+     */
+    Collection<ItemStack> getBlocksUnderForNEI(boolean useCache);
+
+    /**
+     * @return Returns a generic seed for this crop card.
+     */
+    ItemStack getSeedItem(ISeedStats stats);
+
 }

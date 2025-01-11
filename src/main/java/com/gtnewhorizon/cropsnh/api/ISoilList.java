@@ -1,6 +1,9 @@
 package com.gtnewhorizon.cropsnh.api;
 
+import java.util.stream.Stream;
+
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 
 public interface ISoilList {
 
@@ -22,8 +25,15 @@ public interface ISoilList {
 
     /**
      * Dumps the contents of the string builder at runtime.
-     * 
+     *
      * @param sb The string builder to append to.
      */
     void dump(StringBuilder sb);
+
+    /**
+     * Dumps the contents of the string builder at runtime.
+     *
+     * @param sb The string builder to append to.
+     */
+    Stream<ItemStack> getNEIItemList();
 }

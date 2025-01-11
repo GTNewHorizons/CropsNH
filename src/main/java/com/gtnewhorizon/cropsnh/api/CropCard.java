@@ -274,4 +274,5 @@ public abstract class CropCard implements ICropCard {
 
     @Override
     public void onRemoved(ICropStickTile te) {}
+
 }

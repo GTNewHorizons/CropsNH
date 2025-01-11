@@ -1,8 +1,11 @@
 package com.gtnewhorizon.cropsnh.farming.registries;
 
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
@@ -68,5 +71,11 @@ public class SoilList implements ISoilList {
                     return sbm.toString();
                 })
                 .collect(Collectors.joining(System.lineSeparator())));
+    }
+
+    @Override
+    public Stream<ItemStack> getNEIItemList() {
+        return this.validSoils.getStream()
+            .map(s -> new ItemStack(Item.getItemFromBlock(s.key), 1, s.meta == null ? 0 : s.meta));
     }
 }

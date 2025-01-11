@@ -127,6 +127,10 @@ nei.options.tools.dump.cropsnh.deterministicMutations=Deterministic Mutations
 nei.options.tools.dump.cropsnh.fertilizers=Fertilizers
 nei.options.tools.dump.cropsnh.mutationPools=Mutation Pools
 nei.options.tools.dump.cropsnh.soilRegistry=Soils
+cropsnh_nei.cropList.tier=Tier: %d
+cropsnh_nei.cropList.growthDuration=Growth Points: %1$s
+cropsnh_nei.cropList.dropMult=Drop Multiplier: %1$0.2f
+
 
 
 # Open Computers Compat
@@ -154,8 +158,9 @@ nei.options.tools.dump.cropsnh.soilRegistry=Soils
 # cropsnh_arg.direction.optional=(optional) direction
 
 # NEI GUI
-cropsnh_nei.mutation.title=Crop Mutation
-cropsnh_nei.cropProduct.title=Crop Produce
+cropsnh_nei.cropsNHDeterministicBreeding.title=Crop Breeding
+cropsnh_nei.cropsNHCropGroups.title=Crop Groups
+cropsnh_nei.cropsNHCrops.title=Crops
 cropsnh_nei.soil=Soil
 cropsnh_nei.needs=Needs
 cropsnh_nei.below=Below

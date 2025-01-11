@@ -10,6 +10,8 @@ import com.gtnewhorizon.cropsnh.reference.Names;
 
 public class SeedStats implements ISeedStats {
 
+    public final static SeedStats DEFAULT_ANALYZED = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
+
     private final byte growth;
     private final byte gain;
     private final byte resistance;

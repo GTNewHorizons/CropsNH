@@ -38,7 +38,6 @@ import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.init.CropsNHCrops;
-import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Data;
@@ -448,12 +447,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         if (this.crop == null || this.stats == null) return null;
 
         // save crop info
-        NBTTagCompound tag = new NBTTagCompound();
-        this.writeSeedNBT(tag);
-        // create seed with tags
-        ItemStack seed = new ItemStack(CropsNHItems.genericSeed, 1);
-        seed.setTagCompound(tag);
-        return seed;
+        return this.crop.getSeedItem(this.stats);
     }
 
     // endregion harvesting

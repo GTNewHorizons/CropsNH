@@ -3,8 +3,10 @@ package com.gtnewhorizon.cropsnh.farming.registries;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -65,5 +67,11 @@ public class CompoundSoilList implements ISoilList {
             sb.length() - System.lineSeparator()
                 .length(),
             sb.length());
+    }
+
+    @Override
+    public Stream<ItemStack> getNEIItemList() {
+        return this.soils.stream()
+            .flatMap(ISoilList::getNEIItemList);
     }
 }

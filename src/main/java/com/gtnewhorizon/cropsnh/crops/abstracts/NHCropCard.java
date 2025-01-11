@@ -1,15 +1,26 @@
 package com.gtnewhorizon.cropsnh.crops.abstracts;
 
 import java.awt.Color;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 
 import com.gtnewhorizon.cropsnh.api.CropCard;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
+import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
+import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import cpw.mods.fml.relauncher.Side;
@@ -55,6 +66,20 @@ public abstract class NHCropCard extends CropCard {
     @Override
     public void registerSprites(IIconRegister register) {
         this.sprites = this.registerTextures(register);
+    }
+
+    @Override
+    public ItemStack getSeedItem(ISeedStats stats) {
+        // save crop info
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setString(Names.NBT.crop, this.getId());
+        if (stats != null) {
+            stats.writeToNBT(tag);
+        }
+        // create seed with tags
+        ItemStack seed = new ItemStack(CropsNHItems.genericSeed, 1);
+        seed.setTagCompound(tag);
+        return seed;
     }
 
     // region texturing
@@ -121,4 +146,48 @@ public abstract class NHCropCard extends CropCard {
 
     // endregion texturing
 
+    // region NEI
+
+    private Collection<ItemStack> cachedSoils = null;
+
+    @Override
+    public Collection<ItemStack> getSoilsForNEI(boolean useCache) {
+        // check cache
+        if (useCache && this.cachedSoils != null) return this.cachedSoils;
+        // generate list
+        LinkedList<ItemStack> stacks = this.getSoilTypes()
+            .getNEIItemList()
+            .collect(Collectors.toCollection(LinkedList::new));
+        deduplicateBlockList(stacks);
+        // update cache if we didn't hit it
+        return this.cachedSoils = stacks;
+    }
+
+    private Collection<ItemStack> cachedBlockUnder = null;
+
+    @Override
+    public Collection<ItemStack> getBlocksUnderForNEI(boolean useCache) {
+        // check cache
+        if (useCache && this.cachedBlockUnder != null) return this.cachedBlockUnder;
+        // generate list
+        LinkedList<ItemStack> stacks = new LinkedList<>();
+        for (IGrowthRequirement req : this.growthRequirements) {
+            if (!(req instanceof BlockUnderRequirement)) continue;
+            stacks.addAll(((BlockUnderRequirement) req).getItemsForNEI());
+        }
+        deduplicateBlockList(stacks);
+        // update cache if we didn't hit it
+        return this.cachedBlockUnder = stacks;
+    }
+
+    private static void deduplicateBlockList(List<ItemStack> stacks) {
+        final HashSet<String> deduplicator = new HashSet<>();
+        stacks.removeIf(x -> {
+            // set the stack size to 1 since this is for soils and block under and they shouldn't show a count.
+            x.stackSize = 1;
+            return !deduplicator.add(x.toString());
+        });
+    }
+
+    // endregion NEI
 }

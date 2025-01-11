@@ -7,6 +7,7 @@ public enum CropsNHItemList {
     // TOOLS
     magnifyingGlass,
     spade,
+    cropSticks,
     // TODO: CONSIDER MOVING NAN CERTIFICATE TO GT5-U OR GTNH-COREMOD
     nanCertificate,
     // food crops

@@ -31,9 +31,6 @@ public class ServerProxy extends CommonProxy {
     public void registerRenderers() {}
 
     @Override
-    public void initNEI() {}
-
-    @Override
     public void hideItemInNEI(ItemStack stack) {}
 
     @Override

@@ -46,4 +46,9 @@ public class SoilRegistryDumper extends DataDumper {
         w.flush();
         w.close();
     }
+
+    @Override
+    public int modeCount() {
+        return 0;
+    }
 }

@@ -97,12 +97,6 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void initNEI() {
-        // NEIConfig configNEI = new NEIConfig();
-        // configNEI.loadConfig();
-    }
-
-    @Override
     public void hideItemInNEI(ItemStack stack) {
         Iterator<ModContainer> mods = Loader.instance()
             .getActiveModList()

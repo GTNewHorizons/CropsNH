@@ -5,12 +5,24 @@ import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
+import com.gtnewhorizon.cropsnh.utility.Tuple2;
 
 public class WorldOnlyGrowthRequirement implements IWorldGrowthRequirement {
 
+    private final Tuple2<String, Object[]> unlocalizedDesc;
+
+    public WorldOnlyGrowthRequirement() {
+        this.unlocalizedDesc = new Tuple2<>("cropsnh_growthReq.lockout.machineOnly", new Object[] {});
+    }
+
     @Override
     public String getDescription() {
-        return StatCollector.translateToLocal("cropsnh_growthReq.lockout.machineOnly");
+        return StatCollector.translateToLocalFormatted(this.unlocalizedDesc.item1, this.unlocalizedDesc.item2);
+    }
+
+    @Override
+    public Tuple2<String, Object[]> getUnlocalisedDescription() {
+        return this.unlocalizedDesc;
     }
 
     @Override
