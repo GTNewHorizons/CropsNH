@@ -22,6 +22,7 @@ import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizons.modularui.api.GlStateManager;
 import com.gtnewhorizons.modularui.api.math.Alignment;
@@ -203,8 +204,20 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
         // this also catches alternate seeds
         ICropCard cc = CropRegistry.instance.get(ingredient);
         if (cc != null) {
-            arecipes.add(new CachedCropRecipe(ingredient, cc));
+            if (ingredient.getItem() instanceof ItemGenericSeed) {
+                // only show the recipe if the seed is analyzed, no budget scanning via NEI 4 u
+                if (SeedStats.getStatsFromStack(ingredient)
+                    .isAnalyzed()) {
+                    arecipes.add(new CachedCropRecipe(ingredient, cc));
+                }
+                return;
+            } else {
+                // if it's not a generic seed it's therefore an alternate seed
+                arecipes.add(new CachedCropRecipe(ingredient, cc));
+                return;
+            }
         }
+
         // try fetching the block associated with the item
         Block block = null;
         if (ingredient.getItem() instanceof ItemBlock) {

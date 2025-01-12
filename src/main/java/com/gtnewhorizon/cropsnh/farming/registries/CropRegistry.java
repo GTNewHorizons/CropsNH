@@ -73,6 +73,12 @@ public class CropRegistry implements ICropRegistry {
     }
 
     @Override
+    public boolean isAlternateSeed(ItemStack stack) {
+        if (stack.getItem() instanceof ItemGenericSeed || stack.getItem() == null) return false;
+        return this.alternateSeedList.containsKey(stack.getItem(), stack.getItemDamage());
+    }
+
+    @Override
     public void register(ICropCard crop) {
         if (this.cropRegistry.containsKey(crop.getId())) {
             throw new RuntimeException("Duplicate crop id, crop not registered: " + crop.getId());

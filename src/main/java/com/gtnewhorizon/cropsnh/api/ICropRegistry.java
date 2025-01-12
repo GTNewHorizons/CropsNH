@@ -25,6 +25,14 @@ public interface ICropRegistry {
     public @Nullable ICropCard get(ItemStack stack);
 
     /**
+     * Checks if the item is an alternate seed.
+     * 
+     * @param stack The item to check.
+     * @return True if the stack is an alternate seed.
+     */
+    boolean isAlternateSeed(ItemStack stack);
+
+    /**
      * Gets the crop card who registered the item as it's alternate seed.
      *
      * @param stack
