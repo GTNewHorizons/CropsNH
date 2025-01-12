@@ -177,13 +177,15 @@ cropsnh_crops.weed=Weed
 cropsnh_crops.sugarCane=Sugar Cane
 cropsnh_crops.redMushroom=Red Mushroom
 cropsnh_crops.brownMushroom=Brown Mushroom
-# Bonsais
+# Vanilla Bonsais
 cropsnh_crops.bonsaiOak=Oak Bonsai
 cropsnh_crops.bonsaiSpruce=Spruce Bonsai
 cropsnh_crops.bonsaiBirch=Birch Bonsai
 cropsnh_crops.bonsaiJungle=Jungle Bonsai
 cropsnh_crops.bonsaiAcacia=Acacia Bonsai
 cropsnh_crops.bonsaiDarkOak=Dark Oak Bonsai
+# Modded Bonsais
+cropsnh_crops.bonsaiRubber=Rubber Bonsai
 # IC2 Crops
 cropsnh_crops.aurelia=Aurelia
 cropsnh_crops.coffee=Coffee

@@ -34,6 +34,7 @@ public class CropsNHCrops {
     public static ICropCard BonsaiJungle;
     public static ICropCard BonsaiAcacia;
     public static ICropCard BonsaiDarkOak;
+    public static ICropCard BonsaiRubber;
     public static ICropCard Aurelia;
     public static ICropCard Coffee;
     public static ICropCard Cyprium;
@@ -183,6 +184,7 @@ public class CropsNHCrops {
         new CropMutation(Indigo, BlueOrchid, AzureBluet).register();
         new CropMutation(Meatrose, Goldfish, EggPlant, Corium).register();
         new CropMutation(StickReed, BonsaiJungle, SugarCane).register();
+        new CropMutation(StickReed, BonsaiRubber, SugarCane).register();
         new CropMutation(BlueGlowshroom, BlueOrchid, Glowflower).register();
         new CropMutation(GreenGlowshroom, Cactus, Glowflower).register();
         new CropMutation(PurpleGlowshroom, Indigo, Glowflower).register();
