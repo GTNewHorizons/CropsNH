@@ -23,6 +23,7 @@ public class CropWithereed extends NHCropCard {
         super("withereed", new Color(0x161616), new Color(0x2C2C2C));
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coal, 1), 66_67);
         this.addDrop(new ItemStack(Items.coal, 1, 0), 33_33);
+        // TODO: CONSIDER DROPPING SKULL CHUNKS FROM EXTRA BEES INSTEAD
         this.addDrop(new ItemStack(Items.skull, 1, 1), 16_67);
         this.addDrop(new ItemStack(Items.skull, 1, 0), 8_33);
         this.addBlockUnderRequirement("coal");
