@@ -2,6 +2,8 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.api.ISeedShape;
+import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
 
@@ -25,6 +27,11 @@ public class CropMilkwart extends NHCropCard {
     @Override
     public int getGrowthDuration() {
         return 2400;
+    }
+
+    @Override
+    public ISeedShape getSeedShape() {
+        return SeedShape.spore;
     }
 
     @Override
