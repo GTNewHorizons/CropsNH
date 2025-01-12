@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -21,11 +22,7 @@ public class CropStarwart extends NHCropCard {
 
     public CropStarwart() {
         super("starwart", new Color(0x8985BE), new Color(0xFFFFFF));
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coal, 1L), 58_34);
-        this.addDrop(new ItemStack(Items.skull, 1, 1), 16_67);
-        this.addDrop(new ItemStack(Items.skull, 1, 0), 8_33);
-        this.addDrop(new ItemStack(Items.coal, 1, 0), 8_33);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.NetherStar, 1L), 8_33);
+        this.addDrop(CropsNHItemList.starwart.get(1), 100_00);
         this.addBlockUnderRequirement("netherStar");
     }
 
