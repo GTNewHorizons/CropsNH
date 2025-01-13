@@ -31,6 +31,7 @@ import com.gtnewhorizon.cropsnh.api.IMutationPool;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
 import com.gtnewhorizon.cropsnh.crops.CropWeed;
+import com.gtnewhorizon.cropsnh.crops.material.CropTrollplant;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
@@ -457,11 +458,16 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     // this saves the data on the tile entity
     @Override
     public void writeToNBT(NBTTagCompound tag) {
+        if (this.crop instanceof CropTrollplant) {
+            System.out.println(this.growthProgress);
+        }
         super.writeToNBT(tag);
         if (this.crop != null) {
             // save crop specific empty
             writeSeedNBT(tag);
-            if (this.crop != null && this.isSick) tag.setBoolean(Names.NBT.sick, true);
+            if (this.crop != null && this.isSick) {
+                tag.setBoolean(Names.NBT.sick, true);
+            }
             tag.setInteger(Names.NBT.progress, this.growthProgress);
         } else if (this.isCrossCrop) {
             // ignore crop state if it's a cross
@@ -791,6 +797,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         }
         if (this.isDirty) {
             this.isDirty = false;
+            this.markDirty();
             this.markForUpdate();
             this.worldObj.updateLightByType(EnumSkyBlock.Block, this.xCoord, this.yCoord, this.zCoord);
         }
@@ -811,6 +818,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                     if (this.growthProgress > this.crop.getGrowthDuration()) {
                         this.growthProgress = this.crop.getGrowthDuration();
                     }
+                    this.markDirty();
                 }
                 // only request re-render when the crop is changing state to be rendered.
                 int spriteIndex = this.crop.getSpriteIndex(this);

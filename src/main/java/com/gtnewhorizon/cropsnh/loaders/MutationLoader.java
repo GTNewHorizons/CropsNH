@@ -339,10 +339,10 @@ public class MutationLoader {
         new CropMutation(Tine, StoneLily, BonsaiSpruce).register();
         new CropMutation(Titania, Bauxia, Redwheat).machineOnly()
             .register();
-        new CropMutation(Transformium, SpaceFlower, Osmianth, Titania).machineOnly()
+        new CropMutation(Transformium, Trollplant, Bauxia, Titania).machineOnly()
             .register();
         // goldfish is purely here to troll
-        new CropMutation(Trollplant, Goldfish, Reactoria, Fertilia, Transformium).machineOnly()
+        new CropMutation(Trollplant, Goldfish, Reactoria, Fertilia).machineOnly()
             .register();
         new CropMutation(Withereed, BasaltLily, BlackGraniteLily).register();
         // endregion material crops
