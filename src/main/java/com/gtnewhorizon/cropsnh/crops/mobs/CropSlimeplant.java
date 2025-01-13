@@ -25,7 +25,6 @@ public class CropSlimeplant extends NHCropCard {
     public void registerToPools() {
         super.registerToPools();
         CropsNHMutationPools.aggresiveMob.register(this);
-        CropsNHMutationPools.nether.register(this);
     }
 
     @Override

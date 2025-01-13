@@ -22,6 +22,7 @@ public class CropEmberMoss extends NHCropCard {
     public void registerToPools() {
         super.registerToPools();
         CropsNHMutationPools.decorative.register(this);
+        CropsNHMutationPools.nether.register(this);
     }
 
     @Override

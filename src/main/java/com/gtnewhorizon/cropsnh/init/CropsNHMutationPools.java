@@ -16,4 +16,7 @@ public class CropsNHMutationPools {
     public static final IMutationPool nether = MutationRegistry.instance.register("nether");
     public static final IMutationPool lowTierOreBerries = MutationRegistry.instance.register("lowTierOreBerries");
     public static final IMutationPool stoneLilies = MutationRegistry.instance.register("stoneLilies");
+    public static final IMutationPool end = MutationRegistry.instance.register("end");
+    public static final IMutationPool desert = MutationRegistry.instance.register("desert");
+    public static final IMutationPool jungle = MutationRegistry.instance.register("jungle");
 }

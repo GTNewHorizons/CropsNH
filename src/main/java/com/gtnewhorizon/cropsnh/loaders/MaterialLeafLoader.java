@@ -1,10 +1,13 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
+import java.lang.reflect.Field;
+
 import com.gtnewhorizon.cropsnh.farming.materialleaf.CopponFiberVariant;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.MaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.PyrolusiumLeafVariant;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.StargatiumLeafVariant;
 import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 public class MaterialLeafLoader {
 
@@ -41,41 +44,24 @@ public class MaterialLeafLoader {
     public final static MaterialLeafVariant teaLeaf           = new MaterialLeafVariant(  29, "teaLeaf",           "tea");
     public final static MaterialLeafVariant bobsYerUncleBerry = new MaterialLeafVariant(  30, "bobsYerUncleBerry", "emerald");
     public final static MaterialLeafVariant starwart          = new MaterialLeafVariant(  31, "starwart",          "netherstar");
+    public final static MaterialLeafVariant hops              = new MaterialLeafVariant(  32, "hops",              "beer");
     //spotless:on
 
     public static void init() {
-        ItemMaterialLeaf.registerVariant(bauxiaLeaf);
-        ItemMaterialLeaf.registerVariant(canolaFLower);
-        ItemMaterialLeaf.registerVariant(copponFiber);
-        ItemMaterialLeaf.registerVariant(galvaniaLeaf);
-        ItemMaterialLeaf.registerVariant(indigoBlossom);
-        ItemMaterialLeaf.registerVariant(iridineFlower);
-        ItemMaterialLeaf.registerVariant(magicEssence);
-        ItemMaterialLeaf.registerVariant(micadiaFlower);
-        ItemMaterialLeaf.registerVariant(milkwart);
-        ItemMaterialLeaf.registerVariant(nickelbackLeaf);
-        ItemMaterialLeaf.registerVariant(oilBerry);
-        ItemMaterialLeaf.registerVariant(osmianthFlower);
-        ItemMaterialLeaf.registerVariant(platinaLeaf);
-        ItemMaterialLeaf.registerVariant(pyrolusiumLeaf);
-        ItemMaterialLeaf.registerVariant(reactoriaLeaf);
-        ItemMaterialLeaf.registerVariant(reactoriaStem);
-        ItemMaterialLeaf.registerVariant(scheeliniumLeaf);
-        ItemMaterialLeaf.registerVariant(spaceFlower);
-        ItemMaterialLeaf.registerVariant(stargatiumLeaf);
-        ItemMaterialLeaf.registerVariant(thunderFlower);
-        ItemMaterialLeaf.registerVariant(tineTwig);
-        ItemMaterialLeaf.registerVariant(titaniaLeaf);
-        ItemMaterialLeaf.registerVariant(uuaBerry);
-        ItemMaterialLeaf.registerVariant(uumBerry);
-        ItemMaterialLeaf.registerVariant(saltyRoot);
-        ItemMaterialLeaf.registerVariant(plumbiliaLeaf);
-        ItemMaterialLeaf.registerVariant(argentiaLeaf);
-        ItemMaterialLeaf.registerVariant(ferruLeaf);
-        ItemMaterialLeaf.registerVariant(aureliaLeaf);
-        ItemMaterialLeaf.registerVariant(teaLeaf);
-        ItemMaterialLeaf.registerVariant(bobsYerUncleBerry);
-        ItemMaterialLeaf.registerVariant(starwart);
+        // user reflection to auto-register all leaves
+        for (Field field : MaterialLeafLoader.class.getDeclaredFields()) {
+            if (!java.lang.reflect.Modifier.isStatic(field.getModifiers())) continue;
+            if (!MaterialLeafVariant.class.isAssignableFrom(field.getType())) continue;
+            MaterialLeafVariant variant;
+            try {
+                variant = (MaterialLeafVariant) field.get(null);
+            } catch (Exception e) {
+                LogHelper.error("Failed to auto-generate material leaf entry.");
+                e.printStackTrace();
+                return;
+            }
+            ItemMaterialLeaf.registerVariant(variant);
+        }
     }
 
 }

@@ -17,6 +17,7 @@ import com.gtnewhorizon.cropsnh.api.IMachineBreedingRequirement;
 import com.gtnewhorizon.cropsnh.api.IWorldBreedingRequirement;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.breeding.MachineOnlyBreedingRequirement;
 
 public class CropMutation implements ICropMutation {
 
@@ -38,11 +39,19 @@ public class CropMutation implements ICropMutation {
     public CropMutation(ICropCard output, ICropCard parent1, ICropCard parent2, ICropCard parent3, ICropCard parent4) {
         if (parent1 == null) throw new IllegalArgumentException("parent 1 cannot be null");
         if (parent2 == null) throw new IllegalArgumentException("parent 2 cannot be null");
+        if (parent3 == null && parent4 != null)
+            throw new IllegalArgumentException("parent 3 is null but parent 4 isn't something has gone wrong.");
         this.output = output;
         this.parent1 = parent1;
         this.parent2 = parent2;
-        this.parent3 = parent3 == null && parent4 != null ? parent4 : null;
+        this.parent3 = parent3;
         this.parent4 = parent4;
+        // carry over any compatible growth requirements
+        for (IGrowthRequirement req : output.getGrowthRequirements()) {
+            if (req instanceof IBreedingRequirement) {
+                this.requirements.add((IBreedingRequirement) req);
+            }
+        }
     }
 
     @Override
@@ -61,18 +70,14 @@ public class CropMutation implements ICropMutation {
         return Arrays.asList(this.parent1, this.parent2);
     }
 
-    @Override
-    public void addRequirement(IBreedingRequirement req) {
-        this.requirements.add(req);
+    public CropMutation machineOnly() {
+        this.requirements.add(new MachineOnlyBreedingRequirement());
+        return this;
     }
 
-    @Override
-    public void addCompatibleRequirementsFromOutput() {
-        for (IGrowthRequirement req : output.getGrowthRequirements()) {
-            if (req instanceof IBreedingRequirement) {
-                this.requirements.add((IBreedingRequirement) req);
-            }
-        }
+    public CropMutation addRequirement(IBreedingRequirement req) {
+        this.requirements.add(req);
+        return this;
     }
 
     public void addBlockUnderRequirement(String name) {

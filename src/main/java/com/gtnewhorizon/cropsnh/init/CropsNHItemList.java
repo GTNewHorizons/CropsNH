@@ -15,7 +15,7 @@ public enum CropsNHItemList {
     sugarBeet,
     goldfish,
     terraWart,
-    // material crops
+    // material leaves
     bauxiaLeaf,
     canolaFLower,
     copponFiber,
@@ -47,7 +47,8 @@ public enum CropsNHItemList {
     aureliaLeaf,
     teaLeaf,
     bobsYerUncleBerry,
-    starwart;
+    starwart,
+    hops;
 
     private ItemStack stack = null;
 

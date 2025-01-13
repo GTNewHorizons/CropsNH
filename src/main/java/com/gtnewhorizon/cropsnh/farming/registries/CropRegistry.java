@@ -81,7 +81,7 @@ public class CropRegistry implements ICropRegistry {
     @Override
     public void register(ICropCard crop) {
         if (this.cropRegistry.containsKey(crop.getId())) {
-            throw new RuntimeException("Duplicate crop id, crop not registered: " + crop.getId());
+            throw new IllegalArgumentException("Duplicate crop id, crop not registered: " + crop.getId());
         }
         this.cropRegistry.put(crop.getId(), crop);
         this.registrationOrder.add(crop);

@@ -27,6 +27,7 @@ public class CropCactus extends NHCropCard {
         super.registerToPools();
         CropsNHMutationPools.cactus.register(this);
         CropsNHMutationPools.decorative.register(this);
+        CropsNHMutationPools.desert.register(this);
     }
 
     @Override

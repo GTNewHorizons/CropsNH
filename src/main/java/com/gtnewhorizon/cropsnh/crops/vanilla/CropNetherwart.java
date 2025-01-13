@@ -39,6 +39,7 @@ public class CropNetherwart extends NHCropCard {
     public void registerToPools() {
         super.registerToPools();
         CropsNHMutationPools.mushroom.register(this);
+        CropsNHMutationPools.nether.register(this);
     }
 
     @Override

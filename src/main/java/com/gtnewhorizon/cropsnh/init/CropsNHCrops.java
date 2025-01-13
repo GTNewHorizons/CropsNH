@@ -1,8 +1,6 @@
 package com.gtnewhorizon.cropsnh.init;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
-import com.gtnewhorizon.cropsnh.farming.mutation.CropMutation;
-import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 
 public class CropsNHCrops {
 
@@ -49,6 +47,7 @@ public class CropsNHCrops {
     public static ICropCard TerraWart;
     public static ICropCard StoneLily;
     public static ICropCard SandLily;
+    public static ICropCard ClayLily;
     public static ICropCard NetherStoneLily;
     public static ICropCard SoulSandLily;
     public static ICropCard EndStoneLily;
@@ -75,7 +74,7 @@ public class CropsNHCrops {
     public static ICropCard Shimmerleaf;
     public static ICropCard ManaBean;
     public static ICropCard PrimordialBerry;
-    public static ICropCard KnightmetalBerries;
+    public static ICropCard KnightmetalBerry;
     public static ICropCard Torchberry;
     public static ICropCard Moss;
     public static ICropCard Bamboo;
@@ -112,6 +111,7 @@ public class CropsNHCrops {
     public static ICropCard Raspberry;
     public static ICropCard Maloberry;
     public static ICropCard SaguaroCactus;
+    public static ICropCard Cucumber;
     public static ICropCard Goldfish;
     public static ICropCard Huckleberry;
     public static ICropCard MagicalNightshade;
@@ -125,6 +125,7 @@ public class CropsNHCrops {
     public static ICropCard SaltyRoot;
     public static ICropCard Argentia;
     public static ICropCard Bauxia;
+    public static ICropCard Blackthron;
     public static ICropCard Blazereed;
     public static ICropCard BobsYerUncleRanks;
     public static ICropCard Canola;
@@ -133,6 +134,7 @@ public class CropsNHCrops {
     public static ICropCard Corium;
     public static ICropCard Corpseplant;
     public static ICropCard Creeperweed;
+    public static ICropCard Cyazint;
     public static ICropCard Diareed;
     public static ICropCard EggPlant;
     public static ICropCard Enderbloom;
@@ -160,6 +162,7 @@ public class CropsNHCrops {
     public static ICropCard Platina;
     public static ICropCard Plumbilia;
     public static ICropCard Pyrolusium;
+    public static ICropCard PurpleTulip;
     public static ICropCard Reactoria;
     public static ICropCard Sapphirum;
     public static ICropCard Scheelinium;
@@ -177,20 +180,4 @@ public class CropsNHCrops {
     public static ICropCard Trollplant;
     public static ICropCard Withereed;
     public static ICropCard Zomplant;
-
-    public static void registerMutations() {
-        new CropMutation(Milkwart, Corium, Netherwart).register();
-        new CropMutation(Glowheat, Glowflower, Wheat).register();
-        new CropMutation(Indigo, BlueOrchid, AzureBluet).register();
-        new CropMutation(Meatrose, Goldfish, EggPlant, Corium).register();
-        new CropMutation(StickReed, BonsaiJungle, SugarCane).register();
-        new CropMutation(StickReed, BonsaiRubber, SugarCane).register();
-        new CropMutation(BlueGlowshroom, BlueOrchid, Glowflower).register();
-        new CropMutation(GreenGlowshroom, Cactus, Glowflower).register();
-        new CropMutation(PurpleGlowshroom, Indigo, Glowflower).register();
-        new CropMutation(PurpleGlowshroom, Indigo, Glowflower).register();
-
-        CropRegistry.instance.getAllInRegistrationOrder()
-            .forEach(ICropCard::registerToPools);
-    }
 }

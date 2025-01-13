@@ -23,12 +23,12 @@ public class CropOilBerry extends NHCropCard {
 
     @Override
     public int getTier() {
-        return 7;
+        return 4;
     }
 
     @Override
     public int getGrowthDuration() {
-        return 2000;
+        return 1200;
     }
 
     @Override

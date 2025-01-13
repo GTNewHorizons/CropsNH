@@ -24,6 +24,7 @@ public class CropFloweringVine extends NHCropCard {
         super.registerToPools();
         CropsNHMutationPools.flower.register(this);
         CropsNHMutationPools.decorative.register(this);
+        CropsNHMutationPools.jungle.register(this);
     }
 
     @Override

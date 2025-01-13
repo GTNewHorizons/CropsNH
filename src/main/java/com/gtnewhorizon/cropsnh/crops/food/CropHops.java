@@ -3,16 +3,15 @@ package com.gtnewhorizon.cropsnh.crops.food;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
+import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
-
-import gregtech.api.enums.ItemList;
 
 public class CropHops extends CropFood {
 
     public CropHops() {
         super("hops", new Color(0x6B5C0E), new Color(0x86BB00));
-        this.addDrop(ItemList.IC2_Hops.get(1L), 100_00);
-        this.addAlternateSeed(ItemList.IC2_Hops.get(1L));
+        this.addDrop(CropsNHItemList.hops.get(1), 100_00);
+        this.addAlternateSeed(CropsNHItemList.hops.get(1));
     }
 
     @Override

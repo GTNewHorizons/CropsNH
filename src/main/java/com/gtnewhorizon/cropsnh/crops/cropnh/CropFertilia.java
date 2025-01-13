@@ -2,6 +2,8 @@ package com.gtnewhorizon.cropsnh.crops.cropnh;
 
 import java.awt.Color;
 
+import net.minecraftforge.common.BiomeDictionary;
+
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 import gregtech.api.enums.ItemList;
@@ -16,6 +18,7 @@ public class CropFertilia extends NHCropCard {
         this.addDrop(Materials.Apatite.getDust(1), 12_50);
         // TODO: MOVE IC2 FERTILIZER TO CROPSNH
         this.addDrop(ItemList.IC2_Fertilizer.get(1), 12_50);
+        this.addLikedBiomes(BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.WET, BiomeDictionary.Type.HOT);
     }
 
     @Override

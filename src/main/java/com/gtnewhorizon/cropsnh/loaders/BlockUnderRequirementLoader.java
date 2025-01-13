@@ -17,6 +17,7 @@ public class BlockUnderRequirementLoader {
         // Vanilla Stone Lilies
         BlockUnderRequirement.get("stone").addBlock(new BlockWithMeta(Blocks.stone), new BlockWithMeta(Blocks.cobblestone));
         BlockUnderRequirement.get("sand").addBlock(new BlockWithMeta(Blocks.sand), new BlockWithMeta(Blocks.sandstone));
+        BlockUnderRequirement.get("clay").addOreDict("hardenedClay","blockStainedHardenedClay").addBlock(new BlockWithMeta(Blocks.clay), new BlockWithMeta(Blocks.hardened_clay), new BlockWithMeta(Blocks.stained_hardened_clay));
         BlockUnderRequirement.get("soulSand").addBlock(new BlockWithMeta(Blocks.soul_sand));
         BlockUnderRequirement.get("netherrack").addBlock(new BlockWithMeta(Blocks.netherrack));
         BlockUnderRequirement.get("endStone").addBlock(new BlockWithMeta(Blocks.end_stone));
@@ -41,6 +42,7 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("aluminium").addBlockAndOreDict("aluminium", "aluminum").addMaterial(Materials.Aluminium);
         BlockUnderRequirement.get("aluminiumBauxite").addBlockAndOreDict("aluminium", "aluminum","bauxite").addMaterial(Materials.Aluminium, Materials.Bauxite);
         BlockUnderRequirement.get("copper").addBlockAndOreDict().addMaterial(Materials.Copper);
+        BlockUnderRequirement.get("chrome").addBlockAndOreDict().addMaterial(Materials.Chrome);
         BlockUnderRequirement.get("iridium").addBlockAndOreDict().addMaterial(Materials.Iridium);
         BlockUnderRequirement.get("lead").addBlockAndOreDict().addMaterial(Materials.Lead);
         BlockUnderRequirement.get("magnesium").addBlockAndOreDict().addMaterial(Materials.Magnesium);

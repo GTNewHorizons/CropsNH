@@ -79,6 +79,7 @@ public class CropsNHItems {
         CropsNHItemList.teaLeaf.set(          new ItemStack(materialLeaf, 1, MaterialLeafLoader.teaLeaf.getId()));
         CropsNHItemList.bobsYerUncleBerry.set(new ItemStack(materialLeaf, 1, MaterialLeafLoader.bobsYerUncleBerry.getId()));
         CropsNHItemList.starwart.set(         new ItemStack(materialLeaf, 1, MaterialLeafLoader.starwart.getId()));
+        CropsNHItemList.hops.set(             new ItemStack(materialLeaf, 1, MaterialLeafLoader.hops.getId()));
         //spotless:on
         LogHelper.debug("Items Registered");
     }

@@ -6,12 +6,18 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropCreeperweed extends NHCropCard {
 
     public CropCreeperweed() {
         super("creeperweed", new Color(0x396B37), new Color(0x51984D));
         this.addDrop(new ItemStack(Items.gunpowder, 1, 0), 100_00);
+    }
+
+    @Override
+    public void registerToPools() {
+        CropsNHMutationPools.aggresiveMob.register(this);;
     }
 
     @Override

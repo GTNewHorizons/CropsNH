@@ -45,6 +45,7 @@ item.cropsnh:materialLeaf.ferruLeaf.name=Ferru Leaf
 item.cropsnh:materialLeaf.aureliaLeaf.name=Aurelia Leaf
 item.cropsnh:materialLeaf.teaLeaf.name=Tea Leaf
 item.cropsnh:materialLeaf.bobsYerUncleBerry.name=Bobs-Yer-Uncle-Berry
+item.cropsnh:materialLeaf.hops.name=Hops
 
 # 
 
@@ -113,6 +114,7 @@ cropsnh_tooltip.leaf.titanium=A Source of Titanium.
 cropsnh_tooltip.leaf.tungsten=A Source of Tungsten.
 cropsnh_tooltip.leaf.uranium=A Source of Uranium.
 cropsnh_tooltip.leaf.zinc=A Source of Zinc.
+cropsnh_tooltip.leaf.beer=A Source of Beer.
 # Merial Leaf Berries
 cropsnh_tooltip.leaf.oil=Oil in Berry Form.
 cropsnh_tooltip.leaf.uua=UUA in Berry Form.
@@ -201,6 +203,7 @@ cropsnh_crops.venomilia=Venomilia
 # Stone Lilies
 cropsnh_crops.stoneLily=Stone Lily
 cropsnh_crops.sandLily=Sand Lily
+cropsnh_crops.clayLily=Clay Lily
 cropsnh_crops.endStoneLily=End Stone Lily
 cropsnh_crops.netherStoneLily=Nether Stone Lily
 cropsnh_crops.soulSandLily=Soul Sand Lily
@@ -274,9 +277,10 @@ cropsnh_crops.strawberry=Strawberry
 cropsnh_crops.sugarBeet=Sugar Beet
 cropsnh_crops.vine=Vine
 cropsnh_crops.waterLily=Water Lily
-# GT Crops
+# Material Crops
 cropsnh_crops.argentia=Argentia
 cropsnh_crops.bauxia=Bauxia
+cropsnh_crops.blackthorn=Blackthorn
 cropsnh_crops.blazereed=Blazereed
 cropsnh_crops.bobsYerUncleRanks=Bobs-Yer-Uncle-Ranks
 cropsnh_crops.canola=Canola
@@ -286,6 +290,7 @@ cropsnh_crops.corium=Corium
 cropsnh_crops.corpseplant=Corpseplant
 cropsnh_crops.creeperweed=Creeperweed
 cropsnh_crops.cucumber=Cucumber
+cropsnh_crops.cyazint=Cyazint
 cropsnh_crops.diareed=Diareed
 cropsnh_crops.eggPlant=Egg Plant
 cropsnh_crops.eggPlant.flavour=Not to be Confused With Eggplants.
@@ -315,6 +320,7 @@ cropsnh_crops.onion=Onion
 cropsnh_crops.osmianth=Osmianth
 cropsnh_crops.platina=Platina
 cropsnh_crops.plumbilia=Plumbilia
+cropsnh_crops.purpleTulip=Purple Tulip
 cropsnh_crops.pyrolusium=Pyrolusium
 cropsnh_crops.pyrolusium.flavour=It's trying it's best.
 cropsnh_crops.reactoria=Reactoria
@@ -351,6 +357,7 @@ cropsnh_growthReq.maxLight.format=Needs a light Level of %1$d or lower.
 # Vanilla Stone Lily Growth Requirements
 cropsnh_growthReq.blockUnder.stone=Needs a block of stone under it to grow.
 cropsnh_growthReq.blockUnder.sand=Needs a block of sand or sandstone under it to grow.
+cropsnh_growthReq.blockUnder.clay=Needs a block of clay or hardened clay under it to grow.
 cropsnh_growthReq.blockUnder.soulSand=Needs a block of soul sand under it to grow.
 cropsnh_growthReq.blockUnder.netherrack=Needs a block of netherrack under it to grow.
 cropsnh_growthReq.blockUnder.endStone=Needs a block of end stone under it to grow.

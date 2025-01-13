@@ -23,6 +23,7 @@ public class CropBamboo extends NHCropCard {
     public void registerToPools() {
         super.registerToPools();
         CropsNHMutationPools.wood.register(this);
+        CropsNHMutationPools.jungle.register(this);
     }
 
     @Override

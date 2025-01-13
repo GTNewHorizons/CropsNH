@@ -28,5 +28,7 @@ public class Recipes {
                 "stickWood"));
         // TODO: add magnifying glass recipe (copy plant lens)
         // TODO: add spade recipe (copy crop++ spade)
+
+        // TODO: ALL RECIPE THAT LETS OIL BERRY CONVERT OILSANDS INTO OTHER OIL TYPES INSTEAD OF JUST HEAVY OIL
     }
 }

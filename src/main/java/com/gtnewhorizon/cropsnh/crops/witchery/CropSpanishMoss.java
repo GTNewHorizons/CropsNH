@@ -20,6 +20,7 @@ public class CropSpanishMoss extends NHCropCard {
     public void registerToPools() {
         super.registerToPools();
         CropsNHMutationPools.decorative.register(this);
+        CropsNHMutationPools.jungle.register(this);
     }
 
     @Override
