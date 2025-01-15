@@ -65,7 +65,7 @@ import com.gtnewhorizon.cropsnh.crops.material.CropDiareed;
 import com.gtnewhorizon.cropsnh.crops.material.CropEvilOre;
 import com.gtnewhorizon.cropsnh.crops.material.CropFerru;
 import com.gtnewhorizon.cropsnh.crops.material.CropGalvania;
-import com.gtnewhorizon.cropsnh.crops.material.CropGarnydnia;
+import com.gtnewhorizon.cropsnh.crops.material.CropGarnydinia;
 import com.gtnewhorizon.cropsnh.crops.material.CropGlowheat;
 import com.gtnewhorizon.cropsnh.crops.material.CropGodOfThunder;
 import com.gtnewhorizon.cropsnh.crops.material.CropIndigo;
@@ -177,7 +177,6 @@ import com.gtnewhorizon.cropsnh.crops.witchery.CropWaterArtichoke;
 import com.gtnewhorizon.cropsnh.crops.witchery.CropWolfsbane;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.init.CropsNHCrops;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Mods;
@@ -217,12 +216,12 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.Netherwart = new CropNetherwart());
         // vanilla bonsais
         // spotless:off
-        CropRegistry.instance.register(CropsNHCrops.BonsaiOak =     new CropBonsai("bonsaiOak",     new Color(0x7F6139), new Color(0x57AD3F), "Notch",   1, new ItemStack(Blocks.sapling, 1, 0), new ItemStack(Blocks.log, 1, 0),  CropsNHMutationPools.wood).addDrop(new ItemStack(Items.apple, 2), 500));
-        CropRegistry.instance.register(CropsNHCrops.BonsaiSpruce =  new CropBonsai("bonsaiSpruce",  new Color(0x50361A), new Color(0x395A39), "Notch",   1, new ItemStack(Blocks.sapling, 1, 1), new ItemStack(Blocks.log, 1, 1),  CropsNHMutationPools.wood));
-        CropRegistry.instance.register(CropsNHCrops.BonsaiBirch =   new CropBonsai("bonsaiBirch",   new Color(0xCFE3BA), new Color(0x648D38), "Notch",   1, new ItemStack(Blocks.sapling, 1, 2), new ItemStack(Blocks.log, 1, 2),  CropsNHMutationPools.wood));
-        CropRegistry.instance.register(CropsNHCrops.BonsaiJungle =  new CropBonsai("bonsaiJungle",  new Color(0x393D0D), new Color(0x378020), "Notch",   1, new ItemStack(Blocks.sapling, 1, 3), new ItemStack(Blocks.log, 1, 3),  CropsNHMutationPools.wood, CropsNHMutationPools.jungle));
-        CropRegistry.instance.register(CropsNHCrops.BonsaiAcacia =  new CropBonsai("bonsaiAcacia",  new Color(0x795A0D), new Color(0x71881B), "Notch",   1, new ItemStack(Blocks.sapling, 1, 4), new ItemStack(Blocks.log2, 1, 0), CropsNHMutationPools.wood, CropsNHMutationPools.desert));
-        CropRegistry.instance.register(CropsNHCrops.BonsaiDarkOak = new CropBonsai("bonsaiDarkOak", new Color(0x684C29), new Color(0x459633), "Notch",   1, new ItemStack(Blocks.sapling, 1, 5), new ItemStack(Blocks.log2, 1, 1), CropsNHMutationPools.wood));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiOak =     new CropBonsai("bonsaiOak",     new Color(0x7F6139), new Color(0x57AD3F), "Notch",   1, new ItemStack(Blocks.sapling, 1, 0), new ItemStack(Blocks.log, 1, 0)).addDrop(new ItemStack(Items.apple, 2), 500));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiSpruce =  new CropBonsai("bonsaiSpruce",  new Color(0x50361A), new Color(0x395A39), "Notch",   1, new ItemStack(Blocks.sapling, 1, 1), new ItemStack(Blocks.log, 1, 1)));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiBirch =   new CropBonsai("bonsaiBirch",   new Color(0xCFE3BA), new Color(0x648D38), "Notch",   1, new ItemStack(Blocks.sapling, 1, 2), new ItemStack(Blocks.log, 1, 2)));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiJungle =  new CropBonsai("bonsaiJungle",  new Color(0x393D0D), new Color(0x378020), "Notch",   1, new ItemStack(Blocks.sapling, 1, 3), new ItemStack(Blocks.log, 1, 3)));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiAcacia =  new CropBonsai("bonsaiAcacia",  new Color(0x795A0D), new Color(0x71881B), "Notch",   1, new ItemStack(Blocks.sapling, 1, 4), new ItemStack(Blocks.log2, 1, 0)));
+        CropRegistry.instance.register(CropsNHCrops.BonsaiDarkOak = new CropBonsai("bonsaiDarkOak", new Color(0x684C29), new Color(0x459633), "Notch",   1, new ItemStack(Blocks.sapling, 1, 5), new ItemStack(Blocks.log2, 1, 1)));
         // TODO: UPDATE ITEM DEFINITIONS WHEN RUBBER TREE IS MOVED TO GT5U
         CropRegistry.instance.register(CropsNHCrops.BonsaiRubber  = new CropBonsai("bonsaiRubber",  new Color(0x50361A), new Color(0x6C815D), "Alblaka", 1, Ic2Items.rubberSapling.copy(),                         Ic2Items.rubberWood.copy()).addDrop(ItemList.IC2_Resin.get(2), 5_00));
         // spotless:on
@@ -360,7 +359,7 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.SaltyRoot = new CropSaltyRoot());
         CropRegistry.instance.register(CropsNHCrops.Argentia = new CropArgentia());
         CropRegistry.instance.register(CropsNHCrops.Bauxia = new CropBauxia());
-        CropRegistry.instance.register(CropsNHCrops.Blackthron = new CropBlackthorn());
+        CropRegistry.instance.register(CropsNHCrops.Blackthorn = new CropBlackthorn());
         CropRegistry.instance.register(CropsNHCrops.Blazereed = new CropBlazereed());
         CropRegistry.instance.register(CropsNHCrops.BobsYerUncleRanks = new CropBobsYerUncleRanks());
         CropRegistry.instance.register(CropsNHCrops.Canola = new CropCanola());
@@ -376,7 +375,7 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.Fertilia = new CropFertilia());
         CropRegistry.instance.register(CropsNHCrops.Flax = new CropFlax());
         CropRegistry.instance.register(CropsNHCrops.Galvania = new CropGalvania());
-        CropRegistry.instance.register(CropsNHCrops.Garnydnia = new CropGarnydnia());
+        CropRegistry.instance.register(CropsNHCrops.Garnydinia = new CropGarnydinia());
         CropRegistry.instance.register(CropsNHCrops.Glowheat = new CropGlowheat());
         CropRegistry.instance.register(CropsNHCrops.GodOfThunder = new CropGodOfThunder());
         CropRegistry.instance.register(CropsNHCrops.Grape = new CropGrape());

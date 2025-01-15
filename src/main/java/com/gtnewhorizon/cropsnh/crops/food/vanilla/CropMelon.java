@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropMelon extends CropFood {
 
@@ -18,13 +17,6 @@ public class CropMelon extends CropFood {
         this.addAlternateSeed(new ItemStack(Items.melon_seeds, 1));
         this.addDrop(new ItemStack(Items.melon, 4), 6666);
         this.addDrop(new ItemStack(Blocks.melon_block, 1), 3333);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
-        CropsNHMutationPools.jungle.register(this);
     }
 
     @Override

@@ -10,7 +10,6 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropZomplant extends NHCropCard {
 
@@ -19,12 +18,6 @@ public class CropZomplant extends NHCropCard {
     public CropZomplant() {
         super("zomplant", new Color(0x3A6529), new Color(0x679056));
         this.addDrop(new ItemStack(Items.rotten_flesh, 1, 0), 100_00);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.aggresiveMob.register(this);
     }
 
     @Override

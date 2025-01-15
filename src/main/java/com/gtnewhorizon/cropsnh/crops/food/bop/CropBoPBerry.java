@@ -5,7 +5,6 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropBoPBerry extends CropFood {
 
@@ -13,12 +12,6 @@ public class CropBoPBerry extends CropFood {
         super("bopBerry", new Color(0xB33636), new Color(0xFF4C4C));
         this.addDrop(new ItemStack(biomesoplenty.api.content.BOPCItems.food, 3, 0), 100_00);
         this.addAlternateSeed(new ItemStack(biomesoplenty.api.content.BOPCItems.food, 1, 0));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
     }
 
     @Override

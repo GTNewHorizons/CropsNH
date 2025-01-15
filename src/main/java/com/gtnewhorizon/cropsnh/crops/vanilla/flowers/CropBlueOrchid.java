@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropVanillaFlower;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropBlueOrchid extends CropVanillaFlower {
 
@@ -17,13 +16,6 @@ public class CropBlueOrchid extends CropVanillaFlower {
         super("blueOrchid", new Color(0x2F5488), new Color(0x8FB9F4));
         this.addDrop(new ItemStack(Items.dye, 1, 12), 10_000);
         this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 1));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.flower.register(this);
-        CropsNHMutationPools.jungle.register(this);
     }
 
     @Override

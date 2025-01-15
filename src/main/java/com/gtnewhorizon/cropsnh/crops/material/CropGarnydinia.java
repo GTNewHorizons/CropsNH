@@ -12,11 +12,11 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTOreDictUnificator;
 
-public class CropGarnydnia extends NHCropCard {
+public class CropGarnydinia extends NHCropCard {
 
     private static final ISoilList soilTypes = SoilRegistry.instance.get("stone");
 
-    public CropGarnydnia() {
+    public CropGarnydinia() {
         super("garnydinia", new Color(0xA24141), new Color(0xA3A341));
         this.addBlockUnderRequirement("garnetGem");
         // 5% exquisite gem

@@ -5,7 +5,6 @@ import java.awt.Color;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import gregtech.api.enums.Materials;
 
@@ -16,13 +15,6 @@ public class CropEndStoneLily extends CropBaseStoneLily {
         this.addDrop(Materials.Endstone.getDust(2), 100_00);
         this.addBlockUnderRequirement("endStone");
         this.addLikedBiomes(BiomeDictionary.Type.END, BiomeDictionary.Type.DRY, BiomeDictionary.Type.COLD);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.stoneLilies.register(this);
-        CropsNHMutationPools.end.register(this);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.crops.food;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import gregtech.api.enums.ItemList;
 
@@ -13,12 +12,6 @@ public class CropChilly extends CropFood {
         super("chilly", new Color(0x83090B), new Color(0xC8462A));
         // TODO: MOVE ITEM DROP TO CROPS NH OR SOMETHING
         this.addDrop(ItemList.Crop_Drop_Chilly.get(1L), 100_00);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
     }
 
     @Override

@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import net.minecraft.item.ItemStack;
 
-import com.gtnewhorizon.cropsnh.api.IMutationPool;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -18,12 +17,10 @@ public class CropBonsai extends NHCropCard {
     private final int tier;
     private final String creator;
     private static final ISoilList soil = SoilRegistry.instance.get("dirt");
-    private final IMutationPool[] mutationPools;
 
-    public CropBonsai(String id, Color color1, Color color2, String creator, int tier, ItemStack sapling, ItemStack log,
-        IMutationPool... mutationPools) {
+    public CropBonsai(String id, Color color1, Color color2, String creator, int tier, ItemStack sapling,
+        ItemStack log) {
         super(id, color1, color2);
-        this.mutationPools = mutationPools;
         this.creator = creator;
         this.tier = tier;
         // drops
@@ -35,14 +32,6 @@ public class CropBonsai extends NHCropCard {
         this.addDrop(logDrop, 60_00);
         // alt seed
         this.addAlternateSeed(sapling);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        for (IMutationPool pool : this.mutationPools) {
-            pool.register(this);
-        }
     }
 
     @Override

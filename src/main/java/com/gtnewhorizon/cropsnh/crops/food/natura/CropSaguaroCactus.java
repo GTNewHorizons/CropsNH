@@ -9,7 +9,6 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import mods.natura.common.NContent;
 
@@ -23,14 +22,6 @@ public class CropSaguaroCactus extends CropFood {
         this.addDrop(new ItemStack(NContent.seedFood, 3, 0), 50_00);
         this.addAlternateSeed(new ItemStack(NContent.seedFood, 1, 0));
         this.addAlternateSeed(new ItemStack(NContent.saguaro, 1, 0));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
-        CropsNHMutationPools.cactus.register(this);
-        CropsNHMutationPools.desert.register(this);
     }
 
     @Override

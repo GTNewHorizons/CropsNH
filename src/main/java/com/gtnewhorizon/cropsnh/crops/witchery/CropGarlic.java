@@ -5,7 +5,6 @@ import java.awt.Color;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropGarlic extends CropFood {
@@ -14,12 +13,6 @@ public class CropGarlic extends CropFood {
         super("garlic", new Color(0xA88F7B), new Color(0xF3E7DC));
         this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropGarlic", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("cropGarlic", 1), 100_00);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
     }
 
     @Override

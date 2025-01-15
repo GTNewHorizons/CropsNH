@@ -9,7 +9,6 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import biomesoplenty.api.content.BOPCBlocks;
 
@@ -21,12 +20,6 @@ public class CropEyebulb extends NHCropCard {
         super("eyebulb", new Color(0x552323), new Color(0x875D5D));
         this.addDrop(new ItemStack(BOPCBlocks.flowers, 1, 13), 100_00);
         this.addAlternateSeed(new ItemStack(BOPCBlocks.flowers, 1, 13));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.flower.register(this);
     }
 
     @Override

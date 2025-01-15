@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh;
 
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
+import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
@@ -25,6 +26,7 @@ import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
 /**
@@ -104,12 +106,18 @@ public class CropsNH {
     @Mod.EventHandler
     @SuppressWarnings("unused")
     public void onServerAboutToStart(FMLServerAboutToStartEvent event) {
+
         // NEIHelper.setServerConfigs();
     }
 
     @Mod.EventHandler
     @SuppressWarnings("unused")
-    public void onServerStart(FMLServerStartingEvent event) {}
+    public void onServerStart(FMLServerStartingEvent event) {
+        MutationRegistry.instance.pruneMutationPools();
+    }
+
+    @Mod.EventHandler
+    public void onServerStarted(FMLServerStartedEvent event) {}
 
     @Mod.EventHandler
     @SuppressWarnings("unused")

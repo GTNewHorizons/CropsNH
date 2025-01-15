@@ -7,7 +7,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropVanillaFlower;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropPoppy extends CropVanillaFlower {
 
@@ -15,12 +14,6 @@ public class CropPoppy extends CropVanillaFlower {
         super("poppy", new Color(0x3A0102), new Color(0xBA050B));
         this.addDrop(new ItemStack(Items.dye, 1, 1), 10_000);
         this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 0));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.flower.register(this);
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import gregtech.api.enums.ItemList;
 
@@ -21,12 +20,6 @@ public class CropLemon extends NHCropCard {
         this.addDrop(ItemList.Crop_Drop_Lemon.get(1), 100_00);
         this.addAlternateSeed("seedLemon");
         this.addAlternateSeed("cropLemon");
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
     }
 
     @Override

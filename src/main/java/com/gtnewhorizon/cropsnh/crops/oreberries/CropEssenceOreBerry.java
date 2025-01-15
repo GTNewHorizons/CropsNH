@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import tconstruct.world.TinkerWorld;
 
@@ -20,11 +19,6 @@ public class CropEssenceOreBerry extends CropOreBerry {
         this.addDrop(new ItemStack(TinkerWorld.oreBerries, 6, 5), 100_00);
         this.addAlternateSeed(new ItemStack(TinkerWorld.oreBerries, 1, 5));
         this.addBlockUnderRequirement("skull");
-    }
-
-    @Override
-    public void registerToPools() {
-        CropsNHMutationPools.lowTierOreBerries.register(this);
     }
 
     @Override

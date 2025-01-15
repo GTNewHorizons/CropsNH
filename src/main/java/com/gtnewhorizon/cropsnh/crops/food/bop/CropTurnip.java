@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropTurnip extends CropFood {
@@ -16,12 +15,6 @@ public class CropTurnip extends CropFood {
         this.addDrop(OreDictHelper.getCopiedOreStack("cropTurnip", 1), 100_00);
         this.addAlternateSeed("seedTurnip");
         this.addAlternateSeed("cropTurnip");
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
     }
 
     @Override

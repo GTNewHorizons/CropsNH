@@ -5,7 +5,6 @@ import java.awt.Color;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropSpanishMoss extends NHCropCard {
@@ -14,13 +13,6 @@ public class CropSpanishMoss extends NHCropCard {
         super("spanishMoss", new Color(0x3F5227), new Color(0xC1CEBB));
         this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropSpanishMoss", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("cropSpanishMoss", 1), 100_00);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.decorative.register(this);
-        CropsNHMutationPools.jungle.register(this);
     }
 
     @Override

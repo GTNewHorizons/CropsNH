@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import biomesoplenty.api.content.BOPCBlocks;
 
@@ -17,13 +16,6 @@ public class CropIvy extends NHCropCard {
         super("ivy", new Color(0x1B4509), new Color(0x338011));
         this.addDrop(new ItemStack(BOPCBlocks.ivy, 2, 0), 100_00);
         this.addAlternateSeed(new ItemStack(BOPCBlocks.ivy, 1, 0));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.decorative.register(this);
-        CropsNHMutationPools.jungle.register(this);
     }
 
     @Override

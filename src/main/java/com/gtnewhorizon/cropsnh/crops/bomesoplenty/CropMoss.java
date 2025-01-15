@@ -5,7 +5,6 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import biomesoplenty.api.content.BOPCBlocks;
 import twilightforest.block.TFBlocks;
@@ -21,14 +20,6 @@ public class CropMoss extends NHCropCard {
         this.addAlternateSeed(new ItemStack(TFBlocks.plant, 1, 3));
         this.addAlternateSeed(new ItemStack(BOPCBlocks.moss, 1));
         this.addAlternateSeed(new ItemStack(BOPCBlocks.treeMoss, 1));
-
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.decorative.register(this);
-        CropsNHMutationPools.jungle.register(this);
     }
 
     @Override

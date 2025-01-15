@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropClayLily extends CropBaseStoneLily {
 
@@ -22,11 +21,5 @@ public class CropClayLily extends CropBaseStoneLily {
     public int getGrowthDuration() {
         // slower growth because it's used for passive alu in the early game
         return 850;
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.stoneLilies.register(this);
     }
 }

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ import com.gtnewhorizon.cropsnh.api.IMutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationMap;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationPool;
 import com.gtnewhorizon.cropsnh.utility.DebugHelper;
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 public class MutationRegistry implements IMutationRegistry {
 
@@ -45,21 +47,54 @@ public class MutationRegistry implements IMutationRegistry {
     }
 
     /**
-     * Used to register a crop to a breeding pool, crops within the same breeding pool can breed with each other
-     * to create any other crop from that breeding pool as long as all the parents don't match.
+     * Used to register a crop to a breeding pool.
      *
-     * @param poolName   The name of the pool.
-     * @param newMembers The members to add to the mutation pool.
-     * @return The mutation pool that was registered.
+     * Crops within the same breeding pool can breed with each other to create any other crop from that breeding pool as
+     * long as the parents aren't all the same species and aren't the ingredients for a deterministic breeding recipe.
+     *
+     * Crops that cannot be bred using in-world breeding should not be registered to the mutation pools.
+     *
+     * @param poolId The id of the mutation pool.
+     * @param crops  The crops to add to the mutation pool.
      */
     @Override
-    public IMutationPool register(String poolName, ICropCard... newMembers) {
-        if (!pools.containsKey(poolName)) {
-            pools.putIfAbsent(poolName, new MutationPool(poolName));
+    public void register(String poolId, ICropCard... crops) {
+        for (ICropCard crop : crops) {
+            this.registerInternal(crop, poolId);
         }
-        IMutationPool pool = pools.get(poolName);
-        pool.register(newMembers);
-        return pool;
+    }
+
+    /**
+     * Used to register a crop to a breeding pool.
+     *
+     * Crops within the same breeding pool can breed with each other to create any other crop from that breeding pool as
+     * long as the parents aren't all the same species and aren't the ingredients for a deterministic breeding recipe.
+     *
+     * Crops that cannot be bred using in-world breeding should not be registered to the mutation pools.
+     *
+     * @param crop    The crop card to register.
+     * @param poolIds The ids of the pools to register the crop to.
+     */
+    @Override
+    public void register(ICropCard crop, String... poolIds) {
+        for (String poolId : poolIds) {
+            this.registerInternal(crop, poolId);
+        }
+    }
+
+    /**
+     * Registers a crop to a mutation pool.
+     *
+     * @param crop   If the crop
+     * @param poolId The id of the pool to register the crop to.
+     */
+    private void registerInternal(ICropCard crop, String poolId) {
+        // register to pool first
+        if (!this.pools.containsKey(poolId)) {
+            this.pools.putIfAbsent(poolId, new MutationPool(poolId));
+        }
+        IMutationPool pool = this.pools.get(poolId);
+        pool.register(crop);
     }
 
     /**
@@ -104,6 +139,20 @@ public class MutationRegistry implements IMutationRegistry {
         // only return non-null if we got something
         if (validPools.isEmpty()) return null;
         return validPools;
+    }
+
+    public void pruneMutationPools() {
+        for (Iterator<Map.Entry<String, IMutationPool>> iter = this.pools.entrySet()
+            .iterator(); iter.hasNext();) {
+            Map.Entry<String, IMutationPool> entry = iter.next();
+            // remove all pools that have 2 members or less since spreading would result in the same behaviour.
+            if (entry.getValue()
+                .getMembers()
+                .size() <= 2) {
+                LogHelper.debug("Pruning Mutation Pool (size is " + entry.getValue().getMembers().size() + "): " + entry.getKey());
+                iter.remove();
+            }
+        }
     }
 
     /**
@@ -162,19 +211,46 @@ public class MutationRegistry implements IMutationRegistry {
      * @return a text dump of all the registered mutation pools
      */
     public String dumpMutationPools() {
-        return this.pools.entrySet()
-            .stream()
-            .sorted(Map.Entry.comparingByKey())
-            .map(e -> {
+        StringBuilder sb = new StringBuilder();
+        List<String> poolIds = new ArrayList<>(this.pools.keySet());
+        poolIds.sort(Comparator.comparing(x -> StatCollector.translateToLocal("cropsnh_mutationPool." + x)));
+        if (this.pools.isEmpty()) return "Empty";
+        sb.append("Crop");
+        for (String poolId : poolIds) {
+            sb.append(",");
+            sb.append(DebugHelper.sanitizeCSVString(StatCollector.translateToLocal("cropsnh_mutationPool." + poolId)));
+        }
+        if (CropRegistry.instance.getAllInRegistrationOrder().isEmpty()) {
+            sb.append(System.lineSeparator());
+            sb.append("Empty");
+        } else {
+            boolean noMutableCrops = true;
+            for (ICropCard cc : CropRegistry.instance.getAllInRegistrationOrder().stream().sorted(Comparator.comparing(x -> StatCollector.translateToLocal(x.getUnlocalizedName()))).collect(Collectors.toList())) {
+                boolean found = false;
                 StringBuilder sbm = new StringBuilder();
-                // always display the name we have for it, since that's what the registry will look for
-                sbm.append(e.getKey());
-                sbm.append(System.lineSeparator());
-                e.getValue()
-                    .dump(sbm);
-                sbm.append(System.lineSeparator());
-                return sbm.toString();
-            })
-            .collect(Collectors.joining(System.lineSeparator()));
+                for (String poolId : poolIds) {
+                    sbm.append(",");
+                    if (this.pools.get(poolId).contains(cc)) {
+                        found = true;
+                        sbm.append("TRUE");
+                    }
+                    else {
+                        sbm.append("FALSE");
+                    }
+                }
+                // only append if the crop is part of a mutation pool
+                if (found) {
+                    noMutableCrops = false;
+                    sb.append(System.lineSeparator());
+                    sb.append(DebugHelper.sanitizeCSVString(StatCollector.translateToLocal(cc.getUnlocalizedName())));
+                    sb.append(sbm);
+                }
+            }
+            if (noMutableCrops) {
+                sb.append(System.lineSeparator());
+                sb.append("Mutation pools are all empty");
+            }
+        }
+        return sb.toString();
     }
 }

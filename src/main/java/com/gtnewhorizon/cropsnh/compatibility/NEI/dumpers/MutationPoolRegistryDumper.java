@@ -36,7 +36,7 @@ public class MutationPoolRegistryDumper extends DataDumper {
 
     @Override
     public String getFileExtension() {
-        return ".txt";
+        return ".csv";
     }
 
     @Override

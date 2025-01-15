@@ -8,19 +8,12 @@ import net.minecraft.util.IIcon;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropSugarBeet extends NHCropCard {
 
     public CropSugarBeet() {
         super("sugarBeet", new Color(0xB3B3B3), new Color(0xFEFEFE));
         this.addDrop(new ItemStack(CropsNHItems.berry, 1, 1), 100_00);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
     }
 
     @Override

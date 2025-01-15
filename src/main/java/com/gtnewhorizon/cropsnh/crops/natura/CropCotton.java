@@ -8,7 +8,6 @@ import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MinLightLevelGrowthRequirement;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import mods.natura.common.NContent;
 
@@ -20,12 +19,6 @@ public class CropCotton extends NHCropCard {
         this.addAlternateSeed("cropCotton");
         this.addAlternateSeed("seedCotton");
         this.addGrowthRequirement(new MinLightLevelGrowthRequirement(9));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.decorative.register(this);
     }
 
     @Override

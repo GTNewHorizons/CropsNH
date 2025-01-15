@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.crops.stoneilies;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import gregtech.api.enums.Materials;
 
@@ -13,11 +12,5 @@ public class CropBlackGraniteLily extends CropBaseStoneLily {
         super("blackGranite", new Color(0, 0, 0), new Color(10, 10, 10));
         this.addDrop(Materials.GraniteBlack.getDust(9), 100_00);
         this.addBlockUnderRequirement("blackGranite");
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.stoneLilies.register(this);
     }
 }

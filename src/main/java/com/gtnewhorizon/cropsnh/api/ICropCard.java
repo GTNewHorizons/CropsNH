@@ -281,11 +281,6 @@ public interface ICropCard {
     void onRemoved(ICropStickTile te);
 
     /**
-     * Registers a crop its pools.
-     */
-    void registerToPools();
-
-    /**
      * @return A list of all the blocks that go under the crop card.
      */
     Collection<ItemStack> getSoilsForNEI(boolean useCache);

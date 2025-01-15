@@ -125,7 +125,7 @@ public class CropsNHCrops {
     public static ICropCard SaltyRoot;
     public static ICropCard Argentia;
     public static ICropCard Bauxia;
-    public static ICropCard Blackthron;
+    public static ICropCard Blackthorn;
     public static ICropCard Blazereed;
     public static ICropCard BobsYerUncleRanks;
     public static ICropCard Canola;
@@ -142,7 +142,7 @@ public class CropsNHCrops {
     public static ICropCard Fertilia;
     public static ICropCard Flax;
     public static ICropCard Galvania;
-    public static ICropCard Garnydnia;
+    public static ICropCard Garnydinia;
     public static ICropCard Glowheat;
     public static ICropCard GodOfThunder;
     public static ICropCard Grape;

@@ -9,7 +9,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropBlackthorn extends NHCropCard {
 
@@ -19,12 +18,6 @@ public class CropBlackthorn extends NHCropCard {
         super("blackthorn", new Color(0x000000), new Color(0x2E1F27));
         this.addDrop(new ItemStack(Items.dye, 1, 0), 100_00);
         this.addLikedBiomes(BiomeDictionary.Type.WET, BiomeDictionary.Type.OCEAN);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.passiveMob.register(this);
     }
 
     @Override

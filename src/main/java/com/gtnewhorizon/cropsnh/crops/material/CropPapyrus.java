@@ -9,7 +9,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropPapyrus extends NHCropCard {
 
@@ -17,13 +16,6 @@ public class CropPapyrus extends NHCropCard {
         super("papyrus", new Color(0xA3A3A3), new Color(0xEAEAEA));
         this.addDrop(new ItemStack(Items.paper, 1, 0), 100_00);
         this.addLikedBiomes(BiomeDictionary.Type.WET, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.JUNGLE);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.decorative.register(this);
-        CropsNHMutationPools.jungle.register(this);
     }
 
     @Override

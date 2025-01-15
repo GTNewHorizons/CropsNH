@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.crops.food;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropHuckleberry extends CropFood {
@@ -13,12 +12,6 @@ public class CropHuckleberry extends CropFood {
         this.addDrop(OreDictHelper.getCopiedOreStack("cropHuckleberry", 1), 100_00);
         this.addAlternateSeed("seedHuckleberry");
         this.addAlternateSeed("cropHuckleberry");
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
     }
 
     @Override

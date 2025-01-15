@@ -241,9 +241,6 @@ public abstract class CropCard implements ICropCard {
     // event handlers
 
     @Override
-    public void registerToPools() {}
-
-    @Override
     public void onPlanted(ICropStickTile te) {}
 
     @Override

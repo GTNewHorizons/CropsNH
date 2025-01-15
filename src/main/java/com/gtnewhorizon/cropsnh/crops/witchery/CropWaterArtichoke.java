@@ -7,7 +7,6 @@ import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropWaterArtichoke extends CropFood {
@@ -16,12 +15,6 @@ public class CropWaterArtichoke extends CropFood {
         super("waterArtichoke", new Color(0x6F644E), new Color(0x968C74));
         this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropArtichoke", 1));
         this.addDrop(OreDictHelper.getCopiedOreStack("cropArtichoke", 1), 100_00);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
     }
 
     @Override

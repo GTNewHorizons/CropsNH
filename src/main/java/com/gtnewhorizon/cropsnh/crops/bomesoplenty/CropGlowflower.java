@@ -9,7 +9,6 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import biomesoplenty.api.content.BOPCBlocks;
 
@@ -21,12 +20,6 @@ public class CropGlowflower extends NHCropCard {
         super("glowflower", new Color(0x004D4C), new Color(0x12A4A2));
         this.addDrop(new ItemStack(BOPCBlocks.flowers, 2, 3), 100_00);
         this.addAlternateSeed(new ItemStack(BOPCBlocks.flowers, 1, 3));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.flower.register(this);
     }
 
     @Override

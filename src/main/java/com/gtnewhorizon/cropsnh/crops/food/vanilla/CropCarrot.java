@@ -6,7 +6,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropCarrot extends CropFood {
 
@@ -14,12 +13,6 @@ public class CropCarrot extends CropFood {
         super("carrot", new Color(0xE58700), new Color(0xEEAE7D));
         this.addDrop(new ItemStack(Items.carrot, 1), 10_000);
         this.addAlternateSeed(new ItemStack(Items.carrot, 1));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.food.register(this);
     }
 
     @Override

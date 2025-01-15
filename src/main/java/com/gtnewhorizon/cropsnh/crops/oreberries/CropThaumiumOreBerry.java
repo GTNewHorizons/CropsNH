@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import gregtech.api.enums.Materials;
 
@@ -15,12 +14,6 @@ public class CropThaumiumOreBerry extends CropOreBerry {
         this.addDrop(Materials.Thaumium.getNuggets(1), 100_00);
         this.addBlockUnderRequirement("thaumium");
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.lowTierOreBerries.register(this);
     }
 
     @Override

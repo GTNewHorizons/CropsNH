@@ -11,7 +11,6 @@ import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import biomesoplenty.api.content.BOPCBlocks;
 
@@ -23,12 +22,6 @@ public class CropGlowshroom extends NHCropCard {
         super("glowshroom", new Color(0x45AD32), new Color(0x63FA48));
         this.addDrop(new ItemStack(BOPCBlocks.mushrooms, 1, 3), 100_00);
         this.addAlternateSeed(new ItemStack(BOPCBlocks.mushrooms, 1, 3));
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.mushroom.register(this);
     }
 
     @Override

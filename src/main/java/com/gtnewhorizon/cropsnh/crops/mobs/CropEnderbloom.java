@@ -6,7 +6,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 import gregtech.api.enums.Materials;
 
@@ -17,11 +16,6 @@ public class CropEnderbloom extends NHCropCard {
         this.addDrop(Materials.EnderPearl.getDust(1), 62_50);
         this.addDrop(new ItemStack(Items.ender_pearl, 1, 0), 25_00);
         this.addDrop(new ItemStack(Items.ender_eye, 1, 0), 12_50);
-    }
-
-    @Override
-    public void registerToPools() {
-        CropsNHMutationPools.end.register(this);;
     }
 
     @Override

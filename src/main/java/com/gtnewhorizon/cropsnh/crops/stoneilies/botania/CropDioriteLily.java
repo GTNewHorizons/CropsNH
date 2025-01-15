@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.crops.stoneilies.botania;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropDioriteLily extends CropBaseStoneLily {
@@ -12,11 +11,5 @@ public class CropDioriteLily extends CropBaseStoneLily {
         super("diorite", new Color(0x909091), new Color(0xCECED0));
         this.addDrop(OreDictHelper.getCopiedOreStack("stoneDiorite", 1), 100_00);
         this.addBlockUnderRequirement("botaniaDiorite");
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.stoneLilies.register(this);
     }
 }

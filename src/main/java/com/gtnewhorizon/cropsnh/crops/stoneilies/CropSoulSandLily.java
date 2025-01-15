@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
-import com.gtnewhorizon.cropsnh.init.CropsNHMutationPools;
 
 public class CropSoulSandLily extends CropBaseStoneLily {
 
@@ -16,13 +15,6 @@ public class CropSoulSandLily extends CropBaseStoneLily {
         this.addDrop(new ItemStack(Blocks.soul_sand, 2), 100_00);
         this.addBlockUnderRequirement("soulSand");
         this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.SPOOKY, BiomeDictionary.Type.SANDY);
-    }
-
-    @Override
-    public void registerToPools() {
-        super.registerToPools();
-        CropsNHMutationPools.stoneLilies.register(this);
-        CropsNHMutationPools.nether.register(this);
     }
 
     @Override
