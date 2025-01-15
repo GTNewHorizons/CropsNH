@@ -149,7 +149,10 @@ public class MutationRegistry implements IMutationRegistry {
             if (entry.getValue()
                 .getMembers()
                 .size() <= 2) {
-                LogHelper.debug("Pruning Mutation Pool (size is " + entry.getValue().getMembers().size() + "): " + entry.getKey());
+                LogHelper.debug(
+                    "Pruning Mutation Pool (size is " + entry.getValue()
+                        .getMembers()
+                        .size() + "): " + entry.getKey());
                 iter.remove();
             }
         }
@@ -220,21 +223,25 @@ public class MutationRegistry implements IMutationRegistry {
             sb.append(",");
             sb.append(DebugHelper.sanitizeCSVString(StatCollector.translateToLocal("cropsnh_mutationPool." + poolId)));
         }
-        if (CropRegistry.instance.getAllInRegistrationOrder().isEmpty()) {
+        if (CropRegistry.instance.getAllInRegistrationOrder()
+            .isEmpty()) {
             sb.append(System.lineSeparator());
             sb.append("Empty");
         } else {
             boolean noMutableCrops = true;
-            for (ICropCard cc : CropRegistry.instance.getAllInRegistrationOrder().stream().sorted(Comparator.comparing(x -> StatCollector.translateToLocal(x.getUnlocalizedName()))).collect(Collectors.toList())) {
+            for (ICropCard cc : CropRegistry.instance.getAllInRegistrationOrder()
+                .stream()
+                .sorted(Comparator.comparing(x -> StatCollector.translateToLocal(x.getUnlocalizedName())))
+                .collect(Collectors.toList())) {
                 boolean found = false;
                 StringBuilder sbm = new StringBuilder();
                 for (String poolId : poolIds) {
                     sbm.append(",");
-                    if (this.pools.get(poolId).contains(cc)) {
+                    if (this.pools.get(poolId)
+                        .contains(cc)) {
                         found = true;
                         sbm.append("TRUE");
-                    }
-                    else {
+                    } else {
                         sbm.append("FALSE");
                     }
                 }
