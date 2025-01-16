@@ -1,6 +1,5 @@
 package com.gtnewhorizon.cropsnh.api;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,11 +39,11 @@ public abstract class CropCard implements ICropCard {
     protected final ArrayList<IGrowthRequirement> growthRequirements = new ArrayList<>();
     protected final HashSet<BiomeDictionary.Type> likedBiomes = new HashSet<>();
     protected final ArrayList<ItemStack> alternateSeeds = new ArrayList<>();
-    protected final Color[] colors;
+    protected final int[] colors;
 
-    public CropCard(String modId, String id, Color color1, Color color2) {
+    public CropCard(String modId, String id, int color1, int color2) {
         this.id = modId + ":" + id;
-        this.colors = new Color[] { color1, color2 };
+        this.colors = new int[] { color1, color2 };
     }
 
     @Override
@@ -76,12 +75,12 @@ public abstract class CropCard implements ICropCard {
     }
 
     @Override
-    public Color getPrimarySeedColor() {
+    public int getPrimarySeedColor() {
         return this.colors[0];
     }
 
     @Override
-    public Color getSecondarySeedColor() {
+    public int getSecondarySeedColor() {
         return this.colors[1];
     }
 

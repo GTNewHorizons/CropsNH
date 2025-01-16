@@ -1,6 +1,5 @@
 package com.gtnewhorizon.cropsnh.api;
 
-import java.awt.Color;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -56,12 +55,12 @@ public interface ICropCard {
     /**
      * @return The color to tint the seeds by.
      */
-    Color getPrimarySeedColor();
+    int getPrimarySeedColor();
 
     /**
      * @return The color to tint the seeds by.
      */
-    Color getSecondarySeedColor();
+    int getSecondarySeedColor();
 
     /**
      * @return The color to tint the seeds by.
@@ -154,6 +153,11 @@ public interface ICropCard {
      * @return The sprite to display for this crop.
      */
     IIcon getSprite(ICropStickTile te);
+
+    /**
+     * @return All the potential sprites of the crop
+     */
+    IIcon[] getSprites();
 
     /**
      * @return The % of growth a crop must reach in order to self-replicate, Negative values prevent crossing.

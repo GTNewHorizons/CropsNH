@@ -12,21 +12,11 @@ import tconstruct.world.TinkerWorld;
 public class CropGoldOreBerry extends CropOreBerry {
 
     public CropGoldOreBerry() {
-        super("gold", new Color(0x797900), new Color(0xDEC600));
+        super("gold", new Color(0xB3B315), new Color(0xFFFF1E));
         this.addDrop(new ItemStack(TinkerWorld.oreBerries, 6, 1), 100_00);
         this.addAlternateSeed(new ItemStack(TinkerWorld.oreBerries, 1, 1));
         this.addBlockUnderRequirement("gold");
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
-    }
-
-    @Override
-    public Color getPrimarySeedColor() {
-        return new Color(255, 255, 30).darker();
-    }
-
-    @Override
-    public Color getSecondarySeedColor() {
-        return new Color(255, 255, 30);
     }
 
     @Override

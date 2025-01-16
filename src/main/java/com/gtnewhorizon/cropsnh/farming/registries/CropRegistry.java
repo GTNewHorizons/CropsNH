@@ -195,8 +195,8 @@ public class CropRegistry implements ICropRegistry {
                             cc.getFlavourText() == null ? "" : StatCollector.translateToLocal(cc.getFlavourText()),
                             cc.getFlavourText(),
                             cc.getCreator(),
-                            String.format("0x%08X", cc.getPrimarySeedColor().getRGB()),
-                            String.format("0x%08X", cc.getSecondarySeedColor().getRGB()),
+                            String.format("0x%08X", cc.getPrimarySeedColor()),
+                            String.format("0x%08X", cc.getSecondarySeedColor()),
                             cc.getSeedShape().getName(),
                             cc.getRenderShape().getName(),
                             // growth related things

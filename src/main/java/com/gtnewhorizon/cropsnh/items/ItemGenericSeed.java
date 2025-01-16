@@ -174,10 +174,7 @@ public class ItemGenericSeed extends ItemCropsNH {
         // load the crop card
         ICropCard cropCard = CropRegistry.instance.get(stack);
         if (cropCard == null) return pass == 0 ? 0x000000 : 0xffffff;
-        return pass == 0 ? cropCard.getPrimarySeedColor()
-            .getRGB()
-            : cropCard.getSecondarySeedColor()
-                .getRGB();
+        return pass == 0 ? cropCard.getPrimarySeedColor() : cropCard.getSecondarySeedColor();
     }
 
     @Override

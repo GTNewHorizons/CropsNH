@@ -33,7 +33,7 @@ public abstract class NHCropCard extends CropCard {
     protected final String internalId;
 
     public NHCropCard(String id, Color color1, Color color2) {
-        super(Reference.MOD_ID, id, color1, color2);
+        super(Reference.MOD_ID, id, color1.getRGB(), color2.getRGB());
         this.internalId = id;
     }
 
@@ -141,6 +141,12 @@ public abstract class NHCropCard extends CropCard {
         int spriteIndex = Math
             .max(0, Math.min(maxSpriteIndex, (int) Math.floor(te.getGrowthPercent() * maxSpriteIndex)));
         return this.sprites[spriteIndex];
+    }
+
+    @Override
+    @SideOnly(value = Side.CLIENT)
+    public IIcon[] getSprites() {
+        return this.sprites;
     }
 
     // endregion texturing
