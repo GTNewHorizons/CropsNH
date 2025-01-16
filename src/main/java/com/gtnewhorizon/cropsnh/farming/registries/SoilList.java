@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.farming.registries;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -10,6 +11,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.MetaSet;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -76,6 +78,12 @@ public class SoilList implements ISoilList {
     @Override
     public Stream<ItemStack> getNEIItemList() {
         return this.validSoils.getStream()
-            .map(s -> new ItemStack(Item.getItemFromBlock(s.key), 1, s.meta == null ? 0 : s.meta));
+            .map(s -> {
+                Item item = CropsNHUtils.getItemFromBlock(s.key);
+                if (item == null) return null;
+                int meta = s.meta == null ? OreDictionary.WILDCARD_VALUE : s.meta;
+                return new ItemStack(item, 1, meta);
+            })
+            .filter(Objects::nonNull);
     }
 }

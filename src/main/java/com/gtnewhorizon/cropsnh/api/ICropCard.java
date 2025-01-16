@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.api;
 
 import java.awt.Color;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -283,12 +284,12 @@ public interface ICropCard {
     /**
      * @return A list of all the blocks that go under the crop card.
      */
-    Collection<ItemStack> getSoilsForNEI(boolean useCache);
+    List<ItemStack> getSoilsForNEI(boolean useCache);
 
     /**
      * @return A list of all the blocks that are required to be under the crop for it to grow.
      */
-    Collection<ItemStack> getBlocksUnderForNEI(boolean useCache);
+    List<ItemStack> getBlocksUnderForNEI(boolean useCache);
 
     /**
      * @return Returns a generic seed for this crop card.

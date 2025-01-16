@@ -47,15 +47,20 @@ public class NEIConfig implements IConfigureNEI {
     private static void registerNEITabs() {
         if (!ModHelper.allowIntegration(Names.Mods.nei)) return;
         LogHelper.debug("Registering NEI recipe tabs");
-        // mutation handler
-        // NEICropMutationHandler mutationHandler = new NEICropMutationHandler();
-        // API.registerRecipeHandler(mutationHandler);
-        // API.registerUsageHandler(mutationHandler);
+
         // crop product handler
-        NEICropsNHCropHandler productHandler = new NEICropsNHCropHandler();
-        GuiRecipeTab.handlerMap.put(productHandler.getOverlayIdentifier(), NEICropsNHCropHandler.getHandlerInfo());
-        API.registerRecipeHandler(productHandler);
-        API.registerUsageHandler(productHandler);
+        registerNEIHandler(new NEICropsNHCropHandler());
+        // deterministic mutation handler
+        registerNEIHandler(new NEICropsNHBreedingHandler());
+        // mutation pool handler
+        registerNEIHandler(new NEICropsNHMutationPoolHandler());
+
+    }
+
+    private static void registerNEIHandler(CropsNHNEIHandler handler) {
+        GuiRecipeTab.handlerMap.put(handler.getOverlayIdentifier(), handler.getHandlerInfo());
+        API.registerRecipeHandler(handler);
+        API.registerUsageHandler(handler);
     }
 
     private static void hideItems() {

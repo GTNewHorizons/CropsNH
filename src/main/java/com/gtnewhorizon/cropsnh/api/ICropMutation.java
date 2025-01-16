@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.api;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -17,5 +18,7 @@ public interface ICropMutation {
 
     boolean canBreed(ArrayList<ICropCard> parents, TileEntity te, ItemStack[] catalysts);
 
-    Collection<IBreedingRequirement> getRequirements();
+    List<IBreedingRequirement> getRequirements();
+
+    List<ItemStack> getBlocksUnderForNEI(boolean useCache);
 }

@@ -53,4 +53,14 @@ public interface IMutationRegistry {
      * @return The list of mutations that can occur.
      */
     List<IMutationPool> getPossiblePoolMutations(Collection<ICropCard> parents);
+
+    /**
+     * @return A list of all the registered mutation pools.
+     */
+    Collection<IMutationPool> getMutationPools();
+
+    /**
+     * @return A list of all the registered deterministic mutation.
+     */
+    Collection<ICropMutation> getDeterministicMutations();
 }

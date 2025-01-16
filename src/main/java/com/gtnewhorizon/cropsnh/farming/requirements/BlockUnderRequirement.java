@@ -26,6 +26,7 @@ import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IMachineBreedingRequirement;
 import com.gtnewhorizon.cropsnh.api.IWorldBreedingRequirement;
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.MetaSet;
 import com.gtnewhorizon.cropsnh.utility.Tuple2;
 
@@ -232,17 +233,9 @@ public class BlockUnderRequirement
         // load up direct block mentions
         for (MetaSet.Entry<Block> e : this.blocks.getStream()
             .collect(Collectors.toList())) {
-            Item item = Item.getItemFromBlock(e.key);
-            int meta = e.meta == null ? 0 : e.meta;
-            if (item == null) {
-                try {
-                    // should catch things like the skull block
-                    item = e.key.getItem(null, 0, 0, 0);
-                } catch (Exception ignored) {
-                    continue;
-                }
-            }
+            Item item = CropsNHUtils.getItemFromBlock(e.key);
             if (item == null) continue;
+            int meta = e.meta == null ? OreDictionary.WILDCARD_VALUE : e.meta;
             ret.add(new ItemStack(item, 1, meta));
         }
 

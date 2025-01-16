@@ -925,6 +925,9 @@ public class MutationLoader {
         new CropMutation(WhiteTulip, PinkTulip, OxeyeDaisy)
             .addToMutationPools(aFlower, aWhite)
             .register();
+        new CropMutation(Allium, PinkTulip, PurpleTulip)
+            .addToMutationPools(aFlower, aPurple)
+            .register();
         new CropMutation(OxeyeDaisy, AzureBluet, Dandelion)
             .addToMutationPools(aFlower, aWhite)
             .register();

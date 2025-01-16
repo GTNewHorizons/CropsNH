@@ -4,6 +4,13 @@ import java.util.HashMap;
 
 import net.minecraft.item.ItemStack;
 
+import org.lwjgl.opengl.GL11;
+
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
+import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
+
+import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.recipe.HandlerInfo;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,6 +30,8 @@ public abstract class CropsNHNEIHandler extends TemplateRecipeHandler {
             handlerStatuses.put(this.getClass(), true);
         }
     }
+
+    public abstract HandlerInfo getHandlerInfo();
 
     public static void setActive(Class<? extends CropsNHNEIHandler> clazz, boolean active) {
         handlerStatuses.put(clazz, active);
@@ -62,4 +71,23 @@ public abstract class CropsNHNEIHandler extends TemplateRecipeHandler {
 
     protected abstract void loadUsageRecipesDo(ItemStack ingredient);
 
+    protected static boolean isBadArg(ItemStack stack) {
+        return stack == null || stack.getItem() == null
+        // no using NEI as a getho seed scanner.
+            || (stack.getItem() instanceof ItemGenericSeed && !SeedStats.getStatsFromStack(stack)
+                .isAnalyzed());
+    }
+
+    protected static void drawFixesWidthLine(String line, int x, int y, int colour, boolean shadow, int maxWidth) {
+        int w = GuiDraw.getStringWidth(line);
+        if (w > maxWidth) {
+            float scale = (float) maxWidth / (float) w;
+            GL11.glPushMatrix();
+            GL11.glScalef(scale, 1.0f, 1.0f);
+        }
+        GuiDraw.drawString(line, x, y, colour, shadow);
+        if (w > maxWidth) {
+            GL11.glPopMatrix();
+        }
+    }
 }

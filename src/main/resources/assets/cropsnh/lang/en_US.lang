@@ -122,6 +122,15 @@ cropsnh_tooltip.leaf.uum=UUM in Berry Form.
 
 
 # NEI Compat
+cropsnh_nei.cropsNHDeterministicBreeding.title=Crop Breeding
+cropsnh_nei.cropsNHCropGroups.title=Crop Groups
+cropsnh_nei.cropsNHCrops.title=Crops
+cropsnh_nei.cropsNHCrops.tier=Tier: %d
+cropsnh_nei.cropsNHCrops.growthDuration=Growth Points: %1$s
+cropsnh_nei.cropsNHCrops.dropMult=Drop Multiplier: %1$0.2f
+cropsnh_nei.cropsNHMutationPool.title=Crop Mutation Pools
+cropsnh_nei.cropsNHMutationPool.poolName=Pool: %1$s
+cropsnh_nei.cropsNHBreeding.title=Crop Breeding
 nei.options.tools.dump.cropsnh=Crops NH
 nei.options.tools.dump.cropsnh.alternateSeed=Alternate Seeds
 nei.options.tools.dump.cropsnh.cropRegistry=Crops
@@ -129,9 +138,6 @@ nei.options.tools.dump.cropsnh.deterministicMutations=Deterministic Mutations
 nei.options.tools.dump.cropsnh.fertilizers=Fertilizers
 nei.options.tools.dump.cropsnh.mutationPools=Mutation Pools
 nei.options.tools.dump.cropsnh.soilRegistry=Soils
-cropsnh_nei.cropList.tier=Tier: %d
-cropsnh_nei.cropList.growthDuration=Growth Points: %1$s
-cropsnh_nei.cropList.dropMult=Drop Multiplier: %1$0.2f
 
 
 
@@ -159,14 +165,6 @@ cropsnh_nei.cropList.dropMult=Drop Multiplier: %1$0.2f
 # cropsnh_arg.direction=direction
 # cropsnh_arg.direction.optional=(optional) direction
 
-# NEI GUI
-cropsnh_nei.cropsNHDeterministicBreeding.title=Crop Breeding
-cropsnh_nei.cropsNHCropGroups.title=Crop Groups
-cropsnh_nei.cropsNHCrops.title=Crops
-cropsnh_nei.soil=Soil
-cropsnh_nei.needs=Needs
-cropsnh_nei.below=Below
-cropsnh_nei.nearby=Nearby
 
 # Generic Seeds
 cropsnh_genericSeeds.unknown=Unknown
@@ -346,8 +344,8 @@ cropsnh_crops.withereed=Withereed
 cropsnh_crops.zomplant=Zomplant
 
 # Lockout Breeding Requirements
-cropsnh_breedingReq.lockout.machineOnly=Can only be bred using the crop breeder.
-cropsnh_breedingReq.lockout.worldOnly=Can only be bred with crop stick.
+cropsnh_breedingReq.lockout.machineOnly=Requires the crop breeder
+cropsnh_breedingReq.lockout.worldOnly=Must use crop sticks
 # Lockout Growth Requirements
 cropsnh_growthReq.lockout.machineOnly=Can only be grown in the industrial garden.
 cropsnh_growthReq.lockout.worldOnly=Can only be grown in a crop stick.

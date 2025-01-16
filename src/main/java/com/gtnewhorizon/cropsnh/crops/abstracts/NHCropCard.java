@@ -1,8 +1,6 @@
 package com.gtnewhorizon.cropsnh.crops.abstracts;
 
 import java.awt.Color;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +20,7 @@ import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -148,25 +147,25 @@ public abstract class NHCropCard extends CropCard {
 
     // region NEI
 
-    private Collection<ItemStack> cachedSoils = null;
+    private List<ItemStack> cachedSoils = null;
 
     @Override
-    public Collection<ItemStack> getSoilsForNEI(boolean useCache) {
+    public List<ItemStack> getSoilsForNEI(boolean useCache) {
         // check cache
         if (useCache && this.cachedSoils != null) return this.cachedSoils;
         // generate list
         LinkedList<ItemStack> stacks = this.getSoilTypes()
             .getNEIItemList()
             .collect(Collectors.toCollection(LinkedList::new));
-        deduplicateBlockList(stacks);
+        CropsNHUtils.deduplicateItemList(stacks);
         // update cache if we didn't hit it
         return this.cachedSoils = stacks;
     }
 
-    private Collection<ItemStack> cachedBlockUnder = null;
+    private List<ItemStack> cachedBlockUnder = null;
 
     @Override
-    public Collection<ItemStack> getBlocksUnderForNEI(boolean useCache) {
+    public List<ItemStack> getBlocksUnderForNEI(boolean useCache) {
         // check cache
         if (useCache && this.cachedBlockUnder != null) return this.cachedBlockUnder;
         // generate list
@@ -175,18 +174,9 @@ public abstract class NHCropCard extends CropCard {
             if (!(req instanceof BlockUnderRequirement)) continue;
             stacks.addAll(((BlockUnderRequirement) req).getItemsForNEI());
         }
-        deduplicateBlockList(stacks);
+        CropsNHUtils.deduplicateItemList(stacks);
         // update cache if we didn't hit it
         return this.cachedBlockUnder = stacks;
-    }
-
-    private static void deduplicateBlockList(List<ItemStack> stacks) {
-        final HashSet<String> deduplicator = new HashSet<>();
-        stacks.removeIf(x -> {
-            // set the stack size to 1 since this is for soils and block under and they shouldn't show a count.
-            x.stackSize = 1;
-            return !deduplicator.add(x.toString());
-        });
     }
 
     // endregion NEI

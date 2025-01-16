@@ -5,6 +5,11 @@ import java.util.Collection;
 public interface IMutationPool {
 
     /**
+     * @return The unlocalised name of the mutation pool.
+     */
+    String getUnlocalisedName();
+
+    /**
      * Registers new crops to the mutation pool.
      *
      * @param newMembers The crops to add to the pool.
@@ -35,7 +40,7 @@ public interface IMutationPool {
 
     /**
      * Used to dump the contents of the pool at runtime.
-     * 
+     *
      * @return Something that describes the content of the pool.
      */
     void dump(StringBuilder sb);

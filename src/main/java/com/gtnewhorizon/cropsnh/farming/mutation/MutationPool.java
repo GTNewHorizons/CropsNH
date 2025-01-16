@@ -12,10 +12,15 @@ import com.gtnewhorizon.cropsnh.api.IMutationPool;
 public class MutationPool implements IMutationPool {
 
     public final String name;
-    private final HashSet<ICropCard> pool = new HashSet<>();
+    private final HashSet<ICropCard> members = new HashSet<>();
 
     public MutationPool(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getUnlocalisedName() {
+        return "cropsnh_mutationPool." + this.name;
     }
 
     /**
@@ -25,7 +30,7 @@ public class MutationPool implements IMutationPool {
      */
     @Override
     public void register(ICropCard... newMembers) {
-        pool.addAll(Arrays.asList(newMembers));
+        this.members.addAll(Arrays.asList(newMembers));
     }
 
     /**
@@ -33,7 +38,7 @@ public class MutationPool implements IMutationPool {
      */
     @Override
     public Collection<ICropCard> getMembers() {
-        return this.pool;
+        return this.members;
     }
 
     /**
@@ -44,7 +49,7 @@ public class MutationPool implements IMutationPool {
      */
     @Override
     public boolean contains(ICropCard crop) {
-        return this.pool.contains(crop);
+        return this.members.contains(crop);
     }
 
     /**
@@ -58,24 +63,24 @@ public class MutationPool implements IMutationPool {
     public boolean isMatch(Collection<ICropCard> parents) {
         int match = 0;
         for (ICropCard parent : new HashSet<>(parents)) {
-            if (pool.contains(parent) && ++match >= 2) return true;
+            if (members.contains(parent) && ++match >= 2) return true;
         }
         return false;
     }
 
     /**
      * Used to dump the contents of the pool at runtime.
-     * 
+     *
      * @return Something that describes the content of the pool.
      */
     @Override
     public void dump(StringBuilder sb) {
         // note that it's empty instead of not displaying anything
-        if (this.pool.isEmpty()) {
+        if (this.members.isEmpty()) {
             sb.append("# empty");
             return;
         }
-        for (ICropCard cc : this.pool) {
+        for (ICropCard cc : this.members) {
             sb.append("- ");
             sb.append(StatCollector.translateToLocal(cc.getUnlocalizedName()));
             sb.append(System.lineSeparator());
@@ -85,4 +90,5 @@ public class MutationPool implements IMutationPool {
                 .length(),
             sb.length());
     }
+
 }

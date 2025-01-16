@@ -26,8 +26,8 @@ public class MutationRegistry implements IMutationRegistry {
 
     public final static MutationRegistry instance = new MutationRegistry();
 
-    private final MutationMap map = new MutationMap();
-    private final HashMap<String, IMutationPool> pools = new HashMap<>();
+    private final MutationMap mutationMap = new MutationMap();
+    private final HashMap<String, IMutationPool> mutationPools = new HashMap<>();
 
     public MutationRegistry() {
 
@@ -43,7 +43,7 @@ public class MutationRegistry implements IMutationRegistry {
         List<ICropCard> parents = createLookupQueue(mutation.getParents());
         if (parents.size() < 2)
             throw new IllegalArgumentException("Crop mutations should not have less than 2 parents");
-        map.register(parents, 0, mutation);
+        mutationMap.register(parents, 0, mutation);
     }
 
     /**
@@ -90,10 +90,10 @@ public class MutationRegistry implements IMutationRegistry {
      */
     private void registerInternal(ICropCard crop, String poolId) {
         // register to pool first
-        if (!this.pools.containsKey(poolId)) {
-            this.pools.putIfAbsent(poolId, new MutationPool(poolId));
+        if (!this.mutationPools.containsKey(poolId)) {
+            this.mutationPools.putIfAbsent(poolId, new MutationPool(poolId));
         }
-        IMutationPool pool = this.pools.get(poolId);
+        IMutationPool pool = this.mutationPools.get(poolId);
         pool.register(crop);
     }
 
@@ -111,7 +111,7 @@ public class MutationRegistry implements IMutationRegistry {
         // recheck because we also remove duplicates
         if (sortedParents.size() < 2) return null;
         HashSet<ICropMutation> accumulator = new HashSet<>();
-        this.map.findMatches(sortedParents, 0, accumulator);
+        this.mutationMap.findMatches(sortedParents, 0, accumulator);
 
         // only return non-null if we got something
         if (accumulator.isEmpty()) return null;
@@ -131,7 +131,7 @@ public class MutationRegistry implements IMutationRegistry {
 
         // recheck because we also remove duplicates
         if (sortedParents.size() < 2) return null;
-        List<IMutationPool> validPools = this.pools.values()
+        List<IMutationPool> validPools = this.mutationPools.values()
             .parallelStream()
             .filter(p -> p.isMatch(sortedParents))
             .collect(Collectors.toList());
@@ -141,8 +141,19 @@ public class MutationRegistry implements IMutationRegistry {
         return validPools;
     }
 
+    @Override
+    public Collection<IMutationPool> getMutationPools() {
+        return new ArrayList<>(this.mutationPools.values());
+    }
+
+    @Override
+    public Collection<ICropMutation> getDeterministicMutations() {
+        return this.mutationMap.dump()
+            .collect(Collectors.toList());
+    }
+
     public void pruneMutationPools() {
-        for (Iterator<Map.Entry<String, IMutationPool>> iter = this.pools.entrySet()
+        for (Iterator<Map.Entry<String, IMutationPool>> iter = this.mutationPools.entrySet()
             .iterator(); iter.hasNext();) {
             Map.Entry<String, IMutationPool> entry = iter.next();
             // remove all pools that have 2 members or less since spreading would result in the same behaviour.
@@ -176,7 +187,7 @@ public class MutationRegistry implements IMutationRegistry {
         StringBuilder sb = new StringBuilder();
         sb.append(DebugHelper.makeCSVLine("output", "parent1", "parent2", "parent3", "parent4", "conditions"));
         sb.append(System.lineSeparator());
-        this.map.dump()
+        this.mutationMap.dump()
             .forEach(m -> {
                 StringBuilder sbm = new StringBuilder();
                 sbm.append(
@@ -215,13 +226,13 @@ public class MutationRegistry implements IMutationRegistry {
      */
     public String dumpMutationPools() {
         StringBuilder sb = new StringBuilder();
-        List<String> poolIds = new ArrayList<>(this.pools.keySet());
-        poolIds.sort(Comparator.comparing(x -> StatCollector.translateToLocal("cropsnh_mutationPool." + x)));
-        if (this.pools.isEmpty()) return "Empty";
+        List<IMutationPool> pools = new ArrayList<>(this.mutationPools.values());
+        pools.sort(Comparator.comparing(p -> StatCollector.translateToLocal(p.getUnlocalisedName())));
+        if (this.mutationPools.isEmpty()) return "Empty";
         sb.append("Crop");
-        for (String poolId : poolIds) {
+        for (IMutationPool pool : pools) {
             sb.append(",");
-            sb.append(DebugHelper.sanitizeCSVString(StatCollector.translateToLocal("cropsnh_mutationPool." + poolId)));
+            sb.append(DebugHelper.sanitizeCSVString(StatCollector.translateToLocal(pool.getUnlocalisedName())));
         }
         if (CropRegistry.instance.getAllInRegistrationOrder()
             .isEmpty()) {
@@ -235,10 +246,9 @@ public class MutationRegistry implements IMutationRegistry {
                 .collect(Collectors.toList())) {
                 boolean found = false;
                 StringBuilder sbm = new StringBuilder();
-                for (String poolId : poolIds) {
+                for (IMutationPool pool : pools) {
                     sbm.append(",");
-                    if (this.pools.get(poolId)
-                        .contains(cc)) {
+                    if (pool.contains(cc)) {
                         found = true;
                         sbm.append("TRUE");
                     } else {

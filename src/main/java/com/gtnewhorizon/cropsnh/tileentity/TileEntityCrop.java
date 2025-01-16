@@ -31,7 +31,6 @@ import com.gtnewhorizon.cropsnh.api.IMutationPool;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
 import com.gtnewhorizon.cropsnh.crops.CropWeed;
-import com.gtnewhorizon.cropsnh.crops.material.CropTrollplant;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
@@ -458,9 +457,6 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     // this saves the data on the tile entity
     @Override
     public void writeToNBT(NBTTagCompound tag) {
-        if (this.crop instanceof CropTrollplant) {
-            System.out.println(this.growthProgress);
-        }
         super.writeToNBT(tag);
         if (this.crop != null) {
             // save crop specific empty

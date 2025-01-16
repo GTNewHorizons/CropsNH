@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -19,6 +21,7 @@ import com.gtnewhorizon.cropsnh.api.IWorldBreedingRequirement;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.farming.requirements.breeding.MachineOnlyBreedingRequirement;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 public class CropMutation implements ICropMutation {
 
@@ -132,7 +135,25 @@ public class CropMutation implements ICropMutation {
     }
 
     @Override
-    public Collection<IBreedingRequirement> getRequirements() {
+    public List<IBreedingRequirement> getRequirements() {
         return this.requirements;
     }
+
+    private List<ItemStack> cachedBlockUnder = null;
+
+    @Override
+    public List<ItemStack> getBlocksUnderForNEI(boolean useCache) {
+        // check cache
+        if (useCache && this.cachedBlockUnder != null) return this.cachedBlockUnder;
+        // generate list
+        LinkedList<ItemStack> stacks = new LinkedList<>();
+        for (IBreedingRequirement req : this.requirements) {
+            if (!(req instanceof BlockUnderRequirement)) continue;
+            stacks.addAll(((BlockUnderRequirement) req).getItemsForNEI());
+        }
+        CropsNHUtils.deduplicateItemList(stacks);
+        // update cache if we didn't hit it
+        return this.cachedBlockUnder = stacks;
+    }
+
 }

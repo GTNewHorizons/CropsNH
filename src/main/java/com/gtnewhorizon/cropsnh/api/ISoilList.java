@@ -31,9 +31,7 @@ public interface ISoilList {
     void dump(StringBuilder sb);
 
     /**
-     * Dumps the contents of the string builder at runtime.
-     *
-     * @param sb The string builder to append to.
+     * @return A stream of item stacks for this soil list.
      */
     Stream<ItemStack> getNEIItemList();
 }
