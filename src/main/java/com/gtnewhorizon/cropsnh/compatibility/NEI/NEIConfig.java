@@ -12,19 +12,19 @@ import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.MutationPoolRegistryDu
 import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.SoilRegistryDumper;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
-import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 import codechicken.nei.recipe.GuiRecipeTab;
+import gregtech.api.enums.Mods;
 
 public class NEIConfig implements IConfigureNEI {
 
     @Override
     public void loadConfig() {
-        if (!ModHelper.allowIntegration(Names.Mods.nei)) return;
+        if (!ModHelper.allowIntegration(Mods.NotEnoughItems.ID)) return;
         // register dumpers
         registerDumpers();
         // register NEI recipe handler
@@ -34,7 +34,7 @@ public class NEIConfig implements IConfigureNEI {
     }
 
     private static void registerDumpers() {
-        if (!ModHelper.allowIntegration(Names.Mods.nei)) return;
+        if (!ModHelper.allowIntegration(Mods.NotEnoughItems.ID)) return;
         LogHelper.debug("Registering NEI dumpers");
         API.addOption(new AlternateSeedDumper());
         API.addOption(new CropRegistryDumper());
@@ -45,7 +45,7 @@ public class NEIConfig implements IConfigureNEI {
     }
 
     private static void registerNEITabs() {
-        if (!ModHelper.allowIntegration(Names.Mods.nei)) return;
+        if (!ModHelper.allowIntegration(Mods.NotEnoughItems.ID)) return;
         LogHelper.debug("Registering NEI recipe tabs");
 
         // crop product handler

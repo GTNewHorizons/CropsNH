@@ -75,43 +75,4 @@ public final class Names {
         public static final String plankWood = "plankWood";
         public static final String slabWood = "slabWood";
     }
-
-    // mod ids
-    public static class Mods {
-
-        public static final String ancientWarfare = "AncientWarfare";
-        public static final String appleCore = "AppleCore";
-        public static final String arsMagica = "arsmagica2";
-        public static final String bloodMagic = "AWWayofTime";
-        public static final String bluePower = "bluepower";
-        public static final String biomesOPlenty = "BiomesOPlenty";
-        public static final String botania = "Botania";
-        public static final String chococraft = "chococraft";
-        public static final String computerCraft = "ComputerCraft";
-        public static final String etFuturum = "etfuturum";
-        public static final String extraUtilities = "ExtraUtilities";
-        public static final String exNihilo = "exnihilo";
-        public static final String forestry = "Forestry";
-        public static final String ganysNether = "ganysnether";
-        public static final String ganysSurface = "ganyssurface";
-        public static final String harderWildLife = "HarderWildlife";
-        public static final String harvestcraft = "harvestcraft";
-        public static final String harvestTheNether = "harvestthenether";
-        public static final String hungerOverhaul = "HungerOverhaul";
-        public static final String mcMultipart = "McMultipart";
-        public static final String mfr = "MineFactoryReloaded";
-        public static final String millenaire = "millenaire";
-        public static final String minetweaker = "MineTweaker3";
-        public static final String natura = "Natura";
-        public static final String nei = "NotEnoughItems";
-        public static final String openComputers = "OpenComputers";
-        public static final String plantMegaPack = "plantmegapack";
-        public static final String psychedelicraft = "psychedelicraft";
-        public static final String railcraft = "Railcraft";
-        public static final String tconstruct = "TConstruct";
-        public static final String thaumcraft = "Thaumcraft";
-        public static final String waila = "Waila";
-        public static final String weeeFlowers = "weeeflowers";
-        public static final String witchery = "witchery";
-    }
 }

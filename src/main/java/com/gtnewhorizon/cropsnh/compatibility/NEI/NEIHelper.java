@@ -6,10 +6,10 @@ import java.util.Map;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.reference.Names;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.Mods;
 
 public class NEIHelper extends ModHelper {
 
@@ -17,14 +17,14 @@ public class NEIHelper extends ModHelper {
 
     @Override
     protected String modId() {
-        return Names.Mods.nei;
+        return Mods.NotEnoughItems.ID;
     }
 
     @Override
     protected void onPostInit() {}
 
     public static void setServerConfigs() {
-        if (!ModHelper.allowIntegration(Names.Mods.nei)) return;
+        if (!ModHelper.allowIntegration(Mods.NotEnoughItems.ID)) return;
         // boolean enableMutationHandler = ConfigurationHandler.config.getBoolean(
         // "NEI Mutations",
         // ConfigurationHandler.Categories.CATEGORY_COMPATIBILITY,
@@ -44,21 +44,19 @@ public class NEIHelper extends ModHelper {
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public static void setHandlerStatus(String className, boolean status) {
-        if (ModHelper.allowIntegration(Names.Mods.nei)) {
-            // try {
-            // CropsNHNEIHandler.setActive(((Class<? extends CropsNHNEIHandler>) Class.forName(className)), status);
-            // } catch (ClassNotFoundException e) {
-            // LogHelper.printStackTrace(e);
-            // }
-        }
+        if (!ModHelper.allowIntegration(Mods.NotEnoughItems.ID)) return;
+        // try {
+        // CropsNHNEIHandler.setActive(((Class<? extends CropsNHNEIHandler>) Class.forName(className)), status);
+        // } catch (ClassNotFoundException e) {
+        // LogHelper.printStackTrace(e);
+        // }
     }
 
     public static void sendSettingsToClient(EntityPlayerMP player) {
-        if (ModHelper.allowIntegration(Names.Mods.nei)) {
-            for (Map.Entry<String, Boolean> entry : handlerStatuses.entrySet()) {
-                // NetworkWrapperCropsNH.wrapper
-                // .sendTo(new MessageSendNEISetting(entry.getKey(), entry.getValue()), player);
-            }
+        if (!ModHelper.allowIntegration(Mods.NotEnoughItems.ID)) return;
+        for (Map.Entry<String, Boolean> entry : handlerStatuses.entrySet()) {
+            // NetworkWrapperCropsNH.wrapper
+            // .sendTo(new MessageSendNEISetting(entry.getKey(), entry.getValue()), player);
         }
     }
 }
