@@ -258,10 +258,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public boolean addFertilizer(int amount, int threshold, int maxStorage) {
+    public boolean addFertilizer(int amount, int threshold, int maxStorage, boolean simulate) {
         if (this.fertilizerStorage > threshold) return false;
-        this.fertilizerStorage = Math.min(maxStorage, this.fertilizerStorage + amount);
-        this.isDirty = true;
+        if (!simulate) {
+            this.fertilizerStorage = Math.min(maxStorage, this.fertilizerStorage + amount);
+            this.isDirty = true;
+        }
         return true;
     }
 
@@ -271,10 +273,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public boolean addWater(int amount, int threshold, int maxStorage) {
-        if (this.waterStorage >= threshold) return false;
-        this.waterStorage = Math.min(maxStorage, this.waterStorage + amount);
-        this.isDirty = true;
+    public boolean addWater(int amount, int threshold, int maxStorage, boolean simulate) {
+        if (this.waterStorage > threshold) return false;
+        if (!simulate) {
+            this.waterStorage = Math.min(maxStorage, this.waterStorage + amount);
+            this.isDirty = true;
+        }
         return true;
     }
 
@@ -284,10 +288,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public boolean addWeedEx(int amount, int threshold, int maxStorage) {
-        if (this.weedexStorage >= threshold) return false;
-        this.weedexStorage = Math.min(maxStorage, this.weedexStorage + amount);
-        this.isDirty = true;
+    public boolean addWeedEx(int amount, int threshold, int maxStorage, boolean simulate) {
+        if (this.weedexStorage > threshold) return false;
+        if (!simulate) {
+            this.weedexStorage = Math.min(maxStorage, this.weedexStorage + amount);
+            this.isDirty = true;
+        }
         return true;
     }
 
@@ -850,7 +856,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             // check if it's a fertilizer
             int fertilizerPotency = FertilizerRegistry.instance.getPotnecy(heldItem);
             if (fertilizerPotency > 0) {
-                if (this.addFertilizer(fertilizerPotency, 90, 100)) {
+                if (this.addFertilizer(fertilizerPotency, 90, 100, false)) {
                     if (!player.capabilities.isCreativeMode) {
                         heldItem.stackSize--;
                     }

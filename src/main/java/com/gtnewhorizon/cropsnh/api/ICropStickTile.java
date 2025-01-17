@@ -127,9 +127,10 @@ public interface ICropStickTile {
      * @param amount     The amount of fertilizer to apply.
      * @param threshold  Fertilizer won't be applied unless the fertilizer level is below this value.
      * @param maxStorage The cap of the fertilizer storage.
+     * @param simulate   True to not actually apply the fertilizer.
      * @return True if the fertilizer was consumed.
      */
-    boolean addFertilizer(int amount, int threshold, int maxStorage);
+    boolean addFertilizer(int amount, int threshold, int maxStorage, boolean simulate);
 
     /**
      * @return The amount of fertilizer currently stored in the crop sticks.
@@ -142,9 +143,10 @@ public interface ICropStickTile {
      * @param amount     The amount of the water to add.
      * @param threshold  Water won't be applied unless the water level is below this value.
      * @param maxStorage The cap of the water storage.
+     * @param simulate   True to not actually apply the water.
      * @return True if the water was consumed.
      */
-    boolean addWater(int amount, int threshold, int maxStorage);
+    boolean addWater(int amount, int threshold, int maxStorage, boolean simulate);
 
     /**
      * @return The amount of water currently stored in the crop sticks.
@@ -157,9 +159,10 @@ public interface ICropStickTile {
      * @param amount     The amount of the weed-ex to add.
      * @param threshold  Weed-ex won't be applied unless the weed-ex level is below this value.
      * @param maxStorage The cap of the weed-ex storage.
+     * @param simulate   True to not actually apply the weed-ex.
      * @return True if the weed-ex was consumed.
      */
-    boolean addWeedEx(int amount, int threshold, int maxStorage);
+    boolean addWeedEx(int amount, int threshold, int maxStorage, boolean simulate);
 
     /**
      * @return The amount of weed-ex currently stored in the crop sticks.
