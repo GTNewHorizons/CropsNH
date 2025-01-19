@@ -66,7 +66,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     private boolean isSick = false;
     private int growthProgress = 0;
     private int waterStorage = 0;
-    private int weedexStorage = 0;
+    private int weedEXStorage = 0;
     private int fertilizerStorage = 0;
     // used to tell waila why the crop ain't growing.
     private List<IGrowthRequirement> failedChecks = null;
@@ -245,7 +245,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                 StatCollector.translateToLocal("cropsnh_tooltip.water"),
                 this.waterStorage,
                 StatCollector.translateToLocal("cropsnh_tooltip.weedEx"),
-                this.weedexStorage));
+                this.weedEXStorage));
     }
 
     // endregion status checks
@@ -284,14 +284,14 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     @Override
     public int getWeedExStorage() {
-        return this.weedexStorage;
+        return this.weedEXStorage;
     }
 
     @Override
     public boolean addWeedEx(int amount, int threshold, int maxStorage, boolean simulate) {
-        if (this.weedexStorage > threshold) return false;
+        if (this.weedEXStorage > threshold) return false;
         if (!simulate) {
-            this.weedexStorage = Math.min(maxStorage, this.weedexStorage + amount);
+            this.weedEXStorage = Math.min(maxStorage, this.weedEXStorage + amount);
             this.isDirty = true;
         }
         return true;
@@ -478,7 +478,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         // save crop state
         tag.setInteger(Names.NBT.water, this.waterStorage);
         tag.setInteger(Names.NBT.fertilizer, this.fertilizerStorage);
-        tag.setInteger(Names.NBT.weedEx, this.weedexStorage);
+        tag.setInteger(Names.NBT.weedEX, this.weedEXStorage);
     }
 
     public void writeSeedNBT(NBTTagCompound tag) {
@@ -520,7 +520,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         this.fertilizerStorage = tag.hasKey(Names.NBT.fertilizer, Data.NBTType._int)
             ? tag.getInteger(Names.NBT.fertilizer)
             : 0;
-        this.weedexStorage = tag.hasKey(Names.NBT.weedEx, Data.NBTType._int) ? tag.getInteger(Names.NBT.weedEx) : 0;
+        this.weedEXStorage = tag.hasKey(Names.NBT.weedEX, Data.NBTType._int) ? tag.getInteger(Names.NBT.weedEX) : 0;
         this.isDirty = true;
     }
 
@@ -633,8 +633,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             return;
         }
         // if we have weed-ex remaining, stop the weeding.
-        if (this.weedexStorage > 0) {
-            this.weedexStorage = Math.max(this.weedexStorage - 5, 0);
+        if (this.weedEXStorage > 0) {
+            this.weedEXStorage = Math.max(this.weedEXStorage - 5, 0);
             return;
         }
         // else weed this thing
@@ -647,8 +647,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     public void spreadWeed() {
         // when non-weed crops have a resistance stat equal or above their growth stat, the stats
         if (!this.hasWeed() && this.stats != null && this.stats.getResistance() >= this.stats.getGrowth())
-            if (this.weedexStorage > 0) {
-                this.weedexStorage = Math.max(this.weedexStorage - 5, 0);
+            if (this.weedEXStorage > 0) {
+                this.weedEXStorage = Math.max(this.weedEXStorage - 5, 0);
                 return;
             }
         // pick a random nearby block

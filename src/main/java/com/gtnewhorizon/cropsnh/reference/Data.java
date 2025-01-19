@@ -4,6 +4,7 @@ public class Data {
 
     public static class NBTType {
 
+        public static final int _notFound = 0;
         public static final int _byte = 1;
         public static final int _boolean = 1;
         public static final int _short = 2;

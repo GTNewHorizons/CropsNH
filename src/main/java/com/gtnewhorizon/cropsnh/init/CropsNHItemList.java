@@ -10,6 +10,21 @@ public enum CropsNHItemList {
     cropSticks,
     // TODO: CONSIDER MOVING NAN CERTIFICATE TO GT5-U OR GTNH-COREMOD
     nanCertificate,
+    fertilizer,
+    // MTEs
+    CropManager_LV,
+    CropManager_MV,
+    CropManager_HV,
+    CropManager_EV,
+    CropManager_IV,
+    CropManager_LuV,
+    CropManager_ZPM,
+    CropManager_UV,
+    CropManager_UHV,
+    CropManager_UEV,
+    CropManager_UIV,
+    CropManager_UMV,
+    CropManager_UXV,
     // food crops
     huckleBerry,
     sugarBeet,

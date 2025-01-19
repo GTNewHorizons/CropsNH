@@ -10,6 +10,7 @@ import com.gtnewhorizon.cropsnh.init.Recipes;
 import com.gtnewhorizon.cropsnh.loaders.BlockUnderRequirementLoader;
 import com.gtnewhorizon.cropsnh.loaders.CropLoader;
 import com.gtnewhorizon.cropsnh.loaders.FertilizerLoader;
+import com.gtnewhorizon.cropsnh.loaders.MTELoader;
 import com.gtnewhorizon.cropsnh.loaders.MutationLoader;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
 import com.gtnewhorizon.cropsnh.loaders.SoilLoader;
@@ -80,6 +81,7 @@ public class CropsNH {
         proxy.registerEventHandlers();
         proxy.registerRenderers();
         ModHelper.initHelpers();
+        MTELoader.init();
         LogHelper.debug("Initialization Complete");
     }
 

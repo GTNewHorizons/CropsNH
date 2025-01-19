@@ -3,6 +3,7 @@ package com.gtnewhorizon.cropsnh.init;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import com.gtnewhorizon.cropsnh.items.ItemFertilizer;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.items.ItemNaNCertificate;
 import com.gtnewhorizon.cropsnh.items.produce.ItemBerry;
@@ -25,6 +26,7 @@ public class CropsNHItems {
     public static Item spade;
     public static Item goldfish;
     public static Item berry;
+    public static Item fertilizer;
     public static Item materialLeaf;
 
     public static void preInit() {
@@ -43,6 +45,9 @@ public class CropsNHItems {
         berry = new ItemBerry();
         CropsNHItemList.huckleBerry.set(new ItemStack(materialLeaf, 1, 0));
         CropsNHItemList.sugarBeet.set(new ItemStack(materialLeaf, 1, 1));
+
+        fertilizer = new ItemFertilizer();
+        CropsNHItemList.fertilizer.set(new ItemStack(fertilizer));
 
         MaterialLeafLoader.init();
         materialLeaf = new ItemMaterialLeaf();

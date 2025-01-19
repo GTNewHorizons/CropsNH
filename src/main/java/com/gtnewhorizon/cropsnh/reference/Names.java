@@ -32,7 +32,7 @@ public final class Names {
         public static final String extra = "extra";
         public static final String water = "water";
         public static final String fertilizer = "fert";
-        public static final String weedEx = "weedex";
+        public static final String weedEX = "weedex";
         // #endregion crop stick stuff
 
         public static final String material = "material";

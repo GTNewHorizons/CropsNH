@@ -1,30 +1,27 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 
 import forestry.plugins.PluginCore;
 import gregtech.api.enums.Mods;
-import ic2.core.Ic2Items;
 
 public class FertilizerLoader {
 
     public static void postInit() {
         // vanilla bonemeal
-        FertilizerRegistry.instance.register(Items.dye, 15, 10);
+        FertilizerRegistry.instance.register(Items.dye, 15, 5);
 
-        // ic2 fertilizer
-        if (Mods.IndustrialCraft2.isModLoaded()) {
-            ItemStack ic2Fert = Ic2Items.fertilizer;
-            FertilizerRegistry.instance.register(ic2Fert.getItem(), ic2Fert.getItemDamage(), 100);
-        }
+        // cropsNH
+        FertilizerRegistry.instance.register(CropsNHItems.fertilizer, OreDictionary.WILDCARD_VALUE, 100);
 
         // forestry fertilizer
         if (Mods.Forestry.isModLoaded()) {
-            FertilizerRegistry.instance.register(PluginCore.items.fertilizerCompound, -1, 100);
-            FertilizerRegistry.instance.register(PluginCore.items.fertilizerBio, -1, 100);
+            FertilizerRegistry.instance.register(PluginCore.items.fertilizerCompound, OreDictionary.WILDCARD_VALUE, 25);
+            FertilizerRegistry.instance.register(PluginCore.items.fertilizerBio, OreDictionary.WILDCARD_VALUE, 50);
         }
     }
 }

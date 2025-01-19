@@ -27,12 +27,14 @@ public class FertilizerRegistry implements IFertilizerRegistry {
     }
 
     @Override
-    public boolean isRegistered(ItemStack item) {
-        return this.isRegistered(item.getItem(), item.getItemDamage());
+    public boolean isRegistered(ItemStack stack) {
+        if (stack == null || stack.getItem() == null) return false;
+        return this.isRegistered(stack.getItem(), stack.getItemDamage());
     }
 
     @Override
     public boolean isRegistered(Item item, int meta) {
+        if (item == null) return false;
         return this.fertilisers.containsKey(item, meta);
     }
 

@@ -9,6 +9,8 @@ item.cropsnh:debugger.name=Debugger
 item.cropsnh:handRake.wood.name=Wooden Hand Rake
 item.cropsnh:handRake.iron.name=Iron Hand Rake
 item.cropsnh:nanCertificate.name=Certificate of not being a noob anymore
+item.cropsnh:fertilizer.name=Fertilizer
+
 # Crop Produce Items
 item.cropsnh:terraWart.name=Terra Wart
 item.cropsnh:goldfish.name=Goldfish
@@ -72,6 +74,20 @@ cropsnh_tooltip.empty=Nothing planted
 cropsnh_tooltip.progress=Progress
 cropsnh_tooltip.none=none
 cropsnh_tooltip.NaNCertificate=Challenge Accepted!
+# MTE tooltips
+cropsnh_tooltip.cropManager.water.0=Enable Hydration
+cropsnh_tooltip.cropManager.water.1=Disable Hydration
+cropsnh_tooltip.cropManager.weedEX.0=Enable Weed-EX
+cropsnh_tooltip.cropManager.weedEX.1=Disable Weed-EX
+cropsnh_tooltip.cropManager.fertilizer.0=Enable Fertilization
+cropsnh_tooltip.cropManager.fertilizer.1=Disable Fertilization
+cropsnh_tooltip.cropManager.harvest.0=Enable Harvest
+cropsnh_tooltip.cropManager.harvest.1=Disable Harvest
+
+cropsnh_tooltip.cropManager.water=Water: %1$dL / %2$dL
+cropsnh_tooltip.cropManager.weedEX=Weed-EX: %1$dL / %2$dL
+cropsnh_tooltip.cropManager.liquidFertilizer=Liquid Fertilizer: %1$dL / %2$dL
+
 # Crop Produce Flavour Text
 cropsnh_tooltip.berry.huckle.1=Huckle-dae-Duckle-dae-Doo
 cropsnh_tooltip.berry.huckle.2=A sweet treat!

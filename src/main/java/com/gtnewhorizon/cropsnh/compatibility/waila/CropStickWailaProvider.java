@@ -110,7 +110,7 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     StatCollector.translateToLocal("cropsnh_tooltip.water"),
                     nbt.getInteger(Names.NBT.water),
                     StatCollector.translateToLocal("cropsnh_tooltip.weedEx"),
-                    nbt.getInteger(Names.NBT.weedEx)));
+                    nbt.getInteger(Names.NBT.weedEX)));
         }
         return information;
     }
