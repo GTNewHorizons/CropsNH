@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.tileentity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -307,7 +306,6 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 }
             }
         }
-
 
         // if anything remains in the drop queue skip harvesting
         if (!this.mDropOverflow.isEmpty()) return;
@@ -795,8 +793,10 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         this.mFertilizerEnabled = NBTHelper.getBoolean(aNBT, "mFertilizerEnabled", false);
         // load the item overflow queue
         if (aNBT.hasKey("mDropOverflow", Data.NBTType._list)) {
-            NBTHelper
-                .loadItemStackMap(this.mDropOverflow, aNBT.getTagList("mDropOverflow", Data.NBTType._object), Integer::sum);
+            NBTHelper.loadItemStackMap(
+                this.mDropOverflow,
+                aNBT.getTagList("mDropOverflow", Data.NBTType._object),
+                Integer::sum);
         }
     }
 
