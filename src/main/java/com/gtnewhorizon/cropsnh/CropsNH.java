@@ -5,6 +5,7 @@ import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
+import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.init.Recipes;
 import com.gtnewhorizon.cropsnh.loaders.BlockUnderRequirementLoader;
@@ -70,6 +71,7 @@ public class CropsNH {
         ModHelper.findHelpers();
         CropsNHBlocks.preInit();
         CropsNHItems.preInit();
+        CropsNHFluids.preInit();
         ModHelper.preInit();
         LogHelper.debug("Pre-Initialization Complete");
     }

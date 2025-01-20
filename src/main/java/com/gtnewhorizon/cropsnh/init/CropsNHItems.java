@@ -1,5 +1,8 @@
 package com.gtnewhorizon.cropsnh.init;
 
+import gregtech.api.enums.ItemList;
+import gtPlusPlus.core.item.chemistry.AgriculturalChem;
+import kubatech.tileentity.gregtech.multiblock.MTEExtremeIndustrialGreenhouse;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -46,8 +49,14 @@ public class CropsNHItems {
         CropsNHItemList.huckleBerry.set(new ItemStack(materialLeaf, 1, 0));
         CropsNHItemList.sugarBeet.set(new ItemStack(materialLeaf, 1, 1));
 
+        // register fertilizer
         fertilizer = new ItemFertilizer();
-        CropsNHItemList.fertilizer.set(new ItemStack(fertilizer));
+        CropsNHItemList.fertilizer.set(new ItemStack(fertilizer, 1, 0));
+        // update the gt ic2 fertilizer entry
+        ItemList.IC2_Fertilizer.set(CropsNHItemList.fertilizer.get(1));
+        AgriculturalChem.aFertIC2 = CropsNHItemList.fertilizer.get(1);
+        // update EIG fert registry
+        MTEExtremeIndustrialGreenhouse.addFertilizerItem(CropsNHItemList.fertilizer.get(1));
 
         MaterialLeafLoader.init();
         materialLeaf = new ItemMaterialLeaf();

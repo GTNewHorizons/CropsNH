@@ -49,10 +49,11 @@ item.cropsnh:materialLeaf.teaLeaf.name=Tea Leaf
 item.cropsnh:materialLeaf.bobsYerUncleBerry.name=Bobs-Yer-Uncle-Berry
 item.cropsnh:materialLeaf.hops.name=Hops
 
-# 
-
 # Blocks
 tile.cropsnh:cropSticks.name=Crop Sticks
+
+# Fluids
+cropsnh_fluid.enrichedFertilizer=Enriched Fertilizer
 
 # Tooltips
 cropsnh_tooltip.isSick=Is sick, can't grow!

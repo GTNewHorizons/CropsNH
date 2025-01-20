@@ -11,6 +11,7 @@ public enum CropsNHItemList {
     // TODO: CONSIDER MOVING NAN CERTIFICATE TO GT5-U OR GTNH-COREMOD
     nanCertificate,
     fertilizer,
+    enrichedFertilizerCell,
     // MTEs
     CropManager_LV,
     CropManager_MV,
