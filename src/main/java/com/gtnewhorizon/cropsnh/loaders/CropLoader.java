@@ -6,6 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.crops.CropWeed;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropBamboo;
 import com.gtnewhorizon.cropsnh.crops.bomesoplenty.CropEyebulb;
@@ -176,7 +177,6 @@ import com.gtnewhorizon.cropsnh.crops.witchery.CropSpanishMoss;
 import com.gtnewhorizon.cropsnh.crops.witchery.CropWaterArtichoke;
 import com.gtnewhorizon.cropsnh.crops.witchery.CropWolfsbane;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHCrops;
 
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Mods;
@@ -196,9 +196,11 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.Potato = new CropPotato());
         CropRegistry.instance.register(CropsNHCrops.Pumpkin = new CropPumpkin());
         CropRegistry.instance.register(CropsNHCrops.Wheat = new CropWheat());
+
         // vanilla mushrooms
         CropRegistry.instance.register(CropsNHCrops.RedMushroom = new CropRedMushroom());
         CropRegistry.instance.register(CropsNHCrops.BrownMushroom = new CropBrownMushroom());
+
         // vanilla flowers
         CropRegistry.instance.register(CropsNHCrops.Dandelion = new CropDandelion());
         CropRegistry.instance.register(CropsNHCrops.Poppy = new CropPoppy());
@@ -210,10 +212,12 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.WhiteTulip = new CropWhiteTulip());
         CropRegistry.instance.register(CropsNHCrops.PinkTulip = new CropPinkTulip());
         CropRegistry.instance.register(CropsNHCrops.OxeyeDaisy = new CropOxeyeDaisy());
+
         // vanilla misc
         CropRegistry.instance.register(CropsNHCrops.Cactus = new CropCactus());
         CropRegistry.instance.register(CropsNHCrops.SugarCane = new CropSugarCane());
         CropRegistry.instance.register(CropsNHCrops.Netherwart = new CropNetherwart());
+
         // vanilla bonsais
         // spotless:off
         CropRegistry.instance.register(CropsNHCrops.BonsaiOak =     new CropBonsai("bonsaiOak",     new Color(0x7F6139), new Color(0x57AD3F), "Notch",   1, new ItemStack(Blocks.sapling, 1, 0), new ItemStack(Blocks.log, 1, 0)).addDrop(new ItemStack(Items.apple, 2), 500));
@@ -225,6 +229,8 @@ public class CropLoader {
         // TODO: UPDATE ITEM DEFINITIONS WHEN RUBBER TREE IS MOVED TO GT5U
         CropRegistry.instance.register(CropsNHCrops.BonsaiRubber  = new CropBonsai("bonsaiRubber",  new Color(0x50361A), new Color(0x6C815D), "Alblaka", 1, Ic2Items.rubberSapling.copy(),                         Ic2Items.rubberWood.copy()).addDrop(ItemList.IC2_Resin.get(2), 5_00));
         // spotless:on
+
+        // IC2
         CropRegistry.instance.register(CropsNHCrops.Aurelia = new CropAurelia());
         CropRegistry.instance.register(CropsNHCrops.Coffee = new CropCoffee());
         CropRegistry.instance.register(CropsNHCrops.Cyprium = new CropCyprium());
@@ -236,11 +242,11 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.Stagnium = new CropStagnium());
         CropRegistry.instance.register(CropsNHCrops.StickReed = new CropStickReed());
         CropRegistry.instance.register(CropsNHCrops.Venomilia = new CropVenomilia());
-        // IC2
         // terrawart was part of ic2 but is now part of this mod
         CropRegistry.instance.register(CropsNHCrops.Cyazint = new CropCyazint());
         CropRegistry.instance.register(CropsNHCrops.TerraWart = new CropTerraWart());
         CropRegistry.instance.register(CropsNHCrops.PurpleTulip = new CropPurpleTulip());
+
         // Stone Lilies
         CropRegistry.instance.register(CropsNHCrops.StoneLily = new CropStoneLily());
         CropRegistry.instance.register(CropsNHCrops.SandLily = new CropSandLily());
@@ -257,6 +263,7 @@ public class CropLoader {
             CropRegistry.instance.register(CropsNHCrops.DioriteLily = new CropDioriteLily());
             CropRegistry.instance.register(CropsNHCrops.GraniteLily = new CropGraniteLily());
         }
+
         // Crops++ gt crops
         // Ore Berries
         if (Mods.TinkerConstruct.isModLoaded()) {
@@ -285,6 +292,7 @@ public class CropLoader {
         if (Mods.ThaumicBases.isModLoaded()) {
             CropRegistry.instance.register(CropsNHCrops.ThauminiteOreBerry = new CropThauminiteOreBerry());
         }
+
         // thaumcraft
         if (Mods.Thaumcraft.isModLoaded()) {
             CropRegistry.instance.register(CropsNHCrops.Cinderpearl = new CropCinderpearl());
@@ -292,6 +300,7 @@ public class CropLoader {
             CropRegistry.instance.register(CropsNHCrops.ManaBean = new CropManaBean());
             CropRegistry.instance.register(CropsNHCrops.PrimordialBerry = new CropPrimordialBerry());
         }
+
         // Crops++ Twilight Forest
         if (Mods.TwilightForest.isModLoaded()) {
             CropRegistry.instance.register(CropsNHCrops.KnightmetalBerry = new CropKnightmetalBerry());
@@ -300,6 +309,7 @@ public class CropLoader {
         if (Mods.TwilightForest.isModLoaded() && Mods.BiomesOPlenty.isModLoaded()) {
             CropRegistry.instance.register(CropsNHCrops.Moss = new CropMoss());
         }
+
         // Crops++ BoP
         if (Mods.BiomesOPlenty.isModLoaded()) {
             CropRegistry.instance.register(CropsNHCrops.Bamboo = new CropBamboo());
@@ -313,6 +323,7 @@ public class CropLoader {
             CropRegistry.instance.register(CropsNHCrops.Turnip = new CropTurnip());
             CropRegistry.instance.register(CropsNHCrops.WildCarrot = new CropWildCarrot());
         }
+
         // Crops++ Witchery
         if (Mods.Witchery.isModLoaded()) {
             CropRegistry.instance.register(CropsNHCrops.Belladonna = new CropBelladonna());
@@ -325,6 +336,7 @@ public class CropLoader {
             CropRegistry.instance.register(CropsNHCrops.WaterArtichoke = new CropWaterArtichoke());
             CropRegistry.instance.register(CropsNHCrops.Wolfsbane = new CropWolfsbane());
         }
+
         // Crops++ Natura
         if (Mods.Natura.isModLoaded()) {
             CropRegistry.instance.register(CropsNHCrops.Blightberry = new CropBlightberry());
@@ -343,6 +355,7 @@ public class CropLoader {
             CropRegistry.instance.register(CropsNHCrops.Maloberry = new CropMaloberry());
             CropRegistry.instance.register(CropsNHCrops.SaguaroCactus = new CropSaguaroCactus());
         }
+
         // Crops++ native
         CropRegistry.instance.register(CropsNHCrops.Cucumber = new CropCucumber());
         CropRegistry.instance.register(CropsNHCrops.Goldfish = new CropGoldfish());
@@ -354,6 +367,7 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.SugarBeet = new CropSugarBeet());
         CropRegistry.instance.register(CropsNHCrops.Vine = new CropVine());
         CropRegistry.instance.register(CropsNHCrops.Waterlily = new CropWaterlily());
+
         // GT crops
         CropRegistry.instance.register(CropsNHCrops.Hemp = new CropHemp());
         CropRegistry.instance.register(CropsNHCrops.SaltyRoot = new CropSaltyRoot());
@@ -412,6 +426,5 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.Trollplant = new CropTrollplant());
         CropRegistry.instance.register(CropsNHCrops.Withereed = new CropWithereed());
         CropRegistry.instance.register(CropsNHCrops.Zomplant = new CropZomplant());
-
     }
 }

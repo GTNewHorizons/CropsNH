@@ -1,11 +1,9 @@
 package com.gtnewhorizon.cropsnh.init;
 
-import gregtech.api.enums.ItemList;
-import gtPlusPlus.core.item.chemistry.AgriculturalChem;
-import kubatech.tileentity.gregtech.multiblock.MTEExtremeIndustrialGreenhouse;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.items.ItemFertilizer;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.items.ItemNaNCertificate;
@@ -18,6 +16,8 @@ import com.gtnewhorizon.cropsnh.items.tools.ItemMagnifyingGlass;
 import com.gtnewhorizon.cropsnh.items.tools.ItemSpade;
 import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
+
+import kubatech.tileentity.gregtech.multiblock.MTEExtremeIndustrialGreenhouse;
 
 public class CropsNHItems {
 
@@ -52,48 +52,49 @@ public class CropsNHItems {
         // register fertilizer
         fertilizer = new ItemFertilizer();
         CropsNHItemList.fertilizer.set(new ItemStack(fertilizer, 1, 0));
-        // update the gt ic2 fertilizer entry
-        ItemList.IC2_Fertilizer.set(CropsNHItemList.fertilizer.get(1));
-        AgriculturalChem.aFertIC2 = CropsNHItemList.fertilizer.get(1);
         // update EIG fert registry
         MTEExtremeIndustrialGreenhouse.addFertilizerItem(CropsNHItemList.fertilizer.get(1));
 
-        MaterialLeafLoader.init();
+        MaterialLeafLoader.preInit();
         materialLeaf = new ItemMaterialLeaf();
         // spotless:off
-        CropsNHItemList.bauxiaLeaf.set(       new ItemStack(materialLeaf, 1, MaterialLeafLoader.bauxiaLeaf.getId()));
-        CropsNHItemList.canolaFLower.set(     new ItemStack(materialLeaf, 1, MaterialLeafLoader.canolaFLower.getId()));
-        CropsNHItemList.copponFiber.set(      new ItemStack(materialLeaf, 1, MaterialLeafLoader.copponFiber.getId()));
-        CropsNHItemList.galvaniaLeaf.set(     new ItemStack(materialLeaf, 1, MaterialLeafLoader.galvaniaLeaf.getId()));
-        CropsNHItemList.indigoBlossom.set(    new ItemStack(materialLeaf, 1, MaterialLeafLoader.indigoBlossom.getId()));
-        CropsNHItemList.iridineFlower.set(    new ItemStack(materialLeaf, 1, MaterialLeafLoader.iridineFlower.getId()));
-        CropsNHItemList.magicEssence.set(     new ItemStack(materialLeaf, 1, MaterialLeafLoader.magicEssence.getId()));
-        CropsNHItemList.micadiaFlower.set(    new ItemStack(materialLeaf, 1, MaterialLeafLoader.micadiaFlower.getId()));
-        CropsNHItemList.milkwart.set(         new ItemStack(materialLeaf, 1, MaterialLeafLoader.milkwart.getId()));
-        CropsNHItemList.nickelbackLeaf.set(   new ItemStack(materialLeaf, 1, MaterialLeafLoader.nickelbackLeaf.getId()));
-        CropsNHItemList.oilBerry.set(         new ItemStack(materialLeaf, 1, MaterialLeafLoader.oilBerry.getId()));
-        CropsNHItemList.osmianthFlower.set(   new ItemStack(materialLeaf, 1, MaterialLeafLoader.osmianthFlower.getId()));
-        CropsNHItemList.platinaLeaf.set(      new ItemStack(materialLeaf, 1, MaterialLeafLoader.platinaLeaf.getId()));
-        CropsNHItemList.pyrolusiumLeaf.set(   new ItemStack(materialLeaf, 1, MaterialLeafLoader.pyrolusiumLeaf.getId()));
-        CropsNHItemList.reactoriaLeaf.set(    new ItemStack(materialLeaf, 1, MaterialLeafLoader.reactoriaLeaf.getId()));
-        CropsNHItemList.reactoriaStem.set(    new ItemStack(materialLeaf, 1, MaterialLeafLoader.reactoriaStem.getId()));
-        CropsNHItemList.scheeliniumLeaf.set(  new ItemStack(materialLeaf, 1, MaterialLeafLoader.scheeliniumLeaf.getId()));
-        CropsNHItemList.spaceFlower.set(      new ItemStack(materialLeaf, 1, MaterialLeafLoader.spaceFlower.getId()));
-        CropsNHItemList.stargatiumLeaf.set(   new ItemStack(materialLeaf, 1, MaterialLeafLoader.stargatiumLeaf.getId()));
-        CropsNHItemList.thunderLeaf.set(      new ItemStack(materialLeaf, 1, MaterialLeafLoader.thunderFlower.getId()));
-        CropsNHItemList.tineTwig.set(         new ItemStack(materialLeaf, 1, MaterialLeafLoader.tineTwig.getId()));
-        CropsNHItemList.titaniaLeaf.set(      new ItemStack(materialLeaf, 1, MaterialLeafLoader.titaniaLeaf.getId()));
-        CropsNHItemList.uuaBerry.set(         new ItemStack(materialLeaf, 1, MaterialLeafLoader.uuaBerry.getId()));
-        CropsNHItemList.uumBerry.set(         new ItemStack(materialLeaf, 1, MaterialLeafLoader.uumBerry.getId()));
-        CropsNHItemList.saltyRoot.set(        new ItemStack(materialLeaf, 1, MaterialLeafLoader.saltyRoot.getId()));
-        CropsNHItemList.plumbiliaLeaf.set(    new ItemStack(materialLeaf, 1, MaterialLeafLoader.plumbiliaLeaf.getId()));
-        CropsNHItemList.argentiaLeaf.set(     new ItemStack(materialLeaf, 1, MaterialLeafLoader.argentiaLeaf.getId()));
-        CropsNHItemList.ferruLeaf.set(        new ItemStack(materialLeaf, 1, MaterialLeafLoader.ferruLeaf.getId()));
-        CropsNHItemList.aureliaLeaf.set(      new ItemStack(materialLeaf, 1, MaterialLeafLoader.aureliaLeaf.getId()));
-        CropsNHItemList.teaLeaf.set(          new ItemStack(materialLeaf, 1, MaterialLeafLoader.teaLeaf.getId()));
-        CropsNHItemList.bobsYerUncleBerry.set(new ItemStack(materialLeaf, 1, MaterialLeafLoader.bobsYerUncleBerry.getId()));
-        CropsNHItemList.starwart.set(         new ItemStack(materialLeaf, 1, MaterialLeafLoader.starwart.getId()));
-        CropsNHItemList.hops.set(             new ItemStack(materialLeaf, 1, MaterialLeafLoader.hops.getId()));
+        CropsNHItemList.bauxiaLeaf.set(MaterialLeafLoader.bauxiaLeaf.get());
+        CropsNHItemList.canolaFLower.set(MaterialLeafLoader.canolaFLower.get());
+        CropsNHItemList.copponFiber.set(MaterialLeafLoader.copponFiber.get());
+        CropsNHItemList.galvaniaLeaf.set(MaterialLeafLoader.galvaniaLeaf.get());
+        CropsNHItemList.indigoBlossom.set(MaterialLeafLoader.indigoBlossom.get());
+        CropsNHItemList.iridineFlower.set(MaterialLeafLoader.iridineFlower.get());
+        CropsNHItemList.magicEssence.set(MaterialLeafLoader.magicEssence.get());
+        // crops++
+        CropsNHItemList.micadiaFlower.set(MaterialLeafLoader.micadiaFlower.get());
+        CropsNHItemList.milkwart.set(MaterialLeafLoader.milkwart.get());
+        CropsNHItemList.nickelbackLeaf.set(MaterialLeafLoader.nickelbackLeaf.get());
+        CropsNHItemList.oilBerry.set(MaterialLeafLoader.oilBerry.get());
+        CropsNHItemList.osmianthFlower.set(MaterialLeafLoader.osmianthFlower.get());
+        CropsNHItemList.platinaLeaf.set(MaterialLeafLoader.platinaLeaf.get());
+        CropsNHItemList.pyrolusiumLeaf.set(MaterialLeafLoader.pyrolusiumLeaf.get());
+        CropsNHItemList.reactoriaLeaf.set(MaterialLeafLoader.reactoriaLeaf.get());
+        CropsNHItemList.reactoriaStem.set(MaterialLeafLoader.reactoriaStem.get());
+        CropsNHItemList.scheeliniumLeaf.set(MaterialLeafLoader.scheeliniumLeaf.get());
+        CropsNHItemList.spaceFlower.set(MaterialLeafLoader.spaceFlower.get());
+        // crops+++
+        CropsNHItemList.stargatiumLeaf.set(MaterialLeafLoader.stargatiumLeaf.get());
+        CropsNHItemList.thunderLeaf.set(MaterialLeafLoader.thunderFlower.get());
+        CropsNHItemList.tineTwig.set(MaterialLeafLoader.tineTwig.get());
+        CropsNHItemList.titaniaLeaf.set(MaterialLeafLoader.titaniaLeaf.get());
+        CropsNHItemList.uuaBerry.set(MaterialLeafLoader.uuaBerry.get());
+        CropsNHItemList.uumBerry.set(MaterialLeafLoader.uumBerry.get());
+        CropsNHItemList.saltyRoot.set(MaterialLeafLoader.saltyRoot.get());
+        // ggfab needs to be updated manually
+        CropsNHItemList.plumbiliaLeaf.set(MaterialLeafLoader.plumbiliaLeaf.get());
+        CropsNHItemList.argentiaLeaf.set(MaterialLeafLoader.argentiaLeaf.get());
+        CropsNHItemList.ferruLeaf.set(MaterialLeafLoader.ferruLeaf.get());
+        CropsNHItemList.aureliaLeaf.set(MaterialLeafLoader.aureliaLeaf.get());
+        CropsNHItemList.teaLeaf.set(MaterialLeafLoader.teaLeaf.get());
+        CropsNHItemList.bobsYerUncleBerry.set(MaterialLeafLoader.bobsYerUncleBerry.get());
+        CropsNHItemList.starwart.set(MaterialLeafLoader.starwart.get());
+        // brand spankin new so no need to override anything
+        CropsNHItemList.hops.set(MaterialLeafLoader.hops.get());
         //spotless:on
         LogHelper.debug("Items Registered");
     }

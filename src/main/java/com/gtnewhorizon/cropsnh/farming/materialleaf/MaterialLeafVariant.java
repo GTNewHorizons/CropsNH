@@ -1,12 +1,18 @@
 package com.gtnewhorizon.cropsnh.farming.materialleaf;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fluids.FluidStack;
 
+import com.gtnewhorizon.cropsnh.api.CropConversionRecipe;
+import com.gtnewhorizon.cropsnh.api.CropOreDuplicationRecipe;
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -24,6 +30,16 @@ public class MaterialLeafVariant implements IMaterialLeafVariant {
         this.iconName = "cropsnh:materialLeaf/" + unlocalizedName;
         this.unlocalizedName = "item.cropsnh:materialLeaf." + unlocalizedName;
         this.unlocalizedTooltip = "cropsnh_tooltip.leaf." + materialType;
+    }
+
+    @Override
+    public ItemStack get() {
+        return get(1);
+    }
+
+    @Override
+    public ItemStack get(int amount) {
+        return new ItemStack(CropsNHItems.materialLeaf, amount, this.getId());
     }
 
     @Override
@@ -53,4 +69,5 @@ public class MaterialLeafVariant implements IMaterialLeafVariant {
     public void RegisterIcon(IIconRegister register) {
         this.icon = register.registerIcon(this.iconName);
     }
+
 }

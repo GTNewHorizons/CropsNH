@@ -2,8 +2,8 @@ package com.gtnewhorizon.cropsnh.crops.food;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
 
 public class CropHops extends CropFood {
 

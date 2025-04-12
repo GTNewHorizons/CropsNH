@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
 
 public class CropTransformium extends NHCropCard {
 

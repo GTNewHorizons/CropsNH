@@ -8,10 +8,12 @@ import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.init.Recipes;
+import com.gtnewhorizon.cropsnh.loaders.AspectLoader;
 import com.gtnewhorizon.cropsnh.loaders.BlockUnderRequirementLoader;
 import com.gtnewhorizon.cropsnh.loaders.CropLoader;
 import com.gtnewhorizon.cropsnh.loaders.FertilizerLoader;
 import com.gtnewhorizon.cropsnh.loaders.MTELoader;
+import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
 import com.gtnewhorizon.cropsnh.loaders.MutationLoader;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
 import com.gtnewhorizon.cropsnh.loaders.SoilLoader;
@@ -24,6 +26,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -43,6 +46,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
     version = Reference.VERSION,
     dependencies = "required-after:gregtech; " + "after:IC2; "
         + "after:GalacticraftCore; "
+        + "after:miscutils; "
         + "after:Mantle; "
         + "after:Forestry; "
         + "after:Natura; "
@@ -99,11 +103,19 @@ public class CropsNH {
         CropLoader.postInit();
         BlockUnderRequirement.validateRegistry();
         MutationLoader.postInit();
+        AspectLoader.postInit();
 
         Recipes.postInit();
         ModHelper.postInit();
 
         LogHelper.debug("Post-Initialization Complete");
+    }
+
+    @Mod.EventHandler
+    @SuppressWarnings("unused")
+    public void onLoadComplete(FMLLoadCompleteEvent event) {
+        LogHelper.debug("Starting Load-Complete");
+        LogHelper.debug("Load-Complete Complete");
     }
 
     @Mod.EventHandler

@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.init;
+package com.gtnewhorizon.cropsnh.api;
 
 public abstract class CropsNHMutationPools {
 

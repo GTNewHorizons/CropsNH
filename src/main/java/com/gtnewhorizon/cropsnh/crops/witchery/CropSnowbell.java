@@ -8,13 +8,20 @@ import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.util.GTOreDictUnificator;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 
 public class CropSnowbell extends NHCropCard {
 
     public CropSnowbell() {
         super("snowbell", new Color(0x33A9FF), new Color(0xA5D9FF));
         this.addAlternateSeed(OreDictHelper.getCopiedOreStack("seedSnowbell", 1));
-        this.addDrop(OreDictHelper.getCopiedOreStack("itemSnowbell", 1), 100_00);
+        this.addDrop(OreDictHelper.getCopiedOreStack("itemSnowbell", 1), 89_00);
+        this.addDrop(new ItemStack(Items.snowball, 1, 0), 10_00);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Cryolite, 1), 2_50);
     }
 
     @Override

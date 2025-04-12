@@ -2,12 +2,15 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.lang.reflect.Field;
 
+import com.gtnewhorizon.cropsnh.api.CropOreDuplicationRecipe;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.CopponFiberVariant;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.MaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.PyrolusiumLeafVariant;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.StargatiumLeafVariant;
 import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
+
+import gregtech.api.enums.Materials;
 
 public class MaterialLeafLoader {
 
@@ -47,7 +50,7 @@ public class MaterialLeafLoader {
     public final static MaterialLeafVariant hops              = new MaterialLeafVariant(  32, "hops",              "beer");
     //spotless:on
 
-    public static void init() {
+    public static void preInit() {
         // user reflection to auto-register all leaves
         for (Field field : MaterialLeafLoader.class.getDeclaredFields()) {
             if (!java.lang.reflect.Modifier.isStatic(field.getModifiers())) continue;

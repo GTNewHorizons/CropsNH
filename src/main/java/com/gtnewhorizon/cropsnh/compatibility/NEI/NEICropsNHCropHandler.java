@@ -14,13 +14,13 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
-import com.gtnewhorizon.cropsnh.init.CropsNHCrops;
-import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizons.modularui.api.GlStateManager;

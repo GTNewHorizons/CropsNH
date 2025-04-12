@@ -1,6 +1,6 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
-import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.tileentity.MTECropManager;
 
 import gregtech.api.enums.VoltageIndex;

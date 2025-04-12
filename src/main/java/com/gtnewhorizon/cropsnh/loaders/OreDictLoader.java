@@ -3,14 +3,14 @@ package com.gtnewhorizon.cropsnh.loaders;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.gtnewhorizon.cropsnh.init.CropsNHItems;
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 
 public class OreDictLoader {
 
     public static void postInit() {
-        register(new ItemStack(CropsNHItems.goldfish, 1, 0), "listAllfishraw");
-        register(new ItemStack(CropsNHItems.berry, 1, 0), "cropHuckleberry", "listAllberry", "listAllfruit");
-        register(new ItemStack(CropsNHItems.berry, 1, 1), "cropSugarbeet", "listAllveggie", "listAllrootveggie");
+        register(CropsNHItemList.goldfish.get(1), "listAllfishraw");
+        register(CropsNHItemList.huckleBerry.get(1), "cropHuckleberry", "listAllberry", "listAllfruit");
+        register(CropsNHItemList.sugarBeet.get(1), "cropSugarbeet", "listAllveggie", "listAllrootveggie");
     }
 
     private static void register(ItemStack stack, String... ores) {

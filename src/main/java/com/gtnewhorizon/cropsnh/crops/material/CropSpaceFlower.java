@@ -2,12 +2,12 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
 
 import gregtech.api.enums.Mods;
 

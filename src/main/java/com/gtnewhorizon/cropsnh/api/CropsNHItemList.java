@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.init;
+package com.gtnewhorizon.cropsnh.api;
 
 import net.minecraft.item.ItemStack;
 
@@ -8,10 +8,12 @@ public enum CropsNHItemList {
     magnifyingGlass,
     spade,
     cropSticks,
-    // TODO: CONSIDER MOVING NAN CERTIFICATE TO GT5-U OR GTNH-COREMOD
+
+    // TODO: CONSIDER MOVING NAN CERTIFICATE TO GT5-U OR NH CORE MOD
     nanCertificate,
     fertilizer,
     enrichedFertilizerCell,
+
     // MTEs
     CropManager_LV,
     CropManager_MV,
@@ -26,11 +28,13 @@ public enum CropsNHItemList {
     CropManager_UIV,
     CropManager_UMV,
     CropManager_UXV,
+
     // food crops
     huckleBerry,
     sugarBeet,
     goldfish,
     terraWart,
+
     // material leaves
     bauxiaLeaf,
     canolaFLower,
@@ -74,7 +78,7 @@ public enum CropsNHItemList {
 
     public ItemStack get(int count) {
         if (stack == null) {
-            throw new NullPointerException("The Enum '" + name() + "' has not been set to an Item at this time!");
+            throw new NullPointerException("CropsNHItemList entry '" + name() + "' accessed before creation!");
         }
         ItemStack ret = this.stack.copy();
         ret.stackSize = count;

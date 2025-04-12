@@ -1,6 +1,4 @@
-package com.gtnewhorizon.cropsnh.init;
-
-import com.gtnewhorizon.cropsnh.api.ICropCard;
+package com.gtnewhorizon.cropsnh.api;
 
 public class CropsNHCrops {
 

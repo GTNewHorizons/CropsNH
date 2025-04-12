@@ -2,8 +2,8 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.init.CropsNHItemList;
 
 public class CropCanola extends NHCropCard {
 

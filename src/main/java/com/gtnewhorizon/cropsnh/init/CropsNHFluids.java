@@ -1,17 +1,18 @@
 package com.gtnewhorizon.cropsnh.init;
 
-import com.gtnewhorizon.cropsnh.reference.Reference;
-import cpw.mods.fml.common.LoaderException;
-import gregtech.api.enums.ItemList;
-import gregtech.common.fluid.GTFluidBuilder;
-import gtPlusPlus.core.util.minecraft.FluidUtils;
-import gtPlusPlus.core.util.minecraft.ItemUtils;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+
+import cpw.mods.fml.common.LoaderException;
+import gregtech.api.enums.ItemList;
+import gtPlusPlus.core.util.minecraft.FluidUtils;
+import gtPlusPlus.core.util.minecraft.ItemUtils;
+
 public class CropsNHFluids {
+
     public static Fluid enrichedFertilizer;
 
     public static void preInit() {
@@ -19,7 +20,7 @@ public class CropsNHFluids {
         CropsNHFluids.enrichedFertilizer = FluidUtils.addGTFluidNonMolten(
             "EnrichedFertilizer",
             "Enriched Fertilizer",
-            new short[] { 40,229,21,100 },
+            new short[] { 40, 229, 21, 100 },
             4,
             295,
             null,
@@ -27,7 +28,10 @@ public class CropsNHFluids {
             1000,
             true);
 
-        CropsNHItemList.enrichedFertilizerCell.set(FluidContainerRegistry.fillFluidContainer(new FluidStack(CropsNHFluids.enrichedFertilizer, 1000), ItemList.Cell_Empty.get(1)));
+        CropsNHItemList.enrichedFertilizerCell.set(
+            FluidContainerRegistry.fillFluidContainer(
+                new FluidStack(CropsNHFluids.enrichedFertilizer, 1000),
+                ItemList.Cell_Empty.get(1)));
         try {
             CropsNHItemList.enrichedFertilizerCell.get(1);
         } catch (NullPointerException npe) {
