@@ -556,7 +556,7 @@ public class CropRecipes {
             builder.fluidOutputs(fluidInputs);
         }
         if (itemOutputs != null) {
-            builder.outputChances(chances);
+            builder.itemOutputs(itemOutputs);
             if (chances != null) {
                 builder.outputChances(chances);
             }

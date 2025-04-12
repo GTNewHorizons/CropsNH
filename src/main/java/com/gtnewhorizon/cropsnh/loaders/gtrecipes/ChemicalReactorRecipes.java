@@ -1,19 +1,16 @@
 package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
-import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 
+import gregtech.api.util.GTRecipeConstants;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import com.gtnewhorizon.cropsnh.api.CropOreDuplicationRecipe;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
-import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
-import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -24,8 +21,6 @@ import gregtech.api.enums.TierEU;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
-import gregtech.api.util.GTRecipeBuilder;
-import gregtech.api.util.GTRecipeConstants;
 import gtPlusPlus.core.item.ModItems;
 import mods.natura.common.NContent;
 
@@ -72,7 +67,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -82,7 +77,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(15 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -92,7 +87,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -102,7 +97,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(5 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -112,7 +107,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(5 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -122,7 +117,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(15 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -132,7 +127,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(20 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -142,7 +137,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(15 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -152,7 +147,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -162,7 +157,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -172,7 +167,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(15 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -182,7 +177,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(20 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -192,7 +187,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(15 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -202,7 +197,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -212,7 +207,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -222,7 +217,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(15 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -232,7 +227,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(20 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -242,7 +237,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(15 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -252,7 +247,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -262,7 +257,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -272,7 +267,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(15 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -282,7 +277,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(20 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -292,7 +287,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(15 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -302,7 +297,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             GTValues.RA.stdBuilder()
                 .itemInputs(
@@ -312,7 +307,7 @@ public class ChemicalReactorRecipes {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .duration(10 * SECONDS)
                 .eut(TierEU.RECIPE_LV)
-                .addTo(UniversalChemical);
+                .addTo(GTRecipeConstants.UniversalChemical);
 
             // TODO: REMOVE EXISTING RECIPES FROM NH CORE MOD
             if (Mods.Natura.isModLoaded()) {
@@ -327,7 +322,7 @@ public class ChemicalReactorRecipes {
                     .fluidInputs(new FluidStack(tFluid, 1000))
                     .duration(10 * SECONDS)
                     .eut(TierEU.RECIPE_MV)
-                    .addTo(UniversalChemical);
+                    .addTo(GTRecipeConstants.UniversalChemical);
 
                 GTValues.RA.stdBuilder()
                     .itemInputs(
@@ -339,7 +334,7 @@ public class ChemicalReactorRecipes {
                     .fluidInputs(new FluidStack(tFluid, 1000))
                     .duration(10 * SECONDS)
                     .eut(TierEU.RECIPE_MV)
-                    .addTo(UniversalChemical);
+                    .addTo(GTRecipeConstants.UniversalChemical);
 
                 GTValues.RA.stdBuilder()
                     .itemInputs(
@@ -351,7 +346,7 @@ public class ChemicalReactorRecipes {
                     .fluidInputs(new FluidStack(tFluid, 1000))
                     .duration(10 * SECONDS)
                     .eut(TierEU.RECIPE_MV)
-                    .addTo(UniversalChemical);
+                    .addTo(GTRecipeConstants.UniversalChemical);
 
                 GTValues.RA.stdBuilder()
                     .itemInputs(
@@ -363,7 +358,7 @@ public class ChemicalReactorRecipes {
                     .fluidInputs(new FluidStack(tFluid, 1000))
                     .duration(10 * SECONDS)
                     .eut(TierEU.RECIPE_MV)
-                    .addTo(UniversalChemical);
+                    .addTo(GTRecipeConstants.UniversalChemical);
             }
         }
     }

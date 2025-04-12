@@ -15,6 +15,10 @@ public class AspectLoader {
 
     public static void postInit() {
         if (!Mods.Thaumcraft.isModLoaded()) return;
+        AspectList materialLeafAspectList = new AspectList().add(Aspect.CROP, 1).add(Aspect.PLANT, 1);
+        for (IMaterialLeafVariant variant : ItemMaterialLeaf.getRegisteredVariants()){
+            ThaumcraftApi.registerObjectTag(variant.get(1), materialLeafAspectList.copy());
+        }
         // spotless:off
         ThaumcraftApi.registerObjectTag(
             CropsNHItemList.cropSticks.get(1),
@@ -30,17 +34,6 @@ public class AspectLoader {
                 .add(Aspect.MAGIC, 4)
                 .add(Aspect.LIFE, 4)
         );
-        // spotless:on
-        AspectList materialLeafAspectList = new AspectList().add(Aspect.CROP, 1).add(Aspect.PLANT, 1);
-        outer:
-        for (IMaterialLeafVariant variant : ItemMaterialLeaf.getRegisteredVariants()){
-            for (CropOreDuplicationRecipe r : variant.getDuplicationRecipes()) {
-                ThaumcraftApi.registerObjectTag(variant.get(1), materialLeafAspectList.copy().add(Aspect.METAL, 1));
-                continue outer;
-            }
-            ThaumcraftApi.registerObjectTag(variant.get(1), materialLeafAspectList.copy());
-        }
-        // spotless:off
         ThaumcraftApi.registerObjectTag(
             CropsNHItemList.canolaFLower.get(1),
             new AspectList()

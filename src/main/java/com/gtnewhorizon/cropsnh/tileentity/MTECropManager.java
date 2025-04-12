@@ -4,9 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
+import gregtech.api.enums.Materials;
+import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTModHandler;
+import gtPlusPlus.core.item.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -43,8 +49,6 @@ import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
-import gregtech.api.objects.GTItemStack;
-import gregtech.api.objects.GTRenderedTexture;
 import gregtech.api.util.GTUtility;
 import gtPlusPlus.core.util.math.MathUtils;
 import gtPlusPlus.xmod.gregtech.api.gui.GTPPUITextures;
@@ -69,16 +73,33 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     private final static int CACHE_REFRESH_EMPTY = GLOBAL_UPDATE_RATE * 2;
     private final static int CACHE_REFRESH_ANY = GLOBAL_UPDATE_RATE * 12;
 
+    // fluid whitelists
+    public static final ConcurrentHashMap<Fluid, Integer> ALLOWED_WATER = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<Fluid, Integer> ALLOWED_WEED_EX = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<Fluid, Integer> ALLOWED_LIQUID_FERTILIZER = new ConcurrentHashMap<>();
+
+    public static void postInit() {
+        // allowed waters
+        ALLOWED_WATER.putIfAbsent(FluidRegistry.WATER, 1);
+        ALLOWED_WATER.putIfAbsent(GTModHandler.getDistilledWater(1L).getFluid(), 2);
+        // allowed liquid weed ex
+        ALLOWED_WEED_EX.putIfAbsent(FluidRegistry.getFluid("potion.poison.strong"), 1);
+        ALLOWED_WEED_EX.putIfAbsent(Materials.WeedEX9000.mFluid, 10);
+        // allowed liquid fertilizer
+        ALLOWED_WEED_EX.putIfAbsent(ModItems.fluidFertBasic, 1);
+        ALLOWED_WEED_EX.putIfAbsent(CropsNHFluids.enrichedFertilizer, 10);
+    }
+
     public boolean mHarvestEnabled = true;
     public boolean mWeedEXEnabled = false;
     public boolean mFertilizerEnabled = false;
     public boolean mWaterEnabled = false;
 
-    private final FluidStack mWater;
+    private int mWater;
     private final int mWaterCap;
-    private final FluidStack mWeedEX;
+    private int mWeedEX;
     private final int mWeedEXCap;
-    private final FluidStack mLiquidFertilizer;
+    private int mLiquidFertilizer;
     private final int mLiquidFertilizerCap;
 
     private final HashSet<ICropStickTile> mCropCache = new HashSet<>();
@@ -93,11 +114,11 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             aTier,
             TOTAL_SLOT_COUNT,
             aDescription);
-        this.mWater = FluidRegistry.getFluidStack("water", 0);
+        this.mWater = 0;
         this.mWaterCap = this.mTier * 32000;
-        this.mWeedEX = FluidRegistry.getFluidStack("potion.poison.strong", 0);
+        this.mWeedEX = 0;
         this.mWeedEXCap = this.mTier * 750 * 2;
-        this.mLiquidFertilizer = FluidRegistry.getFluidStack("fluid.fertiliser", 0);
+        this.mLiquidFertilizer = 0;
         this.mLiquidFertilizerCap = this.mTier * 144 * 64 * 4;
 
     }
@@ -107,11 +128,11 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     public MTECropManager(final String aName, final int aTier, final String[] aDescription,
         final ITexture[][][] aTextures) {
         super(aName, aTier, TOTAL_SLOT_COUNT, aDescription, aTextures);
-        this.mWater = FluidRegistry.getFluidStack("water", 0);
+        this.mWater = 0;
         this.mWaterCap = this.mTier * 32000;
-        this.mWeedEX = FluidRegistry.getFluidStack("potion.poison.strong", 0);
+        this.mWeedEX = 0;
         this.mWeedEXCap = this.mTier * 750 * 2;
-        this.mLiquidFertilizer = FluidRegistry.getFluidStack("fluid.fertiliser", 0);
+        this.mLiquidFertilizer = 0;
         this.mLiquidFertilizerCap = this.mTier * 144 * 64 * 4;
 
     }
@@ -157,11 +178,11 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     @Override
     public int getFluidAmount() {
-        return this.mWater.amount;
+        return this.mWater;
     }
 
     @Override
-    public boolean allowCoverOnSide(ForgeDirection side, GTItemStack aStack) {
+    public boolean allowCoverOnSide(ForgeDirection side, ItemStack aStack) {
         return true;
     }
 
@@ -426,7 +447,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
         int drain = Math.min(this.getFluidAmount(), WATER_CAP - aCrop.getWaterStorage());
         if (!simulate) {
-            this.mWater.amount -= drain;
+            this.mWater -= drain;
         }
         return aCrop.addWater(drain, WATER_THRESHOLD, WATER_CAP, simulate);
     }
@@ -440,7 +461,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         for (int i = SLOT_WEEDEX_START; i <= SLOT_WEEDEX_END; i++) {
             if (isWeedEXCan(this.mInventory[i])) {
                 // consume the weed-ex from the can
-                this.mWeedEX.amount += consumeWeedexFromStack(
+                this.mWeedEX += consumeWeedexFromStack(
                     this.mInventory[i],
                     this.getWeedEXCapacity() - this.getWeedEXAmount());
                 // if we damaged the item beyond its limits, remove it from the mortal realm.
@@ -467,10 +488,10 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     private static final int WEEDEX_COST = 10;
 
     public boolean applyWeedEX(ICropStickTile aCrop, boolean aSimulate) {
-        if (aCrop.getWeedExStorage() > WEEDEX_THRESHOLD || this.mWeedEX.amount < WEEDEX_COST) return false;
+        if (aCrop.getWeedExStorage() > WEEDEX_THRESHOLD || this.mWeedEX < WEEDEX_COST) return false;
 
         if (!aSimulate) {
-            this.mWeedEX.amount = WEEDEX_COST;
+            this.mWeedEX = WEEDEX_COST;
         }
 
         return aCrop.addWeedEx(75, WEEDEX_THRESHOLD, WEEDEX_CAP, aSimulate);
@@ -490,10 +511,10 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         if (this.getLiquidFertilizerAmount() > 0) {
             // get max to consume
             int maxConsume = FERTILIZER_CAP - aCrop.getFertilizerStorage();
-            amount = Math.min(this.mLiquidFertilizer.amount, maxConsume);
+            amount = Math.min(this.mLiquidFertilizer, maxConsume);
             // consume if we aren't simulating
             if (!aSimulate) {
-                this.mLiquidFertilizer.amount -= amount;
+                this.mLiquidFertilizer -= amount;
             }
         } else {
             for (int i = SLOT_FERT_START; i <= SLOT_FERT_END; i++) {
@@ -534,21 +555,27 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     // region water status
 
+    public int getWaterPotency(Fluid fluid) { return ALLOWED_WATER.getOrDefault(fluid,0); }
+
     public int getWaterCapacity() {
         return Math.max(1, this.mWaterCap);
     }
 
     public int getWaterAmount() {
-        return this.mWater.amount;
+        return this.mWater;
     }
 
-    public void setWaterAmount(int a) {
-        this.mWater.amount = a;
+    public void setWaterAmount(int amount) {
+        this.mWater = amount;
     }
 
     // endregion water status
 
     // region weed ex status
+
+    public int getWeedEXPotency(Fluid fluid) {
+        return ALLOWED_WEED_EX.getOrDefault(fluid, 0);
+    }
 
     public int getWeedEXCapacity() {
         // tier * 2 cans of weed-ex
@@ -556,27 +583,31 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     }
 
     public int getWeedEXAmount() {
-        return this.mWeedEX.amount;
+        return this.mWeedEX;
     }
 
     public void setWeedEXAmount(int a) {
-        this.mWeedEX.amount = a;
+        this.mWeedEX = a;
     }
 
     // endregion weed ex status
 
     // region liquid fertilizer status
 
+    public int getLiquidFertilizerPotency(Fluid fluid) {
+        return ALLOWED_LIQUID_FERTILIZER.getOrDefault(fluid, 0);
+    }
+
     public int getLiquidFertilizerCapacity() {
         return this.mLiquidFertilizerCap;
     }
 
     public int getLiquidFertilizerAmount() {
-        return this.mLiquidFertilizer.amount;
+        return this.mLiquidFertilizer;
     }
 
     public void setLiquidFertilizerAmount(int a) {
-        this.mLiquidFertilizer.amount = a;
+        this.mLiquidFertilizer = a;
     }
 
     // endregion liquid fertilizer status
@@ -615,41 +646,74 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     // region fluid IO
 
+    private static class FluidCheckResult {
+        public final int cur;
+        public final int cap;
+        public final int potency;
+        public final Consumer<Integer> setter;
+
+        public FluidCheckResult(int cur, int cap, int potency, Consumer<Integer> setter) {
+            this.cur = cur;
+            this.cap = cap;
+            this.potency = potency;
+            this.setter = setter;
+        }
+    }
+
+    private FluidCheckResult canFill(Fluid fluid) {
+        int potency, cur, cap;
+        Consumer<Integer> setter;
+        if ((potency = this.getWaterPotency(fluid)) > 0) {
+            cur = this.getWaterAmount();
+            cap = this.getWaterCapacity();
+            setter = this::setWaterAmount;
+        } else if ((potency = this.getWeedEXPotency(fluid)) > 0) {
+            cur = this.getWeedEXAmount();
+            cap = this.getWeedEXCapacity();
+            setter = this::setWeedEXAmount;
+        } else if ((potency = this.getLiquidFertilizerPotency(fluid)) > 0) {
+            cur = this.getLiquidFertilizerAmount();
+            cap = this.getLiquidFertilizerCapacity();
+            setter = this::setLiquidFertilizerAmount;
+        }
+        else {
+            return null;
+        }
+        // abort if overflow would occur
+        if (cur > cap - potency) { return null; }
+        return new FluidCheckResult(cur, cap, potency, setter);
+    }
+
+    @Override
+    public boolean canFill(ForgeDirection side, Fluid fluid) {
+        return canFill(fluid) != null;
+    }
+
+    @Override
+    public int fill_default(ForgeDirection side, FluidStack resource, boolean doFill) {
+        return this.fill(resource, doFill);
+    }
+
+    @Override
+    public int fill(ForgeDirection side, FluidStack resource, boolean doFill) {
+        return this.fill(resource, doFill);
+    }
+
     @Override
     public int fill(FluidStack resource, boolean doFill) {
         if (resource == null || resource.getFluid() == null || resource.amount <= 0) return 0;
 
         // find what we need to output to
-        int maxTransfer = 0;
-        FluidStack dest = null;
-        if (resource.isFluidEqual(this.mWater)) {
-            dest = this.mWater;
-            maxTransfer = this.getWaterCapacity();
-        } else if (resource.isFluidEqual(this.mWeedEX)) {
-            dest = this.mWeedEX;
-            maxTransfer = this.getWeedEXCapacity();
-        } else if (resource.isFluidEqual(this.mLiquidFertilizer)) {
-            dest = this.mLiquidFertilizer;
-            maxTransfer = this.getLiquidFertilizerCapacity();
-        }
-
-        // if dest isn't set or max transfer isn't set return 0
-        if (dest == null || maxTransfer <= 0) {
-            return 0;
-        }
+        FluidCheckResult result = canFill(resource.getFluid());
+        if (result == null) return 0;
 
         // calc how much we need to transfer
-        maxTransfer = maxTransfer - dest.amount;
-        int transfered = Math.min(resource.amount, maxTransfer);
-
-        // do transfer if we should transfer.
-        if (!doFill) {
-            dest.amount += transfered;
+        int toConsume = Math.min(resource.amount, (result.cap - result.cur) / result.potency);
+        if (doFill) {
+            result.setter.accept(result.cur + toConsume * result.potency);
             this.markDirty();
         }
-
-        // return amount moved
-        return transfered;
+        return toConsume;
     }
 
     // prevent all output of fluids
@@ -730,27 +794,27 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     public ITexture[] getFront(final byte aColor) {
         return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][aColor + 1],
-            new GTRenderedTexture(TexturesGtBlock.Casing_CropHarvester_Cutter) };
+            TextureFactory.of(TexturesGtBlock.Casing_CropHarvester_Cutter) };
     }
 
     public ITexture[] getBack(final byte aColor) {
         return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][aColor + 1],
-            new GTRenderedTexture(TexturesGtBlock.Casing_CropHarvester_Cutter) };
+            TextureFactory.of(TexturesGtBlock.Casing_CropHarvester_Cutter) };
     }
 
     public ITexture[] getBottom(final byte aColor) {
         return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][aColor + 1],
-            new GTRenderedTexture(TexturesGtBlock.Casing_CropHarvester_Boxes) };
+            TextureFactory.of(TexturesGtBlock.Casing_CropHarvester_Boxes) };
     }
 
     public ITexture[] getTop(final byte aColor) {
         return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][aColor + 1],
-            new GTRenderedTexture(TexturesGtBlock.Casing_CropHarvester_Boxes) };
+            TextureFactory.of(TexturesGtBlock.Casing_CropHarvester_Boxes) };
     }
 
     public ITexture[] getSides(final byte aColor) {
         return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][aColor + 1],
-            new GTRenderedTexture(TexturesGtBlock.Casing_CropHarvester_Cutter) };
+            TextureFactory.of(TexturesGtBlock.Casing_CropHarvester_Cutter) };
     }
 
     // endregion rendering
@@ -760,9 +824,9 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     @Override
     public void saveNBTData(NBTTagCompound aNBT) {
         // save fluid tanks
-        aNBT.setInteger("mWater", this.mWater.amount);
-        aNBT.setInteger("mWeedEx", this.mWeedEX.amount);
-        aNBT.setInteger("mLiquidFertilizer", this.mLiquidFertilizer.amount);
+        aNBT.setInteger("mWater", this.mWater);
+        aNBT.setInteger("mWeedEx", this.mWeedEX);
+        aNBT.setInteger("mLiquidFertilizer", this.mLiquidFertilizer);
         // save modes
         aNBT.setBoolean("mHarvestEnabled", this.mHarvestEnabled);
         aNBT.setBoolean("mWeedExEnabled", this.mWeedEXEnabled);
@@ -777,9 +841,9 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
         // load tanks
-        this.mWater.amount = NBTHelper.getInteger(aNBT, "mWater", 0);
-        this.mWeedEX.amount = NBTHelper.getInteger(aNBT, "mWeedEx", 0);
-        this.mLiquidFertilizer.amount = NBTHelper.getInteger(aNBT, "mLiquidFertilizer", 0);
+        this.mWater = NBTHelper.getInteger(aNBT, "mWater", 0);
+        this.mWeedEX = NBTHelper.getInteger(aNBT, "mWeedEx", 0);
+        this.mLiquidFertilizer = NBTHelper.getInteger(aNBT, "mLiquidFertilizer", 0);
         // load modes
         this.mHarvestEnabled = NBTHelper.getBoolean(aNBT, "mHarvestEnabled", true);
         // versioning for upgrade to new system
