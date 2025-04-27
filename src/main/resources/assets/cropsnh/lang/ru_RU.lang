@@ -1,18 +1,43 @@
 # Original by Malcanteth
 
-# Creative Tabs
-itemGroup.cropsnh=Crops NH
-
-# Blocks
+# Items
 item.cropsnh:cropSticksItem.name=Жёрдочки
 item.cropsnh:magnifyingGlass.name=Лупа
 item.cropsnh:spade.name=Лопатка садовода
 item.cropsnh:debugger.name=Отладчик
-item.cropsnh:handRake.wood.name=Деревянные ручные грабли
-item.cropsnh:handRake.iron.name=Железные ручные грабли
+item.cropsnh:nanCertificate.name=Сертификат о том, что вы больше не нуб
+
+item.cropsnh:goldfish.name=Золотая рыбка
+item.cropsnh:berry.huckle.name=Голубика
+item.cropsnh:berry.sugarbeet.name=Сахарная свекла
+item.cropsnh:materialLeaf.magicEssence.name=Магическая эссенция
+item.cropsnh:materialLeaf.spaceFlower.name=Космический цветок
+
+item.cropsnh:DKorn.bottled.name=Доппелькорн в бутылке
+item.cropsnh:Korn.bottled.name=Корн в бутылке
+item.cropsnh:FWheat.bottled.name=Ферментированная пшеница в бутылке
+item.cropsnh:FReed.bottled.name=Ферментированная тростниковая вода в бутылке
+item.cropsnh:SWhine.bottled.name=Сладкое вино в бутылке
+item.cropsnh:Mash.bottled.name=Сусло в бутылке
+item.cropsnh:Wash.bottled.name=Ферментированное сусло в бутылке
+item.cropsnh:GHP.bottled.name=Высокопробное вино в бутылке
+item.cropsnh:jagi.bottled.name=Настоящий Егермейстер в бутылке!
+item.cropsnh:njagi.bottled.name=Поддельный Егермейстер в бутылке
 
 # Blocks
 tile.cropsnh:cropSticks.name=Жёрдочки
+
+#fluids
+fluid.cropsnh:DKorn=Доппелькорн
+fluid.cropsnh:Korn=Корн
+fluid.cropsnh:FWheat=Ферментированная пшеница
+fluid.cropsnh:FReed=Ферментированная тростниковая вода
+fluid.cropsnh:SWhine=Сладкое вино
+fluid.cropsnh:Mash=Сусло
+fluid.cropsnh:Wash=Ферментированное сусло
+fluid.cropsnh:GHP=Высокопробное вино
+fluid.cropsnh:jagi=Настоящий Егермейстер!
+fluid.cropsnh:njagi=Поддельный Егермейстер
 
 # Tooltips
 cropsnh_tooltip.unidentified=Неопознанный

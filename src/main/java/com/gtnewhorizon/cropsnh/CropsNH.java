@@ -7,19 +7,19 @@ import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
-import com.gtnewhorizon.cropsnh.init.Recipes;
 import com.gtnewhorizon.cropsnh.loaders.AspectLoader;
 import com.gtnewhorizon.cropsnh.loaders.BlockUnderRequirementLoader;
 import com.gtnewhorizon.cropsnh.loaders.CropLoader;
 import com.gtnewhorizon.cropsnh.loaders.FertilizerLoader;
+import com.gtnewhorizon.cropsnh.loaders.GTRecipeLoader;
 import com.gtnewhorizon.cropsnh.loaders.MTELoader;
-import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
 import com.gtnewhorizon.cropsnh.loaders.MutationLoader;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
 import com.gtnewhorizon.cropsnh.loaders.SoilLoader;
 import com.gtnewhorizon.cropsnh.network.NetworkWrapperCropsNH;
 import com.gtnewhorizon.cropsnh.proxy.IProxy;
 import com.gtnewhorizon.cropsnh.reference.Reference;
+import com.gtnewhorizon.cropsnh.tileentity.MTECropManager;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -104,8 +104,8 @@ public class CropsNH {
         BlockUnderRequirement.validateRegistry();
         MutationLoader.postInit();
         AspectLoader.postInit();
-
-        Recipes.postInit();
+        MTECropManager.postInit();
+        GTRecipeLoader.PostInit();
         ModHelper.postInit();
 
         LogHelper.debug("Post-Initialization Complete");

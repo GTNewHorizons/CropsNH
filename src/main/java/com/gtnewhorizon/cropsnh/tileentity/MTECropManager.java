@@ -86,8 +86,8 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         ALLOWED_WEED_EX.putIfAbsent(FluidRegistry.getFluid("potion.poison.strong"), 1);
         ALLOWED_WEED_EX.putIfAbsent(Materials.WeedEX9000.mFluid, 10);
         // allowed liquid fertilizer
-        ALLOWED_WEED_EX.putIfAbsent(ModItems.fluidFertBasic, 1);
-        ALLOWED_WEED_EX.putIfAbsent(CropsNHFluids.enrichedFertilizer, 10);
+        ALLOWED_LIQUID_FERTILIZER.putIfAbsent(ModItems.fluidFertBasic, 1);
+        ALLOWED_LIQUID_FERTILIZER.putIfAbsent(CropsNHFluids.enrichedFertilizer, 10);
     }
 
     public boolean mHarvestEnabled = true;
@@ -398,6 +398,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         // tell em how much stuff they got remaining.
         return remaining;
     }
+
     // endregion harvesting
 
     // region secondary actions

@@ -35,6 +35,18 @@ public enum CropsNHItemList {
     goldfish,
     terraWart,
 
+    // Alcohol Bottles
+    fermentedWheatBottle,
+    kornBottle,
+    doppelkornBottle,
+    fermentedReedwaterBottle,
+    sugarWhineBottle,
+    mashBottle,
+    washBottle,
+    highProofBottle,
+    realJagermeisterBottle,
+    fakeJagermeisterBottle,
+
     // material leaves
     bauxiaLeaf,
     canolaFLower,

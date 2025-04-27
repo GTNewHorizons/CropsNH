@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.init;
 
+import com.gtnewhorizon.cropsnh.items.CropsNHAlcoholBottle;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -29,6 +30,7 @@ public class CropsNHItems {
     public static Item spade;
     public static Item goldfish;
     public static Item berry;
+    public static Item bottledAlcohol;
     public static Item fertilizer;
     public static Item materialLeaf;
 
@@ -37,6 +39,7 @@ public class CropsNHItems {
         CropsNHItemList.magnifyingGlass.set(new ItemStack(magnifyingGlass, 1, 0));
         debugItem = new ItemDebugger();
         nanCertificate = new ItemNaNCertificate();
+        CropsNHItemList.nanCertificate.set(new ItemStack(nanCertificate, 1, 0));
 
         terraWart = new ItemTerraWart();
         CropsNHItemList.terraWart.set(new ItemStack(terraWart, 1, 0));
@@ -46,8 +49,20 @@ public class CropsNHItems {
         goldfish = new ItemGoldfish();
         CropsNHItemList.goldfish.set(new ItemStack(goldfish, 1, 0));
         berry = new ItemBerry();
-        CropsNHItemList.huckleBerry.set(new ItemStack(materialLeaf, 1, 0));
-        CropsNHItemList.sugarBeet.set(new ItemStack(materialLeaf, 1, 1));
+        CropsNHItemList.huckleBerry.set(new ItemStack(berry, 1, 0));
+        CropsNHItemList.sugarBeet.set(new ItemStack(berry, 1, 1));
+
+        bottledAlcohol = new CropsNHAlcoholBottle();
+        CropsNHItemList.fermentedWheatBottle.set(new ItemStack(bottledAlcohol, 1, 0));
+        CropsNHItemList.kornBottle.set(new ItemStack(bottledAlcohol, 1,1));
+        CropsNHItemList.doppelkornBottle.set(new ItemStack(bottledAlcohol, 1, 2));
+        CropsNHItemList.fermentedReedwaterBottle.set(new ItemStack(bottledAlcohol, 1, 3));
+        CropsNHItemList.sugarWhineBottle.set(new ItemStack(bottledAlcohol, 1, 4));
+        CropsNHItemList.mashBottle.set(new ItemStack(bottledAlcohol, 1, 5));
+        CropsNHItemList.washBottle.set(new ItemStack(bottledAlcohol, 1, 6));
+        CropsNHItemList.highProofBottle.set(new ItemStack(bottledAlcohol, 1, 7));
+        CropsNHItemList.realJagermeisterBottle.set(new ItemStack(bottledAlcohol, 1, 8));
+        CropsNHItemList.fakeJagermeisterBottle.set(new ItemStack(bottledAlcohol, 1, 9));
 
         // register fertilizer
         fertilizer = new ItemFertilizer();

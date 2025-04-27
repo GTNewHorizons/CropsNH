@@ -6,11 +6,39 @@ item.cropsnh:cropSticksItem.name=作物架
 item.cropsnh:magnifyingGlass.name=放大镜
 item.cropsnh:spade.name=铲子
 item.cropsnh:debugger.name=调试器
-item.cropsnh:handRake.wood.name=木耙
-item.cropsnh:handRake.iron.name=铁耙
+item.cropsnh:nanCertificate.name=不再是菜鸟的证明
+
+item.cropsnh:goldfish.name=金鱼草
+item.cropsnh:berry.huckle.name=黑木果
+item.cropsnh:berry.sugarbeet.name=甜菜
+item.cropsnh:materialLeaf.magicEssence.name=源质
+item.cropsnh:materialLeaf.spaceFlower.name=空间之花(产出uum)
+
+item.cropsnh:DKorn.bottled.name=瓶装的二次蒸馏科恩酒
+item.cropsnh:Korn.bottled.name=瓶装科恩酒
+item.cropsnh:FWheat.bottled.name=瓶装发酵小麦酒
+item.cropsnh:FReed.bottled.name=瓶装发酵甘蔗水
+item.cropsnh:SWhine.bottled.name=瓶装糖浆
+item.cropsnh:Mash.bottled.name=瓶装麦芽浆
+item.cropsnh:Wash.bottled.name=瓶装淡酒
+item.cropsnh:GHP.bottled.name=瓶装无商标高酒精度饮料（假酒）
+item.cropsnh:jagi.bottled.name=瓶装正牌野格牌利口酒!
+item.cropsnh:njagi.bottled.name=瓶装假冒野格牌利口酒
 
 # Blocks
 tile.cropsnh:cropSticks.name=作物架
+
+# Fluids
+fluid.cropsnh:DKorn=两次蒸馏的科恩酒
+fluid.cropsnh:Korn=科恩酒
+fluid.cropsnh:FWheat=发酵小麦酒
+fluid.cropsnh:FReed=发酵甘蔗水
+fluid.cropsnh:SWhine=糖浆
+fluid.cropsnh:Mash=麦芽浆
+fluid.cropsnh:Wash= 淡酒
+fluid.cropsnh:GHP=无商标的高酒精度饮料（假酒）
+fluid.cropsnh:jagi=正牌野格牌利口酒!
+fluid.cropsnh:njagi=假冒野格牌利口酒
 
 # Tooltips
 cropsnh_tooltip.unidentified=未识别
@@ -23,30 +51,6 @@ cropsnh_tooltip.magnifyingGlass=用这个来检查作物
 cropsnh_tooltip.handRake=用这个铲除作物架上的杂草
 cropsnh_tooltip.empty=这里没有种植作物
 cropsnh_tooltip.none=无
-
-# Open Computers Compat
-# cropsnh_description.peripheralHelp=Method Help
-# cropsnh_description.method.analyze=Orders the analyzer to analyze the current specimen
-# cropsnh_description.method.getBaseBlock=Returns the necessary base block for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-# cropsnh_description.method.getBaseBlockType=Returns the base block type (NONE, BELOW, NEAR) for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-# cropsnh_description.method.getBrightness=Returns the current light level for the crop at the specified direction
-# cropsnh_description.method.getBrightnessRange=Returns the required light level range for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-# cropsnh_description.method.getCurrentSoil=Returns the current soil below the crop at the specified direction or the specimen in the analyzer if no direction is specified
-# cropsnh_description.method.getGrowthStage=Returns the growth percentage of the crop at the specified direction
-# cropsnh_description.method.getNeededSoil=Returns the required soil for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-# cropsnh_description.method.getPlant=Returns the seed currently planted on the crop at the specified direction
-# cropsnh_description.method.getSpecimen=Returns the specimen currently in the analyzer
-# cropsnh_description.method.getStats=Returns the stats [growth, gain, strength] of crop at the specified direction or the specimen in the analyzer if no direction is specified
-# cropsnh_description.method.hasJournal=Returns if the analyzer has a journal
-# cropsnh_description.method.hasPlant=Returns if there is a plant on the crop sticks at the specified direction
-# cropsnh_description.method.hasWeeds=Returns if there are weeds on the crop at the specified direction
-# cropsnh_description.method.isAnalyzed=Returns if the crop at the specified direction, or the specimen in the analyzer (if no direction is specified) is analyzed
-# cropsnh_description.method.isCrossCrop=Returns if the crop at the specified direction is a cross crop
-# cropsnh_description.method.isFertile=Returns if the crop at the specified direction is fertile and can grow
-# cropsnh_description.method.isMature=Returns if the crop crop at the specified direction is mature
-# cropsnh_description.method.needsBaseBlock=Returns if the crop crop at the specified direction needs a base block
-# cropsnh_arg.direction=direction
-# cropsnh_arg.direction.optional=(optional) direction
 
 # NEI GUI
 cropsnh_nei.mutation.title=作物杂交

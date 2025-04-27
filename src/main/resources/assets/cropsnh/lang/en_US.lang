@@ -6,10 +6,20 @@ item.cropsnh:cropSticksItem.name=Crop Sticks
 item.cropsnh:magnifyingGlass.name=Magnifying Glass
 item.cropsnh:spade.name=Spade
 item.cropsnh:debugger.name=Debugger
-item.cropsnh:handRake.wood.name=Wooden Hand Rake
-item.cropsnh:handRake.iron.name=Iron Hand Rake
 item.cropsnh:nanCertificate.name=Certificate of not being a noob anymore
 item.cropsnh:fertilizer.name=Fertilizer
+
+# Alcohol Bottles
+item.cropsnh:DKorn.bottled.name=Bottled Doppelkorn
+item.cropsnh:Korn.bottled.name=Bottled Korn
+item.cropsnh:FWheat.bottled.name=Bottled Fermented Wheat
+item.cropsnh:FReed.bottled.name=Bottled Fermented Reedwater
+item.cropsnh:SWhine.bottled.name=Bottled Sugar Whine
+item.cropsnh:Mash.bottled.name=Bottled Mash
+item.cropsnh:Wash.bottled.name=Bottled Wash
+item.cropsnh:GHP.bottled.name=Bottled Generic High Proof
+item.cropsnh:jagi.bottled.name=Real Bottled Jägermeister!
+item.cropsnh:njagi.bottled.name=Bottled Fake Jägermeister
 
 # Crop Produce Items
 item.cropsnh:terraWart.name=Terra Wart
@@ -52,8 +62,19 @@ item.cropsnh:materialLeaf.hops.name=Hops
 # Blocks
 tile.cropsnh:cropSticks.name=Crop Sticks
 
+
 # Fluids
-cropsnh_fluid.enrichedFertilizer=Enriched Fertilizer
+fluid.cropsnh:EnrichedFertilizer=Enriched Fertilizer
+fluid.cropsnh:DKorn=Doppelkorn
+fluid.cropsnh:Korn=Korn
+fluid.cropsnh:FWheat=Fermented Wheat
+fluid.cropsnh:FReed=Fermented Reedwater
+fluid.cropsnh:SWhine=Sugar Whine
+fluid.cropsnh:Mash=Mash
+fluid.cropsnh:Wash=Wash
+fluid.cropsnh:GHP=Generic High Proof
+fluid.cropsnh:jagi=Real Jägermeister!
+fluid.cropsnh:njagi=Fake Jägermeister
 
 # Tooltips
 cropsnh_tooltip.isSick=Is sick, can't grow!
@@ -100,6 +121,16 @@ cropsnh_tooltip.pyrolusiumLeaf.banana=How did this happen?
 cropsnh_tooltip.pyrolusiumLeaf.canada=Wow, they did it!
 cropsnh_tooltip.copponFiber=ORANGE WOOOOOOOL!!!
 cropsnh_tooltip.stargatiumLeaf=Not actually made out of stargates.
+
+# Alcohol Tooltips
+cropsnh_tooltip.alcohol.0=It stinks.
+cropsnh_tooltip.alcohol.1=Korn? Eww, you'll get a headache!
+cropsnh_tooltip.alcohol.2=Doppelkorn? German Vodka!
+cropsnh_tooltip.alcohol.3=Too Strong.
+cropsnh_tooltip.alcohol.4=Soo Sweet
+cropsnh_tooltip.alcohol.5=Das ist des Jägers' Ehrenschild,\ndass er beschützt und hegt sein Wild,\nweidmännisch jagt, wie sich's gehört,\nden Schöpfer im Geschöpfe ehrt.
+cropsnh_tooltip.alcohol.6=It will give 1h potioneffects!
+cropsnh_tooltip.alcohol.7=It smells like fake Jägermeister...
 
 # Material Leaf Tooltips
 cropsnh_tooltip.leaf.aluminium=A Source of Aluminium.

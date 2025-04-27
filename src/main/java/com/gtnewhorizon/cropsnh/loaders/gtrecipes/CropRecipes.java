@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 
 import bartworks.system.material.Werkstoff;
 import bartworks.system.material.WerkstoffLoader;
+import biomesoplenty.api.content.BOPCBlocks;
 import cofh.core.util.energy.FurnaceFuelHandler;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
@@ -19,13 +20,22 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.GTUtility;
+import ic2.core.Ic2Items;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import thaumcraft.common.config.ConfigItems;
 
+import static gregtech.api.enums.Mods.Avaritia;
+import static gregtech.api.enums.Mods.BiomesOPlenty;
+import static gregtech.api.enums.Mods.Natura;
+import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
+import static gregtech.api.recipe.RecipeMaps.brewingRecipes;
+import static gregtech.api.recipe.RecipeMaps.chemicalBathRecipes;
+import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
 import static gregtech.common.items.ItemComb.Voltage;
 import static gregtech.api.recipe.RecipeMaps.autoclaveRecipes;
 import static gregtech.api.recipe.RecipeMaps.compressorRecipes;
@@ -37,16 +47,22 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 
-public class CropRecipes {
+public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     public enum TierAcid {
         regWater("water"),
         distilWater("distilled water"),
+        /** Sulfuric Acid **/
         t1("Sulfuric Acid"),
+        /** Hydrochloric Acid **/
         t2("Hydrochloric Acid"),
+        /** Formic Acid **/
         t3("Formic Acid"),
+        /** Hydrofluoric Acid **/
         t4("Hydrofluoric Acid"),
+        /** Nitric Acid **/
         t5("Nitric Acid"),
+        /** Phthalic Acid **/
         t6("Phthalic Acid");
 
         /**
@@ -99,20 +115,35 @@ public class CropRecipes {
         addMilkwartRecipes();
         addOilBerryRecipes();
         addTineRecipes();
+        addUUABerryRecipes();
+        addUUMBerryRecipes();
+        addSaltyRootRecipes();
+        addGlowingCoralRecipes();
+        addNetherBerryBrewingRecipes();
+        addSpaceFlowerRecipes();
+        addSugarBeetRecipes();
+        addGoldfishRecipes();
     }
 
     private static void addPlantBallRecipes() {
+        GTRecipeBuilder baseMossRecipe = lvRecipe(3,25);
         for (IMaterialLeafVariant variant : ItemMaterialLeaf.getRegisteredVariants()) {
             ItemStack input = variant.get()
                 .copy();
             input.stackSize = 4;
             // TODO: REPLACE PLANT BALL WITH WHAT EVER ENDS UP REPLACING IT DOWN THE LINE
-            GTValues.RA.stdBuilder()
-                .itemInputs(input, GTUtility.getIntegratedCircuit(24))
+            lvRecipe( 3 ,25)
+                .itemInputs(input)
                 .itemOutputs(ItemList.IC2_PlantballCompressed.get(1L))
-                .duration(15 * SECONDS)
-                .eut(2)
                 .addTo(compressorRecipes);
+        }
+
+
+
+        if (BiomesOPlenty.isModLoaded()) {
+            lvRecipe( 3 ,25)
+                .itemInputs(GTModHandler.getModItem(BiomesOPlenty.ID, "treeMoss", 4))
+                .itemOutputs(Ic2Items.plantBall.copy()).duration(15 * SECONDS).eut(2).addTo(compressorRecipes);
         }
     }
 
@@ -203,6 +234,35 @@ public class CropRecipes {
 
         createOreDuplicationRecipe(MaterialLeafLoader.bobsYerUncleBerry, Materials.Emerald);
         createOreDuplicationRecipe(MaterialLeafLoader.bobsYerUncleBerry, Materials.Beryllium);
+
+        if (Mods.GalacticraftCore.isModLoaded()) {
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.MeteoricIron, Voltage.HV);
+            createOreDuplicationRecipe(
+                MaterialLeafLoader.spaceFlower.get(9),
+                getModItem(Mods.GalacticraftCore.ID, "item.meteoricIronRaw", 1, 0),
+                Materials.MeteoricIron,
+                Voltage.HV
+            );
+        }
+
+        if (Mods.GalacticraftMars.isModLoaded()) {
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.Desh, Voltage.HV);
+            createOreDuplicationRecipe(
+                MaterialLeafLoader.spaceFlower.get(9),
+                getModItem(Mods.GalacticraftMars.ID, "item.null", 1, 0),
+                Materials.Desh,
+                Voltage.HV
+            );
+        }
+
+        if (Mods.GalaxySpace.isModLoaded()) {
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.Oriharukon, Voltage.HV);
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.Ledox, Voltage.HV);
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.CallistoIce, Voltage.HV);
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.BlackPlutonium, Voltage.LuV);
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.DeepIron, Voltage.LuV);
+        }
+
     }
 
     private static void addOreConversionRecipes() {
@@ -214,19 +274,44 @@ public class CropRecipes {
             .duration(Voltage.HV.getSimpleTime())
             .addTo(extractorRecipes);
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(MaterialLeafLoader.tineTwig.get(1))
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Tin, 1))
-            .eut(TierEU.HV)
-            .duration(Voltage.ULV.getSimpleTime())
+        ulvRecipe(3, 75)
+            .itemInputs(MaterialLeafLoader.copponFiber.get(9))
+            .itemOutputs(new ItemStack[] {GTOreDictUnificator.get(OrePrefixes.dust, Materials.Copper, 1)}, new int[] { 50_00 })
+            .addTo(extractorRecipes);
+
+        ulvRecipe(3, 75)
+            .itemInputs(MaterialLeafLoader.tineTwig.get(9))
+            .itemOutputs(new ItemStack[] {GTOreDictUnificator.get(OrePrefixes.dust, Materials.Tin, 1)}, new int[] { 50_00 })
+            .addTo(extractorRecipes);
+
+        ulvRecipe(3, 75)
+            .itemInputs(MaterialLeafLoader.plumbiliaLeaf.get(9))
+            .itemOutputs(new ItemStack[] {GTOreDictUnificator.get(OrePrefixes.dust, Materials.Lead, 1)}, new int[] { 50_00 })
+            .addTo(extractorRecipes);
+
+        ulvRecipe(3, 75)
+            .itemInputs(MaterialLeafLoader.argentiaLeaf.get(9))
+            .itemOutputs(new ItemStack[] {GTOreDictUnificator.get(OrePrefixes.dust, Materials.Silver, 1)}, new int[] { 50_00 })
+            .addTo(extractorRecipes);
+
+        ulvRecipe(3, 75)
+            .itemInputs(MaterialLeafLoader.ferruLeaf.get(9))
+            .itemOutputs(new ItemStack[] {GTOreDictUnificator.get(OrePrefixes.dust, Materials.Iron, 1)}, new int[] { 50_00 })
             .addTo(extractorRecipes);
 
         createOreConversionRecipe(MaterialLeafLoader.copponFiber, Voltage.LV, Materials.Copper, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.galvaniaLeaf, Voltage.LV, Materials.Zinc, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.nickelbackLeaf, Voltage.LV, Materials.Nickel, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.pyrolusiumLeaf, Voltage.LV, Materials.Manganese, TierAcid.t1);
+        createOreConversionRecipe(MaterialLeafLoader.plumbiliaLeaf, Voltage.LV, Materials.Lead, TierAcid.t1);
+        createOreConversionRecipe(MaterialLeafLoader.tineTwig, Voltage.LV, Materials.Tin, TierAcid.t1);
+        createOreConversionRecipe(MaterialLeafLoader.argentiaLeaf, Voltage.LV, Materials.Silver, TierAcid.t1);
+        createOreConversionRecipe(MaterialLeafLoader.ferruLeaf, Voltage.LV, Materials.Iron, TierAcid.t1);
 
-        createOreConversionRecipe(MaterialLeafLoader.bauxiaLeaf, Voltage.LV, Materials.Bauxite, TierAcid.t2);
+        createOreConversionRecipe(MaterialLeafLoader.aureliaLeaf, Voltage.LV, Materials.Gold, TierAcid.t2);
+        // emeralds are needed for mv sensors/emitters so slightly higher reqs
+        createOreConversionRecipe(MaterialLeafLoader.bobsYerUncleBerry, Voltage.LV, Materials.Emerald, TierAcid.t2);
+        createOreConversionRecipe(MaterialLeafLoader.bauxiaLeaf, Voltage.MV, Materials.Bauxite, TierAcid.t2);
 
         createOreConversionRecipe(MaterialLeafLoader.platinaLeaf, Voltage.HV, WerkstoffLoader.PTConcentrate.getFluidOrGas(1000), TierAcid.t3, Voltage.HV.getComplexTime() * 10);
 
@@ -234,6 +319,8 @@ public class CropRecipes {
         createOreConversionRecipe(MaterialLeafLoader.reactoriaLeaf, Voltage.EV, Materials.Pitchblende, TierAcid.t5);
         createOreConversionRecipe(MaterialLeafLoader.reactoriaStem, Voltage.EV, Materials.Uranium, TierAcid.t6);
         createOreConversionRecipe(MaterialLeafLoader.thunderFlower, Voltage.EV, Materials.Thorium, TierAcid.t6);
+        createOreConversionRecipe(MaterialLeafLoader.titaniaLeaf, Voltage.EV, Materials.Titanium, TierAcid.t6);
+        createOreConversionRecipe(MaterialLeafLoader.starwart, Voltage.EV, Materials.NetherStar, TierAcid.t6);
 
         createOreConversionRecipe(MaterialLeafLoader.osmianthFlower, Voltage.IV, WerkstoffLoader.AcidicOsmiumSolution.getFluidOrGas(1000), TierAcid.t6, Voltage.HV.getComplexTime() * 17);
         createOreConversionRecipe(MaterialLeafLoader.iridineFlower, Voltage.IV, WerkstoffLoader.AcidicIridiumSolution.getFluidOrGas(1000), TierAcid.t6, Voltage.HV.getComplexTime() * 14);
@@ -242,15 +329,11 @@ public class CropRecipes {
     }
 
     private static void addCopponRecipes() {
-        ulvRecipe(3, 75)
-            .itemInputs(MaterialLeafLoader.copponFiber.get(9))
-            .itemOutputs(new ItemStack[] {GTOreDictUnificator.get(OrePrefixes.dust, Materials.Copper, 1)}, new int[] { 20_00 })
-            .addTo(extractorRecipes);
 
         recipe(2, 15,0)
             .itemInputs(MaterialLeafLoader.copponFiber.get(4), GTUtility.getIntegratedCircuit(1))
             .itemOutputs(new ItemStack(Blocks.wool, 1, 1))
-            .addTo(compressorRecipes);
+            .addTo(assemblerRecipes);
     }
 
     private static void addCanolaRecipes() {
@@ -438,9 +521,223 @@ public class CropRecipes {
 
     private static void addTineRecipes() {
         FurnaceFuelHandler.registerFuel(CropsNHItemList.tineTwig.get(1), 100);
+
+
+        ulvRecipe(3, 75)
+            .itemInputs(MaterialLeafLoader.tineTwig.get(2))
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Wood, 1))
+            .addTo(maceratorRecipes);
     }
 
-    // region helpers
+    private static void addUUABerryRecipes() {
+        recipe(4,6, 40)
+            .itemInputs(MaterialLeafLoader.uuaBerry.get(1))
+            .fluidOutputs(Materials.UUAmplifier.getFluid(4))
+            .addTo(fluidExtractionRecipes);
+    }
+
+    private static void addUUMBerryRecipes() {
+        recipe(4,6, 40)
+            .itemInputs(MaterialLeafLoader.uumBerry.get(1))
+            .fluidOutputs(Materials.UUMatter.getFluid(4))
+            .addTo(fluidExtractionRecipes);
+    }
+
+    private static void addSaltyRootRecipes() {
+        lvRecipe(5, 0)
+            .itemInputs(MaterialLeafLoader.saltyRoot.get(1))
+            .fluidInputs(new FluidStack(FluidRegistry.WATER, 100))
+            .itemOutputs(
+                new ItemStack[] {
+                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Salt, 1),
+                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.RockSalt, 1),
+                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Saltpeter, 1),
+                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Borax, 1)
+                },
+                new int[] {95_00, 80_00, 50_00, 5_00}
+            )
+            .addTo(chemicalBathRecipes);
+    }
+
+    private static void addGlowingCoralRecipes() {
+        if (!Mods.BiomesOPlenty.isModLoaded()) { return; }
+        // glowing coral to sunnarium
+        ivRecipe(60 * 5 + 16,0)
+            .itemInputs(new ItemStack(BOPCBlocks.coral1, 32, 15))
+            .fluidInputs(Materials.UUMatter.getFluid(1))
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sunnarium, 2))
+            .requiresCleanRoom()
+            .addTo(RecipeMaps.autoclaveRecipes);
+    }
+
+    private static void addNetherBerryBrewingRecipes() {
+        if (!Mods.Natura.isModLoaded()) return;
+
+        ulvRecipe(3,40)
+            .itemInputs(getModItem(Natura.ID, "berry.nether", 16, 0))
+            .fluidInputs(Materials.Water.getFluid(750))
+            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.regen"), 750))
+            .addTo(brewingRecipes);
+
+        ulvRecipe(3,40)
+            .itemInputs(getModItem(Natura.ID, "berry.nether", 16, 1))
+            .fluidInputs(Materials.Water.getFluid(750))
+            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.nightvision"), 750))
+            .addTo(brewingRecipes);
+
+        ulvRecipe(3,40)
+            .itemInputs(getModItem(Natura.ID, "berry.nether", 16, 2))
+            .fluidInputs(Materials.Water.getFluid(750))
+            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.speed"), 750))
+            .addTo(brewingRecipes);
+
+        ulvRecipe(3,40)
+            .itemInputs(getModItem(Natura.ID, "berry.nether", 16, 3))
+            .fluidInputs(Materials.Water.getFluid(750))
+            .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.strength"), 750))
+            .addTo(brewingRecipes);
+    }
+
+    private static void addSpaceFlowerRecipes() {
+        if (!Mods.GalacticraftCore.isModLoaded()) return;
+        // space flower to uum
+        recipe(4,6, 40)
+            .itemInputs(MaterialLeafLoader.spaceFlower.get(1))
+            // it's growth time should make it worst than using uum berries
+            .fluidOutputs(Materials.UUMatter.getFluid(4))
+            .addTo(fluidExtractionRecipes);
+
+        // iron to meteoric iron
+        hvRecipe(12, 0)
+            .itemInputs(
+                new Object[] { "dustIron", 4},
+                MaterialLeafLoader.spaceFlower.get(1)
+            )
+            .fluidInputs(TierAcid.t2.get())
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.MeteoricIron, 4))
+            .addTo(UniversalChemical);
+
+        // steel to meteoric steel
+        hvRecipe(12, 0)
+            .itemInputs(
+                new Object[] { "dustSteel", 4},
+                MaterialLeafLoader.spaceFlower.get(1)
+            )
+            .fluidInputs(TierAcid.t2.get())
+            .itemOutputs(Materials.MeteoricSteel.getDust(4))
+            .addTo(UniversalChemical);
+
+        if (Mods.GalacticraftMars.isModLoaded()) {
+            // titanium to desh
+            hvRecipe(12, 0)
+                .itemInputs(
+                    new Object[] { "dustTitanium", 4},
+                    MaterialLeafLoader.spaceFlower.get(4)
+                )
+                .fluidInputs(TierAcid.t4.get())
+                .itemOutputs(Materials.Oriharukon.getDust(4))
+                .addTo(UniversalChemical);
+        }
+
+        if (Mods.GalaxySpace.isModLoaded()) {
+            // bismuth to oriharukon
+            hvRecipe(12, 0)
+                .itemInputs(
+                    new Object[] { "dustBismuth", 4},
+                    MaterialLeafLoader.spaceFlower.get(8)
+                )
+                .fluidInputs(TierAcid.t4.get())
+                .itemOutputs(Materials.Oriharukon.getDust(4))
+                .addTo(UniversalChemical);
+
+            // ice to callistoIce
+            ivRecipe(12, 0)
+                .itemInputs(
+                    new Object[] { "dustIce", 4},
+                    MaterialLeafLoader.spaceFlower.get(8)
+                )
+                .fluidInputs(TierAcid.t5.get())
+                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.CallistoIce, 4))
+                .addTo(UniversalChemical);
+
+            // lead to ledox
+            ivRecipe(12, 0)
+                .itemInputs(
+                    new Object[] { "dustLead", 4},
+                    MaterialLeafLoader.spaceFlower.get(8)
+                )
+                .fluidInputs(TierAcid.t5.get())
+                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ledox,4))
+                .addTo(UniversalChemical);
+
+            if (Mods.Avaritia.isModLoaded()) {
+                // crustal matrix ingot to mysterious crystal.
+                zpmRecipe(12, 0)
+                    .itemInputs(
+                        getModItem(Avaritia.ID, "Resource", 1, 1),
+                        MaterialLeafLoader.spaceFlower.get(16)
+                    )
+                    .fluidInputs(TierAcid.t6.get())
+                    .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.MysteriousCrystal, 4))
+                    .addTo(UniversalChemical);
+            }
+
+            // meteoric iron to deep iron
+            zpmRecipe(6, 0)
+                .itemInputs(
+                    new Object[] { "dustMeteoricIron", 4},
+                    MaterialLeafLoader.spaceFlower.get(16)
+                )
+                .fluidInputs(TierAcid.t6.get())
+                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.DeepIron, 4))
+                .addTo(UniversalChemical);
+
+            // pu241 to black plutonium
+            zpmRecipe(6, 0)
+                .itemInputs(
+                    new Object[] { "dustPlutonium241", 4},
+                    MaterialLeafLoader.spaceFlower.get(64)
+                )
+                .fluidInputs(TierAcid.t6.get())
+                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.BlackPlutonium, 4))
+                .addTo(UniversalChemical);
+        }
+    }
+
+    private static void addSugarBeetRecipes() {
+        ulvRecipe(3, 40)
+            .itemInputs(CropsNHItemList.sugarBeet.get(1))
+            .itemOutputs(new ItemStack(Items.sugar, 8, 0))
+            .addTo(extractorRecipes);
+    }
+
+    private static void addGoldfishRecipes() {
+        // fluid extraction
+        ulvRecipe(0, 80)
+            .itemInputs(CropsNHItemList.goldfish.get(1))
+            // Why is it screaming you ask?
+            // Because it's living in agony after being poisoned.
+            // it used to output gold, but screaming because your rich is pointless,
+            // you'll be out of everything in a tier or two anyway.
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Mercury, 10))
+            .outputChances(1_00)
+            .fluidOutputs(Materials.FishOil.getFluid(100))
+            .addTo(fluidExtractionRecipes);
+
+        ulvRecipe(0, 15)
+            .itemInputs(CropsNHItemList.goldfish.get(1))
+            .itemOutputs(
+                GTOreDictUnificator.get(OrePrefixes.dust, Materials.MeatRaw, 1),
+                GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Mercury, 1),
+                GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Gold, 1)
+            )
+            .outputChances(100_00, 90, 10)
+            .addTo(maceratorRecipes);
+    }
+
+
+    // region ore conversion helpers
+
     public static final int DEFAULT_ORE_CONVERSION_LEAF_AMOUNT = 4;
     public static void createOreConversionRecipe(IMaterialLeafVariant variant, Voltage voltage, Werkstoff ore, TierAcid catalyst) {
         if (ore == null ) {
@@ -553,7 +850,7 @@ public class CropRecipes {
             .itemInputs(itemInputs);
 
         if (fluidInputs != null) {
-            builder.fluidOutputs(fluidInputs);
+            builder.fluidInputs(fluidInputs);
         }
         if (itemOutputs != null) {
             builder.itemOutputs(itemOutputs);
@@ -577,6 +874,10 @@ public class CropRecipes {
 
     }
 
+    // endregion ore conversion helpers
+
+    // region ore duplication helpers
+
     public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Werkstoff oreType) {
         if (oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
@@ -584,30 +885,68 @@ public class CropRecipes {
         createOreDuplicationRecipe(variant, oreType.getBridgeMaterial());
     }
 
+    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Werkstoff oreType, Voltage voltage) {
+        if (oreType == null) {
+            throw new IllegalArgumentException("no argument can be null");
+        }
+        createOreDuplicationRecipe(variant, oreType.getBridgeMaterial(), voltage);
+    }
+
     public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType) {
+        createOreDuplicationRecipe(variant, oreType, Voltage.LV);
+    }
+
+    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType, Voltage voltage) {
         if (variant == null || oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
         }
         ItemStack leaf = variant.get(1);
+        createOreDuplicationRecipe(leaf, oreType, voltage);
+    }
+
+    public static void createOreDuplicationRecipe(ItemStack leaf, Materials oreType, Voltage voltage) {
+        if (leaf == null || oreType == null) {
+            throw new IllegalArgumentException("no argument can be null");
+        }
         ItemStack crushed = GTOreDictUnificator.get(OrePrefixes.crushed, oreType, 1);
+        createOreDuplicationRecipe(leaf, crushed, oreType, voltage);
+    }
+
+    public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, Materials oreType, Voltage voltage) {
+        if (leaf == null || crushed == null|| oreType == null) {
+            throw new IllegalArgumentException("no argument can be null");
+        }
+        ItemStack purified = GTOreDictUnificator.get(OrePrefixes.crushedPurified, oreType, 4);
+        FluidStack byproduct = null;
+        if (!oreType.mOreByProducts.isEmpty()) {
+            byproduct = oreType.mOreByProducts.get(0).getMolten(144);
+        }
+        createOreDuplicationRecipe(leaf, crushed, purified, byproduct, voltage);
+    }
+
+    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, ItemStack crushed, Materials oreType, Voltage voltage) {
+        if (variant == null || crushed == null || oreType == null) {
+            throw new IllegalArgumentException("no argument can be null");
+        }
+        ItemStack leaf = variant.get(1);
         ItemStack purified = GTOreDictUnificator.get(OrePrefixes.crushedPurified, oreType, 4);
         FluidStack byproduct = null;
         if (!oreType.mOreByProducts.isEmpty()) {
             byproduct = oreType.mOreByProducts.get(0).getMolten(144);
         }
 
-        createOreDuplicationRecipe(leaf, crushed, purified, byproduct);
+        createOreDuplicationRecipe(leaf, crushed, purified, byproduct, voltage);
     }
 
-    public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, ItemStack purified, FluidStack byproduct) {
+    public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, ItemStack purified, FluidStack byproduct, Voltage voltage) {
         if (crushed == null || purified == null) {
             throw new IllegalArgumentException("crushed and purified can't be null");
         }
 
         // create recipe base
         GTRecipeBuilder builder = GTValues.RA.stdBuilder()
-            .eut(TierEU.ULV * 3)
-            .duration(4 * SECONDS + 16 * TICKS)
+            .eut(voltage.getChemicalEnergy())
+            .duration(voltage.getComplexTime())
             .itemInputs(leaf, crushed)
             .itemOutputs(purified);
 
@@ -628,46 +967,7 @@ public class CropRecipes {
             .addTo(UniversalChemical);
     }
 
-    private static GTRecipeBuilder recipe(long eut, int seconds, int fraction) {
-        int duration = seconds * SECONDS + fraction / 5;
-        return GTValues.RA.stdBuilder().eut(eut).duration(duration);
-    }
-    private static GTRecipeBuilder ulvRecipe(int seconds, int fraction) {
-        return recipe(TierEU.RECIPE_ULV, seconds, fraction);
-    }
-    private static GTRecipeBuilder lvRecipe(int seconds, int fraction) {
-        return recipe(TierEU.RECIPE_LV, seconds, fraction);
-    }
-    private static GTRecipeBuilder mvRecipe(int seconds, int fraction) {
-        return recipe(TierEU.RECIPE_MV, seconds, fraction);
-    }
-    private static GTRecipeBuilder hvRecipe(int seconds, int fraction) {
-        return recipe(TierEU.RECIPE_HV, seconds, fraction);
-    }
-    private static GTRecipeBuilder evRecipe(int seconds, int fraction) {
-        return recipe(TierEU.RECIPE_EV, seconds, fraction);
-    }
-    private static GTRecipeBuilder ivRecipe(int seconds, int fraction) {
-        return recipe(TierEU.RECIPE_IV, seconds, fraction);
-    }
-    private static GTRecipeBuilder luvRecipe(int seconds, int fraction) {
-        return recipe(TierEU.RECIPE_LuV, seconds, fraction);
-    }
-    private static GTRecipeBuilder zpmRecipe(int seconds, int fraction) {
-        return recipe(TierEU.RECIPE_ZPM, seconds, fraction);
-    }
-    private static GTRecipeBuilder uvRecipe(int seconds, int fraction) {
-        return recipe(TierEU.RECIPE_UV, seconds, fraction);
-    }
 
-    private static ItemStack getModItem(String modId, String name, int amount) {
-        return getModItem(modId, name, amount, 0);
-    }
 
-    private static final ItemStack missing = new ItemStack(Blocks.fire).setStackDisplayName("Missing!");
-    private static ItemStack getModItem(String modId, String name, int amount, int meta) {
-        return GTModHandler.getModItem(modId, name, amount, meta, missing);
-    }
-
-    // endregion helpers
+    // endregion ore duplication helpers
 }
