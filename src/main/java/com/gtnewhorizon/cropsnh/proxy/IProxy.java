@@ -1,13 +1,15 @@
 package com.gtnewhorizon.cropsnh.proxy;
 
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+
 public interface IProxy {
+
     /** Returns the instance of the EntityPlayer on the client, null on the server */
     EntityPlayer getClientPlayer();
 
@@ -26,11 +28,11 @@ public interface IProxy {
     /** Registers the renderers on the client, does nothing on the server */
     void registerRenderers();
 
-    /** Initializes the NEI configuration */
-    void initNEI();
-
     /** Hides an ItemStack from NEI on the client, does nothing on the server */
     void hideItemInNEI(ItemStack stack);
+
+    /** Adds an item variant in NEI on the client, does nothing on the server */
+    void addItemInNEI(ItemStack stack);
 
     /** Registers all the needed event handlers to the correct event bus */
     void registerEventHandlers();

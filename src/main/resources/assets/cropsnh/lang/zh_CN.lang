@@ -1,403 +1,63 @@
-//Creative Tabs
-itemGroup.cropsnh=农业工艺
+# Creative Tabs
+itemGroup.cropsnh=Crops NH
 
-//Items
-item.cropsnh:cropsItem.name=作物架
-item.cropsnh:journal.name=农学研究随笔
-item.cropsnh:trowel.name=园丁铲
+# Items
+item.cropsnh:cropSticksItem.name=作物架
 item.cropsnh:magnifyingGlass.name=放大镜
+item.cropsnh:spade.name=铲子
 item.cropsnh:debugger.name=调试器
-item.cropsnh:handRake.wood.name=木耙
-item.cropsnh:handRake.iron.name=铁耙
-item.cropsnh:clipper.name=剪枝器
-item.cropsnh:clipping.name=接穗
+item.cropsnh:nanCertificate.name=不再是菜鸟的证明
 
-item.cropsnh:nuggetDiamond.name=钻石颗粒
-item.cropsnh:nuggetIron.name=铁颗粒
-item.cropsnh:nuggetEmerald.name=绿宝石颗粒
-item.cropsnh:nuggetTin.name=锡颗粒
-item.cropsnh:nuggetLead.name=铅颗粒
-item.cropsnh:nuggetSilver.name=银颗粒
-item.cropsnh:nuggetAluminum.name=铝颗粒
-item.cropsnh:nuggetNickel.name=镍颗粒
-item.cropsnh:nuggetPlatinum.name=铂颗粒
-item.cropsnh:nuggetOsmium.name=锇颗粒
-item.cropsnh:nuggetQuartz.name=石英碎片
+item.cropsnh:goldfish.name=金鱼草
+item.cropsnh:berry.huckle.name=黑木果
+item.cropsnh:berry.sugarbeet.name=甜菜
+item.cropsnh:materialLeaf.magicEssence.name=源质
+item.cropsnh:materialLeaf.spaceFlower.name=空间之花(产出uum)
 
-item.cropsnh:seedPotato.name=马铃薯种子
-item.cropsnh:seedCarrot.name=胡萝卜种子
-item.cropsnh:seedSugarcane.name=甘蔗种子
-item.cropsnh:seedDandelion.name=蒲公英种子
-item.cropsnh:seedPoppy.name=罂粟种子
-item.cropsnh:seedOrchid.name=兰花种子
-item.cropsnh:seedAllium.name=绒球葱种子
-item.cropsnh:seedTulipRed.name=红色郁金香种子
-item.cropsnh:seedTulipOrange.name=橙色郁金香种子
-item.cropsnh:seedTulipWhite.name=白色郁金香种子
-item.cropsnh:seedTulipPink.name=粉色郁金香种子
-item.cropsnh:seedDaisy.name=法兰西菊种子
-item.cropsnh:seedCactus.name=仙人掌种子
-item.cropsnh:seedShroomRed.name=红色蘑菇孢子
-item.cropsnh:seedShroomBrown.name=棕色蘑菇孢子
-item.cropsnh:seedNitorWart.name=闪耀疣孢子
-item.cropsnh:seedQuartzanthemum.name=石英菊种子
+item.cropsnh:DKorn.bottled.name=瓶装的二次蒸馏科恩酒
+item.cropsnh:Korn.bottled.name=瓶装科恩酒
+item.cropsnh:FWheat.bottled.name=瓶装发酵小麦酒
+item.cropsnh:FReed.bottled.name=瓶装发酵甘蔗水
+item.cropsnh:SWhine.bottled.name=瓶装糖浆
+item.cropsnh:Mash.bottled.name=瓶装麦芽浆
+item.cropsnh:Wash.bottled.name=瓶装淡酒
+item.cropsnh:GHP.bottled.name=瓶装无商标高酒精度饮料（假酒）
+item.cropsnh:jagi.bottled.name=瓶装正牌野格牌利口酒!
+item.cropsnh:njagi.bottled.name=瓶装假冒野格牌利口酒
 
-item.cropsnh:seedBotaniaWhite.name=白色神秘花种子
-item.cropsnh:seedBotaniaOrange.name=橙色神秘花种子
-item.cropsnh:seedBotaniaMagenta.name=品红色神秘花种子
-item.cropsnh:seedBotaniaLightBlue.name=淡蓝色神秘花种子
-item.cropsnh:seedBotaniaYellow.name=黄色神秘花种子
-item.cropsnh:seedBotaniaLime.name=黄绿色神秘花种子
-item.cropsnh:seedBotaniaPink.name=粉色神秘花种子
-item.cropsnh:seedBotaniaGray.name=灰色神秘花种子
-item.cropsnh:seedBotaniaLightGray.name=淡灰色神秘花种子
-item.cropsnh:seedBotaniaCyan.name=青色神秘花种子
-item.cropsnh:seedBotaniaPurple.name=紫色神秘花种子
-item.cropsnh:seedBotaniaBlue.name=蓝色神秘花种子
-item.cropsnh:seedBotaniaBrown.name=棕色神秘花种子
-item.cropsnh:seedBotaniaGreen.name=绿色神秘花种子
-item.cropsnh:seedBotaniaRed.name=红色神秘花种子
-item.cropsnh:seedBotaniaBlack.name=黑色神秘花种子
+# Blocks
+tile.cropsnh:cropSticks.name=作物架
 
-item.cropsnh:seedCinderpearl.name=火焰草种子
-item.cropsnh:seedShimmerleaf.name=水银花种子
-item.cropsnh:seedVishroom.name=纤毛菇种子
-item.cropsnh:seedTaintedRoot.name=腐化之根种子
+# Fluids
+fluid.cropsnh:DKorn=两次蒸馏的科恩酒
+fluid.cropsnh:Korn=科恩酒
+fluid.cropsnh:FWheat=发酵小麦酒
+fluid.cropsnh:FReed=发酵甘蔗水
+fluid.cropsnh:SWhine=糖浆
+fluid.cropsnh:Mash=麦芽浆
+fluid.cropsnh:Wash= 淡酒
+fluid.cropsnh:GHP=无商标的高酒精度饮料（假酒）
+fluid.cropsnh:jagi=正牌野格牌利口酒!
+fluid.cropsnh:njagi=假冒野格牌利口酒
 
-item.cropsnh:seedAum.name=全知草种子
-item.cropsnh:seedCerublossom.name=万代兰种子
-item.cropsnh:seedDesertNova.name=沙漠新星种子
-item.cropsnh:seedTarmaRoot.name=塔尔玛根种子
-item.cropsnh:seedWakebloom.name=觉苏草种子
-
-item.cropsnh:seedFerranium.name=铁叶草种子
-item.cropsnh:seedAurigold.name=金光花种子
-item.cropsnh:seedDiamahlia.name=金刚大丽种子
-item.cropsnh:seedLapender.name=蓝熏衣种子
-item.cropsnh:seedEmeryllis.name=朱顶绿种子
-item.cropsnh:seedRedstodendron.name=红灌木种子
-item.cropsnh:seedCuprosia.name=铜茜草种子
-item.cropsnh:seedPetinia.name=锡牵牛种子
-item.cropsnh:seedPlombean.name=铅斑豆种子
-item.cropsnh:seedSilverweed.name=银辉草种子
-item.cropsnh:seedJaslumine.name=铝茉莉种子
-item.cropsnh:seedNiccissus.name=镍粉藤种子
-item.cropsnh:seedPlatiolus.name=铂金草种子
-item.cropsnh:seedOsmonium.name=锇蓝草种子
-
-
-//blocks
-tile.cropsnh:crops.name=作物架
-tile.cropsnh:seedAnalyzer.name=种子分析仪
-tile.cropsnh:waterPad.name=水垫
-tile.cropsnh:waterPadFull.name=水垫
-tile.cropsnh:seedStorage.0.name=种子储存器
-tile.cropsnh:seedStorageController.0.name=种子储存控制器
-tile.cropsnh:peripheral.name=数控种子分析仪
-
-tile.cropsnh:cropPotato.name=马铃薯
-tile.cropsnh:cropCarrot.name=胡萝卜
-tile.cropsnh:cropSugarcane.name=甘蔗
-tile.cropsnh:cropMelon.name=西瓜
-tile.cropsnh:cropPumpkin.name=南瓜
-tile.cropsnh:cropDandelion.name=蒲公英
-tile.cropsnh:cropPoppy.name=罂粟
-tile.cropsnh:cropOrchid.name=兰花
-tile.cropsnh:cropAllium.name=绒球葱
-tile.cropsnh:cropTulipRed.name=红郁金香
-tile.cropsnh:cropTulipOrange.name=橙郁金香
-tile.cropsnh:cropTulipWhite.name=白郁金香
-tile.cropsnh:cropTulipPink.name=粉郁金香
-tile.cropsnh:cropDaisy.name=法兰西菊
-tile.cropsnh:cropCactus.name=仙人掌
-tile.cropsnh:cropShroomRed.name=红蘑菇
-tile.cropsnh:cropShroomBrown.name=棕蘑菇
-tile.cropsnh:cropNitorWart.name=闪耀疣
-tile.cropsnh:cropQuartzanthemum.name=石英菊
-
-tile.cropsnh:cropBotaniaWhite.name=白色神秘花
-tile.cropsnh:cropBotaniaOrange.name=橙色神秘花
-tile.cropsnh:cropBotaniaMagenta.name=品红色神秘花
-tile.cropsnh:cropBotaniaLightBlue.name=淡蓝色神秘花
-tile.cropsnh:cropBotaniaYellow.name=黄色神秘花
-tile.cropsnh:cropBotaniaLime.name=黄绿色神秘花
-tile.cropsnh:cropBotaniaPink.name=粉色神秘花
-tile.cropsnh:cropBotaniaGray.name=灰色神秘花
-tile.cropsnh:cropBotaniaLightGray.name=淡灰色神秘花
-tile.cropsnh:cropBotaniaCyan.name=青色神秘花
-tile.cropsnh:cropBotaniaPurple.name=紫色神秘花
-tile.cropsnh:cropBotaniaBlue.name=蓝色神秘花
-tile.cropsnh:cropBotaniaBrown.name=棕色神秘花
-tile.cropsnh:cropBotaniaGreen.name=绿色神秘花
-tile.cropsnh:cropBotaniaRed.name=红色神秘花
-tile.cropsnh:cropBotaniaBlack.name=黑色神秘花
-
-tile.cropsnh:cropCinderpearl.name=火焰草
-tile.cropsnh:cropShimmerleaf.name=水银花
-tile.cropsnh:cropVishroom.name=纤毛菇
-tile.cropsnh:cropTaintedRoot.name=腐化之根
-
-tile.cropsnh:cropAum.name=全知草
-tile.cropsnh.cropCerublossom.name=万代兰
-tile.cropsnh.cropDesertNova.name=沙漠新星
-tile.cropsnh.cropTarmaRoot.name=塔尔玛根
-tile.cropsnh.cropWakebloom.name=觉苏草
-
-tile.cropsnh:cropFerranium.name=铁叶草
-tile.cropsnh:cropAurigold.name=金光花
-tile.cropsnh:cropDiamahlia.name=金刚大丽
-tile.cropsnh:cropLapender.name=蓝熏衣
-tile.cropsnh:cropEmeryllis.name=朱顶绿
-tile.cropsnh:cropRedstodendron.name=红灌木
-tile.cropsnh:cropCuprosia.name=铜茜草
-tile.cropsnh:cropPetinia.name=锡牵牛
-tile.cropsnh:cropPlombean.name=铅斑豆
-tile.cropsnh:cropSilverweed.name=银辉草
-tile.cropsnh:cropJaslumine.name=铝茉莉
-tile.cropsnh:cropNiccissus.name=镍粉藤
-tile.cropsnh:cropPlatiolus.name=铂金草
-tile.cropsnh:cropOsmonium.name=锇蓝草
-
-//entities
-entity.cropsnh.villagerFarmer.name=村民
-entity.cropsnh.leash.name=皮带结
-
-//gui
-cropsnh_gui.seedAnalyzer=种子分析仪
-cropsnh_gui.peripheral=数控种子分析仪
-
-//tooltips
+# Tooltips
 cropsnh_tooltip.unidentified=未识别
 cropsnh_tooltip.seed=种子名字
 cropsnh_tooltip.growth=生长速度
 cropsnh_tooltip.gain=产量
-cropsnh_tooltip.strength=抗性
-cropsnh_tooltip.analyzed=这股种子还未经分析过
-cropsnh_tooltip.fertile=这里土壤肥沃,作物可以生长
-cropsnh_tooltip.notFertile=这种作物不能种在这里
-cropsnh_tooltip.discoveredSeeds=已发现种子
-cropsnh_tooltip.material=材质
-cropsnh_tooltip.waterLevel=水位
-cropsnh_tooltip.cropWithPlant=这个作物架上有作物
-cropsnh_tooltip.crossCrop=这是一个杂交架
+cropsnh_tooltip.resistance=抗性
 cropsnh_tooltip.weeds=杂草开始在这里生长了
-cropsnh_tooltip.cropWithoutPlant=这个作物架是空的
-cropsnh_tooltip.notCrop=这不是作物架
-cropsnh_tooltip.trowel=用这个把作物从一个作物架上移动到另一个上
 cropsnh_tooltip.magnifyingGlass=用这个来检查作物
 cropsnh_tooltip.handRake=用这个铲除作物架上的杂草
-cropsnh_tooltip.closed=关闭
-cropsnh_tooltip.open=开启
-cropsnh_tooltip.state=阶段
 cropsnh_tooltip.empty=这里没有种植作物
-cropsnh_tooltip.waterPadDry=用铲子挖掘耕地以得到小坑
-cropsnh_tooltip.waterPadWet=然后用水桶填满
-cropsnh_tooltip.growthStage=生长阶段
-cropsnh_tooltip.mature=成熟
-cropsnh_tooltip.valve=受红石信号控制
-cropsnh_tooltip.grate=用藤蔓右击铺置藤蔓
-cropsnh_tooltip.clipper1=在作物上右击得到接穗，
-cropsnh_tooltip.clipper2=接穗可种在其他作物架上
-cropsnh_tooltip.clipper3=其种植成功率由强度决定
-cropsnh_tooltip.analyzer=样本
-cropsnh_tooltip.storage=储存种子
 cropsnh_tooltip.none=无
 
-//descriptions
-cropsnh_description.peripheralHelp=Method Help
-cropsnh_description.method.analyze=Orders the analyzer to analyze the current specimen
-cropsnh_description.method.getBaseBlock=Returns the necessary base block for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.getBaseBlockType=Returns the base block type (NONE, BELOW, NEAR) for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.getBrightness=Returns the current light level for the crop at the specified direction
-cropsnh_description.method.getBrightnessRange=Returns the required light level range for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.getCurrentSoil=Returns the current soil below the crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.getGrowthStage=Returns the growth percentage of the crop at the specified direction
-cropsnh_description.method.getNeededSoil=Returns the required soil for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.getPlant=Returns the seed currently planted on the crop at the specified direction
-cropsnh_description.method.getSpecimen=Returns the specimen currently in the analyzer
-cropsnh_description.method.getStats=Returns the stats [growth, gain, strength] of crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.hasJournal=Returns if the analyzer has a journal
-cropsnh_description.method.hasPlant=Returns if there is a plant on the crop sticks at the specified direction
-cropsnh_description.method.hasWeeds=Returns if there are weeds on the crop at the specified direction
-cropsnh_description.method.isAnalyzed=Returns if the crop at the specified direction, or the specimen in the analyzer (if no direction is specified) is analyzed
-cropsnh_description.method.isCrossCrop=Returns if the crop at the specified direction is a cross crop
-cropsnh_description.method.isFertile=Returns if the crop at the specified direction is fertile and can grow
-cropsnh_description.method.isMature=Returns if the crop crop at the specified direction is mature
-cropsnh_description.method.needsBaseBlock=Returns if the crop crop at the specified direction needs a base block
-
-//misc
-cropsnh_arg.direction=direction
-cropsnh_arg.direction.optional=(optional) direction
-
-// nei GUI
+# NEI GUI
 cropsnh_nei.mutation.title=作物杂交
+# cropsnh_nei.cropProduct.title=
 cropsnh_nei.soil=土壤
 cropsnh_nei.needs=需要
 cropsnh_nei.below=底部
-cropsnh_nei.nearby=旁边
 cropsnh_nei.nearby=附近
 
-//journal entries
-//---------------
-//headers
-cropsnh_journal.introduction=来到农业耕种的世界,今天我将会教你基础的作物 杂交技术.首先你要用4个木棍合成一个作物架.它 可以放置在湿润的耕地上,这样种子就可以直接种 植在作物架上.你还可以在作物架上再放一个作物 架,这样,便能组成一个杂交架.如果你把两个或者 更多作物种在了杂交架旁边,杂交架上就有可能出 现变异.你可以用这本笔记持续追踪你发现的杂交 可能性.要记录一个新的杂交路线只需在使用分析 仪分析种子前把本笔记放入即可. 若如此做,种子 的相关信息会被记录并显示在你面前.如果你需要 复制这本笔记,只需要在工作台里与空的书与笔进 行合成即可.
-cropsnh_journal.information=信息
-cropsnh_journal.tier=级别
-cropsnh_journal.brightness=亮度范围
-cropsnh_journal.fruits=果实
-cropsnh_journal.growthStages=生长阶段
-cropsnh_journal.mutations=可能变异
-
-//cropsnh seeds
-cropsnh_journal.potato=马铃薯几乎可以说是每一顿饭的主食,甚至还 有人找出了把马铃薯做成饮料的办法.
-cropsnh_journal.carrot=胡萝卜是一种可以加进任何饭菜里的蔬菜.
-cropsnh_journal.sugarcane=通常芦苇只长在水边,但是一个农学家应该有 能力让它在任何地方都能生长.
-cropsnh_journal.dandelion=蒲公英有着黄色的花,你可以在任何暴露在太 阳下的地方找到它.
-cropsnh_journal.poppy=尽管很普通,它依旧长有鲜艳的红色的花.
-cropsnh_journal.orchid=这种花放进大多数花园里都会很好看,但 事实是:任何少了兰花的花园都不是完整的花 园.
-cropsnh_journal.allium=绒球葱是一种为了其紫色花瓣而种植的花.
-cropsnh_journal.tulipPink=郁金香有很多颜色,但只有真正的农学家才 会欣赏粉色的郁金香.
-cropsnh_journal.tulipOrange=橙色,郁金香家族的组成颜色之一.
-cropsnh_journal.tulipRed=曾有人说过:'郁金香五十种色彩之中, 最美丽的是红色的那一个'.
-cropsnh_journal.tulipWhite=虽然有很多白花,但是有很多人说白郁金香是 白花之中的白花.
-cropsnh_journal.daisy=法兰西菊确实很普通,虽然它也是很白的 花.
-cropsnh_journal.cactus=种植仙人掌可以获取常用作绿色染料的绿 色物质.
-cropsnh_journal.shroomRed=这种红色蘑菇的味道确实很好,它绝对是 蘑菇煲的上好材料.
-cropsnh_journal.shroomBrown=这种棕色蘑菇的味道确实很好,它绝对是 蘑菇煲的上好材料.
-cropsnh_journal.nitorWart=据信这种来自下界的作物是确实存在的, 那些长者们说它会从周围的环境中吸取荧 石颗粒并产出光亮的粉末.
-cropsnh_journal.quartzanthemum=一种吸收土壤中石英精华的下界作物.
-cropsnh_journal.diamahlia=仍有很多人相信这种花只存在于神话和传 说中.然而,有些农学家声称他们已经成 功得到了这种传奇的植物.
-cropsnh_journal.aurigold=金光花是一种罕见的,只存在于寓言里的花, 以土壤中含量甚微的金为养料,只有十分耐心 并且技术高超的农学家才可以培养出这罕见 的珍宝.
-cropsnh_journal.ferranium=这奇怪的植物的根并不在意水源.它们只是深 深地扎根于土壤中,吸收铁的粒子以强化 自身.
-cropsnh_journal.lapender=在它鲜艳的蓝色背后,这种花可以产出闪亮的 小石头.
-cropsnh_journal.emeryllis=如果你和一个村庄里的农学家交谈,它们将 会告诉你这种可以带来无限财富的植物的 传说.
-cropsnh_journal.redstodendron=奇异的光辉似乎正从红灌木丛中散发出来.
-cropsnh_journal.cuprosia=铜茜草是一种奇怪的花,它从土壤中提取铜,以滋养 其美丽的花瓣.
-cropsnh_journal.petinia=这种花只能在富含锡的土壤中生长茂盛.
-cropsnh_journal.plombean=有时人们会以为这是普通的豆子,然后在吃下 其果实后中毒身亡.
-cropsnh_journal.silverweed=有时,阅历不够的农学家会将这珍贵的作物当作 杂草并丢弃.
-cropsnh_journal.jaslumine=铁匠们表示并不看好,但很多人相信铝是有用 的.这就是为什么还有那么多人尝试培育这 种花.
-cropsnh_journal.niccissus=当它开花时,它的花中就会出现镍的小颗粒 ,至于这种花是怎么生长的至今不得而知.
-cropsnh_journal.platiolus=铂是稀有金属,大多数冶金学家会去找农学家 而非矿工去购买.
-cropsnh_journal.osmonium=一个成功培育出这种花的农学家将会得到工 程师们的广大市场.
-
-//botania seeds
-cropsnh_journal.botaniaWhite=这神秘的鲜花里有着大量白色花瓣,又有谁 知道它们可能被用作什么呢.
-cropsnh_journal.botaniaOrange=这神秘的鲜花里有着大量橙色花瓣,又有谁 知道它们可能被用作什么呢.
-cropsnh_journal.botaniaMagenta=这神秘的鲜花里有着大量品红色花瓣,又有谁 知道它们可能被用作什么呢.
-cropsnh_journal.botaniaLightBlue=这神秘的鲜花里有着大量淡蓝色花瓣,又有谁 知道它们可能被用作什么呢.
-cropsnh_journal.botaniaYellow=这神秘的鲜花里有着大量黄色花瓣,又有谁知 道它们可能被用作什么呢.
-cropsnh_journal.botaniaLime=这神秘的鲜花里有着大量黄绿色花瓣,又有谁 知道它们可能被用作什么呢.
-cropsnh_journal.botaniaPink=这神秘的鲜花里有着大量粉色花瓣,又有谁 知道它们可能被用作什么呢.
-cropsnh_journal.botaniaGray=这神秘的鲜花里有着大量灰色花瓣,又有谁知 道它们可能被用作什么呢.
-cropsnh_journal.botaniaLightGray=这神秘的鲜花里有着大量淡灰色花瓣,又有谁 知道它们可能被用作什么呢.
-cropsnh_journal.botaniaCyan=这神秘的鲜花里有着大量青色花瓣,又有谁知 道它们可能被用作什么呢.
-cropsnh_journal.botaniaPurple=这神秘的鲜花里有着大量紫色花瓣,又有谁知 道它们可能被用作什么呢.
-cropsnh_journal.botaniaBlue=这神秘的鲜花里有着大量蓝色花瓣,又有谁知 道它们可能被用作什么呢.
-cropsnh_journal.botaniaBrown=这神秘的鲜花里有着大量棕色花瓣,又有谁知 道它们可能被用作什么呢.
-cropsnh_journal. botaniaGreen=这神秘的鲜花里有着大量绿色花瓣,又有谁知 道它们可能被用作什么呢.
-cropsnh_journal.botaniaRed=这神秘的鲜花里有着大量红色花瓣,又有谁知 道它们可能被用作什么呢.
-cropsnh_journal.botaniaBlack=这神秘的鲜花里有着大量黑色花瓣,又有谁知 道它们可能被用作什么呢.
-
-//thaumcraft seeds
-cropsnh_journal.shimmerleaf=这种奇怪的发光的小花只生长在银树的树荫下. 收获并打浆后能得到水银.
-cropsnh_journal.cinderpearl=这些植物伴随熊熊的元素烈火生长,只分布于炎 热气候的地区.采摘并研磨它们可以得到重要的炼金材料烈焰粉.
-cropsnh_journal.vishroom=纤毛菇在魔法森林中自然生长. 如果光着手采集, 他们的毒性会导致反胃.
-cropsnh_journal.taintedRoot=腐化根能在腐化之地生长和收获, 但谁会要它出产的那些触手?
-
-//minecraft seeds
-cropsnh_journal.seeds=小麦是一种非常普遍,营养价值又高的作物.
-cropsnh_journal.pumpkin=大多数人认为南瓜是一种装饰性的蔬菜,然而也 有人喜欢南瓜派的味道.
-cropsnh_journal.melon=人们都喜欢西瓜,因为西瓜的甜和含水量高.
-cropsnh_journal.nether_wart=地狱疣似乎在下界的废弃要塞中有栽培.
-
-//natura seeds
-cropsnh_journal.barleyNatura=相比于普通面包,一些人更喜欢大麦面包 的味道, 然而也有一些人声称它们的味道是 一样的.
-cropsnh_journal.cottonNatura=棉花在纺织工业的高需求量决定了它是一种有 价值的财产.
-
-//harvestcraft seeds
-cropsnh_journal.hc_Artichoke=朝鲜蓟的可食用部分含有未开放的花骨朵.
-cropsnh_journal.hc_Asparagus=芦笋已经被人们用作蔬菜或者药材,它有着十分微妙的味道.
-cropsnh_journal.hc_Bambooshoot=竹笋是一种可食用的植物的根,经常出现在亚洲的饭菜之中.
-cropsnh_journal.hc_Barley=相比于普通面包,一些人更喜欢大麦面包的味道, 然而也有一些人声称它们的味道是一样的.
-cropsnh_journal.hc_Bean=豆子是一种夏季作物,需要较温暖的温度才能生长.
-cropsnh_journal.hc_Beet=地底深处的紫色甜菜根可以生吃,烧烤,水煮,或者烘烤.
-cropsnh_journal.hc_Bellpepper=甜椒通常是绿色,黄色,橙色或者红色的.
-cropsnh_journal.hc_Blackberry=软水果经常被用在甜点,果酱,无籽果冻中, 有时用在葡萄酒里.
-cropsnh_journal.hc_Blueberry=蓝莓是一种终年开花的植物,结有靛蓝色的莓.
-cropsnh_journal.hc_Broccoli=西兰花是卷心菜科中的一种可食用绿色蔬菜, 其开花的巨大头部被用作蔬菜.
-cropsnh_journal.hc_BrusselsSprout=芽甘蓝在比利时的布鲁塞尔一直很受欢迎,也 许有什么起源在那里.
-cropsnh_journal.hc_Cabbage=种植卷心菜通常是为了它的被菜叶层层包围的头部,在两年期的生长周期的第一年中会产出成品.
-cropsnh_journal.hc_CactusFruit=通常这种水果也长有刺,时刻保持警惕.
-cropsnh_journal.hc_Candleberry=蜡杨梅是一种结有小小的果实的小灌木.
-cropsnh_journal.hc_Cantaloupe=哈密瓜一般是一种直接生吃的水果,或者制成 沙拉,或者放入冰淇淋或蛋奶糊中用作甜点.
-cropsnh_journal.hc_Cauliflower=花椰菜可以烤,煮,炒,蒸,或者干脆直接生 吃.
-cropsnh_journal.hc_Celery=芹菜是一种非常普遍的蔬菜,可食用部分是它的 茎.
-cropsnh_journal.hc_ChiliPepper=辣椒在烹饪中有很多用处,从直接浸泡到让你 的汤更加有味.
-cropsnh_journal.hc_Coffee=这些豆子是一杯现磨咖啡的基础,帮你开启新 一天,所以根本上来讲这就是你一天的基础.
-cropsnh_journal.hc_Corn=因为它浅层的根,玉米很容易受干旱影响,对 土壤养分不足非常敏感,狂风之后甚至会被连根拔起.
-cropsnh_journal.hc_Cotton=棉花在纺织工业的高需求量决定了它是一种有 价值的财产.
-cropsnh_journal.hc_Cranberry=蔓越橘汁经常被人为甜化或者和别的果汁混合 在一起,以减轻其天然的酸味.
-cropsnh_journal.hc_Cucumber=黄瓜是一种匍匐藤的圆柱形果实,在厨房里被 用作蔬菜.
-cropsnh_journal.hc_Curryleaf=种植咖喱叶时一定要使用成熟和新鲜的种子， 干枯或皱缩的果实是无法生长的.你也可以种 植整个果实，但最好还是去它的果肉后再把它 种植在潮湿的盆栽土中.
-cropsnh_journal.hc_Eggplant=这种新鲜水果有那么一点苦,但烹调过后会很 嫩,并产生出厚重,复杂的味道.
-cropsnh_journal.hc_Garlic=大蒜很容易生长,可以在温暖的环境里终年种 植.
-cropsnh_journal.hc_Ginger=姜会长出白色和粉色的花骨朵丛,并开出黄色 的花.
-cropsnh_journal.hc_Grape=葡萄是一种落叶的木本藤的果实状的莓,可以 生吃,或制成葡萄酒,果酱,果汁,果冻,葡 萄种子提取物,葡萄干,醋,或葡萄种子油.
-cropsnh_journal.hc_Kiwi=猕猴桃可以种在夏季热量足够的大多数地方.
-cropsnh_journal.hc_Leek=不像洋葱那样紧密的球茎,韭葱有着被紧密的 叶鞘包围的圆柱球茎,因将泥土拉到身边,终 日不见阳光而日渐变白.
-cropsnh_journal.hc_Lettuce=通常作为种耐寒的一年生作物,莴苣是很容易 培养的,尽管它仍需要较低温度以避免过早开 花.
-cropsnh_journal.hc_Mustard=如果是在合适的条件下,芥末种子通常需要三 到十天时间发芽.这些合适的条件包括低温和 相对潮湿的土壤.
-cropsnh_journal.hc_Oats=燕麦很适合人类以燕麦粥或燕麦卷的形式食用, 但最普遍的用法却是牲口的饲料.
-cropsnh_journal.hc_Okra=秋葵因其可食用的绿色豆荚而变得很有价值.
-cropsnh_journal.hc_Onion=洋葱植物有一个中空,偏蓝的绿叶组成的扇形, 其基础的球茎会在时长足够时膨胀饱满.
-cropsnh_journal.hc_Parsnip=防风草是一种和胡萝卜和西芹有很大关系的根 状蔬菜.
-cropsnh_journal.hc_Peanut=花生有很多用途.可以直接吃,经常出现在各 种食谱中,制成溶剂,油脂,药物,纺织材料, 哦还有花生酱,还有很多其他用途.
-cropsnh_journal.hc_Peas=从植物学角度来讲,豌豆是果实,因为它含有 从豌豆花子房发育而来的豌豆种子.
-cropsnh_journal.hc_Pineapple=菠萝可生吃,烹调,榨汁,还可以保存并加工, 你可以在一长串菜谱中找到它的影子.
-cropsnh_journal.hc_Radish=白萝卜大多数时候用在沙拉里,但它也出现在 很多欧洲的菜肴中.
-cropsnh_journal.hc_Raspberry=树莓不能种在曾经种有土豆,西红柿,胡椒, 茄子,或其他有球茎植物种过的地方,除非预 先对土壤消毒.
-cropsnh_journal.hc_Rhubarb=对于烹饪,茎经常被切成小块并和糖一起炖 (水里煮).
-cropsnh_journal.hc_Rice=传统的培育水稻的方式是用水淹没耕地,在水 淹没时(或之后)种下种子.
-cropsnh_journal.hc_Rutabaga=一些人会把芜菁甘蓝切成各种样式(大多是人脸), 然后当成灯笼以驱散恶灵.
-cropsnh_journal.hc_Rye=黑麦是一种草本植物,以谷物形式大范围种植, 用作覆盖作物或者饲料作物.
-cropsnh_journal.hc_Scallion=青葱有着一种相对温柔的洋葱味,用作蔬菜, 或生吃或烹调.
-cropsnh_journal.hc_Seaweed=海藻被用于点缀沙拉或制成酱汁,营养食物, 或是肉鱼类产品,乳制品或焙烤食物的防腐剂.
-cropsnh_journal.hc_Sesameseeds=芝麻是最古老的油料作物之一，已经被人类种 植了3000年以上了.
-cropsnh_journal.hc_Soybean=传统的零发酵大豆用法有豆奶,还有老豆腐和 豆腐皮.
-cropsnh_journal.hc_SpiceLeaf=香叶是和草药是分开对待的,因为香叶是一种 用于调味或装饰的绿色植物的叶.
-cropsnh_journal.hc_Spinach=卡通角色大力水手波派就十分喜欢吃菠菜，吃 完菠菜后他的身体会变得更加强壮.
-cropsnh_journal.hc_Strawberry=草莓很受欢迎,适合种植于家庭环境中,可以直 接消费掉,或者用作装饰用途.
-cropsnh_journal.hc_Sweetpotato=虽然它的叶子和芽也可以吃,它那富含淀粉的 块根目前还是其最重要的产品.
-cropsnh_journal.hc_Tea=通过向洗净茶叶中倒入热水或沸水可以制成 茶水.
-cropsnh_journal.hc_Tomato=西红柿有多种食用方式,包括生吃,还有各种 菜的原料,酱料,沙拉,或者饮料.
-cropsnh_journal.hc_Turnip=大头菜是一种根状蔬菜,在世界范围内通常在温 和的气候下种植,因为其白色的块状主根.
-cropsnh_journal.hc_Waterchestnut=荸荠事实上并不是坚果，它是一种在沼泽生长 的水生蔬菜，长在水下的泥巴里
-cropsnh_journal.hc_WhiteMushroom=如果你想比飞机飞得还快,这些蘑菇不是你要 找的东西.
-cropsnh_journal.hc_WinterSquash=只要笋瓜颜色变深,趋于泥土颜色,并且表皮 变硬,就可以收获了.
-cropsnh_journal.hc_Zucchini=西葫芦通常是炒着吃的, 当然也可用很多别的 烹调手段,包括蒸,煮,烤,填满别的材料并 烘烤,烧烤,炸,或者作为原料并入别的菜谱.
-
-//witchery seeds
-cropsnh_journal.wi_Belladonna=这种植物的一切都有高毒性: 叶子, 花蕾还有花.
-cropsnh_journal.wi_Garlic=根据民间传言, 大蒜可以驱退吸血鬼. 但又有谁信吸血鬼?
-cropsnh_journal.wi_Mandrake=一种根从土里拔出来以后, 会发出刺耳尖叫的植物.
-cropsnh_journal.wi_Snowbell=雪铃花是一种似乎会冻结吸收的一切水分的魔力花卉.
-cropsnh_journal.wi_Artichoke=水洋蓟是一种奇怪的朝鲜蓟变种, 只有很少人知道他究竟能干啥.
-cropsnh_journal.wi_Wolfsbane=传言说这种花能揭示受狼人咒之苦者的本来面目.
-cropsnh_journal.wi_Wormwood=苦艾是一种稀有植物. 药学家赞美它压制瘟疫的功效.
-
-//blue power flax
-cropsnh_journal.bp_flax_seeds=亚麻就是线 ~Sjin.
-
-//extra biomes xl
-cropsnh_journal.EBXL_strawberry=草莓很受欢迎,适合种植于家庭环境中,可以直 接消费掉,或者用作装饰用途.
-
-//biomes o plenty
-cropsnh_journal.BoP_turnip=芜菁是一种根状蔬菜,在世界范围内通常在温 和的气候下种植,因为其白色的块状主根.
-
-//harvest the nether
-cropsnh_journal.harvestTheNether_bloodleaf=这种植物的叶子似乎在分泌一种粘粘的... 红色的...液体,这...这是血液？
-cropsnh_journal.harvestTheNether_fleshroot=地狱猎犬喜欢以这种多肉的植物的根为食物.
-cropsnh_journal.harvestTheNether_glowflower=种植这种漂亮的花朵能得到萤石粉.
-cropsnh_journal.harvestTheNether_marrowberry=这种浆果吃起来味道怪怪的
 

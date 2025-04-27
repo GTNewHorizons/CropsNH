@@ -1,14 +1,17 @@
 package com.gtnewhorizon.cropsnh.renderers.particles;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
 public class DustFX extends CropsNHFX {
-    public DustFX(World world, double x, double y, double z, float scale, float gravity, Vec3 vector, ResourceLocation texture) {
+
+    public DustFX(World world, double x, double y, double z, float scale, float gravity, Vec3 vector,
+        ResourceLocation texture) {
         super(world, x, y, z, scale, gravity, vector, texture);
         this.particleMaxAge = 50;
         this.setSize(0.2f, 0.2f);

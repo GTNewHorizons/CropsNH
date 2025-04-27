@@ -1,10 +1,5 @@
 package com.gtnewhorizon.cropsnh.renderers.items;
 
-import com.gtnewhorizon.cropsnh.farming.CropPlantHandler;
-import com.gtnewhorizon.cropsnh.farming.cropplant.CropPlant;
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -14,10 +9,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+
 import org.lwjgl.opengl.GL11;
+
+import com.gtnewhorizon.cropsnh.reference.Constants;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderItemClipping extends RenderItemBase {
+
     public RenderItemClipping(Item item) {
         super(item);
     }
@@ -39,21 +41,21 @@ public class RenderItemClipping extends RenderItemBase {
 
         tessellator.draw();
 
-        if(plantIcon != null) {
+        if (plantIcon != null) {
             float unit = Constants.UNIT;
             Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
             tessellator.startDrawingQuads();
 
-            tessellator.addVertexWithUV(4*unit, 4*unit, 0.001F, plantIcon.getMinU(), plantIcon.getMaxV());
-            tessellator.addVertexWithUV(12*unit, 4*unit, 0.001F, plantIcon.getMaxU(), plantIcon.getMaxV());
-            tessellator.addVertexWithUV(12*unit, 12*unit, 0.001F, plantIcon.getMaxU(), plantIcon.getMinV());
-            tessellator.addVertexWithUV(4*unit, 12*unit, 0.001F, plantIcon.getMinU(), plantIcon.getMinV());
+            tessellator.addVertexWithUV(4 * unit, 4 * unit, 0.001F, plantIcon.getMinU(), plantIcon.getMaxV());
+            tessellator.addVertexWithUV(12 * unit, 4 * unit, 0.001F, plantIcon.getMaxU(), plantIcon.getMaxV());
+            tessellator.addVertexWithUV(12 * unit, 12 * unit, 0.001F, plantIcon.getMaxU(), plantIcon.getMinV());
+            tessellator.addVertexWithUV(4 * unit, 12 * unit, 0.001F, plantIcon.getMinU(), plantIcon.getMinV());
 
-            tessellator.addVertexWithUV(4*unit, 4*unit, -0.001F, plantIcon.getMinU(), plantIcon.getMaxV());
-            tessellator.addVertexWithUV(4*unit, 12*unit, -0.001F, plantIcon.getMinU(), plantIcon.getMinV());
-            tessellator.addVertexWithUV(12*unit, 12*unit, -0.001F, plantIcon.getMaxU(), plantIcon.getMinV());
-            tessellator.addVertexWithUV(12*unit, 4*unit, -0.001F, plantIcon.getMaxU(), plantIcon.getMaxV());
+            tessellator.addVertexWithUV(4 * unit, 4 * unit, -0.001F, plantIcon.getMinU(), plantIcon.getMaxV());
+            tessellator.addVertexWithUV(4 * unit, 12 * unit, -0.001F, plantIcon.getMinU(), plantIcon.getMinV());
+            tessellator.addVertexWithUV(12 * unit, 12 * unit, -0.001F, plantIcon.getMaxU(), plantIcon.getMinV());
+            tessellator.addVertexWithUV(12 * unit, 4 * unit, -0.001F, plantIcon.getMaxU(), plantIcon.getMaxV());
 
             tessellator.draw();
 
@@ -61,7 +63,8 @@ public class RenderItemClipping extends RenderItemBase {
     }
 
     @Override
-    protected void renderItemEntity(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks, EntityItem entityItem) {
+    protected void renderItemEntity(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks,
+        EntityItem entityItem) {
         GL11.glRotatef(180, 0, 1, 0);
         GL11.glTranslatef(-0.5F, 0, 0);
         drawIcons(tessellator, stack.getIconIndex(), getPlantIcon(stack));
@@ -70,7 +73,8 @@ public class RenderItemClipping extends RenderItemBase {
     }
 
     @Override
-    protected void renderItemEquipped(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks, EntityPlayer player) {
+    protected void renderItemEquipped(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks,
+        EntityPlayer player) {
         float dx = 0F;
         float dz = 0.5F;
         GL11.glTranslatef(dx, 0, dz);
@@ -79,7 +83,8 @@ public class RenderItemClipping extends RenderItemBase {
     }
 
     @Override
-    protected void renderItemEquippedFirstPerson(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks, EntityPlayer player) {
+    protected void renderItemEquippedFirstPerson(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks,
+        EntityPlayer player) {
         float a = 45;
         float dx = -0.5F;
         float dy = 0;
@@ -92,7 +97,7 @@ public class RenderItemClipping extends RenderItemBase {
 
         drawIcons(tessellator, stack.getIconIndex(), getPlantIcon(stack));
 
-        GL11.glScalef(1/scale, 1/scale, 1/scale);
+        GL11.glScalef(1 / scale, 1 / scale, 1 / scale);
         GL11.glTranslatef(-dx, -dy, -dz);
         GL11.glRotatef(-a, 0, 1, 0);
     }
@@ -101,14 +106,14 @@ public class RenderItemClipping extends RenderItemBase {
     protected void renderItemInventory(ItemStack stack, Tessellator tessellator, RenderBlocks renderBlocks) {
         float unit = Constants.UNIT;
 
-        float dx = -13*unit;
-        float dy = -17*unit;
+        float dx = -13 * unit;
+        float dy = -17 * unit;
         float dz = 1;
 
         float a = 45;
         float b = -45;
 
-        float scale = unit*25;
+        float scale = unit * 25;
 
         GL11.glRotatef(a, 0, 1, 0);
         GL11.glRotatef(b, 1, 0, 0);
@@ -120,7 +125,7 @@ public class RenderItemClipping extends RenderItemBase {
         drawIcons(tessellator, stack.getIconIndex(), getPlantIcon(stack));
         GL11.glEnable(GL11.GL_LIGHTING);
 
-        GL11.glScalef(1/scale, 1/scale, 1/scale);
+        GL11.glScalef(1 / scale, 1 / scale, 1 / scale);
         GL11.glTranslatef(-dx, -dy, -dz);
         GL11.glRotatef(-b, 1, 0, 0);
         GL11.glRotatef(-a, 0, 1, 0);
@@ -132,14 +137,9 @@ public class RenderItemClipping extends RenderItemBase {
     }
 
     private IIcon getPlantIcon(ItemStack stack) {
-        if(stack==null || stack.getItem()==null || stack.stackTagCompound==null) {
+        if (stack == null || stack.getItem() == null || stack.stackTagCompound == null) {
             return null;
         }
-        ItemStack seed = ItemStack.loadItemStackFromNBT(stack.stackTagCompound);
-        CropPlant plant = CropPlantHandler.getPlantFromStack(seed);
-        if(plant == null) {
-            return null;
-        }
-        return plant.getPlantIcon(7);
+        return null;
     }
 }

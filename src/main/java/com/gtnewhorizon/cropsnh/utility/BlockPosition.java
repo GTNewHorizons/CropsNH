@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockPosition {
+
     private final World world;
     private final WorldCoordinates coords;
 
@@ -51,15 +52,15 @@ public class BlockPosition {
     }
 
     public BlockPosition getNeighbour(ForgeDirection dir) {
-        if(dir == ForgeDirection.UNKNOWN) {
+        if (dir == ForgeDirection.UNKNOWN) {
             return this;
         }
-        return new BlockPosition(world, x()+dir.offsetX, y()+dir.offsetY, z()+dir.offsetZ);
+        return new BlockPosition(world, x() + dir.offsetX, y() + dir.offsetY, z() + dir.offsetZ);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof BlockPosition) {
+        if (obj instanceof BlockPosition) {
             BlockPosition pos = (BlockPosition) obj;
             return pos.world == this.world && pos.coords.equals(this.coords);
         }

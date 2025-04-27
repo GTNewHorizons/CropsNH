@@ -1,0 +1,31 @@
+item.cropsnh:magnifyingGlass.name=Pflanzenlinse Lens
+item.cropsnh:spade.name=Sparten
+item.cropsnh:nanCertificate.name=Zertifikat des nicht mehr Noobs-Seins
+
+item.cropsnh:goldfish.name=Goldfisch
+item.cropsnh:berry.huckle.name=Amerikanische Blaubeere
+item.cropsnh:berry.sugarbeet.name=Zuckerrübe
+item.cropsnh:materialLeaf.magicEssence.name=Magie Essenz
+item.cropsnh:materialLeaf.spaceFlower.name=Kosmos Blüten
+
+item.cropsnh:DKorn.bottled.name=Doppelkorn in Flaschen
+item.cropsnh:Korn.bottled.name=Korn in Flaschen
+item.cropsnh:FWheat.bottled.name=Fermentierter Weizen in Flaschen
+item.cropsnh:FReed.bottled.name=Fermentiertes Zuckerrohrwasser in Flaschen
+item.cropsnh:SWhine.bottled.name=Zuckerwein in Flaschen
+item.cropsnh:Mash.bottled.name=Maische in Flaschen
+item.cropsnh:Wash.bottled.name=Fermentiere Maische in Flaschen
+item.cropsnh:GHP.bottled.name=Gewöhnlicher Hochprozentiger in Flaschen
+item.cropsnh:jagi.bottled.name=Echter Jägermeister in Flaschen!
+item.cropsnh:njagi.bottled.name=Mümmelmann in Flaschen
+
+fluid.cropsnh:DKorn=Doppelkorn
+fluid.cropsnh:Korn=Korn
+fluid.cropsnh:FWheat=Fermentierter Weizen
+fluid.cropsnh:FReed=Fermentiertes Zuckerrohrwasser
+fluid.cropsnh:SWhine=Zuckerwein
+fluid.cropsnh:Mash=Maische
+fluid.cropsnh:Wash=Fermentiere Maische
+fluid.cropsnh:GHP=Gewöhnlicher Hochprozentiger
+fluid.cropsnh:jagi=Echter Jägermeister!
+fluid.cropsnh:njagi=Mümmelmann

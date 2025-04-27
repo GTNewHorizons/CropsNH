@@ -9,9 +9,10 @@
     "updateUrl": "http://github.com/GTNewHorizons/GTNHCrops",
     "authorList": [
       "InfinityRaider",
-      "mitchej123"
+      "mitchej123",
+      "C0bra5"
     ],
-    "credits": "Code Help: Imasius, RlonRyan, API: HenryLoenwind, Textures: MechWarrior99, SkullyGamingMC, VapourDrive, SkeletonPunk",
+    "credits": "Code Help: Imasius, RlonRyan, API: HenryLoenwind, Textures: MechWarrior99, SkullyGamingMC, VapourDrive, SkeletonPunk, IC2 Team",
     "logoFile": "assets/cropsnh/textures/logo.png",
     "screenshots": [
     ],

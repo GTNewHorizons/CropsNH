@@ -3,6 +3,7 @@ package com.gtnewhorizon.cropsnh.utility.multiblock;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IMultiBlockComponent<M extends IMultiBlockManager<T>, T extends IMultiBlockPartData> {
+
     /**
      * @return the main component for this multi block structure
      */
@@ -38,6 +39,7 @@ public interface IMultiBlockComponent<M extends IMultiBlockManager<T>, T extends
     /**
      * Called right before the multiblock is created
      * Is only called for the component returned by getMainComponent()
+     * 
      * @param sizeX the x size of the multiblock about to be created
      * @param sizeY the y size of the multiblock about to be created
      * @param sizeZ the z size of the multiblock about to be created
@@ -58,7 +60,7 @@ public interface IMultiBlockComponent<M extends IMultiBlockManager<T>, T extends
 
     /**
      * Called right after the multiblock is broken
-     * Is  called for every component
+     * Is called for every component
      */
     void postMultiBlockBreak();
 }

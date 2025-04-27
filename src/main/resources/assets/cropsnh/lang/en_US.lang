@@ -1,412 +1,621 @@
-//Creative Tabs
-itemGroup.cropsnh=cropsnh
+# Creative Tabs
+itemGroup.cropsnh=Crops NH
 
-//Items
-item.cropsnh:cropsItem.name=Crop Sticks
-item.cropsnh:journal.name=Agricultural Journal
-item.cropsnh:trowel.name=Gardening Trowel
+# Generic Items
+item.cropsnh:cropSticksItem.name=Crop Sticks
 item.cropsnh:magnifyingGlass.name=Magnifying Glass
+item.cropsnh:spade.name=Spade
 item.cropsnh:debugger.name=Debugger
-item.cropsnh:handRake.wood.name=Wooden Hand Rake
-item.cropsnh:handRake.iron.name=Iron Hand Rake
-item.cropsnh:clipper.name=Clipper
-item.cropsnh:clipping.name=Clipping
+item.cropsnh:nanCertificate.name=Certificate of not being a noob anymore
+item.cropsnh:fertilizer.name=Fertilizer
 
-item.cropsnh:nuggetDiamond.name=Diamond Nugget
-item.cropsnh:nuggetIron.name=Iron Nugget
-item.cropsnh:nuggetEmerald.name=Emerald Nugget
-item.cropsnh:nuggetTin.name=Tin Nugget
-item.cropsnh:nuggetLead.name=Lead Nugget
-item.cropsnh:nuggetSilver.name=Silver Nugget
-item.cropsnh:nuggetAluminum.name=Aluminum Nugget
-item.cropsnh:nuggetNickel.name=Nickel Nugget
-item.cropsnh:nuggetPlatinum.name=Platinum Nugget
-item.cropsnh:nuggetOsmium.name=Osmium Nugget
-item.cropsnh:nuggetQuartz.name=Quartz Shard
+# Alcohol Bottles
+item.cropsnh:DKorn.bottled.name=Bottled Doppelkorn
+item.cropsnh:Korn.bottled.name=Bottled Korn
+item.cropsnh:FWheat.bottled.name=Bottled Fermented Wheat
+item.cropsnh:FReed.bottled.name=Bottled Fermented Reedwater
+item.cropsnh:SWhine.bottled.name=Bottled Sugar Whine
+item.cropsnh:Mash.bottled.name=Bottled Mash
+item.cropsnh:Wash.bottled.name=Bottled Wash
+item.cropsnh:GHP.bottled.name=Bottled Generic High Proof
+item.cropsnh:jagi.bottled.name=Real Bottled Jägermeister!
+item.cropsnh:njagi.bottled.name=Bottled Fake Jägermeister
 
-item.cropsnh:seedPotato.name=Potato Seeds
-item.cropsnh:seedCarrot.name=Carrot Seeds
-item.cropsnh:seedSugarcane.name=Sugarcane Seeds
-item.cropsnh:seedDandelion.name=Dandelion Seeds
-item.cropsnh:seedPoppy.name=Poppy Seeds
-item.cropsnh:seedOrchid.name=Blue Orchid Seeds
-item.cropsnh:seedAllium.name=Allium Seeds
-item.cropsnh:seedTulipRed.name=Red Tulip Seeds
-item.cropsnh:seedTulipOrange.name=Orange Tulip Seeds
-item.cropsnh:seedTulipWhite.name=White Tulip Seeds
-item.cropsnh:seedTulipPink.name=Pink Tulip Seeds
-item.cropsnh:seedDaisy.name=Daisy Seeds
-item.cropsnh:seedCactus.name=Cactus Seeds
-item.cropsnh:seedShroomRed.name=Red Mushroom Spores
-item.cropsnh:seedShroomBrown.name=Brown Mushroom Spores
-item.cropsnh:seedNitorWart.name=Nitor Wart Spores
-item.cropsnh:seedQuartzanthemum.name=Quartzanthemum Seeds
+# Crop Produce Items
+item.cropsnh:terraWart.name=Terra Wart
+item.cropsnh:goldfish.name=Goldfish
+item.cropsnh:berry.huckle.name=Huckleberry
+item.cropsnh:berry.sugarbeet.name=Sugar Beet
+item.cropsnh:materialLeaf.bauxiaLeaf.name=Bauxia Leaf
+item.cropsnh:materialLeaf.canolaFLower.name=Canola Flower
+item.cropsnh:materialLeaf.copponFiber.name=Coppon Fiber
+item.cropsnh:materialLeaf.galvaniaLeaf.name=Galvania Leaf
+item.cropsnh:materialLeaf.indigoBlossom.name=Indigo Blossom
+item.cropsnh:materialLeaf.iridineFlower.name=Iridine Leaf
+item.cropsnh:materialLeaf.magicEssence.name=Magic Essence
+item.cropsnh:materialLeaf.micadiaFlower.name=Micadia Essence
+item.cropsnh:materialLeaf.milkwart.name=Milkwart
+item.cropsnh:materialLeaf.nickelbackLeaf.name=Nickelback
+item.cropsnh:materialLeaf.oilBerry.name=Oil Berry
+item.cropsnh:materialLeaf.osmianthFlower.name=Osmianth Flower
+item.cropsnh:materialLeaf.platinaLeaf.name=Platina Leaf
+item.cropsnh:materialLeaf.pyrolusiumLeaf.name=Pyrolusium Leaf
+item.cropsnh:materialLeaf.reactoriaLeaf.name=Reactoria Leaf
+item.cropsnh:materialLeaf.reactoriaStem.name=Reactoria Stem
+item.cropsnh:materialLeaf.scheeliniumLeaf.name=Scheelinium Leaf
+item.cropsnh:materialLeaf.spaceFlower.name=Space Flower
+item.cropsnh:materialLeaf.stargatiumLeaf.name=Stargatium Leaf
+item.cropsnh:materialLeaf.thunderFlower.name=Thunder Flower
+item.cropsnh:materialLeaf.tineTwig.name=Tine Twig
+item.cropsnh:materialLeaf.titaniaLeaf.name=Titania Leaf
+item.cropsnh:materialLeaf.uuaBerry.name=UUA Berry
+item.cropsnh:materialLeaf.uumBerry.name=UUM Berry
+item.cropsnh:materialLeaf.saltyRoot.name=Salty Root
+item.cropsnh:materialLeaf.plumbiliaLeaf.name=Plumbilia Leaf
+item.cropsnh:materialLeaf.argentiaLeaf.name=Argentia Leaf
+item.cropsnh:materialLeaf.ferruLeaf.name=Ferru Leaf
+item.cropsnh:materialLeaf.aureliaLeaf.name=Aurelia Leaf
+item.cropsnh:materialLeaf.teaLeaf.name=Tea Leaf
+item.cropsnh:materialLeaf.bobsYerUncleBerry.name=Bobs-Yer-Uncle-Berry
+item.cropsnh:materialLeaf.hops.name=Hops
 
-item.cropsnh:seedBotaniaWhite.name=Mystical White Flower Seeds
-item.cropsnh:seedBotaniaOrange.name=Mystical Orange Flower Seeds
-item.cropsnh:seedBotaniaMagenta.name=Mystical Magenta Flower Seeds
-item.cropsnh:seedBotaniaLightBlue.name=Mystical Light Blue Flower Seeds
-item.cropsnh:seedBotaniaYellow.name=Mystical Yellow Flower Seeds
-item.cropsnh:seedBotaniaLime.name=Mystical Lime Flower Seeds
-item.cropsnh:seedBotaniaPink.name=Mystical Pink Flower Seeds
-item.cropsnh:seedBotaniaGray.name=Mystical Gray Flower Seeds
-item.cropsnh:seedBotaniaLightGray.name=Mystical Light Gray Flower Seeds
-item.cropsnh:seedBotaniaCyan.name=Mystical Cyan Flower Seeds
-item.cropsnh:seedBotaniaPurple.name=Mystical Purple Flower Seeds
-item.cropsnh:seedBotaniaBlue.name=Mystical Blue Flower Seeds
-item.cropsnh:seedBotaniaBrown.name=Mystical Brown Flower Seeds
-item.cropsnh:seedBotaniaGreen.name=Mystical Green Flower Seeds
-item.cropsnh:seedBotaniaRed.name=Mystical Red Flower Seeds
-item.cropsnh:seedBotaniaBlack.name=Mystical Black Flower Seeds
-
-item.cropsnh:seedCinderpearl.name=Cinderpearl Seeds
-item.cropsnh:seedShimmerleaf.name=Shimmerleaf Seeds
-item.cropsnh:seedVishroom.name=Vishroom Spores
-item.cropsnh:seedTaintedRoot.name=Taint Root Seeds
-
-item.cropsnh:seedAum.name=Aum Seeds
-item.cropsnh:seedCerublossom.name=Cerublossom Seeds
-item.cropsnh:seedDesertNova.name=Desert Nova Seeds
-item.cropsnh:seedTarmaRoot.name=Tarma Root Seeds
-item.cropsnh:seedWakebloom.name=Wakebloom seeds
-
-item.cropsnh:seedFerranium.name=Ferranium Seeds
-item.cropsnh:seedAurigold.name=Aurigold Seeds
-item.cropsnh:seedDiamahlia.name=Diamahlia Seeds
-item.cropsnh:seedLapender.name=Lapender Seeds
-item.cropsnh:seedEmeryllis.name=Emeryllis Seeds
-item.cropsnh:seedRedstodendron.name=Redstodendron Seeds
-item.cropsnh:seedCuprosia.name=Cuprosia Seeds
-item.cropsnh:seedPetinia.name=Petinia Seeds
-item.cropsnh:seedPlombean.name=Plombean Seeds
-item.cropsnh:seedSilverweed.name=Silverweed Seeds
-item.cropsnh:seedJaslumine.name=Jaslumine Seeds
-item.cropsnh:seedNiccissus.name=Niccissus Seeds
-item.cropsnh:seedPlatiolus.name=Platiolus Seeds
-item.cropsnh:seedOsmonium.name=Osmonium Seeds
+# Blocks
+tile.cropsnh:cropSticks.name=Crop Sticks
 
 
-//blocks
-tile.cropsnh:crops.name=Crop Sticks
-tile.cropsnh:seedAnalyzer.name=Seed Analyzer
-tile.cropsnh:waterPad.name=Water Pad
-tile.cropsnh:waterPadFull.name=Water Pad
-tile.cropsnh:seedStorage.0.name=Seed Storage
-tile.cropsnh:seedStorageController.0.name=Seed Storage Controller
-tile.cropsnh:peripheral.name=Computer Controlled Seed Analyzer
+# Fluids
+fluid.cropsnh:EnrichedFertilizer=Enriched Fertilizer
+fluid.cropsnh:DKorn=Doppelkorn
+fluid.cropsnh:Korn=Korn
+fluid.cropsnh:FWheat=Fermented Wheat
+fluid.cropsnh:FReed=Fermented Reedwater
+fluid.cropsnh:SWhine=Sugar Whine
+fluid.cropsnh:Mash=Mash
+fluid.cropsnh:Wash=Wash
+fluid.cropsnh:GHP=Generic High Proof
+fluid.cropsnh:jagi=Real Jägermeister!
+fluid.cropsnh:njagi=Fake Jägermeister
 
-tile.cropsnh:cropPotato.name=Potato
-tile.cropsnh:cropCarrot.name=Carrot
-tile.cropsnh:cropSugarcane.name=Sugarcane
-tile.cropsnh:cropMelon.name=Melon
-tile.cropsnh:cropPumpkin.name=Pumpkin
-tile.cropsnh:cropDandelion.name=Dandelion
-tile.cropsnh:cropPoppy.name=Poppy
-tile.cropsnh:cropOrchid.name=Orchid
-tile.cropsnh:cropAllium.name=Allium
-tile.cropsnh:cropTulipRed.name=Red Tulip
-tile.cropsnh:cropTulipOrange.name=Orange Tulip
-tile.cropsnh:cropTulipWhite.name=White Tulip
-tile.cropsnh:cropTulipPink.name=Pink Tulip
-tile.cropsnh:cropDaisy.name=Daisy
-tile.cropsnh:cropCactus.name=Cactus
-tile.cropsnh:cropShroomRed.name=Red Mushroom
-tile.cropsnh:cropShroomBrown.name=Brown Mushroom
-tile.cropsnh:cropNitorWart.name=Nitor Wart
-tile.cropsnh:cropQuartzanthemum.name=Quartzanthemum
-
-tile.cropsnh:cropBotaniaWhite.name=Mystical White Flower
-tile.cropsnh:cropBotaniaOrange.name=Mystical Orange Flower
-tile.cropsnh:cropBotaniaMagenta.name=Mystical Magenta Flower
-tile.cropsnh:cropBotaniaLightBlue.name=Mystical Light Blue Flower
-tile.cropsnh:cropBotaniaYellow.name=Mystical Yellow Flower
-tile.cropsnh:cropBotaniaLime.name=Mystical Lime Flower
-tile.cropsnh:cropBotaniaPink.name=Mystical Pink Flower
-tile.cropsnh:cropBotaniaGray.name=Mystical Gray Flower
-tile.cropsnh:cropBotaniaLightGray.name=Mystical Light Gray Flower
-tile.cropsnh:cropBotaniaCyan.name=Mystical Cyan Flower
-tile.cropsnh:cropBotaniaPurple.name=Mystical Purple Flower
-tile.cropsnh:cropBotaniaBlue.name=Mystical Blue Flower
-tile.cropsnh:cropBotaniaBrown.name=Mystical Brown Flower
-tile.cropsnh:cropBotaniaGreen.name=Mystical Green Flower
-tile.cropsnh:cropBotaniaRed.name=Mystical Red Flower
-tile.cropsnh:cropBotaniaBlack.name=Mystical Black Flower
-
-tile.cropsnh:cropCinderpearl.name=Cinderpearl
-tile.cropsnh:cropShimmerleaf.name=Shimmerleaf
-tile.cropsnh:cropVishroom.name=Vishroom
-tile.cropsnh:cropTaintedRoot.name=Taint Root
-
-tile.cropsnh:cropAum.name=Aum
-tile.cropsnh.cropCerublossom.name=Cerublossom
-tile.cropsnh.cropDesertNova.name=Desert Nova
-tile.cropsnh.cropTarmaRoot.name=Tarma Root
-tile.cropsnh.cropWakebloom.name=Wakebloom
-
-tile.cropsnh:cropFerranium.name=Ferranium
-tile.cropsnh:cropAurigold.name=Aurigold
-tile.cropsnh:cropDiamahlia.name=Diamahlia
-tile.cropsnh:cropLapender.name=Lapender
-tile.cropsnh:cropEmeryllis.name=Emeryllis
-tile.cropsnh:cropRedstodendron.name=Redstodendron
-tile.cropsnh:cropCuprosia.name=Cuprosia
-tile.cropsnh:cropPetinia.name=Petinia
-tile.cropsnh:cropPlombean.name=Plombean
-tile.cropsnh:cropSilverweed.name=Silverweed
-tile.cropsnh:cropJaslumine.name=Jaslumine
-tile.cropsnh:cropNiccissus.name=Niccissus
-tile.cropsnh:cropPlatiolus.name=Platiolus
-tile.cropsnh:cropOsmonium.name=Osmonium
-
-//entities
-entity.cropsnh.villagerFarmer.name=Villager
-entity.cropsnh.leash.name=Leash Knot
-
-//gui
-cropsnh_gui.seedAnalyzer=Seed Analyzer
-cropsnh_gui.peripheral=Computer Controlled Seed Analyzer
-
-//tooltips
+# Tooltips
+cropsnh_tooltip.isSick=Is sick, can't grow!
 cropsnh_tooltip.unidentified=Unidentified
 cropsnh_tooltip.seed=Seed
+cropsnh_tooltip.stats=Stats
 cropsnh_tooltip.growth=Growth
 cropsnh_tooltip.gain=Gain
-cropsnh_tooltip.strength=Strength
-cropsnh_tooltip.analyzed=This seed is not yet analyzed
-cropsnh_tooltip.fertile=This plant is fertile and can grow
-cropsnh_tooltip.notFertile=This plant can not grow here
-cropsnh_tooltip.discoveredSeeds=Discovered Seeds
-cropsnh_tooltip.material=Material
-cropsnh_tooltip.waterLevel=Water level
-cropsnh_tooltip.cropWithPlant=This crop has a plant
-cropsnh_tooltip.crossCrop=This is a cross-crop
-cropsnh_tooltip.weeds=Weeds have sprouted here
-cropsnh_tooltip.cropWithoutPlant=This crop doesn't have a plant on it
-cropsnh_tooltip.notCrop=This is not a crop
-cropsnh_tooltip.trowel=Use this to move plants from one crop to another
+cropsnh_tooltip.resistance=Strength
+cropsnh_tooltip.soil=Soil
+cropsnh_tooltip.fertilizer=Fertilizer
+cropsnh_tooltip.water=Water
+cropsnh_tooltip.weedEx=Weed-EX
+cropsnh_tooltip.weeds=Weeds -- BLAZE IT
 cropsnh_tooltip.magnifyingGlass=Use this to inspect crops
 cropsnh_tooltip.handRake=Use this to remove weeds from crops
-cropsnh_tooltip.closed=Closed
-cropsnh_tooltip.open=Open
-cropsnh_tooltip.state=State
-cropsnh_tooltip.empty=No seed planted
-cropsnh_tooltip.waterPadDry=Dig with a shovel in farmland to create a little pit
-cropsnh_tooltip.waterPadWet=then use a bucket of water to fill it up
-cropsnh_tooltip.growthStage=Growthstage
-cropsnh_tooltip.mature=Mature
-cropsnh_tooltip.clipper1=Right click on crops to obtain clippings
-cropsnh_tooltip.clipper2=Clippings can be planted on other crops
-cropsnh_tooltip.clipper3=Success of planting is based on strength
-cropsnh_tooltip.analyzer=Specimen
-cropsnh_tooltip.storage=Locked Seed
+cropsnh_tooltip.spade=Use this to get more seeds from your crops
+cropsnh_tooltip.empty=Nothing planted
+cropsnh_tooltip.progress=Progress
 cropsnh_tooltip.none=none
+cropsnh_tooltip.NaNCertificate=Challenge Accepted!
+# MTE tooltips
+cropsnh_tooltip.cropManager.water.0=Enable Hydration
+cropsnh_tooltip.cropManager.water.1=Disable Hydration
+cropsnh_tooltip.cropManager.weedEX.0=Enable Weed-EX
+cropsnh_tooltip.cropManager.weedEX.1=Disable Weed-EX
+cropsnh_tooltip.cropManager.fertilizer.0=Enable Fertilization
+cropsnh_tooltip.cropManager.fertilizer.1=Disable Fertilization
+cropsnh_tooltip.cropManager.harvest.0=Enable Harvest
+cropsnh_tooltip.cropManager.harvest.1=Disable Harvest
 
-//descriptions
-cropsnh_description.peripheralHelp=Method Help
-cropsnh_description.method.analyze=Orders the analyzer to analyze the current specimen
-cropsnh_description.method.getBaseBlock=Returns the necessary base block for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.getBaseBlockType=Returns the base block type (NONE, BELOW, NEAR) for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.getBrightness=Returns the current light level for the crop at the specified direction
-cropsnh_description.method.getBrightnessRange=Returns the required light level range for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.getCurrentSoil=Returns the current soil below the crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.getGrowthStage=Returns the growth percentage of the crop at the specified direction
-cropsnh_description.method.getNeededSoil=Returns the required soil for the crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.getPlant=Returns the seed currently planted on the crop at the specified direction
-cropsnh_description.method.getSpecimen=Returns the specimen currently in the analyzer
-cropsnh_description.method.getStats=Returns the stats [growth, gain, strength] of crop at the specified direction or the specimen in the analyzer if no direction is specified
-cropsnh_description.method.hasJournal=Returns if the analyzer has a journal
-cropsnh_description.method.hasPlant=Returns if there is a plant on the crop sticks at the specified direction
-cropsnh_description.method.hasWeeds=Returns if there are weeds on the crop at the specified direction
-cropsnh_description.method.isAnalyzed=Returns if the crop at the specified direction, or the specimen in the analyzer (if no direction is specified) is analyzed
-cropsnh_description.method.isCrossCrop=Returns if the crop at the specified direction is a cross crop
-cropsnh_description.method.isFertile=Returns if the crop at the specified direction is fertile and can grow
-cropsnh_description.method.isMature=Returns if the crop crop at the specified direction is mature
-cropsnh_description.method.needsBaseBlock=Returns if the crop crop at the specified direction needs a base block
+cropsnh_tooltip.cropManager.water=Water: %1$dL / %2$dL
+cropsnh_tooltip.cropManager.weedEX=Weed-EX: %1$dL / %2$dL
+cropsnh_tooltip.cropManager.liquidFertilizer=Liquid Fertilizer: %1$dL / %2$dL
 
-//misc
-cropsnh_arg.direction=direction
-cropsnh_arg.direction.optional=(optional) direction
+# Crop Produce Flavour Text
+cropsnh_tooltip.berry.huckle.1=Huckle-dae-Duckle-dae-Doo
+cropsnh_tooltip.berry.huckle.2=A sweet treat!
+cropsnh_tooltip.berry.sugarbeet.1=A sweet beet, commonly found in France, Germany, Russia and China.
+cropsnh_tooltip.berry.sugarbeet.2=Industrial Sugar!
+cropsnh_tooltip.goldfish="Hozuki no Reitetsu! A truly hellish planimal?!"
+cropsnh_tooltip.pyrolusiumLeaf.normal=Maybe one day they'll get it right.
+cropsnh_tooltip.pyrolusiumLeaf.banana=How did this happen?
+cropsnh_tooltip.pyrolusiumLeaf.canada=Wow, they did it!
+cropsnh_tooltip.copponFiber=ORANGE WOOOOOOOL!!!
+cropsnh_tooltip.stargatiumLeaf=Not actually made out of stargates.
 
-// nei GUI
-cropsnh_nei.mutation.title=Crop Mutation
-cropsnh_nei.cropProduct.title=Crop Produce
-cropsnh_nei.soil=Soil
-cropsnh_nei.needs=Needs
-cropsnh_nei.below=Below
-cropsnh_nei.nearby=Nearby
+# Alcohol Tooltips
+cropsnh_tooltip.alcohol.0=It stinks.
+cropsnh_tooltip.alcohol.1=Korn? Eww, you'll get a headache!
+cropsnh_tooltip.alcohol.2=Doppelkorn? German Vodka!
+cropsnh_tooltip.alcohol.3=Too Strong.
+cropsnh_tooltip.alcohol.4=Soo Sweet
+cropsnh_tooltip.alcohol.5=Das ist des Jägers' Ehrenschild,\ndass er beschützt und hegt sein Wild,\nweidmännisch jagt, wie sich's gehört,\nden Schöpfer im Geschöpfe ehrt.
+cropsnh_tooltip.alcohol.6=It will give 1h potioneffects!
+cropsnh_tooltip.alcohol.7=It smells like fake Jägermeister...
 
-//journal entries
-//---------------
-//headers
-cropsnh_journal.introduction=Welcome to Agricultural farming! Today I will teach you the basics of farming with crops. To start, you will need to put 4 sticks in a crafting grid; this will make crops. These can be put on farmland, and seeds can then be planted in them. You can also apply a second set of crops to an existing crop; this will create a cross-crop. If you plant two or more plants in crops adjacent to a cross-crop, there is a chance for a mutation to occur. In this journal you can keep track of all your discovered crop mutations. To register a discovered seed, put the journal in a Seed Analyzer and then analyze the seed. This will reveal to you the properties of the seed, as well as register it in this journal. If you ever wish to copy the journal, put it in a crafting grid together with a blank book and quill.
-cropsnh_journal.information=Information
-cropsnh_journal.tier=Tier
-cropsnh_journal.brightness=Brightness range
-cropsnh_journal.fruits=Fruits
-cropsnh_journal.growthStages=Growth Stages
-cropsnh_journal.mutations=Discovered Mutations
+# Material Leaf Tooltips
+cropsnh_tooltip.leaf.aluminium=A Source of Aluminium.
+cropsnh_tooltip.leaf.blueDye=A Source of Blue Dye.
+cropsnh_tooltip.leaf.copper=A Source of Copper.
+cropsnh_tooltip.leaf.emerald=A source of Emerald.
+cropsnh_tooltip.leaf.gold=A Source of Gold.
+cropsnh_tooltip.leaf.iridium=A Source of Iridium.
+cropsnh_tooltip.leaf.iron=A Source of Iron.
+cropsnh_tooltip.leaf.lead=A Source of Lead.
+cropsnh_tooltip.leaf.magic=Pure Magic!
+cropsnh_tooltip.leaf.manganese=A Source of Manganese.
+cropsnh_tooltip.leaf.mica=A Source of Mica.
+cropsnh_tooltip.leaf.milk=A Source of Milk.
+cropsnh_tooltip.leaf.naquadah=A Source of Naquadah.
+cropsnh_tooltip.leaf.netherstar=A Source of Nether Star.
+cropsnh_tooltip.leaf.nickel=A Source of Nickel.
+cropsnh_tooltip.leaf.osmium=A Source of Osmium.
+cropsnh_tooltip.leaf.platinum=A Source of Platinum.
+cropsnh_tooltip.leaf.salt=A Source of Salt
+cropsnh_tooltip.leaf.seedOil=A Source of Seed Oil.
+cropsnh_tooltip.leaf.silver=A Source of Silver.
+cropsnh_tooltip.leaf.space=Radiation Caught in a Flower!
+cropsnh_tooltip.leaf.sugar=A Source of Sugar.
+cropsnh_tooltip.leaf.tea=A Source of Tea.
+cropsnh_tooltip.leaf.thorium=A Source of Thorium.
+cropsnh_tooltip.leaf.tin=A Source of Tin.
+cropsnh_tooltip.leaf.titanium=A Source of Titanium.
+cropsnh_tooltip.leaf.tungsten=A Source of Tungsten.
+cropsnh_tooltip.leaf.uranium=A Source of Uranium.
+cropsnh_tooltip.leaf.zinc=A Source of Zinc.
+cropsnh_tooltip.leaf.beer=A Source of Beer.
+# Merial Leaf Berries
+cropsnh_tooltip.leaf.oil=Oil in Berry Form.
+cropsnh_tooltip.leaf.uua=UUA in Berry Form.
+cropsnh_tooltip.leaf.uum=UUM in Berry Form.
 
-//cropsnh seeds
-cropsnh_journal.potato=The potato is the base of almost every meal. Some have even found ways to turn it into a beverage.
-cropsnh_journal.carrot=The carrot is a vegetable suited for many diets.
-cropsnh_journal.sugarcane=Usually reeds only grow near water, but an agriculturist should be able to mutate this plant into growing about everywhere.
-cropsnh_journal.dandelion=Dandelions are yellow flowers found very commonly in every location exposed to the sun.
-cropsnh_journal.poppy=A very common, a very pretty, deep red flower.
-cropsnh_journal.orchid=A flower which looks good in many gardens - in fact no garden is complete without orchids in it.
-cropsnh_journal.allium=Allium is a flower that is grown for its purple petals.
-cropsnh_journal.tulipPink=The tulip comes in many colors, but only a true agriculturist appreciates the pink ones.
-cropsnh_journal.tulipOrange=Orange, one of the many colors in the tulip spectrum.
-cropsnh_journal.tulipRed=There is a saying: 'there are 50 shades of tulip, but red is the most beautiful'.
-cropsnh_journal.tulipWhite=There are many white flowers, but many say the white tulip is the white flower of white flowers.
-cropsnh_journal.daisy=Daisies are quite common, but nonetheless pretty white flowers.
-cropsnh_journal.cactus=Cacti can be grown to produce a green-tinted substance which is often used as dye.
-cropsnh_journal.shroomRed=This red fungus actually tastes quite nice and would make a fine ingredient for mushroom stew.
-cropsnh_journal.shroomBrown=This brown fungus actually tastes quite nice and would make a fine ingredient for mushroom stew.
-cropsnh_journal.nitorWart=This nether crop was believed to be extinct. Elders speak of it extracting glowstone particles from the environment to produce bright dusts.
-cropsnh_journal.quartzanthemum=A nether crop that feeds from fractions of quartz in the soil.
-cropsnh_journal.diamahlia=Many still believe this flower only exists in tales and stories. However some agriculturists say they have succeeded in obtaining this legendary plant.
-cropsnh_journal.aurigold=Aurigold is a rare and fabled flower that feeds on tiny fractions of gold in the soil, only a very patient and skilled agriculturist is able to cultivate this jewel.
-cropsnh_journal.ferranium=This strange plant's roots do not care for water. They just burrow in the soil while absorbing iron particles to strengthen itself.
-cropsnh_journal.lapender=Besides its beautiful blue color, this flower also produces shiny pebbles.
-cropsnh_journal.emeryllis=If you talk to the village agriculturist, they will be able to tell you tales about this plant and the infinite riches it would provide.
-cropsnh_journal.redstodendron=A strange aura seems to be emanating from redstodendron bushes.
-cropsnh_journal.cuprosia=Cuprosia is an odd flower which extracts copper from the soil to spring its beautiful petals.
-cropsnh_journal.petinia=This flower only thrives on soils rich in tin.
-cropsnh_journal.plombean=Sometimes people mistake this plant for regular beans and die of lead poisoning after consuming the fruits.
-cropsnh_journal.silverweed=Sometimes, less competent agriculturists mistake this valuable plant for weeds and discard it.
-cropsnh_journal.jaslumine=Blacksmiths frown down upon it, but many believe aluminum has its uses. That's why some still try to grow this flower.
-cropsnh_journal.niccissus=When it blooms, its flowers reveal nuggets made of nickel. It is still a mystery how this plant grows.
-cropsnh_journal.platiolus=Platinum is a rare material; most metallurgists will go to agriculturist instead of miners to get hold of it.
-cropsnh_journal.osmonium=An agriculturist managing to grow these flowers will find a good market of engineers.
 
-//botania seeds
-cropsnh_journal.botaniaWhite=This mystical flower has pretty white petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaOrange=This mystical flower has pretty orange petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaMagenta=This mystical flower has pretty magenta petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaLightBlue=This mystical flower has pretty blue petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaYellow=This mystical flower has pretty yellow petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaLime=This mystical flower has pretty lime petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaPink=This mystical flower has pretty pink petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaGray=This mystical flower has pretty gray petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaLightGray=This mystical flower has light gray pretty petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaCyan=This mystical flower has pretty cyan petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaPurple=This mystical flower has pretty purple petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaBlue=This mystical flower has pretty blue petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaBrown=This mystical flower has pretty brown petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaGreen=This mystical flower has pretty green petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaRed=This mystical flower has pretty red petals. Who knows what they might be useful for.
-cropsnh_journal.botaniaBlack=This mystical flower has pretty black petals. Who knows what they might be useful for.
+# NEI Compat
+cropsnh_nei.cropsNHDeterministicBreeding.title=Crop Breeding
+cropsnh_nei.cropsNHCropGroups.title=Crop Groups
+cropsnh_nei.cropsNHCrops.title=Crops
+cropsnh_nei.cropsNHCrops.tier=Tier: %d
+cropsnh_nei.cropsNHCrops.growthDuration=Growth Points: %1$s
+cropsnh_nei.cropsNHCrops.dropMult=Drop Multiplier: %1$0.2f
+cropsnh_nei.cropsNHMutationPool.title=Crop Mutation Pools
+cropsnh_nei.cropsNHMutationPool.poolName=Pool: %1$s
+cropsnh_nei.cropsNHBreeding.title=Crop Breeding
+nei.options.tools.dump.cropsnh=Crops NH
+nei.options.tools.dump.cropsnh.alternateSeed=Alternate Seeds
+nei.options.tools.dump.cropsnh.cropRegistry=Crops
+nei.options.tools.dump.cropsnh.deterministicMutations=Deterministic Mutations
+nei.options.tools.dump.cropsnh.fertilizers=Fertilizers
+nei.options.tools.dump.cropsnh.mutationPools=Mutation Pools
+nei.options.tools.dump.cropsnh.soilRegistry=Soils
 
-//thaumcraft seeds
-cropsnh_journal.shimmerleaf=The strange, glowing flowers only grow in the shadow of Silverwood Trees. They can be harvested and pulped to produce quicksilver.
-cropsnh_journal.cinderpearl=Found only in the hottest of climes, these plants burn with elemental fire. They can be harvested and ground to produce a fine powder akin to Blaze powder.
-cropsnh_journal.vishroom=Vishrooms grow naturally in Magical Forests. When touched by the naked hand, their poison is known to inflict nausea.
-cropsnh_journal.taintedRoot=Tainted Roots can be grown and harvested in Tainted Lands, but who would need the tendrils it produces?
 
-//minecraft seeds
-cropsnh_journal.seeds=Wheat is a very common, but very nutritious crop.
-cropsnh_journal.pumpkin=Most people consider pumpkins decorative vegetables, while others like the taste of pumpkin pies.
-cropsnh_journal.melon=Because of its sweet taste and high moisture content, the melon is a fruit loved by all.
-cropsnh_journal.nether_wart=Nether wart seems to have been cultivated in abandoned fortresses in the nether.
 
-//natura seeds
-cropsnh_journal.barleyNatura=Some people prefer the taste of barley bread over regular bread, while others claim it tastes exactly the same.
-cropsnh_journal.cottonNatura=Cotton has a high demand in the textile industry and is therefore a very valuable asset.
+# Open Computers Compat
+# cropsnh_description.peripheralHelp=Method Help
+# cropsnh_description.method.analyze=Orders the analyzer to analyze the current specimen
+# cropsnh_description.method.getBaseBlock=Returns the necessary base block for the crop at the specified direction or the specimen in the analyzer if no direction is specified
+# cropsnh_description.method.getBaseBlockType=Returns the base block type (NONE, BELOW, NEAR) for the crop at the specified direction or the specimen in the analyzer if no direction is specified
+# cropsnh_description.method.getBrightness=Returns the current light level for the crop at the specified direction
+# cropsnh_description.method.getBrightnessRange=Returns the required light level range for the crop at the specified direction or the specimen in the analyzer if no direction is specified
+# cropsnh_description.method.getCurrentSoil=Returns the current soil below the crop at the specified direction or the specimen in the analyzer if no direction is specified
+# cropsnh_description.method.getGrowthStage=Returns the growth percentage of the crop at the specified direction
+# cropsnh_description.method.getNeededSoil=Returns the required soil for the crop at the specified direction or the specimen in the analyzer if no direction is specified
+# cropsnh_description.method.getPlant=Returns the seed currently planted on the crop at the specified direction
+# cropsnh_description.method.getSpecimen=Returns the specimen currently in the analyzer
+# cropsnh_description.method.getStats=Returns the stats [growth, gain, strength] of crop at the specified direction or the specimen in the analyzer if no direction is specified
+# cropsnh_description.method.hasJournal=Returns if the analyzer has a journal
+# cropsnh_description.method.hasPlant=Returns if there is a plant on the crop sticks at the specified direction
+# cropsnh_description.method.hasWeeds=Returns if there are weeds on the crop at the specified direction
+# cropsnh_description.method.isAnalyzed=Returns if the crop at the specified direction, or the specimen in the analyzer (if no direction is specified) is analyzed
+# cropsnh_description.method.isCrossCrop=Returns if the crop at the specified direction is a cross crop
+# cropsnh_description.method.isFertile=Returns if the crop at the specified direction is fertile and can grow
+# cropsnh_description.method.isMature=Returns if the crop crop at the specified direction is mature
+# cropsnh_description.method.needsBaseBlock=Returns if the crop crop at the specified direction needs a base block
+# cropsnh_arg.direction=direction
+# cropsnh_arg.direction.optional=(optional) direction
 
-//harvestcraft seeds
-cropsnh_journal.hc_Artichoke=The edible portion of the artichoke consists of the flower buds, before the flowers come into bloom.
-cropsnh_journal.hc_Asparagus=Asparagus has been used as a vegetable and medicine; it has a very delicate flavor.
-cropsnh_journal.hc_Bambooshoot=Bamboo shoots or bamboo sprouts are the edible shoots which are used in numerous Asian dishes and broths.
-cropsnh_journal.hc_Barley=Some people prefer the taste of barley bread over regular bread, while others claim it tastes exactly the same.
-cropsnh_journal.hc_Bean=Beans are a summer crop that needs warm temperatures to grow.
-cropsnh_journal.hc_Beet=The usually deep purple roots of beet are eaten either raw, grilled, boiled, or roasted.
-cropsnh_journal.hc_Bellpepper=Most often, bell peppers are green, yellow, orange, or red.
-cropsnh_journal.hc_Blackberry=The soft fruit is popular for use in desserts, jams, seedless jelly, and sometimes wine.
-cropsnh_journal.hc_Blueberry=Blueberries are perennial flowering plants with indigo-colored berries.
-cropsnh_journal.hc_Broccoli=Broccoli is an edible green plant in the cabbage family, whose large flowering head is used as a vegetable.
-cropsnh_journal.hc_Brusselsprout=The Brussels sprout has long been popular in Brussels, Belgium, and may have originated there.
-cropsnh_journal.hc_Cabbage=Cabbage is generally grown for its densely leaved heads, produced during the first year of its biennial cycle.
-cropsnh_journal.hc_Cactusfruit=The fruits typically grow spikes as well - handle with caution.
-cropsnh_journal.hc_Candleberry=The candleberry is a small shrub that produces small fruits.
-cropsnh_journal.hc_Cantaloupe=Cantaloupe is normally eaten as a fresh fruit, as a salad, or as a dessert with ice cream or custard.
-cropsnh_journal.hc_Cauliflower=Cauliflower can be roasted, boiled, fried, steamed, or eaten raw.
-cropsnh_journal.hc_Celery=Celery is a plant variety commonly used as a vegetable, the stem is the edible part.
-cropsnh_journal.hc_Chilipepper=The spicy chili has many culinary uses, from dips to spicing up your meal.
-cropsnh_journal.hc_Coffee=These beans are the base for a steaming cup of coffee to start your day, so basically the base of your day.
-cropsnh_journal.hc_Corn=Because of its shallow roots, corn is susceptible to droughts, intolerant of nutrient-deficient soils, and prone to be uprooted by severe winds.
-cropsnh_journal.hc_Cotton=Cotton has a high demand in the textile industry and is therefore a very valuable asset.
-cropsnh_journal.hc_Cranberry=Cranberry juice is usually sweetened or blended with other fruit juices to reduce its natural tartness.
-cropsnh_journal.hc_Cucumber=The cucumber is a creeping vine that bears cylindrical fruits that are used as culinary vegetables.
-cropsnh_journal.hc_Curryleaf=Seeds must be ripe and fresh to plant, dried or shriveled fruits are not viable. One can plant the whole fruit, but it is best to remove the pulp before planting in potting mix that is kept moist but not wet.
-cropsnh_journal.hc_Eggplant=The raw fruit can have a somewhat bitter taste, but becomes tender when cooked and develops a rich, complex flavor.
-cropsnh_journal.hc_Garlic=Garlic is easy to grow and can be grown year-round in mild climates.
-cropsnh_journal.hc_Ginger=Ginger produces clusters of white and pink flower buds that bloom into yellow flowers.
-cropsnh_journal.hc_Grape=A grape is a fruiting berry of the deciduous woody vines and the fruits can be eaten raw or they can be used for making wine, jam, juice, jelly, grape seed extract, raisins, vinegar, and grape seed oil.
-cropsnh_journal.hc_Kiwi=Kiwifruit can be grown in most temperate climates with adequate summer heat.
-cropsnh_journal.hc_Leek=Rather than forming a tight bulb like the onion, the leek produces a long cylinder of bundled leaf sheaths that are generally blanched by pushing soil around them.
-cropsnh_journal.hc_Lettuce=Generally grown as a hardy annual, lettuce is easily cultivated, although it requires relatively low temperatures to prevent it from flowering quickly.
-cropsnh_journal.hc_Mustard=Mustard seeds generally take three to ten days to germinate if placed under the proper conditions, which include a cold atmosphere and relatively moist soil.
-cropsnh_journal.hc_Oats=Oats are suitable for human consumption as oatmeal and rolled oats, but one of the most common uses is as livestock feed.
-cropsnh_journal.hc_Okra=Okra plants are valued for their edible green seed pods.
-cropsnh_journal.hc_Onion=The onion plant has a fan of hollow, bluish-green leaves and the bulb at the base of the plant begins to swell when a certain day-length is reached.
-cropsnh_journal.hc_Parsnip=The parsnip is a root vegetable closely related to the carrot and parsley.
-cropsnh_journal.hc_Peanut=Peanuts have many uses. They can be eaten raw, used in recipes, made into solvents and oils, medicines, textile materials, and peanut butter, as well as many other uses.
-cropsnh_journal.hc_Peas=Peas are botanically a fruit, since they contain seeds developed from the ovary of a (pea) flower.
-cropsnh_journal.hc_Pineapple=Pineapples are consumed fresh, cooked, juiced, and preserved, and are found in a wide array of cuisines.
-cropsnh_journal.hc_Radish=Radishes are mostly used in salads but also appear in many European dishes.
-cropsnh_journal.hc_Raspberry=Raspberry plants should not be planted where potatoes, tomatoes, peppers, eggplants, or bulbs have previously been grown, without prior fumigation of the soil.
-cropsnh_journal.hc_Rhubarb=For cooking, the stalks are often cut into small pieces and stewed (boiled in water) with added sugar.
-cropsnh_journal.hc_Rice=The traditional method for cultivating rice is flooding the fields while, or after, setting the young seedlings.
-cropsnh_journal.hc_Rutabaga=Some people carve out rutabagas, or turnips, in variable patterns (mostly faces) and used them as lanterns to ward off harmful spirits.
-cropsnh_journal.hc_Rye=Rye is a grass grown extensively as a grain, a cover crop and as a forage crop.
-cropsnh_journal.hc_Scallion=Scallion have a relatively mild onion flavor, and are used as a vegetable, either raw or cooked.
-cropsnh_journal.hc_Seaweed=Seaweed is used in salad dressings and sauces, dietetic foods, and as a preservative in meat and fish products, dairy items and baked goods.
-cropsnh_journal.hc_Sesameseeds=Sesame seed is one of the oldest oilseed crops known, domesticated well over 3000 years ago.
-cropsnh_journal.hc_Soybean=Traditional non-fermented food uses of soybeans include soy milk, and from the latter tofu and tofu skin.
-cropsnh_journal.hc_Spiceleaf=Spices are distinguished from herbs, which are parts of leafy green plants used for flavoring or as a garnish.
-cropsnh_journal.hc_Spinach=The cartoon character Popeye the Sailor Man is portrayed as having a strong affinity for spinach, becoming physically stronger after consuming it.
-cropsnh_journal.hc_Strawberry=Strawberries are popular and rewarding plants to grow in the domestic environment, be it for consumption or exhibition purposes.
-cropsnh_journal.hc_Sweetpotato=Although the leaves and shoots are also edible, the starchy tuberous roots are by far the most important product.
-cropsnh_journal.hc_Tea=Tea can be prepared by pouring hot or boiling water over cured leaves of the tea plant.
-cropsnh_journal.hc_Tomato=The tomato is consumed in diverse ways, including raw, as an ingredient in many dishes, sauces, salads, and drinks.
-cropsnh_journal.hc_Turnip=The turnip is a root vegetable commonly grown in temperate climates worldwide for its white, bulbous taproot.
-cropsnh_journal.hc_Waterchestnut=The water chestnut is actually not a nut at all, but an aquatic vegetable that grows in marshes, underwater in the mud.
-cropsnh_journal.hc_Whitemushroom=If you want to fly higher than a jet plane, these aren't the mushrooms you're looking for.
-cropsnh_journal.hc_Wintersquash=Winter squash can be harvested whenever the fruits have turned a deep, solid color and the skin is hard.
-cropsnh_journal.hc_Zucchini=Zucchini is usually served cooked, it can also be prepared using a variety of cooking techniques, including steamed, boiled, grilled, stuffed and baked, barbecued, fried, or incorporated in other recipes.
 
-//witchery seeds
-cropsnh_journal.wi_Belladonna=Everything about this plant is highly toxic: its leaves, buds and flowers.
-cropsnh_journal.wi_Garlic=According to folklore, garlic can be used to repel vampires. But who believes in vampires anyway, right?
-cropsnh_journal.wi_Mandrake=A mythical plant that when uprooted and woken up, will make painful screeching noises.
-cropsnh_journal.wi_Snowbell=Snowbells are pretty flowers that seem to freeze all the water they soak up.
-cropsnh_journal.wi_Artichoke=The water artichoke is an odd variety of artichoke, only few know what on earth it is useful for.
-cropsnh_journal.wi_Wolfsbane=Tales tell of this flower revealing the true nature of people suffering from lycanthropy.
-cropsnh_journal.wi_Wormwood=Wormwood is a rare plant. Herbologists praise its fever-suppressing capabilities.
+# Generic Seeds
+cropsnh_genericSeeds.unknown=Unknown
+cropsnh_genericSeeds.invalid=Invalid
+cropsnh_genericSeeds.format=%1$s Seeds
 
-//blue power flax
-cropsnh_journal.bp_flax_seeds=Flax is String ~Sjin.
+# Crop Names
+cropsnh_crops.weed=Weed
+# Vanilla Crops
+cropsnh_crops.sugarCane=Sugar Cane
+cropsnh_crops.redMushroom=Red Mushroom
+cropsnh_crops.brownMushroom=Brown Mushroom
+# Vanilla Bonsais
+cropsnh_crops.bonsaiOak=Oak Bonsai
+cropsnh_crops.bonsaiSpruce=Spruce Bonsai
+cropsnh_crops.bonsaiBirch=Birch Bonsai
+cropsnh_crops.bonsaiJungle=Jungle Bonsai
+cropsnh_crops.bonsaiAcacia=Acacia Bonsai
+cropsnh_crops.bonsaiDarkOak=Dark Oak Bonsai
+# Modded Bonsais
+cropsnh_crops.bonsaiRubber=Rubber Bonsai
+# IC2 Crops
+cropsnh_crops.aurelia=Aurelia
+cropsnh_crops.coffee=Coffee
+cropsnh_crops.cyprium=Cyprium
+cropsnh_crops.ferru=Ferru
+cropsnh_crops.hops=Hops
+cropsnh_crops.plumbiscus=Plumbiscus
+cropsnh_crops.redwheat=Redwheat
+cropsnh_crops.shining=Shining
+cropsnh_crops.stagnium=Stagnium
+cropsnh_crops.stickReed=Stickreed
+cropsnh_crops.venomilia=Venomilia
+# Stone Lilies
+cropsnh_crops.stoneLily=Stone Lily
+cropsnh_crops.sandLily=Sand Lily
+cropsnh_crops.clayLily=Clay Lily
+cropsnh_crops.endStoneLily=End Stone Lily
+cropsnh_crops.netherStoneLily=Nether Stone Lily
+cropsnh_crops.soulSandLily=Soul Sand Lily
+cropsnh_crops.blackGraniteLily=Black Granite Lily
+cropsnh_crops.redGraniteLily=Red Granite Lily
+cropsnh_crops.basaltLily=Basalt Lily
+cropsnh_crops.marbleLily=Marble Lily
+cropsnh_crops.graniteLily=Granite Lily
+cropsnh_crops.andesiteLily=Andesite Lily
+cropsnh_crops.dioriteLily=Diorite Lily
+# Crops++ GregTech Crops
+cropsnh_crops.garnydinia=Garnydinia
+# TiC Crops
+cropsnh_crops.bonsaiSlimy=Slimy Bonsai
+# Ore Berries
+cropsnh_crops.aluminiumOreBerry=Aluminium Ore Berry
+cropsnh_crops.copperOreBerry=Copper Ore Berry
+cropsnh_crops.essenceOreBerry=Essence Berry
+cropsnh_crops.goldOreBerry=Gold Ore Berry
+cropsnh_crops.ironOreBerry=Iron Ore Berry
+cropsnh_crops.tinOreBerry=Tin Ore Berry
+cropsnh_crops.arditeOreBerry=Ardite Ore Berry
+cropsnh_crops.cobaltOreBerry=Cobalt Ore Berry
+cropsnh_crops.voidOreBerry=Void Metal Ore Berry
+cropsnh_crops.thaumiumOreBerry=Thaumium Ore Berry
+cropsnh_crops.thauminiteOreBerry=Thauminite Ore Berry
+cropsnh_crops.knightmetalOreBerry=Knightly Ore Berry
+# Crops++ Thaumcraft Crops
+cropsnh_crops.primordialBerry=Primordial Berry
+cropsnh_crops.cinderpearl=Cinderpearl
+cropsnh_crops.shimmerleaf=Shimmerleaf
+cropsnh_crops.manaBean=Mana Bean
+# Crops++ Twilight Forest Crops
+cropsnh_crops.torchberry=Torchberry
+# Crops++ BoP
+cropsnh_crops.bamboo=Bamboo
+cropsnh_crops.bopBerry=Berry
+cropsnh_crops.eyebulb=Eyebulb
+cropsnh_crops.floweringVine=Flowering Vine
+cropsnh_crops.glowflower=Glowflower
+cropsnh_crops.glowingCoral=Glowing Coral
+cropsnh_crops.glowshroom=Glowshroom
+cropsnh_crops.ivy=Ivy
+cropsnh_crops.turnip=Turnip
+cropsnh_crops.wildCarrot=Wild Carrot
+# Crops++ Natura
+cropsnh_crops.barley=Barley
+cropsnh_crops.blackberry=Blackberry
+cropsnh_crops.blueberry=Blueberry
+cropsnh_crops.cotton=Cotton
+cropsnh_crops.maloberry=Maloberry
+cropsnh_crops.raspberry=Raspberry
+cropsnh_crops.saguaroCactus=Saguaro Cactus
+# Crops++ Natura Nether
+cropsnh_crops.blightberry=Blightberry
+cropsnh_crops.blueGlowshroom=Blue Glowshroom
+cropsnh_crops.duskberry=Duskberry
+cropsnh_crops.greenGlowshroom=Green Glowshroom
+cropsnh_crops.purpleGlowshroom=Purple Glowshroom
+cropsnh_crops.skyberry=Skyberry
+cropsnh_crops.stingberry=Stingberry
+cropsnh_crops.thornvine=Thronvine
+# Crops++ native
+cropsnh_crops.goldfish=Goldfish
+cropsnh_crops.goldfish.flavour=Screams.
+cropsnh_crops.huckleberry=Huckleberry
+cropsnh_crops.magicalNightshade=Magical Nightshade
+cropsnh_crops.papyrus=Papyrus
+cropsnh_crops.spaceFlower=Space Flower
+cropsnh_crops.strawberry=Strawberry
+cropsnh_crops.sugarBeet=Sugar Beet
+cropsnh_crops.vine=Vine
+cropsnh_crops.waterLily=Water Lily
+# Material Crops
+cropsnh_crops.argentia=Argentia
+cropsnh_crops.bauxia=Bauxia
+cropsnh_crops.blackthorn=Blackthorn
+cropsnh_crops.blazereed=Blazereed
+cropsnh_crops.bobsYerUncleRanks=Bobs-Yer-Uncle-Ranks
+cropsnh_crops.canola=Canola
+cropsnh_crops.chilly=Chilly
+cropsnh_crops.coppon=Coppon
+cropsnh_crops.corium=Corium
+cropsnh_crops.corpseplant=Corpseplant
+cropsnh_crops.creeperweed=Creeperweed
+cropsnh_crops.cucumber=Cucumber
+cropsnh_crops.cyazint=Cyazint
+cropsnh_crops.diareed=Diareed
+cropsnh_crops.eggPlant=Egg Plant
+cropsnh_crops.eggPlant.flavour=Not to be Confused With Eggplants.
+cropsnh_crops.enderbloom=Enderbloom
+cropsnh_crops.evilOre=Evil Ore
+cropsnh_crops.fertilia=Fertilia
+cropsnh_crops.flax=Flax
+cropsnh_crops.galvania=Galvania
+cropsnh_crops.glowheat=Glowheat
+cropsnh_crops.godOfThunder=God of Thunder
+cropsnh_crops.grape=Grape
+cropsnh_crops.hemp=Hemp
+cropsnh_crops.hemp.flavour=It prefers dry biomes. Inedible.
+cropsnh_crops.indigo=Indigo
+cropsnh_crops.iridine=Iridine
+cropsnh_crops.lazulia=Lazulia
+cropsnh_crops.lemon=Lemon
+cropsnh_crops.liveroot=Liveroot
+cropsnh_crops.meatrose=Meatrose
+cropsnh_crops.micadia=Micadia
+cropsnh_crops.milkwart=Milkwart
+cropsnh_crops.nickelback=Nickelback
+cropsnh_crops.nickelback.flavour=Makes a nice hum in the wind.
+cropsnh_crops.oilBerry=Oil Berry
+cropsnh_crops.olivia=Olivia
+cropsnh_crops.onion=Onion
+cropsnh_crops.osmianth=Osmianth
+cropsnh_crops.platina=Platina
+cropsnh_crops.plumbilia=Plumbilia
+cropsnh_crops.purpleTulip=Purple Tulip
+cropsnh_crops.pyrolusium=Pyrolusium
+cropsnh_crops.pyrolusium.flavour=It's trying it's best.
+cropsnh_crops.reactoria=Reactoria
+cropsnh_crops.saltyRoot=Salty Root
+cropsnh_crops.saltyRoot.flavour=It prefers dry biomes. Inedible.
+cropsnh_crops.sapphirum=Sapphirum
+cropsnh_crops.scheelinium=scheelinium
+cropsnh_crops.slimeplant=Slimeplant
+cropsnh_crops.spidernip=Spidernip
+cropsnh_crops.stargatium=Stargatium
+cropsnh_crops.starwart=Starwart
+cropsnh_crops.steeleafranks=Steeleafranks
+cropsnh_crops.tea=Tea
+cropsnh_crops.tearstalks=Tearstalks
+cropsnh_crops.tine=Tine
+cropsnh_crops.titania=Titania
+cropsnh_crops.titania.flavour=The queen of crops.
+cropsnh_crops.tomato=Tomato
+cropsnh_crops.transformium=Transformium
+cropsnh_crops.trollplant=Trollplant
+cropsnh_crops.trollplant.flavour=Trololololol, lololol, lololol!
+cropsnh_crops.withereed=Withereed
+cropsnh_crops.zomplant=Zomplant
 
-//extra biomes xl
-cropsnh_journal.EBXL_strawberry=Strawberries are popular and rewarding plants to grow in the domestic environment, be it for consumption or exhibition purposes.
+# Lockout Breeding Requirements
+cropsnh_breedingReq.lockout.machineOnly=Requires the crop breeder
+cropsnh_breedingReq.lockout.worldOnly=Must use crop sticks
+# Lockout Growth Requirements
+cropsnh_growthReq.lockout.machineOnly=Can only be grown in the industrial garden.
+cropsnh_growthReq.lockout.worldOnly=Can only be grown in a crop stick.
+# Light Growth Requirements
+cropsnh_growthReq.minLight.format=Needs a light Level of %1$d or higher.
+cropsnh_growthReq.maxLight.format=Needs a light Level of %1$d or lower.
+# Vanilla Stone Lily Growth Requirements
+cropsnh_growthReq.blockUnder.stone=Needs a block of stone under it to grow.
+cropsnh_growthReq.blockUnder.sand=Needs a block of sand or sandstone under it to grow.
+cropsnh_growthReq.blockUnder.clay=Needs a block of clay or hardened clay under it to grow.
+cropsnh_growthReq.blockUnder.soulSand=Needs a block of soul sand under it to grow.
+cropsnh_growthReq.blockUnder.netherrack=Needs a block of netherrack under it to grow.
+cropsnh_growthReq.blockUnder.endStone=Needs a block of end stone under it to grow.
+# GT Stone Lily Growth Requirements
+cropsnh_growthReq.blockUnder.redGranite=Needs a block of red granite under it to grow.
+cropsnh_growthReq.blockUnder.blackGranite=Needs a block of black granite under it to grow.
+cropsnh_growthReq.blockUnder.marble=Needs a block of marble under it to grow.
+cropsnh_growthReq.blockUnder.basalt=Needs a block of basalt under it to grow.
+# Botania Stone Lily Growth Requirements
+cropsnh_growthReq.blockUnder.botaniaAndesite=Needs a block of andesite under it to grow.
+cropsnh_growthReq.blockUnder.botaniaDiorite=Needs a block of diorite under it to grow.
+cropsnh_growthReq.blockUnder.botaniaGranite=Needs a block of granite under it to grow.
+# Vanilla Ore Growth Requirements
+cropsnh_growthReq.blockUnder.coal=Needs a block of coal under it to grow.
+cropsnh_growthReq.blockUnder.iron=Needs a block of iron under it to grow.
+cropsnh_growthReq.blockUnder.gold=Needs a block of gold under it to grow.
+cropsnh_growthReq.blockUnder.diamond=Needs a block of diamond under it to grow.
+cropsnh_growthReq.blockUnder.emerald=Needs a block of emerald under it to grow.
+cropsnh_growthReq.blockUnder.redstone=Needs a block of redstone under it to grow.
+cropsnh_growthReq.blockUnder.lapis=Needs a block of lapis under it to grow.
+# Modded Ore Growth Requirements
+cropsnh_growthReq.blockUnder.aluminium=Needs a block of aluminium under it to grow.
+cropsnh_growthReq.blockUnder.aluminiumBauxite=Needs a block of aluminium or bauxite under it to grow.
+cropsnh_growthReq.blockUnder.copper=Needs a block of copper under it to grow.
+cropsnh_growthReq.blockUnder.iridium=Needs a block of iridium under it to grow.
+cropsnh_growthReq.blockUnder.lead=Needs a block of lead under it to grow.
+cropsnh_growthReq.blockUnder.magnesium=Needs a block of magnesium under it to grow.
+cropsnh_growthReq.blockUnder.manganese=Needs a block of manganese under it to grow.
+cropsnh_growthReq.blockUnder.mica=Needs a block of mica under it to grow.
+cropsnh_growthReq.blockUnder.naquadah=Needs a block of naquadah under it to grow.
+cropsnh_growthReq.blockUnder.netherStar=Needs a block of nether star under it to grow.
+cropsnh_growthReq.blockUnder.nickel=Needs a block of nickel under it to grow.
+cropsnh_growthReq.blockUnder.osmium=Needs a block of osmium under it to grow.
+cropsnh_growthReq.blockUnder.platinum=Needs a block of platinum under it to grow.
+cropsnh_growthReq.blockUnder.silver=Needs a block of silver under it to grow.
+cropsnh_growthReq.blockUnder.thorium=Needs a block of thorium under it to grow.
+cropsnh_growthReq.blockUnder.tin=Needs a block of tin under it to grow.
+cropsnh_growthReq.blockUnder.titanium=Needs a block of titanium under it to grow.
+cropsnh_growthReq.blockUnder.tungsten=Needs a block of tungsten under it to grow.
+cropsnh_growthReq.blockUnder.uranium=Needs a block of uranium under it to grow.
+cropsnh_growthReq.blockUnder.zinc=Needs a block of zinc under it to grow.
+# Gem Ore Growth Requirement
+cropsnh_growthReq.blockUnder.garnetGem=Needs a block of red or yellow garnet under it to grow.
+cropsnh_growthReq.blockUnder.olivine=Needs a block of olivine garnet under it to grow.
+cropsnh_growthReq.blockUnder.sapphire=Needs a block of sapphire under it to grow.
+# Non-GT Ore Growth Requirements
+cropsnh_growthReq.blockUnder.knightmetal=Needs a block of knightmetal under it to grow.
+cropsnh_growthReq.blockUnder.cobalt=Needs a block of cobalt under it to grow.
+cropsnh_growthReq.blockUnder.ardite=Needs a block of ardite under it to grow.
+# Magic Ore Growth Requirements
+cropsnh_growthReq.blockUnder.void=Needs a block of void under it to grow.
+cropsnh_growthReq.blockUnder.thaumium=Needs a block of thaumium under it to grow.
+cropsnh_growthReq.blockUnder.thauminite=Needs a block of thauminite under it to grow.
+cropsnh_growthReq.blockUnder.ichorium=Needs a block of ichorium under it to grow.
+# Misc Block Growth Requirement
+cropsnh_growthReq.blockUnder.snow=Needs a block of snow under it to grow.
+cropsnh_growthReq.blockUnder.glowstone=Needs a block of glowstone under it to grow.
+cropsnh_growthReq.blockUnder.blaze=Needs a block of blaze under it to grow.
+cropsnh_growthReq.blockUnder.quicksilver=Needs a block of quicksilver under it to grow.
 
-//biomes o plenty
-cropsnh_journal.BoP_turnip=The turnip is a root vegetable commonly grown in temperate climates worldwide for its white, bulbous taproot.
+# Thaum Block Growth Requirement
+cropsnh_growthReq.blockUnder.mixedCrystalCluster=Needs a mixed crystal cluster under it to grow.
 
-//harvest the nether
-cropsnh_journal.harvestTheNether_bloodleaf=The leaves of this plants seem to secrete a viscous... red... fluid, is... is that blood?
-cropsnh_journal.harvestTheNether_fleshroot=The hounds of hell love to feed on the roots of this fleshy plant.
-cropsnh_journal.harvestTheNether_glowflower=This pretty flower can be ground up into glowstone dust.
-cropsnh_journal.harvestTheNether_marrowberry=There is a strange taste to these berries.
 
-//gany's nether
-cropsnh_journal.ganysNether_ghostSeeds=This ghastly crop lies at the base of procusing spooky flour.
-cropsnh_journal.ganysNether_hellBushSeeds=This bush's berry feel warm and juicy, however I wouldn't bite in them...
-cropsnh_journal.ganysNether_quarzBerrySeeds=Berries made out of quartz, who would've thought!
-cropsnh_journal.ganysNether_witherShrubSeeds=An extremely rare crop which effectively grows wither skulls.
+# Galacticraft Blocks Growth Requirements
+cropsnh_growthReq.blockUnder.moon=Needs a block of from the moon under it to grow.
 
-//gany's surface
-cropsnh_journal.ganysSurface_camellia=Delicious tea can be extracted from this plant's leaves.
-
-//et futurum
-cropsnh_journal.etFuturum_beetRoot=The usually deep purple roots of beetroot are eaten either boiled, roasted or raw, either alone or combined with any salad vegetable.
+# Mutation Pool Names
+cropsnh_mutationPool.addictive=Addictive
+cropsnh_mutationPool.aether=Aether
+cropsnh_mutationPool.alien=Alien
+cropsnh_mutationPool.alloy=Alloy
+cropsnh_mutationPool.aluminium=Aluminium
+cropsnh_mutationPool.aluminum=Aluminum
+cropsnh_mutationPool.ardite=Ardite
+cropsnh_mutationPool.bad=Bad
+cropsnh_mutationPool.bean=Bean
+cropsnh_mutationPool.beans=Beans
+cropsnh_mutationPool.berry=Berry
+cropsnh_mutationPool.beryllium=Beryllium
+cropsnh_mutationPool.black=Black
+cropsnh_mutationPool.blaze=Blaze
+cropsnh_mutationPool.blue=Blue
+cropsnh_mutationPool.bonsai=Bonsai
+cropsnh_mutationPool.bouncy=Bouncy
+cropsnh_mutationPool.brown=Brown
+cropsnh_mutationPool.bush=Bush
+cropsnh_mutationPool.cactus=Cactus
+cropsnh_mutationPool.carrots=Carrots
+cropsnh_mutationPool.chicken=Chicken
+cropsnh_mutationPool.clean=Clean
+cropsnh_mutationPool.climbable=Climbable
+cropsnh_mutationPool.coal=Coal
+cropsnh_mutationPool.cobalt=Cobalt
+cropsnh_mutationPool.colorful=Colorful
+cropsnh_mutationPool.consumable=Consumable
+cropsnh_mutationPool.copper=Copper
+cropsnh_mutationPool.cotton=Cotton
+cropsnh_mutationPool.cow=Cow
+cropsnh_mutationPool.creeper=Creeper
+cropsnh_mutationPool.crystal=Crystal
+cropsnh_mutationPool.danger=Danger
+cropsnh_mutationPool.dark=Dark
+cropsnh_mutationPool.decoration=Decoration
+cropsnh_mutationPool.dense=Dense
+cropsnh_mutationPool.diamond=Diamond
+cropsnh_mutationPool.edgy=Edgy
+cropsnh_mutationPool.egg=Egg
+cropsnh_mutationPool.emerald=Emerald
+cropsnh_mutationPool.ender=Ender
+cropsnh_mutationPool.essence=Essence
+cropsnh_mutationPool.evil=Evil
+cropsnh_mutationPool.explosive=Explosive
+cropsnh_mutationPool.feather=Feather
+cropsnh_mutationPool.fire=Fire
+cropsnh_mutationPool.fish=Fish
+cropsnh_mutationPool.flower=Flower
+cropsnh_mutationPool.food=Food
+cropsnh_mutationPool.ghast=Ghast
+cropsnh_mutationPool.glow=Glow
+cropsnh_mutationPool.gold=Gold
+cropsnh_mutationPool.gray=Gray
+cropsnh_mutationPool.green=Green
+cropsnh_mutationPool.growth=Growth
+cropsnh_mutationPool.hard=Hard
+cropsnh_mutationPool.healing=Healing
+cropsnh_mutationPool.heavy=Heavy
+cropsnh_mutationPool.hydrophobic=Hydrophobic
+cropsnh_mutationPool.ice=Ice
+cropsnh_mutationPool.ingredient=Ingredient
+cropsnh_mutationPool.iridium=Iridium
+cropsnh_mutationPool.iron=Iron
+cropsnh_mutationPool.knightly=Knightly
+cropsnh_mutationPool.lapis=Lapis
+cropsnh_mutationPool.lead=Lead
+cropsnh_mutationPool.leafy=Leafy
+cropsnh_mutationPool.leaves=Leaves
+cropsnh_mutationPool.light=Light
+cropsnh_mutationPool.magic=Magic
+cropsnh_mutationPool.manganese=Manganese
+cropsnh_mutationPool.metal=Metal
+cropsnh_mutationPool.mica=Mica
+cropsnh_mutationPool.milk=Milk
+cropsnh_mutationPool.mushroom=Mushroom
+cropsnh_mutationPool.naquadah=Naquadah
+cropsnh_mutationPool.nether=Nether
+cropsnh_mutationPool.netherstar=Netherstar
+cropsnh_mutationPool.oil=Oil
+cropsnh_mutationPool.olivine=Olivine
+cropsnh_mutationPool.orange=Orange
+cropsnh_mutationPool.oreBerry=Ore Berry
+cropsnh_mutationPool.osmium=Osmium
+cropsnh_mutationPool.paper=Paper
+cropsnh_mutationPool.pig=Pig
+cropsnh_mutationPool.pine=Pine
+cropsnh_mutationPool.platinum=Platinum
+cropsnh_mutationPool.pointed=Pointed
+cropsnh_mutationPool.poison=Poison
+cropsnh_mutationPool.potato=Potato
+cropsnh_mutationPool.primordial=Primordial
+cropsnh_mutationPool.processing=Processing
+cropsnh_mutationPool.purple=Purple
+cropsnh_mutationPool.radiation=Radiation
+cropsnh_mutationPool.radioactive=Radioactive
+cropsnh_mutationPool.red=Red
+cropsnh_mutationPool.redstone=Redstone
+cropsnh_mutationPool.reed=Reed
+cropsnh_mutationPool.resin=Resin
+cropsnh_mutationPool.root=Root
+cropsnh_mutationPool.rose=Rose
+cropsnh_mutationPool.rotten=Rotten
+cropsnh_mutationPool.salt=Salt
+cropsnh_mutationPool.saltpeter=Saltpeter
+cropsnh_mutationPool.sapphire=Sapphire
+cropsnh_mutationPool.scrap=Scrap
+cropsnh_mutationPool.shimmer=Shimmer
+cropsnh_mutationPool.shiny=Shiny
+cropsnh_mutationPool.silk=Silk
+cropsnh_mutationPool.silver=Silver
+cropsnh_mutationPool.slime=Slime
+cropsnh_mutationPool.snow=Snow
+cropsnh_mutationPool.soil=Soil
+cropsnh_mutationPool.soulsand=Soulsand
+cropsnh_mutationPool.sour=Sour
+cropsnh_mutationPool.space=Space
+cropsnh_mutationPool.spicy=Spicy
+cropsnh_mutationPool.spider=Spider
+cropsnh_mutationPool.stem=Stem
+cropsnh_mutationPool.sticky=Sticky
+cropsnh_mutationPool.stone=Stone
+cropsnh_mutationPool.sulfur=Sulfur
+cropsnh_mutationPool.tendrilly=Tendrilly
+cropsnh_mutationPool.thauminite=Thauminite
+cropsnh_mutationPool.thaumium=Thaumium
+cropsnh_mutationPool.thorium=Thorium
+cropsnh_mutationPool.tin=Tin
+cropsnh_mutationPool.titanium=Titanium
+cropsnh_mutationPool.toxic=Toxic
+cropsnh_mutationPool.transform=Transform
+cropsnh_mutationPool.tree=Tree
+cropsnh_mutationPool.troll=Troll
+cropsnh_mutationPool.tulip=Tulip
+cropsnh_mutationPool.tungsten=Tungsten
+cropsnh_mutationPool.undead=Undead
+cropsnh_mutationPool.unique=Unique
+cropsnh_mutationPool.uranium=Uranium
+cropsnh_mutationPool.void=Void
+cropsnh_mutationPool.water=Water
+cropsnh_mutationPool.weed=Weed
+cropsnh_mutationPool.wheat=Wheat
+cropsnh_mutationPool.white=White
+cropsnh_mutationPool.wither=Wither
+cropsnh_mutationPool.wood=Wood
+cropsnh_mutationPool.yellow=Yellow
+cropsnh_mutationPool.zombie=Zombie

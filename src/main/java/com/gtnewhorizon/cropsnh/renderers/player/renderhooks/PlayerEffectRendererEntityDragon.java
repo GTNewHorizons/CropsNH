@@ -1,16 +1,18 @@
 package com.gtnewhorizon.cropsnh.renderers.player.renderhooks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.ArrayList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelDragon;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class PlayerEffectRendererEntityDragon extends PlayerEffectRendererEntity {
+
     protected PlayerEffectRendererEntityDragon() {
         super();
     }
@@ -42,7 +44,9 @@ public class PlayerEffectRendererEntityDragon extends PlayerEffectRendererEntity
         return 0.005F;
     }
 
-    protected static class EntityDragon extends net.minecraft.entity.boss.EntityDragon implements IWrappedEntity<net.minecraft.entity.boss.EntityDragon> {
+    protected static class EntityDragon extends net.minecraft.entity.boss.EntityDragon
+        implements IWrappedEntity<net.minecraft.entity.boss.EntityDragon> {
+
         public EntityDragon() {
             super(Minecraft.getMinecraft().theWorld);
             this.setHealth(this.getMaxHealth());
@@ -59,14 +63,14 @@ public class PlayerEffectRendererEntityDragon extends PlayerEffectRendererEntity
 
         @Override
         public void performAnimationUpdates() {
-            double test = 10*(360 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL);
+            double test = 10 * (360 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL);
             this.prevAnimTime = this.animTime;
-            this.animTime = (float) (test/360);
+            this.animTime = (float) (test / 360);
         }
 
         @Override
         public float[] getModelParameters() {
-            return new float[] {0, 0, 0, 0, 0, 1};
+            return new float[] { 0, 0, 0, 0, 0, 1 };
         }
 
         @Override
