@@ -1,11 +1,9 @@
 package com.gtnewhorizon.cropsnh.items;
 
-import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
-import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.ItemList;
-import gregtech.api.util.GTUtility;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,13 +15,16 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.ItemList;
+import gregtech.api.util.GTUtility;
 
 public class CropsNHAlcoholBottle extends ItemPotion {
+
     public static final String[] textureNames = { "FWheat", "Korn", "DKorn", "FReed", "SWhine", "Mash", "Wash", "GHP",
         "jagi", "njagi" /* , more names */
     };
@@ -70,14 +71,22 @@ public class CropsNHAlcoholBottle extends ItemPotion {
     @Override
     public void registerIcons(IIconRegister iconRegister) {
         this.icons = new IIcon[textureNames.length];
-        this.icons[0] = ItemList.Bottle_Apple_Juice.get(1).getIconIndex();
-        this.icons[1] = ItemList.Bottle_Vodka.get(1).getIconIndex();
-        this.icons[2] = ItemList.Bottle_Vodka.get(1).getIconIndex();
-        this.icons[3] = ItemList.Bottle_Apple_Juice.get(1).getIconIndex();
-        this.icons[4] = ItemList.Bottle_Vodka.get(1).getIconIndex();
-        this.icons[5] = ItemList.Bottle_Hops_Juice.get(1).getIconIndex();
-        this.icons[6] = ItemList.Bottle_Apple_Juice.get(1).getIconIndex();
-        this.icons[7] = ItemList.Bottle_Vodka.get(1).getIconIndex();
+        this.icons[0] = ItemList.Bottle_Apple_Juice.get(1)
+            .getIconIndex();
+        this.icons[1] = ItemList.Bottle_Vodka.get(1)
+            .getIconIndex();
+        this.icons[2] = ItemList.Bottle_Vodka.get(1)
+            .getIconIndex();
+        this.icons[3] = ItemList.Bottle_Apple_Juice.get(1)
+            .getIconIndex();
+        this.icons[4] = ItemList.Bottle_Vodka.get(1)
+            .getIconIndex();
+        this.icons[5] = ItemList.Bottle_Hops_Juice.get(1)
+            .getIconIndex();
+        this.icons[6] = ItemList.Bottle_Apple_Juice.get(1)
+            .getIconIndex();
+        this.icons[7] = ItemList.Bottle_Vodka.get(1)
+            .getIconIndex();
         this.icons[8] = iconRegister.registerIcon("cropsnh:jagermeister");
         this.icons[9] = iconRegister.registerIcon("cropsnh:jagermeister");
     }
@@ -126,7 +135,8 @@ public class CropsNHAlcoholBottle extends ItemPotion {
                 break;
             case 8:
             case 9:
-                Collections.addAll(list, GTUtility.breakLines(StatCollector.translateToLocal("cropsnh_tooltip.alcohol.5")));
+                Collections
+                    .addAll(list, GTUtility.breakLines(StatCollector.translateToLocal("cropsnh_tooltip.alcohol.5")));
                 list.add("");
                 if (stack.getItemDamage() == 8) {
                     list.add(StatCollector.translateToLocal("cropsnh_tooltip.alcohol.6"));

@@ -1,11 +1,11 @@
 package com.gtnewhorizon.cropsnh.init;
 
-import com.gtnewhorizon.cropsnh.fluids.AlcoholImpure;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.fluids.AlcoholImpure;
 
 import cpw.mods.fml.common.LoaderException;
 import gregtech.api.enums.ItemList;

@@ -2,15 +2,12 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.lang.reflect.Field;
 
-import com.gtnewhorizon.cropsnh.api.CropOreDuplicationRecipe;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.CopponFiberVariant;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.MaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.PyrolusiumLeafVariant;
 import com.gtnewhorizon.cropsnh.farming.materialleaf.StargatiumLeafVariant;
 import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
-
-import gregtech.api.enums.Materials;
 
 public class MaterialLeafLoader {
 

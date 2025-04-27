@@ -30,7 +30,8 @@ public class AlcoholImpure extends Fluid implements Runnable {
 
     @Override
     public void run() {
-        String ResourcePath = Mods.GregTech.getResourceLocation("fluids/fluid." + texture).toString();
+        String ResourcePath = Mods.GregTech.getResourceLocation("fluids/fluid." + texture)
+            .toString();
         setIcons(GregTechAPI.sBlockIcons.registerIcon(ResourcePath));
     }
 

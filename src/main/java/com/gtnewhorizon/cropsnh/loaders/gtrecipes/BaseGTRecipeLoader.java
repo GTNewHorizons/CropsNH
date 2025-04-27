@@ -1,13 +1,14 @@
 package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 
+import static gregtech.api.util.GTRecipeBuilder.SECONDS;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.TierEU;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipeBuilder;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-
-import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 
 public abstract class BaseGTRecipeLoader {
 
@@ -15,7 +16,9 @@ public abstract class BaseGTRecipeLoader {
 
     protected static GTRecipeBuilder recipe(long eut, int seconds, int fraction) {
         int duration = seconds * SECONDS + fraction / 5;
-        return GTValues.RA.stdBuilder().eut(eut).duration(duration);
+        return GTValues.RA.stdBuilder()
+            .eut(eut)
+            .duration(duration);
     }
 
     protected static GTRecipeBuilder ulvRecipe(int seconds, int fraction) {

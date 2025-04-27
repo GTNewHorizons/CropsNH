@@ -1,10 +1,9 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
-import com.gtnewhorizon.cropsnh.api.CropOreDuplicationRecipe;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
-
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
+
 import gregtech.api.enums.Mods;
 import gregtech.api.enums.TCAspects;
 import thaumcraft.api.ThaumcraftApi;
@@ -15,8 +14,9 @@ public class AspectLoader {
 
     public static void postInit() {
         if (!Mods.Thaumcraft.isModLoaded()) return;
-        AspectList materialLeafAspectList = new AspectList().add(Aspect.CROP, 1).add(Aspect.PLANT, 1);
-        for (IMaterialLeafVariant variant : ItemMaterialLeaf.getRegisteredVariants()){
+        AspectList materialLeafAspectList = new AspectList().add(Aspect.CROP, 1)
+            .add(Aspect.PLANT, 1);
+        for (IMaterialLeafVariant variant : ItemMaterialLeaf.getRegisteredVariants()) {
             ThaumcraftApi.registerObjectTag(variant.get(1), materialLeafAspectList.copy());
         }
         // spotless:off

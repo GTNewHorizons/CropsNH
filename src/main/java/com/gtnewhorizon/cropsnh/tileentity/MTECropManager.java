@@ -8,11 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
-import gregtech.api.enums.Materials;
-import gregtech.api.render.TextureFactory;
-import gregtech.api.util.GTModHandler;
-import gtPlusPlus.core.item.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,6 +22,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
@@ -41,6 +37,7 @@ import com.gtnewhorizons.modularui.common.widget.SlotGroup;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
+import gregtech.api.enums.Materials;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.gui.modularui.GTUITextures;
@@ -49,7 +46,10 @@ import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
+import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
+import gtPlusPlus.core.item.ModItems;
 import gtPlusPlus.core.util.math.MathUtils;
 import gtPlusPlus.xmod.gregtech.api.gui.GTPPUITextures;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
@@ -81,7 +81,10 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     public static void postInit() {
         // allowed waters
         ALLOWED_WATER.putIfAbsent(FluidRegistry.WATER, 1);
-        ALLOWED_WATER.putIfAbsent(GTModHandler.getDistilledWater(1L).getFluid(), 2);
+        ALLOWED_WATER.putIfAbsent(
+            GTModHandler.getDistilledWater(1L)
+                .getFluid(),
+            2);
         // allowed liquid weed ex
         ALLOWED_WEED_EX.putIfAbsent(FluidRegistry.getFluid("potion.poison.strong"), 1);
         ALLOWED_WEED_EX.putIfAbsent(Materials.WeedEX9000.mFluid, 10);
@@ -556,7 +559,9 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     // region water status
 
-    public int getWaterPotency(Fluid fluid) { return ALLOWED_WATER.getOrDefault(fluid,0); }
+    public int getWaterPotency(Fluid fluid) {
+        return ALLOWED_WATER.getOrDefault(fluid, 0);
+    }
 
     public int getWaterCapacity() {
         return Math.max(1, this.mWaterCap);
@@ -648,6 +653,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     // region fluid IO
 
     private static class FluidCheckResult {
+
         public final int cur;
         public final int cap;
         public final int potency;
@@ -676,12 +682,13 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             cur = this.getLiquidFertilizerAmount();
             cap = this.getLiquidFertilizerCapacity();
             setter = this::setLiquidFertilizerAmount;
-        }
-        else {
+        } else {
             return null;
         }
         // abort if overflow would occur
-        if (cur > cap - potency) { return null; }
+        if (cur > cap - potency) {
+            return null;
+        }
         return new FluidCheckResult(cur, cap, potency, setter);
     }
 

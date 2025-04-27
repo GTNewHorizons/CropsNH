@@ -1,16 +1,12 @@
 package com.gtnewhorizon.cropsnh.farming.materialleaf;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.fluids.FluidStack;
 
-import com.gtnewhorizon.cropsnh.api.CropConversionRecipe;
-import com.gtnewhorizon.cropsnh.api.CropOreDuplicationRecipe;
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 

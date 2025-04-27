@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 import static gregtech.api.recipe.RecipeMaps.mixerRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 
-import gregtech.api.util.GTRecipeConstants;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -23,6 +22,7 @@ import gregtech.api.enums.TierEU;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GTRecipeConstants;
 import gtPlusPlus.core.item.ModItems;
 import mods.natura.common.NContent;
 
@@ -37,8 +37,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
         // enriched fertilizer
         // ez logistics puzzle where you either flood both with fertilizer items or use a solution with system like
         // function like item conduits
-        lvRecipe(1, 0)
-            .itemInputs(CropsNHItemList.fertilizer.get(4))
+        lvRecipe(1, 0).itemInputs(CropsNHItemList.fertilizer.get(4))
             .fluidInputs(new FluidStack(ModItems.fluidFertBasic, 1000))
             .fluidOutputs(new FluidStack(CropsNHFluids.enrichedFertilizer, 1000))
             .addTo(GTRecipeConstants.UniversalChemical);
@@ -68,7 +67,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
         for (Fluid tFluid : new Fluid[] { FluidRegistry.WATER, GTModHandler.getDistilledWater(1L)
             .getFluid() }) {
 
-            lvRecipe(10,0)
+            lvRecipe(10, 0)
                 .itemInputs(
                     GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcite, 1),
                     GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1))
@@ -76,7 +75,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
                 .fluidInputs(new FluidStack(tFluid, 1000))
                 .addTo(GTRecipeConstants.UniversalChemical);
 
-            lvRecipe(15,0)
+            lvRecipe(15, 0)
                 .itemInputs(
                     GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcite, 1),
                     GTOreDictUnificator.get(OrePrefixes.dust, Materials.TricalciumPhosphate, 1))
@@ -273,7 +272,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
 
                 mvRecipe(10, 0)
                     .itemInputs(
-                        getModItem(Mods.Natura.ID, "florasapling",2, 6),
+                        getModItem(Mods.Natura.ID, "florasapling", 2, 6),
                         GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1L))
                     .itemOutputs(
                         CropsNHItemList.fertilizer.get(2),
@@ -281,17 +280,14 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
                     .fluidInputs(new FluidStack(tFluid, 1000))
                     .addTo(GTRecipeConstants.UniversalChemical);
 
-                mvRecipe(5, 0)
-                    .itemInputs(getModItem(Mods.Natura.ID, "florasapling",2, 6))
+                mvRecipe(5, 0).itemInputs(getModItem(Mods.Natura.ID, "florasapling", 2, 6))
                     .itemOutputs(CropsNHItemList.fertilizer.get(1))
                     .addTo(RecipeMaps.extractorRecipes);
 
-            for (int meta = 0; meta <= 2; meta++) {
-                    ItemStack leafStack = getModItem(Mods.Natura.ID, "Dark Leaves",2, meta);
-                    mvRecipe(10,0)
-                        .itemInputs(
-                            leafStack,
-                            GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1L))
+                for (int meta = 0; meta <= 2; meta++) {
+                    ItemStack leafStack = getModItem(Mods.Natura.ID, "Dark Leaves", 2, meta);
+                    mvRecipe(10, 0)
+                        .itemInputs(leafStack, GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1L))
                         .itemOutputs(
                             CropsNHItemList.fertilizer.get(2),
                             GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1L))
@@ -300,12 +296,10 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
 
                     leafStack = leafStack.copy();
                     leafStack.stackSize = 8;
-                    mvRecipe(5, 0)
-                        .itemInputs(leafStack)
+                    mvRecipe(5, 0).itemInputs(leafStack)
                         .itemOutputs(CropsNHItemList.fertilizer.get(1))
                         .addTo(RecipeMaps.extractorRecipes);
                 }
-
 
                 GTValues.RA.stdBuilder()
                     .itemInputs(
@@ -319,8 +313,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
                     .eut(TierEU.RECIPE_MV)
                     .addTo(GTRecipeConstants.UniversalChemical);
 
-                mvRecipe(5, 0)
-                    .itemInputs(getModItem(Mods.Natura.ID, "Dark Tree", 2, 0))
+                mvRecipe(5, 0).itemInputs(getModItem(Mods.Natura.ID, "Dark Tree", 2, 0))
                     .itemOutputs(CropsNHItemList.fertilizer.get(1))
                     .addTo(RecipeMaps.extractorRecipes);
 
@@ -336,8 +329,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
                     .eut(TierEU.RECIPE_MV)
                     .addTo(GTRecipeConstants.UniversalChemical);
 
-                mvRecipe(5, 0)
-                    .itemInputs(getModItem(Mods.Natura.ID, "Nether.netherFood", 1, 0))
+                mvRecipe(5, 0).itemInputs(getModItem(Mods.Natura.ID, "Nether.netherFood", 1, 0))
                     .itemOutputs(CropsNHItemList.fertilizer.get(4))
                     .addTo(RecipeMaps.extractorRecipes);
             }

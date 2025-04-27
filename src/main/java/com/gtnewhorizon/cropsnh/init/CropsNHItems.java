@@ -1,10 +1,10 @@
 package com.gtnewhorizon.cropsnh.init;
 
-import com.gtnewhorizon.cropsnh.items.CropsNHAlcoholBottle;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.items.CropsNHAlcoholBottle;
 import com.gtnewhorizon.cropsnh.items.ItemFertilizer;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.items.ItemNaNCertificate;
@@ -54,7 +54,7 @@ public class CropsNHItems {
 
         bottledAlcohol = new CropsNHAlcoholBottle();
         CropsNHItemList.fermentedWheatBottle.set(new ItemStack(bottledAlcohol, 1, 0));
-        CropsNHItemList.kornBottle.set(new ItemStack(bottledAlcohol, 1,1));
+        CropsNHItemList.kornBottle.set(new ItemStack(bottledAlcohol, 1, 1));
         CropsNHItemList.doppelkornBottle.set(new ItemStack(bottledAlcohol, 1, 2));
         CropsNHItemList.fermentedReedwaterBottle.set(new ItemStack(bottledAlcohol, 1, 3));
         CropsNHItemList.sugarWhineBottle.set(new ItemStack(bottledAlcohol, 1, 4));
