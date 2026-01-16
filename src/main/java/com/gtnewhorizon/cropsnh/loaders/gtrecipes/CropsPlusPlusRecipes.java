@@ -9,6 +9,7 @@ import static gregtech.api.recipe.RecipeMaps.distilleryRecipes;
 import static gregtech.api.recipe.RecipeMaps.fermentingRecipes;
 import static gregtech.api.recipe.RecipeMaps.fluidCannerRecipes;
 import static gregtech.api.recipe.RecipeMaps.mixerRecipes;
+import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeConstants.GLASS;
@@ -32,7 +33,9 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.ToolDictNames;
 import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTUtility;
 
@@ -48,8 +51,16 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
     public static void postInit() {
         addStoneDustCompressionRecipes();
         addHoneyConversionRecipes();
+        addBerryToSugarRecipes();
         addAlcoholRecipes();
         addDyeExtractionRecipes();
+    }
+
+    private static void addBerryToSugarRecipes() {
+        GTModHandler.addShapelessCraftingRecipe(
+            new ItemStack(Items.sugar, 4, 0),
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { ToolDictNames.craftingToolMortar, CropsNHItemList.sugarBeet.get(1) });
     }
 
     private static void addStoneDustCompressionRecipes() {
