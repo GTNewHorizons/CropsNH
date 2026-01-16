@@ -281,6 +281,8 @@ cropsnh_tooltip.leaf.uum=UUM in Berry Form.
 
 
 # NEI Compat
+cropsnh_nei.any_seed=Any Seed
+cropsnh_nei.scanned_seed=Scanned Seed
 cropsnh_nei.deterministicBreeding.title=Crop Breeding
 cropsnh_nei.cropGroups.title=Crop Groups
 cropsnh_nei.crops.title=Crops

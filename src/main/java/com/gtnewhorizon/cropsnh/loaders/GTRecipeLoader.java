@@ -1,10 +1,15 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
+import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -26,6 +31,7 @@ import com.gtnewhorizon.cropsnh.loaders.gtrecipes.CropsPlusPlusRecipes;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.FertilizerRecipes;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.SeedGeneratorFakeRecipeLoader;
 import com.gtnewhorizon.cropsnh.reference.Constants;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
@@ -40,6 +46,8 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 
+import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
+
 public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
 
     public static void PostInit() {
@@ -51,6 +59,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         CropGeneExtractorFakeRecipeLoader.postInit();
         CropSynthesizerFakeRecipeLoader.postInit();
 
+        addSeedScannerHandler();
         addPlantLensRecipe();
         addSpadeRecipes();
         addCropStickRecipes();
@@ -69,6 +78,21 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         addFertilizerUnitRecipes();
         addGrowthAccelerationUnits();
         addOverclockedGrowthAccelerationUnits();
+    }
+
+    private static void addSeedScannerHandler() {
+        ItemStack output = CropsNHCrops.Carrot.getSeedItem(SeedStats.DEFAULT_ANALYZED);
+        output.stackSize = 1;
+        output.setStackDisplayName(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.scanned_seed"));
+        // add fake recipe
+        recipe(8, 8, 0)
+            .itemInputs(new ItemStack(CropsNHItems.genericSeed, 1, WILDCARD))
+            .itemOutputs(output)
+            .ignoreCollision()
+            .fake()
+            .addTo(RecipeMaps.scannerFakeRecipes);
+
+        // TODO: ADD HANDLER FUNCTION ONCE PR HAS BEEN MERGED INTO MAIN GT
     }
 
     private static void addPlantLensRecipe() {
