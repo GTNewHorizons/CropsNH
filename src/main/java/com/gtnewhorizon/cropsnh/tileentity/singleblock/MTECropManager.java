@@ -18,6 +18,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
@@ -38,7 +39,6 @@ import com.gtnewhorizons.modularui.common.widget.ProgressBar;
 import com.gtnewhorizons.modularui.common.widget.SlotGroup;
 
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.modularui.GTUIInfos;
 import gregtech.api.gui.modularui.GTUITextures;
@@ -609,7 +609,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     private static boolean isWeedEXCan(ItemStack aStack) {
         if (aStack == null || aStack.getItem() == null) return false;
-        return ItemList.IC2_Spray_WeedEx.getItem() == aStack.getItem();
+        return CropsNHItemList.weedEX.getItem() == aStack.getItem();
     }
 
     @Override
