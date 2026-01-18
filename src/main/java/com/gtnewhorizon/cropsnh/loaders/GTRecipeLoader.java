@@ -1,9 +1,7 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
-import com.gtnewhorizon.cropsnh.farming.SeedStats;
-import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHItems;
+import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -14,6 +12,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.blocks.BlockAdvancedHarvestingUnit;
 import com.gtnewhorizon.cropsnh.blocks.BlockEnvironmentalEnhancementUnit;
@@ -21,7 +20,9 @@ import com.gtnewhorizon.cropsnh.blocks.BlockFertilizerUnit;
 import com.gtnewhorizon.cropsnh.blocks.BlockGrowthAccelerationUnit;
 import com.gtnewhorizon.cropsnh.blocks.BlockOverclockedGrowthAccelerationUnit;
 import com.gtnewhorizon.cropsnh.blocks.BlockSeedBed;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
+import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.BaseGTRecipeLoader;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.CropBreederFakeRecipeLoader;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.CropGeneExtractorFakeRecipeLoader;
@@ -45,8 +46,6 @@ import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-
-import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
 public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
 
@@ -85,8 +84,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         output.stackSize = 1;
         output.setStackDisplayName(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.scanned_seed"));
         // add fake recipe
-        recipe(8, 8, 0)
-            .itemInputs(new ItemStack(CropsNHItems.genericSeed, 1, WILDCARD))
+        recipe(8, 8, 0).itemInputs(new ItemStack(CropsNHItems.genericSeed, 1, WILDCARD))
             .itemOutputs(output)
             .ignoreCollision()
             .fake()

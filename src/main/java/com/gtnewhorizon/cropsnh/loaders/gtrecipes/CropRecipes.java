@@ -145,6 +145,13 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         addHempStemRecipes();
         addGaiaWartRecipes();
         addHopsRecipes();
+        addCoffeeRecipes();
+    }
+
+    private static void addCoffeeRecipes() {
+        GTModHandler.addShapelessCraftingRecipe(
+            GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coffee, 1L),
+            new Object[] { "craftingToolMortar", "cropCoffee" });
     }
 
     private static void addHopsRecipes() {
