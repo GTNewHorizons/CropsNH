@@ -11,6 +11,7 @@ public class OreDictLoader {
         register(CropsNHItemList.goldfish.get(1), "listAllfishraw");
         register(CropsNHItemList.huckleBerry.get(1), "cropHuckleberry", "listAllberry", "listAllfruit");
         register(CropsNHItemList.sugarBeet.get(1), "cropSugarbeet", "listAllveggie", "listAllrootveggie");
+        register(CropsNHItemList.teaLeaf.get(1), "cropTea");
     }
 
     private static void register(ItemStack stack, String... ores) {
