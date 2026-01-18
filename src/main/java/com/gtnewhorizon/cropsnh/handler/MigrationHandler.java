@@ -142,7 +142,7 @@ public class MigrationHandler {
     private static void addIC2PosteaMigrations() {
         TileEntityReplacementManager.tileEntityTransformer(
             "TECrop",
-            (nbt, world, chunk) -> new BlockInfo(CropsNHBlocks.blockCrop, 0, oldNBT -> {
+            (nbt, world, chunk) -> new BlockInfo(CropsNHBlocks.blockCropSticks, 0, oldNBT -> {
                 NBTTagCompound newNBT = new NBTTagCompound();
                 newNBT.setTag("x", oldNBT.getTag("x"));
                 newNBT.setTag("y", oldNBT.getTag("y"));
@@ -457,7 +457,7 @@ public class MigrationHandler {
                 mapping.remap(CropsNHItems.gaiaWart);
                 return true;
             case "IC2:blockCrop":
-                mapping.remap(CropsNHUtils.getItemFromBlock(CropsNHBlocks.blockCrop));
+                mapping.remap(CropsNHUtils.getItemFromBlock(CropsNHBlocks.blockCropSticks));
                 return true;
             default:
                 return false;

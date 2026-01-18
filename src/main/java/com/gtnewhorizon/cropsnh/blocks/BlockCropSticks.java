@@ -311,6 +311,6 @@ public class BlockCropSticks extends BlockContainerCropsNH {
 
     @Override
     public ItemStack getWailaStack(BlockCropsNH block, TileEntityCropsNH tea) {
-        return new ItemStack(CropsNHBlocks.blockCrop, 1, 0);
+        return new ItemStack(CropsNHBlocks.blockCropSticks, 1, 0);
     }
 }

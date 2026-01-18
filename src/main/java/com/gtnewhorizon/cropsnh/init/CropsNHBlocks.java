@@ -16,7 +16,7 @@ import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 public class CropsNHBlocks {
 
-    public static Block blockCrop;
+    public static Block blockCropSticks;
     public static Block blockCasings1;
     public static Block blockSeedBed;
     public static Block blockFertilizerUnit;
@@ -26,8 +26,8 @@ public class CropsNHBlocks {
     public static Block blockGrowthAccelerationUnit;
 
     public static void preInit() {
-        blockCrop = new BlockCropSticks();
-        CropsNHItemList.cropSticks.set(new ItemStack(blockCrop, 1, 0));
+        blockCropSticks = new BlockCropSticks();
+        CropsNHItemList.cropSticks.set(new ItemStack(blockCropSticks, 1, 0));
         blockCasings1 = new BlockCasingsCropsNH1();
         blockSeedBed = new BlockSeedBed();
         blockFertilizerUnit = new BlockFertilizerUnit();

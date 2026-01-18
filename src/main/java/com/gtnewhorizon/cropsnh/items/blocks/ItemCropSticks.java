@@ -42,7 +42,7 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
                 && (player.capabilities.isCreativeMode || stack.stackSize >= 2);
 
             // place the crop stick block
-            world.setBlock(x, y + 1, z, CropsNHBlocks.blockCrop);
+            world.setBlock(x, y + 1, z, CropsNHBlocks.blockCropSticks);
             // upgrade it if necessary
             if (isPlacingCross) {
                 TileEntity te = world.getTileEntity(x, y, z);

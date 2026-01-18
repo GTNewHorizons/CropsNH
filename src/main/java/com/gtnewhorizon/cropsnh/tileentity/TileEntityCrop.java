@@ -1161,7 +1161,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         } else if (this.isCrossCrop) {
             this.setCrossCrop(false);
             if (!player.capabilities.isCreativeMode) {
-                dropItem(new ItemStack(CropsNHBlocks.blockCrop, 1));
+                dropItem(new ItemStack(CropsNHBlocks.blockCropSticks, 1));
             }
             return true;
         }
@@ -1197,7 +1197,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         if (this.isCrossCrop) {
             this.setCrossCrop(false);
             if (!player.capabilities.isCreativeMode) {
-                dropItem(new ItemStack(CropsNHBlocks.blockCrop, 1));
+                dropItem(new ItemStack(CropsNHBlocks.blockCropSticks, 1));
             }
             return true;
         }
