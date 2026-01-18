@@ -22,7 +22,7 @@ public class CropsNHBlockTextures {
         protected String mModID;
 
         public CustomIcon(String aIconName) {
-            this(Reference.MOD_ID_LOWER, aIconName);
+            this(Reference.MOD_ID, aIconName);
         }
 
         public CustomIcon(String aModID, String aIconName) {

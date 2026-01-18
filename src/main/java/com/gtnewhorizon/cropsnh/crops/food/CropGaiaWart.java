@@ -63,6 +63,6 @@ public class CropGaiaWart extends NHCropCard {
 
     @Override
     public String getUnlocalizedName() {
-        return "item." + Reference.MOD_ID_LOWER + ":" + Names.Objects.gaiaWart + ".name";
+        return "item." + Reference.MOD_ID + ":" + Names.Objects.gaiaWart + ".name";
     }
 }

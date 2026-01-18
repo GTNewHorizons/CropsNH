@@ -21,7 +21,7 @@ public class StargatiumLeafVariant extends MaterialLeafVariant {
     public void getTooltip(List list) {
         super.getTooltip(list);
         if (ConfigurationHandler.enableEasterEggs) {
-            list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.stargatiumLeaf"));
+            list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.stargatiumLeaf"));
         }
     }
 }

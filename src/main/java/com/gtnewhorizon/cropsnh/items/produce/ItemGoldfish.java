@@ -29,13 +29,13 @@ public class ItemGoldfish extends ItemFood {
 
     @SideOnly(value = Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon(Reference.MOD_ID_LOWER + ":goldfish");
+        this.itemIcon = iconRegister.registerIcon(Reference.MOD_ID + ":goldfish");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.goldfish"));
+        list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.goldfish"));
     }
 
     @Override

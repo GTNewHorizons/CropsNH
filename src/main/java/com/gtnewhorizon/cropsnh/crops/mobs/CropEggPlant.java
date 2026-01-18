@@ -29,7 +29,7 @@ public class CropEggPlant extends CropFood {
 
     @Override
     public String getFlavourText() {
-        return Reference.MOD_ID_LOWER + "_crops.eggPlant.flavour";
+        return Reference.MOD_ID + "_crops.eggPlant.flavour";
     }
 
     @Override

@@ -21,7 +21,7 @@ public class MutationPool implements IMutationPool {
 
     @Override
     public String getUnlocalisedName() {
-        return Reference.MOD_ID_LOWER + "_mutationPool." + this.name;
+        return Reference.MOD_ID + "_mutationPool." + this.name;
     }
 
     /**

@@ -41,30 +41,30 @@ public class BlockEnvironmentalEnhancementUnit extends CropsNHBlockIndustrialFar
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
         super.addInformation(stack, player, tooltip, advancedTooltips);
         // specific
-        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.environmentalEnhancementUnit.0"));
-        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.environmentalEnhancementUnit.1"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.environmentalEnhancementUnit.0"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.environmentalEnhancementUnit.1"));
         if (advancedTooltips) {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.environmentalEnhancementUnit.2.adv",
+                    Reference.MOD_ID + "_tooltip.environmentalEnhancementUnit.2.adv",
                     BASE_POWER_INCREASE * 100));
         } else {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.environmentalEnhancementUnit.2",
+                    Reference.MOD_ID + "_tooltip.environmentalEnhancementUnit.2",
                     BASE_POWER_INCREASE * 100));
         }
         // generic
-        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.upgradeTierMustMatchSeedBed"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgradeTierMustMatchSeedBed"));
         tooltip.add(
             StatCollector
-                .translateToLocalFormatted(Reference.MOD_ID_LOWER + "_tooltip.upgradeCountLimited", MAX_UPGRADE_COUNT));
+                .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.upgradeCountLimited", MAX_UPGRADE_COUNT));
     }
 
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         super.registerBlockIcons(aIconRegister);
         this.mBottomIcon = this.mTopIcon = aIconRegister
-            .registerIcon(Reference.MOD_ID_LOWER + ":industrialFarm/environmentalEnhancementUnit");
+            .registerIcon(Reference.MOD_ID + ":industrialFarm/environmentalEnhancementUnit");
     }
 }

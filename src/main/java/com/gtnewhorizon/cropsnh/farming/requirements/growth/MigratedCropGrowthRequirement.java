@@ -14,7 +14,7 @@ public class MigratedCropGrowthRequirement implements IWorldGrowthRequirement {
     private final Pair<String, Object[]> unlocalizedDesc;
 
     public MigratedCropGrowthRequirement() {
-        this.unlocalizedDesc = Pair.of(Reference.MOD_ID_LOWER + "_growthReq.lockout.migrated", new Object[] {});
+        this.unlocalizedDesc = Pair.of(Reference.MOD_ID + "_growthReq.lockout.migrated", new Object[] {});
     }
 
     @Override

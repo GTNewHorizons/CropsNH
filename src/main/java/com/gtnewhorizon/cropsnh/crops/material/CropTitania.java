@@ -35,7 +35,7 @@ public class CropTitania extends NHCropCard {
 
     @Override
     public String getFlavourText() {
-        return Reference.MOD_ID_LOWER + "_crops.titania.flavour";
+        return Reference.MOD_ID + "_crops.titania.flavour";
     }
 
     @Override

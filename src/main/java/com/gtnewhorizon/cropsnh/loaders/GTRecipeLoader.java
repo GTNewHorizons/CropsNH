@@ -82,7 +82,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
     private static void addSeedScannerHandler() {
         ItemStack output = CropsNHCrops.Carrot.getSeedItem(SeedStats.DEFAULT_ANALYZED);
         output.stackSize = 1;
-        output.setStackDisplayName(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.scanned_seed"));
+        output.setStackDisplayName(StatCollector.translateToLocal(Reference.MOD_ID + "_nei.scanned_seed"));
         // add fake recipe
         recipe(8, 8, 0).itemInputs(new ItemStack(CropsNHItems.genericSeed, 1, WILDCARD))
             .itemOutputs(output)

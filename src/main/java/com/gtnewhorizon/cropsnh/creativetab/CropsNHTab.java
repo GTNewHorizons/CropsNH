@@ -9,7 +9,7 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public class CropsNHTab {
 
-    public static CreativeTabs cropsNHTab = new CreativeTabs(Reference.MOD_ID_LOWER) {
+    public static CreativeTabs cropsNHTab = new CreativeTabs(Reference.MOD_ID) {
 
         @Override
         public Item getTabIconItem() {

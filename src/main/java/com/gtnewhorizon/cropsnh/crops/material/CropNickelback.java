@@ -30,7 +30,7 @@ public class CropNickelback extends NHCropCard {
 
     @Override
     public String getFlavourText() {
-        return Reference.MOD_ID_LOWER + "_crops.nickelback.flavour";
+        return Reference.MOD_ID + "_crops.nickelback.flavour";
     }
 
     @Override

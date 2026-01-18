@@ -98,14 +98,14 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
 
             // register lines
             // spotless:off
-            this.textLines.add(StatCollector.translateToLocalFormatted(Reference.MOD_ID_LOWER + "_nei.crops.tier", crop.getTier()));
-            this.textLines.add(StatCollector.translateToLocalFormatted( Reference.MOD_ID_LOWER + "_nei.crops.growthDuration", GTUtility.formatNumbers(crop.getGrowthDuration())));
-            this.textLines.add(StatCollector.translateToLocalFormatted( Reference.MOD_ID_LOWER + "_nei.crops.dropMult", GTUtility.formatNumbers(crop.getDropChance())));
+            this.textLines.add(StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_nei.crops.tier", crop.getTier()));
+            this.textLines.add(StatCollector.translateToLocalFormatted( Reference.MOD_ID + "_nei.crops.growthDuration", GTUtility.formatNumbers(crop.getGrowthDuration())));
+            this.textLines.add(StatCollector.translateToLocalFormatted( Reference.MOD_ID + "_nei.crops.dropMult", GTUtility.formatNumbers(crop.getDropChance())));
             this.textLines.add(StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID_LOWER + "_nei.crops.likes",
+                Reference.MOD_ID + "_nei.crops.likes",
                 crop.getLikedBiomeTags()
                     .stream()
-                    .map(x -> StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.biomeTag." + x.name().toUpperCase()))
+                    .map(x -> StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.biomeTag." + x.name().toUpperCase()))
                     .collect(Collectors.joining(", "))
             ));
             //spotless:on
@@ -245,7 +245,7 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
     // returns the name for this recipe
     @Override
     public String getRecipeName() {
-        return StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.crops.title");
+        return StatCollector.translateToLocal(Reference.MOD_ID + "_nei.crops.title");
     }
 
     // returns the id for this recipe
@@ -257,7 +257,7 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
     // gets the texture to display the recipe in
     @Override
     public String getGuiTexture() {
-        return new ResourceLocation(Reference.MOD_ID_LOWER, "textures/gui/nei/cropList.png").toString();
+        return new ResourceLocation(Reference.MOD_ID, "textures/gui/nei/cropList.png").toString();
     }
 
     @Override

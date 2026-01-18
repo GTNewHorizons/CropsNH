@@ -24,9 +24,9 @@ public class MaterialLeafVariant implements IMaterialLeafVariant {
 
     public MaterialLeafVariant(int id, String unlocalizedName, String materialType) {
         this.id = id;
-        this.iconName = Reference.MOD_ID_LOWER + ":materialLeaf/" + unlocalizedName;
-        this.unlocalizedName = "item." + Reference.MOD_ID_LOWER + ":materialLeaf." + unlocalizedName;
-        this.unlocalizedTooltip = Reference.MOD_ID_LOWER + "_tooltip.leaf." + materialType;
+        this.iconName = Reference.MOD_ID + ":materialLeaf/" + unlocalizedName;
+        this.unlocalizedName = "item." + Reference.MOD_ID + ":materialLeaf." + unlocalizedName;
+        this.unlocalizedTooltip = Reference.MOD_ID + "_tooltip.leaf." + materialType;
     }
 
     @Override

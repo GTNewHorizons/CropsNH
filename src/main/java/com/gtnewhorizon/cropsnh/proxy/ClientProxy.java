@@ -139,7 +139,7 @@ public class ClientProxy extends CommonProxy {
             teCrop.getPlantLensStatus(event.mList);
             event.mList.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.scanner.6",
+                    Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
                     GTUtility.formatNumbers(teCrop.getNutrientScore()),
                     GTUtility.formatNumbers(TileEntityCrop.MAX_NUTRIENT_SCORE)));
             List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();

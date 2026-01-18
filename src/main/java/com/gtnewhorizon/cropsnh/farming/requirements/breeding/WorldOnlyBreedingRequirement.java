@@ -29,6 +29,6 @@ public class WorldOnlyBreedingRequirement implements IMachineBreedingRequirement
 
     @Override
     public String getDescription() {
-        return StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_breedingReq.lockout.worldOnly");
+        return StatCollector.translateToLocal(Reference.MOD_ID + "_breedingReq.lockout.worldOnly");
     }
 }

@@ -260,7 +260,7 @@ public class BlockCropSticks extends BlockContainerCropsNH {
 
     @Override
     public String getItemIconName() {
-        return Reference.MOD_ID_LOWER + ":cropSticks";
+        return Reference.MOD_ID + ":cropSticks";
     }
 
     /**

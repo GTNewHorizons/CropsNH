@@ -117,28 +117,28 @@ public class ItemGenericSeed extends ItemCropsNH {
             if (crop.getCrossingThreshold() < 0.0f) {
                 toolTip.add(
                     StatCollector
-                        .translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.seed_must_use_synthesizer_to_replicate"));
+                        .translateToLocal(Reference.MOD_ID + "_tooltip.seed_must_use_synthesizer_to_replicate"));
             }
 
             toolTip.add(
                 String.format(
                     "%s- %s: %d%s",
                     EnumChatFormatting.GREEN,
-                    StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.growth"),
+                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.growth"),
                     stats.getGrowth(),
                     EnumChatFormatting.RESET));
             toolTip.add(
                 String.format(
                     "%s- %s: %d%s",
                     EnumChatFormatting.GREEN,
-                    StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.gain"),
+                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.gain"),
                     stats.getGain(),
                     EnumChatFormatting.RESET));
             toolTip.add(
                 String.format(
                     "%s- %s: %d%s",
                     EnumChatFormatting.GREEN,
-                    StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.resistance"),
+                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.resistance"),
                     stats.getResistance(),
                     EnumChatFormatting.RESET));
             Iterable<IGrowthRequirement> reqs = crop.getGrowthRequirements();
@@ -151,11 +151,11 @@ public class ItemGenericSeed extends ItemCropsNH {
             if (minSeedBedTier >= 0) {
                 toolTip.add(
                     StatCollector.translateToLocalFormatted(
-                        Reference.MOD_ID_LOWER + "_tooltip.min_seed_bed_tier",
+                        Reference.MOD_ID + "_tooltip.min_seed_bed_tier",
                         GTValues.TIER_COLORS[minSeedBedTier] + GTValues.VN[minSeedBedTier] + EnumChatFormatting.RESET));
             }
         } else {
-            toolTip.add(" " + StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.unidentified"));
+            toolTip.add(" " + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.unidentified"));
         }
     }
 

@@ -46,6 +46,6 @@ public abstract class CropOreBerry extends NHCropCard {
 
     @Override
     protected String getBaseTexturePath() {
-        return Reference.MOD_ID_LOWER + ":crops/oreBerries/" + this.materialName + "/";
+        return Reference.MOD_ID + ":crops/oreBerries/" + this.materialName + "/";
     }
 }

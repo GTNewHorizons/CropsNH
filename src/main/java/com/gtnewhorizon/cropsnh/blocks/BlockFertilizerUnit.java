@@ -48,49 +48,49 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
         super.addInformation(stack, player, tooltip, advancedTooltips);
         // specific
-        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.fertilizerUnit.0"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.fertilizerUnit.0"));
         tooltip.add(
             StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID_LOWER + "_tooltip.fertilizerUnit.1",
+                Reference.MOD_ID + "_tooltip.fertilizerUnit.1",
                 getFertilizerConsumptionPerCycle(CropsNHUtils.getItemMeta(stack))));
         if (advancedTooltips) {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.fertilizerUnit.2.adv",
+                    Reference.MOD_ID + "_tooltip.fertilizerUnit.2.adv",
                     GROWTH_SPEED_MULTIPLIER * 100));
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.fertilizerUnit.3.adv",
+                    Reference.MOD_ID + "_tooltip.fertilizerUnit.3.adv",
                     HARVEST_ROUND_BONUS * 100));
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.fertilizerUnit.4.adv",
+                    Reference.MOD_ID + "_tooltip.fertilizerUnit.4.adv",
                     BASE_POWER_INCREASE * 100));
         } else {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.fertilizerUnit.2",
+                    Reference.MOD_ID + "_tooltip.fertilizerUnit.2",
                     GROWTH_SPEED_MULTIPLIER * 100));
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.fertilizerUnit.3",
+                    Reference.MOD_ID + "_tooltip.fertilizerUnit.3",
                     HARVEST_ROUND_BONUS * 100));
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.fertilizerUnit.4",
+                    Reference.MOD_ID + "_tooltip.fertilizerUnit.4",
                     BASE_POWER_INCREASE * 100));
         }
         // generic
-        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.upgradeTierMustMatchSeedBed"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgradeTierMustMatchSeedBed"));
         tooltip.add(
             StatCollector
-                .translateToLocalFormatted(Reference.MOD_ID_LOWER + "_tooltip.upgradeCountLimited", MAX_UPGRADE_COUNT));
+                .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.upgradeCountLimited", MAX_UPGRADE_COUNT));
     }
 
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         super.registerBlockIcons(aIconRegister);
         this.mBottomIcon = this.mTopIcon = aIconRegister
-            .registerIcon(Reference.MOD_ID_LOWER + ":industrialFarm/fertilizerUnit");
+            .registerIcon(Reference.MOD_ID + ":industrialFarm/fertilizerUnit");
     }
 }

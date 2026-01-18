@@ -625,7 +625,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addGlassEnergyLimitInfo()
             .addInfo(
                 StatCollector.translateToLocal(
-                    EnumChatFormatting.GREEN + Reference.MOD_ID_LOWER + "_tooltip.MBTT.multiAmpsWithUpgrade"))
+                    EnumChatFormatting.GREEN + Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade"))
             .addCasingInfoRange("Agricultural Casing", 8 * 2 + MIN_SLICES * 2, 8 * 2 + MAX_SLICES * 2, false)
             .addEnergyHatch("Any Casing", 1)
             .addInputBus("Any Casing", 1)
@@ -642,35 +642,35 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         // tier
         ret.add(
             StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.scanner.0",
+                Reference.MOD_ID + "_tooltip.industrialFarm.scanner.0",
                 GTUtility.formatNumbers(this.mUpgradeTier)));
         // capacity
         ret.add(
             StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.scanner.1",
+                Reference.MOD_ID + "_tooltip.industrialFarm.scanner.1",
                 GTUtility.formatNumbers(this.mSeedCapacity)));
         // Harvest Modifier
         ret.add(
             StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.scanner.2",
+                Reference.MOD_ID + "_tooltip.industrialFarm.scanner.2",
                 GTUtility.formatNumbers(this.getHarvestRoundMultiplier() * 100.0f)));
         // Growth Modifier
         ret.add(
             StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.scanner.3",
+                Reference.MOD_ID + "_tooltip.industrialFarm.scanner.3",
                 GTUtility.formatNumbers(this.getGrowthSpeedMultiplier() * 100.0f)));
         // Water Usage per Cycle
         int waterUsage = this.getConsumablePotencyNeededPerCycle();
         ret.add(
             StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.scanner.4",
+                Reference.MOD_ID + "_tooltip.industrialFarm.scanner.4",
                 GTUtility.formatNumbers(waterUsage),
                 GTUtility.formatNumbers(CYCLE_DURATION)));
         // Fertilizer Usage per Cycle
         int fertUsage = this.mFertilizerUnitCount > 0 ? waterUsage : 0;
         ret.add(
             StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.scanner.5",
+                Reference.MOD_ID + "_tooltip.industrialFarm.scanner.5",
                 GTUtility.formatNumbers(fertUsage),
                 GTUtility.formatNumbers(CYCLE_DURATION)));
         // nutrient score
@@ -678,7 +678,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         if (tSeedData != null) {
             ret.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.scanner.6",
+                    Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
                     GTUtility.formatNumbers(this.getNutrientScore(tSeedData)),
                     GTUtility.formatNumbers(TileEntityCrop.MAX_NUTRIENT_SCORE)));
         }
@@ -764,11 +764,10 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     @Override
     public String getMachineModeName() {
         return switch (this.machineMode) {
-            case MODE_FARM -> StatCollector
-                .translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.mode.farm");
+            case MODE_FARM -> StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.mode.farm");
             case MODE_OUTPUT -> StatCollector
-                .translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.mode.output");
-            default -> StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.industrialFarm.mode.input");
+                .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.mode.output");
+            default -> StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.mode.input");
         };
     }
 
@@ -787,31 +786,31 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     /** Can't insert a seed because the existing block under didn't match the new seed. */
     @Nonnull
     public static final CheckRecipeResult CHECK_RECIPE_RESULT_BLOCK_UNDER_MISMATCH_INPUT = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID_LOWER + ".industrialFarm.blockUnderMismatch.input");
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.blockUnderMismatch.input");
     /** Can't insert a seed because the existing block under didn't match the new seed. */
     @Nonnull
     public static final CheckRecipeResult CHECK_RECIPE_RESULT_BLOCK_UNDER_MISMATCH_FARM = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID_LOWER + ".industrialFarm.blockUnderMismatch.farm");
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.blockUnderMismatch.farm");
     /** Can't insert a seed because the required under-block wasn't found */
     @Nonnull
     public static final CheckRecipeResult CHECK_RECIPE_RESULT_BLOCK_UNDER_NOT_FOUND = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID_LOWER + ".industrialFarm.blockUnderNotFound");
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.blockUnderNotFound");
     /** The current tier of seed bed is too low for this seed. */
     @Nonnull
     public static final CheckRecipeResult CHECK_RECIPE_RESULT_SEED_BED_TIER_TOO_LOW = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID_LOWER + ".industrialFarm.seedBedTierTooLow");
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.seedBedTierTooLow");
     /** Can't insert any more seeds because the IF is full. */
     @Nonnull
     public static final CheckRecipeResult CHECK_RECIPE_RESULT_SEEDS_FULL = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID_LOWER + ".industrialFarm.seedsFull");
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.seedsFull");
     /** Can't run because there are too many seeds in the machine. */
     @Nonnull
     public static final CheckRecipeResult CHECK_RECIPE_RESULT_SEED_OVERFLOW = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID_LOWER + ".industrialFarm.seedOverflow");
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.seedOverflow");
     /** Can't generate resources because the growth requires aren't met */
     @Nonnull
     public static final CheckRecipeResult CHECK_RECIPE_RESULT_CANNOT_GROW = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID_LOWER + ".industrialFarm.cannotGrow");
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.cannotGrow");
 
     @Override
     public @Nonnull CheckRecipeResult checkProcessing() {

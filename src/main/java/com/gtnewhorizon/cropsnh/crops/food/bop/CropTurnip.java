@@ -40,6 +40,6 @@ public class CropTurnip extends CropFood {
     protected IIcon[] registerTextures(IIconRegister register) {
         return new IIcon[] { register.registerIcon("carrots_stage_0"), register.registerIcon("carrots_stage_1"),
             register.registerIcon("carrots_stage_2"),
-            register.registerIcon(Reference.MOD_ID_LOWER + ":crops/" + this.internalId + "/3") };
+            register.registerIcon(Reference.MOD_ID + ":crops/" + this.internalId + "/3") };
     }
 }

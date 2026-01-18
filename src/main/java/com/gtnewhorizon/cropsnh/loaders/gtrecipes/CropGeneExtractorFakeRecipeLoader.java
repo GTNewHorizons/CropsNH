@@ -27,19 +27,19 @@ public abstract class CropGeneExtractorFakeRecipeLoader extends BaseGTRecipeLoad
             String unlocalizedName;
             switch (circuitNo) {
                 case 1:
-                    unlocalizedName = Reference.MOD_ID_LOWER + "_nei.cropGeneExtractor.tooltip.scanSpecimen";
+                    unlocalizedName = Reference.MOD_ID + "_nei.cropGeneExtractor.tooltip.scanSpecimen";
                     break;
                 case 2:
-                    unlocalizedName = Reference.MOD_ID_LOWER + "_nei.cropGeneExtractor.tooltip.scanGrowth";
+                    unlocalizedName = Reference.MOD_ID + "_nei.cropGeneExtractor.tooltip.scanGrowth";
                     break;
                 case 3:
-                    unlocalizedName = Reference.MOD_ID_LOWER + "_nei.cropGeneExtractor.tooltip.scanGain";
+                    unlocalizedName = Reference.MOD_ID + "_nei.cropGeneExtractor.tooltip.scanGain";
                     break;
                 case 4:
-                    unlocalizedName = Reference.MOD_ID_LOWER + "_nei.cropGeneExtractor.tooltip.scanResistance";
+                    unlocalizedName = Reference.MOD_ID + "_nei.cropGeneExtractor.tooltip.scanResistance";
                     break;
                 default:
-                    unlocalizedName = Reference.MOD_ID_LOWER + "_nei.cropGeneExtractor.tooltip.error";
+                    unlocalizedName = Reference.MOD_ID + "_nei.cropGeneExtractor.tooltip.error";
                     break;
             }
             this.orb = ItemList.Tool_DataOrb.getWithName(1L, StatCollector.translateToLocal(unlocalizedName));

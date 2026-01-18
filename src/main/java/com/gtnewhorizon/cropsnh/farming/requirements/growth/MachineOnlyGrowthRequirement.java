@@ -14,7 +14,7 @@ public class MachineOnlyGrowthRequirement implements IWorldGrowthRequirement {
     private final Pair<String, Object[]> unlocalizedDesc;
 
     public MachineOnlyGrowthRequirement() {
-        this.unlocalizedDesc = Pair.of(Reference.MOD_ID_LOWER + "_growthReq.lockout.machineOnly", new Object[] {});
+        this.unlocalizedDesc = Pair.of(Reference.MOD_ID + "_growthReq.lockout.machineOnly", new Object[] {});
     }
 
     @Override

@@ -25,8 +25,8 @@ public class CropSynthesizerFrontend extends RecipeMapFrontend {
         GTNEIDefaultHandler.FixedPositionedStack pStack) {
         if (pStack.isFluid()) {
             currentTip.add(
-                EnumChatFormatting.RESET + StatCollector
-                    .translateToLocal(Reference.MOD_ID_LOWER + "_nei.cropSynthesizer.tooltip.fluidCost"));
+                EnumChatFormatting.RESET
+                    + StatCollector.translateToLocal(Reference.MOD_ID + "_nei.cropSynthesizer.tooltip.fluidCost"));
             return currentTip;
         }
         return super.handleNEIItemInputTooltip(currentTip, pStack);
@@ -38,7 +38,7 @@ public class CropSynthesizerFrontend extends RecipeMapFrontend {
         if (!pStack.isFluid()) {
             currentTip.add(
                 EnumChatFormatting.RESET
-                    + StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.cropSynthesizer.tooltip.output"));
+                    + StatCollector.translateToLocal(Reference.MOD_ID + "_nei.cropSynthesizer.tooltip.output"));
             return currentTip;
         }
         return super.handleNEIItemOutputTooltip(currentTip, pStack);

@@ -26,7 +26,7 @@ public class SeedGeneratorFrontend extends RecipeMapFrontend {
         if (pStack.isFluid()) {
             currentTip.add(
                 EnumChatFormatting.RESET
-                    + StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.seedGenerator.tooltip.fluidCost"));
+                    + StatCollector.translateToLocal(Reference.MOD_ID + "_nei.seedGenerator.tooltip.fluidCost"));
             return currentTip;
         }
         return super.handleNEIItemInputTooltip(currentTip, pStack);

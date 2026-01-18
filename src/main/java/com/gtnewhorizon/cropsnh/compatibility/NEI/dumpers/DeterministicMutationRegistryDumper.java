@@ -12,7 +12,7 @@ import codechicken.nei.config.DataDumper;
 public class DeterministicMutationRegistryDumper extends DataDumper {
 
     public DeterministicMutationRegistryDumper() {
-        super("tools.dump." + Reference.MOD_ID_LOWER + ".deterministicMutations");
+        super("tools.dump." + Reference.MOD_ID + ".deterministicMutations");
     }
 
     @Override

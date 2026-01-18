@@ -64,7 +64,7 @@ public class CropStickWailaProvider implements IWailaDataProvider {
         if (te instanceof TileEntityCrop teCrop) {
             if (teCrop.hasCrop()) {
                 if (teCrop.hasWeed()) {
-                    information.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.weeds"));
+                    information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weeds"));
                 } else {
                     String header, value;
                     ISeedData seedData = nbt.hasKey(Names.NBT.crop, Data.NBTType._object)
@@ -77,7 +77,7 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     if (seedData.getStats()
                         .isAnalyzed()) {
                         // Add the seed name
-                        header = StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.seed");
+                        header = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seed");
                         value = StatCollector.translateToLocal(
                             seedData.getCrop()
                                 .getUnlocalizedName());
@@ -85,14 +85,14 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     }
 
                     // add growth progress
-                    header = StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.progress");
+                    header = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.progress");
                     value = String.format("%3.2f", nbt.getFloat("waila_perc") * 100.0f);
                     information.add(header + ": " + value + "%");
 
                     if (nbt.getBoolean(Names.NBT.sick)) {
                         information.add(
                             EnumChatFormatting.RED
-                                + StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.isSick")
+                                + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.isSick")
                                 + EnumChatFormatting.RESET);
                     }
 
@@ -109,28 +109,28 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                         information.add(
                             String.format(
                                 "%s -- %s: %d  %s: %d  %s: %d",
-                                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.stats"),
-                                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.growth"),
+                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.stats"),
+                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.growth"),
                                 stats.getGrowth(),
-                                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.gain"),
+                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.gain"),
                                 stats.getGain(),
-                                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.resistance"),
+                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.resistance"),
                                 stats.getResistance()));
                     }
                 }
             } else {
-                information.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.empty"));
+                information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.empty"));
             }
 
             information.add(
                 String.format(
                     "%s -- %s: %d  %s: %d  %s: %d",
-                    StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.soil"),
-                    StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.fertilizer"),
+                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.soil"),
+                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.fertilizer"),
                     nbt.getInteger(Names.NBT.fertilizer),
-                    StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.water"),
+                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.water"),
                     nbt.getInteger(Names.NBT.water),
-                    StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.weedEx"),
+                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weedEx"),
                     nbt.getInteger(Names.NBT.weedEX)));
         }
         return information;

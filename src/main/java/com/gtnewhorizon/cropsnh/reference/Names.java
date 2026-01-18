@@ -4,7 +4,7 @@ public final class Names {
 
     public static class L10N {
 
-        private static final String modPrefix = Reference.MOD_ID_LOWER + "_";
+        private static final String modPrefix = Reference.MOD_ID + "_";
         private static final String genericSeedPrefix = modPrefix + "genericSeeds.";
         private static final String growthReqPrefix = modPrefix + "growthReq.";
         public static final String unknownSeed = genericSeedPrefix + "unknown";

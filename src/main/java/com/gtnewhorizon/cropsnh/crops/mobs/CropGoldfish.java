@@ -42,8 +42,7 @@ public class CropGoldfish extends NHCropCard {
 
     @Override
     public String getFlavourText() {
-        return ConfigurationHandler.putAnEndToExistentialDread ? null
-            : Reference.MOD_ID_LOWER + "_crops.goldfish.flavour";
+        return ConfigurationHandler.putAnEndToExistentialDread ? null : Reference.MOD_ID + "_crops.goldfish.flavour";
     }
 
     @Override

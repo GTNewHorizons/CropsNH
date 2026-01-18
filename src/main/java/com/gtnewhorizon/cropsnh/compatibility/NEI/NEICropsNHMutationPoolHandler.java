@@ -62,7 +62,7 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
         public CachedMutationPoolRecipe(IMutationPool pool, ItemStack firstStack, ICropCard firstCrop) {
 
             this.poolNameLine = StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID_LOWER + "_nei.mutationPool.poolName",
+                Reference.MOD_ID + "_nei.mutationPool.poolName",
                 StatCollector.translateToLocal(pool.getUnlocalisedName()));
 
             int i = 0;
@@ -173,7 +173,7 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
     // returns the name for this recipe
     @Override
     public String getRecipeName() {
-        return StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.mutationPool.title");
+        return StatCollector.translateToLocal(Reference.MOD_ID + "_nei.mutationPool.title");
     }
 
     // returns the id for this recipe
@@ -185,7 +185,7 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
     // gets the texture to display the recipe in
     @Override
     public String getGuiTexture() {
-        return new ResourceLocation(Reference.MOD_ID_LOWER, "textures/gui/nei/mutationPool.png").toString();
+        return new ResourceLocation(Reference.MOD_ID, "textures/gui/nei/mutationPool.png").toString();
     }
 
     @Override

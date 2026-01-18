@@ -38,6 +38,6 @@ public abstract class CropBaseStoneLily extends NHCropCard {
 
     @Override
     protected String getBaseTexturePath() {
-        return Reference.MOD_ID_LOWER + ":crops/stoneLilies/" + this.materialName + "/";
+        return Reference.MOD_ID + ":crops/stoneLilies/" + this.materialName + "/";
     }
 }

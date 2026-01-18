@@ -44,7 +44,6 @@ public class CropSugarBeet extends NHCropCard {
     protected IIcon[] registerTextures(IIconRegister register) {
         // yes it uses the same textures as wild carrots, no idk why
         return new IIcon[] { register.registerIcon("carrots_stage_0"), register.registerIcon("carrots_stage_1"),
-            register.registerIcon("carrots_stage_2"),
-            register.registerIcon(Reference.MOD_ID_LOWER + ":crops/wildCarrot/3") };
+            register.registerIcon("carrots_stage_2"), register.registerIcon(Reference.MOD_ID + ":crops/wildCarrot/3") };
     }
 }

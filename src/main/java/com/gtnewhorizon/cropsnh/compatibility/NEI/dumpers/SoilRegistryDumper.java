@@ -12,7 +12,7 @@ import codechicken.nei.config.DataDumper;
 public class SoilRegistryDumper extends DataDumper {
 
     public SoilRegistryDumper() {
-        super("tools.dump." + Reference.MOD_ID_LOWER + ".soilRegistry");
+        super("tools.dump." + Reference.MOD_ID + ".soilRegistry");
     }
 
     @Override

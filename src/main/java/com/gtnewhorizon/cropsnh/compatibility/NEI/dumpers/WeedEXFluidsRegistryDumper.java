@@ -12,7 +12,7 @@ import codechicken.nei.config.DataDumper;
 public class WeedEXFluidsRegistryDumper extends DataDumper {
 
     public WeedEXFluidsRegistryDumper() {
-        super("tools.dump." + Reference.MOD_ID_LOWER + ".weedEXFluids");
+        super("tools.dump." + Reference.MOD_ID + ".weedEXFluids");
     }
 
     @Override

@@ -47,7 +47,7 @@ public class CropTrollplant extends NHCropCard {
 
     @Override
     public String getFlavourText() {
-        return Reference.MOD_ID_LOWER + "_crops.trollplant.flavour";
+        return Reference.MOD_ID + "_crops.trollplant.flavour";
     }
 
     @Override

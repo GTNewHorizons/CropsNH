@@ -31,7 +31,7 @@ public class CropPyrolusium extends NHCropCard {
 
     @Override
     public String getFlavourText() {
-        return ConfigurationHandler.enableEasterEggs ? Reference.MOD_ID_LOWER + "_crops.pyrolusium.flavour"
+        return ConfigurationHandler.enableEasterEggs ? Reference.MOD_ID + "_crops.pyrolusium.flavour"
             : super.getFlavourText();
     }
 

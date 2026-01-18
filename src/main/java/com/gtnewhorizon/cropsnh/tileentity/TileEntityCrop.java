@@ -260,12 +260,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     public void getPlantLensStatus(List<String> information) {
         if (this.hasCrop()) {
             if (this.hasWeed()) {
-                information.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.weeds"));
+                information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weeds"));
             } else {
                 String header, value;
 
                 // Add the seed name
-                header = StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.seed");
+                header = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seed");
                 value = StatCollector.translateToLocal(
                     this.seed.getCrop()
                         .getUnlocalizedName());
@@ -276,7 +276,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                     if (this.isSick) {
                         information.add(
                             EnumChatFormatting.RED
-                                + StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.isSick")
+                                + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.isSick")
                                 + EnumChatFormatting.RESET);
                     }
 
@@ -293,32 +293,32 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                         information.add(
                             String.format(
                                 "%s -- %s: %d  %s: %d  %s: %d",
-                                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.stats"),
-                                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.growth"),
+                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.stats"),
+                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.growth"),
                                 this.seed.getStats()
                                     .getGrowth(),
-                                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.gain"),
+                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.gain"),
                                 this.seed.getStats()
                                     .getGain(),
-                                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.resistance"),
+                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.resistance"),
                                 this.seed.getStats()
                                     .getResistance()));
                     }
                 }
             }
         } else {
-            information.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.empty"));
+            information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.empty"));
         }
 
         information.add(
             String.format(
                 "%s -- %s: %d  %s: %d  %s: %d",
-                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.soil"),
-                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.fertilizer"),
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.soil"),
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.fertilizer"),
                 this.fertilizerStorage,
-                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.water"),
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.water"),
                 this.waterStorage,
-                StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.weedEx"),
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weedEx"),
                 this.weedEXStorage));
     }
 

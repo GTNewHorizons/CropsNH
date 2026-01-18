@@ -30,7 +30,7 @@ public class CropSaltyRoot extends NHCropCard {
 
     @Override
     public String getFlavourText() {
-        return Reference.MOD_ID_LOWER + "_crops.saltyRoot.flavour";
+        return Reference.MOD_ID + "_crops.saltyRoot.flavour";
     }
 
     @Override

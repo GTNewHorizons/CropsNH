@@ -36,20 +36,20 @@ public class PyrolusiumLeafVariant extends MaterialLeafVariant {
             switch (rand) {
                 case 1:
                     this.iconName += ".canada";
-                    this.unlocalizedExtraTooltip = Reference.MOD_ID_LOWER + "_tooltip.pyrolusiumLeaf.canada";
+                    this.unlocalizedExtraTooltip = Reference.MOD_ID + "_tooltip.pyrolusiumLeaf.canada";
                     break;
                 case 2:
                     this.iconName += ".banada";
-                    this.unlocalizedExtraTooltip = Reference.MOD_ID_LOWER + "_tooltip.pyrolusiumLeaf.banana";
+                    this.unlocalizedExtraTooltip = Reference.MOD_ID + "_tooltip.pyrolusiumLeaf.banana";
                     break;
                 default:
                     this.iconName += "." + XSTR.XSTR_INSTANCE.nextInt(4);
-                    this.unlocalizedExtraTooltip = Reference.MOD_ID_LOWER + "_tooltip.pyrolusiumLeaf.normal";
+                    this.unlocalizedExtraTooltip = Reference.MOD_ID + "_tooltip.pyrolusiumLeaf.normal";
                     break;
             }
         } else {
             this.iconName = ".1";
-            this.unlocalizedExtraTooltip = Reference.MOD_ID_LOWER + "_tooltip.pyrolusiumLeaf.normal";
+            this.unlocalizedExtraTooltip = Reference.MOD_ID + "_tooltip.pyrolusiumLeaf.normal";
         }
     }
 

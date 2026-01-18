@@ -23,12 +23,12 @@ import gregtech.api.recipe.metadata.SimpleRecipeMetadataKey;
 public class CropsNHGTRecipeMaps {
 
     public static final RecipeMetadataKey<ICropCard> CROPSNH_CROP_METADATAKEY = SimpleRecipeMetadataKey
-        .create(ICropCard.class, Reference.MOD_ID_LOWER + "_crop");
+        .create(ICropCard.class, Reference.MOD_ID + "_crop");
     public static final RecipeMetadataKey<ICropMutation> CROPSNH_CROP_MUTATION_METADATAKEY = SimpleRecipeMetadataKey
-        .create(ICropMutation.class, Reference.MOD_ID_LOWER + "_crop_mutation");
+        .create(ICropMutation.class, Reference.MOD_ID + "_crop_mutation");
 
     public static final RecipeMap<SeedGeneratorBackend> fakeSeedGeneratorRecipes = RecipeMapBuilder
-        .of(Reference.MOD_ID_LOWER + ".recipes.seedGenerator", SeedGeneratorBackend::new)
+        .of(Reference.MOD_ID + ".recipes.seedGenerator", SeedGeneratorBackend::new)
         .maxIO(2, 1, 1, 0)
         .minInputs(1, 1)
         .frontend(SeedGeneratorFrontend::new)
@@ -42,7 +42,7 @@ public class CropsNHGTRecipeMaps {
         .build();
 
     public static final RecipeMap<CropBreederBackend> fakeCropBreederRecipeMap = RecipeMapBuilder
-        .of(Reference.MOD_ID_LOWER + ".recipes.cropBreeder", CropBreederBackend::new)
+        .of(Reference.MOD_ID + ".recipes.cropBreeder", CropBreederBackend::new)
         .maxIO(6, 1, 1, 0)
         .minInputs(2, 1)
         .frontend(CropBreederFrontend::new)
@@ -56,7 +56,7 @@ public class CropsNHGTRecipeMaps {
         .build();
 
     public static final RecipeMap<CropGeneExtractorBackend> fakeCropGeneExtractorRecipeMap = RecipeMapBuilder
-        .of(Reference.MOD_ID_LOWER + ".recipes.cropGeneExtractor", CropGeneExtractorBackend::new)
+        .of(Reference.MOD_ID + ".recipes.cropGeneExtractor", CropGeneExtractorBackend::new)
         .maxIO(2, 1, 0, 0)
         .minInputs(2, 0)
         .useSpecialSlot()
@@ -74,7 +74,7 @@ public class CropsNHGTRecipeMaps {
         .build();
 
     public static final RecipeMap<CropSynthesizerBackend> fakeCropSynthesizerRecipeMap = RecipeMapBuilder
-        .of(Reference.MOD_ID_LOWER + ".recipes.cropSynthesizer", CropSynthesizerBackend::new)
+        .of(Reference.MOD_ID + ".recipes.cropSynthesizer", CropSynthesizerBackend::new)
         .maxIO(4, 1, 1, 0)
         .minInputs(4, 1)
         .frontend(CropSynthesizerFrontend::new)

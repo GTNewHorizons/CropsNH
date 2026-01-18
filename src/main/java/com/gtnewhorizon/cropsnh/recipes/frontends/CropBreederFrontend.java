@@ -41,7 +41,7 @@ public class CropBreederFrontend extends RecipeMapFrontend {
         if (pStack.isFluid()) {
             currentTip.add(
                 EnumChatFormatting.RESET
-                    + StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.cropBreeder.tooltip.fluidCost"));
+                    + StatCollector.translateToLocal(Reference.MOD_ID + "_nei.cropBreeder.tooltip.fluidCost"));
         }
         return currentTip;
     }
@@ -52,10 +52,10 @@ public class CropBreederFrontend extends RecipeMapFrontend {
         currentTip = super.handleNEIItemOutputTooltip(currentTip, pStack);
         currentTip.add(
             EnumChatFormatting.RESET
-                + StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.cropBreeder.tooltip.outputStats"));
+                + StatCollector.translateToLocal(Reference.MOD_ID + "_nei.cropBreeder.tooltip.outputStats"));
         currentTip.add(
             EnumChatFormatting.RESET
-                + StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.cropBreeder.tooltip.successChance"));
+                + StatCollector.translateToLocal(Reference.MOD_ID + "_nei.cropBreeder.tooltip.successChance"));
         return currentTip;
     }
 

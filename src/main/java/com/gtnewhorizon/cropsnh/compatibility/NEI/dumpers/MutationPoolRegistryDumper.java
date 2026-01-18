@@ -12,7 +12,7 @@ import codechicken.nei.config.DataDumper;
 public class MutationPoolRegistryDumper extends DataDumper {
 
     public MutationPoolRegistryDumper() {
-        super("tools.dump." + Reference.MOD_ID_LOWER + ".mutationPools");
+        super("tools.dump." + Reference.MOD_ID + ".mutationPools");
     }
 
     @Override

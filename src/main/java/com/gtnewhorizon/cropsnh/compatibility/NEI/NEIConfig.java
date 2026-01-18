@@ -86,7 +86,7 @@ public class NEIConfig implements IConfigureNEI {
             CropsNH.INSTANCE,
             "NEIPlugins",
             "register-crafting-handler",
-            Reference.MOD_ID_LOWER + "@" + handler.getRecipeName() + "@" + handler.getOverlayIdentifier());
+            Reference.MOD_ID + "@" + handler.getRecipeName() + "@" + handler.getOverlayIdentifier());
         GuiCraftingRecipe.craftinghandlers.add(handler);
         GuiUsageRecipe.usagehandlers.add(handler);
     }

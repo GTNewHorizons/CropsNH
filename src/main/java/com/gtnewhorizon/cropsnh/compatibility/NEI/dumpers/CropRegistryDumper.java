@@ -12,7 +12,7 @@ import codechicken.nei.config.DataDumper;
 public class CropRegistryDumper extends DataDumper {
 
     public CropRegistryDumper() {
-        super("tools.dump." + Reference.MOD_ID_LOWER + ".cropRegistry");
+        super("tools.dump." + Reference.MOD_ID + ".cropRegistry");
     }
 
     @Override

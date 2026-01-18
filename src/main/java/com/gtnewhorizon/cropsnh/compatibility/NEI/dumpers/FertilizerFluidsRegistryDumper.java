@@ -12,7 +12,7 @@ import codechicken.nei.config.DataDumper;
 public class FertilizerFluidsRegistryDumper extends DataDumper {
 
     public FertilizerFluidsRegistryDumper() {
-        super("tools.dump." + Reference.MOD_ID_LOWER + ".fertilizerFluids");
+        super("tools.dump." + Reference.MOD_ID + ".fertilizerFluids");
     }
 
     @Override

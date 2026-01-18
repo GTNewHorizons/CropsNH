@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemEnvironmentalModule extends Item {
 
     private final static HashMap<Integer, ModuleData> VARIANTS = new HashMap<>();
-    private final static String NAME_BASE = "item." + Reference.MOD_ID_LOWER + ":environmentalModule";
+    private final static String NAME_BASE = "item." + Reference.MOD_ID + ":environmentalModule";
     private final static String NAME_TEMPLATE = NAME_BASE + ".template";
     private final static String NAME_BLANK = NAME_BASE + ".blank";
     private IIcon missingIcon = null;
@@ -39,14 +39,14 @@ public class ItemEnvironmentalModule extends Item {
 
         public ModuleData(BiomeDictionary.Type tag) {
             this.tag = tag;
-            this.unlocalizedName = Reference.MOD_ID_LOWER + "_tooltip.biomeTag."
+            this.unlocalizedName = Reference.MOD_ID + "_tooltip.biomeTag."
                 + tag.name()
                     .toUpperCase();
         }
 
         public void registerIcon(IIconRegister register) {
             this.icon = register.registerIcon(
-                Reference.MOD_ID_LOWER + ":environmentalModule/"
+                Reference.MOD_ID + ":environmentalModule/"
                     + tag.name()
                         .toUpperCase());
         }
@@ -139,7 +139,7 @@ public class ItemEnvironmentalModule extends Item {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister register) {
         this.missingIcon = register.registerIcon("missingno");
-        this.cardIcon = register.registerIcon(Reference.MOD_ID_LOWER + ":environmentalModule/blank");
+        this.cardIcon = register.registerIcon(Reference.MOD_ID + ":environmentalModule/blank");
         for (ModuleData data : VARIANTS.values()) {
             data.registerIcon(register);
         }

@@ -3,8 +3,7 @@ package com.gtnewhorizon.cropsnh.reference;
 public final class Reference {
 
     public static final String MOD_NAME = "CropsNH";
-    public static final String MOD_ID = "CropsNH";
-    public static final String MOD_ID_LOWER = MOD_ID.toLowerCase();
+    public static final String MOD_ID = "cropsnh";
 
     public static final String VER_MAJOR = "@MAJOR@";
     public static final String VER_MINOR = "@MINOR@";

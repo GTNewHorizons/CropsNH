@@ -28,7 +28,7 @@ public class ItemGaiaWart extends ItemFood {
 
     @SideOnly(value = Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon(Reference.MOD_ID_LOWER + ":" + Names.Objects.gaiaWart);
+        this.itemIcon = iconRegister.registerIcon(Reference.MOD_ID + ":" + Names.Objects.gaiaWart);
     }
 
     @Override

@@ -39,7 +39,7 @@ public abstract class ItemSpadeNH extends ItemTool implements ICropLeftClickHand
     public ItemSpadeNH(float damage, ToolMaterial mat) {
         super(damage, mat, BLOCKS_AFFECTED);
         this.setMaxStackSize(1);
-        this.setTextureName(Reference.MOD_ID_LOWER + ":" + getInternalName());
+        this.setTextureName(Reference.MOD_ID + ":" + getInternalName());
         this.setCreativeTab(CropsNHTab.cropsNHTab);
         this.setMaxDamage(0);
         RegisterHelper.registerItem(this, getInternalName());
@@ -50,7 +50,7 @@ public abstract class ItemSpadeNH extends ItemTool implements ICropLeftClickHand
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
-        list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip." + this.getInternalName()));
+        list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip." + this.getInternalName()));
     }
 
     @Override

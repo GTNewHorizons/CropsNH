@@ -46,7 +46,7 @@ public abstract class NHCropCard extends CropCard {
 
     @Override
     public String getUnlocalizedName() {
-        return Reference.MOD_ID_LOWER + "_crops." + internalId;
+        return Reference.MOD_ID + "_crops." + internalId;
     }
 
     @Override
@@ -111,7 +111,7 @@ public abstract class NHCropCard extends CropCard {
      * @return The root path for all textures related to this crop.
      */
     protected String getBaseTexturePath() {
-        return Reference.MOD_ID_LOWER + ":crops/" + this.internalId + "/";
+        return Reference.MOD_ID + ":crops/" + this.internalId + "/";
     }
 
     /**

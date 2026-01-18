@@ -12,7 +12,7 @@ import codechicken.nei.config.DataDumper;
 public class HydrationFluidsRegistryDumper extends DataDumper {
 
     public HydrationFluidsRegistryDumper() {
-        super("tools.dump." + Reference.MOD_ID_LOWER + ".hydrationFluids");
+        super("tools.dump." + Reference.MOD_ID + ".hydrationFluids");
     }
 
     @Override

@@ -18,7 +18,7 @@ public class ConfigurationHandler {
     public static class Categories {
 
         public static final String CATEGORY_WEEDS = "weeds";
-        public static final String CATEGORY_CROPSNH = Reference.MOD_ID_LOWER;
+        public static final String CATEGORY_CROPSNH = Reference.MOD_ID;
         public static final String CATEGORY_MIGRATIONS = "migrations";
         public static final String CATEGORY_CROPS = "crops";
         public static final String CATEGORY_RENDERING = "rendering";
@@ -63,7 +63,7 @@ public class ConfigurationHandler {
         if (config == null) {
             String directory = event.getModConfigurationDirectory()
                 .toString() + '/'
-                + Reference.MOD_ID_LOWER
+                + Reference.MOD_ID
                 + '/';
             config = new Configuration(new File(directory, "Configuration.cfg"));
         }

@@ -43,7 +43,7 @@ public class ItemPlantLens extends ItemCropsNH implements ICropRightClickHandler
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
-        list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip." + Names.Objects.plantLens));
+        list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip." + Names.Objects.plantLens));
     }
 
     @Override

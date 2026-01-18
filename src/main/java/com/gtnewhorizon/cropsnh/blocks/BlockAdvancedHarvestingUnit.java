@@ -42,38 +42,37 @@ public class BlockAdvancedHarvestingUnit extends CropsNHBlockIndustrialFarmTired
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
         super.addInformation(stack, player, tooltip, advancedTooltips);
         // specific
-        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.advancedHarvestingUnit.0"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.advancedHarvestingUnit.0"));
         if (advancedTooltips) {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.advancedHarvestingUnit.1.adv",
+                    Reference.MOD_ID + "_tooltip.advancedHarvestingUnit.1.adv",
                     HARVEST_ROUND_MULTIPLIER * 100));
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.advancedHarvestingUnit.2.adv",
+                    Reference.MOD_ID + "_tooltip.advancedHarvestingUnit.2.adv",
                     BASE_POWER_INCREASE * 100));
         } else {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.advancedHarvestingUnit.1",
+                    Reference.MOD_ID + "_tooltip.advancedHarvestingUnit.1",
                     HARVEST_ROUND_MULTIPLIER * 100));
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID_LOWER + "_tooltip.advancedHarvestingUnit.2",
+                    Reference.MOD_ID + "_tooltip.advancedHarvestingUnit.2",
                     BASE_POWER_INCREASE * 100));
         }
         // generic
-        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.upgrade_must_match_seed_bed"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgrade_must_match_seed_bed"));
         tooltip.add(
-            StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID_LOWER + "_tooltip.upgrade_count_limited",
-                MAX_UPGRADE_COUNT));
+            StatCollector
+                .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.upgrade_count_limited", MAX_UPGRADE_COUNT));
     }
 
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         super.registerBlockIcons(aIconRegister);
         this.mBottomIcon = this.mTopIcon = aIconRegister
-            .registerIcon(Reference.MOD_ID_LOWER + ":industrialFarm/advancedHarvestingUnit");
+            .registerIcon(Reference.MOD_ID + ":industrialFarm/advancedHarvestingUnit");
     }
 }

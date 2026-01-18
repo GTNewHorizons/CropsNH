@@ -89,8 +89,8 @@ public class CropsNHAlcoholBottle extends ItemPotion {
             .getIconIndex();
         this.icons[7] = ItemList.Bottle_Vodka.get(1)
             .getIconIndex();
-        this.icons[8] = iconRegister.registerIcon(Reference.MOD_ID_LOWER + ":jagermeister");
-        this.icons[9] = iconRegister.registerIcon(Reference.MOD_ID_LOWER + ":jagermeister");
+        this.icons[8] = iconRegister.registerIcon(Reference.MOD_ID + ":jagermeister");
+        this.icons[9] = iconRegister.registerIcon(Reference.MOD_ID + ":jagermeister");
     }
 
     @Override
@@ -99,7 +99,7 @@ public class CropsNHAlcoholBottle extends ItemPotion {
         if (meta >= textureNames.length) {
             meta = 0;
         }
-        return "item." + Reference.MOD_ID_LOWER + ":" + textureNames[meta] + ".bottled";
+        return "item." + Reference.MOD_ID + ":" + textureNames[meta] + ".bottled";
     }
 
     @Override
@@ -120,32 +120,31 @@ public class CropsNHAlcoholBottle extends ItemPotion {
             case 0:
             case 3:
             case 6:
-                list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.alcohol.0"));
+                list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.alcohol.0"));
                 break;
             case 1:
-                list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.alcohol.1"));
+                list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.alcohol.1"));
                 break;
             case 2:
-                list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.alcohol.2"));
+                list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.alcohol.2"));
                 break;
             case 4:
             case 7:
-                list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.alcohol.3"));
+                list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.alcohol.3"));
                 break;
             case 5:
-                list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.alcohol.4"));
+                list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.alcohol.4"));
                 break;
             case 8:
             case 9:
                 Collections.addAll(
                     list,
-                    GTUtility
-                        .breakLines(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.alcohol.5")));
+                    GTUtility.breakLines(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.alcohol.5")));
                 list.add("");
                 if (CropsNHUtils.getItemMeta(stack) == 8) {
-                    list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.alcohol.6"));
+                    list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.alcohol.6"));
                 } else {
-                    list.add(StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_tooltip.alcohol.7"));
+                    list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.alcohol.7"));
                 }
                 break;
         }

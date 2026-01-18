@@ -39,12 +39,10 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
     public static final int Y_base = 64;
 
     // gets the texture to display the recipe in
-    private static final String background2 = new ResourceLocation(
-        Reference.MOD_ID_LOWER,
-        "textures/gui/nei/breeding2.png").toString();
-    private static final String background4 = new ResourceLocation(
-        Reference.MOD_ID_LOWER,
-        "textures/gui/nei/breeding4.png").toString();
+    private static final String background2 = new ResourceLocation(Reference.MOD_ID, "textures/gui/nei/breeding2.png")
+        .toString();
+    private static final String background4 = new ResourceLocation(Reference.MOD_ID, "textures/gui/nei/breeding4.png")
+        .toString();
 
     private static final int COLOR_BLACK = 1644054;
 
@@ -230,7 +228,7 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
     // returns the name for this recipe
     @Override
     public String getRecipeName() {
-        return StatCollector.translateToLocal(Reference.MOD_ID_LOWER + "_nei.breeding.title");
+        return StatCollector.translateToLocal(Reference.MOD_ID + "_nei.breeding.title");
     }
 
     // returns the id for this recipe

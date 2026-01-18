@@ -14,7 +14,7 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
  */
 public class MaxLightLevelGrowthRequirement implements IWorldGrowthRequirement {
 
-    private final static String unlocalizedDesc = Reference.MOD_ID_LOWER + "_growthReq.maxLight.format";
+    private final static String unlocalizedDesc = Reference.MOD_ID + "_growthReq.maxLight.format";
     private final int maxLightLevel;
 
     public MaxLightLevelGrowthRequirement(int maxLightLevel) {
