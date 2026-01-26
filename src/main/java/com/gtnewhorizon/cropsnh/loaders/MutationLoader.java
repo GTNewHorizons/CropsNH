@@ -27,6 +27,7 @@ import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.BonsaiDarkOak;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.BonsaiJungle;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.BonsaiOak;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.BonsaiRubber;
+import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.BonsaiSlimy;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.BonsaiSpruce;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.BrownMushroom;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Cactus;
@@ -366,6 +367,11 @@ public class MutationLoader {
             .register();
         new CropMutation(BonsaiRubber, BonsaiJungle, BonsaiSpruce)
             .addToMutationPools(aTree, aBonsai, aLeafy)
+            .register();
+        // not adding it to the bonsai and tree pools on purpose, since it's
+        // intended to be a bit harder to get your hands on without exploration.
+        new CropMutation(BonsaiSlimy, Slimeplant, BonsaiJungle, BonsaiRubber)
+            .addToMutationPools(aSlime, aBouncy, aSticky)
             .register();
         // endregion bonsais
 
