@@ -707,13 +707,13 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         BiomeGenBase biome = this.worldObj.getBiomeGenForCoordsBody(this.xCoord, this.zCoord);
         BiomeDictionary.Type[] biomeTags = BiomeDictionary.getTypesForBiome(biome);
         // check number of liked biomes.
-        int likedBiomes = (int) this.seed.getCrop()
+        int likedBiomes = this.hasCrop() ? (int) this.seed.getCrop()
             .getLikedBiomeTags()
             .stream()
             .filter(
                 liked -> Arrays.stream(biomeTags)
                     .anyMatch(tag -> liked == tag))
-            .count();
+            .count() : 0;
         // check if block can see the sky.
         boolean canSeeSky = this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord + 1, this.zCoord);
         // calc available nutrients
