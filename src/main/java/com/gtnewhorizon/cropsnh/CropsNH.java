@@ -86,6 +86,7 @@ public class CropsNH {
         LogHelper.debug("Starting Initialization");
         proxy.registerEventHandlers();
         proxy.registerRenderers();
+        OreDictLoader.init();
         WailaRegistry.onInit();
         TiCCompatHandler.onInit();
         MTELoader.init();
