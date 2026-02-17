@@ -18,7 +18,9 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropRegistry;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
+import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.DebugHelper;
@@ -92,6 +94,8 @@ public class CropRegistry implements ICropRegistry {
         }
         this.cropRegistry.put(crop.getId(), crop);
         this.registrationOrder.add(crop);
+        // register the ore dict while we're at it
+        OreDictLoader.register(crop.getSeedItem(SeedStats.DEFAULT_ANALYZED), "listAllSeed");
         crop.setNumericId(cropIdCounter++);
         registerAlternateSeeds(alternateSeedList, crop);
     }
