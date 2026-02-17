@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
@@ -13,6 +14,7 @@ import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
+import cpw.mods.fml.common.FMLLog;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTRecipeBuilder;
 
@@ -52,14 +54,19 @@ public abstract class SeedGeneratorFakeRecipeLoader extends BaseGTRecipeLoader {
             .metadata(CropsNHGTRecipeMaps.CROPSNH_CROP_METADATAKEY, cc)
             .fake();
         // if we are using a catalyst, the path changes a bit
-        if (catalyst instanceof Object[]) {
-            Optional<GTRecipe.GTRecipe_WithAlt> opt = recipe.itemInputs(seed, catalyst)
-                .forceOreDictInput()
-                .buildWithAlt();
-            if (opt.isPresent()) {
-                CropsNHGTRecipeMaps.fakeSeedGeneratorRecipes.add(opt.get());
+        if (catalyst instanceof Object[]cat) {
+            if (OreDictionary.getOres((String) cat[0], false)
+                .isEmpty()) {
+                FMLLog.bigWarning("ore dict replication catalyst points to invalid item: " + cat[0]);
             } else {
-                LogHelper.warn("failed to generate recipe with ore-dict catalyst for " + cc.getId());
+                Optional<GTRecipe.GTRecipe_WithAlt> opt = recipe.itemInputs(seed, catalyst)
+                    .forceOreDictInput()
+                    .buildWithAlt();
+                if (opt.isPresent()) {
+                    CropsNHGTRecipeMaps.fakeSeedGeneratorRecipes.add(opt.get());
+                } else {
+                    LogHelper.warn("failed to generate recipe with ore-dict catalyst for " + cc.getId());
+                }
             }
             return;
         } else if (catalyst instanceof ItemStack) {
