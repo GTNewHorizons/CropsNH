@@ -2,8 +2,6 @@ package com.gtnewhorizon.cropsnh.farming.requirements;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +42,8 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.blocks.GTBlockOre;
 import gregtech.common.blocks.TileEntityOres;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 /**
  * Used to prevent a crop from growing unless there is a specific block under it.
@@ -51,7 +51,7 @@ import gregtech.common.blocks.TileEntityOres;
 public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBreedingRequirement,
     IMachineBreedingRequirement, IMachineGrowthRequirement {
 
-    private static final HashMap<String, BlockUnderRequirement> registrations = new HashMap<>();
+    private static final Object2ObjectOpenHashMap<String, BlockUnderRequirement> registrations = new Object2ObjectOpenHashMap<>();
 
     public static BlockUnderRequirement get(String name) {
         if (!registrations.containsKey(name)) {
@@ -73,8 +73,8 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
     }
 
     private final String materialDescription;
-    private final Set<Materials> materials = new HashSet<>();
-    private final Set<String> oreDictionaries = new HashSet<String>();
+    private final Set<Materials> materials = new ObjectOpenHashSet<>();
+    private final Set<String> oreDictionaries = new ObjectOpenHashSet<>();
     private final MetaSet<Block> blocks = new MetaSet<>();
     private final Pair<String, Object[]> unlocalizedDesc;
 

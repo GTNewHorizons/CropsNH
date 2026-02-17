@@ -1,15 +1,16 @@
 package com.gtnewhorizon.cropsnh.utility;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.stream.Stream;
 
 import net.minecraftforge.oredict.OreDictionary;
 
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+
 public class MetaSet<K> {
 
     // null keys = wildcard
-    private final HashMap<K, HashSet<Integer>> map = new HashMap<>();
+    private final Object2ObjectOpenHashMap<K, IntOpenHashSet> map = new Object2ObjectOpenHashMap<>();
 
     /**
      * Adds an item to the set.
@@ -21,19 +22,15 @@ public class MetaSet<K> {
     public boolean add(K key, int meta) {
         // wildcard goes first
         if (isWildCard(meta)) {
-            map.put(key, null);
+            this.map.put(key, null);
             return true;
         }
         // check we need to add a new meta set
-        if (!map.containsKey(key)) {
-            map.put(key, new HashSet<>());
-        }
-        // set
-        return map.get(key)
+        return this.map.computeIfAbsent(key, k -> new IntOpenHashSet())
             .add(meta);
     }
 
-    private static final HashSet<Integer> UNKNOWN_KEY = new HashSet<>();
+    private static final IntOpenHashSet UNKNOWN_KEY = new IntOpenHashSet();
 
     /**
      * Gets the value for an item in the map
@@ -43,7 +40,7 @@ public class MetaSet<K> {
      * @return The value ot insert.
      */
     public boolean contains(K key, int meta) {
-        HashSet<Integer> set = map.getOrDefault(key, UNKNOWN_KEY);
+        IntOpenHashSet set = this.map.getOrDefault(key, UNKNOWN_KEY);
         // check if the key invalid
         if (set == UNKNOWN_KEY) return false;
         // else return true if it's null (wildcard) or if the meta exists in the set

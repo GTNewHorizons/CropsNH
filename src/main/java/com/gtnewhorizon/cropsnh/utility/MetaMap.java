@@ -5,10 +5,12 @@ import java.util.stream.Stream;
 
 import net.minecraftforge.oredict.OreDictionary;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+
 public class MetaMap<K, V> {
 
-    private HashMap<K, HashMap<Integer, V>> map = new HashMap<>();
-    private HashMap<K, V> wildcards = new HashMap<>();
+    private final HashMap<K, Int2ObjectOpenHashMap<V>> map = new HashMap<>();
+    private final HashMap<K, V> wildcards = new HashMap<>();
 
     /**
      * Inserts an item into meta map.
@@ -24,11 +26,7 @@ public class MetaMap<K, V> {
             return;
         }
         // don't clear wildcards so that wildcards can be used as a base value.
-        if (!this.map.containsKey(key)) {
-            // else ensure that the meta map exists.
-            this.map.put(key, new HashMap<>());
-        }
-        this.map.get(key)
+        this.map.computeIfAbsent(key, k -> new Int2ObjectOpenHashMap<>())
             .put(meta, value);
     }
 
@@ -59,14 +57,17 @@ public class MetaMap<K, V> {
             return false;
         }
         // if dest meta map doesn't exist create it.
-        if (!map.containsKey(key)) {
-            map.put(key, new HashMap<>());
+        Int2ObjectOpenHashMap<V> metaMap = this.map.get(key);
+        if (metaMap == null) {
+            metaMap = new Int2ObjectOpenHashMap<>();
+            metaMap.put(meta, value);
+            this.map.put(key, metaMap);
+            return true;
         }
-        // skip if the meta already exists
-        if (map.containsKey(meta)) return false;
-        // else abort
-        map.get(key)
-            .put(meta, value);
+        // abort if meta is found
+        if (metaMap.containsKey(meta)) return false;
+        // else insert
+        metaMap.put(meta, value);
         return true;
     }
 
@@ -83,7 +84,7 @@ public class MetaMap<K, V> {
         }
         // check if the key is
         if (!this.map.containsKey(key)) return null;
-        HashMap<Integer, V> metaMap = this.map.get(key);
+        Int2ObjectOpenHashMap<V> metaMap = this.map.get(key);
         if (metaMap.containsKey(meta)) {
             return metaMap.get(meta);
         }
@@ -108,7 +109,7 @@ public class MetaMap<K, V> {
             return this.wildcards.getOrDefault(key, defaultValue);
         }
         // fetch the meta map
-        HashMap<Integer, V> metaMap = map.get(key);
+        Int2ObjectOpenHashMap<V> metaMap = map.get(key);
         return metaMap.getOrDefault(meta, defaultValue);
     }
 
