@@ -624,8 +624,9 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, false)
             .addGlassEnergyLimitInfo()
             .addInfo(
-                StatCollector.translateToLocal(
-                    EnumChatFormatting.GREEN + Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade"))
+                EnumChatFormatting.GREEN
+                    + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade")
+                    + EnumChatFormatting.RESET)
             .addCasingInfoRange("Agricultural Casing", 8 * 2 + MIN_SLICES * 2, 8 * 2 + MAX_SLICES * 2, false)
             .addEnergyHatch("Any Casing", 1)
             .addInputBus("Any Casing", 1)
