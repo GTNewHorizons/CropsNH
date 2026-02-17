@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.crops.food;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
@@ -11,7 +12,9 @@ public class CropHuckleberry extends CropFood {
 
     public CropHuckleberry() {
         super("huckleberry", new Color(0x0E0116), new Color(0x2A1736));
-        this.addDrop(OreDictHelper.getCopiedOreStack("cropHuckleberry", 1), 100_00);
+
+        this.addDrop(CropsNHItemList.huckleBerry.get(1), 100_00);
+
         this.addAlternateSeed("seedHuckleberry");
         this.addAlternateSeed("cropHuckleberry");
         // mostly appears along the appalachia and neighbouring flats in Canada and the US

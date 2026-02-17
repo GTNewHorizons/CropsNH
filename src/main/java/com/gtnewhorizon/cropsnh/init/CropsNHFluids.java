@@ -32,7 +32,7 @@ public class CropsNHFluids {
     public static void preInit() {
         // could probably use a propper GT Material but this is faster
         CropsNHFluids.enrichedFertilizer = FluidUtils.addGTFluidNonMolten(
-            Reference.MOD_ID + ":EnrichedFertilizer",
+            Reference.MOD_ID + ".enrichedFertilizer",
             "Enriched Fertilizer",
             new short[] { 40, 229, 21, 100 },
             4,
@@ -43,7 +43,7 @@ public class CropsNHFluids {
             true);
 
         CropsNHFluids.fertilizer = FluidUtils.addGTFluidNonMolten(
-            Reference.MOD_ID + ":fertilizer",
+            Reference.MOD_ID + ".fertilizer",
             "Fertilizer",
             new short[] { 45, 170, 45, 100 },
             4,

@@ -4,17 +4,18 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-
-import gregtech.api.enums.ItemList;
+import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropTomato extends CropFood {
 
     public CropTomato() {
         super("tomato", new Color(0x91101F), new Color(0xE3321F));
-        // TODO: MOVE TOMATOS TO CROPS NH
-        this.addDrop(ItemList.Crop_Drop_Tomato.get(1), 75_00);
-        this.addDrop(ItemList.Crop_Drop_MTomato.get(1), 25_00);
+
+        this.addDrop(OreDictHelper.getCopiedOreStack("cropTomato", 1), 75_00);
+        this.addDrop(CropsNHItemList.maxTomato.get(1), 25_00);
+
         this.addAlternateSeed("seedTomato");
         this.addAlternateSeed("cropTomato");
         // Likes warm weather, and a good dose of water.

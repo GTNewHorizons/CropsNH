@@ -66,8 +66,9 @@ public class CropsNHItems {
                 ItemList.Spray_Empty.get(1)));
 
         berry = new ItemBerry();
-        CropsNHItemList.huckleBerry.set(new ItemStack(berry, 1, 0));
-        CropsNHItemList.sugarBeet.set(new ItemStack(berry, 1, 1));
+        CropsNHItemList.huckleBerry.set(new ItemStack(berry, 1, ItemBerry.META_HUCKLE));
+        CropsNHItemList.sugarBeet.set(new ItemStack(berry, 1, ItemBerry.META_SUGARBEET));
+        CropsNHItemList.maxTomato.set(new ItemStack(berry, 1, ItemBerry.META_MAX_TOMATO));
 
         bottledAlcohol = new CropsNHAlcoholBottle();
         CropsNHItemList.fermentedWheatBottle.set(new ItemStack(bottledAlcohol, 1, 0));

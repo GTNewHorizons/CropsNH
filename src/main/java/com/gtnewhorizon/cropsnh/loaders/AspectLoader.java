@@ -116,91 +116,13 @@ public class AspectLoader {
                 .add(Aspect.LIFE, 1)
                 .add(Aspect.WATER, 1)
         );
-
-        /* for when the GT food crops are moved over here
-        ItemList.Crop_Drop_Chilly.set(
-            addItem(
-                Crop_Drop_Chilly.ID,
-                "Chilly Pepper",
-                "It is red and hot",
-                "cropChilipepper",
-                new GTFoodStat(1, 0.3F, EnumAction.eat, null, false, true, false, Potion.confusion.id, 200, 1, 40),
-                new TCAspects.TC_AspectStack(TCAspects.MESSIS, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.IGNIS, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.FAMES, 1L)));
-        ItemList.Crop_Drop_Lemon.set(
-            addItem(
-                Crop_Drop_Lemon.ID,
-                "Lemon",
-                "Don't make Lemonade",
-                "cropLemon",
-                new GTFoodStat(1, 0.3F, EnumAction.eat, null, false, true, false),
-                new TCAspects.TC_AspectStack(TCAspects.MESSIS, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.HERBA, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.FAMES, 1L)));
-        ItemList.Crop_Drop_Tomato.set(
-            addItem(
-                Crop_Drop_Tomato.ID,
-                "Tomato",
-                "Solid Ketchup",
-                "cropTomato",
-                new GTFoodStat(1, 0.2F, EnumAction.eat, null, false, true, false),
-                new TCAspects.TC_AspectStack(TCAspects.MESSIS, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.HERBA, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.FAMES, 1L)));
-        ItemList.Crop_Drop_MTomato.set(
-            addItem(
-                Crop_Drop_MTomato.ID,
-                "Max Tomato",
-                "Full Health in one Tomato",
-                "cropTomato",
-                new GTFoodStat(
-                    9,
-                    1.0F,
-                    EnumAction.eat,
-                    null,
-                    false,
-                    true,
-                    false,
-                    Potion.regeneration.id,
-                    100,
-                    100,
-                    100),
-                new TCAspects.TC_AspectStack(TCAspects.MESSIS, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.SANO, 3L),
-                new TCAspects.TC_AspectStack(TCAspects.FAMES, 1L)));
-        ItemList.Crop_Drop_Grapes.set(
-            addItem(
-                Crop_Drop_Grapes.ID,
-                "Grapes",
-                "Source of Wine",
-                "cropGrape",
-                new GTFoodStat(2, 0.3F, EnumAction.eat, null, false, true, false),
-                new TCAspects.TC_AspectStack(TCAspects.MESSIS, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.HERBA, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.FAMES, 1L)));
-        ItemList.Crop_Drop_Onion.set(
-            addItem(
-                Crop_Drop_Onion.ID,
-                "Onion",
-                "Taking over the whole Taste",
-                "cropOnion",
-                new GTFoodStat(2, 0.2F, EnumAction.eat, null, false, true, false),
-                new TCAspects.TC_AspectStack(TCAspects.MESSIS, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.HERBA, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.FAMES, 1L)));
-        ItemList.Crop_Drop_Cucumber.set(
-            addItem(
-                Crop_Drop_Cucumber.ID,
-                "Cucumber",
-                "Not a Sea Cucumber!",
-                "cropCucumber",
-                new GTFoodStat(1, 0.2F, EnumAction.eat, null, false, true, false),
-                new TCAspects.TC_AspectStack(TCAspects.MESSIS, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.HERBA, 1L),
-                new TCAspects.TC_AspectStack(TCAspects.FAMES, 1L)));
-         */
-        // endregion food crops
+        ThaumcraftApi.registerObjectTag(
+            CropsNHItemList.maxTomato.get(1),
+            new AspectList()
+                .add(Aspect.CROP, 1)
+                .add(Aspect.HEAL, 3)
+                .add(Aspect.HUNGER, 1)
+        );
 
         // region material crops
         addCropAspectsBasedOnMaterial(CropsNHItemList.bauxiaLeaf.get(1), Materials.Aluminium, defaultLeafAspects);

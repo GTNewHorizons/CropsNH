@@ -33,7 +33,7 @@ public class MaterialLeafLoader {
     public final static MaterialLeafVariant stargatiumLeaf    = new StargatiumLeafVariant(18, "stargatiumLeaf",    "naquadah");
     public final static MaterialLeafVariant thunderFlower     = new MaterialLeafVariant(  19, "thunderFlower",     "thorium");
     public final static MaterialLeafVariant tineTwig          = new MaterialLeafVariant(  20, "tineTwig",          "tin");
-    public final static MaterialLeafVariant titaniaLeaf       = new MaterialLeafVariant(  21, "titaniaLeaf",       "titaniaLeaf");
+    public final static MaterialLeafVariant titaniaLeaf       = new MaterialLeafVariant(  21, "titaniaLeaf",       "titanium");
     public final static MaterialLeafVariant uuaBerry          = new MaterialLeafVariant(  22, "uuaBerry",          "uua");
     public final static MaterialLeafVariant uumBerry          = new MaterialLeafVariant(  23, "uumBerry",          "uum");
     public final static MaterialLeafVariant saltyRoot         = new MaterialLeafVariant(  24, "saltyRoot",         "salt");

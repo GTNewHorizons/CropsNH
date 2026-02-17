@@ -180,6 +180,7 @@ public enum CropsNHItemList implements IItemContainer {
     // food crops
     huckleBerry,
     sugarBeet,
+    maxTomato,
     goldfish,
     gaiaWart,
 

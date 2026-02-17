@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.crops.food;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -16,7 +17,7 @@ public class CropSugarBeet extends NHCropCard {
     public CropSugarBeet() {
         super("sugarBeet", new Color(0xB3B3B3), new Color(0xFEFEFE));
 
-        this.addDrop(new ItemStack(CropsNHItems.berry, 1, 1), 100_00);
+        this.addDrop(CropsNHItemList.sugarBeet.get(1), 100_00);
 
         this.addAlternateSeed(new ItemStack(CropsNHItems.berry, 1, 1));
 
