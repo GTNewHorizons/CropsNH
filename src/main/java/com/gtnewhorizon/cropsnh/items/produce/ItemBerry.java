@@ -66,6 +66,7 @@ public class ItemBerry extends ItemFood {
     @Override
     public int func_150905_g(ItemStack itemStackIn) {
         return switch (CropsNHUtils.getItemMeta(itemStackIn)) {
+            case 2 -> 9;
             default -> super.func_150905_g(itemStackIn);
         };
     }
