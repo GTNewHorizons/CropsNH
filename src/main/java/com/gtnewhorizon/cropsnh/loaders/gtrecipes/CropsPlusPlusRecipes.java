@@ -506,7 +506,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 ItemList.Crop_Drop_Chilly.get(1),
                 Materials.CosmicNeutronium.getDustTiny(1),
                 ItemList.Crop_Drop_Lemon.get(64),
-                CropsNHItemList.teaLeaf.get(64),
+                OreDictHelper.getCopiedOreStack("cropTea", 64),
                 CropsNHItemList.magicEssence.get(8),
                 CropsNHItemList.spaceFlower.get(9))
             .fluidInputs(new FluidStack(CropsNHFluids.njagi, 50000))

@@ -105,12 +105,6 @@ public class AspectLoader {
         );
         addCropAspectsBasedOnMaterial(CropsNHItemList.sugarBeet.get(1), Materials.Sugar, defaultLeafAspects);
         ThaumcraftApi.registerObjectTag(
-            CropsNHItemList.teaLeaf.get(1),
-            new AspectList()
-                .add(Aspect.CROP, 1)
-                .add(Aspect.HEAL, 1)
-        );
-        ThaumcraftApi.registerObjectTag(
             CropsNHItemList.hops.get(1),
             new AspectList()
                 .add(Aspect.PLANT, 4)

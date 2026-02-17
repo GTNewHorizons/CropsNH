@@ -41,11 +41,10 @@ public class MaterialLeafLoader {
     public final static MaterialLeafVariant argentiaLeaf      = new MaterialLeafVariant(  26, "argentiaLeaf",      "silver");
     public final static MaterialLeafVariant ferrofernLeaf     = new MaterialLeafVariant(  27, "ferrofernLeaf",     "iron");
     public final static MaterialLeafVariant auroniaLeaf       = new MaterialLeafVariant(  28, "auroniaLeaf",       "gold");
-    public final static MaterialLeafVariant teaLeaf           = new MaterialLeafVariant(  29, "teaLeaf",           "tea");
-    public final static MaterialLeafVariant bobsYerUncleBerry = new MaterialLeafVariant(  30, "bobsYerUncleBerry", "emerald");
-    public final static MaterialLeafVariant starWart          = new MaterialLeafVariant(  31, "starWart",          "netherstar");
-    public final static MaterialLeafVariant hops              = new MaterialLeafVariant(  32, "hops",              "beer");
-    public final static MaterialLeafVariant hempStem          = new MaterialLeafVariant(  33, "hempStem",          "string");
+    public final static MaterialLeafVariant bobsYerUncleBerry = new MaterialLeafVariant(  29, "bobsYerUncleBerry", "emerald");
+    public final static MaterialLeafVariant starWart          = new MaterialLeafVariant(  30, "starWart",          "netherstar");
+    public final static MaterialLeafVariant hops              = new MaterialLeafVariant(  31, "hops",              "beer");
+    public final static MaterialLeafVariant hempStem          = new MaterialLeafVariant(  32, "hempStem",          "string");
     //spotless:on
 
     public static void preInit() {

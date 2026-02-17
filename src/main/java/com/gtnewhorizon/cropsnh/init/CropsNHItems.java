@@ -113,7 +113,6 @@ public class CropsNHItems {
         CropsNHItemList.argentiaLeaf.set(MaterialLeafLoader.argentiaLeaf.get());
         CropsNHItemList.ferrofernLeaf.set(MaterialLeafLoader.ferrofernLeaf.get());
         CropsNHItemList.auroniaLeaf.set(MaterialLeafLoader.auroniaLeaf.get());
-        CropsNHItemList.teaLeaf.set(MaterialLeafLoader.teaLeaf.get());
         CropsNHItemList.bobsYerUncleBerry.set(MaterialLeafLoader.bobsYerUncleBerry.get());
         CropsNHItemList.starWart.set(MaterialLeafLoader.starWart.get());
         CropsNHItemList.hops.set(MaterialLeafLoader.hops.get());

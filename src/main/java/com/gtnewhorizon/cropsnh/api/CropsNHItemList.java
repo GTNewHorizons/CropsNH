@@ -225,7 +225,6 @@ public enum CropsNHItemList implements IItemContainer {
     argentiaLeaf,
     ferrofernLeaf,
     auroniaLeaf,
-    teaLeaf,
     bobsYerUncleBerry,
     starWart,
     hops,
