@@ -8,8 +8,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-
-import mods.natura.common.NContent;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropBlightberry extends NHCropCard {
 
@@ -17,8 +17,11 @@ public class CropBlightberry extends NHCropCard {
 
     public CropBlightberry() {
         super("blightberry", new Color(0x3BC956), new Color(0xA3F2A0));
-        this.addDrop(new ItemStack(NContent.netherBerryItem, 2, 0), 100_00);
-        this.addAlternateSeed(new ItemStack(NContent.netherBerryItem, 1, 0));
+
+        ItemStack blightberry = CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 2, 0);
+        this.addDrop(blightberry.copy(), 100_00);
+
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(blightberry, 1));
 
         this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.DRY);
     }

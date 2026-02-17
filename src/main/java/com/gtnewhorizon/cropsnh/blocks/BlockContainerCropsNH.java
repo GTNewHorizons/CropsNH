@@ -7,7 +7,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.blocks.abstracts.BlockCropsNH;
-import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
@@ -51,8 +50,8 @@ public abstract class BlockContainerCropsNH extends BlockCropsNH implements ITil
      */
     protected abstract String getTileEntityName();
 
-    private static String wrapName(String name) {
-        return Reference.MOD_ID + ':' + Names.TileEntity.tileEntity + '_' + name;
+    public static String wrapName(String name) {
+        return Reference.MOD_ID + ':' + name;
     }
 
     @Override

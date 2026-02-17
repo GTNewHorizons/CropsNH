@@ -2,10 +2,13 @@ package com.gtnewhorizon.cropsnh.crops.oreberries;
 
 import java.awt.Color;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
@@ -17,7 +20,8 @@ public class CropVoidOreBerry extends CropOreBerry {
 
         this.addDrop(Materials.Void.getNuggets(1), 100_00);
 
-        this.addAlternateSeed(thaumcraft.api.ItemApi.getItem("itemResource", 17));
+        ItemStack voidSeed = CropsNHUtils.getModItem(ModUtils.Thaumcraft, "ItemResource", 1, 17);
+        this.addAlternateSeed(voidSeed);
 
         this.addBlockUnderRequirement("void");
 

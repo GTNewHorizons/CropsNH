@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.proxy;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.List;
@@ -29,7 +31,6 @@ import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.api.events.BlockScanningEvent;
-import gregtech.api.util.GTUtility;
 
 @SuppressWarnings("unused")
 public class ClientProxy extends CommonProxy {
@@ -140,8 +141,8 @@ public class ClientProxy extends CommonProxy {
             event.mList.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
-                    GTUtility.formatNumbers(teCrop.getNutrientScore()),
-                    GTUtility.formatNumbers(TileEntityCrop.MAX_NUTRIENT_SCORE)));
+                    formatNumber(teCrop.getNutrientScore()),
+                    formatNumber(TileEntityCrop.MAX_NUTRIENT_SCORE)));
             List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
             if (failedReqs != null) {
                 for (IGrowthRequirement req : failedReqs) {

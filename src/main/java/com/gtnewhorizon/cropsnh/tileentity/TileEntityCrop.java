@@ -59,7 +59,6 @@ import com.gtnewhorizon.cropsnh.utility.XSTR;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.util.GTModHandler;
 
 public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile {
 
@@ -1128,8 +1127,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             // mixin would work better but, this is a temp impl that I expect to remove as soon as UiE is in the pack.
             if (ModUtils.ExtraUtilities.isModLoaded()) {
                 if (EXTRA_UTILS_WATERING_CAN == null) {
-                    EXTRA_UTILS_WATERING_CAN = GTModHandler
-                        .getModItem(ModUtils.ExtraUtilities.getID(), "watering_can", 1, 0)
+                    EXTRA_UTILS_WATERING_CAN = CropsNHUtils.getModItem(ModUtils.ExtraUtilities, "watering_can", 1, 0)
                         .getItem();
                 }
                 if (heldItem.getItem() == EXTRA_UTILS_WATERING_CAN && CropsNHUtils.getItemMeta(heldItem) != 2) {
@@ -1140,12 +1138,9 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             // TODO: REMOVE UIE WATERING CAN COMPAT WHEN EVENT IS PROPERLY IMPLEMENTED
             if (ModUtils.UtilitiesInExcess.isModLoaded()) {
                 if (UTILITY_IN_EXCESS_WATERING_CAN == null) {
-                    ItemStack can = GTModHandler
-                        .getModItem(ModUtils.UtilitiesInExcess.getID(), "watering_can_basic", 1, 0);
-                    if (can == null) return false;
-                    Item canItem = can.getItem();
-                    if (canItem == null) return false;
-                    UTILITY_IN_EXCESS_WATERING_CAN = canItem.getClass();
+                    Item can = CropsNHUtils.getModItem(ModUtils.UtilitiesInExcess, "watering_can_basic", 1, 0)
+                        .getItem();
+                    UTILITY_IN_EXCESS_WATERING_CAN = can.getClass();
                 }
                 if (UTILITY_IN_EXCESS_WATERING_CAN.isInstance(heldItem.getItem())) {
                     this.addWater(10, 90, 100, false);

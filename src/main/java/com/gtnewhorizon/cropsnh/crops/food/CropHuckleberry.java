@@ -2,11 +2,10 @@ package com.gtnewhorizon.cropsnh.crops.food;
 
 import java.awt.Color;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropHuckleberry extends CropFood {
 

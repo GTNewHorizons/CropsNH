@@ -7,18 +7,25 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import gregtech.api.enums.VoltageIndex;
-import tconstruct.world.TinkerWorld;
 
 public class CropGoldOreBerry extends CropOreBerry {
 
     public CropGoldOreBerry() {
         super("gold", new Color(0xB3B315), new Color(0xFFFF1E));
-        this.addDrop(new ItemStack(TinkerWorld.oreBerries, 6, 1), 100_00);
-        this.addAlternateSeed(new ItemStack(TinkerWorld.oreBerries, 1, 1));
+
+        ItemStack oreBerries = CropsNHUtils.getModItem(ModUtils.TinkerConstruct, "oreBerries", 6, 1);
+        this.addDrop(oreBerries.copy(), 100_00);
+
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(oreBerries, 1));
+
         this.addBlockUnderRequirement("gold");
+
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
+
         this.addDuplicationCatalyst("nuggetGold", 1);
         // mesa
         this.addLikedBiomes(BiomeDictionary.Type.MESA, BiomeDictionary.Type.SANDY);

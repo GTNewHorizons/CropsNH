@@ -1,9 +1,6 @@
 package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 
 import static bartworks.API.recipe.BartWorksRecipeMaps.bacterialVatRecipes;
-import static gregtech.api.enums.Mods.Avaritia;
-import static gregtech.api.enums.Mods.BiomesOPlenty;
-import static gregtech.api.enums.Mods.Natura;
 import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
 import static gregtech.api.recipe.RecipeMaps.autoclaveRecipes;
 import static gregtech.api.recipe.RecipeMaps.brewingRecipes;
@@ -25,6 +22,7 @@ import static net.minecraftforge.fluids.FluidRegistry.getFluidStack;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -34,14 +32,15 @@ import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import bartworks.common.loaders.BioCultureLoader;
 import bartworks.common.loaders.BioItemList;
 import bartworks.system.material.Werkstoff;
 import bartworks.system.material.WerkstoffLoader;
-import biomesoplenty.api.content.BOPCBlocks;
 import cofh.core.util.energy.FurnaceFuelHandler;
+import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -54,7 +53,6 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.GTUtility;
-import thaumcraft.common.config.ConfigItems;
 
 public abstract class CropRecipes extends BaseGTRecipeLoader {
 
@@ -211,8 +209,8 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                 .addTo(compressorRecipes);
         }
 
-        if (BiomesOPlenty.isModLoaded()) {
-            lvRecipe(3, 25).itemInputs(GTModHandler.getModItem(BiomesOPlenty.ID, "treeMoss", 4))
+        if (ModUtils.BiomesOPlenty.isModLoaded()) {
+            lvRecipe(3, 25).itemInputs(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "treeMoss", 4, 0))
                 .itemOutputs(ItemList.IC2_Plantball.get(1L))
                 .duration(15 * SECONDS)
                 .eut(2)
@@ -300,6 +298,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.reactoriaStem, Materials.Uranium235);
 
         createOreDuplicationRecipe(MaterialLeafLoader.thunderFlower, Materials.Thorium);
+        createOreDuplicationRecipe(MaterialLeafLoader.thunderFlower, WerkstoffLoader.Thorianit);
 
         createOreDuplicationRecipe(MaterialLeafLoader.stargatiumLeaf, Materials.Naquadah);
         createOreDuplicationRecipe(MaterialLeafLoader.stargatiumLeaf, Materials.NaquadahEnriched);
@@ -312,7 +311,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.MeteoricIron, Voltage.HV);
             createOreDuplicationRecipe(
                 MaterialLeafLoader.spaceFlower.get(9),
-                getModItem(ModUtils.GalacticraftCore.ID, "item.meteoricIronRaw", 1, 0),
+                CropsNHUtils.getModItem(ModUtils.GalacticraftCore, "item.meteoricIronRaw", 1, 0),
                 Materials.MeteoricIron,
                 Voltage.HV);
         }
@@ -321,7 +320,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.Desh, Voltage.HV);
             createOreDuplicationRecipe(
                 MaterialLeafLoader.spaceFlower.get(9),
-                getModItem(ModUtils.GalacticraftMars.ID, "item.null", 1, 0),
+                CropsNHUtils.getModItem(ModUtils.GalacticraftMars, "item.null", 1, 0),
                 Materials.Desh,
                 Voltage.HV);
         }
@@ -428,19 +427,17 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     private static void addCanolaRecipes() {
         // canola oil extraction
-        GTValues.RA.stdBuilder()
-            .itemInputs(MaterialLeafLoader.canolaFLower.get(1))
+        recipe(2, 1, 60).itemInputs(MaterialLeafLoader.canolaFLower.get(1))
             .fluidOutputs(Materials.SeedOil.getFluid(125))
-            .duration(1 * SECONDS + 12 * TICKS)
-            .eut(2)
             .addTo(fluidExtractionRecipes);
     }
 
     private static void addMagicEssenceRecipes() {
         if (!ModUtils.Thaumcraft.isModLoaded()) return;
+        Item thaumResourceItem = GameRegistry.findItem(ModUtils.Thaumcraft.ID, "ItemResource");
         // salis mundus extraction
         ulvRecipe(3, 20).itemInputs(MaterialLeafLoader.magicEssence.get(1))
-            .itemOutputs(new ItemStack(ConfigItems.itemResource, 16, 14))
+            .itemOutputs(new ItemStack(thaumResourceItem, 16, 14))
             .addTo(RecipeMaps.extractorRecipes);
         // iron to thaumium conversion
         mvRecipe(12, 0).itemInputs(new Object[] { "dustIron", 4 }, CropsNHItemList.magicEssence.get(1))
@@ -452,7 +449,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .itemInputs(
                 new Object[] { "dustThaumium", 4 },
                 CropsNHItemList.magicEssence.get(2),
-                new ItemStack(ConfigItems.itemResource, 1, 17))
+                new ItemStack(thaumResourceItem, 1, 17))
             .fluidInputs(TierAcid.t2.get(4000))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Void, 4))
             .addTo(GTRecipeConstants.UniversalChemical);
@@ -469,8 +466,8 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                         new Object[] { "dustVoid", 4 },
                         CropsNHItemList.magicEssence.get(8),
                         new Object[] { "ingotOsmiridium", 1 },
-                        getModItem(ModUtils.BloodMagic.ID, "bloodMagicBaseItems", 4, 28),
-                        getModItem(ModUtils.BloodMagic.ID, "bloodMagicBaseItems", 4, 29))
+                        CropsNHUtils.getModItem(ModUtils.BloodMagic, "bloodMagicBaseItems", 4, 28),
+                        CropsNHUtils.getModItem(ModUtils.BloodMagic, "bloodMagicBaseItems", 4, 29))
                     .fluidInputs(TierAcid.t6.get(190_000))
                     .itemOutputs(GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Ichorium, 1))
                     .addTo(GTRecipeConstants.UniversalChemical);
@@ -482,10 +479,11 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                     Materials.Platinum.getMolten(288),
                     Materials.MeteoricIron.getMolten(144),
                     TierAcid.t5.get(64_000))
+                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Mytryl, 1))
                 .addTo(multiblockChemicalReactorRecipes);
         }
         // Magic essence from salis
-        hvRecipe(7, 50).itemInputs(new ItemStack(ConfigItems.itemResource, 64, 14))
+        hvRecipe(7, 50).itemInputs(new ItemStack(thaumResourceItem, 64, 14))
             .fluidInputs(Materials.Void.getMolten(144 * 16))
             .itemOutputs(CropsNHItemList.magicEssence.get(1))
             .addTo(autoclaveRecipes);
@@ -494,7 +492,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         if (ModUtils.NewHorizonsCoreMod.isModLoaded() && ModUtils.WitchingGadgets.isModLoaded()) {
             evRecipe(5 * 60, 0).itemInputs(CropsNHItemList.magicEssence.get(64))
                 .fluidInputs(Materials.Ichorium.getMolten(144 * 3))
-                .itemOutputs(getModItem(ModUtils.NewHorizonsCoreMod.ID, "item.PrimordialPerlFragment", 3))
+                .itemOutputs(CropsNHUtils.getModItem(ModUtils.NewHorizonsCoreMod, "PrimordialPerlFragment", 3))
                 .addTo(autoclaveRecipes);
         }
     }
@@ -610,7 +608,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             return;
         }
         // glowing coral to sunnarium
-        ivRecipe(60 * 5 + 16, 0).itemInputs(new ItemStack(BOPCBlocks.coral1, 32, 15))
+        ivRecipe(60 * 5 + 16, 0).itemInputs(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "coral1", 32, 15))
             .fluidInputs(Materials.UUMatter.getFluid(1))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sunnarium, 2))
             .requiresCleanRoom()
@@ -620,22 +618,22 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     private static void addNetherBerryBrewingRecipes() {
         if (!ModUtils.Natura.isModLoaded()) return;
 
-        ulvRecipe(3, 40).itemInputs(getModItem(Natura.ID, "berry.nether", 16, 0))
+        ulvRecipe(3, 40).itemInputs(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 0))
             .fluidInputs(Materials.Water.getFluid(750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.regen"), 750))
             .addTo(brewingRecipes);
 
-        ulvRecipe(3, 40).itemInputs(getModItem(Natura.ID, "berry.nether", 16, 1))
+        ulvRecipe(3, 40).itemInputs(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 1))
             .fluidInputs(Materials.Water.getFluid(750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.nightvision"), 750))
             .addTo(brewingRecipes);
 
-        ulvRecipe(3, 40).itemInputs(getModItem(Natura.ID, "berry.nether", 16, 2))
+        ulvRecipe(3, 40).itemInputs(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 2))
             .fluidInputs(Materials.Water.getFluid(750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.speed"), 750))
             .addTo(brewingRecipes);
 
-        ulvRecipe(3, 40).itemInputs(getModItem(Natura.ID, "berry.nether", 16, 3))
+        ulvRecipe(3, 40).itemInputs(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 3))
             .fluidInputs(Materials.Water.getFluid(750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.strength"), 750))
             .addTo(brewingRecipes);
@@ -691,7 +689,9 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             if (ModUtils.Avaritia.isModLoaded()) {
                 // crustal matrix ingot to mysterious crystal.
                 zpmRecipe(12, 0)
-                    .itemInputs(getModItem(Avaritia.ID, "Resource", 1, 1), MaterialLeafLoader.spaceFlower.get(16))
+                    .itemInputs(
+                        CropsNHUtils.getModItem(ModUtils.Avaritia, "Resource", 1, 1),
+                        MaterialLeafLoader.spaceFlower.get(16))
                     .fluidInputs(TierAcid.t6.get())
                     .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.MysteriousCrystal, 4))
                     .addTo(UniversalChemical);

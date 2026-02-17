@@ -8,8 +8,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-
-import mods.natura.common.NContent;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropThornvine extends NHCropCard {
 
@@ -17,8 +17,11 @@ public class CropThornvine extends NHCropCard {
 
     public CropThornvine() {
         super("thornvine", new Color(0x987005), new Color(0xDFE485));
-        this.addDrop(new ItemStack(NContent.thornVines, 2), 100_00);
-        this.addAlternateSeed(new ItemStack(NContent.thornVines, 1));
+
+        ItemStack thornVines = CropsNHUtils.getModItem(ModUtils.Natura, "Thornvines", 2, 0);
+        this.addDrop(thornVines.copy(), 100_00);
+
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(thornVines, 1));
 
         this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.DRY);
     }

@@ -8,8 +8,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-
-import mods.natura.common.NContent;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropStingberry extends NHCropCard {
 
@@ -17,8 +17,12 @@ public class CropStingberry extends NHCropCard {
 
     public CropStingberry() {
         super("stingberry", new Color(0x727F3D), new Color(0x8BDC3C));
-        this.addDrop(new ItemStack(NContent.netherBerryItem, 2, 3), 100_00);
-        this.addAlternateSeed(new ItemStack(NContent.netherBerryItem, 1, 3));
+
+        ItemStack stingberry = CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 2, 3);
+        this.addDrop(stingberry.copy(), 100_00);
+
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(stingberry, 1));
+
         this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.HOT);
     }
 

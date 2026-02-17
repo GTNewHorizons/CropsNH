@@ -9,17 +9,18 @@ import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
-
-import twilightforest.item.TFItems;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropTorchberry extends NHCropCard {
 
     public CropTorchberry() {
         super("torchberry", new Color(0xAB934D), new Color(0xF5D36E));
 
-        this.addDrop(new ItemStack(TFItems.torchberries, 1), 100_00);
+        ItemStack torchberries = CropsNHUtils.getModItem(ModUtils.TwilightForest, "item.torchberries", 1, 0);
+        this.addDrop(torchberries.copy(), 100_00);
 
-        this.addAlternateSeed(new ItemStack(TFItems.torchberries, 1));
+        this.addAlternateSeed(torchberries.copy());
 
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
 

@@ -117,7 +117,7 @@ public class CropsNH {
     public void onLoadComplete(FMLLoadCompleteEvent event) {
         LogHelper.debug("Starting Load-Complete");
         CropLoader.loadComplete();
-        MigrationHandler.postLoadComplete();
+        MigrationHandler.loadComplete();
         LogHelper.debug("Load-Complete Complete");
     }
 

@@ -7,15 +7,14 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-
-import gregtech.api.enums.ItemList;
+import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropOnion extends CropFood {
 
     public CropOnion() {
         super("onion", new Color(0x4E1B3F), new Color(0x753C64));
         // TODO: MOVE ONION ITEM TO CROPS NH
-        this.addDrop(ItemList.Crop_Drop_Onion.get(1), 100_00);
+        this.addDrop(OreDictHelper.getCopiedOreStack("cropOnion", 1), 100_00);
         this.addAlternateSeed("seedOnion");
         this.addAlternateSeed("cropOnion");
         // Prefers siltier soils

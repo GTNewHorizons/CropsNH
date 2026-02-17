@@ -6,11 +6,9 @@ import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
-import ganymedes01.etfuturum.ModBlocks;
+import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
-import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
-import thaumcraft.common.config.ConfigBlocks;
 
 public class BlockUnderRequirementLoader {
 
@@ -34,8 +32,8 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("botaniaGranite").addOreDict("stoneGranite");
         // Et Futurum Stone Lilies
         if (ModUtils.EtFuturumRequiem.isModLoaded()) {
-            BlockUnderRequirement.get("tuff").addBlock(new BlockWithMeta(ModBlocks.TUFF.get(), 0));
-            BlockUnderRequirement.get("deepslate").addBlock(new BlockWithMeta(ModBlocks.DEEPSLATE.get()));
+            BlockUnderRequirement.get("tuff").addBlock(new BlockWithMeta(GameRegistry.findBlock(ModUtils.EtFuturumRequiem.ID, "tuff"), 0));
+            BlockUnderRequirement.get("deepslate").addBlock(new BlockWithMeta(GameRegistry.findBlock(ModUtils.EtFuturumRequiem.getID(), "deepslate")));
         }
         // vanilla ores
         BlockUnderRequirement.get("coal").addBlockAndOreDict().addMaterial(Materials.Coal);
@@ -89,7 +87,7 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("blaze").addOreDict("blockBlaze");
         BlockUnderRequirement.get("quicksilver").addOreDict("blockQuicksilver");
         if (ModUtils.Thaumcraft.isModLoaded()) {
-            BlockUnderRequirement.get("mixedCrystalCluster").addBlock(new BlockWithMeta(ConfigBlocks.blockCrystal, 6));
+            BlockUnderRequirement.get("mixedCrystalCluster").addBlock(new BlockWithMeta(GameRegistry.findBlock(ModUtils.Thaumcraft.ID, "blockCrystal"), 6));
         }
         // galacticraft
         if (ModUtils.GalacticraftCore.isModLoaded()) {

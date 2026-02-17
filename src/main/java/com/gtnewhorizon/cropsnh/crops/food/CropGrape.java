@@ -5,14 +5,13 @@ import java.awt.Color;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-
-import gregtech.api.enums.ItemList;
+import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropGrape extends CropFood {
 
     public CropGrape() {
         super("grape", new Color(0x4A1041), new Color(0x5D1451));
-        this.addDrop(ItemList.Crop_Drop_Grapes.get(1), 100_00);
+        this.addDrop(OreDictHelper.getCopiedOreStack("cropGrape"), 100_00);
         this.addAlternateSeed("seedGrape");
         this.addAlternateSeed("cropGrape");
         // likes warm soils mostly

@@ -8,16 +8,21 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-
-import biomesoplenty.api.content.BOPCBlocks;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropGlowingCoral extends NHCropCard {
 
     public CropGlowingCoral() {
         super("glowingCoral", new Color(0x7832DC), new Color(0xD6A1FF));
-        this.addDrop(new ItemStack(BOPCBlocks.coral1, 2, 15), 100_00);
-        this.addAlternateSeed(new ItemStack(BOPCBlocks.coral1, 1, 15));
+
+        ItemStack coral = CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "coral1", 2, 15);
+        this.addDrop(coral.copy(), 100_00);
+
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(coral, 1));
+
         this.addBlockUnderRequirement("glowstone");
+
         this.addDuplicationCatalyst("dustGlowstone", 1);
         // coral reef tags
         this.addLikedBiomes(BiomeDictionary.Type.WATER, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.RIVER);

@@ -19,7 +19,7 @@ public class CropSoulSandLily extends CropBaseStoneLily {
 
         this.addBlockUnderRequirement("soulSand");
 
-        this.addDuplicationCatalyst("soulSand", 1);
+        this.addDuplicationCatalyst(new ItemStack(Blocks.soul_sand, 1));
 
         this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.SPOOKY, BiomeDictionary.Type.SANDY);
     }

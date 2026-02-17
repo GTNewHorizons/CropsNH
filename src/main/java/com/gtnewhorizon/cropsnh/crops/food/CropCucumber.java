@@ -5,15 +5,14 @@ import java.awt.Color;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-
-import gregtech.api.enums.ItemList;
+import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropCucumber extends CropFood {
 
     public CropCucumber() {
         super("cucumber", new Color(0x13260D), new Color(0x259038));
         // TODO: MOVE ITEM DROP TO CROPS NH OR SOMETHING
-        this.addDrop(ItemList.Crop_Drop_Cucumber.get(1L), 100_00);
+        this.addDrop(OreDictHelper.getCopiedOreStack("cropCucumber", 1), 100_00);
         this.addAlternateSeed("seedCucumber");
         this.addAlternateSeed("cropCucumber");
         // likes warm soils mostly

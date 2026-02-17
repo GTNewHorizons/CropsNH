@@ -2,18 +2,18 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.util.GTOreDictUnificator;
-import twilightforest.item.TFItems;
 
 public class CropSteeleafranks extends NHCropCard {
 
@@ -23,7 +23,7 @@ public class CropSteeleafranks extends NHCropCard {
         super("steeleafranks", new Color(0x163916), new Color(0x327F32));
 
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Steeleaf, 1L), 25_00);
-        this.addDrop(new ItemStack(TFItems.steeleafIngot, 1, 0), 25_00);
+        this.addDrop(CropsNHUtils.getModItem(ModUtils.TwilightForest, "item.steeleafIngot", 1, 0), 25_00);
 
         this.addDuplicationCatalyst("dustSteeleaf", 1);
         this.addDuplicationCatalyst("ingotSteeleaf", 1);

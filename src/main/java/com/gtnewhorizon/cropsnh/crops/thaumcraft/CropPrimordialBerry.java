@@ -10,21 +10,18 @@ import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropPrimordialBerry extends NHCropCard {
 
     public CropPrimordialBerry() {
         super("primordialBerry", new Color(0x652150), new Color(0xA1D3A9));
 
-        ItemStack primPerl = thaumcraft.api.ItemApi.getItem("itemEldritchObject", 3)
-            .copy();
-        primPerl.stackSize = 1;
+        ItemStack primPerl = CropsNHUtils.getModItem(ModUtils.Thaumcraft, "ItemEldritchObject", 1, 3);
         this.addDrop(primPerl.copy(), 10000);
 
         this.addAlternateSeed(primPerl.copy());
-
-        this.addGrowthRequirement(BlockUnderRequirement.get("ichorium"));
 
         this.addLikedBiomes(BiomeDictionary.Type.END, BiomeDictionary.Type.MAGICAL);
     }

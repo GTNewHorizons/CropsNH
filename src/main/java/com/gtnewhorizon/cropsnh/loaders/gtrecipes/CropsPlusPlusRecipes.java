@@ -2,14 +2,13 @@ package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 
 import static bartworks.API.recipe.BartWorksRecipeMaps.bacterialVatRecipes;
 import static gregtech.api.recipe.RecipeMaps.brewingRecipes;
+import static gregtech.api.recipe.RecipeMaps.cannerRecipes;
 import static gregtech.api.recipe.RecipeMaps.centrifugeRecipes;
 import static gregtech.api.recipe.RecipeMaps.chemicalReactorRecipes;
 import static gregtech.api.recipe.RecipeMaps.distillationTowerRecipes;
 import static gregtech.api.recipe.RecipeMaps.distilleryRecipes;
 import static gregtech.api.recipe.RecipeMaps.fermentingRecipes;
-import static gregtech.api.recipe.RecipeMaps.fluidCannerRecipes;
 import static gregtech.api.recipe.RecipeMaps.mixerRecipes;
-import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeConstants.GLASS;
@@ -25,13 +24,14 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 import bartworks.common.loaders.BioCultureLoader;
 import bartworks.common.loaders.BioItemList;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.ToolDictNames;
 import gregtech.api.recipe.RecipeMaps;
@@ -125,14 +125,14 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
             .itemInputs(bottle)
             .itemOutputs(new ItemStack(Items.glass_bottle, 1, 0))
             .fluidOutputs(new FluidStack(fluid, 250))
-            .addTo(fluidCannerRecipes);
+            .addTo(cannerRecipes);
 
         // filling
         baseRecipe.copy()
             .itemInputs(new ItemStack(Items.glass_bottle, 1, 0))
             .fluidInputs(new FluidStack(fluid, 250))
             .itemOutputs(bottle)
-            .addTo(fluidCannerRecipes);
+            .addTo(cannerRecipes);
     }
 
     private static void addAlcoholRecipes() {
@@ -503,9 +503,9 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
 
         luvRecipe(0, 1)
             .itemInputs(
-                ItemList.Crop_Drop_Chilly.get(1),
+                OreDictHelper.getCopiedOreStack("cropChilipepper", 1),
                 Materials.CosmicNeutronium.getDustTiny(1),
-                ItemList.Crop_Drop_Lemon.get(64),
+                OreDictHelper.getCopiedOreStack("cropLemon", 64),
                 OreDictHelper.getCopiedOreStack("cropTea", 64),
                 CropsNHItemList.magicEssence.get(8),
                 CropsNHItemList.spaceFlower.get(9))
@@ -598,7 +598,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
 
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
             // bop berry
-            addDyeConversionRecipe(getModItem(ModUtils.BiomesOPlenty.ID, "food", 16, 0), dyered);
+            addDyeConversionRecipe(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "food", 16, 0), dyered);
         }
 
         // huckleberry
@@ -606,16 +606,16 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
 
         if (ModUtils.Natura.isModLoaded()) {
             // blight berry
-            addDyeConversionRecipe(getModItem(ModUtils.Natura.ID, "berry.nether", 16, 0), dyelime);
+            addDyeConversionRecipe(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 0), dyelime);
 
             // dusk berry
-            addDyeConversionRecipe(getModItem(ModUtils.Natura.ID, "berry.nether", 16, 1), dyelightgray);
+            addDyeConversionRecipe(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 1), dyelightgray);
 
             // sky berry
-            addDyeConversionRecipe(getModItem(ModUtils.Natura.ID, "berry.nether", 16, 2), dyelightblue);
+            addDyeConversionRecipe(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 2), dyelightblue);
 
             // sting berry
-            addDyeConversionRecipe(getModItem(ModUtils.Natura.ID, "berry.nether", 16, 3), dyelime);
+            addDyeConversionRecipe(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 3), dyelime);
         }
     }
 

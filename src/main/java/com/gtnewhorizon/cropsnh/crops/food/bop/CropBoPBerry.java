@@ -6,13 +6,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropBoPBerry extends CropFood {
 
     public CropBoPBerry() {
         super("bopBerry", new Color(0xB33636), new Color(0xFF4C4C));
-        this.addDrop(new ItemStack(biomesoplenty.api.content.BOPCItems.food, 3, 0), 100_00);
-        this.addAlternateSeed(new ItemStack(biomesoplenty.api.content.BOPCItems.food, 1, 0));
+
+        ItemStack bopBerry = CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "food", 3, 0);
+        this.addDrop(bopBerry.copy(), 100_00);
+
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(bopBerry, 1));
+
         this.addLikedBiomes(BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE);
     }
 

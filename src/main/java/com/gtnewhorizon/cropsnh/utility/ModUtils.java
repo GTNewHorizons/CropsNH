@@ -26,6 +26,7 @@ public enum ModUtils implements IMod {
     GregTech(ModIDs.GregTech),
     HodgePodge(ModIDs.HodgePodge),
     IndustrialCraft2(ModIDs.IndustrialCraft2),
+    GoodGenerator(ModIDs.GoodGenerator),
     Natura(ModIDs.Natura),
     NewHorizonsCoreMod(ModIDs.NewHorizonsCoreMod),
     NotEnoughItems(ModIDs.NotEnoughItems),
@@ -116,6 +117,7 @@ public enum ModUtils implements IMod {
         public static final String GalaxySpace = "GalaxySpace";
         public static final String HodgePodge = "hodgepodge";
         public static final String IndustrialCraft2 = "IC2";
+        public static final String GoodGenerator = "GoodGenerator";
         public static final String NewHorizonsCoreMod = "dreamcraft";
         public static final String NotEnoughItems = "NotEnoughItems";
         public static final String RandomThings = "RandomThings";

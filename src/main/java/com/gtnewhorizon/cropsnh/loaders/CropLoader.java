@@ -182,11 +182,10 @@ import com.gtnewhorizon.cropsnh.crops.witchery.CropSpanishMoss;
 import com.gtnewhorizon.cropsnh.crops.witchery.CropWaterArtichoke;
 import com.gtnewhorizon.cropsnh.crops.witchery.CropWolfsbane;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import gregtech.api.enums.ItemList;
-import gregtech.api.util.GTModHandler;
-import tconstruct.world.TinkerWorld;
 
 public class CropLoader {
 
@@ -298,8 +297,8 @@ public class CropLoader {
                 new Color(0x6C815D),
                 "Alblaka",
                 1,
-                GTModHandler.getModItem(ModUtils.IndustrialCraft2.ID, "blockRubSapling", 1, 0),
-                GTModHandler.getModItem(ModUtils.IndustrialCraft2.ID, "blockRubWood", 1, 0)
+                CropsNHUtils.getModItem(ModUtils.IndustrialCraft2, "blockRubSapling", 1, 0),
+                CropsNHUtils.getModItem(ModUtils.IndustrialCraft2, "blockRubWood", 1, 0)
             )
             .addDrop(ItemList.IC2_Resin.get(2), 5_00)
             .addLikedBiomes(BiomeDictionary.Type.CONIFEROUS, BiomeDictionary.Type.FOREST)
@@ -312,8 +311,8 @@ public class CropLoader {
                     new Color(0x96EEED),
                     "C0bra5",
                     1,
-                    new ItemStack(TinkerWorld.slimeSapling, 1, 0),
-                    new ItemStack(TinkerWorld.slimeGel, 1, 0),
+                    CropsNHUtils.getModItem(ModUtils.TinkerConstruct, "slime.sapling", 1, 0),
+                    CropsNHUtils.getModItem(ModUtils.TinkerConstruct, "slime.gel", 1, 1),
                     4
                 )
                 .addDuplicationCatalyst("slimeball", 1)

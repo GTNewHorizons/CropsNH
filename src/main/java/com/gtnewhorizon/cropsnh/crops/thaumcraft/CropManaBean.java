@@ -13,10 +13,11 @@ import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.ItemManaBean;
 
 public class CropManaBean extends NHCropCard {
@@ -48,7 +49,7 @@ public class CropManaBean extends NHCropCard {
     }
 
     private static ItemStack getBean(Aspect aspect) {
-        ItemStack bean = new ItemStack(ConfigItems.itemManaBean, 1);
+        ItemStack bean = CropsNHUtils.getModItem(ModUtils.Thaumcraft, "ItemManaBean", 1);;
         ((ItemManaBean) Objects.requireNonNull(bean.getItem())).setAspects(bean, (new AspectList()).add(aspect, 1));
         return bean;
     }

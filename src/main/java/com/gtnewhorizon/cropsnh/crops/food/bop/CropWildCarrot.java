@@ -9,15 +9,18 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-
-import biomesoplenty.api.content.BOPCItems;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropWildCarrot extends CropFood {
 
     public CropWildCarrot() {
         super("wildCarrot", new Color(0x96927E), new Color(0xD9D2B7));
-        this.addDrop(new ItemStack(BOPCItems.food, 1, 2), 100_00);
-        this.addAlternateSeed(new ItemStack(BOPCItems.food, 1, 2));
+
+        ItemStack wildCarrot = CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "food", 1, 2);
+        this.addDrop(wildCarrot.copy(), 100_00);
+
+        this.addAlternateSeed(wildCarrot.copy());
         // prefers sandier soils
         this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HOT, BiomeDictionary.Type.SANDY);
     }

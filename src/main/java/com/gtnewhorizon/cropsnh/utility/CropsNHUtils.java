@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
@@ -23,6 +22,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import org.jetbrains.annotations.Contract;
+
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.farming.SeedData;
@@ -31,6 +32,7 @@ import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -144,10 +146,25 @@ public abstract class CropsNHUtils {
      * @param aSize  The size of the new stack.
      * @return The copied stack with the requested size.
      */
-    public static ItemStack copyStackWithSize(@Nonnull ItemStack aStack, int aSize) {
+    @Contract("null, _ -> null")
+    public static ItemStack copyStackWithSize(ItemStack aStack, int aSize) {
         if (isStackInvalid(aStack)) return null;
         ItemStack ret = aStack.copy();
         ret.stackSize = aSize;
+        return ret;
+    }
+
+    public static ItemStack getModItem(ModUtils mod, String name, int amount, int meta) {
+        ItemStack ret = CropsNHUtils.getModItem(mod, name, amount);
+        Items.feather.setDamage(ret, meta);
+        return ret;
+    }
+
+    public static ItemStack getModItem(ModUtils mod, String name, int amount) {
+        ItemStack ret = GameRegistry.findItemStack(mod.ID, name, amount);
+        if (ret == null) throw new IllegalStateException("item " + mod.ID + ":" + name + " not found!");
+        ret = ret.copy();
+        ret.stackSize = amount;
         return ret;
     }
 

@@ -10,8 +10,8 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-
-import mods.natura.common.NContent;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropSaguaroCactus extends CropFood {
 
@@ -19,10 +19,14 @@ public class CropSaguaroCactus extends CropFood {
 
     public CropSaguaroCactus() {
         super("saguaroCactus", new Color(0x3D401B), new Color(0x828839));
-        this.addDrop(new ItemStack(NContent.saguaro, 2, 0), 50_00);
-        this.addDrop(new ItemStack(NContent.seedFood, 3, 0), 50_00);
-        this.addAlternateSeed(new ItemStack(NContent.seedFood, 1, 0));
-        this.addAlternateSeed(new ItemStack(NContent.saguaro, 1, 0));
+
+        ItemStack saguaro = CropsNHUtils.getModItem(ModUtils.Natura, "Saguaro", 2, 0);
+        ItemStack saguaroFruit = CropsNHUtils.getModItem(ModUtils.Natura, "saguaro.fruit", 3, 0);
+        this.addDrop(saguaro.copy(), 50_00);
+        this.addDrop(saguaroFruit, 50_00);
+
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(saguaro, 1));
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(saguaroFruit, 1));
         // likes a well drained soil
         this.addLikedBiomes(BiomeDictionary.Type.HOT, BiomeDictionary.Type.DRY, BiomeDictionary.Type.SANDY);
     }

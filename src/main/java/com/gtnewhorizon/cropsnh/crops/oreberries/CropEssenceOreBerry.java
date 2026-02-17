@@ -8,9 +8,10 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import gregtech.api.enums.VoltageIndex;
-import tconstruct.world.TinkerWorld;
 
 public class CropEssenceOreBerry extends CropOreBerry {
 
@@ -19,9 +20,10 @@ public class CropEssenceOreBerry extends CropOreBerry {
     public CropEssenceOreBerry() {
         super("essence", new Color(0xFF6BB324, true), new Color(0x99FF33));
 
-        this.addDrop(new ItemStack(TinkerWorld.oreBerries, 6, 5), 100_00);
+        ItemStack oreBerries = CropsNHUtils.getModItem(ModUtils.TinkerConstruct, "oreBerries", 6, 5);
+        this.addDrop(oreBerries.copy(), 100_00);
 
-        this.addAlternateSeed(new ItemStack(TinkerWorld.oreBerries, 1, 5));
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(oreBerries, 1));
 
         this.addBlockUnderRequirement("skull");
 

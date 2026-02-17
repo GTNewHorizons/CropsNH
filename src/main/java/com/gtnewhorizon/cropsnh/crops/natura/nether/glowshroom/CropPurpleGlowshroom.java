@@ -10,8 +10,8 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-
-import mods.natura.common.NContent;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropPurpleGlowshroom extends NHCropCard {
 
@@ -20,9 +20,10 @@ public class CropPurpleGlowshroom extends NHCropCard {
     public CropPurpleGlowshroom() {
         super("purpleGlowshroom", new Color(0x511FB6), new Color(0x8B2CD2));
 
-        this.addDrop(new ItemStack(NContent.glowshroom, 1, 1), 100_00);
+        ItemStack glowshroom = CropsNHUtils.getModItem(ModUtils.Natura, "Glowshroom", 1, 1);
+        this.addDrop(glowshroom.copy(), 100_00);
 
-        this.addAlternateSeed(new ItemStack(NContent.glowshroom, 1, 1));
+        this.addAlternateSeed(glowshroom.copy());
 
         this.addDuplicationCatalyst("dustGlowstone", 1);
 

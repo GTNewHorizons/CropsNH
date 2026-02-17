@@ -11,8 +11,11 @@ public class CropBarley extends CropFood {
 
     public CropBarley() {
         super("barley", new Color(0x285221), new Color(0x84C63D));
+
         this.addDrop(OreDictHelper.getCopiedOreStack("cropBarley", 1), 100_00);
+
         this.addAlternateSeed("seedBarley");
+
         // likes well drained soils
         this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.DRY);
     }

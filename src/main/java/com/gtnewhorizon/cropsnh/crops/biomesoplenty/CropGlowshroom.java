@@ -12,8 +12,8 @@ import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-
-import biomesoplenty.api.content.BOPCBlocks;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropGlowshroom extends NHCropCard {
 
@@ -21,8 +21,12 @@ public class CropGlowshroom extends NHCropCard {
 
     public CropGlowshroom() {
         super("glowshroom", new Color(0x45AD32), new Color(0x63FA48));
-        this.addDrop(new ItemStack(BOPCBlocks.mushrooms, 1, 3), 100_00);
-        this.addAlternateSeed(new ItemStack(BOPCBlocks.mushrooms, 1, 3));
+
+        ItemStack glowshroom = CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "mushrooms", 1, 3);
+        this.addDrop(glowshroom.copy(), 100_00);
+
+        this.addAlternateSeed(glowshroom.copy());
+
         this.addDuplicationCatalyst("dustGlowstone", 1);
         // part of mushroom forest + nether
         this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.MUSHROOM);

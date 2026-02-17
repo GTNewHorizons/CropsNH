@@ -17,7 +17,7 @@ public class MTELoader {
     public final static int CROP_MANAGER_HV_MTE_ID = 28003;
     public final static int CROP_MANAGER_EV_MTE_ID = 28004;
     public final static int CROP_MANAGER_IV_MTE_ID = 28005;
-    public final static int CROP_MANAGER_LuV_MTE_ID = 28006;
+    public final static int CROP_MANAGER_LUV_MTE_ID = 28006;
     public final static int CROP_MANAGER_ZPM_MTE_ID = 28007;
     public final static int CROP_MANAGER_UV_MTE_ID = 28008;
     public final static int CROP_MANAGER_UHV_MTE_ID = 28009;
@@ -25,9 +25,22 @@ public class MTELoader {
     public final static int CROP_MANAGER_UIV_MTE_ID = 28011;
     public final static int CROP_MANAGER_UMV_MTE_ID = 28012;
 
+    public final static int SEED_GENERATOR_LV_MTE_ID = 28013;
+    public final static int SEED_GENERATOR_MV_MTE_ID = 28014;
+    public final static int SEED_GENERATOR_HV_MTE_ID = 28015;
+    public final static int SEED_GENERATOR_EV_MTE_ID = 28016;
+    public final static int SEED_GENERATOR_IV_MTE_ID = 28017;
+    public final static int SEED_GENERATOR_LUV_MTE_ID = 28018;
+    public final static int SEED_GENERATOR_ZPM_MTE_ID = 28019;
+    public final static int SEED_GENERATOR_UV_MTE_ID = 28020;
+    public final static int SEED_GENERATOR_UHV_MTE_ID = 28021;
+    public final static int SEED_GENERATOR_UEV_MTE_ID = 28022;
+    public final static int SEED_GENERATOR_UIV_MTE_ID = 28023;
+    public final static int SEED_GENERATOR_UMV_MTE_ID = 28024;
+
     public final static int CROP_GENE_EXTRACTOR_EV_MTE_ID = 28037;
     public final static int CROP_GENE_EXTRACTOR_IV_MTE_ID = 28038;
-    public final static int CROP_GENE_EXTRACTOR_LU_V_MTE_ID = 28039;
+    public final static int CROP_GENE_EXTRACTOR_LUV_MTE_ID = 28039;
     public final static int CROP_GENE_EXTRACTOR_ZPM_MTE_ID = 28040;
     public final static int CROP_GENE_EXTRACTOR_UV_MTE_ID = 28041;
     public final static int CROP_GENE_EXTRACTOR_UHV_MTE_ID = 28042;
@@ -37,7 +50,7 @@ public class MTELoader {
 
     public final static int CROP_SYNTHESIZER_EV_MTE_ID = 28046;
     public final static int CROP_SYNTHESIZER_IV_MTE_ID = 28047;
-    public final static int CROP_SYNTHESIZER_LuV_MTE_ID = 28048;
+    public final static int CROP_SYNTHESIZER_LUV_MTE_ID = 28048;
     public final static int CROP_SYNTHESIZER_ZPM_MTE_ID = 28049;
     public final static int CROP_SYNTHESIZER_UV_MTE_ID = 28050;
     public final static int CROP_SYNTHESIZER_UHV_MTE_ID = 28051;
@@ -57,7 +70,7 @@ public class MTELoader {
         CropsNHItemList.CropManager_IV.set(
             new MTECropManager(CROP_MANAGER_IV_MTE_ID, VoltageIndex.IV, "Advanced Crop Manager IV").getStackForm(1L));
         CropsNHItemList.CropManager_LuV
-            .set(new MTECropManager(CROP_MANAGER_LuV_MTE_ID, VoltageIndex.LuV, "Elite Crop Manager").getStackForm(1L));
+            .set(new MTECropManager(CROP_MANAGER_LUV_MTE_ID, VoltageIndex.LuV, "Elite Crop Manager").getStackForm(1L));
         CropsNHItemList.CropManager_ZPM.set(
             new MTECropManager(CROP_MANAGER_ZPM_MTE_ID, VoltageIndex.ZPM, "Elite Crop Manager II").getStackForm(1L));
         CropsNHItemList.CropManager_UV
@@ -71,30 +84,39 @@ public class MTELoader {
         CropsNHItemList.CropManager_UMV.set(
             new MTECropManager(CROP_MANAGER_UMV_MTE_ID, VoltageIndex.UMV, "Epic Crop Manager IV").getStackForm(1L));
 
-        CropsNHItemList.SeedGenerator_LV
-            .set(new MTESeedGenerator(28013, VoltageIndex.LV, "Basic Seed Generator").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_MV
-            .set(new MTESeedGenerator(28014, VoltageIndex.MV, "Advanced Seed Generator").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_HV
-            .set(new MTESeedGenerator(28015, VoltageIndex.HV, "Advanced Seed Generator II").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_EV
-            .set(new MTESeedGenerator(28016, VoltageIndex.EV, "Advanced Seed Generator III").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_IV
-            .set(new MTESeedGenerator(28017, VoltageIndex.IV, "Advanced Seed Generator IV").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_LuV
-            .set(new MTESeedGenerator(28018, VoltageIndex.LuV, "Elite Seed Generator").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_ZPM
-            .set(new MTESeedGenerator(28019, VoltageIndex.ZPM, "Elite Seed Generator II").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_UV
-            .set(new MTESeedGenerator(28020, VoltageIndex.UV, "Ultimate Seed Replicator").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_UHV
-            .set(new MTESeedGenerator(28021, VoltageIndex.UHV, "Epic Seed Replicator").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_UEV
-            .set(new MTESeedGenerator(28022, VoltageIndex.UEV, "Epic Seed Replicator II").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_UIV
-            .set(new MTESeedGenerator(28023, VoltageIndex.UIV, "Epic Seed Replicator III").getStackForm(1L));
-        CropsNHItemList.SeedGenerator_UMV
-            .set(new MTESeedGenerator(28024, VoltageIndex.UMV, "Epic Seed Replicator IV").getStackForm(1L));
+        CropsNHItemList.SeedGenerator_LV.set(
+            new MTESeedGenerator(SEED_GENERATOR_LV_MTE_ID, VoltageIndex.LV, "Basic Seed Generator").getStackForm(1L));
+        CropsNHItemList.SeedGenerator_MV.set(
+            new MTESeedGenerator(SEED_GENERATOR_MV_MTE_ID, VoltageIndex.MV, "Advanced Seed Generator")
+                .getStackForm(1L));
+        CropsNHItemList.SeedGenerator_HV.set(
+            new MTESeedGenerator(SEED_GENERATOR_HV_MTE_ID, VoltageIndex.HV, "Advanced Seed Generator II")
+                .getStackForm(1L));
+        CropsNHItemList.SeedGenerator_EV.set(
+            new MTESeedGenerator(SEED_GENERATOR_EV_MTE_ID, VoltageIndex.EV, "Advanced Seed Generator III")
+                .getStackForm(1L));
+        CropsNHItemList.SeedGenerator_IV.set(
+            new MTESeedGenerator(SEED_GENERATOR_IV_MTE_ID, VoltageIndex.IV, "Advanced Seed Generator IV")
+                .getStackForm(1L));
+        CropsNHItemList.SeedGenerator_LuV.set(
+            new MTESeedGenerator(SEED_GENERATOR_LUV_MTE_ID, VoltageIndex.LuV, "Elite Seed Generator").getStackForm(1L));
+        CropsNHItemList.SeedGenerator_ZPM.set(
+            new MTESeedGenerator(SEED_GENERATOR_ZPM_MTE_ID, VoltageIndex.ZPM, "Elite Seed Generator II")
+                .getStackForm(1L));
+        CropsNHItemList.SeedGenerator_UV.set(
+            new MTESeedGenerator(SEED_GENERATOR_UV_MTE_ID, VoltageIndex.UV, "Ultimate Seed Replicator")
+                .getStackForm(1L));
+        CropsNHItemList.SeedGenerator_UHV.set(
+            new MTESeedGenerator(SEED_GENERATOR_UHV_MTE_ID, VoltageIndex.UHV, "Epic Seed Replicator").getStackForm(1L));
+        CropsNHItemList.SeedGenerator_UEV.set(
+            new MTESeedGenerator(SEED_GENERATOR_UEV_MTE_ID, VoltageIndex.UEV, "Epic Seed Replicator II")
+                .getStackForm(1L));
+        CropsNHItemList.SeedGenerator_UIV.set(
+            new MTESeedGenerator(SEED_GENERATOR_UIV_MTE_ID, VoltageIndex.UIV, "Epic Seed Replicator III")
+                .getStackForm(1L));
+        CropsNHItemList.SeedGenerator_UMV.set(
+            new MTESeedGenerator(SEED_GENERATOR_UMV_MTE_ID, VoltageIndex.UMV, "Epic Seed Replicator IV")
+                .getStackForm(1L));
 
         CropsNHItemList.CropBreeder_LV
             .set(new MTECropBreeder(28025, VoltageIndex.LV, "Basic Crop Breeder").getStackForm(1L));
@@ -128,7 +150,7 @@ public class MTELoader {
             new MTECropGeneExtractor(CROP_GENE_EXTRACTOR_IV_MTE_ID, VoltageIndex.IV, "Advanced Crop Gene Extractor")
                 .getStackForm(1L));
         CropsNHItemList.CropGeneExtractor_LuV.set(
-            new MTECropGeneExtractor(CROP_GENE_EXTRACTOR_LU_V_MTE_ID, VoltageIndex.LuV, "Elite Crop Gene Extractor")
+            new MTECropGeneExtractor(CROP_GENE_EXTRACTOR_LUV_MTE_ID, VoltageIndex.LuV, "Elite Crop Gene Extractor")
                 .getStackForm(1L));
         CropsNHItemList.CropGeneExtractor_ZPM.set(
             new MTECropGeneExtractor(CROP_GENE_EXTRACTOR_ZPM_MTE_ID, VoltageIndex.ZPM, "Elite Crop Gene Extractor II")
@@ -155,7 +177,7 @@ public class MTELoader {
             new MTECropSynthesizer(CROP_SYNTHESIZER_IV_MTE_ID, VoltageIndex.IV, "Advanced Crop Synthesizer")
                 .getStackForm(1L));
         CropsNHItemList.CropSynthesizer_LuV.set(
-            new MTECropSynthesizer(CROP_SYNTHESIZER_LuV_MTE_ID, VoltageIndex.LuV, "Elite Crop Synthesizer")
+            new MTECropSynthesizer(CROP_SYNTHESIZER_LUV_MTE_ID, VoltageIndex.LuV, "Elite Crop Synthesizer")
                 .getStackForm(1L));
         CropsNHItemList.CropSynthesizer_ZPM.set(
             new MTECropSynthesizer(CROP_SYNTHESIZER_ZPM_MTE_ID, VoltageIndex.ZPM, "Elite Crop Synthesizer II")

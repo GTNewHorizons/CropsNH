@@ -10,8 +10,8 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-
-import thaumcraft.common.config.ConfigBlocks;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropShimmerleaf extends NHCropCard {
 
@@ -20,9 +20,10 @@ public class CropShimmerleaf extends NHCropCard {
     public CropShimmerleaf() {
         super("shimmerleaf", new Color(0x78A59C), new Color(0xA9C6C1));
 
-        this.addDrop(new ItemStack(ConfigBlocks.blockCustomPlant, 1, 2), 100_00);
+        ItemStack silverleaf = CropsNHUtils.getModItem(ModUtils.Thaumcraft, "blockCustomPlant", 1, 2);
+        this.addDrop(silverleaf.copy(), 100_00);
 
-        this.addAlternateSeed(new ItemStack(ConfigBlocks.blockCustomPlant, 1, 2));
+        this.addAlternateSeed(silverleaf.copy());
 
         this.addBlockUnderRequirement("quicksilver");
 

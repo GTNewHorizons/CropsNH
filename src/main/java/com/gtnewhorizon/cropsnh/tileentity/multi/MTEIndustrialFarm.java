@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.tileentity.multi;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlocksTiered;
@@ -644,44 +645,44 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.0",
-                GTUtility.formatNumbers(this.mUpgradeTier)));
+                formatNumber(this.mUpgradeTier)));
         // capacity
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.1",
-                GTUtility.formatNumbers(this.mSeedCapacity)));
+                formatNumber(this.mSeedCapacity)));
         // Harvest Modifier
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.2",
-                GTUtility.formatNumbers(this.getHarvestRoundMultiplier() * 100.0f)));
+                formatNumber(this.getHarvestRoundMultiplier() * 100.0f)));
         // Growth Modifier
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.3",
-                GTUtility.formatNumbers(this.getGrowthSpeedMultiplier() * 100.0f)));
+                formatNumber(this.getGrowthSpeedMultiplier() * 100.0f)));
         // Water Usage per Cycle
         int waterUsage = this.getConsumablePotencyNeededPerCycle();
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.4",
-                GTUtility.formatNumbers(waterUsage),
-                GTUtility.formatNumbers(CYCLE_DURATION)));
+                formatNumber(waterUsage),
+                formatNumber(CYCLE_DURATION)));
         // Fertilizer Usage per Cycle
         int fertUsage = this.mFertilizerUnitCount > 0 ? waterUsage : 0;
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.5",
-                GTUtility.formatNumbers(fertUsage),
-                GTUtility.formatNumbers(CYCLE_DURATION)));
+                formatNumber(fertUsage),
+                formatNumber(CYCLE_DURATION)));
         // nutrient score
         ISeedData tSeedData = CropsNHUtils.getAnalyzedSeedData(this.getSeedStack());
         if (tSeedData != null) {
             ret.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
-                    GTUtility.formatNumbers(this.getNutrientScore(tSeedData)),
-                    GTUtility.formatNumbers(TileEntityCrop.MAX_NUTRIENT_SCORE)));
+                    formatNumber(this.getNutrientScore(tSeedData)),
+                    formatNumber(TileEntityCrop.MAX_NUTRIENT_SCORE)));
         }
         return ret.toArray(new String[0]);
     }

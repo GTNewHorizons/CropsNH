@@ -7,18 +7,20 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import gregtech.api.enums.VoltageIndex;
-import tconstruct.world.TinkerWorld;
 
 public class CropAluminiumOreBerry extends CropOreBerry {
 
     public CropAluminiumOreBerry() {
         super("aluminium", new Color(0x5687A3), new Color(0x80C8F0));
 
-        this.addDrop(new ItemStack(TinkerWorld.oreBerries, 6, 4), 100_00);
+        ItemStack oreBerries = CropsNHUtils.getModItem(ModUtils.TinkerConstruct, "oreBerries", 6, 4);
+        this.addDrop(oreBerries.copy(), 100_00);
 
-        this.addAlternateSeed(new ItemStack(TinkerWorld.oreBerries, 1, 4));
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(oreBerries, 1));
 
         this.addBlockUnderRequirement("aluminium");
 

@@ -8,15 +8,19 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-
-import biomesoplenty.api.content.BOPCBlocks;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropIvy extends NHCropCard {
 
     public CropIvy() {
         super("ivy", new Color(0x1B4509), new Color(0x338011));
-        this.addDrop(new ItemStack(BOPCBlocks.ivy, 2, 0), 100_00);
-        this.addAlternateSeed(new ItemStack(BOPCBlocks.ivy, 1, 0));
+
+        ItemStack ivy = CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "ivy", 2, 0);
+
+        this.addDrop(ivy.copy(), 100_00);
+
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(ivy, 2));
         // under-garden (nether)
         this.addLikedBiomes(
             BiomeDictionary.Type.NETHER,

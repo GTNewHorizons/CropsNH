@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.TierEU;
-import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipeBuilder;
 
 public abstract class BaseGTRecipeLoader {
@@ -71,14 +70,6 @@ public abstract class BaseGTRecipeLoader {
 
     protected static GTRecipeBuilder uxvRecipe(int seconds, int fraction) {
         return recipe(TierEU.RECIPE_UV, seconds, fraction);
-    }
-
-    protected static ItemStack getModItem(String modId, String name, int amount) {
-        return getModItem(modId, name, amount, 0);
-    }
-
-    protected static ItemStack getModItem(String modId, String name, int amount, int meta) {
-        return GTModHandler.getModItem(modId, name, amount, meta, MISSING);
     }
 
 }

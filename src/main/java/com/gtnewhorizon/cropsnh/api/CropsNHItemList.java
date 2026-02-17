@@ -10,6 +10,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+
 import gregtech.api.interfaces.IItemContainer;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
@@ -282,14 +284,14 @@ public enum CropsNHItemList implements IItemContainer {
         mHasNotBeenSet = false;
         if (aItem == null) return this;
         ItemStack aStack = new ItemStack(aItem, 1, 0);
-        mStack = GTUtility.copyAmount(1, aStack);
+        mStack = CropsNHUtils.copyStackWithSize(aStack, 1);
         return this;
     }
 
     @Override
     public IItemContainer set(ItemStack aStack) {
         mHasNotBeenSet = false;
-        mStack = GTUtility.copyAmount(1, aStack);
+        mStack = CropsNHUtils.copyStackWithSize(aStack, 1);
         return this;
     }
 
@@ -341,7 +343,7 @@ public enum CropsNHItemList implements IItemContainer {
             new NullPointerException().printStackTrace(GTLog.out);
             return GTUtility.copyAmount(aAmount, aReplacements);
         }
-        return GTUtility.copyAmount(aAmount, GTOreDictUnificator.get(mStack));
+        return CropsNHUtils.copyStackWithSize(mStack, (int) aAmount);
     }
 
     @Override
@@ -390,7 +392,7 @@ public enum CropsNHItemList implements IItemContainer {
         final String tKey = rStack.getUnlocalizedName() + ".with." + tCamelCasedDisplayNameBuilder + ".name";
 
         rStack.setStackDisplayName(GTLanguageManager.addStringLocalization(tKey, aDisplayName));
-        return GTUtility.copyAmount(aAmount, rStack);
+        return CropsNHUtils.copyStackWithSize(rStack, (int) aAmount);
     }
 
     @Override
@@ -398,7 +400,7 @@ public enum CropsNHItemList implements IItemContainer {
         ItemStack rStack = get(1, aReplacements);
         if (GTUtility.isStackInvalid(rStack)) return null;
         GTModHandler.chargeElectricItem(rStack, aEnergy, Integer.MAX_VALUE, true, false);
-        return GTUtility.copyAmount(aAmount, rStack);
+        return CropsNHUtils.copyStackWithSize(rStack, (int) aAmount);
     }
 
     @Override

@@ -2,22 +2,21 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MinLightLevelGrowthRequirement;
-
-import mods.natura.common.NContent;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropCotton extends NHCropCard {
 
     public CropCotton() {
         super("cotton", new Color(0xE366F5), new Color(0xFFC9FF));
 
-        this.addDrop(new ItemStack(NContent.plantItem, 1, 3), 100_00);
+        this.addDrop(CropsNHUtils.getModItem(ModUtils.Natura, "barleyFood", 1, 3), 100_00);
 
         this.addAlternateSeed("cropCotton");
         this.addAlternateSeed("seedCotton");
