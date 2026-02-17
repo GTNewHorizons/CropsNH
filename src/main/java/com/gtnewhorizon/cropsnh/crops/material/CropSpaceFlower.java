@@ -23,7 +23,7 @@ public class CropSpaceFlower extends NHCropCard {
         this.addDrop(CropsNHItemList.spaceFlower.get(1), 100_00);
 
         if (ModUtils.GalacticraftCore.isModLoaded()) {
-            this.addBlockUnderRequirement("moon");
+            this.addBlockUnderRequirement("space");
         }
 
         this.addGrowthRequirement(new MachineOnlyGrowthRequirement());

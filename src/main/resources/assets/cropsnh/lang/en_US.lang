@@ -584,7 +584,7 @@ cropsnh_growthReq.blockUnder.mixedCrystalCluster=Needs a mixed crystal cluster u
 
 
 # Galacticraft Blocks Growth Requirements
-cropsnh_growthReq.blockUnder.moon=Needs a block of from the moon under it to grow.
+cropsnh_growthReq.blockUnder.space=Needs a block of from space under it to grow.
 
 # Mutation Pool Names
 cropsnh_mutationPool.addictive=Addictive

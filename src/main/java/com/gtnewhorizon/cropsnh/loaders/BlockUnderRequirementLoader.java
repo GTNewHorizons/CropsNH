@@ -93,7 +93,7 @@ public class BlockUnderRequirementLoader {
         }
         // galacticraft
         if (ModUtils.GalacticraftCore.isModLoaded()) {
-            BlockUnderRequirement.get("moon").addBlock(new BlockWithMeta(GCBlocks.blockMoon));
+            BlockUnderRequirement.get("space").addOreDict("rockSpace");
         }
         // spotless:on
     }
