@@ -7,6 +7,7 @@ import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import ganymedes01.etfuturum.ModBlocks;
+import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import thaumcraft.common.config.ConfigBlocks;
@@ -53,7 +54,9 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("lead").addBlockAndOreDict().addMaterial(Materials.Lead);
         BlockUnderRequirement.get("magnesium").addBlockAndOreDict().addMaterial(Materials.Magnesium);
         BlockUnderRequirement.get("manganese").addBlockAndOreDict().addMaterial(Materials.Manganese);
-        BlockUnderRequirement.get("mica").addBlockAndOreDict().addMaterial(Materials.Mica);
+        BlockUnderRequirement.get("mica").addBlockAndOreDict().addMaterial(Materials.Mica)
+            // Cupronickel coil
+            .addBlock(new BlockWithMeta(GregTechAPI.sBlockCasings5, 0));
         BlockUnderRequirement.get("naquadah").addBlockAndOreDict().addMaterial(Materials.Naquadah);
         BlockUnderRequirement.get("netherStar").addBlockAndOreDict().addMaterial(Materials.NetherStar);
         BlockUnderRequirement.get("nickel").addBlockAndOreDict().addMaterial(Materials.Nickel);
