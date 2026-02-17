@@ -23,6 +23,8 @@ import gregtech.api.enums.VoltageIndex;
 
 public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
 
+    private final static double SLOT_MULTIPLIER = 2.5d;
+
     public BlockSeedBed() {
         super(
             Names.Objects.seedBed,
@@ -72,7 +74,7 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
 
     public static int getCapacity(int aTier) {
         int ret = MTECropManager.getHorizontalRadius(aTier) * 2 + 1;
-        return ret * ret;
+        return (int) ((ret * ret) * SLOT_MULTIPLIER);
     }
 
     public void addInformation(ItemStack aStack, EntityPlayer aPlayer, List<String> aTooltip,
