@@ -63,10 +63,10 @@ public class BlockAdvancedHarvestingUnit extends CropsNHBlockIndustrialFarmTired
                     BASE_POWER_INCREASE * 100));
         }
         // generic
-        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgrade_must_match_seed_bed"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgradeTierMustMatchSeedBed"));
         tooltip.add(
             StatCollector
-                .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.upgrade_count_limited", MAX_UPGRADE_COUNT));
+                .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.upgradeCountLimited", MAX_UPGRADE_COUNT));
     }
 
     @Override
