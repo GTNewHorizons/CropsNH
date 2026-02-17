@@ -324,8 +324,9 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 continue;
             }
             // skip if we don't have enough power
-            if (!this.getBaseMetaTileEntity()
-                .decreaseStoredEnergyUnits(this.powerUsage(), false)) break;
+            if (this.getBaseMetaTileEntity()
+                .getUniversalEnergyStored() < this.powerUsage()) break;
+            if (!crop.canHarvest()) continue;
             ArrayList<ItemStack> aHarvest = crop.harvest();
             if (aHarvest == null) continue;
             for (ItemStack aStack : aHarvest) {
@@ -338,6 +339,8 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 }
                 dropTracker.merge(aStack, aStack.stackSize, Integer::sum);
             }
+            this.getBaseMetaTileEntity()
+                .decreaseStoredEnergyUnits(this.powerUsage(), false);
         }
 
         // dump everything we can into the inventory
@@ -396,26 +399,28 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 continue;
             }
             // hydration
-            if (this.mWaterEnabled && this.getBaseMetaTileEntity()
-                .getUniversalEnergyStored() >= this.getMinimumStoredEU()
-                && this.applyHydration(crop, true)
+            if (this.getBaseMetaTileEntity()
+                .getUniversalEnergyStored() < this.powerUsageSecondary()) break;
+            if (this.mWaterEnabled && this.applyHydration(crop, true)
                 && this.getBaseMetaTileEntity()
                     .decreaseStoredEnergyUnits(powerUsageSecondary(), false)) {
                 this.applyHydration(crop, false);
             }
             // weedex
+            if (this.getBaseMetaTileEntity()
+                .getUniversalEnergyStored() < this.powerUsageSecondary()) break;
             if (this.mWeedEXEnabled) {
                 this.refillWeedEX();
-                if (this.getBaseMetaTileEntity()
-                    .getUniversalEnergyStored() >= this.getMinimumStoredEU() && this.applyWeedEX(crop, true)
-                    && this.getBaseMetaTileEntity()
-                        .decreaseStoredEnergyUnits(this.powerUsageSecondary(), false)) {
+                if (this.applyWeedEX(crop, true) && this.getBaseMetaTileEntity()
+                    .decreaseStoredEnergyUnits(this.powerUsageSecondary(), false)) {
                     this.applyWeedEX(crop, false);
                 }
             }
             // fertilizer
+            if (this.getBaseMetaTileEntity()
+                .getUniversalEnergyStored() < this.powerUsageSecondary()) break;
             if (this.mFertilizerEnabled && this.getBaseMetaTileEntity()
-                .getUniversalEnergyStored() >= this.getMinimumStoredEU()
+                .getUniversalEnergyStored() >= this.powerUsageSecondary()
                 && this.applyFertilizer(crop, true)
                 && this.getBaseMetaTileEntity()
                     .decreaseStoredEnergyUnits(powerUsageSecondary(), false)) {
