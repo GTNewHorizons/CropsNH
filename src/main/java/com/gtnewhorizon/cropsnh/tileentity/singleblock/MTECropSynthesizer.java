@@ -20,6 +20,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_SCANNER_GLOW;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -34,7 +35,6 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizons.modularui.api.drawable.IDrawable;
 import com.gtnewhorizons.modularui.api.math.Pos2d;
 import com.gtnewhorizons.modularui.common.widget.SlotWidget;
-import com.mojang.realmsclient.gui.ChatFormatting;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -71,9 +71,9 @@ public class MTECropSynthesizer extends MTEBasicMachine {
             aTier,
             AMPERAGE,
             new String[] { CropsNHUtils.getMachineTypeText("cropSynthesizer"), "It can make Crops from Data Orbs",
-                "It needs the crop's " + ChatFormatting.LIGHT_PURPLE
+                "It needs the crop's " + EnumChatFormatting.LIGHT_PURPLE
                     + "tier * 750L + (growth + gain + resistance) * 100L"
-                    + ChatFormatting.RESET
+                    + EnumChatFormatting.RESET
                     + " of UUM per seed",
                 "Takes in 3A" },
             INPUT_SLOT_COUNT,
