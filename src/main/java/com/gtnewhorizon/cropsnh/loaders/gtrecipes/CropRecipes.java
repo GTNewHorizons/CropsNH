@@ -452,7 +452,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                 new ItemStack(thaumResourceItem, 1, 17))
             .fluidInputs(TierAcid.t2.get(4000))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Void, 4))
-            .addTo(GTRecipeConstants.UniversalChemical);
+            .addTo(multiblockChemicalReactorRecipes);
         if (ModUtils.TaintedMagic.isModLoaded()) {
             // void to shadow metal conversion
             ivRecipe(12, 0).itemInputs(new Object[] { "dustVoid", 4 }, CropsNHItemList.magicEssence.get(4))
@@ -470,7 +470,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                         CropsNHUtils.getModItem(ModUtils.BloodMagic, "bloodMagicBaseItems", 4, 29))
                     .fluidInputs(TierAcid.t6.get(190_000))
                     .itemOutputs(GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Ichorium, 1))
-                    .addTo(GTRecipeConstants.UniversalChemical);
+                    .addTo(multiblockChemicalReactorRecipes);
             }
         }
         if (ModUtils.GalacticraftCore.isModLoaded()) {
