@@ -492,7 +492,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         if (ModUtils.NewHorizonsCoreMod.isModLoaded() && ModUtils.WitchingGadgets.isModLoaded()) {
             evRecipe(5 * 60, 0).itemInputs(CropsNHItemList.magicEssence.get(64))
                 .fluidInputs(Materials.Ichorium.getMolten(144 * 3))
-                .itemOutputs(CropsNHUtils.getModItem(ModUtils.NewHorizonsCoreMod, "PrimordialPerlFragment", 3))
+                .itemOutputs(CropsNHUtils.getModItem(ModUtils.NewHorizonsCoreMod, "PrimordialPearlFragment", 3))
                 .addTo(autoclaveRecipes);
         }
     }
