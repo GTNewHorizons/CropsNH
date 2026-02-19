@@ -130,7 +130,7 @@ public class MutationRegistry implements IMutationRegistry {
     @Override
     public List<IMutationPool> getPossiblePoolMutations(Collection<ICropCard> parents) {
         if (parents == null || parents.size() < 2) return null;
-        List<ICropCard> sortedParents = createLookupQueue(parents);
+        List<ICropCard> sortedParents = createPoolQueue(parents);
 
         // recheck because we also remove duplicates
         if (sortedParents.size() < 2) return null;
@@ -180,6 +180,16 @@ public class MutationRegistry implements IMutationRegistry {
         return parents.stream()
             .sorted(Comparator.comparing(ICropCard::getNumericId))
             .distinct()
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * @param parents The parents to use as a lookup table.
+     * @return The list of distinct parents sorted by registration order.
+     */
+    private static List<ICropCard> createPoolQueue(Collection<ICropCard> parents) {
+        return parents.stream()
+            .sorted(Comparator.comparing(ICropCard::getNumericId))
             .collect(Collectors.toList());
     }
 

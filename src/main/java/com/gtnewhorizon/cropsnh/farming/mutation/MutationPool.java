@@ -65,7 +65,7 @@ public class MutationPool implements IMutationPool {
     @Override
     public boolean isMatch(Collection<ICropCard> parents) {
         int match = 0;
-        for (ICropCard parent : new HashSet<>(parents)) {
+        for (ICropCard parent : parents) {
             if (members.contains(parent) && ++match >= 2) return true;
         }
         return false;
