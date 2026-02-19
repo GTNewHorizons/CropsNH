@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.IBreedingRequirement;
@@ -29,7 +30,7 @@ public class MutationRegistry implements IMutationRegistry {
     public final static MutationRegistry instance = new MutationRegistry();
 
     private final MutationMap mutationMap = new MutationMap();
-    private final HashMap<String, IMutationPool> mutationPools = new HashMap<>();
+    private final Object2ObjectOpenHashMap<String, IMutationPool> mutationPools = new Object2ObjectOpenHashMap<>();
 
     public MutationRegistry() {
 

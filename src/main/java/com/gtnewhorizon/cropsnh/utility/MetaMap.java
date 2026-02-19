@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.utility;
 
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.stream.Stream;
 
 import net.minecraftforge.oredict.OreDictionary;
@@ -9,8 +10,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
 public class MetaMap<K, V> {
 
-    private final HashMap<K, Int2ObjectOpenHashMap<V>> map = new HashMap<>();
-    private final HashMap<K, V> wildcards = new HashMap<>();
+    private final IdentityHashMap<K, Int2ObjectOpenHashMap<V>> map = new IdentityHashMap<>();
+    private final IdentityHashMap<K, V> wildcards = new IdentityHashMap<>();
 
     /**
      * Inserts an item into meta map.
@@ -19,7 +20,7 @@ public class MetaMap<K, V> {
      * @param meta  The metadata of the block or item, -1 for any.
      * @param value The value ot insert.
      */
-    public void put(K key, int meta, V value) {
+    public void put(final K key, final int meta, final V value) {
         // if adding if a wildcard is already registered
         if (isWildCard(meta)) {
             this.putWildcard(key, value, false);
@@ -30,7 +31,7 @@ public class MetaMap<K, V> {
             .put(meta, value);
     }
 
-    public void putWildcard(K key, V value, boolean clearNonWildcards) {
+    public void putWildcard(final K key, final V value, final boolean clearNonWildcards) {
         if (clearNonWildcards) {
             this.map.remove(key);
         }
@@ -44,7 +45,7 @@ public class MetaMap<K, V> {
      * @param meta  The metadata of the block or item, -1 for any.
      * @param value The value ot insert.
      */
-    public boolean putIfAbsent(K key, int meta, V value, boolean ignoreExistingWildcard) {
+    public boolean putIfAbsent(final K key, final int meta, final V value, final boolean ignoreExistingWildcard) {
         // wildcard goes first
         if (isWildCard(meta)) {
             if (!this.wildcards.containsKey(key)) {
@@ -78,7 +79,7 @@ public class MetaMap<K, V> {
      * @param meta The metadata of the block or item.
      * @return The value ot insert.
      */
-    public V get(K key, int meta) {
+    public V get(final K key, final int meta) {
         if (isWildCard(meta)) {
             return this.wildcards.get(key);
         }
@@ -99,7 +100,7 @@ public class MetaMap<K, V> {
      * @param defaultValue The default value if the key isn't set.
      * @return The value ot insert.
      */
-    public V getOrDefault(K key, int meta, V defaultValue) {
+    public V getOrDefault(final K key, final int meta, final V defaultValue) {
         // check if the key is
         if (isWildCard(meta)) {
             return this.wildcards.getOrDefault(key, defaultValue);
@@ -114,7 +115,7 @@ public class MetaMap<K, V> {
     }
 
     // both -1 and the ore dict can be used as wildcards for compatibility reasons.
-    private static boolean isWildCard(int meta) {
+    private static boolean isWildCard(final int meta) {
         return meta == -1 || meta == OreDictionary.WILDCARD_VALUE;
     }
 
@@ -125,7 +126,7 @@ public class MetaMap<K, V> {
      * @param meta The metadata of the block or item.
      * @return True if the item is set.
      */
-    public boolean containsKey(K key, int meta) {
+    public boolean containsKey(final K key, final int meta) {
         if (this.wildcards.containsKey(key)) return true;
         if (!this.map.containsKey(key)) return false;
         return this.map.get(key)

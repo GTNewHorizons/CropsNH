@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
@@ -20,7 +21,7 @@ public class SoilRegistry implements ISoilRegistry {
      * The global registry of all soil types, any value registered in here will be treated as acceptable soil for a crop
      * stick.
      */
-    private final HashMap<String, ISoilList> soilTypes = new HashMap<>();
+    private final Object2ObjectOpenHashMap<String, ISoilList> soilTypes = new Object2ObjectOpenHashMap<>();
 
     /**
      * A list of all soils registered in the registry.

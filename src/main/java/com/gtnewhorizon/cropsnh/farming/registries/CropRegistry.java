@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,7 +43,7 @@ public class CropRegistry implements ICropRegistry {
     /**
      * Contain the id mappings for crops, used during nbt rehydration.
      */
-    private final HashMap<String, ICropCard> cropRegistry = new HashMap<>();
+    private final Object2ObjectOpenHashMap<String, ICropCard> cropRegistry = new Object2ObjectOpenHashMap<>();
 
     private final LinkedList<ICropCard> registrationOrder = new LinkedList<>();
 

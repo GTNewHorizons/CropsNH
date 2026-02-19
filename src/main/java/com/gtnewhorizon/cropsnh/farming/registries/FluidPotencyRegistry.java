@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.farming.registries;
 
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ public class FluidPotencyRegistry implements IFluidPotencyRegistry {
     /**
      * A list of fertilizers along with their potency.
      */
-    public Map<Fluid, Integer> registry = new HashMap<>();
+    public Map<Fluid, Integer> registry = new IdentityHashMap<>();
 
     @Override
     public void register(Fluid fluid, int potency) {

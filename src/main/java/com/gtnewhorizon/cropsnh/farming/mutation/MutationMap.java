@@ -2,7 +2,9 @@ package com.gtnewhorizon.cropsnh.farming.mutation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -13,7 +15,7 @@ import com.gtnewhorizon.cropsnh.api.IMutationMap;
 public class MutationMap implements IMutationMap {
 
     ArrayList<ICropMutation> list = new ArrayList<>(1);
-    private final HashMap<ICropCard, MutationMap> map = new HashMap<>();
+    private final Map<ICropCard, MutationMap> map = new IdentityHashMap<>();
 
     /**
      * Registers a crop to the mutation map.
