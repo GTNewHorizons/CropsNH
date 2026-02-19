@@ -54,15 +54,10 @@ public abstract class CropsNHUtils {
      */
     public static Item getItemFromBlock(Block block) {
         Item item = Item.getItemFromBlock(block);
-        if (item == null) {
-            try {
-                // should catch things like the skull block
-                item = block.getItem(null, 0, 0, 0);
-            } catch (Exception ignored) {
-                return null;
-            }
-        }
-        return item;
+        if (item != null) return item;
+        // bloddy skulls
+        GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(block);
+        return GameRegistry.findItem(id.modId, id.name);
     }
 
     /**
