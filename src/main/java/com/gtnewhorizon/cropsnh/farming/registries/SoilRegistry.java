@@ -1,10 +1,8 @@
 package com.gtnewhorizon.cropsnh.farming.registries;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
@@ -12,6 +10,8 @@ import net.minecraft.world.IBlockAccess;
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.ISoilRegistry;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 public class SoilRegistry implements ISoilRegistry {
 

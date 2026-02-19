@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.farming.registries;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.IBreedingRequirement;
@@ -24,6 +22,8 @@ import com.gtnewhorizon.cropsnh.farming.mutation.MutationMap;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationPool;
 import com.gtnewhorizon.cropsnh.utility.DebugHelper;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 public class MutationRegistry implements IMutationRegistry {
 

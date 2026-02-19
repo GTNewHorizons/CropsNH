@@ -2,15 +2,12 @@ package com.gtnewhorizon.cropsnh.farming.registries;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,6 +26,7 @@ import com.gtnewhorizon.cropsnh.utility.DebugHelper;
 import com.gtnewhorizon.cropsnh.utility.MetaMap;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 public class CropRegistry implements ICropRegistry {
 

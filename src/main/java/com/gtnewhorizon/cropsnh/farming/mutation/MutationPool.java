@@ -2,15 +2,14 @@ package com.gtnewhorizon.cropsnh.farming.mutation;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.IdentityHashMap;
 
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.IMutationPool;
 import com.gtnewhorizon.cropsnh.reference.Reference;
+
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 public class MutationPool implements IMutationPool {
 
