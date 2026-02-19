@@ -431,7 +431,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     // region water apply
 
-    private final static int WATER_CAP = 200;
+    public final static int WATER_CAP = 200;
     private final static int WATER_THRESHOLD = 180;
 
     public boolean applyHydration(ICropStickTile aCrop, boolean simulate) {
@@ -493,7 +493,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     // region fertilizer apply
 
-    private static final int FERTILIZER_CAP = 200;
+    public static final int FERTILIZER_CAP = 200;
     private static final int FERTILIZER_THRESHOLD = 180;
 
     public boolean applyFertilizer(ICropStickTile aCrop, boolean aSimulate) {

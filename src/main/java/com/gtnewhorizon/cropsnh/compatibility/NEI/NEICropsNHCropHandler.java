@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,7 +31,6 @@ import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.HandlerInfo;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import gregtech.api.util.GTUtility;
 
 public class NEICropsNHCropHandler extends CropsNHNEIHandler {
 
@@ -99,8 +100,8 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
             // register lines
             // spotless:off
             this.textLines.add(StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_nei.crops.tier", crop.getTier()));
-            this.textLines.add(StatCollector.translateToLocalFormatted( Reference.MOD_ID + "_nei.crops.growthDuration", GTUtility.formatNumbers(crop.getGrowthDuration())));
-            this.textLines.add(StatCollector.translateToLocalFormatted( Reference.MOD_ID + "_nei.crops.dropMult", GTUtility.formatNumbers(crop.getDropChance())));
+            this.textLines.add(StatCollector.translateToLocalFormatted( Reference.MOD_ID + "_nei.crops.growthDuration", formatNumber(crop.getGrowthDuration())));
+            this.textLines.add(StatCollector.translateToLocalFormatted( Reference.MOD_ID + "_nei.crops.dropMult", formatNumber(crop.getDropChance())));
             this.textLines.add(StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_nei.crops.likes",
                 crop.getLikedBiomeTags()
