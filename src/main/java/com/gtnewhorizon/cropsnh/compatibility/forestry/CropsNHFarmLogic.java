@@ -31,7 +31,14 @@ import forestry.farming.logic.FarmableReference;
 public class CropsNHFarmLogic extends FarmLogic {
 
     protected Collection<IFarmable> farmables;
+    /** Distance across at which we last queried for a given target. */
     protected final HashMap<Vect, Integer> lastExtents = new HashMap<>();
+    /** Used to identify the last farm target */
+    private int lastRowIndex = 0;
+    /** Needed because farms don't always run a harvest every tick */
+    boolean canSetTargetIndex = false;
+    /** When this reaches zero we're on the last farm target. */
+    private int targetIndex = Integer.MAX_VALUE;
 
     public CropsNHFarmLogic(IFarmHousing housing) {
         super(housing);
@@ -63,11 +70,10 @@ public class CropsNHFarmLogic extends FarmLogic {
         return false;
     }
 
-    // object 2 int does not work you _need_ to pivot based on the given int
-    private int lastRowIndex = 0;
-    boolean canSetTargetIndex = false;
-    private int targetIndex = Integer.MAX_VALUE;
-
+    /**
+     * Lists of positional offsets from a given query location during a harvest call.
+     * This helps us considerably speed up the farm logic (roughly 280x improvement over old logic)
+     */
     private enum QueryShape {
 
         // non-last target, non final check
