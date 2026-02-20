@@ -14,8 +14,6 @@ import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeConstants.GLASS;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 
-import gregtech.loaders.misc.GTBeeDefinition;
-import gregtech.loaders.misc.GTBees;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
