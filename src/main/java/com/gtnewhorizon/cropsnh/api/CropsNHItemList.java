@@ -36,6 +36,11 @@ public enum CropsNHItemList implements IItemContainer {
     plantCure,
     weedEX,
 
+    emptyMug,
+    coldCoffeeMug,
+    darkCoffeeMug,
+    coffeeMug,
+
     // MTEs
     CropManager_LV,
     CropManager_MV,

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,6 +37,7 @@ public class CropsNHAlcoholBottle extends ItemPotion {
     public CropsNHAlcoholBottle() {
         super();
         this.setCreativeTab(CropsNHTab.cropsNHTab);
+        RegisterHelper.registerItem(this, "bottledAlcohol");
     }
 
     @Override

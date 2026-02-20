@@ -4,6 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.items.CropsNHAlcoholBottle;
@@ -11,6 +12,7 @@ import com.gtnewhorizon.cropsnh.items.ItemEnvironmentalModule;
 import com.gtnewhorizon.cropsnh.items.ItemFertilizer;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.items.ItemHempHurd;
+import com.gtnewhorizon.cropsnh.items.ItemMug;
 import com.gtnewhorizon.cropsnh.items.ItemPoisonPowder;
 import com.gtnewhorizon.cropsnh.items.produce.ItemBerry;
 import com.gtnewhorizon.cropsnh.items.produce.ItemGaiaWart;
@@ -39,6 +41,7 @@ public class CropsNHItems {
     public static Item weedEX;
     public static Item goldfish;
     public static Item berry;
+    public static Item mug;
     public static Item bottledAlcohol;
     public static Item fertilizer;
     public static Item poisonPowder;
@@ -64,6 +67,21 @@ public class CropsNHItems {
                 CropsNHUtils.getWeedEXFluid(Constants.WEEDEX_CAPACITY),
                 CropsNHItemList.weedEX.get(1),
                 ItemList.Spray_Empty.get(1)));
+
+        mug = new ItemMug();
+        CropsNHItemList.emptyMug.set(new ItemStack(mug, 1, ItemMug.META_STONE_MUG));
+        CropsNHItemList.coldCoffeeMug.set(new ItemStack(mug, 1, ItemMug.META_COLD_COFFEE));
+        CropsNHItemList.darkCoffeeMug.set(new ItemStack(mug, 1, ItemMug.META_DARK_COFFEE));
+        CropsNHItemList.coffeeMug.set(new ItemStack(mug, 1, ItemMug.META_COFFEE));
+
+        FluidContainerRegistry.registerFluidContainer(
+            FluidRegistry.getFluidStack("potion.coffee", 500),
+            CropsNHItemList.darkCoffeeMug.get(1),
+            CropsNHItemList.emptyMug.get(1));
+        FluidContainerRegistry.registerFluidContainer(
+            FluidRegistry.getFluidStack("potion.latte", 500),
+            CropsNHItemList.coffeeMug.get(1),
+            CropsNHItemList.emptyMug.get(1));
 
         berry = new ItemBerry();
         CropsNHItemList.huckleBerry.set(new ItemStack(berry, 1, ItemBerry.META_HUCKLE));

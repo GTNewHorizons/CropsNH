@@ -141,6 +141,10 @@ public class IC2Migrations {
             ModUtils.IndustrialCraft2.ID + ":itemWeed",
             Item.getItemFromBlock(Blocks.tallgrass),
             (short) 1);
+        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemMugEmpty", 0, CropsNHItems.mug, 0);
+        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemMugCoffee", 0, CropsNHItems.mug, 1);
+        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemMugCoffee", 1, CropsNHItems.mug, 2);
+        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemMugCoffee", 2, CropsNHItems.mug, 3);
     }
 
     private static @Nullable ICropCard getMigratedCrop(String owner, String name) {

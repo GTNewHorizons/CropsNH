@@ -24,32 +24,57 @@ public class AspectLoader {
     }
 
     private static void loadItemAspects() {
+        // spotless:off
         ThaumcraftApi.registerObjectTag(
             new ItemStack(CropsNHItems.genericSeed, 1, 0),
-            new AspectList().add(Aspect.CROP, 1)
-                .add(Aspect.PLANT, 1));
+            new AspectList()
+                .add(Aspect.CROP, 1)
+                .add(Aspect.PLANT, 1)
+        );
         ThaumcraftApi.registerObjectTag(
             CropsNHItemList.cropSticks.get(1),
-            new AspectList().add(Aspect.FIRE, 3)
+            new AspectList()
+                .add(Aspect.FIRE, 3)
                 .add(Aspect.HEAL, 2)
-                .add(Aspect.PLANT, 1));
+                .add(Aspect.PLANT, 1)
+        );
         ThaumcraftApi.registerObjectTag(
             CropsNHItemList.fertilizer.get(1),
-            new AspectList().add(Aspect.FIRE, 3)
+            new AspectList()
+                .add(Aspect.FIRE, 3)
                 .add(Aspect.HEAL, 2)
-                .add(Aspect.PLANT, 1));
+                .add(Aspect.PLANT, 1)
+        );
         ThaumcraftApi.registerObjectTag(
             CropsNHItemList.poisonPowder.get(1),
-            new AspectList().add(Aspect.POISON, 3)
-                .add(Aspect.CROP, 2));
+            new AspectList()
+                .add(Aspect.POISON, 3)
+                .add(Aspect.CROP, 2)
+        );
         ThaumcraftApi.registerObjectTag(
             CropsNHItemList.weedEX.get(1),
-            new AspectList().add(Aspect.POISON, 8)
-                .add(Aspect.MIND, 2));
+            new AspectList()
+                .add(Aspect.POISON, 8)
+                .add(Aspect.MIND, 2)
+        );
         ThaumcraftApi.registerObjectTag(
             CropsNHItemList.weedEX.get(1),
-            new AspectList().add(Aspect.HEAL, 8)
-                .add(Aspect.MIND, 2));
+            new AspectList()
+                .add(Aspect.HEAL, 8)
+                .add(Aspect.MIND, 2)
+        );
+        ThaumcraftApi.registerObjectTag(
+            CropsNHItemList.darkCoffeeMug.get(1),
+            new AspectList()
+                .add(Aspect.SENSES, 2)
+                .add(Aspect.DARKNESS, 1)
+        );
+        ThaumcraftApi.registerObjectTag(
+            CropsNHItemList.coffeeMug.get(1),
+            new AspectList()
+                .add(Aspect.SENSES, 4)
+        );
+        // spotless:on
     }
 
     private static void loadAlchoolAspects() {

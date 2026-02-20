@@ -63,6 +63,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         addSpadeRecipes();
         addCropStickRecipes();
         addPlantCureRecipe();
+        addMugRecipe();
         addPoisonPowderRecipes();
         addCropManagerRecipes();
         addSeedGeneratorRecipes();
@@ -137,6 +138,13 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
             CropsNHItemList.plantCure.get(1),
             new Object[] { ItemList.Spray_Empty.get(1), CropsNHItemList.enrichedFertilizerCell.get(1),
                 CropsNHItemList.fertilizer.get(1), new ItemStack(Items.dye, 1, 15) });
+    }
+
+    private static void addMugRecipe() {
+        GTModHandler.addCraftingRecipe(
+            CropsNHItemList.emptyMug.get(1),
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED,
+            new Object[] { "PhP", " P ", 'P', "plateStone" });
     }
 
     private static void addPoisonPowderRecipes() {

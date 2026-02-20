@@ -24,6 +24,12 @@ item.cropsnh:GHP.bottled.name=Bottled Generic High Proof
 item.cropsnh:jagi.bottled.name=Real Bottled Jägermeister!
 item.cropsnh:njagi.bottled.name=Bottled Fake Jägermeister
 
+# Stone Mug Coffees
+item.cropsnh:stoneMug.name=Stone Mug
+item.cropsnh:coffeeCold.name=Cold Coffee
+item.cropsnh:coffeeDark.name=Dark Coffee
+item.cropsnh:coffee.name=Coffee
+
 # Crop Produce Items
 item.cropsnh:gaiaWart.name=Gaia Wart
 item.cropsnh:goldfish.name=Goldfish
@@ -84,6 +90,10 @@ fluid.cropsnh:Wash=Wash
 fluid.cropsnh:GHP=Generic High Proof
 fluid.cropsnh:jagi=Real Jägermeister!
 fluid.cropsnh:njagi=Fake Jägermeister
+
+# Damage
+death.attack.cropsnh:heartAttack=%1$s drank too much coffee
+death.attack.cropsnh:heartAttack.player=%1$s had a heart attack whilst fighting %2$s
 
 # Tooltips
 cropsnh_tooltip.isSick=Is sick, can't grow!
