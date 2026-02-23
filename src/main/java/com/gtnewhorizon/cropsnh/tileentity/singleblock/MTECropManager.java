@@ -483,7 +483,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         if (aCrop.getWeedExStorage() > WEEDEX_THRESHOLD || this.mWeedEX < WEEDEX_COST) return false;
 
         if (!aSimulate) {
-            this.mWeedEX = WEEDEX_COST;
+            this.mWeedEX -= WEEDEX_COST;
         }
 
         return aCrop.addWeedEx(75, WEEDEX_THRESHOLD, WEEDEX_CAP, aSimulate);
