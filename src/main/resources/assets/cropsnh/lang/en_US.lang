@@ -399,6 +399,12 @@ cropsnh_journal.harvestTheNether_fleshroot=The hounds of hell love to feed on th
 cropsnh_journal.harvestTheNether_glowflower=This pretty flower can be ground up into glowstone dust.
 cropsnh_journal.harvestTheNether_marrowberry=There is a strange taste to these berries.
 
+//fether
+cropsnh_journal.fether_blood_leaf=The leaves of this plants seem to secrete a viscous... red... fluid, is... is that blood?
+cropsnh_journal.fether_flesh_root=The hounds of hell love to feed on the roots of this fleshy plant.
+cropsnh_journal.fether_glow_flower=This pretty flower can be ground up into glowstone dust.
+cropsnh_journal.fether_marrow_berry=There is a strange taste to these berries.
+
 //gany's nether
 cropsnh_journal.ganysNether_ghostSeeds=This ghastly crop lies at the base of procusing spooky flour.
 cropsnh_journal.ganysNether_hellBushSeeds=This bush's berry feel warm and juicy, however I wouldn't bite in them...

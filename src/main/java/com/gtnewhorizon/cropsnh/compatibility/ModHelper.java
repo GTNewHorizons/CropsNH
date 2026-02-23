@@ -11,6 +11,7 @@ import com.gtnewhorizon.cropsnh.compatibility.botania.BotaniaHelper;
 import com.gtnewhorizon.cropsnh.compatibility.computercraft.ComputerCraftHelper;
 import com.gtnewhorizon.cropsnh.compatibility.ex_nihilo.ExNihiloHelper;
 import com.gtnewhorizon.cropsnh.compatibility.extrabiomesxl.ExtraBiomesXLHelper;
+import com.gtnewhorizon.cropsnh.compatibility.fether.FetherHelper;
 import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryHelper;
 import com.gtnewhorizon.cropsnh.compatibility.forgemultipart.ForgeMultiPartHelper;
 import com.gtnewhorizon.cropsnh.compatibility.ganysMods.EtFuturumHelper;
@@ -209,6 +210,7 @@ public abstract class ModHelper {
                 EtFuturumHelper.class,
                 ExNihiloHelper.class,
                 ExtraBiomesXLHelper.class,
+                FetherHelper.class,
                 ForestryHelper.class,
                 ForgeMultiPartHelper.class,
                 GanysNetherHelper.class,

@@ -15,9 +15,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class CropPlantHarvestTheNether extends CropPlant {
-    private final Item seed;
-    private final Block plant;
-    private final Item fruit;
+
+    protected final Item seed;
+    protected final Block plant;
+    protected final Item fruit;
 
     protected CropPlantHarvestTheNether(Item seed, Block plant, Item fruit) {
         super();
@@ -57,7 +58,7 @@ public class CropPlantHarvestTheNether extends CropPlant {
     public ArrayList<ItemStack> getFruitsOnHarvest(int gain, Random rand) {
         int amount = (int) (Math.ceil((gain + 0.00) / 3));
         ArrayList<ItemStack> list = new ArrayList<>();
-        while(amount>0) {
+        while (amount > 0) {
             list.add(getRandomFruit(rand));
             amount--;
         }
@@ -81,7 +82,7 @@ public class CropPlantHarvestTheNether extends CropPlant {
 
     @Override
     public float getHeight(int meta) {
-        return Constants.UNIT*13;
+        return Constants.UNIT * 13;
     }
 
     @Override
@@ -98,9 +99,9 @@ public class CropPlantHarvestTheNether extends CropPlant {
     public String getInformation() {
         String name = seed.getUnlocalizedName();
         int index = name.indexOf("seedItem");
-        name = index>0 ? name.substring(0, index) : name;
+        name = index > 0 ? name.substring(0, index) : name;
         index = name.indexOf('.');
-        name = index>0 ? name.substring(index+1) : name;
-        return "cropsnh_journal.harvestTheNether_"+name;
+        name = index > 0 ? name.substring(index + 1) : name;
+        return "cropsnh_journal.harvestTheNether_" + name;
     }
 }

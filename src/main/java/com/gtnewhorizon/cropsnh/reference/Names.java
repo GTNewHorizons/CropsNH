@@ -86,6 +86,7 @@ public final class Names {
         public static final String etFuturum = "etfuturum";
         public static final String extraUtilities = "ExtraUtilities";
         public static final String exNihilo = "exnihilo";
+        public static final String fether = "fether";
         public static final String forestry = "Forestry";
         public static final String ganysNether = "ganysnether";
         public static final String ganysSurface = "ganyssurface";
