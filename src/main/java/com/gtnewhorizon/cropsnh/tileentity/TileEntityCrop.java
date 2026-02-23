@@ -406,8 +406,10 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     public boolean isValidSoilForCrop(ICropCard cc) {
         Block block = this.worldObj.getBlock(this.xCoord, this.yCoord - 1, this.zCoord);
         int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord - 1, this.zCoord);
-        return cc.getSoilTypes().isRegistered(block, meta);
+        return cc.getSoilTypes()
+            .isRegistered(block, meta);
     }
+
     public boolean wouldCropBeAbleToGrow(ICropCard cc) {
         // Check the world growth requirements
         Iterable<IGrowthRequirement> reqs = cc.getGrowthRequirements();
@@ -869,12 +871,9 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         neighbours.removeIf(n -> n == null || !n.hasCrop() || n.hasWeed());
         if (neighbours.isEmpty()) return false;
         ICropCard result = this.getBreedingResult(neighbours);
-        if (
-            result == null
-            || neighbours.isEmpty()
+        if (result == null || neighbours.isEmpty()
             || !this.isValidSoilForCrop(result)
-            || !this.wouldCropBeAbleToGrow(result)
-        ) {
+            || !this.wouldCropBeAbleToGrow(result)) {
             return false;
         }
 
