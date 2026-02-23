@@ -95,7 +95,7 @@ public class ConfigurationHandler {
             .getBoolean("debug", Categories.CATEGORY_CROPSNH, false, "Set to true if you wish to enable debug mode");
 
         enableEasterEggs = config
-            .getBoolean("Enable easter eggs", Categories.CATEGORY_CROPSNH, true, "Set tot true to enable easter eggs.");
+            .getBoolean("Enable easter eggs", Categories.CATEGORY_CROPSNH, true, "Set to true to enable easter eggs.");
 
         // endregion CATEGORY_CROPSNH
 
