@@ -397,15 +397,30 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     @Override
     public boolean tryPlantSeed(ISeedData seedData) {
         // check if it can be planted on this soil.
-        Block block = this.worldObj.getBlock(this.xCoord, this.yCoord - 1, this.zCoord);
-        int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord - 1, this.zCoord);
-        if (!seedData.getCrop()
-            .getSoilTypes()
-            .isRegistered(block, meta)) {
-            return false;
-        }
+        if (seedData == null || seed.getCrop() == null || !isValidSoilForCrop(seedData.getCrop())) return false;
         // all good we can plant the seed
         this.plantSeed(seedData);
+        return true;
+    }
+
+    public boolean isValidSoilForCrop(ICropCard cc) {
+        Block block = this.worldObj.getBlock(this.xCoord, this.yCoord - 1, this.zCoord);
+        int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord - 1, this.zCoord);
+        return cc.getSoilTypes().isRegistered(block, meta);
+    }
+    public boolean wouldCropBeAbleToGrow(ICropCard cc) {
+        // Check the world growth requirements
+        Iterable<IGrowthRequirement> reqs = cc.getGrowthRequirements();
+        // abort early if no reqs
+        if (reqs == null) return true;
+
+        for (IGrowthRequirement req : reqs) {
+            // only check world growth requirements.
+            if (!(req instanceof IWorldGrowthRequirement worldReq)) continue;
+            // check if the crop can grow
+            if (worldReq.canGrow(this.worldObj, this, this.xCoord, this.yCoord, this.zCoord)) continue;
+            if (!worldReq.onlyPreventsHarvest()) return false;
+        }
         return true;
     }
 
@@ -854,7 +869,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         neighbours.removeIf(n -> n == null || !n.hasCrop() || n.hasWeed());
         if (neighbours.isEmpty()) return false;
         ICropCard result = this.getBreedingResult(neighbours);
-        if (result == null || neighbours.isEmpty()) {
+        if (
+            result == null
+            || neighbours.isEmpty()
+            || !this.isValidSoilForCrop(result)
+            || !this.wouldCropBeAbleToGrow(result)
+        ) {
             return false;
         }
 
@@ -871,8 +891,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         byte re = variateStat(canReduce, parentStats, ISeedStats::getResistance);
         byte gr = variateStat(canReduce, parentStats, ISeedStats::getGrowth);
 
-        // try planting it
-        this.tryPlantSeed(new SeedData(result, new SeedStats(gr, ga, re, false)));
+        // plant it
+        this.plantSeed(new SeedData(result, new SeedStats(gr, ga, re, false)));
         return true;
     }
 
