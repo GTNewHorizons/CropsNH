@@ -10,13 +10,13 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 
 @SideOnly(Side.CLIENT)
-public class PlayerEffectRendererEntityBat extends PlayerEffectRendererEntity {
+public class PlayerEffectRendererEntityBat extends PlayerEffectRendererEntity<net.minecraft.entity.passive.EntityBat> {
     protected PlayerEffectRendererEntityBat() {
         super();
     }
 
     @Override
-    protected IWrappedEntity getEntityWrapper() {
+    protected IWrappedEntity<net.minecraft.entity.passive.EntityBat> getEntityWrapper() {
         return new EntityBat();
     }
 

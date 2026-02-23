@@ -15,7 +15,7 @@ import java.lang.reflect.Modifier;
 public class WeeeFlowersHelper extends ModHelper {
     @Override
     protected void initPlants() {
-        Class wf_ItemRegistry;
+        Class<?> wf_ItemRegistry;
         Method getMetaMethod;
         try {
             wf_ItemRegistry = Class.forName("com.pam.weeeflowers.weeeflowers");
@@ -47,7 +47,7 @@ public class WeeeFlowersHelper extends ModHelper {
         }
     }
 
-    private Method getMetaMethod(Class blockClass) {
+    private Method getMetaMethod(Class<?> blockClass) {
         for (Method method : blockClass.getDeclaredMethods()) {
             if (method.getReturnType() == int.class) {
                 return method;

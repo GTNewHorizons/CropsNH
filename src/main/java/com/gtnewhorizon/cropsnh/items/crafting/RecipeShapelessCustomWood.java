@@ -12,21 +12,19 @@ import java.util.List;
 
 public class RecipeShapelessCustomWood extends ShapelessRecipes {
 
-    public RecipeShapelessCustomWood(ItemStack recipeOutput, List recipeItems) {
+    public RecipeShapelessCustomWood(ItemStack recipeOutput, List<ItemStack> recipeItems) {
         super(recipeOutput, recipeItems);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public boolean matches(InventoryCrafting inventoryCrafting, World world) {
-        List recipeItems = new ArrayList(this.recipeItems);
+        List<ItemStack> recipeItems = new ArrayList<>(this.recipeItems);
         for(int column = 0; column < 3; ++column) {
             for(int row = 0; row < 3; ++row) {
                 ItemStack itemStackToMatch = inventoryCrafting.getStackInRowAndColumn(row, column);
                 if(itemStackToMatch != null) {
                     boolean match = false;
-                    for (Object recipeItem : recipeItems) {
-                        ItemStack itemStack = (ItemStack) recipeItem;
+                    for (ItemStack itemStack : recipeItems) {
                         if (itemStackToMatch.getItem() == itemStack.getItem() && (itemStack.getItemDamage() == 32767 || itemStackToMatch.getItemDamage() == itemStack.getItemDamage())) {
                             if (itemStackToMatch.getItem() instanceof ItemBlockCustomWood) {
                                 if (itemStackToMatch.stackTagCompound != null && itemStack.stackTagCompound != null && itemStackToMatch.stackTagCompound.equals(itemStack.stackTagCompound)) {

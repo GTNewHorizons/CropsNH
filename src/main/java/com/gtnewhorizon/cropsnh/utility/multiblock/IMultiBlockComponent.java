@@ -6,7 +6,7 @@ public interface IMultiBlockComponent<M extends IMultiBlockManager<T>, T extends
     /**
      * @return the main component for this multi block structure
      */
-    IMultiBlockComponent getMainComponent();
+    IMultiBlockComponent<M, T> getMainComponent();
 
     /**
      * @return The multi-block manager instance for this component type
@@ -33,7 +33,7 @@ public interface IMultiBlockComponent<M extends IMultiBlockManager<T>, T extends
      * @param component the component to be checked
      * @return if this can form a multiblock with the specified component
      */
-    boolean isValidComponent(IMultiBlockComponent component);
+    boolean isValidComponent(IMultiBlockComponent<?, ?> component);
 
     /**
      * Called right before the multiblock is created

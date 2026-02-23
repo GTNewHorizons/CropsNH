@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity.peripheral.method;
 
 public class MethodException extends Exception {
+    private static final long serialVersionUID = 4194847722315581760L;
     private final IMethod method;
     private final String msg;
 

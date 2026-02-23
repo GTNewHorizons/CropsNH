@@ -11,8 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public abstract class PlayerEffectRendererEntity extends PlayerEffectRenderer {
-    private final IWrappedEntity entityWrapper;
+public abstract class PlayerEffectRendererEntity<T extends EntityLiving> extends PlayerEffectRenderer {
+    private final IWrappedEntity<T> entityWrapper;
     private final EntityLiving entity;
     private final ModelBase model;
     private final ResourceLocation texture;
@@ -59,7 +59,7 @@ public abstract class PlayerEffectRendererEntity extends PlayerEffectRenderer {
         GL11.glTranslated(-dx, -dy, -dz);
     }
 
-    protected abstract IWrappedEntity getEntityWrapper();
+    protected abstract IWrappedEntity<T> getEntityWrapper();
 
     protected abstract ModelBase getModel();
 

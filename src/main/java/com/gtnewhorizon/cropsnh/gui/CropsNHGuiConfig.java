@@ -17,7 +17,6 @@ import java.util.List;
 
 
 @SideOnly(Side.CLIENT)
-@SuppressWarnings("unchecked")
 public class CropsNHGuiConfig extends GuiConfig {
 
     public CropsNHGuiConfig(GuiScreen guiScreen) {
@@ -25,6 +24,7 @@ public class CropsNHGuiConfig extends GuiConfig {
                 GuiConfig.getAbridgedConfigPath(ConfigurationHandler.config.toString()));
     }
 
+    @SuppressWarnings("rawtypes")
     private static List<IConfigElement> getConfigElements() {
         List<IConfigElement> configElements = new ArrayList<>();
         for(Field field:ConfigurationHandler.Categories.class.getDeclaredFields()) {
@@ -33,7 +33,7 @@ public class CropsNHGuiConfig extends GuiConfig {
                     String category = (String) field.get(null);
                     String descr = "CropsNH " + category + " Settings";
                     String name = "cropsnh.configgui.ctgy." + category;
-                    configElements.add(new DummyConfigElement.DummyCategoryElement(descr, name, new ConfigElement(ConfigurationHandler.config.getCategory(category)).getChildElements()));
+                    configElements.add(new DummyConfigElement.DummyCategoryElement<>(descr, name, new ConfigElement<>(ConfigurationHandler.config.getCategory(category)).getChildElements()));
                 } catch(Exception e) {
                     LogHelper.printStackTrace(e);
                 }

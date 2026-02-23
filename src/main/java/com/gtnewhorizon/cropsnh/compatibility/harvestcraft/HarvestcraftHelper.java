@@ -21,7 +21,7 @@ public final class HarvestcraftHelper extends ModHelper {
 
     @Override
     protected void initPlants() {
-        Class hc_ItemRegistry = null;
+        Class<?> hc_ItemRegistry = null;
         try {
             hc_ItemRegistry = Class.forName("com.pam.harvestcraft.ItemRegistry");
         } catch (ClassNotFoundException e) {

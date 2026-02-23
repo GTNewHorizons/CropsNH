@@ -164,7 +164,6 @@ public class GuiJournal extends GuiScreen {
         drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
-    @SuppressWarnings("unchecked")
     private void drawTextComponent(Component<String> component) {
         if(component != null) {
             float scale = component.scale();

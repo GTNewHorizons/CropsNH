@@ -43,7 +43,7 @@ public final class AppleCoreHelper extends ModHelper {
     @Optional.Method(modid = AppleCoreHelper.MODID)
     private static void announceAppleCoreGrowthTick(Block block, World world, int x, int y, int z) {
         if(AppleCoreAPI.dispatcher!=null) {
-            AppleCoreAPI.dispatcher.announcePlantGrowth(block, world, x, y, z);
+            AppleCoreAPI.dispatcher.announcePlantGrowth(block, world, x, y, z, Math.max(0, world.getBlockMetadata(x, y, z) - 1));
         }
     }
 

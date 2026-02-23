@@ -37,7 +37,6 @@ public class GuiSeedAnalyzer extends GuiContainer {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         this.buttonList.add(new GuiButton(0, this.guiLeft + 131, this.guiTop + 67, 18, 18, ""));

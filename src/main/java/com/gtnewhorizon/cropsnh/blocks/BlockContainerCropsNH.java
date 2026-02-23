@@ -5,6 +5,9 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropsNH;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.multiblock.IMultiBlockComponent;
+import com.gtnewhorizon.cropsnh.utility.multiblock.IMultiBlockManager;
+import com.gtnewhorizon.cropsnh.utility.multiblock.IMultiBlockPartData;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -84,7 +87,7 @@ public abstract class BlockContainerCropsNH extends BlockCropsNH implements ITil
                 }
             }
             if(this.isMultiBlock() && !world.isRemote) {
-                IMultiBlockComponent component = (IMultiBlockComponent) world.getTileEntity(x, y, z);
+                IMultiBlockComponent<IMultiBlockManager<IMultiBlockPartData>, IMultiBlockPartData> component = (IMultiBlockComponent<IMultiBlockManager<IMultiBlockPartData>, IMultiBlockPartData>) world.getTileEntity(x, y, z);
                 component.getMultiBlockManager().onBlockPlaced(world, x, y, z, component);
             }
         }
@@ -94,7 +97,7 @@ public abstract class BlockContainerCropsNH extends BlockCropsNH implements ITil
     @SuppressWarnings("unchecked")
     public void breakBlock(World world, int x, int y, int z, Block b, int meta) {
         if(this.isMultiBlock() && !world.isRemote) {
-            IMultiBlockComponent component = (IMultiBlockComponent) world.getTileEntity(x, y, z);
+            IMultiBlockComponent<IMultiBlockManager<IMultiBlockPartData>, IMultiBlockPartData> component = (IMultiBlockComponent<IMultiBlockManager<IMultiBlockPartData>, IMultiBlockPartData>) world.getTileEntity(x, y, z);
             if(component != null) {
                 component.getMultiBlockManager().onBlockBroken(world, x, y, z, component);
             }

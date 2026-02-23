@@ -2,34 +2,34 @@ package com.gtnewhorizon.cropsnh.compatibility.opencomputers;
 
 import com.gtnewhorizon.cropsnh.init.Blocks;
 import com.gtnewhorizon.cropsnh.tileentity.peripheral.TileEntityPeripheral;
-import li.cil.oc.api.driver.EnvironmentAware;
-import li.cil.oc.api.network.Environment;
+import li.cil.oc.api.driver.EnvironmentProvider;
 import li.cil.oc.api.network.ManagedEnvironment;
-import li.cil.oc.api.prefab.DriverBlock;
+import li.cil.oc.api.prefab.DriverSidedBlock;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class CropsNHEnvironment extends DriverBlock implements EnvironmentAware {
+public class CropsNHEnvironment extends DriverSidedBlock implements EnvironmentProvider {
+
     protected CropsNHEnvironment() {
         super(new ItemStack(Blocks.blockPeripheral));
     }
 
     @Override
-    public ManagedEnvironment createEnvironment(World world, int x, int y, int z) {
+    public ManagedEnvironment createEnvironment(World world, int x, int y, int z, ForgeDirection side) {
         return null;
     }
 
-    /** Used for OpenComputer's NEI plugin */
     @Override
-    @SuppressWarnings("unchecked")
-    public Class<? extends Environment> providedEnvironment(ItemStack stack) {
+    public Class<?> getEnvironment(ItemStack stack) {
         if (stack.getItem() instanceof ItemBlock) {
             ItemBlock itemBlock = (ItemBlock) stack.getItem();
             Block block = itemBlock.field_150939_a;
             if (block!=null && block==Blocks.blockPeripheral){
-                return (Class<? extends Environment>) (Object) TileEntityPeripheral.class;
+                return TileEntityPeripheral.class;
             }
         }
         return null;

@@ -128,8 +128,7 @@ public class TileEntitySeedStorage extends TileEntityCustomWood implements ISeed
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("unchecked")
-    public void addWailaInformation(List information) {
+    public void addWailaInformation(List<String> information) {
         information.add(StatCollector.translateToLocal("cropsnh_tooltip.storage") + ": " + (this.hasLockedSeed() ? getLockedSeed().getDisplayName() : StatCollector.translateToLocal("cropsnh_tooltip.none")));
         super.addWailaInformation(information);
     }

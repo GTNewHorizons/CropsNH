@@ -87,12 +87,12 @@ public class CustomCrops {
 
     public static void initGrassSeeds() {
         if(ConfigurationHandler.wipeTallGrassDrops) {
-            List seedList = null;
+            List<?> seedList = null;
             boolean error = false;
             try {
                 Field fieldSeedList = (ForgeHooks.class).getDeclaredField("seedList");
                 fieldSeedList.setAccessible(true);
-                seedList = (List) fieldSeedList.get(null);
+                seedList = (List<?>) fieldSeedList.get(null);
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 error = true;
             }

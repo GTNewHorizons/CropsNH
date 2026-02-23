@@ -198,7 +198,7 @@ public abstract class ModHelper {
     /** method holding all ModHelper classes */
     @SuppressWarnings("unchecked")
     public static void findHelpers() {
-        Class[] classes = {
+        Class<?>[] classes = {
                 AppleCoreHelper.class,
                 ArsMagicaHelper.class,
                 BiomesOPlentyHelper.class,
@@ -227,9 +227,9 @@ public abstract class ModHelper {
                 WeeeFlowersHelper.class,
                 WitcheryHelper.class
         };
-        for(Class<? extends ModHelper> clazz:classes) {
+        for(Class<?> clazz:classes) {
             if(ModHelper.class.isAssignableFrom(clazz)) {
-                createInstance(clazz);
+                createInstance((Class<? extends ModHelper>) clazz);
             }
         }
     }

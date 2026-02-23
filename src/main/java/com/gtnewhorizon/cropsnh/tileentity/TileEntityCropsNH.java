@@ -140,7 +140,7 @@ public abstract class TileEntityCropsNH extends TileEntity {
      * @param information the list to add to.
      */
     @SideOnly(Side.CLIENT)
-    public abstract void addWailaInformation(List information);
+    public abstract void addWailaInformation(List<String> information);
 
     private boolean isMultiBlock() {
         return this instanceof IMultiBlockComponent;

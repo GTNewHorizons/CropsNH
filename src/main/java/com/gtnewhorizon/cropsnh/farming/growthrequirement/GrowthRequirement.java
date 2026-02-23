@@ -72,6 +72,8 @@ public class GrowthRequirement implements IGrowthRequirement {
             switch(this.requiredType) {
                 case BELOW: return this.isBaseBlockBelow(world, x, y, z);
                 case NEARBY: return this.isBaseBlockNear(world, x, y, z);
+                default:
+                    break;
             }
         }
         return true;

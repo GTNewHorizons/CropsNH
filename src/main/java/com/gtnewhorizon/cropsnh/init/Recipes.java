@@ -13,7 +13,6 @@ import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
-import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -181,7 +180,6 @@ public class Recipes {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static void registerCustomWoodRecipe(IRecipe recipe) {
         if(recipe instanceof ShapedRecipes) {
             ShapedRecipes shapedRecipe = (ShapedRecipes) recipe;
@@ -189,13 +187,12 @@ public class Recipes {
         }
         else if (recipe instanceof ShapelessRecipes) {
             ShapelessRecipes shapelessRecipe = (ShapelessRecipes) recipe;
-            registerCustomWoodRecipe(((ItemBlock) shapelessRecipe.getRecipeOutput().getItem()).field_150939_a, shapelessRecipe.getRecipeOutput().stackSize, false, shapelessRecipe.recipeItems.toArray(new ItemStack[shapelessRecipe.recipeItems.size()]));
+            registerCustomWoodRecipe(((ItemBlock) shapelessRecipe.getRecipeOutput().getItem()).field_150939_a, shapelessRecipe.getRecipeOutput().stackSize, false, shapelessRecipe.recipeItems.toArray());
         }
     }
 
-    @SuppressWarnings("unchecked")
     private static void addShapelessCustomWoodRecipe(ItemStack output, Object... params) {
-        List recipeItemsCopy = new ArrayList();
+        List<ItemStack> recipeItemsCopy = new ArrayList<>();
         for (Object recipeItem : params) {
             if (recipeItem instanceof ItemStack) {
                 recipeItemsCopy.add(((ItemStack) recipeItem).copy());

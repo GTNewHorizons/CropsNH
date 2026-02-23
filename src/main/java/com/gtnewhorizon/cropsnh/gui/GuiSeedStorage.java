@@ -30,7 +30,6 @@ public class GuiSeedStorage extends GuiSeedStorageBase {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void loadButtons() {
         super.loadButtons();
         this.buttonList.add(new GuiButton(buttonIdScrollRight + 1, this.guiLeft + 211, this.guiTop + 105, 18, 18, "X"));

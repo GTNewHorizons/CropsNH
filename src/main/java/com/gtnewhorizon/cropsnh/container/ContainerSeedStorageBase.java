@@ -59,7 +59,7 @@ public abstract class ContainerSeedStorageBase extends ContainerCropsNH {
      * returns a list if itemStacks, for each slot.
      */
     @Override
-    public List getInventory() {
+    public List<ItemStack> getInventory() {
         return super.getInventory();
     }
 

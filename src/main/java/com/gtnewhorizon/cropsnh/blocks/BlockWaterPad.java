@@ -148,8 +148,7 @@ public class BlockWaterPad extends BlockCropsNH {
 
         @Override
         @SideOnly(Side.CLIENT)
-        @SuppressWarnings("unchecked")
-        public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
+        public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag) {
             list.add(StatCollector.translateToLocal("cropsnh_tooltip.waterPadDry"));
         }
     }

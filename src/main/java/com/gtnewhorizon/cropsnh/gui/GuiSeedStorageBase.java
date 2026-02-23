@@ -92,7 +92,6 @@ public abstract class GuiSeedStorageBase extends GuiContainer {
         loadButtons();
     }
 
-    @SuppressWarnings("unchecked")
     protected void loadButtons() {
         this.buttonList.clear();
         int buttonWidth = 60;
@@ -323,7 +322,7 @@ public abstract class GuiSeedStorageBase extends GuiContainer {
                     short strength = stats.getStrength();
                     ItemStack stack = new ItemStack(activeSeed, stats.amount, activeMeta);
                     stack.stackTagCompound = CropPlantHandler.setSeedNBT(new NBTTagCompound(), growth, gain, strength, true);
-                    List toolTip = stack.getTooltip(Minecraft.getMinecraft().thePlayer, true);
+                    List<String> toolTip = stack.getTooltip(Minecraft.getMinecraft().thePlayer, true);
                     drawHoveringText(toolTip, x - this.guiLeft, y - this.guiTop, fontRendererObj);
                 }
             }

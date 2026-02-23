@@ -19,8 +19,6 @@ public class NEIWeedRakingHandler  extends TemplateRecipeHandler {
     private static final String name = StatCollector.translateToLocal("cropsnh_nei.weedRaking.title");
     private static final String id = "weedRaking";
 
-    private static final int COLOR_BLACK = 1644054;
-
     public class CachedWeedRakingRecipe extends TemplateRecipeHandler.CachedRecipe {
         ArrayList<PositionedStack> results;
         PositionedStack rake;
@@ -117,8 +115,6 @@ public class NEIWeedRakingHandler  extends TemplateRecipeHandler {
 
     @Override
     public void drawBackground(int recipe) {
-        CachedWeedRakingRecipe rakingRecipe = (CachedWeedRakingRecipe) arecipes.get(recipe);
-
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GuiDraw.changeTexture(this.getGuiTexture());
         GuiDraw.drawTexturedModalRect(0, 0, 5, 11, 166, 85);

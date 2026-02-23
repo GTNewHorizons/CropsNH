@@ -69,8 +69,7 @@ public class ItemJournal extends ItemCropsNH implements IJournal {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag) {
         int nr = 0;
         if(stack.hasTagCompound() && stack.stackTagCompound.hasKey(Names.NBT.discoveredSeeds)) {
             nr = stack.stackTagCompound.getTagList(Names.NBT.discoveredSeeds, 10).tagCount();

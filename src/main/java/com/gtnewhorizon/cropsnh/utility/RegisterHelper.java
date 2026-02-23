@@ -14,7 +14,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class RegisterHelper {
     public static void registerBlock(Block block,String name) {
@@ -58,10 +58,10 @@ public abstract class RegisterHelper {
     }
 
     public static void removeRecipe(ItemStack stack) {
-        ArrayList recipes = (ArrayList) CraftingManager.getInstance().getRecipeList();
+        List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
         ItemStack result;
         for(int i=0;i<recipes.size();i++) {
-            IRecipe recipe = (IRecipe) recipes.get(i);
+            IRecipe recipe = recipes.get(i);
             result = recipe.getRecipeOutput();
             if(result!=null && stack.getItem()==result.getItem() && stack.getItemDamage()==result.getItemDamage()) {
                 recipes.remove(i);

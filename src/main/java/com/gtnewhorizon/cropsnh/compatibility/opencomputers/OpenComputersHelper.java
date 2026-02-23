@@ -13,7 +13,6 @@ public class OpenComputersHelper extends ModHelper {
         return Names.Mods.openComputers;
     }
 
-    @SuppressWarnings("unchecked")
     protected void onPostInit() {
         try {
             Class<?> driverClass = Class.forName("li.cil.oc.api.Driver");

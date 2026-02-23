@@ -365,7 +365,6 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
 
     //this loads the saved data for the tile entity
     @Override
-    @SuppressWarnings("deprecation")
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
         this.stats = PlantStats.readFromNBT(tag);
@@ -480,8 +479,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICrop, IDebugga
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("unchecked")
-    public void addWailaInformation(List information) {
+    public void addWailaInformation(List<String> information) {
     	if(this.hasPlant()) {
     		//Add the seed name.
     		information.add(StatCollector.translateToLocal("cropsnh_tooltip.seed") + ": " + this.getSeedStack().getDisplayName());

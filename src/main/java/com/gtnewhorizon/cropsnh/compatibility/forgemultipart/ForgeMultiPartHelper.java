@@ -16,12 +16,12 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 public class ForgeMultiPartHelper extends ModHelper {
-    private static Class multiBlockClass;
+    private static Class<?> multiBlockClass;
     private static Method getTileMethod;
 
     private static Method getMultiPartsMethod;
 
-    private static Class leverPartClass;
+    private static Class<?> leverPartClass;
     private static Method getMetaDataMethod;
 
     @Override
@@ -30,7 +30,6 @@ public class ForgeMultiPartHelper extends ModHelper {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onPostInit() {
         if(FMLCommonHandler.instance().getSide() == Side.SERVER) {
             return;
@@ -63,7 +62,7 @@ public class ForgeMultiPartHelper extends ModHelper {
     public static boolean isLeverFacingThis(World world, int x, int y, int z, ForgeDirection dir) {
         try {
             Object tileMultiPart = getTileMethod.invoke(null, world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
-            List multiPartList = (List) getMultiPartsMethod.invoke(tileMultiPart);
+            List<?> multiPartList = (List<?>) getMultiPartsMethod.invoke(tileMultiPart);
             for(Object obj:multiPartList) {
                 if(!isLeverPart(obj)) {
                     continue;

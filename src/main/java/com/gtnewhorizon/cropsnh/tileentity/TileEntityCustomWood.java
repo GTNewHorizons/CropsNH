@@ -189,8 +189,7 @@ public class TileEntityCustomWood extends TileEntityCropsNH implements IDebuggab
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("unchecked")
-    public void addWailaInformation(List information) {
+    public void addWailaInformation(List<String> information) {
     	ItemStack mat = this.getMaterialStack();
     	information.add(StatCollector.translateToLocal("cropsnh_tooltip.material")+": "+ mat.getItem().getItemStackDisplayName(mat));
     }

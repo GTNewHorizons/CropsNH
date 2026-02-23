@@ -41,7 +41,7 @@ public class ItemBlockCustomWood extends ItemBlockCropsNH {
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs tab, List list) {
+    public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
         this.getSubItems(list);
     }
 
@@ -52,7 +52,7 @@ public class ItemBlockCustomWood extends ItemBlockCropsNH {
      *
      * @param list the list to populate.
      */
-    public void getSubItems(List list) {
+    public void getSubItems(List<ItemStack> list) {
         ArrayList<ItemStack> registeredMaterials = new ArrayList<>();
         ArrayList<ItemStack> planks = OreDictionary.getOres(Names.OreDict.plankWood);
         for(ItemStack plank:planks) {
@@ -108,8 +108,7 @@ public class ItemBlockCustomWood extends ItemBlockCropsNH {
      * @param objectMeta the material's meta value.
      * @param registeredMaterials the list of materials to check against.
      */
-    @SuppressWarnings("unchecked")
-    private void addMaterialToList(ItemStack stack, List list, int objectMeta, ArrayList<ItemStack> registeredMaterials) {
+    private void addMaterialToList(ItemStack stack, List<ItemStack> list, int objectMeta, ArrayList<ItemStack> registeredMaterials) {
         if(!hasMaterial(registeredMaterials, stack)) {
             ItemStack entry = new ItemStack(this.field_150939_a, 1, objectMeta);
             NBTTagCompound tag = NBTHelper.getMaterialTag(stack);
@@ -134,8 +133,7 @@ public class ItemBlockCustomWood extends ItemBlockCropsNH {
      * </p>
      */
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag) {
         ItemStack material;
         if(stack.getItemDamage()==0 && stack.hasTagCompound() && stack.getTagCompound().hasKey(Names.NBT.material) && stack.getTagCompound().hasKey(Names.NBT.materialMeta)) {
             NBTTagCompound tag = stack.getTagCompound();

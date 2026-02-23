@@ -20,15 +20,15 @@ public class MultiBlockManager implements IMultiBlockManager<MultiBlockPartData>
     }
 
     @Override
-    public void onBlockPlaced(World world, int x, int y, int z, IMultiBlockComponent component) {
+    public void onBlockPlaced(World world, int x, int y, int z, IMultiBlockComponent<? extends IMultiBlockManager<MultiBlockPartData>, MultiBlockPartData> component) {
         boolean flag = false;
         for (ForgeDirection dir : ForgeDirection.values()) {
             if (dir == ForgeDirection.UNKNOWN) {
                 continue;
             }
             TileEntity te = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
-            if (te != null && te instanceof IMultiBlockComponent && component.isValidComponent((IMultiBlockComponent) te)) {
-                IMultiBlockComponent componentAt = (IMultiBlockComponent) te;
+            if (te != null && te instanceof IMultiBlockComponent && component.isValidComponent((IMultiBlockComponent<?, ?>) te)) {
+                IMultiBlockComponent<?, ?> componentAt = (IMultiBlockComponent<?, ?>) te;
                 if (canCheckForMultiBlock(componentAt)) {
                     if (checkForMultiBlock(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, componentAt)) {
                         return;
@@ -58,7 +58,7 @@ public class MultiBlockManager implements IMultiBlockManager<MultiBlockPartData>
         for (int x = xMin; x < xMax; x++) {
             for (int y = yMin; y < yMax; y++) {
                 for (int z = zMin; z < zMax; z++) {
-                    IMultiBlockComponent component = (IMultiBlockComponent) world.getTileEntity(x, y, z);
+                    IMultiBlockComponent<?, MultiBlockPartData> component = (IMultiBlockComponent<?, MultiBlockPartData>) world.getTileEntity(x, y, z);
                     if(x == xMin && y == yMin && z == zMin) {
                         component.preMultiBlockCreation(xMax-xMin, yMax-yMin, zMax-zMin);
                     }
@@ -72,12 +72,12 @@ public class MultiBlockManager implements IMultiBlockManager<MultiBlockPartData>
         ((IMultiBlockComponent<?, ?>) world.getTileEntity(xMin, yMin, zMin)).postMultiBlockCreation();
     }
 
-    private boolean canCheckForMultiBlock(IMultiBlockComponent component) {
+    private boolean canCheckForMultiBlock(IMultiBlockComponent<?, ?> component) {
         return component.getMultiBlockData().size() > 1;
     }
 
-    private boolean checkForMultiBlock(World world, int x, int y, int z, IMultiBlockComponent component) {
-        IMultiBlockComponent rootComponent = component.getMainComponent();
+    private boolean checkForMultiBlock(World world, int x, int y, int z, IMultiBlockComponent<?, ?> component) {
+        IMultiBlockComponent<?, ?> rootComponent = component.getMainComponent();
         if (rootComponent != component) {
             IMultiBlockPartData data = component.getMultiBlockData();
             return checkForMultiBlock(world, x - data.posX(), y - data.posY(), z - data.posZ(), rootComponent);
@@ -93,7 +93,7 @@ public class MultiBlockManager implements IMultiBlockManager<MultiBlockPartData>
         if (!areAllBlocksInRangeValidComponents(world, x - xOffsetMin, y - yOffsetMin, z - zOffsetMin, x + xOffsetPlus, y + yOffsetPlus, z + zOffsetPlus, component)) {
             return false;
         }
-        IMultiBlockComponent newRoot = (IMultiBlockComponent) world.getTileEntity(x - xOffsetMin, y - yOffsetMin, z - zOffsetMin);
+        IMultiBlockComponent<?, ?> newRoot = (IMultiBlockComponent<?, ?>) world.getTileEntity(x - xOffsetMin, y - yOffsetMin, z - zOffsetMin);
         int xSizeNew = xOffsetPlus + xOffsetMin;
         int ySizeNew = yOffsetPlus + yOffsetMin;
         int zSizeNew = zOffsetPlus + zOffsetMin;
@@ -107,7 +107,7 @@ public class MultiBlockManager implements IMultiBlockManager<MultiBlockPartData>
         return true;
     }
 
-    private int calculateDimensionOffsetBackwards(World world, int x, int y, int z, IMultiBlockComponent component, CoordinateIterator it) {
+    private int calculateDimensionOffsetBackwards(World world, int x, int y, int z, IMultiBlockComponent<?, ?> component, CoordinateIterator it) {
         if (!it.isActive()) {
             LogHelper.debug("ERROR WHEN ITERATING COORDINATES: ITERATOR NOT ACTIVE");
             return 0;
@@ -125,7 +125,7 @@ public class MultiBlockManager implements IMultiBlockManager<MultiBlockPartData>
         return it.getOffset() - 1;
     }
 
-    private int calculateDimensionOffsetForwards(World world, int x, int y, int z, IMultiBlockComponent component, CoordinateIterator it) {
+    private int calculateDimensionOffsetForwards(World world, int x, int y, int z, IMultiBlockComponent<?, ?> component, CoordinateIterator it) {
         if (!it.isActive()) {
             LogHelper.debug("ERROR WHEN ITERATING COORDINATES: ITERATOR NOT ACTIVE");
             return 0;
@@ -143,7 +143,7 @@ public class MultiBlockManager implements IMultiBlockManager<MultiBlockPartData>
         return it.getOffset();
     }
 
-    private boolean areAllBlocksInRangeValidComponents(World world, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, IMultiBlockComponent component) {
+    private boolean areAllBlocksInRangeValidComponents(World world, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, IMultiBlockComponent<?, ?> component) {
         for (int x = xMin; x < xMax; x++) {
             for (int y = yMin; y < yMax; y++) {
                 for (int z = zMin; z < zMax; z++) {
@@ -156,9 +156,9 @@ public class MultiBlockManager implements IMultiBlockManager<MultiBlockPartData>
         return true;
     }
 
-    private boolean isValidComponent(World world, int x, int y, int z, IMultiBlockComponent component) {
+    private boolean isValidComponent(World world, int x, int y, int z, IMultiBlockComponent<?, ?> component) {
         TileEntity te = world.getTileEntity(x, y, z);
-        return (te != null) && (te instanceof IMultiBlockComponent) && (component.isValidComponent((IMultiBlockComponent) te));
+        return (te != null) && (te instanceof IMultiBlockComponent) && (component.isValidComponent((IMultiBlockComponent<?, ?>) te));
     }
 
     @SuppressWarnings("unchecked")
@@ -170,7 +170,7 @@ public class MultiBlockManager implements IMultiBlockManager<MultiBlockPartData>
                     if((te == null) || !(te instanceof IMultiBlockComponent)) {
                         continue;
                     }
-                    IMultiBlockComponent component = (IMultiBlockComponent) te;
+                    IMultiBlockComponent<?, IMultiBlockPartData> component = (IMultiBlockComponent<?, IMultiBlockPartData>) te;
                     component.setMultiBlockPartData(new MultiBlockPartData(0, 0, 0, 1, 1, 1));
                     component.postMultiBlockBreak();
                 }

@@ -5,6 +5,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
@@ -16,11 +17,11 @@ public abstract class MessageCropsNH implements IMessage {
     protected EntityPlayer getPlayerFromByteBuf(ByteBuf buf) {
         int playerNameLength = buf.readInt();
         String name = new String(buf.readBytes(playerNameLength).array());
-        List list = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
+        List<EntityPlayerMP> list = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
         EntityPlayer player = null;
-        Iterator iterator = list.iterator();
+        Iterator<EntityPlayerMP> iterator = list.iterator();
         while (iterator.hasNext() && player==null) {
-            EntityPlayer nextPlayer = (EntityPlayer)iterator.next();
+            EntityPlayerMP nextPlayer = iterator.next();
             if(nextPlayer.getGameProfile().getName().equals(name)) {
                 player = nextPlayer;
             }

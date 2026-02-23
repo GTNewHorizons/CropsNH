@@ -133,6 +133,8 @@ public class Vector {
     }
 
     public static class UnknownPositionException extends Exception {
+        private static final long serialVersionUID = 8077583638444933463L;
+
         public UnknownPositionException() {
             super("Position not found on NBT");
         }

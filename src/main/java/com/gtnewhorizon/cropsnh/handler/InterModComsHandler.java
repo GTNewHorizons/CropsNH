@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 @SuppressWarnings("unused")
 public class InterModComsHandler {
     @Mod.EventHandler
-    @SuppressWarnings("unchecked")
     public void receiveMessage(FMLInterModComms.IMCEvent event) {
         for(FMLInterModComms.IMCMessage message:event.getMessages()) {
             if(message.isItemStackMessage()) {

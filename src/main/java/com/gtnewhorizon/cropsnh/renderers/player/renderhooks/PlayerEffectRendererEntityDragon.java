@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 
 @SideOnly(Side.CLIENT)
-public class PlayerEffectRendererEntityDragon extends PlayerEffectRendererEntity {
+public class PlayerEffectRendererEntityDragon extends PlayerEffectRendererEntity<net.minecraft.entity.boss.EntityDragon> {
     protected PlayerEffectRendererEntityDragon() {
         super();
     }
@@ -23,7 +23,7 @@ public class PlayerEffectRendererEntityDragon extends PlayerEffectRendererEntity
     }
 
     @Override
-    protected IWrappedEntity getEntityWrapper() {
+    protected IWrappedEntity<net.minecraft.entity.boss.EntityDragon> getEntityWrapper() {
         return new EntityDragon();
     }
 

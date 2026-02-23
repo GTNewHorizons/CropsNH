@@ -63,8 +63,7 @@ public class ItemHandRake extends ItemCropsNH implements IRake {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
         list.add(new ItemStack(item, 1, WOOD_VARIANT_META));
         list.add(new ItemStack(item, 1, IRON_VARIANT_META));
     }
@@ -82,8 +81,7 @@ public class ItemHandRake extends ItemCropsNH implements IRake {
     }
 
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag) {
         list.add(StatCollector.translateToLocal("cropsnh_tooltip.handRake"));
     }
 
