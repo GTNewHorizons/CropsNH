@@ -878,7 +878,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         }
 
         // if all parents have fertilizer in them, stats cannot go down.
-        boolean canReduce = !neighbours.stream()
+        boolean onlyGoUp = neighbours.stream()
             .allMatch(x -> x.getFertilizerStorage() > 0);
         // find all the parent's stats.
         Collection<ISeedStats> parentStats = neighbours.stream()
@@ -886,9 +886,9 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                 t -> t.getSeed()
                     .getStats())
             .collect(Collectors.toList());
-        byte ga = variateStat(canReduce, parentStats, ISeedStats::getGain);
-        byte re = variateStat(canReduce, parentStats, ISeedStats::getResistance);
-        byte gr = variateStat(canReduce, parentStats, ISeedStats::getGrowth);
+        byte ga = variateStat(onlyGoUp, parentStats, ISeedStats::getGain);
+        byte re = variateStat(onlyGoUp, parentStats, ISeedStats::getResistance);
+        byte gr = variateStat(onlyGoUp, parentStats, ISeedStats::getGrowth);
 
         // plant it
         this.plantSeed(new SeedData(result, new SeedStats(gr, ga, re, false)));
@@ -979,7 +979,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                 .getBreedingThreshold();
     }
 
-    public static byte variateStat(boolean canReduce, Collection<ISeedStats> parentStats,
+    public static byte variateStat(boolean onlyGoUp, Collection<ISeedStats> parentStats,
         ToIntFunction<ISeedStats> collector) {
         // average parents
         int newValue = parentStats.stream()
@@ -988,7 +988,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         // variate
         int variation = ConfigurationHandler.breedingHigh + 1 - ConfigurationHandler.breedingLow;
         variation = XSTR.XSTR_INSTANCE.nextInt(variation) + ConfigurationHandler.breedingLow;
-        variation = Math.max(canReduce ? Integer.MIN_VALUE : 0, variation);
+        if (onlyGoUp) variation = Math.max(0, variation);
 
         // clamp
         return (byte) Math.max(Constants.MIN_SEED_STAT, Math.min(Constants.MAX_SEED_STAT, newValue + variation));
