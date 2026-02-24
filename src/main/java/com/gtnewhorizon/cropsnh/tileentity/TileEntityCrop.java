@@ -988,7 +988,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         // variate
         int variation = ConfigurationHandler.breedingHigh + 1 - ConfigurationHandler.breedingLow;
         variation = XSTR.XSTR_INSTANCE.nextInt(variation) + ConfigurationHandler.breedingLow;
-        if (onlyGoUp) variation = Math.max(0, variation);
+        if (onlyGoUp && variation < 0) variation = 0;
 
         // clamp
         return (byte) Math.max(Constants.MIN_SEED_STAT, Math.min(Constants.MAX_SEED_STAT, newValue + variation));
