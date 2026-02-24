@@ -397,7 +397,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     @Override
     public boolean tryPlantSeed(ISeedData seedData) {
         // check if it can be planted on this soil.
-        if (seedData == null || seed.getCrop() == null || !isValidSoilForCrop(seedData.getCrop())) return false;
+        if (seedData == null || seedData.getCrop() == null || !isValidSoilForCrop(seedData.getCrop())) return false;
         // all good we can plant the seed
         this.plantSeed(seedData);
         return true;
