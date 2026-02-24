@@ -986,10 +986,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             .mapToInt(collector)
             .reduce(0, Integer::sum) / parentStats.size();
         // variate
-        newValue += XSTR.XSTR_INSTANCE.nextInt(ConfigurationHandler.breedingHigh + 1 - ConfigurationHandler.breedingLow)
-            + ConfigurationHandler.breedingLow;
+        int variation = ConfigurationHandler.breedingHigh + 1 - ConfigurationHandler.breedingLow;
+        variation = XSTR.XSTR_INSTANCE.nextInt(variation) + ConfigurationHandler.breedingLow;
+        variation = Math.max(canReduce ? Integer.MIN_VALUE : 0, variation);
+
         // clamp
-        return (byte) Math.max(canReduce ? Constants.MIN_SEED_STAT : 0, Math.min(Constants.MAX_SEED_STAT, newValue));
+        return (byte) Math.max(Constants.MIN_SEED_STAT, Math.min(Constants.MAX_SEED_STAT, newValue + variation));
     }
 
     // endregion breeding and crossing
