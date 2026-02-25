@@ -146,7 +146,7 @@ public abstract class ItemSpadeNH extends ItemTool implements ICropLeftClickHand
             else te.setGrowthProgress(0);
             return true;
         }
-        return true;
+        return false;
     }
 
     protected abstract int getSeedCount(int resist);
