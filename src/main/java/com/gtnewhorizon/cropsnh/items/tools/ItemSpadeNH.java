@@ -19,6 +19,7 @@ import com.gtnewhorizon.cropsnh.api.ICropLeftClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
+import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
@@ -33,8 +34,13 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public abstract class ItemSpadeNH extends ItemTool implements ICropLeftClickHandler, ICropRightClickHandler {
 
-    private static final Set<Block> BLOCKS_AFFECTED = Sets
-        .newHashSet(Blocks.grass, Blocks.dirt, Blocks.snow_layer, Blocks.farmland, Blocks.mycelium);
+    private static final Set<Block> BLOCKS_AFFECTED = Sets.newHashSet(
+        Blocks.grass,
+        Blocks.dirt,
+        Blocks.snow_layer,
+        Blocks.farmland,
+        Blocks.mycelium,
+        CropsNHBlocks.blockCropSticks);
 
     public ItemSpadeNH(float damage, ToolMaterial mat) {
         super(damage, mat, BLOCKS_AFFECTED);
