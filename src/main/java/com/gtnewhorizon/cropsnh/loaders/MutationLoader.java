@@ -49,6 +49,7 @@ import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Creeperweed;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Cucumber;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Dandelion;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Dayflower;
+import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.DeepslateLily;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Diareed;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.DioriteLily;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Duskberry;
@@ -847,7 +848,7 @@ public class MutationLoader {
             new CropMutation(TuffLily, BlackGraniteLily, StoneLily)
                 .addToMutationPools(aGray, aStone, aDark)
                 .register();
-            new CropMutation(BlackGraniteLily,TuffLily, BlackGraniteLily)
+            new CropMutation(DeepslateLily,TuffLily, BlackGraniteLily)
                 .addToMutationPools(aBlack, aStone, aDark)
                 .register();
         }
