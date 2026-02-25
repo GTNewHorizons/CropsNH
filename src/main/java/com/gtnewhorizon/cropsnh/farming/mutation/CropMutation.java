@@ -97,8 +97,8 @@ public class CropMutation implements ICropMutation {
 
     @Override
     public int getParentCount() {
-        if (parent4 == null) return 4;
-        if (parent3 == null) return 3;
+        if (parent4 != null) return 4;
+        if (parent3 != null) return 3;
         return 2;
     }
 

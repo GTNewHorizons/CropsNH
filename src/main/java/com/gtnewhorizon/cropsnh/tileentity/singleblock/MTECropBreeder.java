@@ -258,14 +258,15 @@ public class MTECropBreeder extends MTEBasicMachine {
 
     private static ISeedStats getNewSeedStats(ICropMutation mutation, HashMap<ICropCard, SeedData> breedingParents) {
         int[] newStats = new int[] { 0, 0, 0 };
+        int parentCount = 0;
         for (ICropCard parent : mutation.getParents()) {
             ISeedStats parentStats = breedingParents.get(parent)
                 .getStats();
             newStats[0] += parentStats.getGrowth();
             newStats[1] += parentStats.getGain();
             newStats[2] += parentStats.getResistance();
+            ++parentCount;
         }
-        int parentCount = mutation.getParentCount();
         return new SeedStats(
             (byte) (newStats[0] / parentCount),
             (byte) (newStats[1] / parentCount),
