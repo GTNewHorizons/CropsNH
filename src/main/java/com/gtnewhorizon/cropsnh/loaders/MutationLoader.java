@@ -701,7 +701,7 @@ public class MutationLoader {
         }
         if (ModUtils.Thaumcraft.isModLoaded()) {
             new CropMutation(Blazereed, SugarCane, Cinderpearl)
-                .addToMutationPools(aFire, aBlaze, aReed, aSulfur)
+                .addToMutationPools(aFire, aBlaze, aReed, aSulfur, aNether)
                 .register();
         }
         new CropMutation(Corium, Wheat, Cocoa)
@@ -992,7 +992,7 @@ public class MutationLoader {
                 .addToMutationPools(aFlower, aMagic, aBad, aToxic, aIngredient)
                 .register();
             new CropMutation(Snowbell, Belladonna, GlintWeed)
-                .addToMutationPools(aWhite, aFlower, aIce, aToxic, aIngredient)
+                .addToMutationPools(aWhite, aFlower, aIce, aToxic, aIngredient, aSnow)
                 .register();
             new CropMutation(SpanishMoss, Moss, EmberMoss)
                 .addToMutationPools(aGreen, aClimbable, aMagic)
