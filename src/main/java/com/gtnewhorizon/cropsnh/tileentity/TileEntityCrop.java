@@ -1130,7 +1130,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             // check if it's a fertilizer
             int fertilizerPotency = FertilizerRegistry.instance.getPotency(heldItem);
             if (fertilizerPotency > 0) {
-                if (this.addFertilizer(fertilizerPotency, 100 - fertilizerPotency, 100, false)) {
+                if (this.addFertilizer(fertilizerPotency, Math.max(90, 100 - fertilizerPotency), 100, false)) {
                     if (!player.capabilities.isCreativeMode) {
                         heldItem.stackSize--;
                     }
