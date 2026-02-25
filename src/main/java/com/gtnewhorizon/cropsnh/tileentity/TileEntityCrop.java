@@ -898,33 +898,33 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     private ICropCard getBreedingResult(List<ICropStickTile> neighbours) {
         // 50% chance it will attempt to cross instead of breeding
         if (XSTR.XSTR_INSTANCE.nextBoolean()) {
-            // filter out crops that can't cross
-            ArrayList<ICropCard> crossingParents = neighbours.stream()
-                .filter(ICropStickTile::canCross)
-                .map(
-                    t -> t.getSeed()
-                        .getCrop())
-                .collect(Collectors.toCollection(ArrayList::new));
+            ArrayList<ICropStickTile> crossingParents = new ArrayList<>(neighbours);
+            crossingParents.removeIf(s -> !s.canCross());
             // check if we got enough parents that can cross.
             if (!crossingParents.isEmpty()) {
-                ICropCard chosen = crossingParents.get(XSTR.XSTR_INSTANCE.nextInt(crossingParents.size()));
+                ICropCard chosen = crossingParents.get(XSTR.XSTR_INSTANCE.nextInt(crossingParents.size()))
+                    .getSeed()
+                    .getCrop();
                 // Ensure only crops that participated in the mutation contrinute to the new baseline stats
-                neighbours.removeIf(
+                crossingParents.removeIf(
                     s -> s.getSeed()
                         .getCrop() != chosen);
+                neighbours.clear();
+                neighbours.addAll(crossingParents);
                 return chosen;
             }
+            // if it fails to coss try breeding instead.
         }
 
+        // all other mutations are breeding mutations so we can just kick out anything that isn't ready to breed.
+        neighbours.removeIf(s -> !s.canBreed());
+        if (neighbours.size() < 2) return null;
         // then attempt to breed deterministically.
         ArrayList<ICropCard> breedingParents = neighbours.stream()
-            .filter(ICropStickTile::canBreed)
             .map(
                 t -> t.getSeed()
                     .getCrop())
             .collect(Collectors.toCollection(ArrayList::new));
-        // check if we got enough parents that can breed.
-        if (breedingParents.size() < 2) return null;
         // find all matching mutations
         List<ICropMutation> deterministicMutations = MutationRegistry.instance
             .getPossibleDeterministicMutations(breedingParents);
