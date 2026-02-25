@@ -494,13 +494,16 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     // region fertilizer apply
 
     public static final int FERTILIZER_CAP = 200;
-    private static final int FERTILIZER_THRESHOLD = 180;
+    private static final int FERTILIZER_ITEM_THRESHOLD_MIN = FERTILIZER_CAP / 2;
+    private static final int FERTILIZER_LIQUID_THRESHOLD = 180;
 
     public boolean applyFertilizer(ICropStickTile aCrop, boolean aSimulate) {
-        if (aCrop.getFertilizerStorage() > FERTILIZER_THRESHOLD) return false;
+        int storedFert = aCrop.getFertilizerStorage();
         int amount = 0;
+        int threshold = FERTILIZER_LIQUID_THRESHOLD;
         // always try liquid fertilizer first
         if (this.getLiquidFertilizerAmount() > 0) {
+            if (storedFert > FERTILIZER_LIQUID_THRESHOLD) return false;
             // get max to consume
             int maxConsume = FERTILIZER_CAP - aCrop.getFertilizerStorage();
             amount = Math.min(this.mLiquidFertilizer, maxConsume);
@@ -521,6 +524,10 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 // check if it's a valid fertilizer
                 int fertPotency = FertilizerRegistry.instance.getPotency(stack);
                 if (fertPotency <= 0) continue;
+                // don't apply unless at least half the fertilizer given by the item can be applied.
+                // or half the max of the manager's application limit, which ever is higher
+                threshold = Math.max(FERTILIZER_ITEM_THRESHOLD_MIN, FERTILIZER_CAP - (fertPotency / 2));
+                if (storedFert > threshold) continue;
                 // consume if we aren't simulating
                 if (!aSimulate) {
                     stack.stackSize--;
@@ -536,7 +543,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         // fail if we didn't find anything
         if (amount <= 0) return false;
         // the add fertilizer call should always be a success if it reaches this point.
-        return aCrop.addFertilizer(amount, FERTILIZER_THRESHOLD, FERTILIZER_CAP, aSimulate);
+        return aCrop.addFertilizer(amount, threshold, FERTILIZER_CAP, aSimulate);
     }
 
     // endregion fertilizer apply
