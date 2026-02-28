@@ -13,7 +13,7 @@ import gregtech.api.enums.VoltageIndex;
 public class CropSaltyRoot extends NHCropCard {
 
     public CropSaltyRoot() {
-        super("saltyRoot", new Color(0x8E8E8E), new Color(0x979796));
+        super("saltyRoot", new Color(0x707070), new Color(0xC7C7C1));
 
         this.addDrop(CropsNHItemList.saltyRoot.get(1), 100_00);
 
