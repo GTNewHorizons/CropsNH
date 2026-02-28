@@ -30,6 +30,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
+import com.gtnewhorizon.cropsnh.handler.CropsNHFurnaceFuelHandler;
 import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
@@ -39,7 +40,6 @@ import bartworks.common.loaders.BioCultureLoader;
 import bartworks.common.loaders.BioItemList;
 import bartworks.system.material.Werkstoff;
 import bartworks.system.material.WerkstoffLoader;
-import cofh.core.util.energy.FurnaceFuelHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -498,7 +498,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     }
 
     private static void addMicadiaRecipes() {
-        FurnaceFuelHandler.registerFuel(CropsNHItemList.micadiaFlower.get(1), 240);
+        CropsNHFurnaceFuelHandler.FUEL_VALUE_MAP.put(CropsNHItemList.micadiaFlower.get(1), 100);
     }
 
     private static void addMilkWartRecipes() {
@@ -572,7 +572,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     }
 
     private static void addTineRecipes() {
-        FurnaceFuelHandler.registerFuel(CropsNHItemList.tineTwig.get(1), 100);
+        CropsNHFurnaceFuelHandler.FUEL_VALUE_MAP.put(CropsNHItemList.tineTwig.get(1), 100);
 
         ulvRecipe(3, 75).itemInputs(MaterialLeafLoader.tineTwig.get(2))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Wood, 1))

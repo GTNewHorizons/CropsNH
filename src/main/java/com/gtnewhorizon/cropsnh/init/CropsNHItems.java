@@ -104,7 +104,7 @@ public class CropsNHItems {
         materialLeaf = new ItemMaterialLeaf();
         // spotless:off
         CropsNHItemList.bauxiaLeaf.set(MaterialLeafLoader.bauxiaLeaf.get());
-        CropsNHItemList.canolaFLower.set(MaterialLeafLoader.canolaFLower.get());
+        CropsNHItemList.canolaFlower.set(MaterialLeafLoader.canolaFLower.get());
         CropsNHItemList.copponFiber.set(MaterialLeafLoader.copponFiber.get());
         CropsNHItemList.galvaniaLeaf.set(MaterialLeafLoader.galvaniaLeaf.get());
         CropsNHItemList.indigoBlossom.set(MaterialLeafLoader.indigoBlossom.get());

@@ -205,7 +205,7 @@ public enum CropsNHItemList implements IItemContainer {
 
     // material leaves
     bauxiaLeaf,
-    canolaFLower,
+    canolaFlower,
     copponFiber,
     galvaniaLeaf,
     indigoBlossom,

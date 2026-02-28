@@ -145,7 +145,7 @@ public class AspectLoader {
         // region material crops
         addCropAspectsBasedOnMaterial(CropsNHItemList.bauxiaLeaf.get(1), Materials.Aluminium, defaultLeafAspects);
         ThaumcraftApi.registerObjectTag(
-            CropsNHItemList.canolaFLower.get(1),
+            CropsNHItemList.canolaFlower.get(1),
             new AspectList()
                 .add(Aspect.CROP, 1)
                 .add(Aspect.PLANT, 1)

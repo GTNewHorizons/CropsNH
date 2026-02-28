@@ -1,15 +1,16 @@
 package com.gtnewhorizon.cropsnh.handler.migrations;
 
-import static com.gtnewhorizon.cropsnh.handler.MigrationHandler.ITEM_TRANSFORMERS;
-import static com.gtnewhorizon.cropsnh.handler.MigrationHandler.registerSimpleItemTransformer;
+import static com.gtnewhorizon.cropsnh.handler.MigrationHandler.addOreDictItemOnlyReplacement;
 
 import javax.annotation.Nullable;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.IAdditionalCropData;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
@@ -21,7 +22,6 @@ import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
-import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
@@ -29,12 +29,12 @@ import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
+import com.gtnewhorizons.postea.api.ItemStackReplacementManager;
 import com.gtnewhorizons.postea.api.TileEntityReplacementManager;
 import com.gtnewhorizons.postea.utility.BlockInfo;
+import com.gtnewhorizons.postea.utility.MissingMappingHandler;
 
 public class IC2Migrations {
-
-    private static final String ITEM_PREFIX = ModUtils.ModIDs.IndustrialCraft2 + ":";
 
     public static void postInit() {
         TileEntityReplacementManager.tileEntityTransformer(
@@ -86,7 +86,9 @@ public class IC2Migrations {
                 return newNBT;
             }));
 
-        ITEM_TRANSFORMERS.put(ModUtils.IndustrialCraft2.ID + ":itemCropSeed", stack -> {
+        final String ic2SeedId = ModUtils.IndustrialCraft2.ID + ":itemCropSeed";
+        MissingMappingHandler.addIgnore(ic2SeedId);
+        ItemStackReplacementManager.addTransformationHandler(ic2SeedId, (originalId, stack) -> {
             // if tag is invalid
             if (!stack.hasKey("tag", Data.NBTType._object)) return null;
             NBTTagCompound oldTag = stack.getCompoundTag("tag");
@@ -120,31 +122,61 @@ public class IC2Migrations {
             stack.setShort("id", (short) Item.getIdFromItem(CropsNHItems.genericSeed));
             stack.setShort("Damage", (short) 0);
             stack.setTag("tag", NHCropCard.writeNBT(cc, stats));
-            return stack;
+            return true;
         });
 
-        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemCofeeBeans", "cropCoffee");
-        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemFertilizer", CropsNHItems.fertilizer);
-        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemWeedEx", CropsNHItems.weedEX);
-        registerSimpleItemTransformer(
-            ModUtils.IndustrialCraft2.ID + ":itemHops",
-            CropsNHItems.materialLeaf,
-            (short) MaterialLeafLoader.hops.getId());
-        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemTerrawart", CropsNHItems.gaiaWart);
-        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemGrinPowder", CropsNHItems.poisonPowder);
-        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemWeedingTrowel", CropsNHItems.spade);
-        registerSimpleItemTransformer(
-            ModUtils.IndustrialCraft2.ID + ":blockCrop",
-            Item.getItemFromBlock(CropsNHBlocks.blockCropSticks));
+        addOreDictItemOnlyReplacement(
+            ModUtils.IndustrialCraft2.ID + ":itemCofeeBeans",
+            OreDictionary.WILDCARD_VALUE,
+            "cropCoffee");
+
+        final String ic2FertilizerId = ModUtils.IndustrialCraft2.ID + ":itemFertilizer";
+        MissingMappingHandler.addIgnore(ic2FertilizerId);
+        ItemStackReplacementManager.addSimpleReplacement(ic2FertilizerId, CropsNHItemList.fertilizer.get(1), true);
+
+        final String ic2WeedExId = ModUtils.IndustrialCraft2.ID + ":itemWeedEx";
+        MissingMappingHandler.addIgnore(ic2WeedExId);
+        ItemStackReplacementManager.addSimpleReplacement(
+            ic2WeedExId,
+            OreDictionary.WILDCARD_VALUE,
+            CropsNHItems.weedEX,
+            OreDictionary.WILDCARD_VALUE,
+            true);
+
+        final String ic2HopsId = ModUtils.IndustrialCraft2.ID + ":itemHops";
+        MissingMappingHandler.addIgnore(ic2HopsId);
+        ItemStackReplacementManager.addSimpleReplacement(ic2HopsId, CropsNHItemList.hops.get(1), true);
+
+        final String ic2TerrawartId = ModUtils.IndustrialCraft2.ID + ":itemTerrawart";
+        MissingMappingHandler.addIgnore(ic2TerrawartId);
+        ItemStackReplacementManager.addSimpleReplacement(ic2TerrawartId, CropsNHItemList.gaiaWart.get(1), true);
+
+        final String ic2GrinPowderId = ModUtils.IndustrialCraft2.ID + ":itemGrinPowder";
+        MissingMappingHandler.addIgnore(ic2GrinPowderId);
+        ItemStackReplacementManager.addSimpleReplacement(ic2GrinPowderId, CropsNHItemList.poisonPowder.get(1), true);
+
+        final String weedingTrowelId = ModUtils.IndustrialCraft2.ID + ":itemWeedingTrowel";
+        MissingMappingHandler.addIgnore(weedingTrowelId);
+        ItemStackReplacementManager.addSimpleReplacement(weedingTrowelId, CropsNHItemList.spade.get(1), true);
+
+        final String ic2CropStickId = ModUtils.IndustrialCraft2.ID + ":blockCrop";
+        MissingMappingHandler.addIgnore(ic2CropStickId);
+        ItemStackReplacementManager.addSimpleReplacement(ic2CropStickId, CropsNHItemList.cropSticks.get(1), true);
+
         // weeds -> tall grass
-        registerSimpleItemTransformer(
-            ModUtils.IndustrialCraft2.ID + ":itemWeed",
-            Item.getItemFromBlock(Blocks.tallgrass),
-            (short) 1);
-        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemMugEmpty", 0, CropsNHItems.mug, 0);
-        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemMugCoffee", 0, CropsNHItems.mug, 1);
-        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemMugCoffee", 1, CropsNHItems.mug, 2);
-        registerSimpleItemTransformer(ModUtils.IndustrialCraft2.ID + ":itemMugCoffee", 2, CropsNHItems.mug, 3);
+        final String ic2WeedId = ModUtils.IndustrialCraft2.ID + ":itemWeed";
+        MissingMappingHandler.addIgnore(ic2WeedId);
+        ItemStackReplacementManager.addSimpleReplacement(ic2WeedId, Item.getItemFromBlock(Blocks.tallgrass), 1, true);
+
+        final String ic2EmptyMugId = ModUtils.IndustrialCraft2.ID + ":itemMugEmpty";
+        MissingMappingHandler.addIgnore(ic2EmptyMugId);
+        ItemStackReplacementManager.addSimpleReplacement(ic2EmptyMugId, 0, CropsNHItemList.emptyMug.get(1), true);
+
+        final String ic2MugCoffeeId = ModUtils.IndustrialCraft2.ID + ":itemMugCoffee";
+        MissingMappingHandler.addIgnore(ic2MugCoffeeId);
+        ItemStackReplacementManager.addSimpleReplacement(ic2MugCoffeeId, 0, CropsNHItemList.coldCoffeeMug.get(1), true);
+        ItemStackReplacementManager.addSimpleReplacement(ic2MugCoffeeId, 1, CropsNHItemList.darkCoffeeMug.get(1), true);
+        ItemStackReplacementManager.addSimpleReplacement(ic2MugCoffeeId, 2, CropsNHItemList.coffeeMug.get(1), true);
     }
 
     private static @Nullable ICropCard getMigratedCrop(String owner, String name) {

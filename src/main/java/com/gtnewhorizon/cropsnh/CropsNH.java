@@ -6,6 +6,7 @@ import com.gtnewhorizon.cropsnh.compatibility.waila.WailaRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
+import com.gtnewhorizon.cropsnh.handler.CropsNHFurnaceFuelHandler;
 import com.gtnewhorizon.cropsnh.handler.MigrationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
@@ -30,10 +31,10 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
-import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * Hard fork of Agricraft (originally by InfinityRaider) for the GTNH modpack
@@ -87,6 +88,7 @@ public class CropsNH {
         LogHelper.debug("Starting Initialization");
         proxy.registerEventHandlers();
         proxy.registerRenderers();
+        GameRegistry.registerFuelHandler(new CropsNHFurnaceFuelHandler());
         OreDictLoader.init();
         WailaRegistry.onInit();
         TiCCompatHandler.onInit();
@@ -129,8 +131,4 @@ public class CropsNH {
         MutationRegistry.instance.pruneMutationPools();
     }
 
-    @Mod.EventHandler
-    public void onMissingMappings(FMLMissingMappingsEvent event) {
-        MigrationHandler.onMissingMigration(event);
-    }
 }
