@@ -22,7 +22,6 @@ public class BlockOverclockedGrowthAccelerationUnit extends CropsNHBlockIndustri
     public BlockOverclockedGrowthAccelerationUnit() {
         super(
             Names.Objects.OverclockGrowthAccelerationUnit,
-            "Overclocked Growth Acceleration Unit",
             MIN_TIER,
             VoltageIndex.UXV,
             CropsNHItemList.OverclockedGrowthAccelerationUnit_ZPM,

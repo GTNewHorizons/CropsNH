@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.handler.migrations;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.gtnewhorizon.cropsnh.blocks.BlockContainerCropsNH;
@@ -9,6 +11,7 @@ import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.gtnewhorizons.postea.api.BlockReplacementManager;
 import com.gtnewhorizons.postea.api.ItemStackReplacementManager;
 import com.gtnewhorizons.postea.api.TileEntityReplacementManager;
 import com.gtnewhorizons.postea.utility.BlockInfo;
@@ -38,6 +41,42 @@ public abstract class DevMigrations {
             }
             return nbt;
         });
+
+        BlockReplacementManager
+            .addBlockReplacement(Reference.MOD_ID + ":environmentalEnhancementUnit", (blockConversionInfo, world) -> {
+                blockConversionInfo.blockID = Block.getIdFromBlock(CropsNHBlocks.blockEnvironmentalEnhancementUnit);
+                return blockConversionInfo;
+            });
+        BlockReplacementManager
+            .addBlockReplacement(Reference.MOD_ID + ":growthAccelerationUnit", (blockConversionInfo, world) -> {
+                blockConversionInfo.blockID = Block.getIdFromBlock(CropsNHBlocks.blockGrowthAccelerationUnit);
+                return blockConversionInfo;
+            });
+        BlockReplacementManager
+            .addBlockReplacement(Reference.MOD_ID + ":fertilizerUnit", (blockConversionInfo, world) -> {
+                blockConversionInfo.blockID = Block.getIdFromBlock(CropsNHBlocks.blockFertilizerUnit);
+                return blockConversionInfo;
+            });
+        BlockReplacementManager
+            .addBlockReplacement(Reference.MOD_ID + ":advancedHarvestingUnit", (blockConversionInfo, world) -> {
+                blockConversionInfo.blockID = Block.getIdFromBlock(CropsNHBlocks.blockAdvancedHarvestingUnit);
+                return blockConversionInfo;
+            });
+        BlockReplacementManager.addBlockReplacement(
+            Reference.MOD_ID + ":OverclockGrowthAccelerationUnit",
+            (blockConversionInfo, world) -> {
+                blockConversionInfo.blockID = Block
+                    .getIdFromBlock(CropsNHBlocks.blockOverclockedGrowthAccelerationUnit);
+                return blockConversionInfo;
+            });
+        BlockReplacementManager.addBlockReplacement(Reference.MOD_ID + ":casings1", (blockConversionInfo, world) -> {
+            blockConversionInfo.blockID = Block.getIdFromBlock(CropsNHBlocks.blockCasings1);
+            return blockConversionInfo;
+        });
+        BlockReplacementManager.addBlockReplacement(Reference.MOD_ID + ":seedBed", (blockConversionInfo, world) -> {
+            blockConversionInfo.blockID = Block.getIdFromBlock(CropsNHBlocks.blockSeedBed);
+            return blockConversionInfo;
+        });
     }
 
     public static void loadComplete() {
@@ -56,6 +95,24 @@ public abstract class DevMigrations {
                 mapping.remap(GameRegistry.findItem(Reference.MOD_ID, id));
             }
             return true;
+        }
+        Block b = switch (mapping.name) {
+            case Reference.MOD_ID + ":casings1" -> CropsNHBlocks.blockCasings1;
+            case Reference.MOD_ID + ":seedBed" -> CropsNHBlocks.blockSeedBed;
+            case Reference.MOD_ID + ":environmentalEnhancementUnit" -> CropsNHBlocks.blockEnvironmentalEnhancementUnit;
+            case Reference.MOD_ID + ":fertilizerUnit" -> CropsNHBlocks.blockFertilizerUnit;
+            case Reference.MOD_ID + ":growthAccelerationUnit" -> CropsNHBlocks.blockGrowthAccelerationUnit;
+            case Reference.MOD_ID + ":advancedHarvestingUnit" -> CropsNHBlocks.blockAdvancedHarvestingUnit;
+            case Reference.MOD_ID
+                + ":OverclockGrowthAccelerationUnit" -> CropsNHBlocks.blockOverclockedGrowthAccelerationUnit;
+            default -> null;
+        };
+        if (b != null) {
+            if (mapping.type == GameRegistry.Type.BLOCK) {
+                mapping.remap(b);
+            } else {
+                mapping.remap(Item.getItemFromBlock(b));
+            }
         }
         return false;
     }

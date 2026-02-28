@@ -16,7 +16,7 @@ public class BlockCasingsCropsNH1 extends BlockCasingsAbstract {
 
     public BlockCasingsCropsNH1() {
         super(ItemCasings.class, Names.Objects.casings1, MaterialCasings.INSTANCE);
-        register(0, CropsNHItemList.BrickedAgriculturalCasing, "Bricked Agricultural Casing");
+        register(0, CropsNHItemList.BrickedAgriculturalCasing);
     }
 
     @Override

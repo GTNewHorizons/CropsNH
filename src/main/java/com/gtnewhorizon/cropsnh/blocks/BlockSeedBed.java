@@ -28,7 +28,6 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
     public BlockSeedBed() {
         super(
             Names.Objects.seedBed,
-            "Seed Bed",
             CropsNHItemList.SeedBed_MV,
             CropsNHItemList.SeedBed_HV,
             CropsNHItemList.SeedBed_EV,

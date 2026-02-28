@@ -75,6 +75,74 @@ item.cropsnh:environmentalModule.template=Environmental Module (%1$s)
 
 # Blocks
 tile.cropsnh:cropSticks.name=Crop Sticks
+cropsnh.casings1.0.name=Bricked Agricultural Casing
+cropsnh.seedBed.2.name=Seed Bed (MV)
+cropsnh.seedBed.3.name=Seed Bed (HV)
+cropsnh.seedBed.4.name=Seed Bed (EV)
+cropsnh.seedBed.5.name=Seed Bed (IV)
+cropsnh.seedBed.6.name=Seed Bed (LuV)
+cropsnh.seedBed.7.name=Seed Bed (ZPM)
+cropsnh.seedBed.8.name=Seed Bed (UV)
+cropsnh.seedBed.9.name=Seed Bed (UHV)
+cropsnh.seedBed.10.name=Seed Bed (UEV)
+cropsnh.seedBed.11.name=Seed Bed (UIV)
+cropsnh.seedBed.12.name=Seed Bed (UMV)
+cropsnh.seedBed.13.name=Seed Bed (UXV)
+cropsnh.advancedHarvestingUnit.2.name=Advanced Harvesting Unit (MV)
+cropsnh.advancedHarvestingUnit.3.name=Advanced Harvesting Unit (HV)
+cropsnh.advancedHarvestingUnit.4.name=Advanced Harvesting Unit (EV)
+cropsnh.advancedHarvestingUnit.5.name=Advanced Harvesting Unit (IV)
+cropsnh.advancedHarvestingUnit.6.name=Advanced Harvesting Unit (LuV)
+cropsnh.advancedHarvestingUnit.7.name=Advanced Harvesting Unit (ZPM)
+cropsnh.advancedHarvestingUnit.8.name=Advanced Harvesting Unit (UV)
+cropsnh.advancedHarvestingUnit.9.name=Advanced Harvesting Unit (UHV)
+cropsnh.advancedHarvestingUnit.10.name=Advanced Harvesting Unit (UEV)
+cropsnh.advancedHarvestingUnit.11.name=Advanced Harvesting Unit (UIV)
+cropsnh.advancedHarvestingUnit.12.name=Advanced Harvesting Unit (UMV)
+cropsnh.advancedHarvestingUnit.13.name=Advanced Harvesting Unit (UXV)
+cropsnh.environmentalEnhancementUnit.2.name=Environmental Enhancement Unit (MV)
+cropsnh.environmentalEnhancementUnit.3.name=Environmental Enhancement Unit (HV)
+cropsnh.environmentalEnhancementUnit.4.name=Environmental Enhancement Unit (EV)
+cropsnh.environmentalEnhancementUnit.5.name=Environmental Enhancement Unit (IV)
+cropsnh.environmentalEnhancementUnit.6.name=Environmental Enhancement Unit (LuV)
+cropsnh.environmentalEnhancementUnit.7.name=Environmental Enhancement Unit (ZPM)
+cropsnh.environmentalEnhancementUnit.8.name=Environmental Enhancement Unit (UV)
+cropsnh.environmentalEnhancementUnit.9.name=Environmental Enhancement Unit (UHV)
+cropsnh.environmentalEnhancementUnit.10.name=Environmental Enhancement Unit (UEV)
+cropsnh.environmentalEnhancementUnit.11.name=Environmental Enhancement Unit (UIV)
+cropsnh.environmentalEnhancementUnit.12.name=Environmental Enhancement Unit (UMV)
+cropsnh.environmentalEnhancementUnit.13.name=Environmental Enhancement Unit (UXV)
+cropsnh.growthAccelerationUnit.2.name=Growth Acceleration Unit (MV)
+cropsnh.growthAccelerationUnit.3.name=Growth Acceleration Unit (HV)
+cropsnh.growthAccelerationUnit.4.name=Growth Acceleration Unit (EV)
+cropsnh.growthAccelerationUnit.5.name=Growth Acceleration Unit (IV)
+cropsnh.growthAccelerationUnit.6.name=Growth Acceleration Unit (LuV)
+cropsnh.growthAccelerationUnit.7.name=Growth Acceleration Unit (ZPM)
+cropsnh.growthAccelerationUnit.8.name=Growth Acceleration Unit (UV)
+cropsnh.growthAccelerationUnit.9.name=Growth Acceleration Unit (UHV)
+cropsnh.growthAccelerationUnit.10.name=Growth Acceleration Unit (UEV)
+cropsnh.growthAccelerationUnit.11.name=Growth Acceleration Unit (UIV)
+cropsnh.growthAccelerationUnit.12.name=Growth Acceleration Unit (UMV)
+cropsnh.growthAccelerationUnit.13.name=Growth Acceleration Unit (UXV)
+cropsnh.fertilizerUnit.2.name=Fertilization Unit (MV)
+cropsnh.fertilizerUnit.3.name=Fertilization Unit (HV)
+cropsnh.fertilizerUnit.4.name=Fertilization Unit (EV)
+cropsnh.fertilizerUnit.5.name=Fertilization Unit (IV)
+cropsnh.fertilizerUnit.6.name=Fertilization Unit (LuV)
+cropsnh.fertilizerUnit.7.name=Fertilization Unit (ZPM)
+cropsnh.fertilizerUnit.8.name=Fertilization Unit (UV)
+cropsnh.fertilizerUnit.9.name=Fertilization Unit (UHV)
+cropsnh.fertilizerUnit.10.name=Fertilization Unit (UEV)
+cropsnh.fertilizerUnit.11.name=Fertilization Unit (UIV)
+cropsnh.fertilizerUnit.12.name=Fertilization Unit (UMV)
+cropsnh.fertilizerUnit.13.name=Fertilization Unit (UXV)
+cropsnh.overclockedGrowthAccelerationUnit.7.name=Overclocked Growth Acceleration Unit (ZPM)
+cropsnh.overclockedGrowthAccelerationUnit.8.name=Overclocked Growth Acceleration Unit (UV)
+cropsnh.overclockedGrowthAccelerationUnit.9.name=Overclocked Growth Acceleration Unit (UHV)
+cropsnh.overclockedGrowthAccelerationUnit.10.name=Overclocked Growth Acceleration Unit (UEV)
+cropsnh.overclockedGrowthAccelerationUnit.11.name=Overclocked Growth Acceleration Unit (UIV)
+cropsnh.overclockedGrowthAccelerationUnit.12.name=Overclocked Growth Acceleration Unit (UMV)
+cropsnh.overclockedGrowthAccelerationUnit.13.name=Overclocked Growth Acceleration Unit (UXV)
 
 
 # Fluids
@@ -184,6 +252,7 @@ cropsnh_tooltip.industrialFarm.scanner.5=Fertilizer Usage: §e%1$s§rL/§e%2$s§
 cropsnh_tooltip.industrialFarm.scanner.6=Nutrient Score: §e%1$s§r out of §e%2$s§r
 
 # Seed Bed
+cropsnh_tooltip.seedBed.name=Seed Bed (%1$s)
 cropsnh_tooltip.seedBed.0=Determines the tier of the industrial farm.
 cropsnh_tooltip.seedBed.1=Seed Capacity: %1$d
 cropsnh_tooltip.seedBed.2=Requires %1$dL of water per cycle.
@@ -217,6 +286,17 @@ cropsnh_tooltip.advancedHarvestingUnit.2=Increases power usage by %1$.0f%% per u
 cropsnh_tooltip.advancedHarvestingUnit.2.adv=Increases power usage by %1$.0f%% per upgrade (additive).
 
 # MTE tooltips
+cropsnh_tooltip.cropManager.name=Crop Manager (%1$s)
+cropsnh_tooltip.cropManager.description=Automatically harvests and maintains crops in a large area
+cropsnh_tooltip.cropManager.tooltip.0=Hydration, fertilisation and weed-ex can be toggled independently
+cropsnh_tooltip.cropManager.tooltip.1=Consumes %1$s EU per harvest
+cropsnh_tooltip.cropManager.tooltip.2=Consumes %1$s EU per secondary operation
+cropsnh_tooltip.cropManager.tooltip.3=Can harvest %s block levels above and below itself
+cropsnh_tooltip.cropManager.tooltip.4=Range: %1$sx%2$sx%1$s blocks
+cropsnh_tooltip.cropManager.tooltip.5=Has %1$s%% chance for extra drops
+cropsnh_tooltip.cropManager.tooltip.6=Holds %1$s of Water
+cropsnh_tooltip.cropManager.tooltip.7=Holds %1$s of Fertilizer
+cropsnh_tooltip.cropManager.tooltip.8=Holds %1$s of Weed-EX
 cropsnh_tooltip.cropManager.water.0=Enable Hydration
 cropsnh_tooltip.cropManager.water.1=Disable Hydration
 cropsnh_tooltip.cropManager.weedEX.0=Enable Weed-EX
@@ -225,9 +305,9 @@ cropsnh_tooltip.cropManager.fertilizer.0=Enable Fertilization
 cropsnh_tooltip.cropManager.fertilizer.1=Disable Fertilization
 cropsnh_tooltip.cropManager.harvest.0=Enable Harvest
 cropsnh_tooltip.cropManager.harvest.1=Disable Harvest
-cropsnh_tooltip.cropManager.water=Water: %1$dL / %2$dL
-cropsnh_tooltip.cropManager.weedEX=Weed-EX: %1$dL / %2$dL
-cropsnh_tooltip.cropManager.liquidFertilizer=Liquid Fertilizer: %1$dL / %2$dL
+cropsnh_tooltip.cropManager.water=Water: %1$s%3$s / %2$s%3$s
+cropsnh_tooltip.cropManager.weedEX=Weed-EX: %1$s%3$s / %2$s%3$s
+cropsnh_tooltip.cropManager.liquidFertilizer=Liquid Fertilizer: %1$s%3$s / %2$s%3$s
 # MTE Machine Type Flavour Text
 # multi tooltips
 cropsnh_tooltip.MBTT.multiAmpsWithUpgrade=Supports TecTech Multi-Amp Hatches when using an Overclocked Growth Accelerator Upgrade!

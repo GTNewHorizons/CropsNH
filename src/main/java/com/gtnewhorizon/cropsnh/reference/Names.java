@@ -54,13 +54,15 @@ public final class Names {
         public static final String spade = "spade";
         public static final String reinforcedSpade = "reinforcedSpade";
         public static final String genericSeed = "genericSeed";
-        public static final String casings1 = "casings1";
-        public static final String seedBed = "seedBed";
-        public static final String environmentalEnhancementUnit = "environmentalEnhancementUnit";
-        public static final String growthAccelerationUnit = "growthAccelerationUnit";
-        public static final String fertilizerUnit = "fertilizerUnit";
-        public static final String advancedHarvestingUnit = "advancedHarvestingUnit";
-        public static final String OverclockGrowthAccelerationUnit = "OverclockGrowthAccelerationUnit";
+        // needs to be prefixed to properly uniquify the l10n
+        public static final String casings1 = Reference.MOD_ID + ".casings1";
+        public static final String seedBed = Reference.MOD_ID + ".seedBed";
+        public static final String environmentalEnhancementUnit = Reference.MOD_ID + ".environmentalEnhancementUnit";
+        public static final String growthAccelerationUnit = Reference.MOD_ID + ".growthAccelerationUnit";
+        public static final String fertilizerUnit = Reference.MOD_ID + ".fertilizerUnit";
+        public static final String advancedHarvestingUnit = Reference.MOD_ID + ".advancedHarvestingUnit";
+        public static final String OverclockGrowthAccelerationUnit = Reference.MOD_ID
+            + ".overclockedGrowthAccelerationUnit";
 
         // produce
         public static final String gaiaWart = "gaiaWart";

@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity.singleblock;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -49,6 +52,7 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
+import gregtech.api.util.tooltip.TooltipHelper;
 import gtPlusPlus.core.util.math.MathUtils;
 import gtPlusPlus.xmod.gregtech.api.gui.GTPPUITextures;
 
@@ -90,11 +94,11 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     public MTECropManager(final int aID, final int aTier, final String aRegionalName) {
         super(
             aID,
-            String.format("basicmachine.cropmanager.tier.%02d", aTier),
+            StatCollector.translateToLocalFormatted("cropsnh_tooltip.cropManager.name", GTValues.VN[aTier]),
             aRegionalName,
             aTier,
             TOTAL_SLOT_COUNT,
-            "Harvests the crop sticks in around it");
+            StatCollector.translateToLocal("cropsnh_tooltip.cropManager.description"));
         this.mWater = 0;
         this.mWaterCap = this.mTier * 32000;
         this.mWeedEX = 0;
@@ -871,20 +875,32 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         return ArrayUtils.addAll(
             this.mDescriptionArray,
             CropsNHUtils.getMachineTypeText("cropManager"),
-            "Secondary mode can Hydrate/Fertilize/Weed-EX",
-            "Consumes " + powerUsage() + " EU per harvest",
-            "Consumes " + powerUsageSecondary() + " EU per secondary operation",
-            "Can harvest " + getVerticalRadius() + " block levels above and below itself",
-            "Radius: " + getHorizontalRadius()
-                + " blocks each side ("
-                + getHorizontalDiameter()
-                + "x"
-                + getVerticalDiameter()
-                + "x"
-                + getHorizontalDiameter()
-                + ")",
-            "Has " + (this.mTier * 5) + "% chance for extra drops",
-            "Holds " + this.getCapacity() + "L of Water");
+            StatCollector.translateToLocal("cropsnh_tooltip.cropManager.tooltip.0"),
+            StatCollector.translateToLocalFormatted(
+                "cropsnh_tooltip.cropManager.tooltip.1",
+                TooltipHelper.euText(this.powerUsage())),
+            StatCollector.translateToLocalFormatted(
+                "cropsnh_tooltip.cropManager.tooltip.2",
+                TooltipHelper.euText(this.powerUsageSecondary())),
+            StatCollector.translateToLocalFormatted(
+                "cropsnh_tooltip.cropManager.tooltip.3",
+                TooltipHelper.coloredText(formatNumber(this.getVerticalRadius()), EnumChatFormatting.WHITE)),
+            StatCollector.translateToLocalFormatted(
+                "cropsnh_tooltip.cropManager.tooltip.4",
+                TooltipHelper.tierText(formatNumber(this.getHorizontalDiameter())),
+                TooltipHelper.tierText(formatNumber(this.getVerticalRadius()))),
+            StatCollector.translateToLocalFormatted(
+                "cropsnh_tooltip.cropManager.tooltip.5",
+                TooltipHelper.tierText(formatNumber(this.getHarvestBonusChance()))),
+            StatCollector.translateToLocalFormatted(
+                "cropsnh_tooltip.cropManager.tooltip.6",
+                TooltipHelper.fluidText(this.getWaterCapacity())),
+            StatCollector.translateToLocalFormatted(
+                "cropsnh_tooltip.cropManager.tooltip.7",
+                TooltipHelper.fluidText(this.getLiquidFertilizerCapacity())),
+            StatCollector.translateToLocalFormatted(
+                "cropsnh_tooltip.cropManager.tooltip.8",
+                TooltipHelper.fluidText(this.getWeedEXCapacity())));
     }
 
     public static final UITexture PROGRESSBAR_WATER = GTUITextures.PROGRESSBAR_BOILER_WATER;
@@ -923,8 +939,11 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 .setSynced(false, false)
                 .dynamicTooltip(
                     () -> Collections.singletonList(
-                        StatCollector
-                            .translateToLocalFormatted(tooltipFormat, amountGetter.get(), capacityGetter.get())))
+                        StatCollector.translateToLocalFormatted(
+                            tooltipFormat,
+                            formatNumber(amountGetter.get()),
+                            formatNumber(capacityGetter.get()),
+                            StatCollector.translateToLocal("gt.mbtt.info.l_s"))))
                 .setUpdateTooltipEveryTick(true)
                 .setPos(x, y)
                 .setSize(10, 54))

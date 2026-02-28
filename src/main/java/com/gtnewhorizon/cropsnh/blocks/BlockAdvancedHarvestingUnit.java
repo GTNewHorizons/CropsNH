@@ -24,7 +24,6 @@ public class BlockAdvancedHarvestingUnit extends CropsNHBlockIndustrialFarmTired
     public BlockAdvancedHarvestingUnit() {
         super(
             Names.Objects.advancedHarvestingUnit,
-            "Advanced Harvesting Unit",
             CropsNHItemList.AdvancedHarvestingUnit_MV,
             CropsNHItemList.AdvancedHarvestingUnit_HV,
             CropsNHItemList.AdvancedHarvestingUnit_EV,

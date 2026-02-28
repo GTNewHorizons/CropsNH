@@ -23,7 +23,6 @@ public class BlockEnvironmentalEnhancementUnit extends CropsNHBlockIndustrialFar
     public BlockEnvironmentalEnhancementUnit() {
         super(
             Names.Objects.environmentalEnhancementUnit,
-            "Environmental Enhancement Unit",
             CropsNHItemList.EnvironmentalEnhancementUnit_MV,
             CropsNHItemList.EnvironmentalEnhancementUnit_HV,
             CropsNHItemList.EnvironmentalEnhancementUnit_EV,

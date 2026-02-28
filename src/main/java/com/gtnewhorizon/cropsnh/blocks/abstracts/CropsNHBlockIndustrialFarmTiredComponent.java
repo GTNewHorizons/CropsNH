@@ -15,7 +15,6 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.GTValues;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.interfaces.IItemContainer;
 import gregtech.common.blocks.BlockCasingsAbstract;
@@ -30,11 +29,11 @@ public abstract class CropsNHBlockIndustrialFarmTiredComponent extends BlockCasi
     private final int mMaxTier;
     private final List<Pair<Block, Integer>> mStructureComponents;
 
-    protected CropsNHBlockIndustrialFarmTiredComponent(String aName, String aRegionalName, IItemContainer... aItems) {
-        this(aName, aRegionalName, VoltageIndex.MV, VoltageIndex.UXV, aItems);
+    protected CropsNHBlockIndustrialFarmTiredComponent(String aName, IItemContainer... aItems) {
+        this(aName, VoltageIndex.MV, VoltageIndex.UXV, aItems);
     }
 
-    protected CropsNHBlockIndustrialFarmTiredComponent(String aName, String aRegionalName, int aMinTier, int aMaxTier,
+    protected CropsNHBlockIndustrialFarmTiredComponent(String aName, int aMinTier, int aMaxTier,
         IItemContainer... aItems) {
         super(ItemCasings.class, aName, MaterialCasings.INSTANCE);
         // validateParams
@@ -51,7 +50,7 @@ public abstract class CropsNHBlockIndustrialFarmTiredComponent extends BlockCasi
         // register metas
         int i = 0, tMeta = this.mMinTier;
         for (IItemContainer item : aItems) {
-            register(tMeta, item, aRegionalName + " (" + GTValues.VN[tMeta] + ")");
+            register(tMeta, item);
             this.mStructureComponents.add(Pair.of(this, tMeta));
             i++;
             tMeta++;

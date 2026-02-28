@@ -26,7 +26,6 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
     public BlockFertilizerUnit() {
         super(
             Names.Objects.fertilizerUnit,
-            "Fertilizer Unit",
             CropsNHItemList.FertilizerUnit_MV,
             CropsNHItemList.FertilizerUnit_HV,
             CropsNHItemList.FertilizerUnit_EV,

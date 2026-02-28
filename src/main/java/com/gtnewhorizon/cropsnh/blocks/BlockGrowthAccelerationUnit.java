@@ -23,7 +23,6 @@ public class BlockGrowthAccelerationUnit extends CropsNHBlockIndustrialFarmTired
     public BlockGrowthAccelerationUnit() {
         super(
             Names.Objects.growthAccelerationUnit,
-            "Growth Acceleration Unit",
             CropsNHItemList.GrowthAccelerationUnit_MV,
             CropsNHItemList.GrowthAccelerationUnit_HV,
             CropsNHItemList.GrowthAccelerationUnit_EV,
