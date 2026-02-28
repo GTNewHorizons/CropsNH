@@ -1,18 +1,14 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
-import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.blocks.BlockAdvancedHarvestingUnit;
 import com.gtnewhorizon.cropsnh.blocks.BlockEnvironmentalEnhancementUnit;
@@ -20,9 +16,7 @@ import com.gtnewhorizon.cropsnh.blocks.BlockFertilizerUnit;
 import com.gtnewhorizon.cropsnh.blocks.BlockGrowthAccelerationUnit;
 import com.gtnewhorizon.cropsnh.blocks.BlockOverclockedGrowthAccelerationUnit;
 import com.gtnewhorizon.cropsnh.blocks.BlockSeedBed;
-import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.BaseGTRecipeLoader;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.CropBreederFakeRecipeLoader;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.CropGeneExtractorFakeRecipeLoader;
@@ -30,9 +24,9 @@ import com.gtnewhorizon.cropsnh.loaders.gtrecipes.CropRecipes;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.CropSynthesizerFakeRecipeLoader;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.CropsPlusPlusRecipes;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.FertilizerRecipes;
+import com.gtnewhorizon.cropsnh.loaders.gtrecipes.ScannerLoader;
 import com.gtnewhorizon.cropsnh.loaders.gtrecipes.SeedGeneratorFakeRecipeLoader;
 import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
@@ -57,8 +51,8 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         CropBreederFakeRecipeLoader.postInit();
         CropGeneExtractorFakeRecipeLoader.postInit();
         CropSynthesizerFakeRecipeLoader.postInit();
+        ScannerLoader.postInit();
 
-        addSeedScannerHandler();
         addPlantLensRecipe();
         addSpadeRecipes();
         addCropStickRecipes();
@@ -78,20 +72,6 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         addFertilizerUnitRecipes();
         addGrowthAccelerationUnits();
         addOverclockedGrowthAccelerationUnits();
-    }
-
-    private static void addSeedScannerHandler() {
-        ItemStack output = CropsNHCrops.Carrot.getSeedItem(SeedStats.DEFAULT_ANALYZED);
-        output.stackSize = 1;
-        output.setStackDisplayName(StatCollector.translateToLocal(Reference.MOD_ID + "_nei.scanned_seed"));
-        // add fake recipe
-        recipe(8, 8, 0).itemInputs(new ItemStack(CropsNHItems.genericSeed, 1, WILDCARD))
-            .itemOutputs(output)
-            .ignoreCollision()
-            .fake()
-            .addTo(RecipeMaps.scannerFakeRecipes);
-
-        // TODO: ADD HANDLER FUNCTION ONCE PR HAS BEEN MERGED INTO MAIN GT
     }
 
     private static void addPlantLensRecipe() {

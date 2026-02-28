@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.farming;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -51,7 +53,7 @@ public class SeedStats implements ISeedStats {
         return new SeedStats(this.getGrowth(), this.getGain(), this.getResistance(), analyzed);
     }
 
-    public static SeedStats getStatsFromStack(ItemStack stack) {
+    public static @Nullable SeedStats getStatsFromStack(ItemStack stack) {
         if (stack == null || stack.getItem() == null) {
             return null;
         }
