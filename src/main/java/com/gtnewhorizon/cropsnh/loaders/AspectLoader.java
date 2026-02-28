@@ -32,13 +32,6 @@ public class AspectLoader {
                 .add(Aspect.PLANT, 1)
         );
         ThaumcraftApi.registerObjectTag(
-            CropsNHItemList.cropSticks.get(1),
-            new AspectList()
-                .add(Aspect.FIRE, 3)
-                .add(Aspect.HEAL, 2)
-                .add(Aspect.PLANT, 1)
-        );
-        ThaumcraftApi.registerObjectTag(
             CropsNHItemList.fertilizer.get(1),
             new AspectList()
                 .add(Aspect.FIRE, 3)
