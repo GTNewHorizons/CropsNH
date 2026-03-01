@@ -34,21 +34,22 @@ public class PyrolusiumLeafVariant extends MaterialLeafVariant {
                 rand = 2;
             }
             switch (rand) {
-                case 1:
+                case 1 -> {
                     this.iconName += ".canada";
                     this.unlocalizedExtraTooltip = Reference.MOD_ID + "_tooltip.pyrolusiumLeaf.canada";
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     this.iconName += ".banada";
                     this.unlocalizedExtraTooltip = Reference.MOD_ID + "_tooltip.pyrolusiumLeaf.banana";
-                    break;
-                default:
+                }
+                default -> {
+                    // not including the reg version in the loot pool since it's too visually distinct
                     this.iconName += "." + XSTR.XSTR_INSTANCE.nextInt(4);
                     this.unlocalizedExtraTooltip = Reference.MOD_ID + "_tooltip.pyrolusiumLeaf.normal";
-                    break;
+                }
             }
         } else {
-            this.iconName = ".1";
+            this.iconName = ".noEgg";
             this.unlocalizedExtraTooltip = Reference.MOD_ID + "_tooltip.pyrolusiumLeaf.normal";
         }
     }

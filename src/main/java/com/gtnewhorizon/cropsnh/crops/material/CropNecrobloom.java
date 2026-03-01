@@ -44,7 +44,7 @@ public class CropNecrobloom extends NHCropCard {
 
     @Override
     public int getMaxGrowthStage() {
-        return 6;
+        return 4;
     }
 
     @Override

@@ -29,6 +29,6 @@ public class CropHops extends CropFood {
 
     @Override
     public int getMaxGrowthStage() {
-        return 7;
+        return 6;
     }
 }

@@ -42,7 +42,7 @@ public class CropMilkWart extends NHCropCard {
 
     @Override
     public int getMaxGrowthStage() {
-        return 3;
+        return 4;
     }
 
 }

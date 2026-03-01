@@ -50,6 +50,6 @@ public class CropGlowingCoral extends NHCropCard {
 
     @Override
     public int getMaxGrowthStage() {
-        return 3;
+        return 4;
     }
 }

@@ -36,6 +36,6 @@ public class CropCoffee extends CropFood {
 
     @Override
     public int getMaxGrowthStage() {
-        return 5;
+        return 4;
     }
 }
