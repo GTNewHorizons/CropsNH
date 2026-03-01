@@ -332,6 +332,8 @@ import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.breeding.MachineBreedingCatalystRequirement;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
+import gregtech.api.enums.Mods;
+
 public class MutationLoader {
 
     public static void postInit() {
@@ -467,15 +469,19 @@ public class MutationLoader {
         new CropMutation(Cucumber, Melon, Carrot)
             .addToMutationPools(aFood, aGreen)
             .register();
-        new CropMutation(Grape, Blueberry, Blackberry)
-            .addToMutationPools(aFood, aPurple)
-            .register();
+        if (Mods.Natura.isModLoaded()) {
+            new CropMutation(Grape, Blueberry, Blackberry)
+                .addToMutationPools(aFood, aPurple)
+                .register();
+        }
         new CropMutation(Hops, Hemp, Dandelion)
             .addToMutationPools(aGreen, aIngredient, aWheat)
             .register();
-        new CropMutation(Huckleberry, Blackberry, Grape)
-            .addToMutationPools(aBerry, aFood, aPurple, aLeaves)
-            .register();
+        if (Mods.Natura.isModLoaded()) {
+            new CropMutation(Huckleberry, Blackberry, Grape)
+                .addToMutationPools(aBerry, aFood, aPurple, aLeaves)
+                .register();
+        }
         new CropMutation(Lemon, BonsaiOak, BonsaiAcacia)
             .addToMutationPools(aFood, aYellow, aWood, aLeafy, aSour)
             .register();
@@ -486,9 +492,11 @@ public class MutationLoader {
         new CropMutation(SugarBeet, SugarCane, Allium)
             .addToMutationPools(aFood, aWhite, aIngredient)
             .register();
-        new CropMutation(Tea, Blueberry, BonsaiJungle)
-            .addToMutationPools(aFood, aGreen, aIngredient)
-            .register();
+        if (ModUtils.Natura.isModLoaded()) {
+            new CropMutation(Tea, Blueberry, BonsaiJungle)
+                .addToMutationPools(aFood, aGreen, aIngredient)
+                .register();
+        }
         new CropMutation(Tomato, Onion, RedTulip)
             .addToMutationPools(aFood, aRed)
             .register();

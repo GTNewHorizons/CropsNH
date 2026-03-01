@@ -396,7 +396,9 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.Indigo = new CropIndigo());
         CropRegistry.instance.register(CropsNHCrops.Iridine = new CropIridine());
         CropRegistry.instance.register(CropsNHCrops.Lazulia = new CropLazulia());
-        CropRegistry.instance.register(CropsNHCrops.Liveroot = new CropLiveroot());
+        if (ModUtils.TwilightForest.isModLoaded()) {
+            CropRegistry.instance.register(CropsNHCrops.Liveroot = new CropLiveroot());
+        }
         CropRegistry.instance.register(CropsNHCrops.MagicalNightshade = new CropMagicalNightshade());
         CropRegistry.instance.register(CropsNHCrops.Malaxia = new CropMalaxia());
         CropRegistry.instance.register(CropsNHCrops.Micadia = new CropMicadia());
@@ -421,7 +423,9 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.SpaceFlower = new CropSpaceFlower());
         CropRegistry.instance.register(CropsNHCrops.StarWart = new CropStarWart());
         CropRegistry.instance.register(CropsNHCrops.Stargatium = new CropStargatium());
-        CropRegistry.instance.register(CropsNHCrops.Steeleafranks = new CropSteeleafranks());
+        if (ModUtils.TwilightForest.isModLoaded()) {
+            CropRegistry.instance.register(CropsNHCrops.Steeleafranks = new CropSteeleafranks());
+        }
         CropRegistry.instance.register(CropsNHCrops.StickyCane = new CropStickyCane());
         CropRegistry.instance.register(CropsNHCrops.Tine = new CropTine());
         CropRegistry.instance.register(CropsNHCrops.Titania = new CropTitania());
