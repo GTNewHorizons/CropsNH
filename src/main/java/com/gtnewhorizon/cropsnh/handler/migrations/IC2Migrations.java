@@ -90,11 +90,11 @@ public class IC2Migrations {
         MissingMappingHandler.addIgnore(ic2SeedId);
         ItemStackReplacementManager.addTransformationHandler(ic2SeedId, (originalId, stack) -> {
             // if tag is invalid
-            if (!stack.hasKey("tag", Data.NBTType._object)) return null;
+            if (!stack.hasKey("tag", Data.NBTType._object)) return false;
             NBTTagCompound oldTag = stack.getCompoundTag("tag");
             // if tag is invalid abort
             if (!oldTag.hasKey("owner", Data.NBTType._string) || !oldTag.hasKey("name", Data.NBTType._string))
-                return null;
+                return false;
             String owner = oldTag.getString("owner");
             String name = oldTag.getString("name");
             // if crop can't be found default to carrot to keep stat progression.
