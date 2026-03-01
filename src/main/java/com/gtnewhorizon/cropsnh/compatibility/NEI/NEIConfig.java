@@ -1,129 +1,104 @@
 package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
-import codechicken.nei.api.API;
-import codechicken.nei.api.IConfigureNEI;
 import com.gtnewhorizon.cropsnh.CropsNH;
-import com.gtnewhorizon.cropsnh.blocks.BlockCustomWood;
-import com.gtnewhorizon.cropsnh.blocks.BlockModPlant;
-import com.gtnewhorizon.cropsnh.compatibility.ModHelper;
-import com.gtnewhorizon.cropsnh.compatibility.arsmagica.ArsMagicaHelper;
-import com.gtnewhorizon.cropsnh.compatibility.botania.BotaniaHelper;
-import com.gtnewhorizon.cropsnh.compatibility.thaumcraft.ThaumcraftHelper;
-import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.init.Blocks;
-import com.gtnewhorizon.cropsnh.init.Crops;
-import com.gtnewhorizon.cropsnh.init.CustomCrops;
-import com.gtnewhorizon.cropsnh.init.Items;
-import com.gtnewhorizon.cropsnh.init.ResourceCrops;
-import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.AlternateSeedDumper;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.CropRegistryDumper;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.DeterministicMutationRegistryDumper;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.FertilizerFluidsRegistryDumper;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.FertilizerItemsRegistryDumper;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.HydrationFluidsRegistryDumper;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.MutationPoolRegistryDumper;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.SoilRegistryDumper;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.WeedEXFluidsRegistryDumper;
+import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
+import codechicken.nei.api.API;
+import codechicken.nei.api.IConfigureNEI;
+import codechicken.nei.recipe.GuiCraftingRecipe;
+import codechicken.nei.recipe.GuiRecipeTab;
+import codechicken.nei.recipe.GuiUsageRecipe;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class NEIConfig implements IConfigureNEI {
+
     @Override
     public void loadConfig() {
-        //register NEI recipe handler
-        LogHelper.debug("Registering NEI recipe handlers");
-        //mutation handler
-        NEICropMutationHandler mutationHandler = new NEICropMutationHandler();
-        API.registerRecipeHandler(mutationHandler);
-        API.registerUsageHandler(mutationHandler);
-        //crop product handler
-        NEICropProductHandler productHandler = new NEICropProductHandler();
-        API.registerRecipeHandler(productHandler);
-        API.registerUsageHandler(productHandler);
-        //hide crop blocks in NEI
-        hideItems();
+        if (!ModUtils.NotEnoughItems.isModLoaded()) return;
+        // register dumpers
+        registerDumpers();
+        // register NEI recipe handler
+        registerNEITabs();
     }
 
-    private static void hideItems() {
-        LogHelper.debug("Hiding crops in NEI");
-        for (int i = 0; i < 16; i++) {
-            //hide crops block
-            CropsNH.proxy.hideItemInNEI(new ItemStack(Blocks.blockCrop, 1, i));
-            //hide water pad
-            CropsNH.proxy.hideItemInNEI(new ItemStack(Blocks.blockWaterPad, 1, i));
-            CropsNH.proxy.hideItemInNEI(new ItemStack(Blocks.blockWaterPadFull, 1, i));
-            //hide clippings
-            CropsNH.proxy.hideItemInNEI(new ItemStack(Items.clipping, 1, i));
-            //hide debugger
-            if(!ConfigurationHandler.debug) {
-                CropsNH.proxy.hideItemInNEI(new ItemStack(Items.debugItem, 1, i));
-            }
-            //hide plant blocks
-            for(BlockModPlant plant : Crops.crops) {
-                CropsNH.proxy.hideItemInNEI(new ItemStack(plant, 1, i));
-            }
-            //hide botania crops
-            if(ModHelper.allowIntegration(Names.Mods.botania)) {
-                for(BlockModPlant plant : BotaniaHelper.botaniaCrops) {
-                    CropsNH.proxy.hideItemInNEI(new ItemStack(plant, 1, i));
-                }
-            }
-            //hide thaumcraft crops
-            if(ModHelper.allowIntegration(Names.Mods.thaumcraft)) {
-                for(BlockModPlant plant : ThaumcraftHelper.thaumcraftCrops) {
-                    CropsNH.proxy.hideItemInNEI(new ItemStack(plant, 1, i));
-                }
-            }
-            //hide ars magica crops
-            if(ModHelper.allowIntegration(Names.Mods.arsMagica)) {
-                for(BlockModPlant plant : ArsMagicaHelper.arsMagicaCrops) {
-                    CropsNH.proxy.hideItemInNEI(new ItemStack(plant, 1, i));
-                }
-            }
-            //hide resource crops
-            if(ConfigurationHandler.resourcePlants) {
-                for(BlockModPlant plant : ResourceCrops.vanillaCrops) {
-                    CropsNH.proxy.hideItemInNEI(new ItemStack(plant, 1, i));
-                }
-                for(BlockModPlant plant : ResourceCrops.modCrops) {
-                    CropsNH.proxy.hideItemInNEI(new ItemStack(plant, 1, i));
-                }
-            }
-            //hide custom crops
-            if(ConfigurationHandler.customCrops) {
-                for (BlockModPlant customCrop: CustomCrops.customCrops) {
-                    CropsNH.proxy.hideItemInNEI(new ItemStack(customCrop, 1, i));
-                }
-            }
-        }
-        if(ConfigurationHandler.condenseCustomWoodInNei) {
-            LogHelper.debug("Hiding custom wood objects");
-            Field[] blocks = Blocks.class.getDeclaredFields();
-            for (Field field : blocks) {
-                try {
-                    Object obj = field.get(null);
-                    if(obj == null) {
-                        continue;
-                    }
-                    if (BlockCustomWood.class.isAssignableFrom(obj.getClass())) {
-                        Block block = (Block) obj;
-                        ItemStack stack = new ItemStack(block);
-                        ArrayList<ItemStack> list = new ArrayList<>();
-                        list.add(stack);
-                        API.setItemListEntries(stack.getItem(), list);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    private static void registerDumpers() {
+        if (!ModUtils.NotEnoughItems.isModLoaded()) return;
+        LogHelper.debug("Registering NEI dumpers");
+        API.addOption(new AlternateSeedDumper());
+        API.addOption(new CropRegistryDumper());
+        API.addOption(new DeterministicMutationRegistryDumper());
+        API.addOption(new FertilizerFluidsRegistryDumper());
+        API.addOption(new FertilizerItemsRegistryDumper());
+        API.addOption(new HydrationFluidsRegistryDumper());
+        API.addOption(new MutationPoolRegistryDumper());
+        API.addOption(new SoilRegistryDumper());
+        API.addOption(new WeedEXFluidsRegistryDumper());
+    }
+
+    private static void registerNEITabs() {
+        if (!ModUtils.NotEnoughItems.isModLoaded()) return;
+        LogHelper.debug("Registering NEI recipe tabs");
+
+        // crop product handler
+        registerNEIHandler(new NEICropsNHCropHandler());
+        // deterministic mutation handler
+        registerNEIHandler(new NEICropsNHCropstickBreedingHandler());
+        // mutation pool handler
+        registerNEIHandler(new NEICropsNHMutationPoolHandler());
+        // seed generator handler
+        addHandler(
+            new CropsNHNEISeedGeneratorHandler(
+                CropsNHGTRecipeMaps.fakeSeedGeneratorRecipes.getDefaultRecipeCategory()));
+        // crop breeder handler
+        addHandler(
+            new CropsNHNEICropBreederHandler(CropsNHGTRecipeMaps.fakeCropBreederRecipeMap.getDefaultRecipeCategory()));
+        // crop gene extractor handler
+        addHandler(
+            new CropsNHNEICropGeneExtractorHandler(
+                CropsNHGTRecipeMaps.fakeCropGeneExtractorRecipeMap.getDefaultRecipeCategory()));
+        // crop synthesizer
+        addHandler(
+            new CropsNHNEICropSynthesizerHandler(
+                CropsNHGTRecipeMaps.fakeCropSynthesizerRecipeMap.getDefaultRecipeCategory()));
+    }
+
+    private static void registerNEIHandler(CropsNHNEIHandler handler) {
+        GuiRecipeTab.handlerMap.put(handler.getOverlayIdentifier(), handler.getHandlerInfo());
+        API.registerRecipeHandler(handler);
+        API.registerUsageHandler(handler);
+    }
+
+    private static void addHandler(TemplateRecipeHandler handler) {
+        FMLInterModComms.sendRuntimeMessage(
+            CropsNH.INSTANCE,
+            "NEIPlugins",
+            "register-crafting-handler",
+            Reference.MOD_ID + "@" + handler.getRecipeName() + "@" + handler.getOverlayIdentifier());
+        GuiCraftingRecipe.craftinghandlers.add(handler);
+        GuiUsageRecipe.usagehandlers.add(handler);
     }
 
     @Override
     public String getName() {
-        return Reference.MOD_ID+"_NEI";
+        return Reference.MOD_ID + "_NEI";
     }
 
     @Override
     public String getVersion() {
-        return  "1.0";
+        return "1.0";
     }
 
 }

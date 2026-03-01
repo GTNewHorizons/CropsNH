@@ -1,0 +1,38 @@
+package com.gtnewhorizon.cropsnh.crops.material;
+
+import com.gtnewhorizon.cropsnh.api.ISoilList;
+import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import gregtech.api.enums.ItemList;
+import net.minecraftforge.common.BiomeDictionary;
+
+import java.awt.Color;
+
+public class CropTemplate extends NHCropCard {
+
+    public CropTemplate() {
+        super(, new Color(0x), new Color(0x));
+        this.addDrop(, 100_00);
+    }
+
+    @Override
+    public String getCreator() {
+        return ;
+    }
+
+    @Override
+    public int getTier() {
+        return ;
+    }
+
+    @Override
+    public int getGrowthDuration() {
+        return ;
+    }
+
+    @Override
+    public int getMaxGrowthStage() {
+        return 4;
+    }
+
+}

@@ -1,13 +1,14 @@
 package com.gtnewhorizon.cropsnh.items;
 
-import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
-import com.gtnewhorizon.cropsnh.renderers.items.RenderItemBase;
-import com.gtnewhorizon.cropsnh.utility.LogHelper;
-import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
+
+import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
+import com.gtnewhorizon.cropsnh.utility.LogHelper;
+import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * The root Item class for all CropsNH Items (excluding blockItems).
@@ -34,9 +35,10 @@ public abstract class ItemCropsNH extends Item {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister reg) {
         LogHelper.debug("registering icon for: " + this.getUnlocalizedName());
-        itemIcon = reg.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf('.')+1));
+        itemIcon = reg.registerIcon(
+            this.getUnlocalizedName()
+                .substring(
+                    this.getUnlocalizedName()
+                        .indexOf('.') + 1));
     }
-
-    @SideOnly(Side.CLIENT)
-    public abstract RenderItemBase getItemRenderer();
 }

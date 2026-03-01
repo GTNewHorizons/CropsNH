@@ -1,0 +1,128 @@
+package com.gtnewhorizon.cropsnh.utility;
+
+import java.util.Locale;
+
+import net.minecraft.util.ResourceLocation;
+
+import com.gtnewhorizon.gtnhlib.util.data.IMod;
+
+import cpw.mods.fml.common.Loader;
+
+public enum ModUtils implements IMod {
+
+    Angelica(ModIDs.Angelica),
+    Avaritia(ModIDs.Avaritia),
+    BiomesOPlenty(ModIDs.BiomesOPlenty),
+    BloodMagic(ModIDs.BloodMagic),
+    Botania(ModIDs.Botania),
+    CropsPlusPlus(ModIDs.CropsPlusPlus),
+    EtFuturumRequiem(ModIDs.EtFuturumRequiem),
+    ExtraUtilities(ModIDs.ExtraUtilities),
+    ForbiddenMagic(ModIDs.ForbiddenMagic),
+    Forestry(ModIDs.Forestry),
+    GalacticraftCore(ModIDs.GalacticraftCore),
+    GalacticraftMars(ModIDs.GalacticraftMars),
+    GalaxySpace(ModIDs.GalaxySpace),
+    GregTech(ModIDs.GregTech),
+    HodgePodge(ModIDs.HodgePodge),
+    IndustrialCraft2(ModIDs.IndustrialCraft2),
+    GoodGenerator(ModIDs.GoodGenerator),
+    Natura(ModIDs.Natura),
+    NewHorizonsCoreMod(ModIDs.NewHorizonsCoreMod),
+    NotEnoughItems(ModIDs.NotEnoughItems),
+    PamsHarvestCraft(ModIDs.PamsHarvestCraft),
+    RandomThings(ModIDs.RandomThings),
+    TaintedMagic(ModIDs.TaintedMagic),
+    Thaumcraft(ModIDs.Thaumcraft),
+    ThaumicBases(ModIDs.ThaumicBases),
+    ThaumicTinkerer(ModIDs.ThaumicTinkerer),
+    TinkerConstruct(ModIDs.TinkerConstruct),
+    TwilightForest(ModIDs.TwilightForest),
+    UtilitiesInExcess(ModIDs.UtilitiesInExcess),
+    Waila(ModIDs.WAILA),
+    Witchery(ModIDs.Witchery),
+    WitchingGadgets(ModIDs.WitchingGadgets);
+
+    public final String ID;
+    public final String resourceDomain;
+    protected boolean checked, modLoaded;
+
+    ModUtils(String ID) {
+        this.ID = ID;
+        this.resourceDomain = ID.toLowerCase(Locale.ENGLISH);
+    }
+
+    // isModLoaded is final to allow the JIT to inline this
+    @Override
+    public final boolean isModLoaded() {
+        if (!this.checked) {
+            this.modLoaded = Loader.isModLoaded(ID);
+            this.checked = true;
+        }
+        return this.modLoaded;
+    }
+
+    @Override
+    public String getID() {
+        return ID;
+    }
+
+    @Override
+    public String getResourceLocation() {
+        return resourceDomain;
+    }
+
+    public String getResourcePath(String path) {
+        return this.getResourceLocation(path)
+            .toString();
+    }
+
+    public String getResourcePath(String... path) {
+        return this.getResourceLocation(path)
+            .toString();
+    }
+
+    public ResourceLocation getResourceLocation(String path) {
+        return new ResourceLocation(this.resourceDomain, path);
+    }
+
+    public ResourceLocation getResourceLocation(String... path) {
+        return new ResourceLocation(this.resourceDomain, String.join("/", path));
+    }
+
+    public static class ModIDs {
+
+        public final static String Angelica = "angelica";
+        public final static String BiomesOPlenty = "BiomesOPlenty";
+        public final static String Botania = "Botania";
+        public final static String EtFuturumRequiem = "etfuturum";
+        public final static String Forestry = "Forestry";
+        public final static String GregTech = "gregtech";
+        public final static String Natura = "Natura";
+        public final static String PamsHarvestCraft = "harvestcraft";
+        public final static String Thaumcraft = "Thaumcraft";
+        public final static String ThaumicBases = "thaumicbases";
+        public final static String ThaumicTinkerer = "ThaumicTinkerer";
+        public final static String TinkerConstruct = "TConstruct";
+        public final static String TwilightForest = "TwilightForest";
+        public final static String UtilitiesInExcess = "utilitiesinexcess";
+        public final static String Witchery = "witchery";
+        public static final String Avaritia = "Avaritia";
+        public static final String BloodMagic = "AWWayofTime";
+        public static final String CropsPlusPlus = "berriespp";
+        public static final String ExtraUtilities = "ExtraUtilities";
+        public static final String ForbiddenMagic = "ForbiddenMagic";
+        public static final String GalacticraftCore = "GalacticraftCore";
+        public static final String GalacticraftMars = "GalacticraftMars";
+        public static final String GalaxySpace = "GalaxySpace";
+        public static final String HodgePodge = "hodgepodge";
+        public static final String IndustrialCraft2 = "IC2";
+        public static final String GoodGenerator = "GoodGenerator";
+        public static final String NewHorizonsCoreMod = "dreamcraft";
+        public static final String NotEnoughItems = "NotEnoughItems";
+        public static final String RandomThings = "RandomThings";
+        public static final String TaintedMagic = "TaintedMagic";
+        public static final String WAILA = "Waila";
+        public static final String WitchingGadgets = "WitchingGadgets";
+    }
+}

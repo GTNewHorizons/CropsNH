@@ -1,0 +1,5 @@
+1. copy the stone folder
+2. apply some filter to one of the stages
+	- colorizing with a clipping mask layer set to multiply is will work for most things.
+3. apply identical filter to remaining stages
+4. profit

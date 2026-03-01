@@ -3,19 +3,20 @@ package com.gtnewhorizon.cropsnh.utility;
 import net.minecraft.util.Vec3;
 
 public class TransformationMatrix {
+
     private static final int SIZE = 4;
 
-    private double [][] matrix;
+    private double[][] matrix;
 
     /** TransformationMatrix for doing nothing (unity matrix) */
     public TransformationMatrix() {
         matrix = new double[SIZE][SIZE];
-        for(int i=0;i<SIZE;i++) {
-            matrix[i][i]=1;
+        for (int i = 0; i < SIZE; i++) {
+            matrix[i][i] = 1;
         }
     }
 
-    /** TransformationMatrix for a rotation (http://xkcd.com/184/)*/
+    /** TransformationMatrix for a rotation (http://xkcd.com/184/) */
     public TransformationMatrix(double angle, double x, double y, double z) {
         matrix = new double[SIZE][SIZE];
         setRotation(angle, x, y, z);
@@ -26,8 +27,8 @@ public class TransformationMatrix {
     public TransformationMatrix(double x, double y, double z) {
         matrix = new double[SIZE][SIZE];
         setTranslation(x, y, z);
-        for(int i=0;i<SIZE;i++) {
-            matrix[i][i]=1;
+        for (int i = 0; i < SIZE; i++) {
+            matrix[i][i] = 1;
         }
     }
 
@@ -46,17 +47,17 @@ public class TransformationMatrix {
         matrix = new double[SIZE][SIZE];
         setRotation(angle, x, y, z);
         setTranslation(translation);
-        //bottom line
+        // bottom line
         matrix[3][3] = 1;
     }
 
     /** Custom transformation */
     public TransformationMatrix(double[][] data) {
         this();
-        int m = SIZE-1>=data.length?data.length:SIZE-1;
-        for(int i=0;i<m;i++) {
-            int n = SIZE>=data[i].length?data[i].length:SIZE;
-            for(int j=0;j<n;j++) {
+        int m = SIZE - 1 >= data.length ? data.length : SIZE - 1;
+        for (int i = 0; i < m; i++) {
+            int n = SIZE >= data[i].length ? data[i].length : SIZE;
+            for (int j = 0; j < n; j++) {
                 this.matrix[i][j] = data[i][j];
             }
         }
@@ -72,18 +73,18 @@ public class TransformationMatrix {
         double sin = Math.sin(angle);
         double cos = Math.cos(angle);
 
-        //x
-        matrix[0][0] = x*x*(1-cos) + cos;
-        matrix[0][1] = y*x*(1-cos) - z*sin;
-        matrix[0][2] = z*x*(1-cos) + y*sin;
-        //y
-        matrix[1][0] = x*y*(1-cos) + z*sin;
-        matrix[1][1] = y*y*(1-cos) + cos;
-        matrix[1][2] = y*z*(1-cos) - x*sin;
-        //z
-        matrix[2][0] = x*z*(1-cos) - y*sin;
-        matrix[2][1] = y*z*(1-cos) + x*sin;
-        matrix[2][2] = z*z*(1-cos) + cos;
+        // x
+        matrix[0][0] = x * x * (1 - cos) + cos;
+        matrix[0][1] = y * x * (1 - cos) - z * sin;
+        matrix[0][2] = z * x * (1 - cos) + y * sin;
+        // y
+        matrix[1][0] = x * y * (1 - cos) + z * sin;
+        matrix[1][1] = y * y * (1 - cos) + cos;
+        matrix[1][2] = y * z * (1 - cos) - x * sin;
+        // z
+        matrix[2][0] = x * z * (1 - cos) - y * sin;
+        matrix[2][1] = y * z * (1 - cos) + x * sin;
+        matrix[2][2] = z * z * (1 - cos) + cos;
     }
 
     /** sets the translation compared to the absolute coordinates while keeping the rotation */
@@ -100,10 +101,11 @@ public class TransformationMatrix {
 
     /**
      * gets the translation for this matrix
+     * 
      * @return a vector with size 3 containing the translation components
      */
     public double[] getTranslation() {
-        return new double[] {matrix[0][3], matrix[1][3], matrix[2][3]};
+        return new double[] { matrix[0][3], matrix[1][3], matrix[2][3] };
     }
 
     /** scales the matrix */
@@ -116,14 +118,13 @@ public class TransformationMatrix {
         return this;
     }
 
-
     /** Left multiplies this transformation matrix with the argument, for inverse transformations */
     public TransformationMatrix multiplyLeftWith(TransformationMatrix m) {
         double[][] newValues = new double[SIZE][SIZE];
-        for(int i=0;i<SIZE;i++) {
-            for(int j=0;j<SIZE;j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 double value = 0;
-                for(int k=0;k<SIZE;k++) {
+                for (int k = 0; k < SIZE; k++) {
                     value = value + m.matrix[i][k] * this.matrix[k][j];
                 }
                 newValues[i][j] = value;
@@ -136,10 +137,10 @@ public class TransformationMatrix {
     /** Right multiplies this transformation matrix with the argument, for chaining transformations */
     public TransformationMatrix multiplyRightWith(TransformationMatrix m) {
         double[][] newValues = new double[SIZE][SIZE];
-        for(int i=0;i<SIZE;i++) {
-            for(int j=0;j<SIZE;j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 double value = 0;
-                for(int k=0;k<SIZE;k++) {
+                for (int k = 0; k < SIZE; k++) {
                     value = value + this.matrix[i][k] * m.matrix[k][j];
                 }
                 newValues[i][j] = value;
@@ -151,11 +152,11 @@ public class TransformationMatrix {
 
     /** Transforms the given coordinates */
     public double[] transform(double x, double y, double z) {
-        double[] coords = new double[] {x, y, z, 1};
+        double[] coords = new double[] { x, y, z, 1 };
         double[] result = new double[3];
-        for(int i=0;i<result.length;i++) {
-            for(int j=0;j<SIZE;j++) {
-                result[i] = result[i] + this.matrix[i][j]*coords[j];
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                result[i] = result[i] + this.matrix[i][j] * coords[j];
             }
         }
         return result;

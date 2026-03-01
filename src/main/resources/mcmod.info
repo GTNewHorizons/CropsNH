@@ -1,17 +1,17 @@
 [
   {
     "modid": "cropsnh",
-    "name": "GTNHCrops",
-    "description": "Crops - GTNH flavor (Based on cropsnh)",
+    "name": "Crops NH",
+    "description": "Crops - GTNH flavor",
     "version": "${modVersion}",
     "mcversion": "${minecraftVersion}",
     "url": "http://github.com/GTNewHorizons/GTNHCrops",
     "updateUrl": "http://github.com/GTNewHorizons/GTNHCrops",
     "authorList": [
-      "InfinityRaider",
-      "mitchej123"
+      "C0bra5",
+      "GTNH Team"
     ],
-    "credits": "Code Help: Imasius, RlonRyan, API: HenryLoenwind, Textures: MechWarrior99, SkullyGamingMC, VapourDrive, SkeletonPunk",
+    "credits": "Code: C0bra5, Agricraft Team | Inspiration: IC2 | Textures: C0bra5, Prez, GTNH Team",
     "logoFile": "assets/cropsnh/textures/logo.png",
     "screenshots": [
     ],
