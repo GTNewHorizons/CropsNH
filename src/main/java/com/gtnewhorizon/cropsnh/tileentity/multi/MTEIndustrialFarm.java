@@ -63,6 +63,7 @@ import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.items.ItemEnvironmentalModule;
+import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
@@ -168,7 +169,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     private static final String STRUCTURE_PIECE_FIRST = "first";
     private static final String STRUCTURE_PIECE_LATER = "later";
     private static final String STRUCTURE_PIECE_LAST = "last";
-    private static final int CASING_INDEX = 63;
+    private static final int CASING_INDEX = Constants.GT_CASING_PAGE << 7;
     private static final int MIN_CASING_TIER = VoltageIndex.MV;
     private static final int MAX_CASING_TIER = VoltageIndex.UXV;
     private static final int MIN_SLICES = 1;
@@ -212,7 +213,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             'C',
             buildHatchAdder(MTEIndustrialFarm.class)
                 .anyOf(InputBus, InputHatch, OutputBus, Maintenance, MultiAmpEnergy.or(Energy))
-                .casingIndex(CASING_INDEX)
+                .casingIndex(GTUtility.getCasingTextureIndex(CropsNHBlocks.blockCasings1, 0))
                 .hint(1)
                 .buildAndChain(ofBlock(CropsNHBlocks.blockCasings1, 0)))
         .addElement('c', ofBlock(CropsNHBlocks.blockCasings1, 0))
@@ -288,126 +289,42 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
 
     @Override
     public void construct(ItemStack stackSize, boolean hintsOnly) {
-        STRUCTURE_DEFINITION.buildOrHints(
-            this,
-            stackSize,
-            STRUCTURE_PIECE_FIRST,
-            this.getBaseMetaTileEntity()
-                .getWorld(),
-            this.getExtendedFacing(),
-            this.getBaseMetaTileEntity()
-                .getXCoord(),
-            this.getBaseMetaTileEntity()
-                .getYCoord(),
-            this.getBaseMetaTileEntity()
-                .getZCoord(),
-            2,
-            2,
-            0,
-            hintsOnly);
+        buildPiece(STRUCTURE_PIECE_FIRST, stackSize, hintsOnly, 2, 2, 0);
         int tSlices = GTUtility.clamp(stackSize.stackSize, MIN_SLICES, MAX_SLICES);
         for (int tSliceIndex = 0; tSliceIndex < tSlices; tSliceIndex++) {
-            STRUCTURE_DEFINITION.buildOrHints(
-                this,
-                stackSize,
-                STRUCTURE_PIECE_LATER,
-                this.getBaseMetaTileEntity()
-                    .getWorld(),
-                this.getExtendedFacing(),
-                this.getBaseMetaTileEntity()
-                    .getXCoord(),
-                this.getBaseMetaTileEntity()
-                    .getYCoord(),
-                this.getBaseMetaTileEntity()
-                    .getZCoord(),
-                2,
-                2,
-                -tSliceIndex - 1,
-                hintsOnly);
+            buildPiece(STRUCTURE_PIECE_LATER, stackSize, hintsOnly, 2, 2, -tSliceIndex - 1);
         }
-        STRUCTURE_DEFINITION.buildOrHints(
-            this,
-            stackSize,
-            STRUCTURE_PIECE_LAST,
-            this.getBaseMetaTileEntity()
-                .getWorld(),
-            this.getExtendedFacing(),
-            this.getBaseMetaTileEntity()
-                .getXCoord(),
-            this.getBaseMetaTileEntity()
-                .getYCoord(),
-            this.getBaseMetaTileEntity()
-                .getZCoord(),
-            2,
-            2,
-            -tSlices - 1,
-            hintsOnly);
+        buildPiece(STRUCTURE_PIECE_LAST, stackSize, hintsOnly, 2, 2, -tSlices - 1);
     }
 
     @Override
     public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
-        int tBuilt = STRUCTURE_DEFINITION.survivalBuild(
-            this,
-            stackSize,
-            STRUCTURE_PIECE_FIRST,
-            this.getBaseMetaTileEntity()
-                .getWorld(),
-            this.getExtendedFacing(),
-            this.getBaseMetaTileEntity()
-                .getXCoord(),
-            this.getBaseMetaTileEntity()
-                .getYCoord(),
-            this.getBaseMetaTileEntity()
-                .getZCoord(),
-            2,
-            2,
-            0,
-            elementBudget,
-            env,
-            false);
+        int tBuilt = survivalBuildPiece(STRUCTURE_PIECE_FIRST, stackSize, 2, 2, 0, elementBudget, env, false, true);
         if (tBuilt != -1) return tBuilt;
         int tSlices = GTUtility.clamp(stackSize.stackSize, MIN_SLICES, MAX_SLICES);
         for (int tSliceIndex = 0; tSliceIndex < tSlices; tSliceIndex++) {
-            tBuilt = STRUCTURE_DEFINITION.survivalBuild(
-                this,
-                stackSize,
+            tBuilt = survivalBuildPiece(
                 STRUCTURE_PIECE_LATER,
-                this.getBaseMetaTileEntity()
-                    .getWorld(),
-                this.getExtendedFacing(),
-                this.getBaseMetaTileEntity()
-                    .getXCoord(),
-                this.getBaseMetaTileEntity()
-                    .getYCoord(),
-                this.getBaseMetaTileEntity()
-                    .getZCoord(),
+                stackSize,
                 2,
                 2,
                 -tSliceIndex - 1,
                 elementBudget,
                 env,
-                false);
+                false,
+                true);
             if (tBuilt != -1) return tBuilt;
         }
-        return STRUCTURE_DEFINITION.survivalBuild(
-            this,
+        return survivalBuildPiece(
+            STRUCTURE_PIECE_LATER,
             stackSize,
-            STRUCTURE_PIECE_LAST,
-            this.getBaseMetaTileEntity()
-                .getWorld(),
-            this.getExtendedFacing(),
-            this.getBaseMetaTileEntity()
-                .getXCoord(),
-            this.getBaseMetaTileEntity()
-                .getYCoord(),
-            this.getBaseMetaTileEntity()
-                .getZCoord(),
             2,
             2,
             -tSlices - 1,
             elementBudget,
             env,
-            false);
+            false,
+            true);
     }
 
     @Override
@@ -420,76 +337,21 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         this.mAdvancedHarvestingUnitCount = 0;
         this.mOverclockedGrowthAccelerationUnitCount = 0;
         this.mSeedCapacity = 0;
-        boolean tSuccess = STRUCTURE_DEFINITION.check(
-            this,
-            STRUCTURE_PIECE_FIRST,
-            getBaseMetaTileEntity().getWorld(),
-            getExtendedFacing(),
-            getBaseMetaTileEntity().getXCoord(),
-            getBaseMetaTileEntity().getYCoord(),
-            getBaseMetaTileEntity().getZCoord(),
-            2,
-            2,
-            0,
-            !mMachine);
+
+        boolean tSuccess = checkPiece(STRUCTURE_PIECE_FIRST, 2, 2, 0);
         if (!tSuccess) return false;
 
         // check the first slice
-        tSuccess = STRUCTURE_DEFINITION.check(
-            this,
-            STRUCTURE_PIECE_LATER,
-            this.getBaseMetaTileEntity()
-                .getWorld(),
-            this.getExtendedFacing(),
-            this.getBaseMetaTileEntity()
-                .getXCoord(),
-            this.getBaseMetaTileEntity()
-                .getYCoord(),
-            this.getBaseMetaTileEntity()
-                .getZCoord(),
-            2,
-            2,
-            -1,
-            !mMachine);
+        tSuccess = checkPiece(STRUCTURE_PIECE_FIRST, 2, 2, -1);
         if (!tSuccess || this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return false;
 
         int tSlices = GTUtility.clamp(this.mUpgradeTier - MIN_CASING_TIER + MIN_SLICES, MIN_SLICES, MAX_SLICES);
         for (int tSliceIndex = 1; tSliceIndex < tSlices; tSliceIndex++) {
-            tSuccess = STRUCTURE_DEFINITION.check(
-                this,
-                STRUCTURE_PIECE_LATER,
-                this.getBaseMetaTileEntity()
-                    .getWorld(),
-                this.getExtendedFacing(),
-                this.getBaseMetaTileEntity()
-                    .getXCoord(),
-                this.getBaseMetaTileEntity()
-                    .getYCoord(),
-                this.getBaseMetaTileEntity()
-                    .getZCoord(),
-                2,
-                2,
-                -tSliceIndex - 1,
-                !mMachine);
+            tSuccess = checkPiece(STRUCTURE_PIECE_FIRST, 2, 2, -tSliceIndex - 1);
             if (!tSuccess || this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return false;
         }
 
-        tSuccess = STRUCTURE_DEFINITION.check(
-            this,
-            STRUCTURE_PIECE_LAST,
-            this.getBaseMetaTileEntity()
-                .getWorld(),
-            this.getExtendedFacing(),
-            this.getBaseMetaTileEntity()
-                .getXCoord(),
-            this.getBaseMetaTileEntity()
-                .getYCoord(),
-            this.getBaseMetaTileEntity()
-                .getZCoord(),
-            2,
-            2,
-            -tSlices - 1,
-            !mMachine);
+        tSuccess = checkPiece(STRUCTURE_PIECE_FIRST, 2, 2, -tSlices - 1);
         if (!tSuccess || this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return false;
 
         if (this.mOutputBusses.size() < 1) return false;
@@ -571,7 +433,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     @Override
     public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection sideDirection,
         ForgeDirection facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
-        ITexture casingTexture = Textures.BlockIcons.casingTexturePages[0][CASING_INDEX];
+        ITexture casingTexture = Textures.BlockIcons.casingTexturePages[Constants.GT_CASING_PAGE][0];
         if (sideDirection == facingDirection) {
             if (active) return new ITexture[] { casingTexture, TextureFactory.builder()
                 .addIcon(OVERLAY_FRONT_ASSEMBLY_LINE_ACTIVE)
@@ -620,7 +482,28 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
         tt.addMachineType("Industrial Crop Cultivator")
             .addInfo("Grows crops at an industrial scale.")
-            .addInfo("The length of the machine depends on the tier of the seed bed.");
+            .addInfo(
+                "The " + EnumChatFormatting.AQUA
+                    + "length"
+                    + EnumChatFormatting.GRAY
+                    + " of the machine depends on the "
+                    + EnumChatFormatting.RED
+                    + "tier"
+                    + EnumChatFormatting.GRAY
+                    + " of the "
+                    + EnumChatFormatting.WHITE
+                    + "seed bed")
+            .addInfo(
+                "Harvest bonus grows by " + EnumChatFormatting.RED
+                    + "20%"
+                    + EnumChatFormatting.GRAY
+                    + " per "
+                    + EnumChatFormatting.RED
+                    + "tier"
+                    + EnumChatFormatting.GRAY
+                    + " of "
+                    + EnumChatFormatting.WHITE
+                    + "seed bed");
 
         tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, false)
             .addGlassEnergyLimitInfo()
@@ -628,11 +511,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 EnumChatFormatting.GREEN
                     + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade")
                     + EnumChatFormatting.RESET)
-            .addCasingInfoRange("Agricultural Casing", 8 * 2 + MIN_SLICES * 2, 8 * 2 + MAX_SLICES * 2, false)
-            .addEnergyHatch("Any Casing", 1)
-            .addInputBus("Any Casing", 1)
-            .addInputHatch("Any Casing", 1)
-            .addMaintenanceHatch("Any Casing", 1)
+            .addCasingInfoRange("Bricked Agricultural Casing", 8 * 2 + MIN_SLICES * 2, 8 * 2 + MAX_SLICES * 2, false)
+            .addEnergyHatch("Any casing with hint number 1", 1)
+            .addInputBus("Any casing with hint number 1", 1)
+            .addInputHatch("Any casing with hint number 1", 1)
+            .addMaintenanceHatch("Any casing with hint number 1", 1)
+            .addOutputBus("Any casing with hint number 1", 1)
             .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .toolTipFinisher();
         return tt;

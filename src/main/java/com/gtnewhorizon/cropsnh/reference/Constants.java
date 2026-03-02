@@ -40,4 +40,9 @@ public final class Constants {
      * The amount of fertilizer liquid 1 fertilizer item should turn into.
      */
     public static final int FERTILIZER_ITEM_FLUID_VALUE = 144;
+
+    /**
+     * The gt casing texture page used by CropsNH casings.
+     */
+    public static final int GT_CASING_PAGE = 20;
 }
