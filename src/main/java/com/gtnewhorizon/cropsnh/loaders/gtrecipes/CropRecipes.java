@@ -398,7 +398,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreConversionRecipe(MaterialLeafLoader.scheeliniumLeaf, Voltage.EV, Materials.Scheelite, TierAcid.t5);
         createOreConversionRecipe(MaterialLeafLoader.reactoriaLeaf, Voltage.EV, Materials.Pitchblende, TierAcid.t5);
         createOreConversionRecipe(MaterialLeafLoader.reactoriaStem, Voltage.EV, Materials.Uranium, TierAcid.t6);
-        createOreConversionRecipe(MaterialLeafLoader.thunderFlower, Voltage.EV, Materials.Thorium, TierAcid.t6);
+        createOreConversionRecipe(MaterialLeafLoader.thunderFlower, Voltage.EV, Materials.Thorium, TierAcid.t3);
         createOreConversionRecipe(MaterialLeafLoader.titaniaLeaf, Voltage.EV, Materials.Titanium, TierAcid.t6);
         createOreConversionRecipe(MaterialLeafLoader.starWart, Voltage.EV, Materials.NetherStar, TierAcid.t6);
 
