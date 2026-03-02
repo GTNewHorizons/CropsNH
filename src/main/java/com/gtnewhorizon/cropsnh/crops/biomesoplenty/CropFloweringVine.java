@@ -46,6 +46,6 @@ public class CropFloweringVine extends NHCropCard {
 
     @Override
     public int getMaxGrowthStage() {
-        return 4;
+        return 3;
     }
 }
