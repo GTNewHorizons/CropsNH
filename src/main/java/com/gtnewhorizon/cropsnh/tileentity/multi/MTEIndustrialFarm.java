@@ -315,16 +315,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 true);
             if (tBuilt != -1) return tBuilt;
         }
-        return survivalBuildPiece(
-            STRUCTURE_PIECE_LATER,
-            stackSize,
-            2,
-            2,
-            -tSlices - 1,
-            elementBudget,
-            env,
-            false,
-            true);
+        return survivalBuildPiece(STRUCTURE_PIECE_LAST, stackSize, 2, 2, -tSlices - 1, elementBudget, env, false, true);
     }
 
     @Override
@@ -342,16 +333,16 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         if (!tSuccess) return false;
 
         // check the first slice
-        tSuccess = checkPiece(STRUCTURE_PIECE_FIRST, 2, 2, -1);
+        tSuccess = checkPiece(STRUCTURE_PIECE_LATER, 2, 2, -1);
         if (!tSuccess || this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return false;
 
         int tSlices = GTUtility.clamp(this.mUpgradeTier - MIN_CASING_TIER + MIN_SLICES, MIN_SLICES, MAX_SLICES);
         for (int tSliceIndex = 1; tSliceIndex < tSlices; tSliceIndex++) {
-            tSuccess = checkPiece(STRUCTURE_PIECE_FIRST, 2, 2, -tSliceIndex - 1);
+            tSuccess = checkPiece(STRUCTURE_PIECE_LATER, 2, 2, -tSliceIndex - 1);
             if (!tSuccess || this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return false;
         }
 
-        tSuccess = checkPiece(STRUCTURE_PIECE_FIRST, 2, 2, -tSlices - 1);
+        tSuccess = checkPiece(STRUCTURE_PIECE_LAST, 2, 2, -tSlices - 1);
         if (!tSuccess || this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return false;
 
         if (this.mOutputBusses.size() < 1) return false;
