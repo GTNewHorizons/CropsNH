@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -304,5 +305,11 @@ public abstract class CropCard implements ICropCard {
 
     @Override
     public void onRemoved(ICropStickTile te) {}
+
+    @Override
+    public void onNeighbourChange(ICropStickTile te, World world, int x, int y, int z) {}
+
+    @Override
+    public void onFirstTick(ICropStickTile te, World world, int x, int y, int z) {}
 
 }

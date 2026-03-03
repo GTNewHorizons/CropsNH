@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.BiomeDictionary;
 
 import cpw.mods.fml.relauncher.Side;
@@ -273,6 +274,28 @@ public interface ICropCard {
      * @param te The cropTE in which this crop is growing.
      */
     void onRemoved(ICropStickTile te);
+
+    /**
+     * Fired when the crop detects a neighbour change.
+     *
+     * @param te    The tile entity containing the crop.
+     * @param world The world the crop is in
+     * @param x     The x coordinate
+     * @param y     the y coordinate
+     * @param z     The z coordinate
+     */
+    void onNeighbourChange(ICropStickTile te, World world, int x, int y, int z);
+
+    /**
+     * Fired on the first tick after a world is loaded and the crop is planted in a crop stick.
+     *
+     * @param te    The tile entity containing the crop.
+     * @param world The world the crop is in
+     * @param x     The x coordinate
+     * @param y     the y coordinate
+     * @param z     The z coordinate
+     */
+    void onFirstTick(ICropStickTile te, World world, int x, int y, int z);
 
     /**
      * @return A list of all the blocks that go under the crop card.

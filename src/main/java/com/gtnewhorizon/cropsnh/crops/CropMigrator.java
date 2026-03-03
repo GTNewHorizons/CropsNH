@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.api.IAdditionalCropData;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
@@ -112,6 +113,22 @@ public class CropMigrator extends NHCropCard {
         if (te.getAdditionalCropData() instanceof AdditionalData additionalData) {
             additionalData.drop(te);
         }
+    }
+
+    @Override
+    public void onFirstTick(ICropStickTile te, World world, int x, int y, int z) {
+        this.onNeighbourChange(te, world, x, y, z);
+    }
+
+    @Override
+    public void onNeighbourChange(ICropStickTile te, World world, int x, int y, int z) {
+        // ensure we have a propper crop.
+        if (!(te.getAdditionalCropData() instanceof AdditionalData data)) return;
+        // check if the soil is now valid.
+        if (!te.isValidSoilForCrop(data.seed.getCrop())) return;
+        // replant the seed and behave as if nothing happened.
+        te.setAdditionalCropData(null);
+        te.plantSeed(data.seed);
     }
 
     public IAdditionalCropData readAdditionalData(NBTTagCompound nbt) {

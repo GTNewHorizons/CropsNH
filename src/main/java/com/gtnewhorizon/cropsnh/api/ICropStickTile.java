@@ -84,6 +84,14 @@ public interface ICropStickTile {
     boolean tryPlantSeed(ISeedData seedData);
 
     /**
+     * Checks if the soil under this crop is valid for this crop.
+     *
+     * @param cc The crop to check with.
+     * @return True if the soil is compatible.
+     */
+    boolean isValidSoilForCrop(ICropCard cc);
+
+    /**
      * Sets the crop in the crop stick, and resets the growth progress.
      *
      * @param cc    The crop to plant.
@@ -215,7 +223,7 @@ public interface ICropStickTile {
 
     /**
      * Attempts to cure the crop
-     * 
+     *
      * @return True if the crop was cured.
      */
     boolean cureDisease();
@@ -261,9 +269,9 @@ public interface ICropStickTile {
     boolean onLeftClick(EntityPlayer player, ItemStack heldItem);
 
     /**
-     * Fired when the crop block is destroyed.
+     * Fired when the crop block detects an invalid soil.
      */
-    void onDestroyed();
+    void onInvalidSoilDetected();
 
     /**
      * Fired when an entity collides with the crop.
