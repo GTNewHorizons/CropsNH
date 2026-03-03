@@ -17,22 +17,22 @@ dependencies {
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Natura:2.8.15:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Galacticraft:3.4.17-GTNH:dev")
     // gtnh core mod let me load sheaniganery
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NewHorizonsCoreMod:2.8.156:dev")
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NewHorizonsCoreMod:2.8.157:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:WitcheryExtras:1.4.7:dev")
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:ServerUtilities:2.2.16:dev")
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:ServerUtilities:2.2.18:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:WAILAPlugins:0.7.2:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:BeeBetterAtBees-GTNH:0.4.4-GTNH:dev")
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:neiaddons:1.17.0:dev")
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:StructureLib:1.4.28:dev")
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:neiaddons:1.18.0:dev")
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:StructureLib:1.4.30:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:BlockRenderer6343:1.4.5:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:worldedit-gtnh:v0.0.8:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Random-Things:2.7.3:dev")
     // runtimeOnlyNonPublishable("ganymedes01.etfuturum:Et-Futurum-Requiem:2.6.2.21-GTNH-daily")
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Hodgepodge:2.7.58:dev")
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:2.0.0-alpha20:dev")
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Hodgepodge:2.7.83:dev")
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:2.1.0:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:AppleCore:3.3.9:dev") { transitive = false }
     // runtimeOnlyNonPublishable(rfg.deobf("curse.maven:extra-utilities-225561:2264383")) { transitive = false }
-    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:EnderIO:2.10.18:dev')
+    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:EnderIO:2.10.20:dev')
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Opis:1.4.8-mapless:dev')
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:CookingForBlockheads:1.4.8-GTNH:dev") { transitive = false }
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Binnie:2.6.16:dev') { transitive = false }
@@ -43,7 +43,7 @@ project.getConfigurations()
         final DependencySubstitutions ds = c.getResolutionStrategy()
             .getDependencySubstitution();
         ds.substitute(ds.module("com.github.GTNewHorizons:Baubles"))
-            .using(ds.module("com.github.GTNewHorizons:Baubles-Expanded:2.2.6-GTNH"))
+            .using(ds.module("com.github.GTNewHorizons:Baubles-Expanded:2.2.9-GTNH"))
             .withClassifier("dev")
             .because("Baubles-Expanded replaces Baubles");
     });
