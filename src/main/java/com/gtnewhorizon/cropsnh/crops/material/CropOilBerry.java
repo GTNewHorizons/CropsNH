@@ -18,7 +18,7 @@ public class CropOilBerry extends NHCropCard {
     public CropOilBerry() {
         super("oilBerry", new Color(0x0A0A0A), new Color(0x333333));
 
-        this.addDrop(CropsNHItemList.oilBerry.get(1), 100_00);
+        this.addDrop(CropsNHItemList.oilBerry.get(2), 100_00);
         // Dinos need to die if we are going to get more of this stuff...
         this.addLikedBiomes(BiomeDictionary.Type.HOT, BiomeDictionary.Type.WASTELAND);
     }
