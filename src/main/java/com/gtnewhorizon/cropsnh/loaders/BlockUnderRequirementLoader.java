@@ -79,7 +79,7 @@ public class BlockUnderRequirementLoader {
         BlockUnderRequirement.get("void").addBlockAndOreDict().addMaterial(Materials.Void);
         BlockUnderRequirement.get("thaumium").addBlockAndOreDict().addMaterial(Materials.Thaumium);
         BlockUnderRequirement.get("thauminite").addOreDict("blockThauminite");
-        BlockUnderRequirement.get("ichorium").addBlockAndOreDict().addMaterial(Materials.Ichorium);
+        BlockUnderRequirement.get("shadowmetal").addBlockAndOreDict("Shadow").addMaterial(Materials.Shadow);
         // others
         BlockUnderRequirement.get("snow").addOreDict("blockSnow").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.snow));
         BlockUnderRequirement.get("skull").addOreDict("itemSkull").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.skull));
