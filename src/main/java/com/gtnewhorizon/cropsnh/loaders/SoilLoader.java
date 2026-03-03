@@ -69,5 +69,15 @@ public class SoilLoader {
             BlockWithMeta graveyardSoil = new BlockWithMeta(TinkerTools.craftedSoil, 3);
             registry.register("graveyard", graveyardSoil);
         }
+
+        if (ModUtils.RandomThings.isModLoaded()) {
+            BlockWithMeta fertilizedDirt = new BlockWithMeta(ModUtils.RandomThings.getBlock("fertilizedDirt_tilled"));
+            registry.register("farmland", fertilizedDirt);
+        }
+
+        if (ModUtils.Ztones.isModLoaded()) {
+            BlockWithMeta gardenSoil = new BlockWithMeta(ModUtils.Ztones.getBlock("cleanDirt"));
+            registry.register("farmland", gardenSoil);
+        }
     }
 }
