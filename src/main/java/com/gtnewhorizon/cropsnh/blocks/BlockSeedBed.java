@@ -78,7 +78,7 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
     }
 
     public static int getMultiLength(int aTier) {
-        return aTier + MIN_TIER + 1;
+        return aTier - MIN_TIER + 1;
     }
 
     public void addInformation(ItemStack aStack, EntityPlayer aPlayer, List<String> aTooltip,
