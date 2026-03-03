@@ -126,8 +126,23 @@ public class BlockCropSticks extends BlockContainerCropsNH {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         // if this isn't a TE block things are wrong just abort.
         if (!(world.getTileEntity(x, y, z) instanceof ICropStickTile cropTE)) return;
-        // pop if we're floating or don't have a crop with an invalid soil
-        if (world.isAirBlock(x, y - 1, z) || (!cropTE.hasCrop() && this.canBlockStay(world, x, y, z))) {
+        if (!world.isAirBlock(x, y - 1, z) && cropTE.hasCrop()) {
+            // weeds/migrators don't really care what they're on.
+            if (cropTE.getSeed()
+                .getCrop()
+                .getSoilTypes() != SoilRegistry.instance.allSoils) {
+                Block b = world.getBlock(x, y - 1, z);
+                int meta = world.getBlockMetadata(x, y - 1, z);
+                // if the crop can't grow any longer on the current soil, turn it to a migrator crop.
+                if (!cropTE.getSeed()
+                    .getCrop()
+                    .getSoilTypes()
+                    .isRegistered(b, meta)) {
+                    cropTE.onInvalidSoilDetected();
+                }
+            }
+        }
+        else if (!this.canBlockStay(world, x, y, z)) {
             // try dropping the seed
             ItemStack seedDrop = cropTE.getSeedDrop();
             if (seedDrop != null) {
@@ -135,27 +150,14 @@ public class BlockCropSticks extends BlockContainerCropsNH {
             }
             // harvest the crop
             cropTE.doPlayerHarvest();
+            cropTE.clear();
             // nuke the stick.
             this.dropBlockAsItem(world, x, y, z, 0, 0);
             world.setBlockToAir(x, y, z);
             world.removeTileEntity(x, y, z);
             return;
         }
-        // weeds don't really care what they're on.
-        if (cropTE.getSeed()
-            .getCrop()
-            .getSoilTypes() != SoilRegistry.instance.allSoils) {
-            Block b = world.getBlock(x, y - 1, z);
-            int meta = world.getBlockMetadata(x, y - 1, z);
-            // if the crop can't grow any longer on the current soil, turn it to a migrator crop.
-            if (!cropTE.getSeed()
-                .getCrop()
-                .getSoilTypes()
-                .isRegistered(b, meta)) {
-                cropTE.onInvalidSoilDetected();
-                return;
-            }
-        }
+
         // else normally notify the TE
         cropTE.onNeighbourChange();
     }

@@ -109,7 +109,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     private int ticker;
     private boolean isDirty = true;
     private int spriteIndex = 0;
-    private boolean isFirstTick = false;
+    private boolean isFirstTick = true;
 
     // seed status
     private ISeedData seed = null;
@@ -1023,6 +1023,10 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         if (!this.hasCrop()) return;
         this.seed.getCrop()
             .onFirstTick(this, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+
+        if (!this.isValidSoilForCrop(this.seed.getCrop())) {
+            this.onInvalidSoilDetected();
+        }
     }
 
     @Override
