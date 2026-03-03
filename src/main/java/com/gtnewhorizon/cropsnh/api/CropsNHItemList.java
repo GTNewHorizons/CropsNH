@@ -12,13 +12,13 @@ import net.minecraftforge.client.IItemRenderer;
 
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
+import gregtech.GTMod;
 import gregtech.api.interfaces.IItemContainer;
 import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import gregtech.common.render.items.MetaGeneratedItemRenderer;
 
 public enum CropsNHItemList implements IItemContainer {
 
@@ -439,7 +439,10 @@ public enum CropsNHItemList implements IItemContainer {
 
     @Override
     public IItemContainer setRender(IItemRenderer aRenderer) {
-        MetaGeneratedItemRenderer.registerSpecialRenderer(this.getItem(), this.getInternalStack_unsafe(), aRenderer);
+        if (GTMod.proxy.isClientSide()) {
+            GTMod.clientProxy().metaItemRenderer
+                .registerSpecialRenderer(this.getItem(), this.getInternalStack_unsafe(), aRenderer);
+        }
         return this;
     }
 
