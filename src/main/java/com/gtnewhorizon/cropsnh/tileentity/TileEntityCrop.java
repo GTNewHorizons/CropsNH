@@ -560,7 +560,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     @Override
     public ItemStack getSeedStack() {
         // validate if seed is valid
-        if (!this.hasCrop() && this.seed.getCrop() instanceof CropMigrator) return null;
+        if (!this.hasCrop() || this.seed.getCrop() instanceof CropMigrator) return null;
 
         // save crop info
         return this.seed.getStack()

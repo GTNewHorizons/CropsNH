@@ -21,6 +21,7 @@ import com.gtnewhorizon.cropsnh.loaders.MutationLoader;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
 import com.gtnewhorizon.cropsnh.loaders.SoilLoader;
 import com.gtnewhorizon.cropsnh.proxy.IProxy;
+import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropBreeder;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTESeedGenerator;
@@ -35,6 +36,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import gregtech.api.util.GTUtility;
 
 /**
  * Hard fork of Agricraft (originally by InfinityRaider) for the GTNH modpack
@@ -75,6 +77,7 @@ public class CropsNH {
         FMLCommonHandler.instance()
             .bus()
             .register(new ConfigurationHandler());
+        GTUtility.addTexturePage((byte) Constants.GT_CASING_PAGE);
         CropsNHBlocks.preInit();
         CropsNHItems.preInit();
         CropsNHFluids.preInit();

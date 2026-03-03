@@ -14,6 +14,7 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.util.tooltip.TooltipHelper;
 
 public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponent {
 
@@ -51,7 +52,7 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
         tooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.fertilizerUnit.1",
-                getFertilizerConsumptionPerCycle(CropsNHUtils.getItemMeta(stack))));
+                TooltipHelper.fluidText(getFertilizerConsumptionPerCycle(CropsNHUtils.getItemMeta(stack)))));
         if (advancedTooltips) {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
