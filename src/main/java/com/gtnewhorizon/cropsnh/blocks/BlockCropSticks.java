@@ -141,8 +141,7 @@ public class BlockCropSticks extends BlockContainerCropsNH {
                     cropTE.onInvalidSoilDetected();
                 }
             }
-        }
-        else if (!this.canBlockStay(world, x, y, z)) {
+        } else if (!this.canBlockStay(world, x, y, z)) {
             // try dropping the seed
             ItemStack seedDrop = cropTE.getSeedDrop();
             if (seedDrop != null) {
