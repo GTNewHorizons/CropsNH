@@ -1200,6 +1200,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         return true;
     }
 
+    @Override
     public ItemStack getSeedDrop() {
         if (this.hasCrop() && !this.hasWeed()
             && this.seed.getStats()

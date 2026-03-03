@@ -29,6 +29,7 @@ import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderCrop;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropsNH;
+import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -127,7 +128,14 @@ public class BlockCropSticks extends BlockContainerCropsNH {
         if (!(world.getTileEntity(x, y, z) instanceof ICropStickTile cropTE)) return;
         // pop if we're floating or don't have a crop with an invalid soil
         if (world.isAirBlock(x, y - 1, z) || (!cropTE.hasCrop() && this.canBlockStay(world, x, y, z))) {
+            // try dropping the seed
+            ItemStack seedDrop = cropTE.getSeedDrop();
+            if (seedDrop != null) {
+                WorldUtils.dropItem(world, x, y, z, seedDrop);
+            }
+            // harvest the crop
             cropTE.doPlayerHarvest();
+            // nuke the stick.
             this.dropBlockAsItem(world, x, y, z, 0, 0);
             world.setBlockToAir(x, y, z);
             world.removeTileEntity(x, y, z);
@@ -140,7 +148,7 @@ public class BlockCropSticks extends BlockContainerCropsNH {
             Block b = world.getBlock(x, y - 1, z);
             int meta = world.getBlockMetadata(x, y - 1, z);
             // if the crop can't grow any longer on the current soil, turn it to a migrator crop.
-            if (cropTE.getSeed()
+            if (!cropTE.getSeed()
                 .getCrop()
                 .getSoilTypes()
                 .isRegistered(b, meta)) {
