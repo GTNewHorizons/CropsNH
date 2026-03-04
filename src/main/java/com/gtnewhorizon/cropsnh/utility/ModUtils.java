@@ -2,11 +2,15 @@ package com.gtnewhorizon.cropsnh.utility;
 
 import java.util.Locale;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import com.gtnewhorizon.gtnhlib.util.data.IMod;
 
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public enum ModUtils implements IMod {
 
@@ -41,7 +45,8 @@ public enum ModUtils implements IMod {
     UtilitiesInExcess(ModIDs.UtilitiesInExcess),
     Waila(ModIDs.WAILA),
     Witchery(ModIDs.Witchery),
-    WitchingGadgets(ModIDs.WitchingGadgets);
+    WitchingGadgets(ModIDs.WitchingGadgets),
+    Ztones(ModIDs.Ztones);
 
     public final String ID;
     public final String resourceDomain;
@@ -90,6 +95,24 @@ public enum ModUtils implements IMod {
         return new ResourceLocation(this.resourceDomain, String.join("/", path));
     }
 
+    public Item getItem(String name) {
+        Item item = GameRegistry.findItem(this.ID, name);
+        if (item == null)
+            throw new IllegalStateException("Item with id \"" + this.ID + ":" + name + "\" could not be found!");
+        return item;
+    }
+
+    public Block getBlock(String name) {
+        Block block = GameRegistry.findBlock(this.ID, name);
+        if (block == null)
+            throw new IllegalStateException("Block with id \"" + this.ID + ":" + name + "\" could not be found!");
+        return block;
+    }
+
+    public ItemStack getStack(String name, int amount, int meta) {
+        return CropsNHUtils.getModItem(this, name, amount, meta);
+    }
+
     public static class ModIDs {
 
         public final static String Angelica = "angelica";
@@ -124,5 +147,7 @@ public enum ModUtils implements IMod {
         public static final String TaintedMagic = "TaintedMagic";
         public static final String WAILA = "Waila";
         public static final String WitchingGadgets = "WitchingGadgets";
+        public static final String Ztones = "Ztones";
+
     }
 }

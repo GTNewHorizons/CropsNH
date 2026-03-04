@@ -19,9 +19,11 @@ public class CropMagicalNightshade extends NHCropCard {
 
         this.addDrop(CropsNHItemList.magicEssence.get(1), 100_00);
 
-        this.addBlockUnderRequirement("ichorium");
+        this.addBlockUnderRequirement("shadowmetal");
 
         this.addDuplicationCatalyst(CropsNHItemList.magicEssence.get(1));
+
+        this.addAlternateSeed(CropsNHItemList.magicEssence.get(1));
 
         this.addGrowthRequirement(new MachineOnlyGrowthRequirement());
 

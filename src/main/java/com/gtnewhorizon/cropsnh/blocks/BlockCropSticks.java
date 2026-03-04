@@ -29,6 +29,7 @@ import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderCrop;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropsNH;
+import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -123,38 +124,41 @@ public class BlockCropSticks extends BlockContainerCropsNH {
      */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-        // check if crops can stay
-        final TileEntity te = world.getTileEntity(x, y, z);
-        boolean shouldRemove = !this.canBlockStay(world, x, y, z);
-        if (!shouldRemove && te instanceof ICropStickTile cropTE) {
-            // weeds can just vibe on anything
-            if (cropTE.hasCrop() && !(cropTE.getSeed()
+        // if this isn't a TE block things are wrong just abort.
+        if (!(world.getTileEntity(x, y, z) instanceof ICropStickTile cropTE)) return;
+        if (!world.isAirBlock(x, y - 1, z) && cropTE.hasCrop()) {
+            // weeds/migrators don't really care what they're on.
+            if (cropTE.getSeed()
                 .getCrop()
-                .getSoilTypes() == SoilRegistry.instance.allSoils)) {
+                .getSoilTypes() != SoilRegistry.instance.allSoils) {
                 Block b = world.getBlock(x, y - 1, z);
                 int meta = world.getBlockMetadata(x, y - 1, z);
-                shouldRemove = !cropTE.getSeed()
+                // if the crop can't grow any longer on the current soil, turn it to a migrator crop.
+                if (!cropTE.getSeed()
                     .getCrop()
                     .getSoilTypes()
-                    .isRegistered(b, meta);
+                    .isRegistered(b, meta)) {
+                    cropTE.onInvalidSoilDetected();
+                }
             }
-        }
-        if (shouldRemove) {
-            // Attempt to notify the TE of it's impending doom.
-            if (te instanceof ICropStickTile) {
-                ((ICropStickTile) te).onDestroyed();
+        } else if (!this.canBlockStay(world, x, y, z)) {
+            // try dropping the seed
+            ItemStack seedDrop = cropTE.getSeedDrop();
+            if (seedDrop != null) {
+                WorldUtils.dropItem(world, x, y, z, seedDrop);
             }
-            // And break and drop the crop sticks.
+            // harvest the crop
+            cropTE.doPlayerHarvest();
+            cropTE.clear();
+            // nuke the stick.
             this.dropBlockAsItem(world, x, y, z, 0, 0);
             world.setBlockToAir(x, y, z);
             world.removeTileEntity(x, y, z);
             return;
         }
 
-        // if it can stay just notify the crop.
-        if (te instanceof ICropStickTile) {
-            ((ICropStickTile) te).onNeighbourChange();
-        }
+        // else normally notify the TE
+        cropTE.onNeighbourChange();
     }
 
     /**

@@ -109,6 +109,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     private int ticker;
     private boolean isDirty = true;
     private int spriteIndex = 0;
+    private boolean isFirstTick = true;
 
     // seed status
     private ISeedData seed = null;
@@ -403,6 +404,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         return true;
     }
 
+    @Override
     public boolean isValidSoilForCrop(ICropCard cc) {
         Block block = this.worldObj.getBlock(this.xCoord, this.yCoord - 1, this.zCoord);
         int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord - 1, this.zCoord);
@@ -1001,6 +1003,10 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     @Override
     public void updateEntity() {
         super.updateEntity();
+        if (this.isFirstTick) {
+            this.isFirstTick = false;
+            this.onFirstTick();
+        }
         this.ticker = ++this.ticker % TICK_RATE;
         if (this.ticker == 0) {
             this.onGrowthTick();
@@ -1010,6 +1016,16 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             this.markDirty();
             this.markForUpdate();
             this.worldObj.updateLightByType(EnumSkyBlock.Block, this.xCoord, this.yCoord, this.zCoord);
+        }
+    }
+
+    private void onFirstTick() {
+        if (!this.hasCrop()) return;
+        this.seed.getCrop()
+            .onFirstTick(this, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+
+        if (!this.isValidSoilForCrop(this.seed.getCrop())) {
+            this.onInvalidSoilDetected();
         }
     }
 
@@ -1188,6 +1204,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         return true;
     }
 
+    @Override
     public ItemStack getSeedDrop() {
         if (this.hasCrop() && !this.hasWeed()
             && this.seed.getStats()
@@ -1221,8 +1238,13 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public void onDestroyed() {
-
+    public void onInvalidSoilDetected() {
+        if (!this.hasCrop() || this.seed.getCrop() == CropsNHCrops.Migrator) return;
+        this.additionalCropData = new CropMigrator.AdditionalData(
+            new SeedData(this.seed.getCrop(), this.seed.getStats()));
+        this.seed = new SeedData(CropsNHCrops.Migrator, this.seed.getStats());
+        this.growthProgress = 0;
+        this.isDirty = true;
     }
 
     private boolean shouldTrample(float fallDistance) {
@@ -1319,7 +1341,9 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     @Override
     public void onNeighbourChange() {
-
+        if (!this.hasCrop()) return;
+        this.seed.getCrop()
+            .onNeighbourChange(this, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
     }
 
     // endregion event handling

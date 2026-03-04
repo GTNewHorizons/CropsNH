@@ -663,7 +663,7 @@ cropsnh_growthReq.blockUnder.ardite=Needs a block of ardite under it to grow.
 cropsnh_growthReq.blockUnder.void=Needs a block of void under it to grow.
 cropsnh_growthReq.blockUnder.thaumium=Needs a block of thaumium under it to grow.
 cropsnh_growthReq.blockUnder.thauminite=Needs a block of thauminite under it to grow.
-cropsnh_growthReq.blockUnder.ichorium=Needs a block of ichorium under it to grow.
+cropsnh_growthReq.blockUnder.shadowmetal=Needs a block of shadow metal under it to grow.
 # Misc Block Growth Requirement
 cropsnh_growthReq.blockUnder.skull=Needs a skull under it to grow.
 cropsnh_growthReq.blockUnder.snow=Needs a block of snow under it to grow.

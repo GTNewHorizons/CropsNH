@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.handler.migrations;
 
+import net.minecraftforge.oredict.OreDictionary;
+
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
@@ -32,5 +34,20 @@ public abstract class CropsPlusPlusMigrations {
         MissingMappingHandler.addIgnore(modifierId);
         ItemStackReplacementManager.addSimpleReplacement(modifierId, 0, CropsNHItemList.spaceFlower.get(1), true);
         ItemStackReplacementManager.addSimpleReplacement(modifierId, 1, CropsNHItemList.magicEssence.get(1), true);
+        // plant lens
+        final String plantLensId = ModUtils.CropsPlusPlus.ID + ":itemLens";
+        MissingMappingHandler.addIgnore(plantLensId);
+        ItemStackReplacementManager
+            .addSimpleReplacement(plantLensId, OreDictionary.WILDCARD_VALUE, CropsNHItemList.plantLens.get(1), true);
+        // spade
+        final String spadeId = ModUtils.CropsPlusPlus.ID + ":itemSpade";
+        MissingMappingHandler.addIgnore(spadeId);
+        ItemStackReplacementManager
+            .addSimpleReplacement(spadeId, OreDictionary.WILDCARD_VALUE, CropsNHItemList.spade.get(1), true);
+        // goldfish
+        final String goldfishId = ModUtils.CropsPlusPlus.ID + ":foodGoldfish";
+        MissingMappingHandler.addIgnore(goldfishId);
+        ItemStackReplacementManager
+            .addSimpleReplacement(goldfishId, OreDictionary.WILDCARD_VALUE, CropsNHItemList.goldfish.get(1), true);
     }
 }
