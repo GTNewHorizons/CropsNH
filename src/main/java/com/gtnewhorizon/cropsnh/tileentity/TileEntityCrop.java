@@ -434,7 +434,8 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
      */
     public boolean passesResistanceCheck() {
         // if has no crop fail
-        return this.seed.getStats().getResistance() > XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT);
+        return this.seed.getStats()
+            .getResistance() > XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT);
     }
 
     @Override
@@ -1217,8 +1218,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     @Override
     public ItemStack getSeedDrop() {
-        if (this.hasCrop() && !this.hasWeed()
-            && this.passesResistanceCheck()) {
+        if (this.hasCrop() && !this.hasWeed() && this.passesResistanceCheck()) {
             return this.getSeedStack();
         }
         return null;
