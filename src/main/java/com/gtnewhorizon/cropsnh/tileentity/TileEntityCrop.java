@@ -1066,9 +1066,13 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             int growthRate = this.calcGrowthRate();
             // check if the crop should get sick
             if (growthRate <= 0) {
-                this.isSick = true;
-                this.isDirty = true;
-                this.markDirty();
+                // max resistance crop can't get sick
+                if (this.seed.getStats()
+                    .getResistance() <= XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT)) {
+                    this.isSick = true;
+                    this.isDirty = true;
+                    this.markDirty();
+                }
                 return;
             }
 
