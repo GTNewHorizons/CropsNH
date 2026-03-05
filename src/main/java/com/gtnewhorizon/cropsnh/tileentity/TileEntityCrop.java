@@ -428,6 +428,16 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
         return true;
     }
 
+    /**
+     * @implSpec assumes we've already verified we have a crop in the sticks.
+     * @return true if the roll succeeds
+     */
+    public boolean passesResistanceCheck() {
+        // if has no crop fail
+        return this.seed.getStats()
+            .getResistance() > XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT);
+    }
+
     @Override
     public void plantSeed(ISeedData seedData) {
         this.clear();
@@ -1032,8 +1042,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     @Override
     public void transferDisease() {
         if (!this.hasCrop() || this.isSick || this.hasWeed()) return;
-        if (XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT) > this.seed.getStats()
-            .getResistance()) {
+        if (!this.passesResistanceCheck()) {
             this.isSick = true;
             this.isDirty = true;
             this.markDirty();
@@ -1066,9 +1075,12 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
             int growthRate = this.calcGrowthRate();
             // check if the crop should get sick
             if (growthRate <= 0) {
-                this.isSick = true;
-                this.isDirty = true;
-                this.markDirty();
+                // max resistance crop can't get sick
+                if (!this.passesResistanceCheck()) {
+                    this.isSick = true;
+                    this.isDirty = true;
+                    this.markDirty();
+                }
                 return;
             }
 
@@ -1206,9 +1218,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
 
     @Override
     public ItemStack getSeedDrop() {
-        if (this.hasCrop() && !this.hasWeed()
-            && this.seed.getStats()
-                .getResistance() > XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT)) {
+        if (this.hasCrop() && !this.hasWeed() && this.passesResistanceCheck()) {
             return this.getSeedStack();
         }
         return null;

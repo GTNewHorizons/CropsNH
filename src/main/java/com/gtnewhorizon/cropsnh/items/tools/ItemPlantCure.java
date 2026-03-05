@@ -31,6 +31,8 @@ public class ItemPlantCure extends Item implements ICropRightClickHandler {
     public boolean onRightClick(World world, ICropStickTile te, EntityPlayer player, ItemStack heldItem) {
         if (world.isRemote) return true;
         if (te.cureDisease()) {
+            // add a bit of fertilizer so it doesn't fall sick again for a bit.
+            te.addFertilizer(25, 25, 25, false);
             if (!player.capabilities.isCreativeMode) {
                 heldItem.damageItem(1, player);
             }
