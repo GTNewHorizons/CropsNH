@@ -186,6 +186,8 @@ cropsnh_tooltip.progress=Progress
 cropsnh_tooltip.none=none
 cropsnh_tooltip.NaNCertificate=Challenge Accepted!
 cropsnh_tooltip.seed_must_use_synthesizer_to_replicate=This seed can only be replicated using the synthesizer.
+# TODO: remove "(Check usages in NEI)" after a major version of GTNH.
+cropsnh_tooltip.wrongSoil=This crop needs a different soil (Check usages in NEI)
 
 # Biome Tags
 cropsnh_tooltip.biomeTag.HOT=Hot
