@@ -179,8 +179,8 @@ cropsnh_tooltip.weedEx=Weed-EX
 cropsnh_tooltip.weeds=Weeds -- BLAZE IT
 cropsnh_tooltip.plantLens=Use this to inspect crops
 cropsnh_tooltip.handRake=Use this to remove weeds from crops
-cropsnh_tooltip.spade=Use this to remove weeds and get seeds when harvesting.
-cropsnh_tooltip.reinforcedSpade=Use this to remove weeds and get more seeds when harvesting.
+cropsnh_tooltip.spade=Use this to remove weeds and get seeds when harvesting
+cropsnh_tooltip.reinforcedSpade=Use this to remove weeds and get more seeds when harvesting
 cropsnh_tooltip.empty=Nothing planted
 cropsnh_tooltip.progress=Progress
 cropsnh_tooltip.none=none
@@ -221,15 +221,15 @@ cropsnh_tooltip.biomeTag.WASTELAND=Wasteland
 cropsnh_tooltip.biomeTag.BEACH=Beach
 
 # Industrial Farm block tooltips
-cropsnh_tooltip.upgradeTierMustMatchSeedBed=The tier of this upgrade must match that of the seedbed.
-cropsnh_tooltip.upgradeCountLimited=You can only use a maximum of %1$d of these upgrades.
+cropsnh_tooltip.upgradeTierMustMatchSeedBed=The tier of this upgrade must match that of the seedbed
+cropsnh_tooltip.upgradeCountLimited=You can only use a maximum of %1$d of these upgrades
 
 # Industrial Farm UI
 cropsnh_tooltip.industrialFarm.capacity=Max capacity: %1$d
 cropsnh_tooltip.industrialFarm.seedSlot=Seed Slot
-cropsnh_tooltip.industrialFarm.seedWithBlockExtractionWarning=Seeds can only be extracted using the output mode when blocks are present.
-cropsnh_tooltip.industrialFarm.blockInsertion=Blocks can only be inserted when using input mode.
-cropsnh_tooltip.industrialFarm.blockExtraction=Blocks can only be extracted with the output mode.
+cropsnh_tooltip.industrialFarm.seedWithBlockExtractionWarning=Seeds can only be extracted using the output mode when blocks are present
+cropsnh_tooltip.industrialFarm.blockInsertion=Blocks can only be inserted when using input mode
+cropsnh_tooltip.industrialFarm.blockExtraction=Blocks can only be extracted with the output mode
 cropsnh_tooltip.industrialFarm.blockUnderSlot=Slot for the block that goes below the soil
 cropsnh_tooltip.industrialFarm.environmentalModule=Environmental Module Slot
 cropsnh_tooltip.industrialFarm.environmentalModule.enabled=Enabled
@@ -237,13 +237,13 @@ cropsnh_tooltip.industrialFarm.environmentalModule.disabled=Disabled
 cropsnh_tooltip.industrialFarm.mode.input=Input
 cropsnh_tooltip.industrialFarm.mode.farm=Farm
 cropsnh_tooltip.industrialFarm.mode.output=Output
-GT5U.gui.text.cropsnh.industrialFarm.blockUnderNotFound=Failed to insert new seeds as the block that goes below the soil is missing.
-GT5U.gui.text.cropsnh.industrialFarm.blockUnderMismatch.input=Failed to insert new seeds as the blocks stored in this machine aren't compatible.
-GT5U.gui.text.cropsnh.industrialFarm.blockUnderMismatch.farm=The current block does not match the blocks required for this seed to grow.
-GT5U.gui.text.cropsnh.industrialFarm.seedBedTierTooLow=The current tier of seed bed is too low for this seed.
-GT5U.gui.text.cropsnh.industrialFarm.seedsFull=Seed capacity reached.
-GT5U.gui.text.cropsnh.industrialFarm.seedOverflow=Seed Storage exceeds current capacity!
-GT5U.gui.text.cropsnh.industrialFarm.cannotGrow=This seed cannot grow in the current environment.
+GT5U.gui.text.cropsnh.industrialFarm.blockUnderNotFound=Failed to insert new seeds as the block that goes below the soil is missing
+GT5U.gui.text.cropsnh.industrialFarm.blockUnderMismatch.input=Failed to insert new seeds as the blocks stored in this machine aren't compatible
+GT5U.gui.text.cropsnh.industrialFarm.blockUnderMismatch.farm=The current block does not match the blocks required for this seed to grow
+GT5U.gui.text.cropsnh.industrialFarm.seedBedTierTooLow=The current tier of seed bed is too low for this seed
+GT5U.gui.text.cropsnh.industrialFarm.seedsFull=Seed capacity reached
+GT5U.gui.text.cropsnh.industrialFarm.seedOverflow=Seed Storage exceeds current capacity
+GT5U.gui.text.cropsnh.industrialFarm.cannotGrow=This seed cannot grow in the current environment
 
 # Industrial Farm Scanner Tooltips
 cropsnh_tooltip.industrialFarm.scanner.0=Tier: §e%1$s§r
