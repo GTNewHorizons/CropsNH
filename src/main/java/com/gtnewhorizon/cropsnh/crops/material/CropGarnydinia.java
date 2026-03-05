@@ -20,26 +20,20 @@ public class CropGarnydinia extends NHCropCard {
 
     public CropGarnydinia() {
         super("garnydinia", new Color(0xA24141), new Color(0xA3A341));
-        // 5% exquisite gem
+        // 45% garnet dust
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.GarnetRed, 1L), 22_50);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.GarnetYellow, 1L), 22_50);
+        // 45% garnet gem dust
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.GarnetRed, 1L), 22_50);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.GarnetYellow, 1L), 22_50);
+        // 5% garnet exquisite gem
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.gemExquisite, Materials.GarnetRed, 1L), 2_50);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.gemExquisite, Materials.GarnetYellow, 1L), 2_50);
-        // 15% gem
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.GarnetRed, 1L), 7_50);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.GarnetYellow, 1L), 7_50);
-        // 39% dust
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.GarnetRed, 1L), 19_50);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.GarnetYellow, 1L), 19_50);
-        // 19% small dust
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dustSmall, Materials.GarnetRed, 1L), 8_50);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dustSmall, Materials.GarnetYellow, 1L), 8_50);
-        // 18% small tiny
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.GarnetRed, 1L), 9_00);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.GarnetYellow, 1L), 9_00);
-        // 3% crushed pure ore
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetRed, 1L), 1_50);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetYellow, 1L), 1_50);
-        // 1% purified garnet sand
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetSand, 1L), 8_00);
+        // 4% crushed pure ore
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetRed, 1L), 2_00);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetYellow, 1L), 2_00);
+        // 1% asbestos dust
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Asbestos, 1L), 1_00);
 
         this.addBlockUnderRequirement("garnetGem");
 
