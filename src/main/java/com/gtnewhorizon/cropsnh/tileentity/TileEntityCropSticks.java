@@ -60,7 +60,7 @@ import com.gtnewhorizon.cropsnh.utility.XSTR;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile {
+public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStickTile {
 
     public final static int TICK_RATE = 256;
 
@@ -125,7 +125,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     // used to tell waila why the crop ain't growing.
     private List<IGrowthRequirement> failedChecks = null;
 
-    public TileEntityCrop() {
+    public TileEntityCropSticks() {
         this.ticker = XSTR.XSTR_INSTANCE.nextInt(256);
     }
 

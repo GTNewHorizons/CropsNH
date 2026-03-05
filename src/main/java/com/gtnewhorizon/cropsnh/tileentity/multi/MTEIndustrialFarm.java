@@ -66,7 +66,7 @@ import com.gtnewhorizon.cropsnh.items.ItemEnvironmentalModule;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.IFDropTable;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
@@ -135,7 +135,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     public final static int SLOT_ENV_CARD_START = 2;
 
     /** Amount of fertilizer per seed slot in the machine */
-    public static final double CYCLE_TICK_RATE_SCALAR = (double) CYCLE_DURATION / TileEntityCrop.TICK_RATE;
+    public static final double CYCLE_TICK_RATE_SCALAR = (double) CYCLE_DURATION / TileEntityCropSticks.TICK_RATE;
 
     /** How many times the output and water/fertilizer consumption of the multi should be doubled. */
     public int mExpectedOCs = 0;
@@ -557,7 +557,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
                     formatNumber(this.getNutrientScore(tSeedData)),
-                    formatNumber(TileEntityCrop.MAX_NUTRIENT_SCORE)));
+                    formatNumber(TileEntityCropSticks.MAX_NUTRIENT_SCORE)));
         }
         return ret.toArray(new String[0]);
     }
@@ -1102,7 +1102,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             ? SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_UNIT_MISSING
             : SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_UNIT_INSTALLED;
         // calc available nutrient points for growth speed calculation
-        return TileEntityCrop.getNutrientsPerCycle(
+        return TileEntityCropSticks.getNutrientsPerCycle(
             tLikedBiomes,
             tBiome.rainfall,
             SIMULATED_CAN_SEE_SKY,
@@ -1119,7 +1119,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
      */
     public int getGrowthSpeedUnscaled(ISeedData aCrop) {
         // calculate the base growth speed
-        return TileEntityCrop.getGrowthRate(
+        return TileEntityCropSticks.getGrowthRate(
             this.getNutrientScore(aCrop),
             aCrop.getCrop()
                 .getTier(),
@@ -1152,7 +1152,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         int tUnscaledGrowthSpeed = this.getGrowthSpeedUnscaled(aCrop);
         if (tUnscaledGrowthSpeed <= 0) return -1;
         // calculate growth points per cycle
-        double tGrowthPerCycle = (((double) tUnscaledGrowthSpeed) / TileEntityCrop.TICK_RATE) * CYCLE_DURATION;
+        double tGrowthPerCycle = (((double) tUnscaledGrowthSpeed) / TileEntityCropSticks.TICK_RATE) * CYCLE_DURATION;
         // apply growth speed multipliers
         tGrowthPerCycle *= this.getGrowthSpeedMultiplier();
         // calculate percentage grown each tick.
@@ -1187,12 +1187,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         if (tProgressPerCycle <= 0) return null;
 
         // calc avg drop stack size increase
-        double avgDropIncrease = TileEntityCrop.getAvgDropCountIncrease(
+        double avgDropIncrease = TileEntityCropSticks.getAvgDropCountIncrease(
             aCrop.getStats()
                 .getGain());
 
         // calc average number of created drops per harvest
-        double avgDropCount = TileEntityCrop.getAvgDropRounds(
+        double avgDropCount = TileEntityCropSticks.getAvgDropRounds(
             aCrop.getCrop(),
             aCrop.getStats()
                 .getGain());

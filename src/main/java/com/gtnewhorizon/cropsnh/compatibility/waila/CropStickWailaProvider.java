@@ -19,7 +19,7 @@ import com.gtnewhorizon.cropsnh.farming.SeedData;
 import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -32,7 +32,7 @@ public class CropStickWailaProvider implements IWailaDataProvider {
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor dataAccessor, IWailaConfigHandler configHandler) {
         TileEntity te = dataAccessor.getTileEntity();
-        if (te instanceof TileEntityCrop teCrop) {
+        if (te instanceof TileEntityCropSticks teCrop) {
             if (teCrop.hasWeed()) {
                 return weedStack;
             }
@@ -61,7 +61,7 @@ public class CropStickWailaProvider implements IWailaDataProvider {
         IWailaConfigHandler configHandler) {
         TileEntity te = dataAccessor.getTileEntity();
         NBTTagCompound nbt = dataAccessor.getNBTData();
-        if (te instanceof TileEntityCrop teCrop) {
+        if (te instanceof TileEntityCropSticks teCrop) {
             if (teCrop.hasCrop()) {
                 if (teCrop.hasWeed()) {
                     information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weeds"));
@@ -145,8 +145,8 @@ public class CropStickWailaProvider implements IWailaDataProvider {
     @Override
     public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, int x,
         int y, int z) {
-        if (te instanceof TileEntityCrop) {
-            tag.setFloat("waila_perc", ((TileEntityCrop) te).getGrowthPercent());
+        if (te instanceof TileEntityCropSticks) {
+            tag.setFloat("waila_perc", ((TileEntityCropSticks) te).getGrowthPercent());
             te.writeToNBT(tag);
         }
         return tag;
