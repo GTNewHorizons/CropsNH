@@ -1,7 +1,6 @@
 package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -13,6 +12,7 @@ import com.gtnewhorizon.cropsnh.api.ICropMutation;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
+import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropBreeder;
 
@@ -20,6 +20,7 @@ import cpw.mods.fml.common.LoaderException;
 import gregtech.api.enums.GTValues;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTRecipeBuilder;
+import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 
 public class CropBreederFakeRecipeLoader extends BaseGTRecipeLoader {
 
@@ -42,7 +43,7 @@ public class CropBreederFakeRecipeLoader extends BaseGTRecipeLoader {
                 })
                 .collect(Collectors.toList());
 
-            int tier = mutation.getOutput()
+            final int tier = mutation.getOutput()
                 .getTier();
 
             GTRecipeBuilder template = GTValues.RA.stdBuilder()
@@ -64,14 +65,18 @@ public class CropBreederFakeRecipeLoader extends BaseGTRecipeLoader {
             }
             template.itemInputs(inputs.toArray());
 
-            for (Map.Entry<Fluid, Integer> allowedFluid : MTECropBreeder.ALLOWED_LIQUID_FERTILIZER.entrySet()) {
+            for (Object2FloatMap.Entry<Fluid> allowedFluid : MTECropBreeder.ALLOWED_LIQUID_FERTILIZER
+                .object2FloatEntrySet()) {
                 GTRecipeBuilder builder = template.copy()
                     .fluidInputs(
                         new FluidStack(
                             allowedFluid.getKey(),
-                            allowedFluid.getValue() / 2
-                                * (mutation.getOutput()
-                                    .getTier() * 2 + 3)));
+                            MTECropBreeder.getFluidAmount(
+                                tier,
+                                Constants.MAX_SEED_STAT,
+                                Constants.MAX_SEED_STAT,
+                                Constants.MAX_SEED_STAT,
+                                allowedFluid.getFloatValue())));
 
                 if (catalysts == null || catalysts.isEmpty()) {
                     builder.addTo(CropsNHGTRecipeMaps.fakeCropBreederRecipeMap);

@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity.multi;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.getFluidUnit;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlocksTiered;
@@ -450,8 +451,11 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     // endregion structure
 
     // region ctor
-    public MTEIndustrialFarm(int aID, String aName, String aNameRegional) {
-        super(aID, aName, aNameRegional);
+    public MTEIndustrialFarm(int aID) {
+        super(
+            aID,
+            "multimachine.industrialfarm",
+            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.name"));
         this.mInvWrapper = new CombinedInvWrapper(this.mIFStackHandler, this.inventoryHandler);
     }
 
@@ -471,43 +475,28 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
         final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
-        tt.addMachineType("Industrial Crop Cultivator")
-            .addInfo("Grows crops at an industrial scale.")
-            .addInfo(
-                "The " + EnumChatFormatting.AQUA
-                    + "length"
-                    + EnumChatFormatting.GRAY
-                    + " of the machine depends on the "
-                    + EnumChatFormatting.RED
-                    + "tier"
-                    + EnumChatFormatting.GRAY
-                    + " of the "
-                    + EnumChatFormatting.WHITE
-                    + "seed bed")
-            .addInfo(
-                "Harvest bonus grows by " + EnumChatFormatting.RED
-                    + "20%"
-                    + EnumChatFormatting.GRAY
-                    + " per "
-                    + EnumChatFormatting.RED
-                    + "tier"
-                    + EnumChatFormatting.GRAY
-                    + " of "
-                    + EnumChatFormatting.WHITE
-                    + "seed bed");
+        tt.addMachineType(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.machineType"))
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.0"))
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.1"))
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.2"));
 
+        String hatchHint = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.hatch");
         tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, false)
             .addGlassEnergyLimitInfo()
             .addInfo(
                 EnumChatFormatting.GREEN
                     + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade")
                     + EnumChatFormatting.RESET)
-            .addCasingInfoRange("Bricked Agricultural Casing", 8 * 2 + MIN_SLICES * 2, 8 * 2 + MAX_SLICES * 2, false)
-            .addEnergyHatch("Any casing with hint number 1", 1)
-            .addInputBus("Any casing with hint number 1", 1)
-            .addInputHatch("Any casing with hint number 1", 1)
-            .addMaintenanceHatch("Any casing with hint number 1", 1)
-            .addOutputBus("Any casing with hint number 1", 1)
+            .addCasingInfoRange(
+                StatCollector.translateToLocal("cropsnh.casings1.0.name"),
+                8 * 2 + MIN_SLICES * 2,
+                8 * 2 + MAX_SLICES * 2,
+                false)
+            .addEnergyHatch(hatchHint, 1)
+            .addInputBus(hatchHint, 1)
+            .addInputHatch(hatchHint, 1)
+            .addMaintenanceHatch(hatchHint, 1)
+            .addOutputBus(hatchHint, 1)
             .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .toolTipFinisher();
         return tt;
@@ -541,14 +530,14 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.4",
-                formatNumber(waterUsage),
+                formatNumber(waterUsage) + getFluidUnit(),
                 formatNumber(CYCLE_DURATION)));
         // Fertilizer Usage per Cycle
         int fertUsage = this.mFertilizerUnitCount > 0 ? waterUsage : 0;
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.5",
-                formatNumber(fertUsage),
+                formatNumber(fertUsage) + getFluidUnit(),
                 formatNumber(CYCLE_DURATION)));
         // nutrient score
         ISeedData tSeedData = CropsNHUtils.getAnalyzedSeedData(this.getSeedStack());

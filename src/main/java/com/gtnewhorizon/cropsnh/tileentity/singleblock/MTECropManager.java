@@ -91,11 +91,11 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     private boolean mInvalidCache = false;
     private final ItemStackMap<Integer> mDropOverflow = new ItemStackMap<>(true);
 
-    public MTECropManager(final int aID, final int aTier, final String aRegionalName) {
+    public MTECropManager(final int aID, final int aTier) {
         super(
             aID,
-            StatCollector.translateToLocalFormatted("cropsnh_tooltip.cropManager.name", GTValues.VN[aTier]),
-            aRegionalName,
+            String.format("basicmachine.cropManager.tier.%02d", aTier),
+            StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropManager.name." + aTier),
             aTier,
             TOTAL_SLOT_COUNT,
             StatCollector.translateToLocal("cropsnh_tooltip.cropManager.description"));

@@ -220,6 +220,130 @@ cropsnh_tooltip.biomeTag.SNOWY=Snowy
 cropsnh_tooltip.biomeTag.WASTELAND=Wasteland
 cropsnh_tooltip.biomeTag.BEACH=Beach
 
+
+
+# Crop Breeder
+cropsnh.recipes.cropBreeder=Crop Breeder
+cropsnh_tooltip.cropBreeder.0=Breeds crops deterministically
+cropsnh_tooltip.cropBreeder.1=Needs %1$s of §aenriched fertilizer§7 per §ctier§7 of the output seed
+cropsnh_tooltip.cropBreeder.2=Needs %1$s of §aenriched fertilizer§7 per §cstat point§7 of the output seed
+cropsnh_tooltip.cropBreeder.3=The stats of the output seed will be the average of the parents
+cropsnh_tooltip.cropBreeder.4=%1$s%% success chance
+cropsnh_nei.cropBreeder.tooltip.fluidCost=cost = OutputTier * %1$s + (growth + gain + resistance) + %2$s
+cropsnh_nei.cropBreeder.tooltip.outputStats=The resulting stats will be an average of the parents
+cropsnh_nei.cropBreeder.tooltip.successChance=Success chance depends on the tier of the machine
+cropsnh_tooltip.cropBreeder.name.1=Basic Crop Breeder
+cropsnh_tooltip.cropBreeder.name.2=Advanced Crop Breeder
+cropsnh_tooltip.cropBreeder.name.3=Advanced Crop Breeder II
+cropsnh_tooltip.cropBreeder.name.4=Advanced Crop Breeder III
+cropsnh_tooltip.cropBreeder.name.5=Advanced Crop Breeder IV
+cropsnh_tooltip.cropBreeder.name.6=Elite Crop Breeder
+cropsnh_tooltip.cropBreeder.name.7=Elite Crop Breeder II
+cropsnh_tooltip.cropBreeder.name.8=Ultimate Crop Breeder
+cropsnh_tooltip.cropBreeder.name.9=Epic Crop Breeder
+cropsnh_tooltip.cropBreeder.name.10=Epic Crop Breeder II
+cropsnh_tooltip.cropBreeder.name.11=Epic Crop Breeder III
+cropsnh_tooltip.cropBreeder.name.12=Epic Crop Breeder IV
+
+# Crop Gene Extractor
+cropsnh.recipes.cropGeneExtractor=Crop Gene Extractor
+cropsnh_tooltip.cropGeneExtractor.0=It can extract Crop Genes
+cropsnh_tooltip.cropGeneExtractor.1=Use a programmed circuit to determine which gene to extract
+cropsnh_tooltip.cropGeneExtractor.2=1 for Specimen, 2 for Growth, 3 for Gain, 4 for Resistance
+cropsnh_nei.cropGeneExtractor.tooltip.scanSpecimen=Scanned Specimen Data
+cropsnh_nei.cropGeneExtractor.tooltip.scanGrowth=Scanned Growth Data
+cropsnh_nei.cropGeneExtractor.tooltip.scanGain=Scanned Gain Data
+cropsnh_nei.cropGeneExtractor.tooltip.scanResistance=Scanned Resistance Data
+cropsnh_tooltip.cropGeneExtractor.name.4=Crop Gene Extractor
+cropsnh_tooltip.cropGeneExtractor.name.5=Advanced Crop Gene Extractor
+cropsnh_tooltip.cropGeneExtractor.name.6=Elite Crop Gene Extractor
+cropsnh_tooltip.cropGeneExtractor.name.7=Elite Crop Gene Extractor II
+cropsnh_tooltip.cropGeneExtractor.name.8=Ultimate Crop Gene Extractor
+cropsnh_tooltip.cropGeneExtractor.name.9=Epic Crop Gene Extractor
+cropsnh_tooltip.cropGeneExtractor.name.10=Epic Crop Gene Extractor II
+cropsnh_tooltip.cropGeneExtractor.name.11=Epic Crop Gene Extractor III
+cropsnh_tooltip.cropGeneExtractor.name.12=Epic Crop Gene Extractor IV
+
+# Crop Synthesizer
+cropsnh.recipes.cropSynthesizer=Crop Synthesizer
+cropsnh_tooltip.cropSynthesizer.0=It can make Crops from Data Orbs
+cropsnh_tooltip.cropSynthesizer.1=Needs %1$s of §dUUM§7 per §ctier§7 of the output seed
+cropsnh_tooltip.cropSynthesizer.2=Needs %1$s of §dUUM§7 per §cstat point§7 of the output seed
+cropsnh_tooltip.cropSynthesizer.3=Takes in %1$s amps
+cropsnh_nei.cropSynthesizer.tooltip.fluidCost=cost = cropTier * %1$s + (growth + gain + resistance) * %2$s
+cropsnh_nei.cropSynthesizer.tooltip.output=Stat depends on the values from the data orbs.
+cropsnh_tooltip.cropSynthesizer.name.4=Crop Synthesizer
+cropsnh_tooltip.cropSynthesizer.name.5=Advanced Crop Synthesizer
+cropsnh_tooltip.cropSynthesizer.name.6=Elite Crop Synthesizer
+cropsnh_tooltip.cropSynthesizer.name.7=Elite Crop Synthesizer II
+cropsnh_tooltip.cropSynthesizer.name.8=Ultimate Crop Synthesizer
+cropsnh_tooltip.cropSynthesizer.name.9=Epic Crop Synthesizer
+cropsnh_tooltip.cropSynthesizer.name.10=Epic Crop Synthesizer II
+cropsnh_tooltip.cropSynthesizer.name.11=Epic Crop Synthesizer III
+cropsnh_tooltip.cropSynthesizer.name.12=Epic Crop Synthesizer IV
+
+# Seed Generator
+cropsnh.recipes.seedGenerator=Seed Generator
+cropsnh_tooltip.seedGenerator.0=Generates more seeds from an existing seeds
+cropsnh_tooltip.seedGenerator.1=Needs %1$s of §aenriched fertilizer§7 per §cstat point§7 on the seed
+cropsnh_tooltip.seedGenerator.2=Not all crops can be replicated in this machine
+cropsnh_nei.seedGenerator.tooltip.fluidCost=cost = %1$s * (growth + gain + resistance)
+cropsnh_tooltip.seedGenerator.name.1=Basic Seed Generator
+cropsnh_tooltip.seedGenerator.name.2=Advanced Seed Generator
+cropsnh_tooltip.seedGenerator.name.3=Advanced Seed Generator II
+cropsnh_tooltip.seedGenerator.name.4=Advanced Seed Generator III
+cropsnh_tooltip.seedGenerator.name.5=Advanced Seed Generator IV
+cropsnh_tooltip.seedGenerator.name.6=Elite Seed Generator
+cropsnh_tooltip.seedGenerator.name.7=Elite Seed Generator II
+cropsnh_tooltip.seedGenerator.name.8=Ultimate Seed Replicator
+cropsnh_tooltip.seedGenerator.name.9=Epic Seed Replicator
+cropsnh_tooltip.seedGenerator.name.10=Epic Seed Replicator II
+cropsnh_tooltip.seedGenerator.name.11=Epic Seed Replicator III
+cropsnh_tooltip.seedGenerator.name.12=Epic Seed Replicator IV
+
+# Crop Manager
+cropsnh_tooltip.cropManager.description=Automatically harvests and maintains crops in a large area
+cropsnh_tooltip.cropManager.tooltip.0=Hydration, fertilisation and weed-ex can be toggled independently
+cropsnh_tooltip.cropManager.tooltip.1=Consumes %1$s EU per harvest
+cropsnh_tooltip.cropManager.tooltip.2=Consumes %1$s EU per secondary operation
+cropsnh_tooltip.cropManager.tooltip.3=Can harvest %s block levels above and below itself
+cropsnh_tooltip.cropManager.tooltip.4=Range: %1$sx%2$sx%1$s blocks
+cropsnh_tooltip.cropManager.tooltip.5=Has %1$s%% chance for extra drops
+cropsnh_tooltip.cropManager.tooltip.6=Holds %1$s of Water
+cropsnh_tooltip.cropManager.tooltip.7=Holds %1$s of Fertilizer
+cropsnh_tooltip.cropManager.tooltip.8=Holds %1$s of Weed-EX
+cropsnh_tooltip.cropManager.water.0=Enable Hydration
+cropsnh_tooltip.cropManager.water.1=Disable Hydration
+cropsnh_tooltip.cropManager.weedEX.0=Enable Weed-EX
+cropsnh_tooltip.cropManager.weedEX.1=Disable Weed-EX
+cropsnh_tooltip.cropManager.fertilizer.0=Enable Fertilization
+cropsnh_tooltip.cropManager.fertilizer.1=Disable Fertilization
+cropsnh_tooltip.cropManager.harvest.0=Enable Harvest
+cropsnh_tooltip.cropManager.harvest.1=Disable Harvest
+cropsnh_tooltip.cropManager.water=Water: %1$s%3$s / %2$s%3$s
+cropsnh_tooltip.cropManager.weedEX=Weed-EX: %1$s%3$s / %2$s%3$s
+cropsnh_tooltip.cropManager.liquidFertilizer=Liquid Fertilizer: %1$s%3$s / %2$s%3$s
+cropsnh_tooltip.cropManager.name.1=Basic Crop Manager
+cropsnh_tooltip.cropManager.name.2=Advanced Crop Manager
+cropsnh_tooltip.cropManager.name.3=Advanced Crop Manager II
+cropsnh_tooltip.cropManager.name.4=Advanced Crop Manager III
+cropsnh_tooltip.cropManager.name.5=Advanced Crop Manager IV
+cropsnh_tooltip.cropManager.name.6=Elite Crop Manager
+cropsnh_tooltip.cropManager.name.7=Elite Crop Manager II
+cropsnh_tooltip.cropManager.name.8=Ultimate Crop Manager
+cropsnh_tooltip.cropManager.name.9=Epic Crop Manager
+cropsnh_tooltip.cropManager.name.10=Epic Crop Manager II
+cropsnh_tooltip.cropManager.name.11=Epic Crop Manager III
+cropsnh_tooltip.cropManager.name.12=Epic Crop Manager IV
+
+# Industrial Farm Controller
+cropsnh_tooltip.industrialFarm.name=Industrial Farm
+cropsnh_tooltip.industrialFarm.machineType=Industrial Crop Cultivator, IF
+cropsnh_tooltip.industrialFarm.0=Grows crops at an industrial scale
+cropsnh_tooltip.industrialFarm.1=The §blength§7 of the machine depends on the §ctier§7 of the §fseed bed§7
+cropsnh_tooltip.industrialFarm.2=Harvest bonus grows by §c20%§7 per §ctier§7 of §fseed bed§7
+cropsnh_tooltip.industrialFarm.structure.hatch=Any casing with hint number 1
+
 # Industrial Farm block tooltips
 cropsnh_tooltip.upgradeTierMustMatchSeedBed=The tier of this upgrade must match that of the seedbed
 cropsnh_tooltip.upgradeCountLimited=You can only use a maximum of %1$d of these upgrades
@@ -250,8 +374,8 @@ cropsnh_tooltip.industrialFarm.scanner.0=Tier: §e%1$s§r
 cropsnh_tooltip.industrialFarm.scanner.1=Capacity: §e%1$s§r
 cropsnh_tooltip.industrialFarm.scanner.2=Harvest Bonus: §e%1$s§r%%
 cropsnh_tooltip.industrialFarm.scanner.3=Growth Speed Bonus: §e%1$s§r%%
-cropsnh_tooltip.industrialFarm.scanner.4=Water Usage: §e%1$d§rL/§e%2$s§rt
-cropsnh_tooltip.industrialFarm.scanner.5=Fertilizer Usage: §e%1$s§rL/§e%2$s§rt
+cropsnh_tooltip.industrialFarm.scanner.4=Water Usage: §e%1$s§r/§e%2$s§rt
+cropsnh_tooltip.industrialFarm.scanner.5=Fertilizer Usage: §e%1$s§r/§e%2$s§rt
 cropsnh_tooltip.industrialFarm.scanner.6=Nutrient Score: §e%1$s§r out of §e%2$s§r
 
 # Seed Bed
@@ -291,28 +415,7 @@ cropsnh_tooltip.advancedHarvestingUnit.2=Increases power usage by %1$.0f%% per u
 cropsnh_tooltip.advancedHarvestingUnit.2.adv=Increases power usage by %1$.0f%% per upgrade (additive)
 
 # MTE tooltips
-cropsnh_tooltip.cropManager.name=Crop Manager (%1$s)
-cropsnh_tooltip.cropManager.description=Automatically harvests and maintains crops in a large area
-cropsnh_tooltip.cropManager.tooltip.0=Hydration, fertilisation and weed-ex can be toggled independently
-cropsnh_tooltip.cropManager.tooltip.1=Consumes %1$s EU per harvest
-cropsnh_tooltip.cropManager.tooltip.2=Consumes %1$s EU per secondary operation
-cropsnh_tooltip.cropManager.tooltip.3=Can harvest %s block levels above and below itself
-cropsnh_tooltip.cropManager.tooltip.4=Range: %1$sx%2$sx%1$s blocks
-cropsnh_tooltip.cropManager.tooltip.5=Has %1$s%% chance for extra drops
-cropsnh_tooltip.cropManager.tooltip.6=Holds %1$s of Water
-cropsnh_tooltip.cropManager.tooltip.7=Holds %1$s of Fertilizer
-cropsnh_tooltip.cropManager.tooltip.8=Holds %1$s of Weed-EX
-cropsnh_tooltip.cropManager.water.0=Enable Hydration
-cropsnh_tooltip.cropManager.water.1=Disable Hydration
-cropsnh_tooltip.cropManager.weedEX.0=Enable Weed-EX
-cropsnh_tooltip.cropManager.weedEX.1=Disable Weed-EX
-cropsnh_tooltip.cropManager.fertilizer.0=Enable Fertilization
-cropsnh_tooltip.cropManager.fertilizer.1=Disable Fertilization
-cropsnh_tooltip.cropManager.harvest.0=Enable Harvest
-cropsnh_tooltip.cropManager.harvest.1=Disable Harvest
-cropsnh_tooltip.cropManager.water=Water: %1$s%3$s / %2$s%3$s
-cropsnh_tooltip.cropManager.weedEX=Weed-EX: %1$s%3$s / %2$s%3$s
-cropsnh_tooltip.cropManager.liquidFertilizer=Liquid Fertilizer: %1$s%3$s / %2$s%3$s
+
 # MTE Machine Type Flavour Text
 # multi tooltips
 cropsnh_tooltip.MBTT.multiAmpsWithUpgrade=Supports TecTech Multi-Amp Hatches when using an Overclocked Growth Accelerator Upgrade!
@@ -386,24 +489,10 @@ cropsnh_nei.crops.tier=Tier: %d
 cropsnh_nei.crops.growthDuration=Growth Points: %1$s
 cropsnh_nei.crops.dropMult=Drop Multiplier: %1$0.2f
 cropsnh_nei.crops.likes=Likes: %1$s
+cropsnh_nei.breeding.title=Crop Breeding
 cropsnh_nei.mutationPool.title=Crop Mutation Pools
 cropsnh_nei.mutationPool.poolName=Pool: %1$s
-cropsnh_nei.breeding.title=Crop Breeding
-cropsnh.recipes.seedGenerator=Seed Generator
-cropsnh_nei.seedGenerator.tooltip.fluidCost=cost = 100L * (growth + gain + resistance)
-cropsnh.recipes.cropBreeder=Crop Breeder
-cropsnh_nei.cropBreeder.tooltip.fluidCost=cost = (1,000L * OutputTier)  + (500L * (growth + gain + resistance)).
-cropsnh_nei.cropBreeder.tooltip.outputStats=The resulting stats will be an average of the parents.
-cropsnh_nei.cropBreeder.tooltip.successChance=Success chance depends on the tier of the machine.
-cropsnh.recipes.cropGeneExtractor=Crop Gene Extractor
-cropsnh_nei.cropGeneExtractor.tooltip.scanSpecimen=Scanned Specimen Data
-cropsnh_nei.cropGeneExtractor.tooltip.scanGrowth=Scanned Growth Data
-cropsnh_nei.cropGeneExtractor.tooltip.scanGain=Scanned Gain Data
-cropsnh_nei.cropGeneExtractor.tooltip.scanResistance=Scanned Resistance Data
-cropsnh.recipes.cropSynthesizer=Crop Synthesizer
 cropsnh.recipes.cropManager=Crop Manager
-cropsnh_nei.cropSynthesizer.tooltip.fluidCost=cost = CropTier * 750L * (growth + gain + resistance) * 100L
-cropsnh_nei.cropSynthesizer.tooltip.output=Stat depends on the values from the data orbs.
 nei.options.tools.dump.cropsnh=Crops NH
 nei.options.tools.dump.cropsnh.alternateSeed=Alternate Seeds
 nei.options.tools.dump.cropsnh.cropRegistry=Crops
