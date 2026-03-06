@@ -22,6 +22,7 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
+import static net.minecraft.util.StatCollector.translateToLocal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,6 +79,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.Textures;
 import gregtech.api.enums.VoidingMode;
 import gregtech.api.enums.VoltageIndex;
@@ -91,6 +93,7 @@ import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.ItemEjectionHelper;
 import gregtech.api.util.MultiblockTooltipBuilder;
@@ -478,7 +481,8 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         tt.addMachineType(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.machineType"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.0"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.1"))
-            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.2"));
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.2"))
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.3"));
 
         String hatchHint = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.hatch");
         tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, false)
@@ -488,10 +492,24 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                     + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade")
                     + EnumChatFormatting.RESET)
             .addCasingInfoRange(
-                StatCollector.translateToLocal("cropsnh.casings1.0.name"),
+                StatCollector.translateToLocal(Reference.MOD_ID + ".casings1.0.name"),
                 8 * 2 + MIN_SLICES * 2,
                 8 * 2 + MAX_SLICES * 2,
                 false)
+            .addCasingInfoRange(
+                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Wood, 1)
+                    .getDisplayName(),
+                0,
+                MAX_SLICES,
+                false)
+            .addCasingInfoRange(
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.seedBed"),
+                3 * MIN_SLICES,
+                3 * MAX_SLICES,
+                true)
+            .addOtherStructurePart(
+                translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.upgrades.name"),
+                translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.upgrades.info"))
             .addEnergyHatch(hatchHint, 1)
             .addInputBus(hatchHint, 1)
             .addInputHatch(hatchHint, 1)
