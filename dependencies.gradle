@@ -1,7 +1,7 @@
 // Add your dependencies here
 
 dependencies {
-    devOnlyNonPublishable("com.github.GTNewHorizons:GT5-Unofficial:5.09.52.337:dev")
+    devOnlyNonPublishable("com.github.GTNewHorizons:GT5-Unofficial:5.09.52.339:dev")
     devOnlyNonPublishable("com.github.GTNewHorizons:GTNHLib:0.9.36:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:TinkersConstruct:1.14.32-GTNH:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.72-GTNH:dev") { transitive = false }
@@ -26,10 +26,10 @@ dependencies {
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:neiaddons:1.18.0:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:StructureLib:1.4.30:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:BlockRenderer6343:1.4.5:dev")
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:worldedit-gtnh:v0.0.8:dev")
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:worldedit-gtnh:v0.0.9:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Random-Things:2.7.3:dev")
     // runtimeOnlyNonPublishable("ganymedes01.etfuturum:Et-Futurum-Requiem:2.6.2.21-GTNH-daily")
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Hodgepodge:2.7.90:dev")
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Hodgepodge:2.7.93:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:2.1.1:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:AppleCore:3.3.9:dev") { transitive = false }
     // runtimeOnlyNonPublishable(rfg.deobf("curse.maven:extra-utilities-225561:2264383")) { transitive = false }
@@ -37,7 +37,9 @@ dependencies {
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Opis:1.4.8-mapless:dev')
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:CookingForBlockheads:1.4.8-GTNH:dev") { transitive = false }
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Binnie:2.6.17:dev') { transitive = false }
+    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:StorageDrawers:2.2.16-GTNH:dev')
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Opis:1.4.8-mapless:dev')
+    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:CoreTweaks:0.3.4.0-GTNH:dev')
     // won't load for some reason
     // runtimeOnlyNonPublishable(rfg.deobf("curse.maven:ztones-224369:2223566"))
 }
