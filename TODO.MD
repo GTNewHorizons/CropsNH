@@ -37,3 +37,4 @@
 - Make that PR to optimize orchard farms in Forestry
 - Update railcraft IC2 farming module to work with cropsNH
   - Might be implemented internally
+- Update the IF quests since they are just blank right now
