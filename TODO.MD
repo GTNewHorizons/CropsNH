@@ -1,4 +1,11 @@
-# to investigate
+# textures
+- The side textures for the industrial farm upgrades: https://discord.com/channels/181078474394566657/1474094733688045723
+- Seed Generator: not started
+- Crop Gene Extractor: https://discord.com/channels/181078474394566657/1474094733688045723/1477729869235486790
+- Crop Breeder: not started
+- Crop Synthesizer: not started
+
+# Issues to investigate
 - Missing render updates: https://discord.com/channels/181078474394566657/1303129128085753898/1478996445552971848
 
 # Crop Ideas
