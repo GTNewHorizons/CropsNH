@@ -277,7 +277,7 @@ cropsnh_tooltip.industrialFarm.2=The §ctier§7 of the §fupgrades§7 must match
 cropsnh_tooltip.industrialFarm.3=Harvest bonus grows by §c20%§7 per §ctier§7 of §fseed bed§7
 cropsnh_tooltip.industrialFarm.structure.hatch=Any casing with hint number 1
 cropsnh_tooltip.industrialFarm.structure.seedBed=Seed Bed
-cropsnh_tooltip.industrialFarm.structure.upgrades.name=Upgrades (tired)
+cropsnh_tooltip.industrialFarm.structure.upgrades.name=Upgrades (tiered)
 cropsnh_tooltip.industrialFarm.structure.upgrades.info=Any wooden frame boxes
 
 # Industrial Farm block tooltips
