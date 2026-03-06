@@ -29,11 +29,9 @@ public class CropGarnydinia extends NHCropCard {
         // 5% garnet exquisite gem
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.gemExquisite, Materials.GarnetRed, 1L), 2_50);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.gemExquisite, Materials.GarnetYellow, 1L), 2_50);
-        // 4% crushed pure ore
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetRed, 1L), 2_00);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetYellow, 1L), 2_00);
-        // 1% asbestos dust
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Asbestos, 1L), 1_00);
+        // 5$ crushed pure ore
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetRed, 1L), 2_50);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetYellow, 1L), 2_50);
 
         this.addBlockUnderRequirement("garnetGem");
 
