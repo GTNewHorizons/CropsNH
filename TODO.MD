@@ -1,4 +1,4 @@
-# textures
+# Textures
 - The side textures for the industrial farm upgrades: https://discord.com/channels/181078474394566657/1474094733688045723
 - Seed Generator: not started
 - Crop Gene Extractor: https://discord.com/channels/181078474394566657/1474094733688045723/1477729869235486790
@@ -8,6 +8,8 @@
 # Issues to investigate
 - Missing render updates: https://discord.com/channels/181078474394566657/1303129128085753898/1478996445552971848
 - Conflicting seed recipe for belladonna and allium: https://discord.com/channels/181078474394566657/1303129128085753898/1479960796262830122
+- Unmigrated catalyst item for meteors: https://discord.com/channels/181078474394566657/522098956491030558/1479780269845381170
+
 # Crop Ideas
 
 ## High priority
