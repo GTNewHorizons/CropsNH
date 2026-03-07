@@ -27,7 +27,7 @@ import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderCrop;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropsNH;
 import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 
@@ -62,7 +62,7 @@ public class BlockCropSticks extends BlockContainerCropsNH {
     /** Creates a new tile entity every time the block is placed. */
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
-        return new TileEntityCrop();
+        return new TileEntityCropSticks();
     }
 
     @Override

@@ -75,6 +75,13 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
     }
 
     private static void addPlantLensRecipe() {
+        // early game glass lens recipe
+        GTModHandler.addCraftingRecipe(
+            GTOreDictUnificator.get(OrePrefixes.lens, Materials.Glass, 1L),
+            GTModHandler.RecipeBits.NOT_REMOVABLE,
+            new Object[] { "FfF", "FGF", "FDF", 'F', new ItemStack(Items.flint), 'G', new ItemStack(Blocks.glass), 'D',
+                new ItemStack(Items.diamond) });
+
         GTModHandler.addCraftingRecipe(
             CropsNHItemList.plantLens.get(1),
             GTModHandler.RecipeBits.BITSD,

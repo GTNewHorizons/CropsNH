@@ -75,7 +75,7 @@ public interface ICropStickTile {
      *
      * @param seedStack The seed being planted.
      */
-    boolean tryPlantSeed(ItemStack seedStack);
+    SeedPlantingResult tryPlantSeed(ItemStack seedStack);
 
     /**
      * Attempts to plant a crop.
@@ -83,7 +83,7 @@ public interface ICropStickTile {
      * @param cc    The seed being planted.
      * @param stats The stats of the seed being planted.
      */
-    boolean tryPlantSeed(ISeedData seedData);
+    SeedPlantingResult tryPlantSeed(ISeedData seedData);
 
     /**
      * Checks if the soil under this crop is valid for this crop.

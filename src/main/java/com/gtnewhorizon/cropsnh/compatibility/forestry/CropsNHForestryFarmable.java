@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 import com.google.common.collect.ImmutableList;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropManager;
 
 import forestry.api.farming.ICrop;
@@ -57,7 +57,7 @@ public class CropsNHForestryFarmable implements IFarmable {
     @Override
     public ICrop getCropAt(World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (!(te instanceof TileEntityCrop crop)) return null;
+        if (!(te instanceof TileEntityCropSticks crop)) return null;
         if (!crop.canHarvest()) return null;
         return new CropBasicCropsNHCrop(world, crop, new Vect(x, y, z));
     }

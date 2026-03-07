@@ -19,16 +19,18 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_SCANNER_GLOW;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 
 import java.util.Arrays;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.gtnewhorizon.cropsnh.api.ISeedData;
+import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizons.modularui.api.drawable.IDrawable;
 import com.gtnewhorizons.modularui.api.math.Pos2d;
@@ -43,28 +45,41 @@ import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
+import gregtech.api.util.tooltip.TooltipHelper;
+import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 
 public class MTESeedGenerator extends MTEBasicMachine {
 
+    public static final int BASE_RECIPE_DURATION = 8 * SECONDS;
+    public static final int BASE_RECIPE_EUT = (int) TierEU.RECIPE_LV;
+    public static final int FERTILIZER_PER_STAT = 36;
     private static final int AMPERAGE = 1;
     private static final int INPUT_SLOT_COUNT = 2;
     private static final int OUTPUT_SLOT_COUNT = 1;
-    public static final ConcurrentHashMap<Fluid, Integer> ALLOWED_LIQUID_FERTILIZER = new ConcurrentHashMap<>();
+    public static final Object2FloatOpenHashMap<Fluid> ALLOWED_LIQUID_FERTILIZER = new Object2FloatOpenHashMap<>();
 
     public static void init() {
         // allowed liquid fertilizer
-        ALLOWED_LIQUID_FERTILIZER.putIfAbsent(CropsNHFluids.enrichedFertilizer, 100);
+        ALLOWED_LIQUID_FERTILIZER.putIfAbsent(CropsNHFluids.enrichedFertilizer, 1.0f);
     }
 
-    public MTESeedGenerator(int aID, int aTier, String aNameRegional) {
+    public MTESeedGenerator(int aID, int aTier) {
         super(
             aID,
             String.format("basicmachine.seedgenerator.tier.%02d", aTier),
-            aNameRegional,
+            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.name." + aTier),
             aTier,
             AMPERAGE,
-            new String[] { CropsNHUtils.getMachineTypeText("seedGenerator"), "It can duplicate seeds!",
-                "Uses 100L of Enriched Fertiliser per stat point on the seed." },
+            new String[] {
+                // spotless:off
+                CropsNHUtils.getMachineTypeText("seedGenerator"),
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.0"),
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedGenerator.1",
+                    TooltipHelper.fluidText(FERTILIZER_PER_STAT)
+                ),
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.2"),
+                // spotless:on
+            },
             INPUT_SLOT_COUNT,
             OUTPUT_SLOT_COUNT,
             TextureFactory.of(
@@ -139,8 +154,8 @@ public class MTESeedGenerator extends MTEBasicMachine {
         }
 
         // allow zero drain for future proofing.
-        int drainedPerStat = ALLOWED_LIQUID_FERTILIZER.getOrDefault(this.mFluid.getFluid(), -1);
-        if (drainedPerStat < 0) {
+        final float drainMultiplier = ALLOWED_LIQUID_FERTILIZER.getOrDefault(this.mFluid.getFluid(), -1.0f);
+        if (drainMultiplier < 0) {
             return DID_NOT_FIND_RECIPE;
         }
 
@@ -154,13 +169,13 @@ public class MTESeedGenerator extends MTEBasicMachine {
             ItemStack tStack = this.getInputAt(i);
             tSeedData = CropsNHUtils.getAnalyzedSeedData(tStack);
             if (tSeedData != null) {
+                ISeedStats tStats = tSeedData.getStats();
                 // check if we have enough fluid to duplicate the seed.
-                tFluidToConsume = drainedPerStat * (tSeedData.getStats()
-                    .getGrowth()
-                    + tSeedData.getStats()
-                        .getGain()
-                    + tSeedData.getStats()
-                        .getResistance());
+                tFluidToConsume = getFluidAmount(
+                    tStats.getGrowth(),
+                    tStats.getGain(),
+                    tStats.getResistance(),
+                    drainMultiplier);
                 if (tFluidToConsume > this.mFluid.amount) {
                     continue;
                 }
@@ -204,7 +219,7 @@ public class MTESeedGenerator extends MTEBasicMachine {
 
         // calculate power usage
         if (!skipOC) {
-            this.calculateOverclockedNess((int) TierEU.RECIPE_LV, 20 * SECONDS);
+            this.calculateOverclockedNess(BASE_RECIPE_EUT, BASE_RECIPE_DURATION);
             // In case recipe is too OP for that machine
             if (mMaxProgresstime == Integer.MAX_VALUE - 1 && mEUt == Integer.MAX_VALUE - 1)
                 return FOUND_RECIPE_BUT_DID_NOT_MEET_REQUIREMENTS;
@@ -220,6 +235,10 @@ public class MTESeedGenerator extends MTEBasicMachine {
         this.mOutputItems[0] = tSeedStack;
 
         return FOUND_AND_SUCCESSFULLY_USED_RECIPE;
+    }
+
+    public static int getFluidAmount(byte gr, byte ga, byte re, float multiplier) {
+        return Math.max(1, (int) ((gr + ga + re) * FERTILIZER_PER_STAT * multiplier));
     }
 
     @Override
@@ -242,7 +261,7 @@ public class MTESeedGenerator extends MTEBasicMachine {
 
     @Override
     public int getCapacity() {
-        return getCapacityForTier(mTier);
+        return getCapacityForTier(mTier) / 10;
     }
 
     @Override

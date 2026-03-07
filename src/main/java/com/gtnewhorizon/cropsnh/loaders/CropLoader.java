@@ -11,6 +11,7 @@ import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.crops.CropMigrator;
 import com.gtnewhorizon.cropsnh.crops.CropWeed;
+import com.gtnewhorizon.cropsnh.crops.TiC.CropSlimyBonsai;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBonsai;
 import com.gtnewhorizon.cropsnh.crops.biomesoplenty.CropBamboo;
 import com.gtnewhorizon.cropsnh.crops.biomesoplenty.CropEyebulb;
@@ -305,7 +306,7 @@ public class CropLoader {
         );
         if (ModUtils.TinkerConstruct.isModLoaded()) {
             CropRegistry.instance.register(
-                CropsNHCrops.BonsaiSlimy = new CropBonsai(
+                CropsNHCrops.BonsaiSlimy = new CropSlimyBonsai(
                     "bonsaiSlimy",
                     new Color(0x27C74D),
                     new Color(0x96EEED),

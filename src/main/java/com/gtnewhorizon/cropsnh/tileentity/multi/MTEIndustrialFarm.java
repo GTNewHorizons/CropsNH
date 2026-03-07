@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity.multi;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.getFluidUnit;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.lazy;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlocksTiered;
@@ -21,6 +22,7 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
+import static net.minecraft.util.StatCollector.translateToLocal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +68,7 @@ import com.gtnewhorizon.cropsnh.items.ItemEnvironmentalModule;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.IFDropTable;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
@@ -77,6 +79,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.Textures;
 import gregtech.api.enums.VoidingMode;
 import gregtech.api.enums.VoltageIndex;
@@ -90,6 +93,7 @@ import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.ItemEjectionHelper;
 import gregtech.api.util.MultiblockTooltipBuilder;
@@ -135,7 +139,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     public final static int SLOT_ENV_CARD_START = 2;
 
     /** Amount of fertilizer per seed slot in the machine */
-    public static final double CYCLE_TICK_RATE_SCALAR = (double) CYCLE_DURATION / TileEntityCrop.TICK_RATE;
+    public static final double CYCLE_TICK_RATE_SCALAR = (double) CYCLE_DURATION / TileEntityCropSticks.TICK_RATE;
 
     /** How many times the output and water/fertilizer consumption of the multi should be doubled. */
     public int mExpectedOCs = 0;
@@ -450,8 +454,11 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     // endregion structure
 
     // region ctor
-    public MTEIndustrialFarm(int aID, String aName, String aNameRegional) {
-        super(aID, aName, aNameRegional);
+    public MTEIndustrialFarm(int aID) {
+        super(
+            aID,
+            "multimachine.industrialfarm",
+            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.name"));
         this.mInvWrapper = new CombinedInvWrapper(this.mIFStackHandler, this.inventoryHandler);
     }
 
@@ -471,43 +478,43 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
         final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
-        tt.addMachineType("Industrial Crop Cultivator")
-            .addInfo("Grows crops at an industrial scale.")
-            .addInfo(
-                "The " + EnumChatFormatting.AQUA
-                    + "length"
-                    + EnumChatFormatting.GRAY
-                    + " of the machine depends on the "
-                    + EnumChatFormatting.RED
-                    + "tier"
-                    + EnumChatFormatting.GRAY
-                    + " of the "
-                    + EnumChatFormatting.WHITE
-                    + "seed bed")
-            .addInfo(
-                "Harvest bonus grows by " + EnumChatFormatting.RED
-                    + "20%"
-                    + EnumChatFormatting.GRAY
-                    + " per "
-                    + EnumChatFormatting.RED
-                    + "tier"
-                    + EnumChatFormatting.GRAY
-                    + " of "
-                    + EnumChatFormatting.WHITE
-                    + "seed bed");
+        tt.addMachineType(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.machineType"))
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.0"))
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.1"))
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.2"))
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.3"));
 
+        String hatchHint = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.hatch");
         tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, false)
             .addGlassEnergyLimitInfo()
             .addInfo(
                 EnumChatFormatting.GREEN
                     + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade")
                     + EnumChatFormatting.RESET)
-            .addCasingInfoRange("Bricked Agricultural Casing", 8 * 2 + MIN_SLICES * 2, 8 * 2 + MAX_SLICES * 2, false)
-            .addEnergyHatch("Any casing with hint number 1", 1)
-            .addInputBus("Any casing with hint number 1", 1)
-            .addInputHatch("Any casing with hint number 1", 1)
-            .addMaintenanceHatch("Any casing with hint number 1", 1)
-            .addOutputBus("Any casing with hint number 1", 1)
+            .addCasingInfoRange(
+                StatCollector.translateToLocal(Reference.MOD_ID + ".casings1.0.name"),
+                8 * 2 + MIN_SLICES * 2,
+                8 * 2 + MAX_SLICES * 2,
+                false)
+            .addCasingInfoRange(
+                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Wood, 1)
+                    .getDisplayName(),
+                0,
+                MAX_SLICES,
+                false)
+            .addCasingInfoRange(
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.seedBed"),
+                3 * MIN_SLICES,
+                3 * MAX_SLICES,
+                true)
+            .addOtherStructurePart(
+                translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.upgrades.name"),
+                translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.upgrades.info"))
+            .addEnergyHatch(hatchHint, 1)
+            .addInputBus(hatchHint, 1)
+            .addInputHatch(hatchHint, 1)
+            .addMaintenanceHatch(hatchHint, 1)
+            .addOutputBus(hatchHint, 1)
             .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .toolTipFinisher();
         return tt;
@@ -541,14 +548,14 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.4",
-                formatNumber(waterUsage),
+                formatNumber(waterUsage) + getFluidUnit(),
                 formatNumber(CYCLE_DURATION)));
         // Fertilizer Usage per Cycle
         int fertUsage = this.mFertilizerUnitCount > 0 ? waterUsage : 0;
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.5",
-                formatNumber(fertUsage),
+                formatNumber(fertUsage) + getFluidUnit(),
                 formatNumber(CYCLE_DURATION)));
         // nutrient score
         ISeedData tSeedData = CropsNHUtils.getAnalyzedSeedData(this.getSeedStack());
@@ -557,7 +564,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
                     formatNumber(this.getNutrientScore(tSeedData)),
-                    formatNumber(TileEntityCrop.MAX_NUTRIENT_SCORE)));
+                    formatNumber(TileEntityCropSticks.MAX_NUTRIENT_SCORE)));
         }
         return ret.toArray(new String[0]);
     }
@@ -1102,7 +1109,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             ? SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_UNIT_MISSING
             : SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_UNIT_INSTALLED;
         // calc available nutrient points for growth speed calculation
-        return TileEntityCrop.getNutrientsPerCycle(
+        return TileEntityCropSticks.getNutrientsPerCycle(
             tLikedBiomes,
             tBiome.rainfall,
             SIMULATED_CAN_SEE_SKY,
@@ -1119,7 +1126,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
      */
     public int getGrowthSpeedUnscaled(ISeedData aCrop) {
         // calculate the base growth speed
-        return TileEntityCrop.getGrowthRate(
+        return TileEntityCropSticks.getGrowthRate(
             this.getNutrientScore(aCrop),
             aCrop.getCrop()
                 .getTier(),
@@ -1152,7 +1159,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         int tUnscaledGrowthSpeed = this.getGrowthSpeedUnscaled(aCrop);
         if (tUnscaledGrowthSpeed <= 0) return -1;
         // calculate growth points per cycle
-        double tGrowthPerCycle = (((double) tUnscaledGrowthSpeed) / TileEntityCrop.TICK_RATE) * CYCLE_DURATION;
+        double tGrowthPerCycle = (((double) tUnscaledGrowthSpeed) / TileEntityCropSticks.TICK_RATE) * CYCLE_DURATION;
         // apply growth speed multipliers
         tGrowthPerCycle *= this.getGrowthSpeedMultiplier();
         // calculate percentage grown each tick.
@@ -1187,12 +1194,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         if (tProgressPerCycle <= 0) return null;
 
         // calc avg drop stack size increase
-        double avgDropIncrease = TileEntityCrop.getAvgDropCountIncrease(
+        double avgDropIncrease = TileEntityCropSticks.getAvgDropCountIncrease(
             aCrop.getStats()
                 .getGain());
 
         // calc average number of created drops per harvest
-        double avgDropCount = TileEntityCrop.getAvgDropRounds(
+        double avgDropCount = TileEntityCropSticks.getAvgDropRounds(
             aCrop.getCrop(),
             aCrop.getStats()
                 .getGain());

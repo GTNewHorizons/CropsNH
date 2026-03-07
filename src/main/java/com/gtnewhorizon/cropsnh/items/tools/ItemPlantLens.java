@@ -16,7 +16,7 @@ import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.items.ItemCropsNH;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import cpw.mods.fml.relauncher.Side;
@@ -71,9 +71,9 @@ public class ItemPlantLens extends ItemCropsNH implements ICropRightClickHandler
         }
 
         // display some info text to the player about the crop if it's on the client side.
-        if (te instanceof TileEntityCrop) {
+        if (te instanceof TileEntityCropSticks) {
             List<String> info = new ArrayList<>();
-            ((TileEntityCrop) te).getPlantLensStatus(info);
+            ((TileEntityCropSticks) te).getPlantLensStatus(info);
             for (String line : info) {
                 player.addChatComponentMessage(new ChatComponentText(line));
             }

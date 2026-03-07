@@ -1,6 +1,6 @@
 package com.gtnewhorizon.cropsnh.compatibility.waila;
 
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
@@ -18,9 +18,9 @@ public class WailaRegistry {
     public static void initWaila(IWailaRegistrar registry) {
         // All blocks.
         IWailaDataProvider cropStickProvider = new CropStickWailaProvider();
-        registry.registerBodyProvider(cropStickProvider, TileEntityCrop.class);
-        registry.registerStackProvider(cropStickProvider, TileEntityCrop.class);
-        registry.registerNBTProvider(cropStickProvider, TileEntityCrop.class);
+        registry.registerBodyProvider(cropStickProvider, TileEntityCropSticks.class);
+        registry.registerStackProvider(cropStickProvider, TileEntityCropSticks.class);
+        registry.registerNBTProvider(cropStickProvider, TileEntityCropSticks.class);
     }
 
 }

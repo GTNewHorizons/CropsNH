@@ -13,7 +13,7 @@ import com.gtnewhorizon.cropsnh.blocks.abstracts.CropsNHBlockIndustrialFarmTired
 import com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.tileentity.multi.MTEIndustrialFarm;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropManager;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
@@ -60,7 +60,7 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
             // scalar amount is computed from max seed capacity.
             WATER_CONSUMPTION_LOOKUP[i] = (int) Math.ceil(
                 BlockSeedBed.getCapacity(i + MIN_TIER)
-                    * (MTEIndustrialFarm.CYCLE_DURATION / (double) TileEntityCrop.TICK_RATE));
+                    * (MTEIndustrialFarm.CYCLE_DURATION / (double) TileEntityCropSticks.TICK_RATE));
         }
     }
 
