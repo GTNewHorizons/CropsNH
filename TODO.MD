@@ -7,7 +7,7 @@
 
 # Issues to investigate
 - Missing render updates: https://discord.com/channels/181078474394566657/1303129128085753898/1478996445552971848
-
+- Conflicting seed recipe for belladonna and allium: https://discord.com/channels/181078474394566657/1303129128085753898/1479960796262830122
 # Crop Ideas
 
 ## High priority
