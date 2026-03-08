@@ -67,12 +67,12 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         // stone lily related things
 
         // stone plate to stone block
-        ulvRecipe(3, 75).itemInputs(Materials.Stone.getPlates(9))
-            .itemOutputs(new ItemStack(Blocks.stone))
+        ulvRecipe(3, 75).itemInputs(Materials.Stone.getPlates(4))
+            .itemOutputs(new ItemStack(Blocks.stone, 3))
             .addTo(RecipeMaps.compressorRecipes);
 
         // marble dust to marble block
-        ulvRecipe(3, 75).itemInputs(Materials.Marble.getDust(9))
+        ulvRecipe(3, 75).itemInputs(Materials.Marble.getDust(1))
             .itemOutputs(Materials.Marble.getBlocks(1))
             .addTo(RecipeMaps.compressorRecipes);
 
@@ -82,8 +82,8 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
             .addTo(RecipeMaps.compressorRecipes);
 
         // red granite plate to red granite block
-        ulvRecipe(3, 75).itemInputs(Materials.GraniteRed.getPlates(9))
-            .itemOutputs(new ItemStack(GregTechAPI.sBlockGranites, 1, 8))
+        ulvRecipe(3, 75).itemInputs(Materials.GraniteRed.getPlates(4))
+            .itemOutputs(new ItemStack(GregTechAPI.sBlockGranites, 3, 8))
             .addTo(RecipeMaps.compressorRecipes);
 
         // black granite dust to black granite plate
@@ -92,8 +92,8 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
             .addTo(RecipeMaps.compressorRecipes);
 
         // black granite plates to black granite block
-        ulvRecipe(3, 75).itemInputs(Materials.GraniteBlack.getPlates(9))
-            .itemOutputs(new ItemStack(GregTechAPI.sBlockGranites))
+        ulvRecipe(3, 75).itemInputs(Materials.GraniteBlack.getPlates(4))
+            .itemOutputs(new ItemStack(GregTechAPI.sBlockGranites, 3))
             .addTo(RecipeMaps.compressorRecipes);
     }
 
