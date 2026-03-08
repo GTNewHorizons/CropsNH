@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity.singleblock;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.getFluidUnit;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -943,7 +944,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                             tooltipFormat,
                             formatNumber(amountGetter.get()),
                             formatNumber(capacityGetter.get()),
-                            StatCollector.translateToLocal("gt.mbtt.info.l_s"))))
+                            getFluidUnit())))
                 .setUpdateTooltipEveryTick(true)
                 .setPos(x, y)
                 .setSize(10, 54))
