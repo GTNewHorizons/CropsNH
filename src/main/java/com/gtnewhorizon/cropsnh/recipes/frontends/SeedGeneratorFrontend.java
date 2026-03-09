@@ -43,7 +43,7 @@ public class SeedGeneratorFrontend extends RecipeMapFrontend {
         if (fluid == null) return currentTip;
 
         // calc drain
-        final float mult = MTECropBreeder.ALLOWED_LIQUID_FERTILIZER.getOrDefault(fluid, -1.0f);
+        final float mult = MTESeedGenerator.ALLOWED_LIQUID_FERTILIZER.getOrDefault(fluid, -1.0f);
         if (mult < 0) return currentTip;
         int statDrain = Math.max(1, (int) (MTESeedGenerator.FERTILIZER_PER_STAT * mult));
 
