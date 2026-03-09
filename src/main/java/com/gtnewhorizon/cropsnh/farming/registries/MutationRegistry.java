@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class MutationRegistry implements IMutationRegistry {
 
     private final MutationMap mutationMap = new MutationMap();
     private final Object2ObjectOpenHashMap<String, IMutationPool> mutationPools = new Object2ObjectOpenHashMap<>();
+    private final Map<ICropCard, Collection<ICropMutation>> deterministicMutations = new IdentityHashMap<>();
 
     public MutationRegistry() {
 
@@ -47,6 +49,8 @@ public class MutationRegistry implements IMutationRegistry {
         if (parents.size() < 2)
             throw new IllegalArgumentException("Crop mutations should not have less than 2 parents");
         mutationMap.register(parents, 0, mutation);
+        this.deterministicMutations.computeIfAbsent(mutation.getOutput(), k -> new ArrayList<>(1))
+            .add(mutation);
     }
 
     /**
@@ -122,13 +126,24 @@ public class MutationRegistry implements IMutationRegistry {
     }
 
     /**
+     * Gets a list of all deterministic mutations for a given crop.
+     *
+     * @param cc The output crop to look for.
+     * @return The list of mutations that can occur.
+     */
+    @Override
+    public @Nullable Collection<ICropMutation> getDeterministicMutationsForCrop(ICropCard cc) {
+        return this.deterministicMutations.getOrDefault(cc, null);
+    }
+
+    /**
      * Gets a list of all possible random mutations for a list of parents.
      *
      * @param parents The parents to filter with.
      * @return The list of mutations that can occur.
      */
     @Override
-    public List<IMutationPool> getPossiblePoolMutations(Collection<ICropCard> parents) {
+    public @Nullable List<IMutationPool> getPossiblePoolMutations(Collection<ICropCard> parents) {
         if (parents == null || parents.size() < 2) return null;
         List<ICropCard> sortedParents = createPoolQueue(parents);
 

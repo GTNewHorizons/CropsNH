@@ -15,7 +15,7 @@ public class CropClayLily extends CropBaseStoneLily {
     public CropClayLily() {
         super("clay", new Color(0x666B7F), new Color(0xA5A9B9));
 
-        this.addDrop(new ItemStack(Items.clay_ball, 3, 0), 100_00);
+        this.addDrop(new ItemStack(Items.clay_ball, 1, 0), 100_00);
 
         this.addBlockUnderRequirement("clay");
 
