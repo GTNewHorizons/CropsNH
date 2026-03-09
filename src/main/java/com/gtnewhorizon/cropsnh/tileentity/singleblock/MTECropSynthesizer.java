@@ -17,20 +17,17 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_SCANNER_ACTIVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_SCANNER_ACTIVE_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_SCANNER_GLOW;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizons.modularui.api.drawable.IDrawable;
 import com.gtnewhorizons.modularui.api.math.Pos2d;
@@ -49,33 +46,41 @@ import gregtech.api.recipe.RecipeMap;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTUtility;
+import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.items.behaviors.BehaviourDataOrb;
 
 public class MTECropSynthesizer extends MTEBasicMachine {
 
+    public static final int UUM_PER_STAT = 100;
+    public static final int UUM_PER_TIER = 750;
     public static final int AMPERAGE = 3;
     private static final int INPUT_SLOT_COUNT = 4;
     private static final int OUTPUT_SLOT_COUNT = 1;
-    public static final ConcurrentHashMap<Fluid, Integer> ALLOWED_LIQUID_FERTILIZER = new ConcurrentHashMap<>();
 
-    public static void init() {
-        // allowed liquid fertilizer
-        ALLOWED_LIQUID_FERTILIZER.putIfAbsent(CropsNHFluids.enrichedFertilizer, 100);
-    }
+    public static void init() {}
 
-    public MTECropSynthesizer(int aID, int aTier, String aNameRegional) {
+    public MTECropSynthesizer(int aID, int aTier) {
         super(
             aID,
             String.format("basicmachine.cropsynthesizer.tier.%02d", aTier),
-            aNameRegional,
+            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropSynthesizer.name." + aTier),
             aTier,
             AMPERAGE,
-            new String[] { CropsNHUtils.getMachineTypeText("cropSynthesizer"), "It can make Crops from Data Orbs",
-                "It needs the crop's " + EnumChatFormatting.LIGHT_PURPLE
-                    + "tier * 750L + (growth + gain + resistance) * 100L"
-                    + EnumChatFormatting.RESET
-                    + " of UUM per seed",
-                "Takes in 3A" },
+            new String[] {
+                // spotless:off
+                CropsNHUtils.getMachineTypeText("cropSynthesizer"),
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropSynthesizer.0"),
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropSynthesizer.1",
+                    TooltipHelper.fluidText(UUM_PER_TIER)
+                ),
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropSynthesizer.2",
+                    TooltipHelper.fluidText(UUM_PER_STAT)
+                ),
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropSynthesizer.3",
+                    TooltipHelper.ampText(AMPERAGE)
+                )
+                // spotless:on
+            },
             INPUT_SLOT_COUNT,
             OUTPUT_SLOT_COUNT,
             TextureFactory.of(
@@ -220,7 +225,7 @@ public class MTECropSynthesizer extends MTEBasicMachine {
     }
 
     public static int getFluidAmount(ICropCard cc, byte gr, byte ga, byte re) {
-        return cc.getTier() * 750 + (gr + ga + re) * 100;
+        return cc.getTier() * UUM_PER_TIER + (gr + ga + re) * UUM_PER_STAT;
     }
 
     public static int getRecipeEUt(ICropCard cc) {

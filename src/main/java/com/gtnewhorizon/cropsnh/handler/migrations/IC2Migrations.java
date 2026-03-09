@@ -25,7 +25,7 @@ import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
@@ -49,7 +49,7 @@ public class IC2Migrations {
                 int fertilizerStorage = NBTHelper.getInteger(oldNBT, "nutrientStorage", 0);
                 int waterStorage = NBTHelper.getInteger(oldNBT, "waterStorage", 0);
                 int weedEXStorage = NBTHelper.getInteger(oldNBT, "exStorage", 0);
-                TileEntityCrop
+                TileEntityCropSticks
                     .writeStatusNBT(newNBT, waterStorage, fertilizerStorage, weedEXStorage, false, isCrossCrop);
 
                 if (!isCrossCrop && oldNBT.hasKey("cropOwner") && oldNBT.hasKey("cropName")) {
@@ -81,7 +81,7 @@ public class IC2Migrations {
                         cc = CropsNHCrops.Migrator;
                     }
                     // reset growth progress to force growth checks and what not
-                    TileEntityCrop.writeSeedNBT(newNBT, new SeedData(cc, stats), extra, 0);
+                    TileEntityCropSticks.writeSeedNBT(newNBT, new SeedData(cc, stats), extra, 0);
                 }
                 return newNBT;
             }));

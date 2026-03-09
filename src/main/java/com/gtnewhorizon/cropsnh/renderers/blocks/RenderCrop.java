@@ -12,7 +12,7 @@ import net.minecraft.world.IBlockAccess;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -21,15 +21,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class RenderCrop extends RenderBlockBase {
 
     public RenderCrop() {
-        super(CropsNHBlocks.blockCropSticks, new TileEntityCrop(), false);
+        super(CropsNHBlocks.blockCropSticks, new TileEntityCropSticks(), false);
     }
 
     @Override
     protected boolean doWorldRender(Tessellator tessellator, IBlockAccess world, double xCoord, double yCoord,
         double zCoord, TileEntity tile, Block block, float f, int modelId, RenderBlocks renderer,
         boolean callFromTESR) {
-        if (tile instanceof TileEntityCrop) {
-            TileEntityCrop crop = (TileEntityCrop) tile;
+        if (tile instanceof TileEntityCropSticks) {
+            TileEntityCropSticks crop = (TileEntityCropSticks) tile;
             tessellator.addTranslation(0, -3 * Constants.UNIT, 0);
             drawScaledPrism(tessellator, 2, 0, 2, 3, 16, 3, block.getIcon(0, 0), COLOR_MULTIPLIER_STANDARD);
             drawScaledPrism(tessellator, 13, 0, 2, 14, 16, 3, block.getIcon(0, 0), COLOR_MULTIPLIER_STANDARD);
@@ -58,7 +58,8 @@ public class RenderCrop extends RenderBlockBase {
         return true;
     }
 
-    private void renderPlant(IBlockAccess world, int x, int y, int z, TileEntityCrop crop, RenderBlocks renderer) {
+    private void renderPlant(IBlockAccess world, int x, int y, int z, TileEntityCropSticks crop,
+        RenderBlocks renderer) {
         if (crop.hasCrop()) {
             // render the plant
             crop.getSeed()

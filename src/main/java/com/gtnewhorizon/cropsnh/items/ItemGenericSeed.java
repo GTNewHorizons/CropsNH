@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.items;
 
+import java.util.Collection;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,12 +15,15 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
+import com.gtnewhorizon.cropsnh.api.ICropMutation;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
+import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
+import com.gtnewhorizon.cropsnh.farming.requirements.breeding.MachineOnlyBreedingRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -114,12 +118,6 @@ public class ItemGenericSeed extends ItemCropsNH {
                 toolTip.add(StatCollector.translateToLocal(crop.getFlavourText()));
             }
 
-            if (crop.getCrossingThreshold() < 0.0f) {
-                toolTip.add(
-                    StatCollector
-                        .translateToLocal(Reference.MOD_ID + "_tooltip.seed_must_use_synthesizer_to_replicate"));
-            }
-
             toolTip.add(
                 String.format(
                     "%s- %s: %d%s",
@@ -141,6 +139,21 @@ public class ItemGenericSeed extends ItemCropsNH {
                     StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.resistance"),
                     stats.getResistance(),
                     EnumChatFormatting.RESET));
+
+            if (crop.getCrossingThreshold() < 0.0f) {
+                toolTip.add(
+                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.mustUseSeedSynthesizerToReplicate"));
+            }
+
+            Collection<ICropMutation> mutations = MutationRegistry.instance.getDeterministicMutationsForCrop(crop);
+            if (mutations != null && mutations.stream()
+                .allMatch(
+                    m -> m.getRequirements()
+                        .stream()
+                        .anyMatch(r -> r instanceof MachineOnlyBreedingRequirement))) {
+                toolTip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.mustUseBreederMachine"));
+            }
+
             Iterable<IGrowthRequirement> reqs = crop.getGrowthRequirements();
             if (reqs != null) {
                 for (IGrowthRequirement req : reqs) {
