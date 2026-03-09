@@ -80,8 +80,7 @@ public interface ICropStickTile {
     /**
      * Attempts to plant a crop.
      *
-     * @param cc    The seed being planted.
-     * @param stats The stats of the seed being planted.
+     * @param seedData The seed data being planted.
      */
     SeedPlantingResult tryPlantSeed(ISeedData seedData);
 
@@ -96,8 +95,7 @@ public interface ICropStickTile {
     /**
      * Sets the crop in the crop stick, and resets the growth progress.
      *
-     * @param cc    The crop to plant.
-     * @param stats The stats of the new crop.
+     * @param seedData The stats of the new seed.
      */
     void plantSeed(ISeedData seedData);
 
