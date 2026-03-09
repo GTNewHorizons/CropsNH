@@ -90,23 +90,23 @@ public abstract class GT5uMigrations {
         // crop synthesizers
         // lv -> hv no longer exists, turning to stone because I'm not sure turning a stack to air is a good idea.
         ItemStackReplacementManager
-            .addSimpleReplacement(blockMachineId, 12501, Item.getItemFromBlock(Blocks.stone), 0, true);
+            .addSimpleReplacement(blockMachineId, 12519, Item.getItemFromBlock(Blocks.stone), 0, true);
         ItemStackReplacementManager
-            .addSimpleReplacement(blockMachineId, 12502, Item.getItemFromBlock(Blocks.stone), 0, true);
+            .addSimpleReplacement(blockMachineId, 12520, Item.getItemFromBlock(Blocks.stone), 0, true);
         ItemStackReplacementManager
-            .addSimpleReplacement(blockMachineId, 12503, Item.getItemFromBlock(Blocks.stone), 0, true);
+            .addSimpleReplacement(blockMachineId, 12521, Item.getItemFromBlock(Blocks.stone), 0, true);
         ItemStackReplacementManager
-            .addSimpleReplacement(blockMachineId, 12504, CropsNHItemList.CropSynthesizer_EV.get(1), true);
+            .addSimpleReplacement(blockMachineId, 12522, CropsNHItemList.CropSynthesizer_EV.get(1), true);
         ItemStackReplacementManager
-            .addSimpleReplacement(blockMachineId, 12505, CropsNHItemList.CropSynthesizer_IV.get(1), true);
+            .addSimpleReplacement(blockMachineId, 12523, CropsNHItemList.CropSynthesizer_IV.get(1), true);
         ItemStackReplacementManager
-            .addSimpleReplacement(blockMachineId, 12506, CropsNHItemList.CropSynthesizer_LuV.get(1), true);
+            .addSimpleReplacement(blockMachineId, 12524, CropsNHItemList.CropSynthesizer_LuV.get(1), true);
         ItemStackReplacementManager
-            .addSimpleReplacement(blockMachineId, 12507, CropsNHItemList.CropSynthesizer_ZPM.get(1), true);
+            .addSimpleReplacement(blockMachineId, 12525, CropsNHItemList.CropSynthesizer_ZPM.get(1), true);
         ItemStackReplacementManager
-            .addSimpleReplacement(blockMachineId, 12508, CropsNHItemList.CropSynthesizer_UV.get(1), true);
+            .addSimpleReplacement(blockMachineId, 12526, CropsNHItemList.CropSynthesizer_UV.get(1), true);
         ItemStackReplacementManager
-            .addSimpleReplacement(blockMachineId, 12509, CropsNHItemList.CropSynthesizer_UHV.get(1), true);
+            .addSimpleReplacement(blockMachineId, 12527, CropsNHItemList.CropSynthesizer_UHV.get(1), true);
 
         // seed replicators
         ItemStackReplacementManager
