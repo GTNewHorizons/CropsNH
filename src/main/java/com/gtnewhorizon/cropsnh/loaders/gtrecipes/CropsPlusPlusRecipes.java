@@ -14,7 +14,6 @@ import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeConstants.GLASS;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -30,11 +29,9 @@ import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 import bartworks.common.loaders.BioCultureLoader;
 import bartworks.common.loaders.BioItemList;
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.ToolDictNames;
-import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTUtility;
@@ -49,7 +46,6 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
     // TODO: CONSIDER MOVING ALL OF THIS TO CORE MOD OR GT5U
 
     public static void postInit() {
-        addStoneDustCompressionRecipes();
         addHoneyConversionRecipes();
         addBerryToSugarRecipes();
         addAlcoholRecipes();
@@ -61,40 +57,6 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
             new ItemStack(Items.sugar, 4, 0),
             GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED,
             new Object[] { ToolDictNames.craftingToolMortar, CropsNHItemList.sugarBeet.get(1) });
-    }
-
-    private static void addStoneDustCompressionRecipes() {
-        // stone lily related things
-
-        // stone plate to stone block
-        ulvRecipe(3, 75).itemInputs(Materials.Stone.getPlates(9))
-            .itemOutputs(new ItemStack(Blocks.stone))
-            .addTo(RecipeMaps.compressorRecipes);
-
-        // marble dust to marble block
-        ulvRecipe(3, 75).itemInputs(Materials.Marble.getDust(9))
-            .itemOutputs(Materials.Marble.getBlocks(1))
-            .addTo(RecipeMaps.compressorRecipes);
-
-        // red granite dust to red granite plate
-        ulvRecipe(3, 75).itemInputs(Materials.GraniteRed.getDust(1))
-            .itemOutputs(Materials.GraniteRed.getPlates(1))
-            .addTo(RecipeMaps.compressorRecipes);
-
-        // red granite plate to red granite block
-        ulvRecipe(3, 75).itemInputs(Materials.GraniteRed.getPlates(9))
-            .itemOutputs(new ItemStack(GregTechAPI.sBlockGranites, 1, 8))
-            .addTo(RecipeMaps.compressorRecipes);
-
-        // black granite dust to black granite plate
-        ulvRecipe(3, 75).itemInputs(Materials.GraniteBlack.getDust(1))
-            .itemOutputs(Materials.GraniteBlack.getPlates(1))
-            .addTo(RecipeMaps.compressorRecipes);
-
-        // black granite plates to black granite block
-        ulvRecipe(3, 75).itemInputs(Materials.GraniteBlack.getPlates(9))
-            .itemOutputs(new ItemStack(GregTechAPI.sBlockGranites))
-            .addTo(RecipeMaps.compressorRecipes);
     }
 
     private static void addHoneyConversionRecipes() {
