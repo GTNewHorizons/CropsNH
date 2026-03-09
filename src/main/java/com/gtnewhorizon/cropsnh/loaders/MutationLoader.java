@@ -232,6 +232,7 @@ import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aOreBerry;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPine;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPointed;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPoison;
+import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPrimordial;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPurple;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aRadioactive;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aRed;
@@ -534,9 +535,10 @@ public class MutationLoader {
         }
         if (ModUtils.Thaumcraft.isModLoaded() && ModUtils.ThaumicTinkerer.isModLoaded()) {
             new CropMutation(MagicalNightshade, PrimordialBerry, ManaBean, Cinderpearl, Shimmerleaf)
-                .addToMutationPools(aBerry, aMagic)
+                .addToMutationPools(aBerry, aMagic, aPrimordial)
                 .machineOnly()
                 .register();
+            MutationRegistry.instance.register(PrimordialBerry, aPrimordial);
         }
         new CropMutation(Micadia, Tine, Bauxia)
             .addToMutationPools(aMetal, aPine, aBush)

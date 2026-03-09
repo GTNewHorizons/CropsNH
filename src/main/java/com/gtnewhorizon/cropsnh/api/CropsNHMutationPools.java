@@ -58,6 +58,7 @@ public abstract class CropsNHMutationPools {
     public final static String aPine = "pine";
     public final static String aPointed = "pointed";
     public final static String aPoison = "poison";
+    public final static String aPrimordial = "primordial";
     public final static String aPurple = "purple";
     public final static String aRadioactive = "radioactive";
     public final static String aRed = "red";
