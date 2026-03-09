@@ -21,7 +21,7 @@ import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import codechicken.nei.api.API;
@@ -129,7 +129,7 @@ public class ClientProxy extends CommonProxy {
 
         @SubscribeEvent
         public void onBlockScanned(BlockScanningEvent event) {
-            if (!(event.mTileEntity instanceof TileEntityCrop teCrop)) return;
+            if (!(event.mTileEntity instanceof TileEntityCropSticks teCrop)) return;
             event.mEUCost += 1000;
             if (teCrop.hasCrop() && !teCrop.getSeed()
                 .getStats()
@@ -142,7 +142,7 @@ public class ClientProxy extends CommonProxy {
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
                     formatNumber(teCrop.getNutrientScore()),
-                    formatNumber(TileEntityCrop.MAX_NUTRIENT_SCORE)));
+                    formatNumber(TileEntityCropSticks.MAX_NUTRIENT_SCORE)));
             List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
             if (failedReqs != null) {
                 for (IGrowthRequirement req : failedReqs) {

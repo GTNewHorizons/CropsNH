@@ -3,20 +3,24 @@ package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 import java.util.Optional;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
+import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTESeedGenerator;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import cpw.mods.fml.common.FMLLog;
+import gregtech.api.enums.GTValues;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTRecipeBuilder;
+import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 
 public abstract class SeedGeneratorFakeRecipeLoader extends BaseGTRecipeLoader {
 
@@ -46,36 +50,49 @@ public abstract class SeedGeneratorFakeRecipeLoader extends BaseGTRecipeLoader {
     protected static void addFakeDuplicationRecipe(ICropCard cc, ItemStack seed, Object catalyst) {
         // don't add crops that can't be crossbred
         if (cc.getCrossingThreshold() < 0.0f) return;
-        // generate the recipe template
-        GTRecipeBuilder recipe = lvRecipe(20, 0).fluidInputs(new FluidStack(CropsNHFluids.enrichedFertilizer, 100))
-            .itemOutputs(seed)
-            .nbtSensitive()
-            .ignoreCollision()
-            .metadata(CropsNHGTRecipeMaps.CROPSNH_CROP_METADATAKEY, cc)
-            .fake();
-        // if we are using a catalyst, the path changes a bit
-        if (catalyst instanceof Object[]cat) {
-            if (OreDictionary.getOres((String) cat[0], false)
-                .isEmpty()) {
-                FMLLog.bigWarning("ore dict replication catalyst points to invalid item: " + cat[0]);
-            } else {
-                Optional<GTRecipe.GTRecipe_WithAlt> opt = recipe.itemInputs(seed, catalyst)
-                    .forceOreDictInput()
-                    .buildWithAlt();
-                if (opt.isPresent()) {
-                    CropsNHGTRecipeMaps.fakeSeedGeneratorRecipes.add(opt.get());
+        for (Object2FloatMap.Entry<Fluid> allowedFluid : MTESeedGenerator.ALLOWED_LIQUID_FERTILIZER
+            .object2FloatEntrySet()) {
+            // generate the recipe template
+            GTRecipeBuilder recipe = GTValues.RA.stdBuilder()
+                .duration(MTESeedGenerator.BASE_RECIPE_DURATION)
+                .eut(MTESeedGenerator.BASE_RECIPE_EUT)
+                .fluidInputs(
+                    new FluidStack(
+                        allowedFluid.getKey(),
+                        MTESeedGenerator.getFluidAmount(
+                            Constants.MAX_SEED_STAT,
+                            Constants.MAX_SEED_STAT,
+                            Constants.MAX_SEED_STAT,
+                            allowedFluid.getFloatValue())))
+                .itemOutputs(seed)
+                .nbtSensitive()
+                .ignoreCollision()
+                .metadata(CropsNHGTRecipeMaps.CROPSNH_CROP_METADATAKEY, cc)
+                .fake();
+            // if we are using a catalyst, the path changes a bit
+            if (catalyst instanceof Object[]cat) {
+                if (OreDictionary.getOres((String) cat[0], false)
+                    .isEmpty()) {
+                    FMLLog.bigWarning("ore dict replication catalyst points to invalid item: " + cat[0]);
                 } else {
-                    LogHelper.warn("failed to generate recipe with ore-dict catalyst for " + cc.getId());
+                    Optional<GTRecipe.GTRecipe_WithAlt> opt = recipe.itemInputs(seed, catalyst)
+                        .forceOreDictInput()
+                        .buildWithAlt();
+                    if (opt.isPresent()) {
+                        CropsNHGTRecipeMaps.fakeSeedGeneratorRecipes.add(opt.get());
+                    } else {
+                        LogHelper.warn("failed to generate recipe with ore-dict catalyst for " + cc.getId());
+                    }
                 }
+                return;
+            } else if (catalyst instanceof ItemStack) {
+                recipe.itemInputs(seed, catalyst);
+            } else if (catalyst != null) {
+                LogHelper.warn("failed to generate recipe with catalyst for " + cc.getId());
+            } else {
+                recipe.itemInputs(seed);
             }
-            return;
-        } else if (catalyst instanceof ItemStack) {
-            recipe.itemInputs(seed, catalyst);
-        } else if (catalyst != null) {
-            LogHelper.warn("failed to generate recipe with catalyst for " + cc.getId());
-        } else {
-            recipe.itemInputs(seed);
+            recipe.addTo(CropsNHGTRecipeMaps.fakeSeedGeneratorRecipes);
         }
-        recipe.addTo(CropsNHGTRecipeMaps.fakeSeedGeneratorRecipes);
     }
 }

@@ -18,6 +18,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_SCANNER_ACTIVE_
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_SCANNER_GLOW;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
@@ -25,6 +26,7 @@ import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizons.modularui.api.drawable.IDrawable;
 import com.gtnewhorizons.modularui.api.math.Pos2d;
@@ -48,19 +50,25 @@ import gregtech.common.items.behaviors.BehaviourDataOrb;
 
 public class MTECropGeneExtractor extends MTEBasicMachine {
 
+    public static final int AMPERAGE = 1;
     public static final int DURATION_SPECIMEN = 2 * GTRecipeBuilder.MINUTES;
     public static final int DURATION_STAT = 30 * GTRecipeBuilder.SECONDS;
 
-    public MTECropGeneExtractor(int aID, int aTier, String aNameRegional) {
+    public MTECropGeneExtractor(int aID, int aTier) {
         super(
             aID,
             String.format("basicmachine.cropgeneextractor.tier.%02d", aTier),
-            aNameRegional,
+            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropGeneExtractor.name." + aTier),
             aTier,
-            1,
-            new String[] { CropsNHUtils.getMachineTypeText("cropGeneExtractor"), "It can extract Crop Genes",
-                "Use a circuit to determine the genes you want to extract,",
-                "1 for Specimen, 2 for Growth, 3 for Gain, 4 for Resistance" },
+            AMPERAGE,
+            new String[] {
+                // spotless:off
+                CropsNHUtils.getMachineTypeText("cropGeneExtractor"),
+                StatCollector.translateToLocal("cropsnh_tooltip.cropGeneExtractor.0"),
+                StatCollector.translateToLocal("cropsnh_tooltip.cropGeneExtractor.1"),
+                StatCollector.translateToLocal("cropsnh_tooltip.cropGeneExtractor.2")
+                // spotless:on
+            },
             1,
             1,
             TextureFactory.of(

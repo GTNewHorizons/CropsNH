@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
@@ -68,6 +69,13 @@ public class SoilLoader {
             // TiC blocks
             BlockWithMeta graveyardSoil = new BlockWithMeta(TinkerTools.craftedSoil, 3);
             registry.register("graveyard", graveyardSoil);
+
+            Block craftedSoilBlock = ModUtils.TinkerConstruct.getBlock("CraftedSoil");
+            BlockWithMeta greeneSlimyMud = new BlockWithMeta(craftedSoilBlock, 0);
+            BlockWithMeta blueSlimyMud = new BlockWithMeta(craftedSoilBlock, 2);
+            BlockWithMeta slimeDirt = new BlockWithMeta(craftedSoilBlock, 5);
+            BlockWithMeta slimeGrass = new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("slime.grass"), 0);
+            registry.register("slimy", greeneSlimyMud, blueSlimyMud, slimeDirt, slimeGrass);
         }
 
         if (ModUtils.RandomThings.isModLoaded()) {

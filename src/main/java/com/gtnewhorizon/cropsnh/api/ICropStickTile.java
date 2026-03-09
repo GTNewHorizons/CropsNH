@@ -75,15 +75,14 @@ public interface ICropStickTile {
      *
      * @param seedStack The seed being planted.
      */
-    boolean tryPlantSeed(ItemStack seedStack);
+    SeedPlantingResult tryPlantSeed(ItemStack seedStack);
 
     /**
      * Attempts to plant a crop.
      *
-     * @param cc    The seed being planted.
-     * @param stats The stats of the seed being planted.
+     * @param seedData The seed data being planted.
      */
-    boolean tryPlantSeed(ISeedData seedData);
+    SeedPlantingResult tryPlantSeed(ISeedData seedData);
 
     /**
      * Checks if the soil under this crop is valid for this crop.
@@ -96,8 +95,7 @@ public interface ICropStickTile {
     /**
      * Sets the crop in the crop stick, and resets the growth progress.
      *
-     * @param cc    The crop to plant.
-     * @param stats The stats of the new crop.
+     * @param seedData The stats of the new seed.
      */
     void plantSeed(ISeedData seedData);
 

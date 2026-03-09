@@ -13,11 +13,13 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
@@ -38,6 +40,7 @@ import com.gtnewhorizon.cropsnh.api.IMutationPool;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
+import com.gtnewhorizon.cropsnh.api.SeedPlantingResult;
 import com.gtnewhorizon.cropsnh.crops.CropMigrator;
 import com.gtnewhorizon.cropsnh.crops.CropWeed;
 import com.gtnewhorizon.cropsnh.farming.SeedData;
@@ -60,7 +63,7 @@ import com.gtnewhorizon.cropsnh.utility.XSTR;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile {
+public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStickTile {
 
     public final static int TICK_RATE = 256;
 
@@ -125,7 +128,7 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     // used to tell waila why the crop ain't growing.
     private List<IGrowthRequirement> failedChecks = null;
 
-    public TileEntityCrop() {
+    public TileEntityCropSticks() {
         this.ticker = XSTR.XSTR_INSTANCE.nextInt(256);
     }
 
@@ -376,15 +379,15 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     // region seed planting
 
     @Override
-    public boolean tryPlantSeed(ItemStack seedStack) {
+    public SeedPlantingResult tryPlantSeed(ItemStack seedStack) {
         // can't plant nothing
         if (!this.canPlantSeed() || seedStack == null || seedStack.getItem() == null || seedStack.stackSize <= 0)
-            return false;
+            return SeedPlantingResult.CANNOT_PLANT;
 
         // check if it's a valid seed
         ICropCard cc = CropRegistry.instance.get(seedStack);
         if (cc == null) {
-            return false;
+            return SeedPlantingResult.NOT_A_SEED;
         }
 
         // alternate seeds get 1/1/1 analyzed seeds
@@ -396,12 +399,13 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
     }
 
     @Override
-    public boolean tryPlantSeed(ISeedData seedData) {
+    public SeedPlantingResult tryPlantSeed(ISeedData seedData) {
         // check if it can be planted on this soil.
-        if (seedData == null || seedData.getCrop() == null || !isValidSoilForCrop(seedData.getCrop())) return false;
+        if (seedData == null || seedData.getCrop() == null) return SeedPlantingResult.NOT_A_SEED;
+        if (!isValidSoilForCrop(seedData.getCrop())) return SeedPlantingResult.WRONG_SOIL;
         // all good we can plant the seed
         this.plantSeed(seedData);
-        return true;
+        return SeedPlantingResult.SUCCESS;
     }
 
     @Override
@@ -1166,9 +1170,16 @@ public class TileEntityCrop extends TileEntityCropsNH implements ICropStickTile 
                 }
             }
             // try planting it
-            if (tryPlantSeed(heldItem)) {
+            SeedPlantingResult result = tryPlantSeed(heldItem);
+            if (result == SeedPlantingResult.SUCCESS) {
                 if (!player.capabilities.isCreativeMode) {
                     heldItem.stackSize--;
+                }
+                return true;
+            } else if (result == SeedPlantingResult.WRONG_SOIL) {
+                if (player instanceof EntityPlayerMP mpPlayer) {
+                    mpPlayer.addChatComponentMessage(
+                        new ChatComponentText(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.wrongSoil")));
                 }
                 return true;
             }

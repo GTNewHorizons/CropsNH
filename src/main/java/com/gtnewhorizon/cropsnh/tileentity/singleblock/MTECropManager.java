@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity.singleblock;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.getFluidUnit;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,11 +92,11 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     private boolean mInvalidCache = false;
     private final ItemStackMap<Integer> mDropOverflow = new ItemStackMap<>(true);
 
-    public MTECropManager(final int aID, final int aTier, final String aRegionalName) {
+    public MTECropManager(final int aID, final int aTier) {
         super(
             aID,
-            StatCollector.translateToLocalFormatted("cropsnh_tooltip.cropManager.name", GTValues.VN[aTier]),
-            aRegionalName,
+            String.format("basicmachine.cropManager.tier.%02d", aTier),
+            StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropManager.name." + aTier),
             aTier,
             TOTAL_SLOT_COUNT,
             StatCollector.translateToLocal("cropsnh_tooltip.cropManager.description"));
@@ -943,7 +944,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                             tooltipFormat,
                             formatNumber(amountGetter.get()),
                             formatNumber(capacityGetter.get()),
-                            StatCollector.translateToLocal("gt.mbtt.info.l_s"))))
+                            getFluidUnit())))
                 .setUpdateTooltipEveryTick(true)
                 .setPos(x, y)
                 .setSize(10, 54))

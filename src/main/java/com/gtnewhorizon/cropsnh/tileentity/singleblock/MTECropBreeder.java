@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.tileentity.singleblock;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER_ACTIVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER_ACTIVE_GLOW;
@@ -21,9 +22,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -38,6 +39,7 @@ import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizons.modularui.api.drawable.IDrawable;
 import com.gtnewhorizons.modularui.api.math.Pos2d;
@@ -52,8 +54,13 @@ import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
+import gregtech.api.util.tooltip.TooltipHelper;
+import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 
 public class MTECropBreeder extends MTEBasicMachine {
+
+    public static final int FERTILIZER_PER_TIER = 144;
+    public static final int FERTILIZER_PER_STAT = FERTILIZER_PER_TIER / 2;
 
     private static final int MIN_TIER = VoltageIndex.LV;
     private static final int MIN_CHANCE = 40;
@@ -69,25 +76,36 @@ public class MTECropBreeder extends MTEBasicMachine {
         return tier < VoltageIndex.HV ? MIN_INPUT_SLOT_COUNT : MAX_INPUT_SLOT_COUNT;
     }
 
-    public static final ConcurrentHashMap<Fluid, Integer> ALLOWED_LIQUID_FERTILIZER = new ConcurrentHashMap<>();
+    public static final Object2FloatOpenHashMap<Fluid> ALLOWED_LIQUID_FERTILIZER = new Object2FloatOpenHashMap<>();
 
     public static void init() {
         // allowed liquid fertilizer
-        ALLOWED_LIQUID_FERTILIZER.putIfAbsent(CropsNHFluids.enrichedFertilizer, 1000);
+        ALLOWED_LIQUID_FERTILIZER.putIfAbsent(CropsNHFluids.enrichedFertilizer, 1.0f);
     }
 
-    public MTECropBreeder(int aID, int aTier, String aNameRegional) {
+    public MTECropBreeder(int aID, int aTier) {
         super(
             aID,
             String.format("basicmachine.cropbreeder.tier.%02d", aTier),
-            aNameRegional,
+            StatCollector.translateToLocal("cropsnh_tooltip.cropBreeder.name." + aTier),
             aTier,
             AMPERAGE,
-            new String[] { CropsNHUtils.getMachineTypeText("cropBreeder"), "It can duplicate seeds!",
-                "Needs 1000L of Enriched Fertilizer per tier of the output seed.",
-                "Needs 500L of Enriched Fertilizer per stat point of the output seed.",
-                "The stats of the output seed will be the average of the parents.",
-                String.format("%d%% success chance.", getOutputChance(aTier)) },
+            new String[] {
+                // spotless:off
+                CropsNHUtils.getMachineTypeText("cropBreeder"),
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropBreeder.0"),
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropBreeder.1",
+                    TooltipHelper.fluidText(FERTILIZER_PER_TIER)
+                ),
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropBreeder.2",
+                    TooltipHelper.fluidText(FERTILIZER_PER_STAT)
+                ),
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropBreeder.3"),
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropBreeder.4",
+                    formatNumber(getOutputChance(aTier))
+                )
+                // spotless:on
+            },
             getInputSlotCount(aTier),
             OUTPUT_SLOT_COUNT,
             TextureFactory.of(
@@ -162,8 +180,8 @@ public class MTECropBreeder extends MTEBasicMachine {
         }
 
         // allow zero drain for future proofing.
-        int drainPerTier = ALLOWED_LIQUID_FERTILIZER.getOrDefault(this.mFluid.getFluid(), -1);
-        if (drainPerTier < 0) {
+        final float drainMultiplier = ALLOWED_LIQUID_FERTILIZER.getOrDefault(this.mFluid.getFluid(), -1);
+        if (drainMultiplier < 0) {
             return DID_NOT_FIND_RECIPE;
         }
 
@@ -205,9 +223,13 @@ public class MTECropBreeder extends MTEBasicMachine {
         for (ICropMutation mutation : deterministicMutations) {
             // abort early if the amount of fluid in the tank can't create this crop.
             ISeedStats newStats = getNewSeedStats(mutation, breedingParents);
-            int amountOfFluidToConsume = (drainPerTier * mutation.getOutput()
-                .getTier())
-                + (drainPerTier / 2) * (newStats.getGrowth() + newStats.getGain() + newStats.getResistance());
+            int amountOfFluidToConsume = getFluidAmount(
+                mutation.getOutput()
+                    .getTier(),
+                newStats.getGrowth(),
+                newStats.getGain(),
+                newStats.getResistance(),
+                drainMultiplier);
             if (amountOfFluidToConsume > this.mFluid.amount) continue;
 
             // abort early if the output doesn't fit.
@@ -249,6 +271,11 @@ public class MTECropBreeder extends MTEBasicMachine {
             return FOUND_AND_SUCCESSFULLY_USED_RECIPE;
         }
         return DID_NOT_FIND_RECIPE;
+    }
+
+    public static int getFluidAmount(int tier, byte gr, byte ga, byte re, float multiplier) {
+        return Math.max(1, (int) (tier * FERTILIZER_PER_TIER * multiplier))
+            + Math.max(1, (int) ((gr + ga + re) * FERTILIZER_PER_STAT * multiplier));
     }
 
     private static int getOutputChance(int aTier) {
@@ -305,7 +332,7 @@ public class MTECropBreeder extends MTEBasicMachine {
 
     @Override
     public int getCapacity() {
-        return getCapacityForTier(mTier);
+        return getCapacityForTier(mTier) / 5;
     }
 
     @Override

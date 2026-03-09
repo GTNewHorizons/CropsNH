@@ -27,10 +27,10 @@ public class CropWithereed extends NHCropCard {
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coal, 1), 66_67);
         this.addDrop(new ItemStack(Items.coal, 1, 0), 33_33);
 
-        // wither skull
-        this.addDrop(new ItemStack(Items.skull, 1, 1), 16_67);
-        // skeleton skull
-        this.addDrop(new ItemStack(Items.skull, 1, 0), 8_33);
+        // wither skull: sqrt(6.66) / 2
+        this.addDrop(new ItemStack(Items.skull, 1, 1), 1_29);
+        // skeleton skull: sqrt(6.66)
+        this.addDrop(new ItemStack(Items.skull, 1, 0), 2_58);
 
         this.addBlockUnderRequirement("coal");
 

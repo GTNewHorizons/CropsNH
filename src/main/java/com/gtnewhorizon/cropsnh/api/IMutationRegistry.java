@@ -3,6 +3,8 @@ package com.gtnewhorizon.cropsnh.api;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public interface IMutationRegistry {
 
     /**
@@ -44,7 +46,17 @@ public interface IMutationRegistry {
      * @param parents The parents to filter with.
      * @return The list of mutations that can occur.
      */
+    @Nullable
     List<ICropMutation> getPossibleDeterministicMutations(Collection<ICropCard> parents);
+
+    /**
+     * Gets a list of all deterministic mutations for a given crop.
+     *
+     * @param cc The output crop to look for.
+     * @return The list of mutations that can occur.
+     */
+    @Nullable
+    Collection<ICropMutation> getDeterministicMutationsForCrop(ICropCard cc);
 
     /**
      * Gets a list of all possible random mutations for a list of parents.
@@ -52,6 +64,7 @@ public interface IMutationRegistry {
      * @param parents The parents to filter with.
      * @return The list of mutations that can occur.
      */
+    @Nullable
     List<IMutationPool> getPossiblePoolMutations(Collection<ICropCard> parents);
 
     /**

@@ -13,7 +13,7 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCrop;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
 
 public class CropGoldfish extends NHCropCard {
@@ -47,8 +47,8 @@ public class CropGoldfish extends NHCropCard {
 
     @Override
     public void onGrowthTick(ICropStickTile crop) {
-        if (crop instanceof TileEntityCrop && XSTR.XSTR_INSTANCE.nextInt(512) == 42) {
-            this.scream((TileEntityCrop) crop);
+        if (crop instanceof TileEntityCropSticks && XSTR.XSTR_INSTANCE.nextInt(512) == 42) {
+            this.scream((TileEntityCropSticks) crop);
         }
     }
 
@@ -60,8 +60,8 @@ public class CropGoldfish extends NHCropCard {
     @Override
     public void onEntityCollision(ICropStickTile crop, Entity entity) {
         if (ConfigurationHandler.goldfishScreamWhenSteppedOn && entity instanceof EntityPlayer
-            && crop instanceof TileEntityCrop) {
-            this.scream((TileEntityCrop) crop);
+            && crop instanceof TileEntityCropSticks) {
+            this.scream((TileEntityCropSticks) crop);
         }
     }
 
@@ -70,7 +70,7 @@ public class CropGoldfish extends NHCropCard {
         return 3;
     }
 
-    private void scream(TileEntityCrop crop) {
+    private void scream(TileEntityCropSticks crop) {
         if (ConfigurationHandler.putAnEndToExistentialDread) return;
         crop.getWorldObj()
             .playSoundEffect(

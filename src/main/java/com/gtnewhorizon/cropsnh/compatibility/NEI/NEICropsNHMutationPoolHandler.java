@@ -31,7 +31,7 @@ import codechicken.nei.recipe.HandlerInfo;
 public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
 
     // this is a class which handles the recipe for crop products (has to contain a CachedRecipe for the products)
-    private static final String id = "mutationPool";;
+    private static final String id = "mutationPool";
 
     public static final int X_SeedStart = 3;
     public static final int Y_SeedStart = 1;
