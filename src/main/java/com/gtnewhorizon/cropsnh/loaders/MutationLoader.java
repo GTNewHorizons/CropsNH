@@ -64,7 +64,6 @@ import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Ferrofern;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Fertilia;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Flax;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.FloweringVine;
-import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.GaiaWart;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Galvania;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Garlic;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Garnydinia;
@@ -178,17 +177,12 @@ import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Withereed;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Wolfsbane;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Zomplant;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aAddictive;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aAether;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aAlien;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aAlloy;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aAluminium;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aAluminum;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aArdite;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aBad;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aBean;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aBeans;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aBerry;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aBeryllium;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aBlack;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aBlaze;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aBlue;
@@ -202,119 +196,69 @@ import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aChicken;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aClean;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aClimbable;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aCoal;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aCobalt;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aColorful;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aConsumable;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aCopper;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aCotton;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aCow;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aCreeper;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aCrystal;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aDanger;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aDark;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aDecoration;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aDense;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aDiamond;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aEdgy;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aEgg;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aEmerald;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aEnder;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aEssence;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aEvil;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aExplosive;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aFeather;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aFire;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aFish;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aFlower;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aFood;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aGhast;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aGlow;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aGold;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aGray;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aGreen;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aGrowth;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aHard;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aHealing;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aHeavy;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aHydrophobic;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aIce;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aIngredient;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aIridium;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aIron;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aKnightly;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aLapis;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aLead;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aLeafy;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aLeaves;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aLight;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aMagic;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aManganese;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aMetal;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aMica;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aMilk;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aMushroom;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aNaquadah;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aNether;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aNetherstar;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aOil;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aOlivine;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aOrange;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aOreBerry;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aOsmium;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPaper;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPig;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPine;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPlatinum;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPointed;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPoison;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPotato;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPrimordial;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aProcessing;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aPurple;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aRadiation;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aRadioactive;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aRed;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aRedstone;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aReed;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aResin;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aRoot;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aRose;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aRotten;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSalt;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSaltpeter;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSapphire;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aScrap;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aShimmer;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aShiny;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSilk;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSilver;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSlime;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSnow;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSoil;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSoulsand;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSour;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSpace;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSpicy;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSpider;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aStem;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSticky;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aStone;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aSulfur;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aTendrilly;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aThauminite;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aThaumium;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aThorium;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aTin;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aTitanium;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aToxic;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aTransform;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aTree;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aTroll;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aTulip;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aTungsten;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aUndead;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aUnique;
-import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aUranium;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aVoid;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aWater;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aWheat;
@@ -351,25 +295,25 @@ public class MutationLoader {
         // spotless:off
         // region bonsais
         new CropMutation(BonsaiOak, Wheat, BrownMushroom)
-            .addToMutationPools(aTree, aBonsai, aLeafy, aFood)
+            .addToMutationPools(aTree, aBonsai, aLeafy, aFood, aWood)
             .register();
         new CropMutation(BonsaiBirch, BonsaiOak, SugarCane)
-            .addToMutationPools(aTree, aBonsai, aLeafy)
+            .addToMutationPools(aTree, aBonsai, aLeafy, aWood)
             .register();
         new CropMutation(BonsaiSpruce, BonsaiOak, Pumpkin)
-            .addToMutationPools(aTree, aBonsai, aLeafy)
+            .addToMutationPools(aTree, aBonsai, aLeafy, aWood)
             .register();
         new CropMutation(BonsaiDarkOak, BonsaiSpruce, BonsaiOak)
-            .addToMutationPools(aTree, aBonsai, aLeafy, aDark)
+            .addToMutationPools(aTree, aBonsai, aLeafy, aDark, aWood)
             .register();
         new CropMutation(BonsaiAcacia, BonsaiOak, Cactus)
-            .addToMutationPools(aTree, aBonsai, aLeafy)
+            .addToMutationPools(aTree, aBonsai, aLeafy, aWood)
             .register();
         new CropMutation(BonsaiJungle, BonsaiOak, Vine)
-            .addToMutationPools(aTree, aBonsai, aLeafy)
+            .addToMutationPools(aTree, aBonsai, aLeafy, aWood)
             .register();
         new CropMutation(BonsaiRubber, BonsaiJungle, BonsaiSpruce)
-            .addToMutationPools(aTree, aBonsai, aLeafy)
+            .addToMutationPools(aTree, aBonsai, aLeafy, aWood)
             .register();
         // not adding it to the bonsai and tree pools on purpose, since it's
         // intended to be a bit harder to get your hands on without exploration.
@@ -381,13 +325,13 @@ public class MutationLoader {
         // region biomes o plenty
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
             new CropMutation(Bamboo, BonsaiJungle, Vine)
-                .addToMutationPools(aGreen, aPointed, aEdgy)
+                .addToMutationPools(aGreen, aPointed, aStem)
                 .register();
             new CropMutation(Eyebulb, NetherStoneLily, RedTulip)
                 .addToMutationPools(aNether, aEvil, aBad)
                 .register();
             new CropMutation(FloweringVine, OxeyeDaisy, Ivy)
-                .addToMutationPools(aGreen, aTendrilly, aFlower)
+                .addToMutationPools(aGreen, aTendrilly, aFlower, aClimbable)
                 .register();
             new CropMutation(Glowflower, NetherStoneLily, Dandelion)
                 .addToMutationPools(aNether, aLight, aShiny)
@@ -397,11 +341,11 @@ public class MutationLoader {
                 .register();
             if (ModUtils.Natura.isModLoaded()) {
                 new CropMutation(Glowshroom, BlueGlowshroom, GreenGlowshroom, PurpleGlowshroom)
-                    .addToMutationPools(aFood, aMushroom, aIngredient, aNether)
+                    .addToMutationPools(aFood, aMushroom, aIngredient, aNether, aLight)
                     .register();
             }
             new CropMutation(Ivy, Vine, BonsaiSpruce)
-                .addToMutationPools(aGreen, aTendrilly, aFlower, aBad, aPoison)
+                .addToMutationPools(aGreen, aTendrilly, aFlower, aBad, aPoison, aClimbable, aPointed)
                 .register();
             new CropMutation(Moss, Ivy, FloweringVine)
                 .addToMutationPools(aGreen, aClimbable)
@@ -413,13 +357,13 @@ public class MutationLoader {
         // TODO ADD PHOSPHORUS CROP AND ADD IT TO THE FERTILIA PARENT LIST
         // Corpse plant because it outputs bones, corium because cow manure
         new CropMutation(Fertilia, Corium, Corpseplant)
-            .addToMutationPools(aGrowth, aHealing, aFlower)
+            .addToMutationPools(aHealing, aFlower)
             .register();
         new CropMutation(Flax, Wheat, AzureBluet)
             .addToMutationPools(aSilk, aTendrilly, aAddictive)
             .register();
         new CropMutation(Hemp, Flax, Papyrus)
-            .addToMutationPools(aGreen, aSoil, aOrange)
+            .addToMutationPools(aGreen, aOrange)
             .register();
         // endregion cropsnh
 
@@ -452,7 +396,7 @@ public class MutationLoader {
                 .addToMutationPools(aBerry, aFood, aRed)
                 .register();
             new CropMutation(SaguaroCactus, Cactus, SandLily)
-                .addToMutationPools(aGreen, aFood, aCactus)
+                .addToMutationPools(aGreen, aFood, aCactus, aDanger)
                 .register();
         }
         if (ModUtils.PamsHarvestCraft.isModLoaded()) {
@@ -461,10 +405,10 @@ public class MutationLoader {
                 .register();
         }
         new CropMutation(Chilly, Cactus, Cocoa)
-            .addToMutationPools(aFood, aRed, aSpicy)
+            .addToMutationPools(aFood, aRed)
             .register();
         new CropMutation(Coffee, Cocoa, BonsaiAcacia)
-            .addToMutationPools(aLeaves, aIngredient, aBeans)
+            .addToMutationPools(aLeaves, aIngredient, aBean)
             .register();
         new CropMutation(Cucumber, Melon, Carrot)
             .addToMutationPools(aFood, aGreen)
@@ -483,14 +427,14 @@ public class MutationLoader {
                 .register();
         }
         new CropMutation(Lemon, BonsaiOak, BonsaiAcacia)
-            .addToMutationPools(aFood, aYellow, aWood, aLeafy, aSour)
+            .addToMutationPools(aFood, aYellow, aWood, aLeafy)
             .register();
         // allium is the genus for onions
         new CropMutation(Onion, Allium, Carrot)
-            .addToMutationPools(aFood, aBrown)
+            .addToMutationPools(aFood, aBrown, aRoot)
             .register();
         new CropMutation(SugarBeet, SugarCane, Allium)
-            .addToMutationPools(aFood, aWhite, aIngredient)
+            .addToMutationPools(aFood, aWhite, aIngredient, aRoot)
             .register();
         if (ModUtils.Natura.isModLoaded()) {
             new CropMutation(Tea, Blueberry, BonsaiJungle)
@@ -506,29 +450,25 @@ public class MutationLoader {
             .addToMutationPools(aBlue, aFlower, aAddictive)
             .register();
         new CropMutation(Malaxia, OrangeTulip, Pumpkin, StoneLily)
-            .addToMutationPools(aOrange, aLeaves, aMetal)
+            .addToMutationPools(aOrange, aLeaves, aMetal, aCopper)
             .register();
         new CropMutation(Plumbshade, AzureBluet, Malaxia, BlackGraniteLily)
-            .addToMutationPools(aDense, aLeaves, aMetal)
+            .addToMutationPools(aDense, aLeaves, aMetal, aLead)
             .register();
         new CropMutation(Silviscus, Cassitine, Malaxia, MarbleLily)
-            .addToMutationPools(aSilver, aLeaves, aMetal)
+            .addToMutationPools(aSilver, aLeaves, aMetal, aSilver)
             .register();
         new CropMutation(Cassitine, Malaxia, StoneLily, MarbleLily)
-            .addToMutationPools(aShiny, aLeaves, aMetal)
+            .addToMutationPools(aShiny, aLeaves, aMetal, aTin)
             .register();
         new CropMutation(StickyCane, BonsaiJungle, SugarCane)
-            .addToMutationPools(aReed, aResin)
+            .addToMutationPools(aReed, aSticky)
             .register();
-        // gaia wart has its own hidden mechanic that requires you to right-click a netherwart with snow until it turns
-        // into gaia wart, the mutation pool only exists as a fallback for challenge runs that may not have access to
-        // snow early on.
-        MutationRegistry.instance.register(GaiaWart, aBlue, aAether, aConsumable, aSnow);
         new CropMutation(PurpleTulip, RedTulip, BlueOrchid)
             .addToMutationPools(aPurple, aFlower, aTulip)
             .register();
         new CropMutation(Necrobloom, Spidernip, PurpleTulip)
-            .addToMutationPools(aPurple, aFlower, aTulip, aPoison)
+            .addToMutationPools(aPurple, aFlower, aTulip, aPoison, aDanger)
             .register();
 
         // region material crops
@@ -536,14 +476,14 @@ public class MutationLoader {
             .addToMutationPools(aShiny, aMetal, aSilver)
             .register();
         new CropMutation(Auronia, Plumbilia, Coppon)
-            .addToMutationPools(aGold, aLeaves, aMetal)
+            .addToMutationPools(aGold, aLeaves, aMetal, aDense)
             .register();
         new CropMutation(Bauxia, Galvania, Nickelback)
             .addToMutationPools(aMetal, aAluminium, aReed, aAluminium)
             .machineOnly()
             .register();
         new CropMutation(BobsYerUncleRanks, Diareed, Olivia)
-            .addToMutationPools(aShiny, aTendrilly, aEmerald, aBeryllium, aCrystal)
+            .addToMutationPools(aShiny, aTendrilly, aCrystal)
             .register();
         new CropMutation(Canola, OxeyeDaisy, Wheat)
             .addToMutationPools(aFood, aYellow, aOil)
@@ -552,13 +492,13 @@ public class MutationLoader {
             .addToMutationPools(aShiny, aMetal, aCotton, aCopper, aBush)
             .register();
         new CropMutation(Diareed, Withereed, EvilOre)
-            .addToMutationPools(aFire, aShiny, aReed, aCoal, aDiamond, aCrystal)
+            .addToMutationPools(aFire, aShiny, aReed, aCoal, aCrystal)
             .register();
         new CropMutation(EvilOre, NetherStoneLily, SoulSandLily)
             .addToMutationPools(aCrystal, aFire, aNether)
             .register();
         new CropMutation(Ferrofern, StoneLily, BlackGraniteLily)
-            .addToMutationPools(aGray, aLeaves, aMetal)
+            .addToMutationPools(aGray, aLeaves, aMetal, aIron)
             .register();
         new CropMutation(Galvania, Tine, Ferrofern)
             .addToMutationPools(aMetal, aAlloy, aBush)
@@ -569,22 +509,22 @@ public class MutationLoader {
             .register();
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
             new CropMutation(Glowheat, Glowflower, Wheat)
-                .addToMutationPools(aLight, aShiny, aCrystal)
+                .addToMutationPools(aLight, aShiny, aCrystal, aLight)
                 .register();
         }
         new CropMutation(GodOfThunder, BobsYerUncleRanks, Withereed)
-            .addToMutationPools(aRadioactive, aMetal, aCoal, aThorium)
+            .addToMutationPools(aRadioactive, aMetal, aCoal)
             .machineOnly()
             .register();
         new CropMutation(Indigo, Dayflower, BlueOrchid)
             .addToMutationPools(aFlower, aBlue, aIngredient)
             .register();
         new CropMutation(Iridine, Scheelinium, Platina)
-            .addToMutationPools(aMetal, aIridium, aFlower)
+            .addToMutationPools(aMetal, aFlower, aDense)
             .machineOnly()
             .register();
         new CropMutation(Lazulia, StoneLily, Indigo)
-            .addToMutationPools(aShiny, aBad, aCrystal, aLapis)
+            .addToMutationPools(aShiny, aBad, aCrystal, aBlue)
             .register();
         // using dark oak because it's a tree that used to have roots that were used to break the nether ceiling
         // just like how the twilight tree does the same.
@@ -595,12 +535,13 @@ public class MutationLoader {
         }
         if (ModUtils.Thaumcraft.isModLoaded() && ModUtils.ThaumicTinkerer.isModLoaded()) {
             new CropMutation(MagicalNightshade, PrimordialBerry, ManaBean, Cinderpearl, Shimmerleaf)
-                .addToMutationPools(aBerry, aPrimordial, aMagic, aUnique)
+                .addToMutationPools(aBerry, aMagic, aPrimordial)
                 .machineOnly()
                 .register();
+            MutationRegistry.instance.register(PrimordialBerry, aPrimordial);
         }
         new CropMutation(Micadia, Tine, Bauxia)
-            .addToMutationPools(aMetal, aPine, aMica, aBush)
+            .addToMutationPools(aMetal, aPine, aBush)
             .machineOnly()
             .register();
         new CropMutation(MilkWart, Corium, Netherwart)
@@ -614,59 +555,59 @@ public class MutationLoader {
             .machineOnly()
             .register();
         new CropMutation(Olivia, EndStoneLily, EvilOre)
-            .addToMutationPools(aCrystal, aShiny, aProcessing, aOlivine)
+            .addToMutationPools(aCrystal, aShiny)
             .machineOnly()
             .register();
         new CropMutation(Osmianth, Platina, Scheelinium)
-            .addToMutationPools(aMetal, aOsmium, aFlower)
+            .addToMutationPools(aMetal, aFlower, aDense)
             .machineOnly()
             .register();
         // leather bound books, birch has a paper-like bark
         new CropMutation(Papyrus, Corium, BonsaiBirch)
-            .addToMutationPools(aWhite, aPaper)
+            .addToMutationPools(aWhite, aStem)
             .register();
         // TODO: ADD CHROME CROP AND REPLACE TITANIA WITH NEW CROP IN PLATINA MUTATION
         new CropMutation(Platina, Diareed, Titania)
-            .addToMutationPools(aMetal, aShiny, aReed, aPlatinum)
+            .addToMutationPools(aMetal, aShiny, aReed)
             .machineOnly()
             .register();
         new CropMutation(Plumbilia, Coppon, Withereed)
-            .addToMutationPools(aHeavy, aMetal, aLead, aReed)
+            .addToMutationPools(aHeavy, aMetal, aLead, aReed, aDense)
             .register();
         new CropMutation(Pyrolusium, Nickelback, Bauxia)
-            .addToMutationPools(aMetal, aClean, aBush, aManganese)
+            .addToMutationPools(aMetal, aClean, aBush)
             .register();
         new CropMutation(Reactoria, Titania, GodOfThunder)
-            .addToMutationPools(aRadioactive, aMetal, aDanger, aUranium)
+            .addToMutationPools(aRadioactive, aMetal, aDanger, aDense)
             .machineOnly()
             .register();
         new CropMutation(RedStraw, NetherStoneLily, Wheat)
-            .addToMutationPools(aRed, aRedstone, aWheat)
+            .addToMutationPools(aRed, aWheat)
             .register();
         new CropMutation(SaltyRoot, SugarBeet, Canola)
-            .addToMutationPools(aSalt, aGray, aRoot, aHydrophobic)
+            .addToMutationPools(aGray, aRoot, aSaltpeter)
             .register();
         new CropMutation(Sapphirum, EvilOre, Lazulia)
-            .addToMutationPools(aCrystal, aShiny, aMetal, aSapphire)
+            .addToMutationPools(aCrystal, aShiny, aMetal)
             .register();
         new CropMutation(Scheelinium, Titania, Pyrolusium, EndStoneLily)
-            .addToMutationPools(aMetal, aHard, aBush, aTungsten)
+            .addToMutationPools(aMetal, aBush, aDense)
             .machineOnly()
             .register();
         new CropMutation(SpaceFlower, EndStoneLily, Titania)
-            .addToMutationPools(aAlien, aSpace, aRadiation, aTransform)
+            .addToMutationPools(aAlien, aRadioactive, aTransform)
             .machineOnly()
             .register();
         // TODO: ADD PROPPER PLUTONIUM CROP AND REPLACE TROLL PLANT WITH NEW CROP IN STARGATIUM MUTATION
         new CropMutation(Stargatium, Iridine, Trollplant)
-            .addToMutationPools(aMetal, aHeavy, aAlien, aNaquadah)
+            .addToMutationPools(aMetal, aHeavy, aAlien)
             .machineOnly()
             .register();
         // late hv to early hv is where I want star wart to be gated around, might reconsider based on existing metas
         // it can be used in MECs for a pretty hefty amount of eu so gating it up until then is probably a go since
         // 1 nether star dust is like 1.5h of hv power in there.
         new CropMutation(StarWart, Withereed, Titania, GodOfThunder)
-            .addToMutationPools(aWither, aNether, aUndead, aNetherstar)
+            .addToMutationPools(aWither, aNether, aUndead)
             .machineOnly()
             .register();
         if (ModUtils.TwilightForest.isModLoaded()) {
@@ -678,7 +619,7 @@ public class MutationLoader {
             .addToMutationPools(aShiny, aMetal, aPine, aTin, aBush)
             .register();
         new CropMutation(Titania, Bauxia, RedStraw)
-            .addToMutationPools(aMetal, aHeavy, aReed, aTitanium)
+            .addToMutationPools(aMetal, aHeavy, aReed)
             .machineOnly()
             .register();
         new CropMutation(Transformium, Trollplant, Bauxia, Titania)
@@ -687,7 +628,7 @@ public class MutationLoader {
             .register();
         // goldfish is purely here to troll
         new CropMutation(Trollplant, Goldfish, Reactoria, Fertilia)
-            .addToMutationPools(aTroll, aBad, aScrap)
+            .addToMutationPools(aTroll, aBad)
             // small dust because suffer
             .addRequirement(new MachineBreedingCatalystRequirement().addOreDict("dustSmallPlutonium241", 1))
             // to provide whom ever might have actually used the lathe recipe in the past with some good ol ptsd.
@@ -713,19 +654,19 @@ public class MutationLoader {
                 .register();
         }
         new CropMutation(Corium, Wheat, Cocoa)
-            .addToMutationPools(aCow, aSilk, aTendrilly)
+            .addToMutationPools(aCow, aSilk, aTendrilly, aMilk)
             .register();
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
             new CropMutation(Corpseplant, Zomplant, Eyebulb)
-                .addToMutationPools(aToxic, aUndead, aTendrilly, aFood, aRotten)
+                .addToMutationPools(aToxic, aUndead, aTendrilly, aFood, aRotten, aZombie)
                 .register();
         }
         // sulfur, charcoal and salt peter
         new CropMutation(Creeperweed, NetherStoneLily, Withereed, SaltyRoot)
-            .addToMutationPools(aCreeper, aTendrilly, aExplosive, aFire, aSulfur, aSaltpeter, aCoal)
+            .addToMutationPools(aTendrilly, aFire, aSulfur, aSaltpeter, aCoal)
             .register();
         new CropMutation(EggPlant, Corium, OxeyeDaisy)
-            .addToMutationPools(aChicken, aEgg, aFood, aFeather, aFlower, aAddictive)
+            .addToMutationPools(aChicken, aFood, aFlower, aAddictive)
             .register();
         new CropMutation(Enderbloom, EndStoneLily, Creeperweed)
             .addToMutationPools(aEnder, aFlower, aShiny)
@@ -736,16 +677,16 @@ public class MutationLoader {
                 .register();
         }
         new CropMutation(Meatrose, Goldfish, EggPlant, Corium)
-            .addToMutationPools(aFood, aFlower, aCow, aFish, aChicken, aPig)
+            .addToMutationPools(aFood, aFlower, aCow, aFish, aChicken)
             .register();
         new CropMutation(Slimeplant, BlueOrchid, ClayLily)
             .addToMutationPools(aSlime, aBouncy, aSticky, aBush)
             .register();
         new CropMutation(Spidernip, Flax, Hemp, Zomplant)
-            .addToMutationPools(aToxic, aSilk, aSpider, aFlower, aIngredient, aAddictive)
+            .addToMutationPools(aToxic, aSilk, aFlower, aIngredient, aAddictive)
             .register();
         new CropMutation(Tearstalks, Goldfish, SoulSandLily, NetherStoneLily)
-            .addToMutationPools(aHealing, aNether, aIngredient, aReed, aGhast)
+            .addToMutationPools(aHealing, aNether, aIngredient, aReed)
             .register();
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
             new CropMutation(Zomplant, Withereed, Eyebulb)
@@ -766,23 +707,23 @@ public class MutationLoader {
                 .addToMutationPools(aBerry, aToxic, aBad, aBlue, aNether, aAddictive)
                 .register();
             new CropMutation(Stingberry, Thornvine, SaguaroCactus)
-                .addToMutationPools(aBerry, aToxic, aBad, aGreen, aNether, aAddictive)
+                .addToMutationPools(aBerry, aToxic, aBad, aGreen, aNether, aAddictive, aDanger)
                 .register();
             new CropMutation(Cotton, Flax, Hemp)
                 .addToMutationPools(aWhite, aCotton)
                 .register();
             new CropMutation(Thornvine, Vine, Cactus)
-                .addToMutationPools(aNether, aClimbable, aBad)
+                .addToMutationPools(aNether, aClimbable, aBad, aDanger)
                 .register();
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
                 new CropMutation(BlueGlowshroom, BlueOrchid, Glowflower)
-                    .addToMutationPools(aFood, aMushroom, aIngredient, aNether)
+                    .addToMutationPools(aFood, aMushroom, aIngredient, aNether, aLight)
                     .register();
                 new CropMutation(GreenGlowshroom, Cactus, Glowflower)
-                    .addToMutationPools(aFood, aMushroom, aIngredient, aNether)
+                    .addToMutationPools(aFood, aMushroom, aIngredient, aNether, aLight)
                     .register();
                 new CropMutation(PurpleGlowshroom, Indigo, Glowflower)
-                    .addToMutationPools(aFood, aMushroom, aIngredient, aNether)
+                    .addToMutationPools(aFood, aMushroom, aIngredient, aNether, aLight)
                     .register();
             }
         }
@@ -791,49 +732,49 @@ public class MutationLoader {
         // region ore berries
         if (ModUtils.TinkerConstruct.isModLoaded()) {
             new CropMutation(AluminiumOreBerry, GoldOreBerry, EssenceOreBerry)
-                .addToMutationPools(aOreBerry, aAluminium, aMetal, aAluminum)
+                .addToMutationPools(aOreBerry, aAluminium, aMetal, aAluminium, aDanger)
                 .register();
             new CropMutation(ArditeOreBerry, NetherStoneLily, Coppon, CopperOreBerry, Malaxia)
-                .addToMutationPools(aOreBerry, aArdite, aMetal, aOrange)
+                .addToMutationPools(aOreBerry, aMetal, aOrange, aDanger)
                 .register();
             new CropMutation(CobaltOreBerry, NetherStoneLily, ArditeOreBerry, Lazulia, GoldOreBerry)
-                .addToMutationPools(aOreBerry, aCobalt, aMetal, aBlue)
+                .addToMutationPools(aOreBerry, aMetal, aBlue, aDanger)
                 .register();
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
                 new CropMutation(CopperOreBerry, Malaxia, BoPBerry, StoneLily)
-                    .addToMutationPools(aOreBerry, aCopper, aMetal, aShiny)
+                    .addToMutationPools(aOreBerry, aCopper, aMetal, aShiny, aDanger)
                     .register();
             }
             new CropMutation(EssenceOreBerry, Creeperweed, Zomplant, Spidernip, Tearstalks)
-                .addToMutationPools(aOreBerry, aEssence, aUndead)
+                .addToMutationPools(aOreBerry, aEssence, aUndead, aDanger)
                 .register();
             new CropMutation(GoldOreBerry, CopperOreBerry, IronOreBerry, TinOreBerry)
-                .addToMutationPools(aOreBerry, aGold, aMetal)
+                .addToMutationPools(aOreBerry, aGold, aMetal, aDanger)
                 .register();
             new CropMutation(IronOreBerry, TinOreBerry, StoneLily)
-                .addToMutationPools(aOreBerry, aGray, aMetal)
+                .addToMutationPools(aOreBerry, aGray, aMetal, aDanger, aIron)
                 .register();
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
                 new CropMutation(TinOreBerry, Cassitine, BoPBerry, StoneLily)
-                    .addToMutationPools(aOreBerry, aTin, aMetal, aShiny)
+                    .addToMutationPools(aOreBerry, aTin, aMetal, aShiny, aDanger)
                     .register();
             }
             if (ModUtils.TwilightForest.isModLoaded()) {
                 new CropMutation(KnightmetalBerry, IronOreBerry, Torchberry, BonsaiDarkOak)
-                    .addToMutationPools(aOreBerry, aKnightly, aMetal)
+                    .addToMutationPools(aOreBerry, aMetal, aDanger)
                     .register();
             }
             if (ModUtils.Thaumcraft.isModLoaded()) {
                 // TODO: ADD GREATWOOD AND SILVER WOOD BONSAIS AND ADD DETERMINISTIC RECIPE FOR THAUMIUM ORE BERRY
                 new CropMutation(ThaumiumOreBerry, StoneLily, GoldOreBerry)
-                    .addToMutationPools(aOreBerry, aMagic, aMetal, aThaumium, aVoid)
+                    .addToMutationPools(aOreBerry, aMagic, aMetal, aVoid, aDanger)
                     .register();
                 new CropMutation(VoidOreBerry, ThaumiumOreBerry, GoldOreBerry)
-                    .addToMutationPools(aOreBerry, aMagic, aMetal, aVoid)
+                    .addToMutationPools(aOreBerry, aMagic, aMetal, aVoid, aDanger)
                     .register();
                 if (ModUtils.ThaumicBases.isModLoaded()) {
                     new CropMutation(ThauminiteOreBerry, ThaumiumOreBerry, ManaBean)
-                        .addToMutationPools(aOreBerry, aMagic, aMetal, aThauminite, aVoid)
+                        .addToMutationPools(aOreBerry, aMagic, aMetal, aVoid, aDanger)
                         .register();
                 }
             }
@@ -870,7 +811,7 @@ public class MutationLoader {
             .addToMutationPools(aGray, aStone, aWater)
             .register();
         new CropMutation(EndStoneLily, StoneLily, Enderbloom)
-            .addToMutationPools(aYellow, aStone, aAlien)
+            .addToMutationPools(aYellow, aStone, aAlien, aEnder)
             .register();
         new CropMutation(MarbleLily, StoneLily, OxeyeDaisy)
             .addToMutationPools(aWhite, aStone, aShiny)
@@ -900,12 +841,12 @@ public class MutationLoader {
                     .register();
             }
             new CropMutation(ManaBean, Cocoa, Cinderpearl, Shimmerleaf)
-                .addToMutationPools(aBerry, aBean, aMagic, aColorful)
+                .addToMutationPools(aBerry, aBean, aMagic)
                 .register();
             // prim perl can't be bred, only planted with an actual prim perl
             // redstraw because shimmerleaf is a quickilver/mercury source and redstone is also that
             new CropMutation(Shimmerleaf, WhiteTulip, RedStraw)
-                .addToMutationPools(aMagic, aSilver, aToxic)
+                .addToMutationPools(aMagic, aSilver, aToxic, aShimmer)
                 .register();
         }
         // endregion thaumcraft
@@ -913,7 +854,7 @@ public class MutationLoader {
         // region twilight forest
         if (ModUtils.TwilightForest.isModLoaded() && ModUtils.BiomesOPlenty.isModLoaded()) {
             new CropMutation(Torchberry, Glowflower, BoPBerry)
-                .addToMutationPools(aBerry, aGlow, aShimmer)
+                .addToMutationPools(aBerry, aLight, aShimmer)
                 .register();
         }
         // endregion thaumcraft
@@ -926,7 +867,7 @@ public class MutationLoader {
             .addToMutationPools(aGreen, aFood, aStem)
             .register();
         new CropMutation(Pumpkin, Carrot, SugarCane)
-            .addToMutationPools(aOrange, aDecoration, aStem)
+            .addToMutationPools(aOrange, aStem)
             .register();
         new CropMutation(RedMushroom, Pumpkin, Poppy)
             .addToMutationPools(aRed, aFood, aMushroom)
@@ -935,8 +876,8 @@ public class MutationLoader {
             .addToMutationPools(aBrown, aFood, aMushroom)
             .register();
         MutationRegistry.instance.register(Wheat, aYellow, aFood, aWheat);
-        MutationRegistry.instance.register(Carrot, aOrange, aFood, aCarrots);
-        MutationRegistry.instance.register(Potato, aYellow, aFood, aPotato);
+        MutationRegistry.instance.register(Carrot, aOrange, aFood, aCarrots, aRoot);
+        MutationRegistry.instance.register(Potato, aYellow, aFood, aRoot);
         MutationRegistry.instance.register(Dandelion, aFlower, aYellow);
         MutationRegistry.instance.register(Poppy, aRed, aFlower, aRose);
         new CropMutation(BlueOrchid, Poppy, Waterlily)
@@ -946,25 +887,25 @@ public class MutationLoader {
             .addToMutationPools(aFlower, aWhite)
             .register();
         new CropMutation(RedTulip, Poppy, WhiteTulip)
-            .addToMutationPools(aFlower, aRed)
+            .addToMutationPools(aFlower, aRed, aTulip)
             .register();
         new CropMutation(OrangeTulip, RedTulip, Dandelion)
-            .addToMutationPools(aFlower, aOrange)
+            .addToMutationPools(aFlower, aOrange, aTulip)
             .register();
         new CropMutation(PinkTulip, RedTulip, WhiteTulip)
-            .addToMutationPools(aFlower, aRed)
+            .addToMutationPools(aFlower, aRed, aTulip)
             .register();
         new CropMutation(WhiteTulip, PinkTulip, OxeyeDaisy)
-            .addToMutationPools(aFlower, aWhite)
+            .addToMutationPools(aFlower, aWhite, aTulip)
             .register();
         new CropMutation(Allium, PinkTulip, PurpleTulip)
-            .addToMutationPools(aFlower, aPurple)
+            .addToMutationPools(aFlower, aPurple, aRoot)
             .register();
         new CropMutation(OxeyeDaisy, AzureBluet, Dandelion)
             .addToMutationPools(aFlower, aWhite)
             .register();
         new CropMutation(Cactus, SugarCane, Potato)
-            .addToMutationPools(aGreen, aCactus)
+            .addToMutationPools(aGreen, aCactus, aDanger)
             .register();
         new CropMutation(SugarCane, Carrot, Potato)
             .addToMutationPools(aReed)
@@ -973,7 +914,7 @@ public class MutationLoader {
             .addToMutationPools(aRed, aNether, aIngredient, aSoulsand)
             .register();
         new CropMutation(Vine, Pumpkin, BlueOrchid)
-            .addToMutationPools(aGreen, aTendrilly)
+            .addToMutationPools(aGreen, aTendrilly, aClimbable)
             .register();
         new CropMutation(Waterlily, Vine, SugarCane)
             .addToMutationPools(aBlue, aWater, aGreen)
@@ -991,7 +932,7 @@ public class MutationLoader {
                     .register();
             }
             new CropMutation(Garlic, Onion, Allium)
-                .addToMutationPools(aFood, aIngredient, aHealing)
+                .addToMutationPools(aFood, aIngredient, aHealing, aRoot)
                 .register();
             new CropMutation(GlintWeed, Vine, EmberMoss)
                 .addToMutationPools(aOrange, aFlower, aMagic)
@@ -1000,7 +941,7 @@ public class MutationLoader {
                 .addToMutationPools(aFlower, aMagic, aBad, aToxic, aIngredient)
                 .register();
             new CropMutation(Snowbell, Belladonna, GlintWeed)
-                .addToMutationPools(aWhite, aFlower, aIce, aToxic, aIngredient, aSnow)
+                .addToMutationPools(aWhite, aFlower, aToxic, aIngredient)
                 .register();
             new CropMutation(SpanishMoss, Moss, EmberMoss)
                 .addToMutationPools(aGreen, aClimbable, aMagic)
