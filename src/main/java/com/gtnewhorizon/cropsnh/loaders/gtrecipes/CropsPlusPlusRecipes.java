@@ -49,7 +49,6 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
     // TODO: CONSIDER MOVING ALL OF THIS TO CORE MOD OR GT5U
 
     public static void postInit() {
-        addStoneDustCompressionRecipes();
         addHoneyConversionRecipes();
         addBerryToSugarRecipes();
         addAlcoholRecipes();
@@ -61,40 +60,6 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
             new ItemStack(Items.sugar, 4, 0),
             GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED,
             new Object[] { ToolDictNames.craftingToolMortar, CropsNHItemList.sugarBeet.get(1) });
-    }
-
-    private static void addStoneDustCompressionRecipes() {
-        // stone lily related things
-
-        // stone plate to stone block
-        ulvRecipe(3, 75).itemInputs(Materials.Stone.getPlates(4))
-            .itemOutputs(new ItemStack(Blocks.stone, 3))
-            .addTo(RecipeMaps.compressorRecipes);
-
-        // marble dust to marble block
-        ulvRecipe(3, 75).itemInputs(Materials.Marble.getDust(1))
-            .itemOutputs(Materials.Marble.getBlocks(1))
-            .addTo(RecipeMaps.compressorRecipes);
-
-        // red granite dust to red granite plate
-        ulvRecipe(3, 75).itemInputs(Materials.GraniteRed.getDust(1))
-            .itemOutputs(Materials.GraniteRed.getPlates(1))
-            .addTo(RecipeMaps.compressorRecipes);
-
-        // red granite plate to red granite block
-        ulvRecipe(3, 75).itemInputs(Materials.GraniteRed.getPlates(4))
-            .itemOutputs(new ItemStack(GregTechAPI.sBlockGranites, 3, 8))
-            .addTo(RecipeMaps.compressorRecipes);
-
-        // black granite dust to black granite plate
-        ulvRecipe(3, 75).itemInputs(Materials.GraniteBlack.getDust(1))
-            .itemOutputs(Materials.GraniteBlack.getPlates(1))
-            .addTo(RecipeMaps.compressorRecipes);
-
-        // black granite plates to black granite block
-        ulvRecipe(3, 75).itemInputs(Materials.GraniteBlack.getPlates(4))
-            .itemOutputs(new ItemStack(GregTechAPI.sBlockGranites, 3))
-            .addTo(RecipeMaps.compressorRecipes);
     }
 
     private static void addHoneyConversionRecipes() {
