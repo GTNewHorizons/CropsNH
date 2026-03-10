@@ -110,6 +110,12 @@ public interface ICropStickTile {
     boolean canGrow();
 
     /**
+     * @return if the growth requirements of the current crop are met
+     * @implNote assumes the current crop sticks contain a valid non-weed crop
+     */
+    boolean areGrowthRequirementsMet();
+
+    /**
      * @return if this crop is fully grown
      */
     boolean isMature();

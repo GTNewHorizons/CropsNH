@@ -129,8 +129,10 @@ public abstract class ItemSpadeNH extends ItemTool implements ICropLeftClickHand
             te.clear();
             return true;
         }
-        // else only drop seeds if we can harvest the crops.
-        if (te.doPlayerHarvest()) {
+
+        // else only drop seeds if we can harvest the crops, would be usually harvestable but isn't due to a harvest
+        // only requirement
+        if (te.doPlayerHarvest() || (te.isMature() && te.areGrowthRequirementsMet())) {
             // get the seeds
             ItemStack seedDrop = te.getSeedStack();
             if (seedDrop != null) {
