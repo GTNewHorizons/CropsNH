@@ -923,7 +923,7 @@ public class MutationLoader {
 
         // region witchery
         if (ModUtils.Witchery.isModLoaded()) {
-            new CropMutation(Belladonna, PurpleTulip, PinkTulip)
+            new CropMutation(Belladonna, PurpleTulip, Huckleberry)
                 .addToMutationPools(aPurple, aFlower, aToxic, aIngredient)
                 .register();
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
