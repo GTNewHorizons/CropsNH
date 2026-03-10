@@ -239,7 +239,7 @@ public class MTECropSynthesizer extends MTEBasicMachine {
      * Starts at 5 minutes at tier 1, ends at 10 minutes at tier 16
      */
     public static int getRecipeDuration(ICropCard cc) {
-        return (int) (BASE_RECIPE_TIME * Math.log(cc.getTier()) / BASE_RECIPE_TIME_LOG_BASE);
+        return (int) (BASE_RECIPE_TIME + BASE_RECIPE_TIME * Math.log(cc.getTier()) / BASE_RECIPE_TIME_LOG_BASE);
     }
 
     @Override
