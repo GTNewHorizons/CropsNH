@@ -235,6 +235,12 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             this.failedChecks = null;
             return true;
         }
+
+        return !this.isMature() && this.areGrowthRequirementsMet();
+    }
+
+    @Override
+    public boolean areGrowthRequirementsMet() {
         // Check the world growth requirements
         Iterable<IGrowthRequirement> reqs = this.seed.getCrop()
             .getGrowthRequirements();
@@ -244,8 +250,8 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             return true;
         }
 
-        boolean success = !this.isMature();
         LinkedList<IGrowthRequirement> failedReqs = null;
+        boolean success = true;
         for (IGrowthRequirement req : reqs) {
             // only check world growth requirements.
             if (!(req instanceof IWorldGrowthRequirement worldReq)) continue;
