@@ -232,8 +232,14 @@ public class MTECropSynthesizer extends MTEBasicMachine {
         return (int) (GTValues.VP[MTECropGeneExtractor.getVoltageTierForCrop(cc)] * AMPERAGE);
     }
 
+    private static final int BASE_RECIPE_TIME = 300 * GTRecipeBuilder.SECONDS;
+    private static final double BASE_RECIPE_TIME_LOG_BASE = Math.log(16.0d);
+
+    /**
+     * Starts at 5 minutes at tier 1, ends at 10 minutes at tier 16
+     */
     public static int getRecipeDuration(ICropCard cc) {
-        return (int) (GTRecipeBuilder.SECONDS * 20 * Math.pow(1.5, cc.getTier()));
+        return (int) (BASE_RECIPE_TIME * Math.log(cc.getTier()) / BASE_RECIPE_TIME_LOG_BASE);
     }
 
     @Override

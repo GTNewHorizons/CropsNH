@@ -51,8 +51,8 @@ import gregtech.common.items.behaviors.BehaviourDataOrb;
 public class MTECropGeneExtractor extends MTEBasicMachine {
 
     public static final int AMPERAGE = 1;
-    public static final int DURATION_SPECIMEN = 2 * GTRecipeBuilder.MINUTES;
-    public static final int DURATION_STAT = 30 * GTRecipeBuilder.SECONDS;
+    public static final int DURATION_SPECIMEN = 5 * GTRecipeBuilder.MINUTES;
+    public static final int DURATION_STAT = DURATION_SPECIMEN / 2;
 
     public MTECropGeneExtractor(int aID, int aTier) {
         super(
