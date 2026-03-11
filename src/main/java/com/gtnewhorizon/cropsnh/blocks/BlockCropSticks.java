@@ -39,6 +39,11 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class BlockCropSticks extends BlockContainerCropsNH {
 
+    // 2 pixels all sides
+    private static final float COLLISION_BOX_XZ_SHRINK = 0.125F;
+    // 3 pixels on top side
+    private static final float COLLISION_BOX_Y_SHRINK = 0.1875F;
+
     /** The default constructor for the block. */
     public BlockCropSticks() {
         super(Material.plants);
@@ -47,6 +52,13 @@ public class BlockCropSticks extends BlockContainerCropsNH {
         this.setHardness(0.8F);
         this.setHardness(0.2F);
         this.disableStats();
+        this.setBlockBounds(
+            COLLISION_BOX_XZ_SHRINK,
+            0.0F,
+            COLLISION_BOX_XZ_SHRINK,
+            1.0F - COLLISION_BOX_XZ_SHRINK,
+            1.0F - COLLISION_BOX_Y_SHRINK,
+            1.0F - COLLISION_BOX_XZ_SHRINK);
     }
 
     @Override
@@ -182,8 +194,7 @@ public class BlockCropSticks extends BlockContainerCropsNH {
 
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World worldIn, int x, int y, int z) {
-        double d = 0.2;
-        return AxisAlignedBB.getBoundingBox(d, 0.0d, d, (1.0d - d), 0.7d, (1.0d - d));
+        return null;
     }
 
     @Override
@@ -191,6 +202,11 @@ public class BlockCropSticks extends BlockContainerCropsNH {
         final TileEntity te = world.getTileEntity(x, y, z);
         if (!(te instanceof ICropStickTile)) return;
         ((ICropStickTile) te).onEntityCollision(entity);
+    }
+
+    @Override
+    public boolean isBlockSolid(IBlockAccess worldIn, int x, int y, int z, int side) {
+        return false;
     }
 
     /**
