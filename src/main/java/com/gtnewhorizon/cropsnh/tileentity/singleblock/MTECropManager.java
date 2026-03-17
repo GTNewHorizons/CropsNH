@@ -309,13 +309,11 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         // first attempt to empty the drop overflow back into the machine
         // is empty and size, work around it
         if (!this.mDropOverflow.isEmpty()) {
-            for (Map.Entry<ItemStack, Integer> overflowEntry : this.mDropOverflow.entrySet()) {
-                overflowEntry.setValue(tryInsertOutputStack(overflowEntry.getKey(), overflowEntry.getValue()));
-                if (overflowEntry.getValue() <= 0) {
-                    // somehow this doesn't cause a concurent modification error?
-                    this.mDropOverflow.remove(overflowEntry.getKey());
-                }
-            }
+            this.mDropOverflow.entrySet()
+                .removeIf((overflowEntry) -> {
+                    overflowEntry.setValue(tryInsertOutputStack(overflowEntry.getKey(), overflowEntry.getValue()));
+                    return overflowEntry.getValue() <= 0;
+                });
         }
 
         // if anything remains in the drop queue skip harvesting
