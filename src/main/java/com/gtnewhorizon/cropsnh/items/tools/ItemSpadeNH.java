@@ -34,7 +34,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public abstract class ItemSpadeNH extends ItemTool implements ICropLeftClickHandler, ICropRightClickHandler {
 
-    private static final Set<Block> BLOCKS_AFFECTED = Sets.newHashSet(
+    public static final Set<Block> BLOCKS_AFFECTED = Sets.newHashSet(
         Blocks.grass,
         Blocks.dirt,
         Blocks.snow_layer,
@@ -48,6 +48,7 @@ public abstract class ItemSpadeNH extends ItemTool implements ICropLeftClickHand
         this.setTextureName(Reference.MOD_ID + ":" + getInternalName());
         this.setCreativeTab(CropsNHTab.cropsNHTab);
         this.setMaxDamage(0);
+        this.setHarvestLevel("spade", 1);
         RegisterHelper.registerItem(this, getInternalName());
     }
 
