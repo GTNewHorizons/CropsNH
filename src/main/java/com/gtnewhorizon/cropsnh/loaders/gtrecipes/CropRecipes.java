@@ -724,7 +724,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             // Because it's living in agony after being poisoned.
             // it used to output gold, but screaming because your rich is pointless,
             // you'll be out of everything in a tier or two anyway.
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Mercury, 10))
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Mercury, 1))
             .outputChances(1_00)
             .fluidOutputs(Materials.FishOil.getFluid(100))
             .addTo(fluidExtractionRecipes);
