@@ -24,7 +24,7 @@ import gregtech.api.util.tooltip.TooltipHelper;
 
 public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
 
-    private final static double SLOT_MULTIPLIER = 2.5d;
+    private final static double SLOT_MULTIPLIER = 1.0d;
 
     public BlockSeedBed() {
         super(
