@@ -70,7 +70,7 @@ item.cropsnh:materialLeaf.starWart.name=Star Wart
 item.cropsnh:materialLeaf.hops.name=Hops
 item.cropsnh:materialLeaf.hempStem.name=Hemp Stem
 # Environmental Module Items
-item.cropsnh:environmentalModule.blank=Environmental Module (%1$s)
+item.cropsnh:environmentalModule.blank=Blank Environmental Module
 item.cropsnh:environmentalModule.template=Environmental Module (%1$s)
 
 # Blocks
