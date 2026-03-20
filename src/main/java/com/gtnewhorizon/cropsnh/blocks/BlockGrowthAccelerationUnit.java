@@ -13,11 +13,12 @@ import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.util.tooltip.TooltipHelper;
 
 public class BlockGrowthAccelerationUnit extends CropsNHBlockIndustrialFarmTiredComponent {
 
-    public final static double GROWTH_SPEED_BONUS = 1.0d;
-    public final static double BASE_POWER_INCREASE = 1.25d;
+    public final static double GROWTH_SPEED_BONUS = 1.0f;
+    public final static double BASE_POWER_INCREASE = 1.25f;
     public final static int MIN_TIER = VoltageIndex.MV;
 
     public BlockGrowthAccelerationUnit() {
@@ -39,27 +40,34 @@ public class BlockGrowthAccelerationUnit extends CropsNHBlockIndustrialFarmTired
 
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
         super.addInformation(stack, player, tooltip, advancedTooltips);
+
+        String speedIncreaseText = TooltipHelper
+            .coloredText(TooltipHelper.percentageFormat.format(GROWTH_SPEED_BONUS), TooltipHelper.SPEED_COLOR);
+        String powerIncreaseText = TooltipHelper
+            .coloredText(TooltipHelper.percentageFormat.format(BASE_POWER_INCREASE), TooltipHelper.EU_VOLT_COLOR);
+
         // specific
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.growthAccelerationUnit.0"));
         if (advancedTooltips) {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.growthAccelerationUnit.1.adv",
-                    GROWTH_SPEED_BONUS * 100));
+                    speedIncreaseText));
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.growthAccelerationUnit.2.adv",
-                    BASE_POWER_INCREASE * 100));
+                    powerIncreaseText));
         } else {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.growthAccelerationUnit.1",
-                    GROWTH_SPEED_BONUS * 100));
+                    speedIncreaseText));
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.growthAccelerationUnit.2",
-                    BASE_POWER_INCREASE * 100));
+                    powerIncreaseText));
         }
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.growthAccelerationUnit.3"));
         // generic
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgradeTierMustMatchSeedBed"));
     }

@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.blocks;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -86,20 +88,23 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
         super.addInformation(aStack, aPlayer, aTooltip, aAdvancedTooltips);
         aTooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedBed.0"));
         int tMeta = CropsNHUtils.getItemMeta(aStack);
-        aTooltip
-            .add(StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.1", getCapacity(tMeta)));
+        aTooltip.add(
+            StatCollector.translateToLocalFormatted(
+                Reference.MOD_ID + "_tooltip.seedBed.1",
+                TooltipHelper.parallelText(getCapacity(tMeta))));
         aTooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.2",
                 TooltipHelper.fluidText(getWaterConsumption(tMeta))));
 
         int length = getMultiLength(tMeta);
+        String lengthText = TooltipHelper.tierText(formatNumber(length));
         if (length == 1) {
-            aTooltip
-                .add(StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.3.single", length));
+            aTooltip.add(
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.3.single", lengthText));
         } else {
-            aTooltip
-                .add(StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.3.plural", length));
+            aTooltip.add(
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.3.plural", lengthText));
         }
 
     }

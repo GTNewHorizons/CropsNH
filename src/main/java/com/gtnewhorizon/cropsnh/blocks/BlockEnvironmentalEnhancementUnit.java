@@ -13,6 +13,7 @@ import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.util.tooltip.TooltipHelper;
 
 public class BlockEnvironmentalEnhancementUnit extends CropsNHBlockIndustrialFarmTiredComponent {
 
@@ -39,6 +40,10 @@ public class BlockEnvironmentalEnhancementUnit extends CropsNHBlockIndustrialFar
 
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
         super.addInformation(stack, player, tooltip, advancedTooltips);
+
+        String powerIncreaseText = TooltipHelper
+            .coloredText(TooltipHelper.percentageFormat.format(BASE_POWER_INCREASE), TooltipHelper.EU_VOLT_COLOR);
+
         // specific
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.environmentalEnhancementUnit.0"));
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.environmentalEnhancementUnit.1"));
@@ -46,12 +51,12 @@ public class BlockEnvironmentalEnhancementUnit extends CropsNHBlockIndustrialFar
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.environmentalEnhancementUnit.2.adv",
-                    BASE_POWER_INCREASE * 100));
+                    powerIncreaseText));
         } else {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.environmentalEnhancementUnit.2",
-                    BASE_POWER_INCREASE * 100));
+                    powerIncreaseText));
         }
         // generic
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgradeTierMustMatchSeedBed"));

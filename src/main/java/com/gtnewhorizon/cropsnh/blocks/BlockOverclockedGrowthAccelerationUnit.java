@@ -36,7 +36,9 @@ public class BlockOverclockedGrowthAccelerationUnit extends CropsNHBlockIndustri
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
         super.addInformation(stack, player, tooltip, advancedTooltips);
         // specific
-        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.overclockedGrowthAccelerationUnit"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.overclockedGrowthAccelerationUnit.0"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.overclockedGrowthAccelerationUnit.1"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.overclockedGrowthAccelerationUnit.2"));
         // generic
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgradeTierMustMatchSeedBed"));
         tooltip.add(
