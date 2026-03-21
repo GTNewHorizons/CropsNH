@@ -34,7 +34,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import gregtech.api.util.tooltip.TooltipHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -99,6 +98,7 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.ItemEjectionHelper;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
+import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
 import gregtech.common.misc.GTStructureChannels;
 
@@ -486,8 +486,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addSeparator()
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.1"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.2"))
-            .addInfo(StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.industrialFarm.3",
-                TooltipHelper.coloredText(TooltipHelper.percentageFormat.format(HARVEST_BONUS_PER_TIER), TooltipHelper.EFF_COLOR)));
+            .addInfo(
+                StatCollector.translateToLocalFormatted(
+                    Reference.MOD_ID + "_tooltip.industrialFarm.3",
+                    TooltipHelper.coloredText(
+                        TooltipHelper.percentageFormat.format(HARVEST_BONUS_PER_TIER),
+                        TooltipHelper.EFF_COLOR)));
 
         String hatchHint = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.hatch");
         tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, false)

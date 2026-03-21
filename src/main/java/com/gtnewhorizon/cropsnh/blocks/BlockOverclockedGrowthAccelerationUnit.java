@@ -49,7 +49,10 @@ public class BlockOverclockedGrowthAccelerationUnit extends CropsNHBlockIndustri
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         super.registerBlockIcons(aIconRegister);
-        this.mBottomIcon = this.mTopIcon = aIconRegister
-            .registerIcon(Reference.MOD_ID + ":industrialFarm/overclockedGrowthAccelerationUnit");
+        this.registerIconArray(
+            aIconRegister,
+            Reference.MOD_ID + ":industrialFarm/overclockedGrowthAccelerationUnit/",
+            this.mTopIcons);
+        System.arraycopy(mTopIcons, 0, this.mBottomIcons, 0, this.mTopIcons.length);
     }
 }

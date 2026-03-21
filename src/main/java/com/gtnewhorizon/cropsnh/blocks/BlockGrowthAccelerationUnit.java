@@ -75,7 +75,10 @@ public class BlockGrowthAccelerationUnit extends CropsNHBlockIndustrialFarmTired
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         super.registerBlockIcons(aIconRegister);
-        this.mBottomIcon = this.mTopIcon = aIconRegister
-            .registerIcon(Reference.MOD_ID + ":industrialFarm/growthAccelerationUnit");
+        this.registerIconArray(
+            aIconRegister,
+            Reference.MOD_ID + ":industrialFarm/growthAccelerationUnit/",
+            this.mTopIcons);
+        System.arraycopy(mTopIcons, 0, this.mBottomIcons, 0, this.mTopIcons.length);
     }
 }

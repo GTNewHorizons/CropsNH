@@ -78,7 +78,10 @@ public class BlockAdvancedHarvestingUnit extends CropsNHBlockIndustrialFarmTired
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         super.registerBlockIcons(aIconRegister);
-        this.mBottomIcon = this.mTopIcon = aIconRegister
-            .registerIcon(Reference.MOD_ID + ":industrialFarm/advancedHarvestingUnit");
+        this.registerIconArray(
+            aIconRegister,
+            Reference.MOD_ID + ":industrialFarm/advancedHarvestingUnit/",
+            this.mTopIcons);
+        System.arraycopy(mTopIcons, 0, this.mBottomIcons, 0, this.mTopIcons.length);
     }
 }
