@@ -19,9 +19,9 @@ import gregtech.api.util.tooltip.TooltipHelper;
 public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponent {
 
     public final static int MAX_UPGRADE_COUNT = 1;
-    public final static double BASE_POWER_INCREASE = 0.5d;
-    public final static double GROWTH_SPEED_MULTIPLIER = 0.5d;
-    public final static double HARVEST_ROUND_BONUS = 0.5d;
+    public final static float BASE_POWER_INCREASE = 0.5f;
+    public final static float GROWTH_SPEED_MULTIPLIER = 0.5f;
+    public final static float HARVEST_ROUND_BONUS = 0.5f;
     public final static int MIN_TIER = VoltageIndex.MV;
 
     public BlockFertilizerUnit() {
@@ -47,6 +47,14 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
 
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
         super.addInformation(stack, player, tooltip, advancedTooltips);
+
+        String speedIncreaseText = TooltipHelper
+            .coloredText(TooltipHelper.percentageFormat.format(GROWTH_SPEED_MULTIPLIER), TooltipHelper.SPEED_COLOR);
+        String roundIncreaseText = TooltipHelper
+            .coloredText(TooltipHelper.percentageFormat.format(HARVEST_ROUND_BONUS), TooltipHelper.EFF_COLOR);
+        String powerIncreaseText = TooltipHelper
+            .coloredText(TooltipHelper.percentageFormat.format(BASE_POWER_INCREASE), TooltipHelper.EU_VOLT_COLOR);
+
         // specific
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.fertilizerUnit.0"));
         tooltip.add(
@@ -55,30 +63,24 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
                 TooltipHelper.fluidText(getFertilizerConsumptionPerCycle(CropsNHUtils.getItemMeta(stack)))));
         if (advancedTooltips) {
             tooltip.add(
-                StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID + "_tooltip.fertilizerUnit.2.adv",
-                    GROWTH_SPEED_MULTIPLIER * 100));
+                StatCollector
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.2.adv", speedIncreaseText));
             tooltip.add(
-                StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID + "_tooltip.fertilizerUnit.3.adv",
-                    HARVEST_ROUND_BONUS * 100));
+                StatCollector
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.3.adv", roundIncreaseText));
             tooltip.add(
-                StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID + "_tooltip.fertilizerUnit.4.adv",
-                    BASE_POWER_INCREASE * 100));
+                StatCollector
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.4.adv", powerIncreaseText));
         } else {
             tooltip.add(
-                StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID + "_tooltip.fertilizerUnit.2",
-                    GROWTH_SPEED_MULTIPLIER * 100));
+                StatCollector
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.2", speedIncreaseText));
             tooltip.add(
-                StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID + "_tooltip.fertilizerUnit.3",
-                    HARVEST_ROUND_BONUS * 100));
+                StatCollector
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.3", roundIncreaseText));
             tooltip.add(
-                StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID + "_tooltip.fertilizerUnit.4",
-                    BASE_POWER_INCREASE * 100));
+                StatCollector
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.4", powerIncreaseText));
         }
         // generic
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgradeTierMustMatchSeedBed"));
@@ -90,7 +92,7 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         super.registerBlockIcons(aIconRegister);
-        this.mBottomIcon = this.mTopIcon = aIconRegister
-            .registerIcon(Reference.MOD_ID + ":industrialFarm/fertilizerUnit");
+        this.registerIconArray(aIconRegister, Reference.MOD_ID + ":industrialFarm/fertilizerUnit/", this.mTopIcons);
+        System.arraycopy(mTopIcons, 0, this.mBottomIcons, 0, this.mTopIcons.length);
     }
 }

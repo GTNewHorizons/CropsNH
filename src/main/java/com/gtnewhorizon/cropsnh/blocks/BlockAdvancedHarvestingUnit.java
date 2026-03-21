@@ -13,6 +13,7 @@ import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.util.tooltip.TooltipHelper;
 
 public class BlockAdvancedHarvestingUnit extends CropsNHBlockIndustrialFarmTiredComponent {
 
@@ -40,26 +41,32 @@ public class BlockAdvancedHarvestingUnit extends CropsNHBlockIndustrialFarmTired
 
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
         super.addInformation(stack, player, tooltip, advancedTooltips);
+
+        String roundIncreaseText = TooltipHelper
+            .coloredText(TooltipHelper.percentageFormat.format(HARVEST_ROUND_MULTIPLIER), TooltipHelper.EFF_COLOR);
+        String powerIncreaseText = TooltipHelper
+            .coloredText(TooltipHelper.percentageFormat.format(BASE_POWER_INCREASE), TooltipHelper.EU_VOLT_COLOR);
+
         // specific
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.advancedHarvestingUnit.0"));
         if (advancedTooltips) {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.advancedHarvestingUnit.1.adv",
-                    HARVEST_ROUND_MULTIPLIER * 100));
+                    roundIncreaseText));
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.advancedHarvestingUnit.2.adv",
-                    BASE_POWER_INCREASE * 100));
+                    powerIncreaseText));
         } else {
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.advancedHarvestingUnit.1",
-                    HARVEST_ROUND_MULTIPLIER * 100));
+                    roundIncreaseText));
             tooltip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.advancedHarvestingUnit.2",
-                    BASE_POWER_INCREASE * 100));
+                    powerIncreaseText));
         }
         // generic
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgradeTierMustMatchSeedBed"));
@@ -71,7 +78,10 @@ public class BlockAdvancedHarvestingUnit extends CropsNHBlockIndustrialFarmTired
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         super.registerBlockIcons(aIconRegister);
-        this.mBottomIcon = this.mTopIcon = aIconRegister
-            .registerIcon(Reference.MOD_ID + ":industrialFarm/advancedHarvestingUnit");
+        this.registerIconArray(
+            aIconRegister,
+            Reference.MOD_ID + ":industrialFarm/advancedHarvestingUnit/",
+            this.mTopIcons);
+        System.arraycopy(mTopIcons, 0, this.mBottomIcons, 0, this.mTopIcons.length);
     }
 }

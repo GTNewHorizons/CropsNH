@@ -98,12 +98,15 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.ItemEjectionHelper;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
+import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
 import gregtech.common.misc.GTStructureChannels;
 
 public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustrialFarm>
     implements ISurvivalConstructable {
 
+    /** The number of bonus harvests awarded per tier of seed-bed, measured as voltageIndex * bonus */
+    public static final double HARVEST_BONUS_PER_TIER = 0.2d;
     /** The duration of the production cycle in seconds. */
     public static final int CYCLE_DURATION = 5 * SECONDS;
     /** The amount of water that should be stored in the crop stick when calculating the growth speed */
@@ -480,9 +483,15 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
         tt.addMachineType(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.machineType"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.0"))
+            .addSeparator()
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.1"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.2"))
-            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.3"));
+            .addInfo(
+                StatCollector.translateToLocalFormatted(
+                    Reference.MOD_ID + "_tooltip.industrialFarm.3",
+                    TooltipHelper.coloredText(
+                        TooltipHelper.percentageFormat.format(HARVEST_BONUS_PER_TIER),
+                        TooltipHelper.EFF_COLOR)));
 
         String hatchHint = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.hatch");
         tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, false)
@@ -1175,7 +1184,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         // additive bonuses
         // Yes it's intended to start at 40% more harvests (due to min tier.
         // This is to make the multi inherently better than the equivalent crop manager)
-        multiplier += this.mUpgradeTier * 0.2d;
+        multiplier += this.mUpgradeTier * HARVEST_BONUS_PER_TIER;
         multiplier += this.mFertilizerUnitCount * BlockFertilizerUnit.HARVEST_ROUND_BONUS;
         // multiplicative bonuses
         multiplier *= 1.0d + (this.mAdvancedHarvestingUnitCount * BlockAdvancedHarvestingUnit.HARVEST_ROUND_MULTIPLIER);
