@@ -1179,7 +1179,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         // additive bonuses
         // Yes it's intended to start at 40% more harvests (due to min tier.
         // This is to make the multi inherently better than the equivalent crop manager)
-        multiplier += this.mUpgradeTier * BlockSeedBed.getHarvestRoundBonus(this.mUpgradeTier);
+        multiplier += BlockSeedBed.getHarvestRoundBonus(this.mUpgradeTier);
         multiplier += this.mFertilizerUnitCount * BlockFertilizerUnit.HARVEST_ROUND_BONUS;
         // multiplicative bonuses
         multiplier *= 1.0d + (this.mAdvancedHarvestingUnitCount * BlockAdvancedHarvestingUnit.HARVEST_ROUND_MULTIPLIER);
