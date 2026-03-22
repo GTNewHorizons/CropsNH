@@ -1068,7 +1068,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         this.lEUt = -this.mExpectedEUt;
         this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
         this.mEfficiencyIncrease = 10000;
-        this.mMaxProgresstime = 100;
+        this.mMaxProgresstime = CYCLE_DURATION;
         return CheckRecipeResultRegistry.SUCCESSFUL;
     }
 
@@ -1162,9 +1162,13 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         double tGrowthPerCycle = (((double) tUnscaledGrowthSpeed) / TileEntityCropSticks.TICK_RATE) * CYCLE_DURATION;
         // apply growth speed multipliers
         tGrowthPerCycle *= this.getGrowthSpeedMultiplier();
+        if (tGrowthPerCycle <= 0) return -1;
         // calculate percentage grown each tick.
-        return tGrowthPerCycle / aCrop.getCrop()
-            .getGrowthDuration();
+        return Math.min(
+            1.0d,
+            1.0d / Math.ceil(
+                aCrop.getCrop()
+                    .getGrowthDuration() / tGrowthPerCycle));
     }
 
     /**
@@ -1211,9 +1215,10 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .getDropTable()
             .entrySet()) {
             ItemStack stack = entry.getKey();
-            double chance = entry.getValue() / 10_000D;
+            double chance = entry.getValue() / 10_000d;
             // scale by chance and progress completed each cycle.
-            drops.addDrop(stack, (avgDropIncrease + stack.stackSize) * avgDropCount * chance * tProgressPerCycle);
+            double unscaled = (stack.stackSize + avgDropIncrease) * chance * avgDropCount;
+            drops.addDrop(stack, unscaled * tProgressPerCycle);
         }
 
         return drops;

@@ -192,9 +192,10 @@ public interface ICropStickTile {
     /**
      * Harvests this crop and returns the items that were dropped.
      *
+     * @param dropMultiplier A multiplier for the number of drop rounds.
      * @return The items that were dropped
      */
-    ArrayList<ItemStack> harvest();
+    ArrayList<ItemStack> harvest(double dropMultiplier);
 
     /**
      * Harvests the crop and drops the items in the TE's world.

@@ -513,8 +513,11 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             && this.failedChecks == null;
     }
 
+    static double test = 0;
+    static int printCounter = 0;
+
     @Override
-    public ArrayList<ItemStack> harvest() {
+    public ArrayList<ItemStack> harvest(double dropMultiplier) {
         // must be fully grown to harvest
         if (!canHarvest()) return null;
 
@@ -529,18 +532,21 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             seed.getCrop(),
             this.seed.getStats()
                 .getGain());
-        int dropCount = (int) avgDropRounds;
-        if (XSTR.XSTR_INSTANCE.nextDouble() <= (avgDropRounds % 1.0d)) {
-            dropCount++;
-        }
-
-        if (dropCount <= 0) return null;
+        avgDropRounds *= dropMultiplier;
+        // roll drop table
+        ArrayList<ItemStack> ret = new ArrayList<>();
         // check if we got a drop
         Map<ItemStack, Integer> dropTable = this.seed.getCrop()
             .getDropTable();
         if (dropTable == null) return null;
-        // roll drop table
-        ArrayList<ItemStack> ret = new ArrayList<>();
+
+        int dropCount = (int) (avgDropRounds);
+        if (XSTR.XSTR_INSTANCE.nextDouble() <= (avgDropRounds % 1.0d)) {
+            dropCount++;
+        }
+        // abort if no drops
+        if (dropCount <= 0) return null;
+
         for (Map.Entry<ItemStack, Integer> drop : dropTable.entrySet()) {
             int count = 0;
             int gainBonus = 0;
@@ -555,11 +561,16 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 }
             }
             if (count > 0) {
-                ItemStack stack = drop.getKey()
-                    .copy();
-                stack.stackSize *= count;
-                stack.stackSize += gainBonus;
-                ret.add(stack);
+                int remaining = count * getSeedStack().stackSize + gainBonus;
+                while (remaining > 0) {
+                    ItemStack stack = drop.getKey()
+                        .copy();
+                    int toDrop = Math.min(stack.getMaxStackSize(), remaining);
+                    remaining -= toDrop;
+                    stack.stackSize = toDrop;
+                    ret.add(stack);
+                }
+
             }
         }
         return ret;
@@ -569,7 +580,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     public boolean doPlayerHarvest() {
         // check if we can harvest this crop
         if (!canHarvest()) return false;
-        ArrayList<ItemStack> drops = harvest();
+        ArrayList<ItemStack> drops = harvest(1.0d);
         if (drops != null) {
             for (ItemStack drop : drops) {
                 if (CropsNHUtils.isStackInvalid(drop)) continue;
@@ -1313,7 +1324,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             && shouldTrample(hasFallen(entity) ? entity.fallDistance : 0.0f)) {
             // drop seed
             ItemStack seedDrop = getSeedDrop();
-            ArrayList<ItemStack> toDrop = this.harvest();
+            ArrayList<ItemStack> toDrop = this.harvest(1.0d);
             if (toDrop == null) toDrop = new ArrayList<>(2);
             if (seedDrop != null) toDrop.add(seedDrop);
             toDrop.add(CropsNHItemList.cropSticks.get(this.isCrossCrop ? 2 : 1));

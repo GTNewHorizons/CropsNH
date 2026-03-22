@@ -54,7 +54,6 @@ import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
-import gtPlusPlus.core.util.math.MathUtils;
 import gtPlusPlus.xmod.gregtech.api.gui.GTPPUITextures;
 
 public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidgets {
@@ -224,12 +223,8 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         return getVerticalRadius() * 2 + 1;
     }
 
-    private int getHarvestBonusChance() {
-        return this.mTier * 5;
-    }
-
-    private static int getBonusStackIncrease(int gain) {
-        return gain / 10;
+    private double getHarvestBonusChance() {
+        return 0.05d * this.mTier;
     }
 
     // endregion crop manager params
@@ -330,16 +325,10 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             if (this.getBaseMetaTileEntity()
                 .getUniversalEnergyStored() < this.powerUsage()) break;
             if (!crop.canHarvest()) continue;
-            ArrayList<ItemStack> aHarvest = crop.harvest();
-            if (aHarvest == null) continue;
-            for (ItemStack aStack : aHarvest) {
+            ArrayList<ItemStack> tHarvest = crop.harvest(1.0d + this.getHarvestBonusChance());
+            if (tHarvest == null) continue;
+            for (ItemStack aStack : tHarvest) {
                 if (GTUtility.isStackInvalid(aStack)) continue;
-                if (this.getHarvestBonusChance() > MathUtils.randInt(1, 100)) {
-                    aStack.stackSize += getBonusStackIncrease(
-                        crop.getSeed()
-                            .getStats()
-                            .getGain());
-                }
                 dropTracker.merge(aStack, aStack.stackSize, Integer::sum);
             }
             this.getBaseMetaTileEntity()
@@ -355,8 +344,8 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             if (dropItem == null) continue;
 
             remaining = tryInsertOutputStack(dropItem, remaining);
-            if (remaining >= 0) {
-                this.mDropOverflow.merge(dropEntry.getKey(), dropEntry.getValue(), Integer::sum);
+            if (remaining > 0) {
+                this.mDropOverflow.merge(dropEntry.getKey(), remaining, Integer::sum);
             }
         }
     }
@@ -890,7 +879,9 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 TooltipHelper.tierText(formatNumber(this.getVerticalRadius()))),
             StatCollector.translateToLocalFormatted(
                 "cropsnh_tooltip.cropManager.tooltip.5",
-                TooltipHelper.tierText(formatNumber(this.getHarvestBonusChance()))),
+                TooltipHelper.coloredText(
+                    TooltipHelper.percentageFormat.format(this.getHarvestBonusChance()),
+                    TooltipHelper.EFF_COLOR)),
             StatCollector.translateToLocalFormatted(
                 "cropsnh_tooltip.cropManager.tooltip.6",
                 TooltipHelper.fluidText(this.getWaterCapacity())),
