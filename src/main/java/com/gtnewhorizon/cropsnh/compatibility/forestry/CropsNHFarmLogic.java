@@ -193,7 +193,7 @@ public class CropsNHFarmLogic extends FarmLogic {
 
         @Override
         protected Collection<ItemStack> harvestBlock(IVect pos) {
-            Collection<ItemStack> ret = cropTE.harvest();
+            Collection<ItemStack> ret = cropTE.harvest(1.0d);
             return ret == null ? NO_DROPS : ret;
         }
     }

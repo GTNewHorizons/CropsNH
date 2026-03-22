@@ -98,15 +98,12 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.ItemEjectionHelper;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
-import gregtech.api.util.tooltip.TooltipHelper;
 import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
 import gregtech.common.misc.GTStructureChannels;
 
 public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustrialFarm>
     implements ISurvivalConstructable {
 
-    /** The number of bonus harvests awarded per tier of seed-bed, measured as voltageIndex * bonus */
-    public static final double HARVEST_BONUS_PER_TIER = 0.2d;
     /** The duration of the production cycle in seconds. */
     public static final int CYCLE_DURATION = 5 * SECONDS;
     /** The amount of water that should be stored in the crop stick when calculating the growth speed */
@@ -485,13 +482,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.0"))
             .addSeparator()
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.1"))
-            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.2"))
-            .addInfo(
-                StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID + "_tooltip.industrialFarm.3",
-                    TooltipHelper.coloredText(
-                        TooltipHelper.percentageFormat.format(HARVEST_BONUS_PER_TIER),
-                        TooltipHelper.EFF_COLOR)));
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.2"));
 
         String hatchHint = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.hatch");
         tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, false)
@@ -1077,7 +1068,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         this.lEUt = -this.mExpectedEUt;
         this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
         this.mEfficiencyIncrease = 10000;
-        this.mMaxProgresstime = 100;
+        this.mMaxProgresstime = CYCLE_DURATION;
         return CheckRecipeResultRegistry.SUCCESSFUL;
     }
 
@@ -1171,9 +1162,13 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         double tGrowthPerCycle = (((double) tUnscaledGrowthSpeed) / TileEntityCropSticks.TICK_RATE) * CYCLE_DURATION;
         // apply growth speed multipliers
         tGrowthPerCycle *= this.getGrowthSpeedMultiplier();
+        if (tGrowthPerCycle <= 0) return -1;
         // calculate percentage grown each tick.
-        return tGrowthPerCycle / aCrop.getCrop()
-            .getGrowthDuration();
+        return Math.min(
+            1.0d,
+            1.0d / Math.ceil(
+                aCrop.getCrop()
+                    .getGrowthDuration() / tGrowthPerCycle));
     }
 
     /**
@@ -1184,7 +1179,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         // additive bonuses
         // Yes it's intended to start at 40% more harvests (due to min tier.
         // This is to make the multi inherently better than the equivalent crop manager)
-        multiplier += this.mUpgradeTier * HARVEST_BONUS_PER_TIER;
+        multiplier += this.mUpgradeTier * BlockSeedBed.getHarvestRoundBonus(this.mUpgradeTier);
         multiplier += this.mFertilizerUnitCount * BlockFertilizerUnit.HARVEST_ROUND_BONUS;
         // multiplicative bonuses
         multiplier *= 1.0d + (this.mAdvancedHarvestingUnitCount * BlockAdvancedHarvestingUnit.HARVEST_ROUND_MULTIPLIER);
@@ -1220,9 +1215,10 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .getDropTable()
             .entrySet()) {
             ItemStack stack = entry.getKey();
-            double chance = entry.getValue() / 10_000D;
+            double chance = entry.getValue() / 10_000d;
             // scale by chance and progress completed each cycle.
-            drops.addDrop(stack, (avgDropIncrease + stack.stackSize) * avgDropCount * chance * tProgressPerCycle);
+            double unscaled = (stack.stackSize + avgDropIncrease) * chance * avgDropCount;
+            drops.addDrop(stack, unscaled * tProgressPerCycle);
         }
 
         return drops;

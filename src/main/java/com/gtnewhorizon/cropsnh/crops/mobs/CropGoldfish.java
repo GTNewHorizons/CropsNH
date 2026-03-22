@@ -20,7 +20,7 @@ public class CropGoldfish extends NHCropCard {
 
     public CropGoldfish() {
         super("goldfish", new Color(0xF8910F), new Color(0xFAC815));
-        this.addDrop(new ItemStack(CropsNHItems.goldfish, 1), 100_00);
+        this.addDrop(new ItemStack(CropsNHItems.goldfish, 1), 60_00);
         // spooky because existential fish dread.
         this.addLikedBiomes(BiomeDictionary.Type.RIVER, BiomeDictionary.Type.WET, BiomeDictionary.Type.SPOOKY);
     }
