@@ -14,7 +14,7 @@ public class CropGarlic extends CropFood {
     public CropGarlic() {
         super("garlic", new Color(0xA88F7B), new Color(0xF3E7DC));
 
-        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropGarlic", 1));
+        this.addAlternateSeed("cropGarlic");
 
         this.addDrop(OreDictHelper.getCopiedOreStack("cropGarlic", 1), 100_00);
 
