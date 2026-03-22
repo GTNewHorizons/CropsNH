@@ -15,6 +15,9 @@ public class CropCoffee extends CropFood {
         super("coffee", new Color(0x3D1E00), new Color(0x964F05));
 
         this.addDrop(OreDictHelper.getCopiedOreStack("cropCoffee", 1), 10_000);
+
+        this.addAlternateSeed("cropCoffee");
+
         // likes warm temperatures, usually found in the same area as rainforests.
         this.addLikedBiomes(BiomeDictionary.Type.HOT, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.WET);
     }
