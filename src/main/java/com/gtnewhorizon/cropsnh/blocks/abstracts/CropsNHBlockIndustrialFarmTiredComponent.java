@@ -6,15 +6,16 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.interfaces.IItemContainer;
 import gregtech.common.blocks.BlockCasingsAbstract;
@@ -23,8 +24,9 @@ import gregtech.common.blocks.MaterialCasings;
 
 public abstract class CropsNHBlockIndustrialFarmTiredComponent extends BlockCasingsAbstract {
 
-    protected IIcon mTopIcon = null;
-    protected IIcon mBottomIcon = null;
+    protected final IIcon[] mSideIcons = new IIcon[16];
+    protected final IIcon[] mBottomIcons = new IIcon[16];
+    protected final IIcon[] mTopIcons = new IIcon[16];
     private final int mMinTier;
     private final int mMaxTier;
     private final List<Pair<Block, Integer>> mStructureComponents;
@@ -67,6 +69,17 @@ public abstract class CropsNHBlockIndustrialFarmTiredComponent extends BlockCasi
         return aMeta;
     }
 
+    public void registerBlockIcons(IIconRegister aIconRegister) {
+        super.registerBlockIcons(aIconRegister);
+        this.registerIconArray(aIconRegister, Reference.MOD_ID + ":industrialFarm/sides/", this.mSideIcons);
+    }
+
+    protected void registerIconArray(IIconRegister aIconRegister, String name, IIcon[] icons) {
+        for (int tier = this.mMinTier; tier <= this.mMaxTier; tier++) {
+            icons[tier] = aIconRegister.registerIcon(name + tier);
+        }
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int aSide, int aMeta) {
@@ -74,16 +87,10 @@ public abstract class CropsNHBlockIndustrialFarmTiredComponent extends BlockCasi
         if (aMeta < this.mMinTier || this.mMaxTier < aMeta) {
             return CropsNHUtils.getMissingTexture();
         }
-        switch (aSide) {
-            case 0:
-                return this.mBottomIcon == null ? CropsNHUtils.getMissingTexture() : this.mBottomIcon;
-            case 1:
-                return this.mTopIcon == null ? CropsNHUtils.getMissingTexture() : this.mTopIcon;
-            default:
-                if (aMeta <= VoltageIndex.UHV) {
-                    return GregTechAPI.sBlockCasings1.getIcon(aSide, aMeta);
-                }
-                return GregTechAPI.sBlockCasingsNH.getIcon(aSide, aMeta);
-        }
+        return switch (aSide) {
+            case 0 -> this.mBottomIcons[aMeta] == null ? CropsNHUtils.getMissingTexture() : this.mBottomIcons[aMeta];
+            case 1 -> this.mTopIcons[aMeta] == null ? CropsNHUtils.getMissingTexture() : this.mTopIcons[aMeta];
+            default -> this.mSideIcons[aMeta] == null ? CropsNHUtils.getMissingTexture() : this.mSideIcons[aMeta];
+        };
     }
 }

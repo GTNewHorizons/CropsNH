@@ -31,3 +31,5 @@ src/main/resources/mixins.*.json
 *.DS_Store
 !gradlew.bat
 /layout.json
+
+/art/if_casing_generator/output/

@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.blocks;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -10,7 +12,6 @@ import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.blocks.abstracts.CropsNHBlockIndustrialFarmTiredComponent;
-import com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
@@ -86,36 +87,36 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
         super.addInformation(aStack, aPlayer, aTooltip, aAdvancedTooltips);
         aTooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedBed.0"));
         int tMeta = CropsNHUtils.getItemMeta(aStack);
-        aTooltip
-            .add(StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.1", getCapacity(tMeta)));
+        aTooltip.add(
+            StatCollector.translateToLocalFormatted(
+                Reference.MOD_ID + "_tooltip.seedBed.1",
+                TooltipHelper.parallelText(getCapacity(tMeta))));
         aTooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.2",
                 TooltipHelper.fluidText(getWaterConsumption(tMeta))));
 
         int length = getMultiLength(tMeta);
+        String lengthText = TooltipHelper.tierText(formatNumber(length));
         if (length == 1) {
-            aTooltip
-                .add(StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.3.single", length));
+            aTooltip.add(
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.3.single", lengthText));
         } else {
-            aTooltip
-                .add(StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.3.plural", length));
+            aTooltip.add(
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.3.plural", lengthText));
         }
 
     }
 
     @Override
     public IIcon getIcon(int aSide, int aMeta) {
-        return switch (aSide) {
-            case 0 -> CropsNHBlockTextures.Casing_Bricked_Agricultural_Casing.getIcon();
-            case 1 -> mTopIcon;
-            default -> super.getIcon(aSide, aMeta);
-        };
+        if (aSide == 1) return this.mTopIcons[0];
+        return super.getIcon(2, aMeta);
     }
 
     @Override
     public void registerBlockIcons(IIconRegister aIconRegister) {
         super.registerBlockIcons(aIconRegister);
-        this.mTopIcon = aIconRegister.registerIcon(Reference.MOD_ID + ":industrialFarm/seedBed");
+        this.mTopIcons[0] = aIconRegister.registerIcon(Reference.MOD_ID + ":industrialFarm/seedBed");
     }
 }
