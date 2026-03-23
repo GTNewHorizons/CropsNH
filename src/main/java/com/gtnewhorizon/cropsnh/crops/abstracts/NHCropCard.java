@@ -133,8 +133,7 @@ public abstract class NHCropCard extends CropCard {
 
     @Override
     public int getSpriteIndex(ICropStickTile te) {
-        if (this.sprites == null) return 0;
-        int max = this.sprites.length - 1;
+        int max = this.getMaxGrowthStage() - 1;
         int prog = te.getGrowthProgress();
         int dur = this.getGrowthDuration();
         if (prog >= dur) return max;
