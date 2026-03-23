@@ -1,27 +1,19 @@
 package com.gtnewhorizon.cropsnh.proxy;
 
-import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
-
 import java.lang.reflect.Field;
 import java.util.Iterator;
-import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 
-import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.blocks.abstracts.BlockCropsNH;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
-import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
-import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import codechicken.nei.api.API;
@@ -29,8 +21,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import gregtech.api.events.BlockScanningEvent;
 
 @SuppressWarnings("unused")
 public class ClientProxy extends CommonProxy {
@@ -81,7 +71,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerEventHandlers() {
         super.registerEventHandlers();
-        MinecraftForge.EVENT_BUS.register(new BlockScanningEventHandler());
     }
 
     @Override
@@ -123,32 +112,5 @@ public class ClientProxy extends CommonProxy {
     public void initConfiguration(FMLPreInitializationEvent event) {
         super.initConfiguration(event);
         ConfigurationHandler.initClientConfigs(event);
-    }
-
-    public static class BlockScanningEventHandler {
-
-        @SubscribeEvent
-        public void onBlockScanned(BlockScanningEvent event) {
-            if (!(event.mTileEntity instanceof TileEntityCropSticks teCrop)) return;
-            event.mEUCost += 1000;
-            if (teCrop.hasCrop() && !teCrop.getSeed()
-                .getStats()
-                .isAnalyzed()) {
-                teCrop.getSeed()
-                    .setAnalyzed(true);
-            }
-            teCrop.getPlantLensStatus(event.mList);
-            event.mList.add(
-                StatCollector.translateToLocalFormatted(
-                    Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
-                    formatNumber(teCrop.getNutrientScore()),
-                    formatNumber(TileEntityCropSticks.MAX_NUTRIENT_SCORE)));
-            List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
-            if (failedReqs != null) {
-                for (IGrowthRequirement req : failedReqs) {
-                    event.mList.add(req.getDescription());
-                }
-            }
-        }
     }
 }

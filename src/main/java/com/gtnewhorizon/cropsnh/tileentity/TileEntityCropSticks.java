@@ -265,7 +265,6 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         return success;
     }
 
-    @SideOnly(Side.CLIENT)
     public void getPlantLensStatus(List<String> information) {
         if (this.hasCrop()) {
             if (this.hasWeed()) {
