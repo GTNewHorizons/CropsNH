@@ -154,6 +154,7 @@ public class OreDictLoader {
         register(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "plants", 1, 12), "cropCacti", "cropSmallCactus");
         register(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "foliage", 1, 1), "cropGrass");
         register(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "foliage", 1, 2), "cropGrass");
+        register(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "foliage", 1, 3), "cropFlax");
         register(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "foliage", 1, 5), "cropGrass");
         register(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "foliage", 1, 7), "cropGrass");
         register(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "foliage", 1, 9), "cropGrass");
