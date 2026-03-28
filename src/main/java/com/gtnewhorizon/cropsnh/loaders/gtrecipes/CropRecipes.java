@@ -337,11 +337,8 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     private static void addOreConversionRecipes() {
 
-        GTValues.RA.stdBuilder()
-            .itemInputs(MaterialLeafLoader.micadiaFlower.get(1))
+        mvRecipe(Voltage.MV.getSimpleTime() * 3).itemInputs(MaterialLeafLoader.micadiaFlower.get(1))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Mica, 1))
-            .eut(TierEU.HV)
-            .duration(Voltage.HV.getSimpleTime())
             .addTo(extractorRecipes);
 
         ulvRecipe(3, 75).itemInputs(MaterialLeafLoader.copponFiber.get(9))

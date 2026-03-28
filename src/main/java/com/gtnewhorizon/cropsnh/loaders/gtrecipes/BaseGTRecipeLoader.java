@@ -15,9 +15,13 @@ public abstract class BaseGTRecipeLoader {
 
     protected static GTRecipeBuilder recipe(long eut, int seconds, int fraction) {
         int duration = seconds * SECONDS + fraction / 5;
+        return recipe(eut, duration);
+    }
+
+    protected static GTRecipeBuilder recipe(long eut, int ticks) {
         return GTValues.RA.stdBuilder()
             .eut(eut)
-            .duration(duration);
+            .duration(ticks);
     }
 
     protected static GTRecipeBuilder ulvRecipe(int seconds, int fraction) {
@@ -70,6 +74,58 @@ public abstract class BaseGTRecipeLoader {
 
     protected static GTRecipeBuilder uxvRecipe(int seconds, int fraction) {
         return recipe(TierEU.RECIPE_UV, seconds, fraction);
+    }
+
+    protected static GTRecipeBuilder ulvRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_ULV, ticks);
+    }
+
+    protected static GTRecipeBuilder lvRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_LV, ticks);
+    }
+
+    protected static GTRecipeBuilder mvRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_MV, ticks);
+    }
+
+    protected static GTRecipeBuilder hvRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_HV, ticks);
+    }
+
+    protected static GTRecipeBuilder evRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_EV, ticks);
+    }
+
+    protected static GTRecipeBuilder ivRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_IV, ticks);
+    }
+
+    protected static GTRecipeBuilder luvRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_LuV, ticks);
+    }
+
+    protected static GTRecipeBuilder zpmRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_ZPM, ticks);
+    }
+
+    protected static GTRecipeBuilder uhvRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_UV, ticks);
+    }
+
+    protected static GTRecipeBuilder uevRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_UV, ticks);
+    }
+
+    protected static GTRecipeBuilder uivRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_UV, ticks);
+    }
+
+    protected static GTRecipeBuilder umvRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_UV, ticks);
+    }
+
+    protected static GTRecipeBuilder uxvRecipe(int ticks) {
+        return recipe(TierEU.RECIPE_UV, ticks);
     }
 
 }
