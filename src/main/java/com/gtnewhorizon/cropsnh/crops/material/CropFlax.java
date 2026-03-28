@@ -14,6 +14,9 @@ public class CropFlax extends NHCropCard {
         super("flax", new Color(0x804D3E), new Color(0xB76E5A));
 
         this.addDrop(new ItemStack(Items.string, 1, 0), 100_00);
+
+        this.addAlternateSeed("cropFlax");
+
         // flax is typically found in sedimentary soils.
         this.addLikedBiomes(
             BiomeDictionary.Type.WET,
