@@ -14,9 +14,7 @@ public enum CropsNHStructureChannels implements IStructureChannels {
     /** Controls IF Length/Tier */
     IFTier("if_tier"),
     /** Enables auto-adding IF upgrades */
-    IFUpgrades("if_upgrade"),
-    /** For controlling the tier of the OC upgrade since it's very jank */
-    IFOCUpgradeTier("if_oc_upgrade");
+    IFUpgrades("if_upgrade");
 
     final String mName;
     final String mTooltip;

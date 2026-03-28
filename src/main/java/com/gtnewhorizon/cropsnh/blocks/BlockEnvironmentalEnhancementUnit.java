@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
-import com.gtnewhorizon.cropsnh.api.CropsNHStructureChannels;
 import com.gtnewhorizon.cropsnh.blocks.abstracts.CropsNHBlockIndustrialFarmTiredComponent;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -25,7 +24,6 @@ public class BlockEnvironmentalEnhancementUnit extends CropsNHBlockIndustrialFar
     public BlockEnvironmentalEnhancementUnit() {
         super(
             Names.Objects.environmentalEnhancementUnit,
-            CropsNHStructureChannels.IFTier,
             CropsNHItemList.EnvironmentalEnhancementUnit_MV,
             CropsNHItemList.EnvironmentalEnhancementUnit_HV,
             CropsNHItemList.EnvironmentalEnhancementUnit_EV,

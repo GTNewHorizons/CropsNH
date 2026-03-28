@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -234,35 +235,32 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             ofChain(
                 withChannel(CropsNHStructureChannels.IFTier.get(),
                     new IFUpgradeElement(
-                       ofChain(
-                           onElementPass(
-                               te -> te.mEnvironmentalEnhancementUnitCount++,
-                               chainAllTiredComponents(CropsNHBlocks.blockEnvironmentalEnhancementUnit)
-                           ),
-                           onElementPass(
-                               te -> te.mGrowthAccelerationUnitCount++,
-                               chainAllTiredComponents(CropsNHBlocks.blockGrowthAccelerationUnit)
-                           ),
-                           onElementPass(
-                               te -> te.mFertilizerUnitCount++,
-                               chainAllTiredComponents(CropsNHBlocks.blockFertilizerUnit)
-                           ),
-                           onElementPass(
-                               te -> te.mAdvancedHarvestingUnitCount++,
-                               chainAllTiredComponents(CropsNHBlocks.blockAdvancedHarvestingUnit)
-                           )
-                       )
+                        (CropsNHBlockIndustrialFarmTiredComponent) CropsNHBlocks.blockEnvironmentalEnhancementUnit,
+                        te -> te.mEnvironmentalEnhancementUnitCount++
                     )
                 ),
-                // needs to be separate so it can appear in NEI, though it doesn't actually do anything when you right-
-                // click the block in the UI right now since the simulated trigger doesn't have any fields set for some
-                // reason.
-                withChannel(CropsNHStructureChannels.IFOCUpgradeTier.get(),
+                withChannel(CropsNHStructureChannels.IFTier.get(),
                     new IFUpgradeElement(
-                        onElementPass(
-                        te -> te.mOverclockedGrowthAccelerationUnitCount++,
-                            chainAllTiredComponents(CropsNHBlocks.blockOverclockedGrowthAccelerationUnit)
-                        )
+                        (CropsNHBlockIndustrialFarmTiredComponent) CropsNHBlocks.blockGrowthAccelerationUnit,
+                        te -> te.mGrowthAccelerationUnitCount++
+                    )
+                ),
+                withChannel(CropsNHStructureChannels.IFTier.get(),
+                    new IFUpgradeElement(
+                        (CropsNHBlockIndustrialFarmTiredComponent) CropsNHBlocks.blockFertilizerUnit,
+                        te -> te.mFertilizerUnitCount++
+                    )
+                ),
+                withChannel(CropsNHStructureChannels.IFTier.get(),
+                    new IFUpgradeElement(
+                        (CropsNHBlockIndustrialFarmTiredComponent) CropsNHBlocks.blockAdvancedHarvestingUnit,
+                        te -> te.mAdvancedHarvestingUnitCount++
+                    )
+                ),
+                withChannel(CropsNHStructureChannels.IFTier.get(),
+                    new IFUpgradeElement(
+                        (CropsNHBlockIndustrialFarmTiredComponent) CropsNHBlocks.blockOverclockedGrowthAccelerationUnit,
+                        te -> te.mOverclockedGrowthAccelerationUnitCount++
                     )
                 ),
                 ofFrame(Materials.Wood)
@@ -277,9 +275,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     private static class IFUpgradeElement implements IStructureElement<MTEIndustrialFarm> {
 
         private final IStructureElement<MTEIndustrialFarm> mElement;
+        private final CropsNHBlockIndustrialFarmTiredComponent mBlock;
 
-        public IFUpgradeElement(IStructureElement<MTEIndustrialFarm> element) {
-            this.mElement = element;
+        public IFUpgradeElement(CropsNHBlockIndustrialFarmTiredComponent block, Consumer<MTEIndustrialFarm> onPass) {
+            this.mElement = onElementPass(onPass, chainAllTiredComponents(block));
+            this.mBlock = block;
+
         }
 
         @Override
@@ -314,9 +315,20 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         public PlaceResult survivalPlaceBlock(MTEIndustrialFarm t, World world, int x, int y, int z, ItemStack trigger,
             AutoPlaceEnvironment env) {
             // should lock out the fake player used by the block renderer mod for the NEI plugin
-            if (env.getActor() instanceof EntityPlayerMP && !CropsNHStructureChannels.IFUpgrades.hasValue(trigger)) {
+            if (env.getActor() instanceof EntityPlayerMP) {
+                // skip if the upgrades are disabled
+                if (!CropsNHStructureChannels.IFUpgrades.hasValue(trigger)) {
+                    return PlaceResult.SKIP;
+                }
+            }
+            // check if we can place the upgrade at the current tier
+            Integer tTier = this.mBlock.getTier(getStructureLengthFromTrigger(trigger) - MIN_SLICES + MIN_CASING_TIER);
+            if (tTier == null) {
                 return PlaceResult.SKIP;
             }
+            // re-base the stack size as needed
+            trigger = trigger.copy();
+            trigger.stackSize = tTier - this.mBlock.mMinTier + 1;
             // skip if reject
             PlaceResult result = this.mElement.survivalPlaceBlock(t, world, x, y, z, trigger, env);
             return result == PlaceResult.REJECT ? PlaceResult.SKIP : result;
@@ -601,7 +613,6 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addSubChannelUsage(GTStructureChannels.BOROGLASS)
             .addSubChannelUsage(CropsNHStructureChannels.IFTier)
             .addSubChannelUsage(CropsNHStructureChannels.IFUpgrades)
-            .addSubChannelUsage(CropsNHStructureChannels.IFOCUpgradeTier)
             .toolTipFinisher();
         return tt;
     }

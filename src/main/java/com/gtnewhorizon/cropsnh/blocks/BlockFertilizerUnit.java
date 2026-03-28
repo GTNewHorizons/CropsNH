@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
-import com.gtnewhorizon.cropsnh.api.CropsNHStructureChannels;
 import com.gtnewhorizon.cropsnh.blocks.abstracts.CropsNHBlockIndustrialFarmTiredComponent;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -28,7 +27,6 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
     public BlockFertilizerUnit() {
         super(
             Names.Objects.fertilizerUnit,
-            CropsNHStructureChannels.IFTier,
             CropsNHItemList.FertilizerUnit_MV,
             CropsNHItemList.FertilizerUnit_HV,
             CropsNHItemList.FertilizerUnit_EV,

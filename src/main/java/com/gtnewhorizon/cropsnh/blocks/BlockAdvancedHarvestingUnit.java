@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
-import com.gtnewhorizon.cropsnh.api.CropsNHStructureChannels;
 import com.gtnewhorizon.cropsnh.blocks.abstracts.CropsNHBlockIndustrialFarmTiredComponent;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -26,7 +25,6 @@ public class BlockAdvancedHarvestingUnit extends CropsNHBlockIndustrialFarmTired
     public BlockAdvancedHarvestingUnit() {
         super(
             Names.Objects.advancedHarvestingUnit,
-            CropsNHStructureChannels.IFTier,
             CropsNHItemList.AdvancedHarvestingUnit_MV,
             CropsNHItemList.AdvancedHarvestingUnit_HV,
             CropsNHItemList.AdvancedHarvestingUnit_EV,

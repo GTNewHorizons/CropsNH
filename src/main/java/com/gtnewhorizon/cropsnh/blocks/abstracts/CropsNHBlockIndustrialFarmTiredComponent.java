@@ -12,14 +12,15 @@ import net.minecraft.util.IIcon;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHStructureChannels;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.interfaces.IItemContainer;
-import gregtech.api.structure.IStructureChannels;
 import gregtech.common.blocks.BlockCasingsAbstract;
 import gregtech.common.blocks.ItemCasings;
 import gregtech.common.blocks.MaterialCasings;
@@ -29,17 +30,16 @@ public abstract class CropsNHBlockIndustrialFarmTiredComponent extends BlockCasi
     protected final IIcon[] mSideIcons = new IIcon[16];
     protected final IIcon[] mBottomIcons = new IIcon[16];
     protected final IIcon[] mTopIcons = new IIcon[16];
-    protected final int mMinTier;
-    protected final int mMaxTier;
+    public final int mMinTier;
+    public final int mMaxTier;
     protected final List<Pair<Block, Integer>> mStructureComponents;
 
-    protected CropsNHBlockIndustrialFarmTiredComponent(String aName, IStructureChannels structureChannel,
-        IItemContainer... aItems) {
-        this(aName, VoltageIndex.MV, VoltageIndex.UXV, structureChannel, aItems);
+    protected CropsNHBlockIndustrialFarmTiredComponent(String aName, IItemContainer... aItems) {
+        this(aName, VoltageIndex.MV, VoltageIndex.UXV, aItems);
     }
 
     protected CropsNHBlockIndustrialFarmTiredComponent(String aName, int aMinTier, int aMaxTier,
-        IStructureChannels structureChannel, IItemContainer... aItems) {
+        IItemContainer... aItems) {
         super(ItemCasings.class, aName, MaterialCasings.INSTANCE);
         // validateParams
         if (aMinTier > aMaxTier) {
@@ -56,7 +56,9 @@ public abstract class CropsNHBlockIndustrialFarmTiredComponent extends BlockCasi
         int tMeta = this.mMinTier;
         for (IItemContainer item : aItems) {
             register(tMeta, item);
-            structureChannel.registerAsIndicator(new ItemStack(this, 1, tMeta), tMeta - this.mMinTier + 1);
+            if (ModUtils.StructureLib.isModLoaded()) {
+                CropsNHStructureChannels.IFTier.registerAsIndicator(new ItemStack(this, 1, tMeta), tMeta - 1);
+            }
             this.mStructureComponents.add(Pair.of(this, tMeta));
             tMeta++;
         }
