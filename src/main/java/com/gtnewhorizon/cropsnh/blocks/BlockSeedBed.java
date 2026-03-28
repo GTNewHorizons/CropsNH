@@ -11,6 +11,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.CropsNHStructureChannels;
 import com.gtnewhorizon.cropsnh.blocks.abstracts.CropsNHBlockIndustrialFarmTiredComponent;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -31,6 +32,7 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
     public BlockSeedBed() {
         super(
             Names.Objects.seedBed,
+            CropsNHStructureChannels.IFTier,
             CropsNHItemList.SeedBed_MV,
             CropsNHItemList.SeedBed_HV,
             CropsNHItemList.SeedBed_EV,

@@ -8,6 +8,7 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlocksT
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.withChannel;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
@@ -35,10 +36,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -50,6 +53,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.cleanroommc.modularui.utils.item.CombinedInvWrapper;
 import com.cleanroommc.modularui.utils.item.IItemHandlerModifiable;
+import com.gtnewhorizon.cropsnh.api.CropsNHStructureChannels;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.IMachineGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
@@ -72,6 +76,7 @@ import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.IFDropTable;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
+import com.gtnewhorizon.structurelib.structure.AutoPlaceEnvironment;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
@@ -222,30 +227,104 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 .buildAndChain(ofBlock(CropsNHBlocks.blockCasings1, 0)))
         .addElement('c', ofBlock(CropsNHBlocks.blockCasings1, 0))
         .addElement('g', chainAllGlasses(-1, (te, t) -> te.mGlassTier = t, te -> te.mGlassTier))
+        // spotless:off
+        // turning spotless off here since it makes the nesting here a lot less readable
         .addElement(
             'U',
             ofChain(
-                ofFrame(Materials.Wood),
-                onElementPass(
-                    te -> te.mEnvironmentalEnhancementUnitCount++,
-                    chainAllTiredComponents(CropsNHBlocks.blockEnvironmentalEnhancementUnit)),
-                onElementPass(
-                    te -> te.mGrowthAccelerationUnitCount++,
-                    chainAllTiredComponents(CropsNHBlocks.blockGrowthAccelerationUnit)),
-                onElementPass(
-                    te -> te.mFertilizerUnitCount++,
-                    chainAllTiredComponents(CropsNHBlocks.blockFertilizerUnit)),
-                onElementPass(
-                    te -> te.mAdvancedHarvestingUnitCount++,
-                    chainAllTiredComponents(CropsNHBlocks.blockAdvancedHarvestingUnit)),
-                onElementPass(
-                    te -> te.mOverclockedGrowthAccelerationUnitCount++,
-                    chainAllTiredComponents(CropsNHBlocks.blockOverclockedGrowthAccelerationUnit))))
-        .addElement('s', chainAllTiredComponents(CropsNHBlocks.blockSeedBed))
+                withChannel(CropsNHStructureChannels.IFTier.get(),
+                    new IFUpgradeElement(
+                       ofChain(
+                           onElementPass(
+                               te -> te.mEnvironmentalEnhancementUnitCount++,
+                               chainAllTiredComponents(CropsNHBlocks.blockEnvironmentalEnhancementUnit)
+                           ),
+                           onElementPass(
+                               te -> te.mGrowthAccelerationUnitCount++,
+                               chainAllTiredComponents(CropsNHBlocks.blockGrowthAccelerationUnit)
+                           ),
+                           onElementPass(
+                               te -> te.mFertilizerUnitCount++,
+                               chainAllTiredComponents(CropsNHBlocks.blockFertilizerUnit)
+                           ),
+                           onElementPass(
+                               te -> te.mAdvancedHarvestingUnitCount++,
+                               chainAllTiredComponents(CropsNHBlocks.blockAdvancedHarvestingUnit)
+                           )
+                       )
+                    )
+                ),
+                // needs to be separate so it can appear in NEI, though it doesn't actually do anything when you right-
+                // click the block in the UI right now since the simulated trigger doesn't have any fields set for some
+                // reason.
+                withChannel(CropsNHStructureChannels.IFOCUpgradeTier.get(),
+                    new IFUpgradeElement(
+                        onElementPass(
+                        te -> te.mOverclockedGrowthAccelerationUnitCount++,
+                            chainAllTiredComponents(CropsNHBlocks.blockOverclockedGrowthAccelerationUnit)
+                        )
+                    )
+                ),
+                ofFrame(Materials.Wood)
+            )
+        )
+        // spotless:on
+        .addElement(
+            's',
+            withChannel(CropsNHStructureChannels.IFTier.get(), chainAllTiredComponents(CropsNHBlocks.blockSeedBed)))
         .build();
 
+    private static class IFUpgradeElement implements IStructureElement<MTEIndustrialFarm> {
+
+        private final IStructureElement<MTEIndustrialFarm> mElement;
+
+        public IFUpgradeElement(IStructureElement<MTEIndustrialFarm> element) {
+            this.mElement = element;
+        }
+
+        @Override
+        public boolean check(MTEIndustrialFarm t, World world, int x, int y, int z) {
+            return this.mElement.check(t, world, x, y, z);
+        }
+
+        @Override
+        public boolean couldBeValid(MTEIndustrialFarm t, World world, int x, int y, int z, ItemStack trigger) {
+            return this.mElement.couldBeValid(t, world, x, y, z, trigger);
+        }
+
+        @Override
+        public boolean placeBlock(MTEIndustrialFarm t, World world, int x, int y, int z, ItemStack trigger) {
+            // don't place in creative
+            return false;
+        }
+
+        @Override
+        public boolean spawnHint(MTEIndustrialFarm t, World world, int x, int y, int z, ItemStack trigger) {
+            return this.mElement.spawnHint(t, world, x, y, z, trigger);
+        }
+
+        @Nullable
+        @Override
+        public BlocksToPlace getBlocksToPlace(MTEIndustrialFarm t, World world, int x, int y, int z, ItemStack trigger,
+            AutoPlaceEnvironment env) {
+            return this.mElement.getBlocksToPlace(t, world, x, y, z, trigger, env);
+        }
+
+        @Override
+        public PlaceResult survivalPlaceBlock(MTEIndustrialFarm t, World world, int x, int y, int z, ItemStack trigger,
+            AutoPlaceEnvironment env) {
+            // should lock out the fake player used by the block renderer mod for the NEI plugin
+            if (env.getActor() instanceof EntityPlayerMP && !CropsNHStructureChannels.IFUpgrades.hasValue(trigger)) {
+                return PlaceResult.SKIP;
+            }
+            // skip if reject
+            PlaceResult result = this.mElement.survivalPlaceBlock(t, world, x, y, z, trigger, env);
+            return result == PlaceResult.REJECT ? PlaceResult.SKIP : result;
+        }
+    }
+
     private static IStructureElement<MTEIndustrialFarm> chainAllTiredComponents(Block block) {
-        Class c = block.getClass();
+        Class<?> c = block.getClass();
         return lazy(() -> ofBlocksTiered((aBlock, aMeta) -> {
             if (c.isInstance(aBlock) && aBlock instanceof CropsNHBlockIndustrialFarmTiredComponent tComponent) {
                 return tComponent.getTier(aMeta);
@@ -291,25 +370,32 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         return STRUCTURE_DEFINITION;
     }
 
-    @Override
-    public void construct(ItemStack stackSize, boolean hintsOnly) {
-        buildPiece(STRUCTURE_PIECE_FIRST, stackSize, hintsOnly, 2, 2, 0);
-        int tSlices = GTUtility.clamp(stackSize.stackSize, MIN_SLICES, MAX_SLICES);
-        for (int tSliceIndex = 0; tSliceIndex < tSlices; tSliceIndex++) {
-            buildPiece(STRUCTURE_PIECE_LATER, stackSize, hintsOnly, 2, 2, -tSliceIndex - 1);
-        }
-        buildPiece(STRUCTURE_PIECE_LAST, stackSize, hintsOnly, 2, 2, -tSlices - 1);
+    private static int getStructureLengthFromTrigger(ItemStack trigger) {
+        int tSlices = CropsNHStructureChannels.IFTier.hasValue(trigger)
+            ? CropsNHStructureChannels.IFTier.getValue(trigger)
+            : trigger.stackSize;
+        return GTUtility.clamp(tSlices, MIN_SLICES, MAX_SLICES);
     }
 
     @Override
-    public int survivalConstruct(ItemStack stackSize, int elementBudget, ISurvivalBuildEnvironment env) {
-        int tBuilt = survivalBuildPiece(STRUCTURE_PIECE_FIRST, stackSize, 2, 2, 0, elementBudget, env, false, true);
+    public void construct(ItemStack trigger, boolean hintsOnly) {
+        buildPiece(STRUCTURE_PIECE_FIRST, trigger, hintsOnly, 2, 2, 0);
+        int tSlices = getStructureLengthFromTrigger(trigger);
+        for (int tSliceIndex = 0; tSliceIndex < tSlices; tSliceIndex++) {
+            buildPiece(STRUCTURE_PIECE_LATER, trigger, hintsOnly, 2, 2, -tSliceIndex - 1);
+        }
+        buildPiece(STRUCTURE_PIECE_LAST, trigger, hintsOnly, 2, 2, -tSlices - 1);
+    }
+
+    @Override
+    public int survivalConstruct(ItemStack trigger, int elementBudget, ISurvivalBuildEnvironment env) {
+        int tBuilt = survivalBuildPiece(STRUCTURE_PIECE_FIRST, trigger, 2, 2, 0, elementBudget, env, false, true);
         if (tBuilt != -1) return tBuilt;
-        int tSlices = GTUtility.clamp(stackSize.stackSize, MIN_SLICES, MAX_SLICES);
+        int tSlices = getStructureLengthFromTrigger(trigger);
         for (int tSliceIndex = 0; tSliceIndex < tSlices; tSliceIndex++) {
             tBuilt = survivalBuildPiece(
                 STRUCTURE_PIECE_LATER,
-                stackSize,
+                trigger,
                 2,
                 2,
                 -tSliceIndex - 1,
@@ -319,7 +405,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 true);
             if (tBuilt != -1) return tBuilt;
         }
-        return survivalBuildPiece(STRUCTURE_PIECE_LAST, stackSize, 2, 2, -tSlices - 1, elementBudget, env, false, true);
+        return survivalBuildPiece(STRUCTURE_PIECE_LAST, trigger, 2, 2, -tSlices - 1, elementBudget, env, false, true);
     }
 
     @Override
@@ -516,6 +602,9 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addMaintenanceHatch(hatchHint, 1)
             .addOutputBus(hatchHint, 1)
             .addSubChannelUsage(GTStructureChannels.BOROGLASS)
+            .addSubChannelUsage(CropsNHStructureChannels.IFTier)
+            .addSubChannelUsage(CropsNHStructureChannels.IFUpgrades)
+            .addSubChannelUsage(CropsNHStructureChannels.IFOCUpgradeTier)
             .toolTipFinisher();
         return tt;
     }

@@ -122,6 +122,11 @@ cropsnh_tooltip.mustUseBreederMachine=Can only be bred using a crop breeding mac
 # TODO: remove "(Check usages in NEI)" after a major version of GTNH.
 cropsnh_tooltip.wrongSoil=This crop needs a different soil (Check usages in NEI)
 
+# Structure Channel Descriptions
+cropsnh_tooltip.structure_channels.if_tier=Controls the tier of the Industrial Farm
+cropsnh_tooltip.structure_channels.if_upgrade=Enables upgrade placement
+cropsnh_tooltip.structure_channels.if_oc_upgrade=Sets the tier of the OC Growth Acceleration Upgrade
+
 # Biome Tags
 cropsnh_tooltip.biomeTag.HOT=Hot
 cropsnh_tooltip.biomeTag.COLD=Cold

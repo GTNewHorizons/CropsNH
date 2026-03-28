@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.CropsNHStructureChannels;
 import com.gtnewhorizon.cropsnh.blocks.abstracts.CropsNHBlockIndustrialFarmTiredComponent;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -24,6 +25,7 @@ public class BlockGrowthAccelerationUnit extends CropsNHBlockIndustrialFarmTired
     public BlockGrowthAccelerationUnit() {
         super(
             Names.Objects.growthAccelerationUnit,
+            CropsNHStructureChannels.IFTier,
             CropsNHItemList.GrowthAccelerationUnit_MV,
             CropsNHItemList.GrowthAccelerationUnit_HV,
             CropsNHItemList.GrowthAccelerationUnit_EV,

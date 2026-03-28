@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh;
 
+import com.gtnewhorizon.cropsnh.compatibility.StructureLib.StructureLibCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.TiC.TiCCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.waila.WailaRegistry;
@@ -26,6 +27,7 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropBreeder;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTESeedGenerator;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -44,23 +46,22 @@ import gregtech.api.util.GTUtility;
  *
  * @author InfinityRaider, mitchej123, C0bra5, GTNHTeam
  */
-@Mod(
-    modid = Reference.MOD_ID,
-    name = Reference.MOD_NAME,
-    version = Reference.VERSION,
-    dependencies = "required-after:gregtech; " + "after:IC2; "
-        + "after:GalacticraftCore; "
-        + "after:miscutils; "
-        + "after:Mantle; "
-        + "after:Forestry; "
-        + "after:Natura; "
-        + "after:TConstruct; "
-        + "after:BiomesOPlenty; "
-        + "after:Thaumcraft; "
-        + "after:witchery; "
-        + "after:TwilightForest; "
-        + "after:harvestthenether; "
-        + "after:harvestcraft; ")
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies =
+// spotless:off
+    "required-after:" + ModUtils.ModIDs.GregTech + "; "
+    + "after:" + ModUtils.ModIDs.GalacticraftCore + "; "
+    + "after:" + ModUtils.ModIDs.GTPlusPlus + "; "
+    + "after:" + ModUtils.ModIDs.Forestry + "; "
+    + "after:" + ModUtils.ModIDs.Natura + "; "
+    + "after:" + ModUtils.ModIDs.TinkerConstruct + "; "
+    + "after:" + ModUtils.ModIDs.BiomesOPlenty + "; "
+    + "after:" + ModUtils.ModIDs.Thaumcraft + "; "
+    + "after:" + ModUtils.ModIDs.Witchery + "; "
+    + "after:" + ModUtils.ModIDs.TwilightForest + "; "
+    + "after:" + ModUtils.ModIDs.StructureLib + "; "
+    + "after:" + ModUtils.ModIDs.PamsHarvestCraft + "; "
+// spotless:on
+)
 public class CropsNH {
 
     @Mod.Instance(Reference.MOD_ID)
@@ -95,6 +96,7 @@ public class CropsNH {
         OreDictLoader.init();
         WailaRegistry.onInit();
         TiCCompatHandler.onInit();
+        StructureLibCompatHandler.onInit();
         MTELoader.init();
         MTESeedGenerator.init();
         MTECropBreeder.init();
