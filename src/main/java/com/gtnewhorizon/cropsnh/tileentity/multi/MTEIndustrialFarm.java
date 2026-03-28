@@ -371,10 +371,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     }
 
     private static int getStructureLengthFromTrigger(ItemStack trigger) {
-        int tSlices = CropsNHStructureChannels.IFTier.hasValue(trigger)
-            ? CropsNHStructureChannels.IFTier.getValue(trigger)
-            : trigger.stackSize;
-        return GTUtility.clamp(tSlices, MIN_SLICES, MAX_SLICES);
+        return CropsNHStructureChannels.IFTier.getValueClamped(trigger, MIN_SLICES, MAX_SLICES);
     }
 
     @Override
