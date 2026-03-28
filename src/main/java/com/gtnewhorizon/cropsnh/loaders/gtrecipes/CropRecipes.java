@@ -340,7 +340,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         GTValues.RA.stdBuilder()
             .itemInputs(MaterialLeafLoader.micadiaFlower.get(1))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Mica, 1))
-            .eut(TierEU.HV)
+            .eut(TierEU.RECIPE_HV)
             .duration(Voltage.HV.getSimpleTime())
             .addTo(extractorRecipes);
 
