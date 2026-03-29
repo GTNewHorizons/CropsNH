@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
+import com.gtnewhorizon.cropsnh.farming.registries.SoilJumpResistanceRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
@@ -85,6 +86,7 @@ public class SoilLoader {
 
         if (ModUtils.Ztones.isModLoaded()) {
             BlockWithMeta gardenSoil = new BlockWithMeta(ModUtils.Ztones.getBlock("cleanDirt"));
+            SoilJumpResistanceRegistry.instance.setResistance(gardenSoil, SoilJumpResistanceRegistry.JUMP_PROOF);
             registry.register("farmland", gardenSoil);
         }
     }
