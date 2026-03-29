@@ -715,23 +715,24 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     }
 
     private static void addGoldfishRecipes() {
+        // While some may fear it its unending cries, few know their cause. Most believed it's auric namesake brought it
+        // unending joy. Oh, wrong were they. Its oiled body, once revered by the masses and believed to house untold
+        // amounts of the finest metal, hid a curse that would bring unending pain. It spends its life ceaselessly
+        // praying for help. Its plight remains unanswered. Death remains its only salvation.
+
         // fluid extraction
         ulvRecipe(0, 80).itemInputs(CropsNHItemList.goldfish.get(1))
-            // Why is it screaming you ask?
-            // Because it's living in agony after being poisoned.
-            // it used to output gold, but screaming because your rich is pointless,
-            // you'll be out of everything in a tier or two anyway.
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Mercury, 1))
             .outputChances(1_00)
             .fluidOutputs(Materials.FishOil.getFluid(100))
             .addTo(fluidExtractionRecipes);
 
+        // maceration
         ulvRecipe(0, 15).itemInputs(CropsNHItemList.goldfish.get(1))
             .itemOutputs(
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.MeatRaw, 1),
-                GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Mercury, 1),
-                GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Gold, 1))
-            .outputChances(100_00, 90, 10)
+                GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Mercury, 1))
+            .outputChances(100_00, 1_00)
             .addTo(maceratorRecipes);
     }
 
