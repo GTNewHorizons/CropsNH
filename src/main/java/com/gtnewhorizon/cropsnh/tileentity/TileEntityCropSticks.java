@@ -48,6 +48,7 @@ import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
+import com.gtnewhorizon.cropsnh.farming.registries.SoilJumpResistanceRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
@@ -1284,33 +1285,47 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         this.isDirty = true;
     }
 
-    private boolean shouldTrample(float fallDistance) {
-        if (fallDistance > 0) {
-            // chance is slightly adjusted since this gets fired a couple times for some reason.
-            return XSTR.XSTR_INSTANCE.nextFloat() < fallDistance - 0.75f;
-        }
+    private boolean shouldTrampleFromRunning(EntityLivingBase entity) {
+        if (!entity.isSprinting()) return false;
+        // if there is no crop on the crop stick, just roll a 1/100 check if the crop stick should break.
+        int tier = 10;
+        int resistance = 1;
         if (this.hasCrop()) {
-            // weeds cannot be trampled
-            if (this.hasWeed()) return false;
-            // max resistance prevents trampling
-            if (this.seed.getStats()
-                .getResistance() >= Constants.MAX_SEED_STAT) return false;
-            // chance of rolling for trampling increases with tier;
-            double maxRoll = 100.0d * Math.pow(
-                0.95d,
-                this.seed.getCrop()
-                    .getTier());
-            int roll = XSTR.XSTR_INSTANCE.nextInt((int) maxRoll);
-            if (roll > 0) return false;
-            // higher resistance means higher chance of surviving the trampling.
-            return XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT) > this.seed.getStats()
+            // weeds and the migrator crop cannot be trampled
+            if (this.hasWeed() || this.seed.getCrop() instanceof CropMigrator) return false;
+            tier = this.seed.getCrop()
+                .getTier();
+            resistance = this.seed.getStats()
                 .getResistance();
+            // max resistance prevents trampling
+            if (resistance >= Constants.MAX_SEED_STAT) return false;
         }
-        return XSTR.XSTR_INSTANCE.nextInt(100) <= 0;
+        // This check gets called very frequently while entities are moving though crop sticks so it shold be a fairly
+        // so the chance for the crop sticks to get trampled should be fairly low.
+        double maxRoll = 100.0d * Math.pow(0.95d, tier);
+        int roll = XSTR.XSTR_INSTANCE.nextInt((int) maxRoll);
+        if (roll > 0) return false;
+        // higher resistance means higher chance of surviving the trampling.
+        return XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT) > resistance;
     }
 
-    private static boolean hasFallen(EntityLivingBase entity) {
-        return entity.onGround && entity.fallDistance > 0.0f;
+    /** The minimum fall distance before trampling can occur */
+    private static final float MIN_FALL_DISTANCE_FOR_TRAMPLING = 0.75f;
+
+    private boolean shouldTrampleFromFalling(EntityLivingBase entity) {
+        // only trigger if the player has fallen from high enough
+        if (!entity.onGround || entity.fallDistance <= MIN_FALL_DISTANCE_FOR_TRAMPLING) return false;
+        if (this.hasCrop()) {
+            // weeds and the migrator crop cannot be trampled
+            if (this.hasWeed() || this.seed.getCrop() instanceof CropMigrator) return false;
+        }
+        // check if the soil prevents trampling when jumping
+        Block block = worldObj.getBlock(this.xCoord, this.yCoord - 1, this.zCoord);
+        int meta = worldObj.getBlockMetadata(this.xCoord, this.yCoord - 1, this.zCoord);
+        if (SoilJumpResistanceRegistry.instance.shouldSurvive(block, meta)) return false;
+        // the chance for the trampling depends on the fall distance. if it's under 1.75 blocks it's a percent chance
+        // based on the distance fallen.
+        return XSTR.XSTR_INSTANCE.nextFloat() < entity.fallDistance - MIN_FALL_DISTANCE_FOR_TRAMPLING;
     }
 
     @Override
@@ -1319,24 +1334,25 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (!(target instanceof EntityLivingBase entity)) {
             return;
         }
-        if (CropsNHUtils.isServer() && (entity.isSprinting() || hasFallen(entity))
-            && shouldTrample(hasFallen(entity) ? entity.fallDistance : 0.0f)) {
-            // drop seed
-            ItemStack seedDrop = getSeedDrop();
-            ArrayList<ItemStack> toDrop = this.harvest(1.0d);
-            if (toDrop == null) toDrop = new ArrayList<>(2);
-            if (seedDrop != null) toDrop.add(seedDrop);
+        if (CropsNHUtils.isServer() && (shouldTrampleFromRunning(entity) || shouldTrampleFromFalling(entity))) {
+            ArrayList<ItemStack> toDrop = new ArrayList<>();
             toDrop.add(CropsNHItemList.cropSticks.get(this.isCrossCrop ? 2 : 1));
-            // no more crop in here.
-            this.clear();
-            // replace farmland with dirt if block under is farmland
-            int y = this.yCoord - 1;
-            if (this.worldObj.getBlock(this.xCoord, y, this.zCoord) == Blocks.farmland) {
-                this.worldObj.setBlock(this.xCoord, y, this.zCoord, Blocks.dirt, 0, 7);
+            if (this.hasCrop()) {
+                // drop seed
+                ItemStack seedDrop = getSeedDrop();
+                ArrayList<ItemStack> drops = this.harvest(1.0d);
+                if (drops != null) toDrop.addAll(drops);
+                if (seedDrop != null) toDrop.add(seedDrop);
+                // no more crop in here.
+                this.clear();
+                // replace farmland with dirt if block under is farmland
+                int y = this.yCoord - 1;
+                if (this.worldObj.getBlock(this.xCoord, y, this.zCoord) == Blocks.farmland) {
+                    this.worldObj.setBlock(this.xCoord, y, this.zCoord, Blocks.dirt, 0, 7);
+                }
             }
             // remove cropsticks
             this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, Blocks.air, 0, 7);
-
             // drop the items once the cropstick is gone
             for (ItemStack drop : toDrop) {
                 dropItem(drop);
