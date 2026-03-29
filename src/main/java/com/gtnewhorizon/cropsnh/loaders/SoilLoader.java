@@ -32,10 +32,13 @@ public class SoilLoader {
         BlockWithMeta snow = new BlockWithMeta(Blocks.snow);
         BlockWithMeta brick = new BlockWithMeta(Blocks.brick_block);
 
+        CropsNHSoilTypes.stone.registerSoil(
+            new BlockWithMeta(Blocks.stone),
+            new BlockWithMeta(Blocks.cobblestone),
+            new BlockWithMeta(Blocks.stonebrick),
+            new BlockWithMeta(Blocks.mossy_cobblestone));
         CropsNHSoilTypes.farmland.registerSoil(farmland);
-        CropsNHSoilTypes.sugarcane.registerSoil(sand, dirt, grass);
         CropsNHSoilTypes.sand.registerSoil(sand);
-        CropsNHSoilTypes.mushroom.registerSoil(stone, cobblestone, dirt, grass, mycelium);
         CropsNHSoilTypes.soulsand.registerSoil(soulSand);
         CropsNHSoilTypes.dirt.registerSoil(dirt, grass);
         CropsNHSoilTypes.mycelium.registerSoil(mycelium);
@@ -78,14 +81,53 @@ public class SoilLoader {
             CropsNHSoilTypes.slimy.registerSoil(greeneSlimyMud, blueSlimyMud, slimeDirt, slimeGrass);
         }
 
-        if (ModUtils.RandomThings.isModLoaded()) {
-            BlockWithMeta fertilizedDirt = new BlockWithMeta(ModUtils.RandomThings.getBlock("fertilizedDirt_tilled"));
-            CropsNHSoilTypes.farmland.registerSoil(fertilizedDirt);
+        if (ModUtils.Botania.isModLoaded()) {
+            CropsNHSoilTypes.end.registerSoil(new BlockWithMeta(ModUtils.Botania.getBlock("endStoneBrick")));
         }
-
+        if (ModUtils.Chisel.isModLoaded()) {
+            CropsNHSoilTypes.dirt.registerSoil(new BlockWithMeta(ModUtils.Chisel.getBlock("dirt")));
+            CropsNHSoilTypes.end.registerSoil(new BlockWithMeta(ModUtils.Chisel.getBlock("end_Stone")));
+            CropsNHSoilTypes.netherrack.registerSoil(new BlockWithMeta(ModUtils.Chisel.getBlock("netherrack")));
+            CropsNHSoilTypes.stone.registerSoil(
+                new BlockWithMeta(ModUtils.Chisel.getBlock("cobblestone")),
+                new BlockWithMeta(ModUtils.Chisel.getBlock("mossy_cobblestone")),
+                new BlockWithMeta(ModUtils.Chisel.getBlock("stone_snakestone")),
+                new BlockWithMeta(ModUtils.Chisel.getBlock("stonebricksmooth")));
+        }
+        if (ModUtils.EtFuturumRequiem.isModLoaded()) {
+            CropsNHSoilTypes.end.registerSoil(new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("end_bricks")));
+        }
+        if (ModUtils.ExtraUtilities.isModLoaded()) {
+            CropsNHSoilTypes.brick.registerSoil(new BlockWithMeta(ModUtils.ExtraUtilities.getBlock("color_brick")));
+            CropsNHSoilTypes.stone.registerSoil(
+                new BlockWithMeta(ModUtils.ExtraUtilities.getBlock("color_stonebrick")),
+                new BlockWithMeta(ModUtils.ExtraUtilities.getBlock("color_stone")));
+        }
+        if (ModUtils.GalaxySpace.isModLoaded()) {
+            CropsNHSoilTypes.snow.registerSoil(new BlockWithMeta(ModUtils.GalaxySpace.getBlock("enceladusblocks"), 0));
+        }
+        if (ModUtils.RandomThings.isModLoaded()) {
+            CropsNHSoilTypes.farmland
+                .registerSoil(new BlockWithMeta(ModUtils.RandomThings.getBlock("fertilizedDirt_tilled")));
+        }
+        if (ModUtils.TinkerConstruct.isModLoaded()) {
+            CropsNHSoilTypes.netherrack.registerSoil(
+                new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrick"), 2),
+                new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 2));
+            CropsNHSoilTypes.stone.registerSoil(
+                new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrick"), 3),
+                new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 3),
+                new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 14),
+                new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 15));
+        }
+        if (ModUtils.ThaumicBases.isModLoaded()) {
+            CropsNHSoilTypes.brick.registerSoil(new BlockWithMeta(ModUtils.ThaumicBases.getBlock("oldBrick")));
+            CropsNHSoilTypes.stone.registerSoil(
+                new BlockWithMeta(ModUtils.ThaumicBases.getBlock("oldCobble")),
+                new BlockWithMeta(ModUtils.ThaumicBases.getBlock("oldCobbleMossy")));
+        }
         if (ModUtils.Ztones.isModLoaded()) {
-            BlockWithMeta gardenSoil = new BlockWithMeta(ModUtils.Ztones.getBlock("cleanDirt"));
-            CropsNHSoilTypes.farmland.registerSoil(gardenSoil);
+            CropsNHSoilTypes.farmland.registerSoil(new BlockWithMeta(ModUtils.Ztones.getBlock("cleanDirt")));
         }
     }
 }
