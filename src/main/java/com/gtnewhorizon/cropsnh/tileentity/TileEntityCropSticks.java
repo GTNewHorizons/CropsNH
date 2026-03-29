@@ -560,7 +560,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 }
             }
             if (count > 0) {
-                int remaining = count * getSeedStack().stackSize + gainBonus;
+                int remaining = count * drop.getKey().stackSize + gainBonus;
                 while (remaining > 0) {
                     ItemStack stack = drop.getKey()
                         .copy();
