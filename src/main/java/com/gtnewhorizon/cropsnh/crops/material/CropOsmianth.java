@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
@@ -25,7 +26,7 @@ public class CropOsmianth extends NHCropCard {
 
         this.addDrop(CropsNHItemList.osmianthFlower.get(1), 25_00);
 
-        this.addBlockUnderRequirement("osmium");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.osmium);
 
         this.addDuplicationCatalyst("dustOsmium", 1);
 

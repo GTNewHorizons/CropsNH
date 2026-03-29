@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
@@ -20,7 +21,7 @@ public class CropLazulia extends NHCropCard {
 
         this.addDrop(Materials.Lapis.getDust(1), 100_00);
 
-        this.addBlockUnderRequirement("lapis");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.lapis);
 
         this.addDuplicationCatalyst("gemLapis", 1);
         this.addDuplicationCatalyst("dustLapis", 1);

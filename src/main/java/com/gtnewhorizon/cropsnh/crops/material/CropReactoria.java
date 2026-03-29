@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
@@ -24,7 +25,7 @@ public class CropReactoria extends NHCropCard {
         this.addDrop(CropsNHItemList.reactoriaLeaf.get(1), 75_00);
         this.addDrop(CropsNHItemList.reactoriaStem.get(1), 25_00);
 
-        this.addBlockUnderRequirement("uranium");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.uranium);
 
         this.addDuplicationCatalyst("dustUranium", 1);
         this.addDuplicationCatalyst("dustUranium235", 1);

@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -20,7 +21,7 @@ public class CropTine extends NHCropCard {
 
         this.addDrop(CropsNHItemList.tineTwig.get(1), 100_00);
 
-        this.addBlockUnderRequirement("tin");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.tin);
 
         this.addDuplicationCatalyst("dustTin", 1);
         this.addDuplicationCatalyst("dustCassiterite", 1);

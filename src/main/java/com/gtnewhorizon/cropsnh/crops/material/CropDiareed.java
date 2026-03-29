@@ -6,6 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
@@ -28,7 +29,7 @@ public class CropDiareed extends NHCropCard {
         this.addDrop(new ItemStack(Items.diamond, 1, 0), 75_00);
         this.addDrop(Materials.Diamond.getDust(1), 25_00);
 
-        this.addBlockUnderRequirement("diamond");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.diamond);
 
         this.addDuplicationCatalyst("dustDiamond", 1);
         this.addDuplicationCatalyst("gemDiamond", 1);

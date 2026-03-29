@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -22,7 +23,7 @@ public class CropTitania extends NHCropCard {
 
         this.addDrop(CropsNHItemList.titaniaLeaf.get(1), 100_00);
 
-        this.addBlockUnderRequirement("titanium");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.titanium);
 
         this.addDuplicationCatalyst("dustTitanium", 1);
         this.addDuplicationCatalyst("dustRutile", 2);

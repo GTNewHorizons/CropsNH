@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
@@ -25,7 +26,7 @@ public class CropIridine extends NHCropCard {
 
         this.addDrop(CropsNHItemList.iridineFlower.get(1), 75_00);
 
-        this.addBlockUnderRequirement("iridium");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.iridium);
 
         this.addDuplicationCatalyst("dustIridium", 1);
 

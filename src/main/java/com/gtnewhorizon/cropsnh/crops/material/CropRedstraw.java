@@ -6,6 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MinLightLevelGrowthRequirement;
@@ -21,7 +22,7 @@ public class CropRedstraw extends NHCropCard {
         this.addGrowthRequirement(new MinLightLevelGrowthRequirement(5));
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(12));
 
-        this.addBlockUnderRequirement("redstone");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.redstone);
 
         this.addDuplicationCatalyst("dustRedstone", 1);
 

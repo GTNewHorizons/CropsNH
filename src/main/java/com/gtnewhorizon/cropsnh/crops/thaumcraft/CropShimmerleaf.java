@@ -5,6 +5,7 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -25,7 +26,7 @@ public class CropShimmerleaf extends NHCropCard {
 
         this.addAlternateSeed(silverleaf.copy());
 
-        this.addBlockUnderRequirement("quicksilver");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.quicksilver);
 
         this.addDuplicationCatalyst("nuggetMercury", 1);
 

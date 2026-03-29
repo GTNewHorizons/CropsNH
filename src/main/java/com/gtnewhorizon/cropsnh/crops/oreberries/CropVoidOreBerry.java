@@ -5,6 +5,7 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
@@ -23,7 +24,7 @@ public class CropVoidOreBerry extends CropOreBerry {
         ItemStack voidSeed = CropsNHUtils.getModItem(ModUtils.Thaumcraft, "ItemResource", 1, 17);
         this.addAlternateSeed(voidSeed);
 
-        this.addBlockUnderRequirement("void");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.$void);
 
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
 

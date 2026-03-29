@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
@@ -23,7 +24,7 @@ public class CropOlivia extends NHCropCard {
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Olivine, 1L), 75_00);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Olivine, 1L), 25_00);
 
-        this.addBlockUnderRequirement("olivine");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.olivine);
 
         this.addDuplicationCatalyst("gemOlivine", 1);
         this.addDuplicationCatalyst("dustOlivine", 1);

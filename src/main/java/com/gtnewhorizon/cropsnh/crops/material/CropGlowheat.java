@@ -6,6 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
@@ -22,7 +23,7 @@ public class CropGlowheat extends NHCropCard {
 
         this.addDrop(new ItemStack(Items.glowstone_dust, 1, 0), 100_00);
 
-        this.addBlockUnderRequirement("glowstone");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.glowstone);
 
         this.addDuplicationCatalyst("dustGlowstone", 1);
 

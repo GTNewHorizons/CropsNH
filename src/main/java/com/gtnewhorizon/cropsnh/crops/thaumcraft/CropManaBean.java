@@ -6,6 +6,7 @@ import java.util.Objects;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
@@ -36,7 +37,7 @@ public class CropManaBean extends NHCropCard {
         this.addDrop(getBean(Aspect.ORDER), 16_66);
         this.addDrop(getBean(Aspect.ENTROPY), 16_66);
 
-        this.addBlockUnderRequirement("mixedCrystalCluster");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.mixedCrystalCluster);
 
         this.addDuplicationCatalyst("shardAir", 1);
         this.addDuplicationCatalyst("shardFire", 1);

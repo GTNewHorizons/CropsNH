@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -20,7 +21,7 @@ public class CropAuronia extends NHCropCard {
 
         this.addDrop(CropsNHItemList.auroniaLeaf.get(1), 10_000);
 
-        this.addBlockUnderRequirement("gold");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.gold);
 
         this.addDuplicationCatalyst("dustGold", 1);
         // mesa

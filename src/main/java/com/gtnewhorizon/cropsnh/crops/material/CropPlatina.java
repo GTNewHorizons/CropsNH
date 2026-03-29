@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -21,7 +22,7 @@ public class CropPlatina extends NHCropCard {
 
         this.addDrop(CropsNHItemList.platinaLeaf.get(1), 100_00);
 
-        this.addBlockUnderRequirement("platinum");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.platinum);
 
         this.addDuplicationCatalyst("dustPlatinum", 1);
 

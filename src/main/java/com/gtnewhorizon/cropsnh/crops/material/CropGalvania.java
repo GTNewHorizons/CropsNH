@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -20,7 +21,7 @@ public class CropGalvania extends NHCropCard {
 
         this.addDrop(CropsNHItemList.galvaniaLeaf.get(1), 100_00);
 
-        this.addBlockUnderRequirement("zinc");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.zinc);
 
         this.addDuplicationCatalyst("dustZinc", 1);
 

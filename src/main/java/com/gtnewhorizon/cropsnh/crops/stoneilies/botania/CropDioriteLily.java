@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
@@ -14,7 +15,7 @@ public class CropDioriteLily extends CropBaseStoneLily {
 
         this.addDrop(OreDictHelper.getCopiedOreStack("stoneDiorite", 1), 100_00);
 
-        this.addBlockUnderRequirement("botaniaDiorite");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.botaniaDiorite);
 
         this.addLikedBiomes(BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HILLS);
     }

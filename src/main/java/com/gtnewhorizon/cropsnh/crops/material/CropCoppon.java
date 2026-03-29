@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -20,7 +21,7 @@ public class CropCoppon extends NHCropCard {
 
         this.addDrop(CropsNHItemList.copponFiber.get(1), 100_00);
 
-        this.addBlockUnderRequirement("copper");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.copper);
 
         this.addDuplicationCatalyst("dustCopper", 1);
 

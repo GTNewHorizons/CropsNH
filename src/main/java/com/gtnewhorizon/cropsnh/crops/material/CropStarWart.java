@@ -6,6 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
@@ -25,7 +26,7 @@ public class CropStarWart extends NHCropCard {
 
         this.addDrop(CropsNHItemList.starWart.get(1), 100_00);
 
-        this.addBlockUnderRequirement("netherStar");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.netherStar);
 
         this.addDuplicationCatalyst("dustNetherStar", 1);
         this.addDuplicationCatalyst("netherStar", 1);

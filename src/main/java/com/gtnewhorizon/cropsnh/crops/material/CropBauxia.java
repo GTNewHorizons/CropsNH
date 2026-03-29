@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -20,7 +21,7 @@ public class CropBauxia extends NHCropCard {
 
         this.addDrop(CropsNHItemList.bauxiaLeaf.get(1), 100_00);
 
-        this.addBlockUnderRequirement("aluminiumBauxite");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.aluminiumBauxite);
 
         this.addDuplicationCatalyst("dustAluminium", 1);
         this.addDuplicationCatalyst("dustBauxite", 2);

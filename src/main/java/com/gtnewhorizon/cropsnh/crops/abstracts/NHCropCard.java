@@ -64,8 +64,8 @@ public abstract class NHCropCard extends CropCard {
         return DEFAULT_SOIL;
     }
 
-    public CropCard addBlockUnderRequirement(String id) {
-        this.growthRequirements.add(BlockUnderRequirement.get(id));
+    public CropCard addBlockUnderRequirement(BlockUnderRequirement req) {
+        this.growthRequirements.add(req);
         return this;
     }
 

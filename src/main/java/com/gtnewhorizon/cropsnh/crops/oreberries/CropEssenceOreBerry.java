@@ -5,6 +5,7 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
@@ -25,7 +26,7 @@ public class CropEssenceOreBerry extends CropOreBerry {
 
         this.addAlternateSeed(CropsNHUtils.copyStackWithSize(oreBerries, 1));
 
-        this.addBlockUnderRequirement("skull");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.skull);
 
         this.addLikedBiomes(BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.DEAD);
     }

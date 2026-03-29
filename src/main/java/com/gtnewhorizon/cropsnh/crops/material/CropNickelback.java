@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -21,7 +22,7 @@ public class CropNickelback extends NHCropCard {
 
         this.addDrop(CropsNHItemList.nickelbackLeaf.get(1), 100_00);
 
-        this.addBlockUnderRequirement("nickel");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.nickel);
 
         this.addDuplicationCatalyst("dustNickel", 1);
         // Look at this photograph, every time I do, it makes me cry :(

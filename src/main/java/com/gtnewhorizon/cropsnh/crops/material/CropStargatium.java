@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
@@ -25,7 +26,7 @@ public class CropStargatium extends NHCropCard {
         this.addDrop(CropsNHItemList.stargatiumLeaf.get(1), 75_00);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Endstone, 1L), 25_00);
 
-        this.addBlockUnderRequirement("naquadah");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.naquadah);
 
         this.addDuplicationCatalyst("dustNaquadah", 1);
         this.addDuplicationCatalyst("dustNaquadahOxideMixture", 1);
