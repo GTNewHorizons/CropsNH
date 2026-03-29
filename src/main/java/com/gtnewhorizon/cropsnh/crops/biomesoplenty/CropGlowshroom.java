@@ -5,19 +5,22 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.farming.registries.CompoundSoilList;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropGlowshroom extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.getCompound("mushroom", "netherrack");
+    private final static ISoilList soilTypes = new CompoundSoilList(
+        CropsNHSoilTypes.mushroom,
+        CropsNHSoilTypes.netherrack);
 
     public CropGlowshroom() {
         super("glowshroom", new Color(0x45AD32), new Color(0x63FA48));

@@ -6,13 +6,13 @@ import java.util.Objects;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
@@ -22,7 +22,7 @@ import thaumcraft.common.items.ItemManaBean;
 
 public class CropManaBean extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("silverwoodLog");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.silverwoodLog;
 
     // TODO: ADD THE NON MIXED MANA BEANS
 

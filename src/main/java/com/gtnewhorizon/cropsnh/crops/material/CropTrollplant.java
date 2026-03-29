@@ -6,11 +6,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import gregtech.api.enums.ItemList;
@@ -22,7 +22,7 @@ import gregtech.api.util.GTOreDictUnificator;
 public class CropTrollplant extends NHCropCard {
 
     // Yes, this is entirely arbitrary and specifically exists to mess with people
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("brick");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.brick;
 
     public CropTrollplant() {
         super("trollplant", new Color(0x000000), new Color(0xFFFFFF));

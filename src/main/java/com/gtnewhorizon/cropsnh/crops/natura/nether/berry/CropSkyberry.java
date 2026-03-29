@@ -5,15 +5,15 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropSkyberry extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("netherrack");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
 
     public CropSkyberry() {
         super("skyberry", new Color(0x2E8BA7), new Color(0x45E0FF));
