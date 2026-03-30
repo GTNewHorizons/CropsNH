@@ -407,12 +407,14 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
         createOreConversionRecipe(
             MaterialLeafLoader.osmianthFlower,
+            DEFAULT_ORE_CONVERSION_LEAF_AMOUNT * 2,
             Voltage.IV,
             WerkstoffLoader.AcidicOsmiumSolution.getFluidOrGas(1000),
             TierAcid.t6,
             Voltage.HV.getComplexTime() * 17);
         createOreConversionRecipe(
             MaterialLeafLoader.iridineFlower,
+            DEFAULT_ORE_CONVERSION_LEAF_AMOUNT * 2,
             Voltage.IV,
             WerkstoffLoader.AcidicIridiumSolution.getFluidOrGas(1000),
             TierAcid.t6,
