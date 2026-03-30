@@ -341,6 +341,19 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     }
 
+    private static class PlatinaRecipeVariation {
+
+        public int mult;
+        public int circuit;
+        public ItemStack residue;
+
+        public PlatinaRecipeVariation(int mult, int circuit, ItemStack residue) {
+            this.mult = mult;
+            this.circuit = circuit;
+            this.residue = residue;
+        }
+    }
+
     private static void addOreConversionRecipes() {
 
         mvRecipe(Voltage.MV.getSimpleTime() * 3).itemInputs(MaterialLeafLoader.micadiaFlower.get(1))
@@ -391,12 +404,16 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreConversionRecipe(MaterialLeafLoader.bobsYerUncleBerry, Voltage.LV, Materials.Emerald, TierAcid.t2);
         createOreConversionRecipe(MaterialLeafLoader.bauxiaLeaf, Voltage.MV, Materials.Bauxite, TierAcid.t2);
 
-        createOreConversionRecipe(
-            MaterialLeafLoader.platinaLeaf,
-            Voltage.HV,
-            WerkstoffLoader.PTConcentrate.getFluidOrGas(1000),
-            TierAcid.t3,
-            Voltage.HV.getComplexTime() * 10);
+        for (PlatinaRecipeVariation variation : new PlatinaRecipeVariation[] {
+            new PlatinaRecipeVariation(1, 3, WerkstoffLoader.PTResidue.get(OrePrefixes.dustTiny, 1)),
+            new PlatinaRecipeVariation(9, 9, WerkstoffLoader.PTResidue.get(OrePrefixes.dust, 1)) }) {
+            lvRecipe((12 * SECONDS + 10 * TICKS) * variation.mult).itemInputs(CropsNHItemList.platinaLeaf.get(4))
+                .circuit(variation.circuit)
+                .fluidInputs(WerkstoffLoader.AquaRegia.getFluidOrGas(2000 * variation.mult))
+                .itemOutputs(variation.residue)
+                .fluidOutputs(WerkstoffLoader.PTConcentrate.getFluidOrGas(2000 * variation.mult))
+                .addTo(UniversalChemical);
+        }
 
         createOreConversionRecipe(MaterialLeafLoader.scheeliniumLeaf, Voltage.EV, Materials.Scheelite, TierAcid.t5);
         createOreConversionRecipe(MaterialLeafLoader.reactoriaLeaf, Voltage.EV, Materials.Pitchblende, TierAcid.t5);
