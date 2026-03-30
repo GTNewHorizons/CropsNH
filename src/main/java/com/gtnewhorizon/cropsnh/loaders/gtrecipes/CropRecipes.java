@@ -429,9 +429,9 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .fluidOutputs(
                 // same values as the comb for now might want to lower it
                 // if too strong
-                Materials.Platinum.getMolten(4 * STACKS),
-                Materials.Osmium.getMolten(4 * STACKS),
-                Materials.Iridium.getMolten(4 * STACKS))
+                Materials.Platinum.getMolten(1 * STACKS),
+                Materials.Osmium.getMolten(1 * STACKS),
+                Materials.Iridium.getMolten(1 * STACKS))
             .duration(20 * SECONDS)
             .eut(TierEU.RECIPE_UV)
             .metadata(QFT_CATALYST, GregtechItemList.PlatinumGroupCatalyst.get(0))
