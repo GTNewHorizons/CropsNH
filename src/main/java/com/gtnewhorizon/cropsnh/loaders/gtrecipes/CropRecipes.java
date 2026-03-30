@@ -407,7 +407,8 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         for (PlatinaRecipeVariation variation : new PlatinaRecipeVariation[] {
             new PlatinaRecipeVariation(1, 3, WerkstoffLoader.PTResidue.get(OrePrefixes.dustTiny, 1)),
             new PlatinaRecipeVariation(9, 9, WerkstoffLoader.PTResidue.get(OrePrefixes.dust, 1)) }) {
-            lvRecipe((12 * SECONDS + 10 * TICKS) * variation.mult).itemInputs(CropsNHItemList.platinaLeaf.get(4))
+            lvRecipe((12 * SECONDS + 10 * TICKS) * variation.mult)
+                .itemInputs(CropsNHItemList.platinaLeaf.get(4 * variation.mult))
                 .circuit(variation.circuit)
                 .fluidInputs(WerkstoffLoader.AquaRegia.getFluidOrGas(2000 * variation.mult))
                 .itemOutputs(variation.residue)
