@@ -15,10 +15,14 @@ import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
 import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
 import static gregtech.api.recipe.RecipeMaps.multiblockChemicalReactorRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
+import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeConstants.GLASS;
+import static gregtech.api.util.GTRecipeConstants.QFT_CATALYST;
+import static gregtech.api.util.GTRecipeConstants.QFT_FOCUS_TIER;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 import static gregtech.common.items.ItemComb.Voltage;
+import static gtPlusPlus.api.recipe.GTPPRecipeMaps.quantumForceTransformerRecipes;
 import static net.minecraftforge.fluids.FluidRegistry.getFluidStack;
 
 import net.minecraft.init.Blocks;
@@ -54,6 +58,7 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.GTUtility;
+import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 public abstract class CropRecipes extends BaseGTRecipeLoader {
 
@@ -413,6 +418,25 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             TierAcid.t6,
             Voltage.HV.getComplexTime() * 14);
         createOreConversionRecipe(MaterialLeafLoader.stargatiumLeaf, Voltage.IV, Materials.Naquadah, TierAcid.t6);
+
+        // Platline skip using platline leaves ( Platinum, Osmium, Iridium)
+        // ADD PALLADIUM INPUT/OUTPUT IF WE EVER ADD A PALLADIUM CROP
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                CropsNHItemList.platinaLeaf.get(64),
+                CropsNHItemList.osmianthFlower.get(64),
+                CropsNHItemList.iridineFlower.get(64))
+            .fluidOutputs(
+                // same values as the comb for now might want to lower it
+                // if too strong
+                Materials.Platinum.getMolten(4 * STACKS),
+                Materials.Osmium.getMolten(4 * STACKS),
+                Materials.Iridium.getMolten(4 * STACKS))
+            .duration(20 * SECONDS)
+            .eut(TierEU.RECIPE_UV)
+            .metadata(QFT_CATALYST, GregtechItemList.PlatinumGroupCatalyst.get(0))
+            .metadata(QFT_FOCUS_TIER, 1)
+            .addTo(quantumForceTransformerRecipes);
 
     }
 
