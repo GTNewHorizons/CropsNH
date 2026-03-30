@@ -596,7 +596,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
         // TODO: ADD HELPER FUNCTIONS TO GT5U TO HELP MAKE MAINTAINING THE RECIPES EASIER DOWN THE LINE
         // light oil
-        hvRecipe(1, 00).itemInputs(MaterialLeafLoader.oilBerry.get(10))
+        hvRecipe(1, 05).itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(1)
             .fluidOutputs(
                 Materials.SulfuricHeavyFuel.getFluid(70),
@@ -607,7 +607,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // oil
-        hvRecipe(1, 00).circuit(2)
+        hvRecipe(3, 20).circuit(2)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .fluidOutputs(
                 Materials.SulfuricHeavyFuel.getFluid(300),
@@ -618,7 +618,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // raw oil
-        hvRecipe(1, 00).itemInputs(MaterialLeafLoader.oilBerry.get(10))
+        hvRecipe(1, 60).itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(3)
             .fluidOutputs(
                 Materials.SulfuricHeavyFuel.getFluid(100),
@@ -629,7 +629,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // heavy oil
-        hvRecipe(1, 00).itemInputs(MaterialLeafLoader.oilBerry.get(10))
+        hvRecipe(5, 00).itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(4)
             .fluidOutputs(
                 Materials.SulfuricHeavyFuel.getFluid(1_000),
