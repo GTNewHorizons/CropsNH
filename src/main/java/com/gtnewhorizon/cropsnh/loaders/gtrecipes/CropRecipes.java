@@ -986,7 +986,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
         GTRecipeBuilder builder = GTValues.RA.stdBuilder()
             .eut(voltage.getChemicalEnergy())
-            .duration(voltage.getComplexTime())
+            .duration(duration)
             .itemInputs(itemInputs);
 
         if (fluidInputs != null) {
