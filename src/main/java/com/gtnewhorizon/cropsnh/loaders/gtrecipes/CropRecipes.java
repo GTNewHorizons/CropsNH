@@ -442,7 +442,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
         // Platline skip using platline leaves ( Platinum, Osmium, Iridium)
         // ADD PALLADIUM INPUT/OUTPUT IF WE EVER ADD A PALLADIUM CROP
-        GTValues.RA.stdBuilder()
+        uvRecipe(20, 00)
             .itemInputs(
                 CropsNHItemList.platinaLeaf.get(64),
                 CropsNHItemList.osmianthFlower.get(64),
@@ -453,8 +453,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                 Materials.Platinum.getMolten(1 * STACKS),
                 Materials.Osmium.getMolten(1 * STACKS),
                 Materials.Iridium.getMolten(1 * STACKS))
-            .duration(20 * SECONDS)
-            .eut(TierEU.RECIPE_UV)
             .metadata(QFT_CATALYST, GregtechItemList.PlatinumGroupCatalyst.get(0))
             .metadata(QFT_FOCUS_TIER, 1)
             .addTo(quantumForceTransformerRecipes);
