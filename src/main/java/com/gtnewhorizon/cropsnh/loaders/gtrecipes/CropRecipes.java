@@ -517,16 +517,18 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     }
 
     private static void addOilBerryRecipes() {
+
+        // fluid extraction
+        lvRecipe(1, 00).itemInputs(MaterialLeafLoader.oilBerry.get(1))
+            .fluidOutputs(Materials.Oil.getFluid(100))
+            .addTo(fluidExtractionRecipes);
+
+        // density modification recipes
         FluidStack[] fluids = new FluidStack[] { Materials.OilLight.getFluid(100), Materials.Oil.getFluid(100),
             // raw oil
             Materials.OilMedium.getFluid(100), Materials.OilHeavy.getFluid(100) };
-
         for (int i = 0; i < fluids.length; i++) {
             FluidStack sourceFluid = fluids[i];
-            // oil extraction
-            recipe(4, 6, 40).itemInputs(MaterialLeafLoader.oilBerry.get(1), GTUtility.getIntegratedCircuit(i + 1))
-                .fluidOutputs(sourceFluid.copy())
-                .addTo(fluidExtractionRecipes);
 
             // oil conversion, density up
             if (i > 0) {
@@ -566,6 +568,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                     .addTo(GTRecipeConstants.UniversalChemical);
             }
         }
+
     }
 
     private static void addTineRecipes() {
