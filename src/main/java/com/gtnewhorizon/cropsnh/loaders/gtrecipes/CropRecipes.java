@@ -411,14 +411,14 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             Voltage.IV,
             WerkstoffLoader.AcidicOsmiumSolution.getFluidOrGas(1000),
             TierAcid.t6,
-            Voltage.HV.getComplexTime() * 17);
+            Voltage.IV.getComplexTime() * 13);
         createOreConversionRecipe(
             MaterialLeafLoader.iridineFlower,
             DEFAULT_ORE_CONVERSION_LEAF_AMOUNT * 2,
             Voltage.IV,
             WerkstoffLoader.AcidicIridiumSolution.getFluidOrGas(1000),
             TierAcid.t6,
-            Voltage.HV.getComplexTime() * 14);
+            Voltage.IV.getComplexTime() * 9);
         createOreConversionRecipe(MaterialLeafLoader.stargatiumLeaf, Voltage.IV, Materials.Naquadah, TierAcid.t6);
 
         // Platline skip using platline leaves ( Platinum, Osmium, Iridium)
