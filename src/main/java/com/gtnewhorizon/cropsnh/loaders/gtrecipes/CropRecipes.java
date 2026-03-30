@@ -8,6 +8,7 @@ import static gregtech.api.recipe.RecipeMaps.centrifugeRecipes;
 import static gregtech.api.recipe.RecipeMaps.chemicalBathRecipes;
 import static gregtech.api.recipe.RecipeMaps.chemicalReactorRecipes;
 import static gregtech.api.recipe.RecipeMaps.compressorRecipes;
+import static gregtech.api.recipe.RecipeMaps.distillationTowerRecipes;
 import static gregtech.api.recipe.RecipeMaps.extractorRecipes;
 import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
 import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
@@ -569,6 +570,50 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             }
         }
 
+        // TODO: ADD HELPER FUNCTIONS TO GT5U TO HELP MAKE MAINTAINING THE RECIPES EASIER DOWN THE LINE
+        // light oil
+        hvRecipe(1, 05).itemInputs(MaterialLeafLoader.oilBerry.get(10))
+            .circuit(1)
+            .fluidOutputs(
+                Materials.SulfuricHeavyFuel.getFluid(70),
+                Materials.SulfuricLightFuel.getFluid(130),
+                Materials.SulfuricNaphtha.getFluid(200),
+                Materials.NaphthenicAcid.getFluid(15),
+                Materials.SulfuricGas.getGas(1600))
+            .addTo(distillationTowerRecipes);
+
+        // oil
+        hvRecipe(3, 20).circuit(2)
+            .itemInputs(MaterialLeafLoader.oilBerry.get(10))
+            .fluidOutputs(
+                Materials.SulfuricHeavyFuel.getFluid(300),
+                Materials.SulfuricLightFuel.getFluid(1_000),
+                Materials.SulfuricNaphtha.getFluid(400),
+                Materials.NaphthenicAcid.getFluid(50),
+                Materials.SulfuricGas.getGas(1_200))
+            .addTo(distillationTowerRecipes);
+
+        // raw oil
+        hvRecipe(1, 60).itemInputs(MaterialLeafLoader.oilBerry.get(10))
+            .circuit(3)
+            .fluidOutputs(
+                Materials.SulfuricHeavyFuel.getFluid(100),
+                Materials.SulfuricLightFuel.getFluid(500),
+                Materials.SulfuricNaphtha.getFluid(1_500),
+                Materials.NaphthenicAcid.getFluid(25),
+                Materials.SulfuricGas.getGas(600))
+            .addTo(distillationTowerRecipes);
+
+        // heavy oil
+        hvRecipe(5, 00).itemInputs(MaterialLeafLoader.oilBerry.get(10))
+            .circuit(4)
+            .fluidOutputs(
+                Materials.SulfuricHeavyFuel.getFluid(1_000),
+                Materials.SulfuricLightFuel.getFluid(450),
+                Materials.SulfuricNaphtha.getFluid(150),
+                Materials.NaphthenicAcid.getFluid(50),
+                Materials.SulfuricGas.getGas(600))
+            .addTo(distillationTowerRecipes);
     }
 
     private static void addTineRecipes() {
