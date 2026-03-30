@@ -59,6 +59,7 @@ import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.GTUtility;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
+import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 
 public abstract class CropRecipes extends BaseGTRecipeLoader {
 
@@ -457,6 +458,27 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .metadata(QFT_CATALYST, GregtechItemList.PlatinumGroupCatalyst.get(0))
             .metadata(QFT_FOCUS_TIER, 1)
             .addTo(quantumForceTransformerRecipes);
+
+        // knight metal transmutation recipe since gog is pretty much locked out of it without it.
+        if (ModUtils.TwilightForest.isModLoaded() && ModUtils.ThaumicBases.isModLoaded()) {
+            mvRecipe(10, 00).itemInputs(
+                // start with steeleaf
+                ModUtils.TwilightForest.getStack("item.steeleafHelm", 1, 0),
+                ModUtils.TwilightForest.getStack("item.steeleafPlate", 1, 0),
+                ModUtils.TwilightForest.getStack("item.steeleafLegs", 1, 0),
+                ModUtils.TwilightForest.getStack("item.steeleafBoots", 1, 0),
+                // mix in an equivalent magic source
+                ModUtils.ThaumicBases.getStack("thauminiteHelmet", 1, 0),
+                ModUtils.ThaumicBases.getStack("thauminiteChest", 1, 0),
+                ModUtils.ThaumicBases.getStack("thauminiteLeggings", 1, 0),
+                ModUtils.ThaumicBases.getStack("thauminiteBoots", 1, 0),
+                // toss in some stainless for robustness
+                GTOreDictUnificator.get(OrePrefixes.dust, Materials.StainlessSteel, 9))
+                // pyro to melt everything together
+                .fluidInputs(new FluidStack(TFFluids.fluidPyrotheum, 1000))
+                .itemOutputs(ModUtils.TwilightForest.getStack("item.shardCluster", 1, 0))
+                .addTo(assemblerRecipes);
+        }
 
     }
 
