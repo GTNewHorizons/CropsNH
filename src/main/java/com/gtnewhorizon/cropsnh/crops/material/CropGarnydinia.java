@@ -4,11 +4,12 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -16,7 +17,7 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropGarnydinia extends NHCropCard {
 
-    private static final ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private static final ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropGarnydinia() {
         super("garnydinia", new Color(0xA24141), new Color(0xA3A341));
@@ -33,7 +34,7 @@ public class CropGarnydinia extends NHCropCard {
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetRed, 1L), 2_50);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetYellow, 1L), 2_50);
 
-        this.addBlockUnderRequirement("garnetGem");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.garnetGem);
 
         this.addDuplicationCatalyst("dustGarnetRed", 1);
         this.addDuplicationCatalyst("dustGarnetYellow", 1);

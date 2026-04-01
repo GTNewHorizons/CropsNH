@@ -4,23 +4,24 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
 
 public class CropLazulia extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropLazulia() {
         super("lazulia", new Color(0x142EAF), new Color(0x7497EA));
 
         this.addDrop(Materials.Lapis.getDust(1), 100_00);
 
-        this.addBlockUnderRequirement("lapis");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.lapis);
 
         this.addDuplicationCatalyst("gemLapis", 1);
         this.addDuplicationCatalyst("dustLapis", 1);

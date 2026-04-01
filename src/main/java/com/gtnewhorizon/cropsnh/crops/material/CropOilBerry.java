@@ -5,15 +5,15 @@ import java.awt.Color;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 import gregtech.api.enums.VoltageIndex;
 
 public class CropOilBerry extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropOilBerry() {
         super("oilBerry", new Color(0x0A0A0A), new Color(0x333333));

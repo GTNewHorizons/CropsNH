@@ -6,6 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 
 public class CropSandLily extends CropBaseStoneLily {
@@ -15,7 +16,7 @@ public class CropSandLily extends CropBaseStoneLily {
 
         this.addDrop(new ItemStack(Blocks.sand, 4), 100_00);
 
-        this.addBlockUnderRequirement("sand");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.sand);
 
         this.addLikedBiomes(BiomeDictionary.Type.SANDY, BiomeDictionary.Type.DRY, BiomeDictionary.Type.HOT);
     }

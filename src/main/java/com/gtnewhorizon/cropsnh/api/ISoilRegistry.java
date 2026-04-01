@@ -34,20 +34,4 @@ public interface ISoilRegistry {
      */
     ISoilList get(String type);
 
-    /**
-     * Gets a compound soil list of all the types of soils provided.
-     *
-     * @implNote safe even if the list hasn't been registered yet.
-     * @param types The list of soils in the compound list.
-     * @return The soil list for the given type.
-     */
-    ISoilList getCompound(String... types);
-
-    /**
-     * Registers a list of soils to a soil list.
-     *
-     * @param type  The name of the soil list.
-     * @param soils The list of soils to add to the list.
-     */
-    void register(String type, BlockWithMeta... soils);
 }

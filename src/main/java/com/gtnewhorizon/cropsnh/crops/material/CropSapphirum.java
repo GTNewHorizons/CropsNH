@@ -4,9 +4,10 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -15,7 +16,7 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropSapphirum extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropSapphirum() {
         super("sapphirum", new Color(0x47478F), new Color(0x5959B3));
@@ -23,7 +24,7 @@ public class CropSapphirum extends NHCropCard {
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sapphire, 1L), 75_00);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Sapphire, 1L), 25_00);
 
-        this.addBlockUnderRequirement("sapphire");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.sapphire);
 
         this.addDuplicationCatalyst("dustSapphire", 1);
         this.addDuplicationCatalyst("gemSapphire", 1);

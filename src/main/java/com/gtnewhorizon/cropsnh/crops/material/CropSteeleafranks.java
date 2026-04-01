@@ -4,9 +4,9 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
@@ -17,7 +17,7 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropSteeleafranks extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropSteeleafranks() {
         super("steeleafranks", new Color(0x163916), new Color(0x327F32));

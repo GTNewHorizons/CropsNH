@@ -19,6 +19,7 @@ public enum ModUtils implements IMod {
     BiomesOPlenty(ModIDs.BiomesOPlenty),
     BloodMagic(ModIDs.BloodMagic),
     Botania(ModIDs.Botania),
+    Chisel(ModIDs.Chisel),
     CropsPlusPlus(ModIDs.CropsPlusPlus),
     EtFuturumRequiem(ModIDs.EtFuturumRequiem),
     ExtraUtilities(ModIDs.ExtraUtilities),
@@ -116,40 +117,41 @@ public enum ModUtils implements IMod {
 
     public static class ModIDs {
 
-        public final static String Angelica = "angelica";
-        public final static String Avaritia = "Avaritia";
-        public final static String BiomesOPlenty = "BiomesOPlenty";
-        public final static String BloodMagic = "AWWayofTime";
-        public final static String Botania = "Botania";
-        public final static String CropsPlusPlus = "berriespp";
-        public final static String EtFuturumRequiem = "etfuturum";
-        public final static String ExtraUtilities = "ExtraUtilities";
-        public final static String ForbiddenMagic = "ForbiddenMagic";
-        public final static String Forestry = "Forestry";
-        public final static String GalacticraftCore = "GalacticraftCore";
-        public final static String GalacticraftMars = "GalacticraftMars";
-        public final static String GalaxySpace = "GalaxySpace";
-        public final static String GoodGenerator = "GoodGenerator";
-        public final static String GregTech = "gregtech";
-        public final static String HodgePodge = "hodgepodge";
-        public final static String IndustrialCraft2 = "IC2";
-        public final static String MagicBees = "MagicBees";
-        public final static String Natura = "Natura";
-        public final static String NewHorizonsCoreMod = "dreamcraft";
-        public final static String NotEnoughItems = "NotEnoughItems";
-        public final static String PamsHarvestCraft = "harvestcraft";
-        public final static String RandomThings = "RandomThings";
-        public final static String TaintedMagic = "TaintedMagic";
-        public final static String Thaumcraft = "Thaumcraft";
-        public final static String ThaumicBases = "thaumicbases";
-        public final static String ThaumicTinkerer = "ThaumicTinkerer";
-        public final static String TinkerConstruct = "TConstruct";
-        public final static String TwilightForest = "TwilightForest";
-        public final static String UtilitiesInExcess = "utilitiesinexcess";
-        public final static String WAILA = "Waila";
-        public final static String Witchery = "witchery";
-        public final static String WitchingGadgets = "WitchingGadgets";
-        public final static String Ztones = "Ztones";
+        public static final String Angelica = "angelica";
+        public static final String Avaritia = "Avaritia";
+        public static final String BiomesOPlenty = "BiomesOPlenty";
+        public static final String BloodMagic = "AWWayofTime";
+        public static final String Botania = "Botania";
+        public static final String Chisel = "chisel";
+        public static final String CropsPlusPlus = "berriespp";
+        public static final String EtFuturumRequiem = "etfuturum";
+        public static final String ExtraUtilities = "ExtraUtilities";
+        public static final String ForbiddenMagic = "ForbiddenMagic";
+        public static final String Forestry = "Forestry";
+        public static final String GalacticraftCore = "GalacticraftCore";
+        public static final String GalacticraftMars = "GalacticraftMars";
+        public static final String GalaxySpace = "GalaxySpace";
+        public static final String GoodGenerator = "GoodGenerator";
+        public static final String GregTech = "gregtech";
+        public static final String HodgePodge = "hodgepodge";
+        public static final String IndustrialCraft2 = "IC2";
+        public static final String Natura = "Natura";
+        public static final String MagicBees = "MagicBees";
+        public static final String NewHorizonsCoreMod = "dreamcraft";
+        public static final String NotEnoughItems = "NotEnoughItems";
+        public static final String PamsHarvestCraft = "harvestcraft";
+        public static final String RandomThings = "RandomThings";
+        public static final String TaintedMagic = "TaintedMagic";
+        public static final String Thaumcraft = "Thaumcraft";
+        public static final String ThaumicBases = "thaumicbases";
+        public static final String ThaumicTinkerer = "ThaumicTinkerer";
+        public static final String TinkerConstruct = "TConstruct";
+        public static final String TwilightForest = "TwilightForest";
+        public static final String UtilitiesInExcess = "utilitiesinexcess";
+        public static final String WAILA = "Waila";
+        public static final String Witchery = "witchery";
+        public static final String WitchingGadgets = "WitchingGadgets";
+        public static final String Ztones = "Ztones";
 
     }
 }
