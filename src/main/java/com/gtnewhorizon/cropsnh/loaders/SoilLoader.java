@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilJumpResistanceRegistry;
+import com.gtnewhorizon.cropsnh.farming.registries.SoilTramplingResistanceRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
@@ -46,7 +46,20 @@ public class SoilLoader {
         registry.register("netherrack", netherrack);
         registry.register("brick", brick);
 
-        // thaumcraft soils
+        // modded soils
+
+        if (ModUtils.MagicBees.isModLoaded()) {
+            BlockWithMeta enchantedEarth = new BlockWithMeta(ModUtils.MagicBees.getBlock("magicbees.enchantedEarth"));
+            SoilTramplingResistanceRegistry.instance.setResistance(enchantedEarth, SoilTramplingResistanceRegistry.IMMUNE);
+            registry.register("farmland", enchantedEarth);
+        }
+
+        if (ModUtils.RandomThings.isModLoaded()) {
+            BlockWithMeta fertilizedDirt = new BlockWithMeta(ModUtils.RandomThings.getBlock("fertilizedDirt_tilled"));
+            SoilTramplingResistanceRegistry.instance.setResistance(fertilizedDirt, SoilTramplingResistanceRegistry.IMMUNE);
+            registry.register("farmland", fertilizedDirt);
+        }
+
         if (ModUtils.Thaumcraft.isModLoaded()) {
             BlockWithMeta greatwoodLog1 = new BlockWithMeta(ConfigBlocks.blockMagicalLog, 0);
             BlockWithMeta greatwoodLog2 = new BlockWithMeta(ConfigBlocks.blockMagicalLog, 4);
@@ -79,15 +92,11 @@ public class SoilLoader {
             registry.register("slimy", greeneSlimyMud, blueSlimyMud, slimeDirt, slimeGrass);
         }
 
-        if (ModUtils.RandomThings.isModLoaded()) {
-            BlockWithMeta fertilizedDirt = new BlockWithMeta(ModUtils.RandomThings.getBlock("fertilizedDirt_tilled"));
-            registry.register("farmland", fertilizedDirt);
-        }
-
         if (ModUtils.Ztones.isModLoaded()) {
             BlockWithMeta gardenSoil = new BlockWithMeta(ModUtils.Ztones.getBlock("cleanDirt"));
-            SoilJumpResistanceRegistry.instance.setResistance(gardenSoil, SoilJumpResistanceRegistry.JUMP_PROOF);
+            SoilTramplingResistanceRegistry.instance.setResistance(gardenSoil, SoilTramplingResistanceRegistry.IMMUNE);
             registry.register("farmland", gardenSoil);
         }
+
     }
 }

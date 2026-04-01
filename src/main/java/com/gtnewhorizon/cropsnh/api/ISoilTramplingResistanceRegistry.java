@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 
-public interface ISoilJumpResistanceRegistry {
+public interface ISoilTramplingResistanceRegistry {
 
     /**
      * Sets the resistance for a given soil type.
@@ -23,5 +23,5 @@ public interface ISoilJumpResistanceRegistry {
      * @param meta  The meta value of the block to check for
      * @return True if the block shouldn't be getting trampled
      */
-    boolean shouldSurvive(@Nonnull Block block, int meta);
+    boolean shouldTrample(@Nonnull Block block, int meta);
 }

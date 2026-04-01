@@ -5,14 +5,14 @@ import javax.annotation.Nonnull;
 import net.minecraft.block.Block;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.api.ISoilJumpResistanceRegistry;
+import com.gtnewhorizon.cropsnh.api.ISoilTramplingResistanceRegistry;
 import com.gtnewhorizon.cropsnh.utility.MetaMap;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
 
-public class SoilJumpResistanceRegistry implements ISoilJumpResistanceRegistry {
+public class SoilTramplingResistanceRegistry implements ISoilTramplingResistanceRegistry {
 
-    public static final int JUMP_PROOF = 100_00;
-    public static final SoilJumpResistanceRegistry instance = new SoilJumpResistanceRegistry();
+    public static final int IMMUNE = 100_00;
+    public static final SoilTramplingResistanceRegistry instance = new SoilTramplingResistanceRegistry();
 
     private final MetaMap<Block, Integer> registry = new MetaMap<>();
 
@@ -26,11 +26,11 @@ public class SoilJumpResistanceRegistry implements ISoilJumpResistanceRegistry {
     }
 
     @Override
-    public boolean shouldSurvive(@Nonnull Block block, int meta) {
+    public boolean shouldTrample(@Nonnull Block block, int meta) {
         int resistance = this.registry.getOrDefault(block, meta, 0);
-        if (resistance <= 0) return false;
-        if (resistance >= JUMP_PROOF) return true;
-        return XSTR.XSTR_INSTANCE.nextInt(JUMP_PROOF) < resistance;
+        if (resistance <= 0) return true;
+        if (resistance >= IMMUNE) return false;
+        return XSTR.XSTR_INSTANCE.nextInt(IMMUNE) >= resistance;
     }
 
 }
