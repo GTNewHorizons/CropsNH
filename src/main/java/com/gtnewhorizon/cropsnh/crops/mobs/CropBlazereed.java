@@ -6,19 +6,19 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 import gregtech.api.enums.VoltageIndex;
 
 public class CropBlazereed extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("netherrack");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
 
     public CropBlazereed() {
         super("blazereed", new Color(0xB38C00), new Color(0xFFC800));

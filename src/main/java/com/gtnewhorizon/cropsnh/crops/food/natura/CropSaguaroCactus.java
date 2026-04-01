@@ -5,17 +5,17 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropSaguaroCactus extends CropFood {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("sand");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.sand;
 
     public CropSaguaroCactus() {
         super("saguaroCactus", new Color(0x3D401B), new Color(0x828839));

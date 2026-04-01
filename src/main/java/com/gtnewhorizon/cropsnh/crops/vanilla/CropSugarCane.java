@@ -6,17 +6,17 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 public class CropSugarCane extends NHCropCard {
 
-    private final static ISoilList soil = SoilRegistry.instance.get("sugarcane");
+    private final static ISoilList soil = CropsNHSoilTypes.sugarcane;
 
     public CropSugarCane() {
         super("sugarCane", new Color(0x698747), new Color(0xAADB74));

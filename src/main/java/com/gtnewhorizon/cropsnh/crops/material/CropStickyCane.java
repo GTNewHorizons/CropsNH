@@ -4,19 +4,19 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 import gregtech.api.enums.ItemList;
 
 public class CropStickyCane extends NHCropCard {
 
-    private final static ISoilList soil = SoilRegistry.instance.get("sugarcane");
+    private final static ISoilList soil = CropsNHSoilTypes.sugarcane;
 
     public CropStickyCane() {
         super("stickyCane", new Color(0x8DB560), new Color(0xD9D891));

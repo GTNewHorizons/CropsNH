@@ -6,15 +6,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 public class CropCactus extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("sand");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.sand;
 
     public CropCactus() {
         super("cactus", new Color(0x094210), new Color(0x117F20));

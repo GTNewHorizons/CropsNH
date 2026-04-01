@@ -60,18 +60,6 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
         return registrations.get(name);
     }
 
-    public static void validateRegistry() {
-        registrations.values()
-            .forEach(BlockUnderRequirement::validate);
-    }
-
-    public void validate() {
-        if (this.materials.isEmpty() && this.oreDictionaries.isEmpty() && this.blocks.isEmpty()) {
-            throw new IllegalStateException(
-                "Block under requirement hasn't been given anything to look for: " + this.materialDescription);
-        }
-    }
-
     private final String materialDescription;
     private final Set<Materials> materials = new ObjectOpenHashSet<>();
     private final Set<String> oreDictionaries = new ObjectOpenHashSet<>();

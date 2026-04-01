@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 
 import gregtech.api.enums.Materials;
@@ -15,7 +16,7 @@ public class CropRedGraniteLily extends CropBaseStoneLily {
 
         this.addDrop(Materials.GraniteRed.getDust(9), 100_00);
 
-        this.addBlockUnderRequirement("redGranite");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.redGranite);
 
         this.addLikedBiomes(BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HILLS);
     }
