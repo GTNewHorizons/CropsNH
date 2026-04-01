@@ -48,6 +48,7 @@ import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
+import com.gtnewhorizon.cropsnh.farming.registries.SoilTramplingResistanceRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
@@ -117,6 +118,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     // seed status
     private ISeedData seed = null;
     private boolean isCrossCrop = false;
+    private boolean hasSoilChanged = false;
     private IAdditionalCropData additionalCropData = null;
 
     // crop status
@@ -662,7 +664,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 }
             }
         }
-
+        this.hasSoilChanged = tag.getBoolean(Names.NBT.hasSoilChanged);
         // get crop status stuff
         this.waterStorage = tag.hasKey(Names.NBT.water, Data.NBTType._int) ? tag.getInteger(Names.NBT.water) : 0;
         this.fertilizerStorage = tag.hasKey(Names.NBT.fertilizer, Data.NBTType._int)
@@ -1035,7 +1037,9 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         super.updateEntity();
         if (this.isFirstTick) {
             this.isFirstTick = false;
-            this.onFirstTick();
+            if (this.onFirstTick()) {
+                return;
+            }
         }
         this.ticker = ++this.ticker % TICK_RATE;
         if (this.ticker == 0) {
@@ -1049,14 +1053,17 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         }
     }
 
-    private void onFirstTick() {
-        if (!this.hasCrop()) return;
+    private boolean onFirstTick() {
+        if (!this.hasCrop()) return false;
         this.seed.getCrop()
             .onFirstTick(this, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 
-        if (!this.isValidSoilForCrop(this.seed.getCrop())) {
-            this.onInvalidSoilDetected();
+        if (this.hasSoilChanged && !this.isValidSoilForCrop(this.seed.getCrop())) {
+            boolean ret = this.onInvalidSoilDetected();
+            this.hasSoilChanged = false;
+            return ret;
         }
+        return false;
     }
 
     @Override
@@ -1275,75 +1282,107 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     @Override
-    public void onInvalidSoilDetected() {
-        if (!this.hasCrop() || this.seed.getCrop() == CropsNHCrops.Migrator) return;
-        this.additionalCropData = new CropMigrator.AdditionalData(
-            new SeedData(this.seed.getCrop(), this.seed.getStats()));
-        this.seed = new SeedData(CropsNHCrops.Migrator, this.seed.getStats());
-        this.growthProgress = 0;
-        this.isDirty = true;
+    public boolean onInvalidSoilDetected() {
+        if (!this.hasCrop() || this.seed.getCrop() == CropsNHCrops.Migrator) return false;
+        // if the soil has changed due to a migration abort
+        if (this.hasSoilChanged) {
+            this.additionalCropData = new CropMigrator.AdditionalData(
+                new SeedData(this.seed.getCrop(), this.seed.getStats()));
+            this.seed = new SeedData(CropsNHCrops.Migrator, this.seed.getStats());
+            this.growthProgress = 0;
+            this.isDirty = true;
+            return false;
+        }
+        this.breakCropStick(false);
+        return true;
+
     }
 
-    private boolean shouldTrample(float fallDistance) {
-        if (fallDistance > 0) {
-            // chance is slightly adjusted since this gets fired a couple times for some reason.
-            return XSTR.XSTR_INSTANCE.nextFloat() < fallDistance - 0.75f;
-        }
+    /**
+     * @implNote will return false if no crop is planted, it's a weed or a migrator crop
+     */
+    private boolean canTrample() {
+        // abort if no crop is planted, it's a weed or a migrator crop
+        if (!this.hasCrop() || this.hasWeed() || this.seed.getCrop() instanceof CropMigrator) return false;
+        // max resil crops can't be trampled
+        if (this.seed.getStats()
+            .getResistance() >= Constants.MAX_SEED_STAT) return false;
+        // check if the soil prevents trampling
+        Block block = worldObj.getBlock(this.xCoord, this.yCoord - 1, this.zCoord);
+        int meta = worldObj.getBlockMetadata(this.xCoord, this.yCoord - 1, this.zCoord);
+        return SoilTramplingResistanceRegistry.instance.shouldTrample(block, meta);
+    }
+
+    /**
+     * @implNote Assumes the sticks contain a trampleable crop
+     */
+    private boolean shouldTrampleFromRunning(EntityLivingBase entity) {
+        if (!entity.isSprinting()) return false;
+        // This check gets called very frequently while entities are moving though crop sticks so it shold be a fairly
+        // so the chance for the crop sticks to get trampled should be fairly low.
+        double maxRoll = 100.0d * Math.pow(
+            0.95d,
+            this.seed.getCrop()
+                .getTier());
+        int roll = XSTR.XSTR_INSTANCE.nextInt((int) maxRoll);
+        if (roll > 0) return false;
+        // higher resistance means higher chance of surviving the trampling.
+        return XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT) > this.seed.getStats()
+            .getResistance();
+    }
+
+    /** The minimum fall distance before trampling can occur */
+    private static final float MIN_FALL_DISTANCE_FOR_TRAMPLING = 0.75f;
+
+    private boolean shouldTrampleFromFalling(EntityLivingBase entity) {
+        // only trigger if the player has fallen from high enough
+        if (!entity.onGround || entity.fallDistance <= MIN_FALL_DISTANCE_FOR_TRAMPLING) return false;
+        // the chance for the trampling depends on the fall distance. if it's under 1.75 blocks it's a percent chance
+        // based on the distance fallen.
+        return XSTR.XSTR_INSTANCE.nextFloat() < entity.fallDistance - MIN_FALL_DISTANCE_FOR_TRAMPLING;
+    }
+
+    @Override
+    public void breakCropStick(boolean isTrampling) {
+        ArrayList<ItemStack> toDrop = new ArrayList<>();
+        toDrop.add(CropsNHItemList.cropSticks.get(this.isCrossCrop ? 2 : 1));
         if (this.hasCrop()) {
-            // weeds cannot be trampled
-            if (this.hasWeed()) return false;
-            // max resistance prevents trampling
-            if (this.seed.getStats()
-                .getResistance() >= Constants.MAX_SEED_STAT) return false;
-            // chance of rolling for trampling increases with tier;
-            double maxRoll = 100.0d * Math.pow(
-                0.95d,
-                this.seed.getCrop()
-                    .getTier());
-            int roll = XSTR.XSTR_INSTANCE.nextInt((int) maxRoll);
-            if (roll > 0) return false;
-            // higher resistance means higher chance of surviving the trampling.
-            return XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT) > this.seed.getStats()
-                .getResistance();
+            // drop seed
+            ItemStack seedDrop = getSeedDrop();
+            ArrayList<ItemStack> drops = this.harvest(1.0d);
+            if (drops != null) toDrop.addAll(drops);
+            if (seedDrop != null) toDrop.add(seedDrop);
+            // no more crop in here.
+            this.clear();
+            // when trampling replace farmland with dirt if soil is farmland
+            // might be worth turning this into a registry if we ever add more
+            // types of soils that can be trampled into other blocks.
+            if (isTrampling) {
+                int y = this.yCoord - 1;
+                if (this.worldObj.getBlock(this.xCoord, y, this.zCoord) == Blocks.farmland) {
+                    this.worldObj.setBlock(this.xCoord, y, this.zCoord, Blocks.dirt, 0, 7);
+                }
+            }
         }
-        return XSTR.XSTR_INSTANCE.nextInt(100) <= 0;
-    }
+        // remove cropsticks
+        this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, Blocks.air, 0, 7);
+        // drop the items once the cropstick is gone
+        for (ItemStack drop : toDrop) {
+            dropItem(drop);
+        }
 
-    private static boolean hasFallen(EntityLivingBase entity) {
-        return entity.onGround && entity.fallDistance > 0.0f;
+        // self terminate
+        this.worldObj.removeTileEntity(this.xCoord, this.yCoord, this.zCoord);
     }
 
     @Override
     public void onEntityCollision(Entity target) {
+        // abort if it isn't on the server side and not colliding with an alive thing
+        if (CropsNHUtils.isClient() || !(target instanceof EntityLivingBase entity)) return;
+
         // only on living entities plz
-        if (!(target instanceof EntityLivingBase entity)) {
-            return;
-        }
-        if (CropsNHUtils.isServer() && (entity.isSprinting() || hasFallen(entity))
-            && shouldTrample(hasFallen(entity) ? entity.fallDistance : 0.0f)) {
-            // drop seed
-            ItemStack seedDrop = getSeedDrop();
-            ArrayList<ItemStack> toDrop = this.harvest(1.0d);
-            if (toDrop == null) toDrop = new ArrayList<>(2);
-            if (seedDrop != null) toDrop.add(seedDrop);
-            toDrop.add(CropsNHItemList.cropSticks.get(this.isCrossCrop ? 2 : 1));
-            // no more crop in here.
-            this.clear();
-            // replace farmland with dirt if block under is farmland
-            int y = this.yCoord - 1;
-            if (this.worldObj.getBlock(this.xCoord, y, this.zCoord) == Blocks.farmland) {
-                this.worldObj.setBlock(this.xCoord, y, this.zCoord, Blocks.dirt, 0, 7);
-            }
-            // remove cropsticks
-            this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, Blocks.air, 0, 7);
-
-            // drop the items once the cropstick is gone
-            for (ItemStack drop : toDrop) {
-                dropItem(drop);
-            }
-
-            // self terminate
-            this.worldObj.removeTileEntity(this.xCoord, this.yCoord, this.zCoord);
+        if (this.canTrample() && (this.shouldTrampleFromRunning(entity) || this.shouldTrampleFromFalling(entity))) {
+            this.breakCropStick(true);
             return;
         }
 
