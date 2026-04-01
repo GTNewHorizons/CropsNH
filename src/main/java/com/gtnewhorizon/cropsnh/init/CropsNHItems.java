@@ -136,6 +136,7 @@ public class CropsNHItems {
         CropsNHItemList.starWart.set(MaterialLeafLoader.starWart.get());
         CropsNHItemList.hops.set(MaterialLeafLoader.hops.get());
         CropsNHItemList.hempStem.set(MaterialLeafLoader.hempStem.get());
+        CropsNHItemList.rubyneLeaf.set(MaterialLeafLoader.rubyneLeaf.get());
         //spotless:on
 
         environmentalModule = new ItemEnvironmentalModule();

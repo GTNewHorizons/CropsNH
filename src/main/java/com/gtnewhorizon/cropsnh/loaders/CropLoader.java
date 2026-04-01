@@ -90,6 +90,7 @@ import com.gtnewhorizon.cropsnh.crops.material.CropPurpleTulip;
 import com.gtnewhorizon.cropsnh.crops.material.CropPyrolusium;
 import com.gtnewhorizon.cropsnh.crops.material.CropReactoria;
 import com.gtnewhorizon.cropsnh.crops.material.CropRedstraw;
+import com.gtnewhorizon.cropsnh.crops.material.CropRubyne;
 import com.gtnewhorizon.cropsnh.crops.material.CropSaltyRoot;
 import com.gtnewhorizon.cropsnh.crops.material.CropSapphirum;
 import com.gtnewhorizon.cropsnh.crops.material.CropScheelinium;
@@ -417,6 +418,7 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.Pyrolusium = new CropPyrolusium());
         CropRegistry.instance.register(CropsNHCrops.Reactoria = new CropReactoria());
         CropRegistry.instance.register(CropsNHCrops.RedStraw = new CropRedstraw());
+        CropRegistry.instance.register(CropsNHCrops.Rubyne = new CropRubyne());
         CropRegistry.instance.register(CropsNHCrops.SaltyRoot = new CropSaltyRoot());
         CropRegistry.instance.register(CropsNHCrops.Sapphirum = new CropSapphirum());
         CropRegistry.instance.register(CropsNHCrops.Scheelinium = new CropScheelinium());

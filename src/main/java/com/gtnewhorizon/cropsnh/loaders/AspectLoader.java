@@ -212,6 +212,7 @@ public class AspectLoader {
         addCropAspectsBasedOnMaterial(CropsNHItemList.argentiaLeaf.get(1), Materials.Silver, defaultLeafAspects);
         addCropAspectsBasedOnMaterial(CropsNHItemList.ferrofernLeaf.get(1), Materials.Iron, defaultLeafAspects);
         addCropAspectsBasedOnMaterial(CropsNHItemList.auroniaLeaf.get(1), Materials.Gold, defaultLeafAspects);
+        addCropAspectsBasedOnMaterial(CropsNHItemList.rubyneLeaf.get(1), Materials.Ruby, defaultLeafAspects);
         ThaumcraftApi.registerObjectTag(
             CropsNHItemList.bobsYerUncleBerry.get(1),
             new AspectList()
