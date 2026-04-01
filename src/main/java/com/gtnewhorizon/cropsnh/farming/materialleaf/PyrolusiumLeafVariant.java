@@ -39,7 +39,7 @@ public class PyrolusiumLeafVariant extends MaterialLeafVariant {
                     this.unlocalizedExtraTooltip = Reference.MOD_ID + "_tooltip.pyrolusiumLeaf.canada";
                 }
                 case 2 -> {
-                    this.iconName += ".banada";
+                    this.iconName += ".banana";
                     this.unlocalizedExtraTooltip = Reference.MOD_ID + "_tooltip.pyrolusiumLeaf.banana";
                 }
                 default -> {
