@@ -12,9 +12,11 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 public class MachineOnlyGrowthRequirement implements IWorldGrowthRequirement {
 
     private final Pair<String, Object[]> unlocalizedDesc;
+    private final Pair<String, Object[]> unlocalizedDescForNEI;
 
     public MachineOnlyGrowthRequirement() {
         this.unlocalizedDesc = Pair.of(Reference.MOD_ID + "_growthReq.lockout.machineOnly", new Object[] {});
+        this.unlocalizedDescForNEI = Pair.of(Reference.MOD_ID + "_growthReq.lockout.machineOnly.nei", new Object[] {});
     }
 
     @Override
@@ -23,8 +25,19 @@ public class MachineOnlyGrowthRequirement implements IWorldGrowthRequirement {
     }
 
     @Override
+    public String getDescriptionForNEI() {
+        return StatCollector
+            .translateToLocalFormatted(this.unlocalizedDescForNEI.getLeft(), this.unlocalizedDescForNEI.getRight());
+    }
+
+    @Override
     public Pair<String, Object[]> getUnlocalizedDescription() {
         return this.unlocalizedDesc;
+    }
+
+    @Override
+    public Pair<String, Object[]> getUnlocalizedDescriptionForNEI() {
+        return this.unlocalizedDescForNEI;
     }
 
     @Override

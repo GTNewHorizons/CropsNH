@@ -52,6 +52,8 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
             .setDisplayStack(CropsNHItemList.cropSticks.get(1))
             .setHeight(111)
             .setMaxRecipesPerPage(3)
+            .setShowFavoritesButton(false)
+            .setShowOverlayButton(false)
             .build();
     }
 

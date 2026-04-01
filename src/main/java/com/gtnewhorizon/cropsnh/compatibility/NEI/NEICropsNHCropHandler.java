@@ -52,7 +52,10 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
     public HandlerInfo getHandlerInfo() {
         return new HandlerInfo.Builder(id, Reference.MOD_NAME, Reference.MOD_ID)
             .setDisplayStack(CropsNHItemList.cropSticks.get(1))
-            .setHeight(140)
+            .setHeight(150)
+            .setWidth(HandlerInfo.DEFAULT_WIDTH + 20)
+            .setShowFavoritesButton(false)
+            .setShowOverlayButton(false)
             .build();
     }
 
@@ -114,7 +117,7 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
             for (IGrowthRequirement req : crop.getGrowthRequirements()) {
                 // skip block under reqs since those are already displayed via the items
                 if (req instanceof BlockUnderRequirement) continue;
-                this.textLines.add(req.getDescription());
+                this.textLines.add(req.getDescriptionForNEI());
             }
         }
 
@@ -291,7 +294,14 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
 
         int i = 0;
         for (String line : recipe.textLines) {
-            drawFixesWidthLine(line, 0, 85 + (10 * i++), COLOR_BLACK, false, 166);
+            drawFixesWidthLine(
+                line,
+                0,
+                85 + (10 * i++),
+                COLOR_BLACK,
+                false,
+                this.getHandlerInfo()
+                    .getWidth());
         }
     }
 }
