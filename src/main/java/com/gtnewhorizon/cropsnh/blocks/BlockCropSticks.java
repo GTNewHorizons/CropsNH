@@ -29,7 +29,6 @@ import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderCrop;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropsNH;
-import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -150,22 +149,15 @@ public class BlockCropSticks extends BlockContainerCropsNH {
                     .getCrop()
                     .getSoilTypes()
                     .isRegistered(b, meta)) {
-                    cropTE.onInvalidSoilDetected();
+                    // abort if the crop stick was broken, since this can fire before the crop gets it's first tick
+                    // and therefore just transform it to a migrator crop instead
+                    if (cropTE.onInvalidSoilDetected()) {
+                        return;
+                    }
                 }
             }
         } else if (!this.canBlockStay(world, x, y, z)) {
-            // try dropping the seed
-            ItemStack seedDrop = cropTE.getSeedDrop();
-            if (seedDrop != null) {
-                WorldUtils.dropItem(world, x, y, z, seedDrop);
-            }
-            // harvest the crop
-            cropTE.doPlayerHarvest();
-            cropTE.clear();
-            // nuke the stick.
-            this.dropBlockAsItem(world, x, y, z, 0, 0);
-            world.setBlockToAir(x, y, z);
-            world.removeTileEntity(x, y, z);
+            cropTE.breakCropStick(false);
             return;
         }
 

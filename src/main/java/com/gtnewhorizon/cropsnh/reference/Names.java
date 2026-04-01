@@ -33,6 +33,7 @@ public final class Names {
         public static final String water = "water";
         public static final String fertilizer = "fert";
         public static final String weedEX = "weedex";
+        public static final String hasSoilChanged = "hasSoilChanged";
         // #endregion crop stick stuff
     }
 
