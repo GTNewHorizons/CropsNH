@@ -20,7 +20,7 @@ public class CompoundSoilList implements ISoilList {
         this.soils = new ArrayList<>(soilList);
     }
 
-    CompoundSoilList(ISoilList... soilList) {
+    public CompoundSoilList(ISoilList... soilList) {
         this.soils = new ArrayList<>(Arrays.asList(soilList));
     }
 
