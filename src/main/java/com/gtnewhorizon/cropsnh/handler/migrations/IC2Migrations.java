@@ -75,13 +75,16 @@ public class IC2Migrations {
                         NBTHelper.getIntgegerNumber(oldNBT, "scanLevel", 0) >= 1);
                     IAdditionalCropData extra = null;
                     // check if the crop can grow on the current farmland.
-                    if (ConfigurationHandler.alwaysMigrateUsingMigrationCrop || !cc.getSoilTypes()
-                        .isRegistered(Blocks.farmland, 7)) {
+                    if (ConfigurationHandler.alwaysMigrateUsingMigrationCrop) {
                         extra = new CropMigrator.AdditionalData(new SeedData(cc, stats));
                         cc = CropsNHCrops.Migrator;
-                    }
+                    } else if (!cc.getSoilTypes()
+                        .isRegistered(Blocks.farmland, 7)) {
+                            newNBT.setBoolean(Names.NBT.hasSoilChanged, true);
+                        }
                     // reset growth progress to force growth checks and what not
                     TileEntityCropSticks.writeSeedNBT(newNBT, new SeedData(cc, stats), extra, 0);
+
                 }
                 return newNBT;
             }));
