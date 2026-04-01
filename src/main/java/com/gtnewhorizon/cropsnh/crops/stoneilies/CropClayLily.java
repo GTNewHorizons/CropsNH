@@ -6,6 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 
 import gregtech.api.enums.VoltageIndex;
@@ -17,7 +18,7 @@ public class CropClayLily extends CropBaseStoneLily {
 
         this.addDrop(new ItemStack(Items.clay_ball, 1, 0), 100_00);
 
-        this.addBlockUnderRequirement("clay");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.clay);
 
         this.addDuplicationCatalyst("dustClay", 1);
         this.addDuplicationCatalyst("itemClay", 1);

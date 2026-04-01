@@ -6,16 +6,16 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
 
 public class CropEvilOre extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("netherrack");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
 
     public CropEvilOre() {
         super("evilOre", new Color(0x897B73), new Color(0xEFEBE7));

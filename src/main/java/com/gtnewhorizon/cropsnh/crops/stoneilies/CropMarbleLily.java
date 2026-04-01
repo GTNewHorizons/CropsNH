@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 
 import gregtech.api.enums.Materials;
@@ -15,7 +16,7 @@ public class CropMarbleLily extends CropBaseStoneLily {
 
         this.addDrop(Materials.Marble.getDust(9), 100_00);
 
-        this.addBlockUnderRequirement("marble");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.marble);
 
         this.addLikedBiomes(BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HILLS);
     }

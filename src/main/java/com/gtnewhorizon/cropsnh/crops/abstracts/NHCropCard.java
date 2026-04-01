@@ -11,12 +11,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 
 import com.gtnewhorizon.cropsnh.api.CropCard;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Names;
@@ -30,7 +30,7 @@ import gregtech.api.enums.VoltageIndex;
 public abstract class NHCropCard extends CropCard {
 
     // DEFAULTS
-    private static final ISoilList DEFAULT_SOIL = SoilRegistry.instance.get("farmland");
+    private static final ISoilList DEFAULT_SOIL = CropsNHSoilTypes.farmland;
     protected IIcon[] sprites = null;
     protected final String internalId;
 
@@ -64,8 +64,8 @@ public abstract class NHCropCard extends CropCard {
         return DEFAULT_SOIL;
     }
 
-    public CropCard addBlockUnderRequirement(String id) {
-        this.growthRequirements.add(BlockUnderRequirement.get(id));
+    public CropCard addBlockUnderRequirement(BlockUnderRequirement req) {
+        this.growthRequirements.add(req);
         return this;
     }
 

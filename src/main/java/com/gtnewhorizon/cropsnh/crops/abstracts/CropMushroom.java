@@ -2,13 +2,13 @@ package com.gtnewhorizon.cropsnh.crops.abstracts;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 
 public abstract class CropMushroom extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("mushroom");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.mushroom;
 
     public CropMushroom(String id, Color color1, Color color2) {
         super(id, color1, color2);

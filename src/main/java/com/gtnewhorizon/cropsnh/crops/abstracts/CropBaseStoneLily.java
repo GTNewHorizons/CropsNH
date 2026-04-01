@@ -2,13 +2,13 @@ package com.gtnewhorizon.cropsnh.crops.abstracts;
 
 import java.awt.Color;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public abstract class CropBaseStoneLily extends NHCropCard {
 
-    private static ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private static ISoilList soilTypes = CropsNHSoilTypes.stone;
     private final String materialName;
 
     public CropBaseStoneLily(String materialName, Color color1, Color color2) {

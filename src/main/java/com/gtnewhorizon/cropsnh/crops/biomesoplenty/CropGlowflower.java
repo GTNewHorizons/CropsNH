@@ -5,17 +5,17 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropGlowflower extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("dirt");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
 
     public CropGlowflower() {
         super("glowflower", new Color(0x004D4C), new Color(0x12A4A2));
