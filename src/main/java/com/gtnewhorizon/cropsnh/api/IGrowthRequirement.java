@@ -10,8 +10,22 @@ public interface IGrowthRequirement {
     String getDescription();
 
     /**
+     * @return A shorter description shown in NEI.
+     */
+    default String getDescriptionForNEI() {
+        return this.getDescription();
+    }
+
+    /**
      * @return A short description shown in the seed's tooltip.
      */
     Pair<String, Object[]> getUnlocalizedDescription();
+
+    /**
+     * @return A shorter description shown in NEI
+     */
+    default Pair<String, Object[]> getUnlocalizedDescriptionForNEI() {
+        return this.getUnlocalizedDescription();
+    }
 
 }
