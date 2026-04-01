@@ -4,8 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilTramplingResistanceRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.farming.registries.SoilTramplingResistanceRegistry;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import tconstruct.tools.TinkerTools;
@@ -50,13 +50,15 @@ public class SoilLoader {
 
         if (ModUtils.MagicBees.isModLoaded()) {
             BlockWithMeta enchantedEarth = new BlockWithMeta(ModUtils.MagicBees.getBlock("magicbees.enchantedEarth"));
-            SoilTramplingResistanceRegistry.instance.setResistance(enchantedEarth, SoilTramplingResistanceRegistry.IMMUNE);
+            SoilTramplingResistanceRegistry.instance
+                .setResistance(enchantedEarth, SoilTramplingResistanceRegistry.IMMUNE);
             registry.register("farmland", enchantedEarth);
         }
 
         if (ModUtils.RandomThings.isModLoaded()) {
             BlockWithMeta fertilizedDirt = new BlockWithMeta(ModUtils.RandomThings.getBlock("fertilizedDirt_tilled"));
-            SoilTramplingResistanceRegistry.instance.setResistance(fertilizedDirt, SoilTramplingResistanceRegistry.IMMUNE);
+            SoilTramplingResistanceRegistry.instance
+                .setResistance(fertilizedDirt, SoilTramplingResistanceRegistry.IMMUNE);
             registry.register("farmland", fertilizedDirt);
         }
 

@@ -1292,7 +1292,8 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         // abort if no crop is planted, it's a weed or a migrator crop
         if (!this.hasCrop() || this.hasWeed() || this.seed.getCrop() instanceof CropMigrator) return false;
         // max resil crops can't be trampled
-        if (this.seed.getStats().getResistance() >= Constants.MAX_SEED_STAT) return false;
+        if (this.seed.getStats()
+            .getResistance() >= Constants.MAX_SEED_STAT) return false;
         // check if the soil prevents trampling
         Block block = worldObj.getBlock(this.xCoord, this.yCoord - 1, this.zCoord);
         int meta = worldObj.getBlockMetadata(this.xCoord, this.yCoord - 1, this.zCoord);
@@ -1306,11 +1307,15 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (!entity.isSprinting()) return false;
         // This check gets called very frequently while entities are moving though crop sticks so it shold be a fairly
         // so the chance for the crop sticks to get trampled should be fairly low.
-        double maxRoll = 100.0d * Math.pow(0.95d, this.seed.getCrop().getTier());
+        double maxRoll = 100.0d * Math.pow(
+            0.95d,
+            this.seed.getCrop()
+                .getTier());
         int roll = XSTR.XSTR_INSTANCE.nextInt((int) maxRoll);
         if (roll > 0) return false;
         // higher resistance means higher chance of surviving the trampling.
-        return XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT) > this.seed.getStats().getResistance();
+        return XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT) > this.seed.getStats()
+            .getResistance();
     }
 
     /** The minimum fall distance before trampling can occur */
