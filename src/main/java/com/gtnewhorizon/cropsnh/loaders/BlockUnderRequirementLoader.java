@@ -81,6 +81,7 @@ public class BlockUnderRequirementLoader {
         CropsNHBlockUnderTypes.garnetGem.addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow);
         CropsNHBlockUnderTypes.olivine.addBlockAndOreDict().addMaterial(Materials.Olivine);
         CropsNHBlockUnderTypes.sapphire.addBlockAndOreDict().addMaterial(Materials.Sapphire);
+        CropsNHBlockUnderTypes.ruby.addBlockAndOreDict().addMaterial(Materials.Ruby);
         // non-gt ores
         CropsNHBlockUnderTypes.knightmetal.addBlockAndOreDict().addMaterial(Materials.Knightmetal);
         CropsNHBlockUnderTypes.cobalt.addBlockAndOreDict().addMaterial(Materials.Cobalt);
