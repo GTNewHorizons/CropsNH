@@ -19,9 +19,9 @@ public class SoilTramplingResistanceRegistry implements ISoilTramplingResistance
     @Override
     public void setResistance(@Nonnull BlockWithMeta blockWithMeta, int resistance) {
         if (blockWithMeta.ignoreMeta()) {
-            this.registry.put(blockWithMeta.getBlock(), blockWithMeta.getMeta(), resistance);
-        } else {
             this.registry.putWildcard(blockWithMeta.getBlock(), resistance, false);
+        } else {
+            this.registry.put(blockWithMeta.getBlock(), blockWithMeta.getMeta(), resistance);
         }
     }
 
