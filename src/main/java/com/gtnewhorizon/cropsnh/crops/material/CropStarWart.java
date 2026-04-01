@@ -6,26 +6,27 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MachineOnlyGrowthRequirement;
 
 import gregtech.api.enums.VoltageIndex;
 
 public class CropStarWart extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropStarWart() {
         super("starWart", new Color(0x8985BE), new Color(0xFFFFFF));
 
         this.addDrop(CropsNHItemList.starWart.get(1), 100_00);
 
-        this.addBlockUnderRequirement("netherStar");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.netherStar);
 
         this.addDuplicationCatalyst("dustNetherStar", 1);
         this.addDuplicationCatalyst("netherStar", 1);

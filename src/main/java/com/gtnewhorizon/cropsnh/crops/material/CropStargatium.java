@@ -4,10 +4,11 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MachineOnlyGrowthRequirement;
 
 import gregtech.api.enums.Materials;
@@ -17,7 +18,7 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropStargatium extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropStargatium() {
         super("stargatium", new Color(0x333333), new Color(0x555555));
@@ -25,7 +26,7 @@ public class CropStargatium extends NHCropCard {
         this.addDrop(CropsNHItemList.stargatiumLeaf.get(1), 75_00);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Endstone, 1L), 25_00);
 
-        this.addBlockUnderRequirement("naquadah");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.naquadah);
 
         this.addDuplicationCatalyst("dustNaquadah", 1);
         this.addDuplicationCatalyst("dustNaquadahOxideMixture", 1);

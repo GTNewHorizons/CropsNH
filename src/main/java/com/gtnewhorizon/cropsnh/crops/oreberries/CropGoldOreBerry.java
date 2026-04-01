@@ -5,6 +5,7 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
@@ -22,7 +23,7 @@ public class CropGoldOreBerry extends CropOreBerry {
 
         this.addAlternateSeed(CropsNHUtils.copyStackWithSize(oreBerries, 1));
 
-        this.addBlockUnderRequirement("gold");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.gold);
 
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
 

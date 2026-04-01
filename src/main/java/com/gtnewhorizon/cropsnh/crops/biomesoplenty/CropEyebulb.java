@@ -5,17 +5,17 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropEyebulb extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("netherrack");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
 
     public CropEyebulb() {
         super("eyebulb", new Color(0x552323), new Color(0x875D5D));

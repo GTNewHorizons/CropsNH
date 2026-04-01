@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 
@@ -17,7 +18,7 @@ public class CropArditeOreBerry extends CropOreBerry {
 
         this.addDrop(Materials.Ardite.getNuggets(6), 100_00);
 
-        this.addBlockUnderRequirement("ardite");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.ardite);
 
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
 

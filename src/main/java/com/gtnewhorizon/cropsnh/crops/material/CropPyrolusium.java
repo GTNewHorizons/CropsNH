@@ -4,10 +4,11 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
@@ -15,14 +16,14 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropPyrolusium extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropPyrolusium() {
         super("pyrolusium", new Color(0xB51900), new Color(0xCF1E11));
 
         this.addDrop(CropsNHItemList.pyrolusiumLeaf.get(1), 100_00);
 
-        this.addBlockUnderRequirement("manganese");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.manganese);
 
         this.addDuplicationCatalyst("dustManganese", 1);
         // manganese burns very bright

@@ -6,15 +6,15 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 public class CropMeatrose extends CropFood {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("dirt");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
 
     public CropMeatrose() {
         super("meatrose", new Color(0xDD3830), new Color(0xEF7070));
