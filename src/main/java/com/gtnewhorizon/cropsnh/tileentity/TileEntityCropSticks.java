@@ -118,6 +118,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     // seed status
     private ISeedData seed = null;
     private boolean isCrossCrop = false;
+    private boolean hasSoilChanged = false;
     private IAdditionalCropData additionalCropData = null;
 
     // crop status
@@ -663,7 +664,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 }
             }
         }
-
+        this.hasSoilChanged = tag.getBoolean(Names.NBT.hasSoilChanged);
         // get crop status stuff
         this.waterStorage = tag.hasKey(Names.NBT.water, Data.NBTType._int) ? tag.getInteger(Names.NBT.water) : 0;
         this.fertilizerStorage = tag.hasKey(Names.NBT.fertilizer, Data.NBTType._int)
@@ -1036,7 +1037,9 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         super.updateEntity();
         if (this.isFirstTick) {
             this.isFirstTick = false;
-            this.onFirstTick();
+            if (this.onFirstTick()) {
+                return;
+            }
         }
         this.ticker = ++this.ticker % TICK_RATE;
         if (this.ticker == 0) {
@@ -1050,14 +1053,17 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         }
     }
 
-    private void onFirstTick() {
-        if (!this.hasCrop()) return;
+    private boolean onFirstTick() {
+        if (!this.hasCrop()) return false;
         this.seed.getCrop()
             .onFirstTick(this, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 
-        if (!this.isValidSoilForCrop(this.seed.getCrop())) {
-            this.onInvalidSoilDetected();
+        if (this.hasSoilChanged && !this.isValidSoilForCrop(this.seed.getCrop())) {
+            boolean ret = this.onInvalidSoilDetected();
+            this.hasSoilChanged = false;
+            return ret;
         }
+        return false;
     }
 
     @Override
@@ -1276,13 +1282,20 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     @Override
-    public void onInvalidSoilDetected() {
-        if (!this.hasCrop() || this.seed.getCrop() == CropsNHCrops.Migrator) return;
-        this.additionalCropData = new CropMigrator.AdditionalData(
-            new SeedData(this.seed.getCrop(), this.seed.getStats()));
-        this.seed = new SeedData(CropsNHCrops.Migrator, this.seed.getStats());
-        this.growthProgress = 0;
-        this.isDirty = true;
+    public boolean onInvalidSoilDetected() {
+        if (!this.hasCrop() || this.seed.getCrop() == CropsNHCrops.Migrator) return false;
+        // if the soil has changed due to a migration abort
+        if (this.hasSoilChanged) {
+            this.additionalCropData = new CropMigrator.AdditionalData(
+                new SeedData(this.seed.getCrop(), this.seed.getStats()));
+            this.seed = new SeedData(CropsNHCrops.Migrator, this.seed.getStats());
+            this.growthProgress = 0;
+            this.isDirty = true;
+            return false;
+        }
+        this.breakCropStick(false);
+        return true;
+
     }
 
     /**
@@ -1330,37 +1343,46 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     @Override
+    public void breakCropStick(boolean isTrampling) {
+        ArrayList<ItemStack> toDrop = new ArrayList<>();
+        toDrop.add(CropsNHItemList.cropSticks.get(this.isCrossCrop ? 2 : 1));
+        if (this.hasCrop()) {
+            // drop seed
+            ItemStack seedDrop = getSeedDrop();
+            ArrayList<ItemStack> drops = this.harvest(1.0d);
+            if (drops != null) toDrop.addAll(drops);
+            if (seedDrop != null) toDrop.add(seedDrop);
+            // no more crop in here.
+            this.clear();
+            // when trampling replace farmland with dirt if soil is farmland
+            // might be worth turning this into a registry if we ever add more
+            // types of soils that can be trampled into other blocks.
+            if (isTrampling) {
+                int y = this.yCoord - 1;
+                if (this.worldObj.getBlock(this.xCoord, y, this.zCoord) == Blocks.farmland) {
+                    this.worldObj.setBlock(this.xCoord, y, this.zCoord, Blocks.dirt, 0, 7);
+                }
+            }
+        }
+        // remove cropsticks
+        this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, Blocks.air, 0, 7);
+        // drop the items once the cropstick is gone
+        for (ItemStack drop : toDrop) {
+            dropItem(drop);
+        }
+
+        // self terminate
+        this.worldObj.removeTileEntity(this.xCoord, this.yCoord, this.zCoord);
+    }
+
+    @Override
     public void onEntityCollision(Entity target) {
         // abort if it isn't on the server side and not colliding with an alive thing
         if (CropsNHUtils.isClient() || !(target instanceof EntityLivingBase entity)) return;
 
         // only on living entities plz
         if (this.canTrample() && (this.shouldTrampleFromRunning(entity) || this.shouldTrampleFromFalling(entity))) {
-            ArrayList<ItemStack> toDrop = new ArrayList<>();
-            toDrop.add(CropsNHItemList.cropSticks.get(this.isCrossCrop ? 2 : 1));
-            if (this.hasCrop()) {
-                // drop seed
-                ItemStack seedDrop = getSeedDrop();
-                ArrayList<ItemStack> drops = this.harvest(1.0d);
-                if (drops != null) toDrop.addAll(drops);
-                if (seedDrop != null) toDrop.add(seedDrop);
-                // no more crop in here.
-                this.clear();
-                // replace farmland with dirt if block under is farmland
-                int y = this.yCoord - 1;
-                if (this.worldObj.getBlock(this.xCoord, y, this.zCoord) == Blocks.farmland) {
-                    this.worldObj.setBlock(this.xCoord, y, this.zCoord, Blocks.dirt, 0, 7);
-                }
-            }
-            // remove cropsticks
-            this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, Blocks.air, 0, 7);
-            // drop the items once the cropstick is gone
-            for (ItemStack drop : toDrop) {
-                dropItem(drop);
-            }
-
-            // self terminate
-            this.worldObj.removeTileEntity(this.xCoord, this.yCoord, this.zCoord);
+            this.breakCropStick(true);
             return;
         }
 

@@ -283,8 +283,15 @@ public interface ICropStickTile {
 
     /**
      * Fired when the crop block detects an invalid soil.
+     *
+     * @return True if the crop was broken
      */
-    void onInvalidSoilDetected();
+    boolean onInvalidSoilDetected();
+
+    /**
+     * Breaks the crop stick and drops the relevant items.
+     */
+    void breakCropStick(boolean isTrampling);
 
     /**
      * Fired when an entity collides with the crop.
@@ -302,4 +309,5 @@ public interface ICropStickTile {
      * Fired when a growth tick occurs
      */
     void onGrowthTick();
+
 }
