@@ -6,25 +6,25 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
-import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public class CropGaiaWart extends NHCropCard {
 
-    private final ISoilList soil = SoilRegistry.instance.get("soulsand");
+    private final ISoilList soil = CropsNHSoilTypes.soulsand;
 
     public CropGaiaWart() {
         super(Names.Objects.gaiaWart, new Color(0x0F213A), new Color(0x2664A1));
         this.addDrop(new ItemStack(CropsNHItems.gaiaWart, 1), 10000);
         this.addAlternateSeed(new ItemStack(CropsNHItems.gaiaWart, 1));
-        this.addGrowthRequirement(BlockUnderRequirement.get("snow"));
+        this.addGrowthRequirement(CropsNHBlockUnderTypes.snow);
         this.addDuplicationCatalyst(new ItemStack(Items.snowball, 1));
         // going to treat it like sugar cane
         this.addLikedBiomes(BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD);

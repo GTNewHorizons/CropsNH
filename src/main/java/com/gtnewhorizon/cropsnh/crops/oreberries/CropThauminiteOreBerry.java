@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
@@ -17,7 +18,7 @@ public class CropThauminiteOreBerry extends CropOreBerry {
 
         this.addDrop(OreDictHelper.getCopiedOreStack("nuggetThauminite", 1), 100_00);
 
-        this.addBlockUnderRequirement("thauminite");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.thauminite);
 
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
 

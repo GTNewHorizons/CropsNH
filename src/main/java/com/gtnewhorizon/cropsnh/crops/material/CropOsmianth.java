@@ -4,28 +4,29 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MachineOnlyGrowthRequirement;
 
 import gregtech.api.enums.VoltageIndex;
 
 public class CropOsmianth extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropOsmianth() {
         super("osmianth", new Color(0x2525BC), new Color(0x2E2EEC));
 
         this.addDrop(CropsNHItemList.osmianthFlower.get(1), 25_00);
 
-        this.addBlockUnderRequirement("osmium");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.osmium);
 
         this.addDuplicationCatalyst("dustOsmium", 1);
 

@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 
 import gregtech.api.enums.Materials;
@@ -16,7 +17,7 @@ public class CropEndStoneLily extends CropBaseStoneLily {
 
         this.addDrop(Materials.Endstone.getDust(2), 100_00);
 
-        this.addBlockUnderRequirement("endStone");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.endStone);
 
         this.addDuplicationCatalyst("dustEndstone", 1);
 

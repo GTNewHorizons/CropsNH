@@ -4,23 +4,24 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 
 import gregtech.api.enums.VoltageIndex;
 
 public class CropGalvania extends NHCropCard {
 
-    private final static ISoilList soilTypes = SoilRegistry.instance.get("stone");
+    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropGalvania() {
         super("galvania", new Color(0x6FDC5C), new Color(0x9BE78D));
 
         this.addDrop(CropsNHItemList.galvaniaLeaf.get(1), 100_00);
 
-        this.addBlockUnderRequirement("zinc");
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.zinc);
 
         this.addDuplicationCatalyst("dustZinc", 1);
 

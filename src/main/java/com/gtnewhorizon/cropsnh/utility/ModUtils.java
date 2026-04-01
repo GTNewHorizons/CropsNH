@@ -19,6 +19,7 @@ public enum ModUtils implements IMod {
     BiomesOPlenty(ModIDs.BiomesOPlenty),
     BloodMagic(ModIDs.BloodMagic),
     Botania(ModIDs.Botania),
+    Chisel(ModIDs.Chisel),
     CropsPlusPlus(ModIDs.CropsPlusPlus),
     EtFuturumRequiem(ModIDs.EtFuturumRequiem),
     ExtraUtilities(ModIDs.ExtraUtilities),
@@ -122,6 +123,7 @@ public enum ModUtils implements IMod {
         public static final String BiomesOPlenty = "BiomesOPlenty";
         public static final String BloodMagic = "AWWayofTime";
         public static final String Botania = "Botania";
+        public static final String Chisel = "chisel";
         public static final String CropsPlusPlus = "berriespp";
         public static final String EtFuturumRequiem = "etfuturum";
         public static final String ExtraUtilities = "ExtraUtilities";

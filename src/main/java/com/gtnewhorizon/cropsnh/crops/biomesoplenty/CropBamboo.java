@@ -4,17 +4,17 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
-import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropBamboo extends NHCropCard {
 
-    private static final ISoilList soil = SoilRegistry.instance.get("dirt");
+    private static final ISoilList soil = CropsNHSoilTypes.dirt;
 
     public CropBamboo() {
         super("bamboo", new Color(0x83A81A), new Color(0xC7DB72));

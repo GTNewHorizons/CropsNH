@@ -5,7 +5,6 @@ import com.gtnewhorizon.cropsnh.compatibility.TiC.TiCCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.waila.WailaRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
-import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.handler.CropsNHFurnaceFuelHandler;
 import com.gtnewhorizon.cropsnh.handler.MigrationHandler;
@@ -111,7 +110,6 @@ public class CropsNH {
         SoilLoader.postInit();
         BlockUnderRequirementLoader.postInit();
         CropLoader.postInit();
-        BlockUnderRequirement.validateRegistry();
         MutationLoader.postInit();
         AspectLoader.postInit();
         GTRecipeLoader.PostInit();
