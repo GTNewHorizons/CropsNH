@@ -2,7 +2,6 @@ package com.gtnewhorizon.cropsnh.utility;
 
 import java.util.Locale;
 
-import gregtech.api.util.GTRecipeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,6 +11,7 @@ import com.gtnewhorizon.gtnhlib.util.data.IMod;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import gregtech.api.util.GTRecipeBuilder;
 
 public enum ModUtils implements IMod {
 
@@ -104,13 +104,11 @@ public enum ModUtils implements IMod {
             String fullId = "\"" + this.ID + ":" + name + "\"";
             if (GTRecipeBuilder.PANIC_MODE_NULL) {
                 throw new IllegalStateException("Item with id " + fullId + " could not be found!");
-            }
-            else {
+            } else {
                 try {
                     throw new Exception("CROPS NH MISSING ITEM: " + fullId);
-                }
-                catch (Exception e) {
-                    LogHelper.warn( e.getMessage());
+                } catch (Exception e) {
+                    LogHelper.warn(e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -125,12 +123,10 @@ public enum ModUtils implements IMod {
             String fullId = "\"" + this.ID + ":" + name + "\"";
             if (GTRecipeBuilder.PANIC_MODE_NULL) {
                 throw new IllegalStateException("block with id " + fullId + " could not be found!");
-            }
-            else {
+            } else {
                 try {
                     throw new Exception("CROPS NH MISSING BLOCK: " + fullId);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LogHelper.warn(e.getMessage());
                     e.printStackTrace();
                 }

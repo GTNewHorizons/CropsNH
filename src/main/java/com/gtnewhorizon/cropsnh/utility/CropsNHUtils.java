@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-import gregtech.api.util.GTRecipeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -36,6 +35,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.util.GTRecipeBuilder;
 
 public abstract class CropsNHUtils {
 
@@ -162,12 +162,10 @@ public abstract class CropsNHUtils {
             String fullId = "\"" + mod.ID + ":" + name + "\"";
             if (GTRecipeBuilder.PANIC_MODE_NULL) {
                 throw new IllegalStateException("stack with id " + fullId + " could not be found!");
-            }
-            else {
+            } else {
                 try {
                     throw new Exception("CROPS NH MISSING GET MOD ITEM FOR ID: " + fullId);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     LogHelper.warn(e.getMessage());
                     e.printStackTrace();
                 }
