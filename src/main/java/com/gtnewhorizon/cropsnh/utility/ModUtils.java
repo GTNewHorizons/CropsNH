@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.utility;
 
 import java.util.Locale;
 
+import gregtech.api.util.GTRecipeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -99,15 +100,42 @@ public enum ModUtils implements IMod {
 
     public Item getItem(String name) {
         Item item = GameRegistry.findItem(this.ID, name);
-        if (item == null)
-            throw new IllegalStateException("Item with id \"" + this.ID + ":" + name + "\" could not be found!");
+        if (item == null) {
+            String fullId = "\"" + this.ID + ":" + name + "\"";
+            if (GTRecipeBuilder.PANIC_MODE_NULL) {
+                throw new IllegalStateException("Item with id " + fullId + " could not be found!");
+            }
+            else {
+                try {
+                    throw new Exception("CROPS NH MISSING ITEM: " + fullId);
+                }
+                catch (Exception e) {
+                    LogHelper.warn( e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }
         return item;
     }
 
     public Block getBlock(String name) {
         Block block = GameRegistry.findBlock(this.ID, name);
-        if (block == null)
-            throw new IllegalStateException("Block with id \"" + this.ID + ":" + name + "\" could not be found!");
+
+        if (block == null) {
+            String fullId = "\"" + this.ID + ":" + name + "\"";
+            if (GTRecipeBuilder.PANIC_MODE_NULL) {
+                throw new IllegalStateException("block with id " + fullId + " could not be found!");
+            }
+            else {
+                try {
+                    throw new Exception("CROPS NH MISSING BLOCK: " + fullId);
+                }
+                catch (Exception e) {
+                    LogHelper.warn(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }
         return block;
     }
 
