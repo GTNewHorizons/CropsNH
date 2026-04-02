@@ -233,10 +233,6 @@ public class BlockUnderRequirementLoader {
             );
         }
         if (ModUtils.EtFuturumRequiem.isModLoaded()) {
-            CropsNHBlockUnderTypes.basalt.addBlock(
-                new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("basalt")),
-                new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("smooth_basalt"))
-            );
             CropsNHBlockUnderTypes.clay.addBlock(
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("orange_glazed_terracotta")),
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("light_gray_glazed_terracotta")),
@@ -263,7 +259,6 @@ public class BlockUnderRequirementLoader {
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("end_bricks"))
             );
             CropsNHBlockUnderTypes.sand.addBlock(
-                new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("smooth_sandstone")),
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("smooth_red_sandstone")),
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("red_sandstone"))
             );
