@@ -1,12 +1,12 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
-import bartworks.system.material.WerkstoffLoader;
 import net.minecraft.init.Blocks;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
+import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 
