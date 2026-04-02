@@ -14,6 +14,7 @@ import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
 import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
 import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
 import static gregtech.api.recipe.RecipeMaps.multiblockChemicalReactorRecipes;
+import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
@@ -275,7 +276,10 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Grossular);
         createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Spessartine);
         createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Pyrolusite);
-        createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Tantalite);
+        createOreDuplicationRecipe(
+            MaterialLeafLoader.pyrolusiumLeaf,
+            Materials.Tantalite,
+            Materials.Tantalum.getMolten(1 * INGOTS));
 
         createOreDuplicationRecipe(MaterialLeafLoader.titaniaLeaf, Materials.Titanium);
         createOreDuplicationRecipe(MaterialLeafLoader.titaniaLeaf, Materials.Ilmenite);
@@ -315,29 +319,35 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.bobsYerUncleBerry, Materials.Beryllium);
 
         if (ModUtils.GalacticraftCore.isModLoaded()) {
-            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.MeteoricIron, Voltage.HV);
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.MeteoricIron, Voltage.HV, null);
             createOreDuplicationRecipe(
                 MaterialLeafLoader.spaceFlower.get(9),
                 CropsNHUtils.getModItem(ModUtils.GalacticraftCore, "item.meteoricIronRaw", 1, 0),
                 Materials.MeteoricIron,
-                Voltage.HV);
+                Voltage.HV,
+                null);
         }
 
         if (ModUtils.GalacticraftMars.isModLoaded()) {
-            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.Desh, Voltage.HV);
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.Desh, Voltage.HV, null);
             createOreDuplicationRecipe(
                 MaterialLeafLoader.spaceFlower.get(9),
                 CropsNHUtils.getModItem(ModUtils.GalacticraftMars, "item.null", 1, 0),
                 Materials.Desh,
-                Voltage.HV);
+                Voltage.HV,
+                null);
         }
 
         if (ModUtils.GalaxySpace.isModLoaded()) {
-            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.Oriharukon, Voltage.HV);
-            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.Ledox, Voltage.HV);
-            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.CallistoIce, Voltage.HV);
-            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.BlackPlutonium, Voltage.LuV);
-            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.DeepIron, Voltage.LuV);
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.Oriharukon, Voltage.HV, null);
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.Ledox, Voltage.HV, null);
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.CallistoIce, Voltage.HV, null);
+            createOreDuplicationRecipe(
+                MaterialLeafLoader.spaceFlower.get(9),
+                Materials.BlackPlutonium,
+                Voltage.LuV,
+                null);
+            createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.DeepIron, Voltage.LuV, null);
         }
 
     }
@@ -538,22 +548,22 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         if (ModUtils.GalacticraftCore.isModLoaded()) {
             ivRecipe(90, 0).itemInputs(CropsNHItemList.spaceFlower.get(16), CropsNHItemList.magicEssence.get(4))
                 .fluidInputs(
-                    Materials.Platinum.getMolten(288),
-                    Materials.MeteoricIron.getMolten(144),
+                    Materials.Platinum.getMolten(1 * INGOTS),
+                    Materials.MeteoricIron.getMolten(1 * INGOTS),
                     TierAcid.t5.get(64_000))
                 .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Mytryl, 1))
                 .addTo(multiblockChemicalReactorRecipes);
         }
         // Magic essence from salis
         hvRecipe(7, 50).itemInputs(new ItemStack(thaumResourceItem, 64, 14))
-            .fluidInputs(Materials.Void.getMolten(144 * 16))
+            .fluidInputs(Materials.Void.getMolten(16 * INGOTS))
             .itemOutputs(CropsNHItemList.magicEssence.get(1))
             .addTo(autoclaveRecipes);
 
         // inert prim perl crafting recipe
         if (ModUtils.NewHorizonsCoreMod.isModLoaded() && ModUtils.WitchingGadgets.isModLoaded()) {
             evRecipe(5 * 60, 0).itemInputs(CropsNHItemList.magicEssence.get(64))
-                .fluidInputs(Materials.Ichorium.getMolten(144 * 3))
+                .fluidInputs(Materials.Ichorium.getMolten(INGOTS * 3))
                 .itemOutputs(CropsNHUtils.getModItem(ModUtils.NewHorizonsCoreMod, "PrimordialPearlFragment", 3))
                 .addTo(autoclaveRecipes);
         }
@@ -1065,31 +1075,38 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         if (oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
         }
-        createOreDuplicationRecipe(variant, oreType.getBridgeMaterial(), voltage);
+        createOreDuplicationRecipe(variant, oreType.getBridgeMaterial(), voltage, null);
     }
 
     public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType) {
-        createOreDuplicationRecipe(variant, oreType, Voltage.LV);
+        createOreDuplicationRecipe(variant, oreType, Voltage.LV, null);
     }
 
-    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType, Voltage voltage) {
+    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType,
+        FluidStack fluidByproduct) {
+        createOreDuplicationRecipe(variant, oreType, Voltage.LV, fluidByproduct);
+    }
+
+    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType, Voltage voltage,
+        FluidStack fluidByproduct) {
         if (variant == null || oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
         }
         ItemStack leaf = variant.get(1);
-        createOreDuplicationRecipe(leaf, oreType, voltage);
+        createOreDuplicationRecipe(leaf, oreType, voltage, fluidByproduct);
     }
 
-    public static void createOreDuplicationRecipe(ItemStack leaf, Materials oreType, Voltage voltage) {
+    public static void createOreDuplicationRecipe(ItemStack leaf, Materials oreType, Voltage voltage,
+        FluidStack fluidByproduct) {
         if (leaf == null || oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
         }
         ItemStack crushed = GTOreDictUnificator.get(OrePrefixes.crushed, oreType, 1);
-        createOreDuplicationRecipe(leaf, crushed, oreType, voltage);
+        createOreDuplicationRecipe(leaf, crushed, oreType, voltage, fluidByproduct);
     }
 
-    public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, Materials oreType,
-        Voltage voltage) {
+    public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, Materials oreType, Voltage voltage,
+        FluidStack fluidByproduct) {
         if (leaf == null || crushed == null || oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
         }
@@ -1097,28 +1114,28 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .get(OrePrefixes.crushedPurified, oreType, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT);
         ItemStack impureDust = GTOreDictUnificator
             .get(OrePrefixes.dustImpure, oreType, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT);
-        FluidStack byproduct = null;
-        if (!oreType.mOreByProducts.isEmpty()) {
-            byproduct = oreType.mOreByProducts.get(0)
-                .getMolten(144);
+        if (fluidByproduct == null && !oreType.mOreByProducts.isEmpty()) {
+            fluidByproduct = oreType.mOreByProducts.get(0)
+                .getMolten(1 * INGOTS);
         }
+
         // TODO: ask around about the circuit thing since technically with the ghost slot this is feasible.
         createOreDuplicationRecipe(
             new ItemStack[] { leaf, crushed },
             purified,
-            byproduct,
+            fluidByproduct,
             voltage,
             chemicalReactorRecipes);
         createOreDuplicationRecipe(
             new ItemStack[] { leaf, crushed, GTUtility.getIntegratedCircuit(PURIFIED_RECIPE_CIRCUIT) },
             purified,
-            byproduct,
+            fluidByproduct,
             voltage,
             multiblockChemicalReactorRecipes);
         createOreDuplicationRecipe(
             new ItemStack[] { leaf, crushed, GTUtility.getIntegratedCircuit(IMPURE_DUST_RECIPE_CIRCUIT) },
             impureDust,
-            byproduct,
+            fluidByproduct,
             voltage,
             multiblockChemicalReactorRecipes);
     }
@@ -1134,7 +1151,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         FluidStack byproduct = null;
         if (!oreType.mOreByProducts.isEmpty()) {
             byproduct = oreType.mOreByProducts.get(0)
-                .getMolten(144);
+                .getMolten(1 * INGOTS);
         }
 
         createOreDuplicationRecipe(new ItemStack[] { leaf, crushed }, purified, byproduct, voltage, UniversalChemical);
