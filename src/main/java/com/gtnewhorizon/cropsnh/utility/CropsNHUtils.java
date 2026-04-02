@@ -35,6 +35,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.util.GTRecipeBuilder;
 
 public abstract class CropsNHUtils {
 
@@ -157,7 +158,19 @@ public abstract class CropsNHUtils {
 
     public static ItemStack getModItem(ModUtils mod, String name, int amount) {
         ItemStack ret = GameRegistry.findItemStack(mod.ID, name, amount);
-        if (ret == null) throw new IllegalStateException("item " + mod.ID + ":" + name + " not found!");
+        if (ret == null) {
+            String fullId = "\"" + mod.ID + ":" + name + "\"";
+            if (GTRecipeBuilder.PANIC_MODE_NULL) {
+                throw new IllegalStateException("stack with id " + fullId + " could not be found!");
+            } else {
+                try {
+                    throw new Exception("CROPS NH MISSING GET MOD ITEM FOR ID: " + fullId);
+                } catch (Exception e) {
+                    LogHelper.warn(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }
         ret = ret.copy();
         ret.stackSize = amount;
         return ret;

@@ -11,6 +11,7 @@ import com.gtnewhorizon.gtnhlib.util.data.IMod;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import gregtech.api.util.GTRecipeBuilder;
 
 public enum ModUtils implements IMod {
 
@@ -99,15 +100,38 @@ public enum ModUtils implements IMod {
 
     public Item getItem(String name) {
         Item item = GameRegistry.findItem(this.ID, name);
-        if (item == null)
-            throw new IllegalStateException("Item with id \"" + this.ID + ":" + name + "\" could not be found!");
+        if (item == null) {
+            String fullId = "\"" + this.ID + ":" + name + "\"";
+            if (GTRecipeBuilder.PANIC_MODE_NULL) {
+                throw new IllegalStateException("Item with id " + fullId + " could not be found!");
+            } else {
+                try {
+                    throw new Exception("CROPS NH MISSING ITEM: " + fullId);
+                } catch (Exception e) {
+                    LogHelper.warn(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }
         return item;
     }
 
     public Block getBlock(String name) {
         Block block = GameRegistry.findBlock(this.ID, name);
-        if (block == null)
-            throw new IllegalStateException("Block with id \"" + this.ID + ":" + name + "\" could not be found!");
+
+        if (block == null) {
+            String fullId = "\"" + this.ID + ":" + name + "\"";
+            if (GTRecipeBuilder.PANIC_MODE_NULL) {
+                throw new IllegalStateException("block with id " + fullId + " could not be found!");
+            } else {
+                try {
+                    throw new Exception("CROPS NH MISSING BLOCK: " + fullId);
+                } catch (Exception e) {
+                    LogHelper.warn(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }
         return block;
     }
 
