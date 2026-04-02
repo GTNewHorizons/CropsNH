@@ -459,10 +459,11 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
 
     @Override
     public void clear() {
-        ISeedData oldCrop = this.seed;
-        if (oldCrop != null) {
-            oldCrop.getCrop()
-                .onRemoved(this);
+        if (CropsNHUtils.isServer()) {
+            if (this.seed != null) {
+                this.seed.getCrop()
+                    .onRemoved(this);
+            }
         }
         this.seed = null;
         this.additionalCropData = null;
@@ -649,7 +650,9 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
         if (tag.hasKey(Names.NBT.crossCrop, Data.NBTType._boolean) && tag.getBoolean(Names.NBT.crossCrop)) {
+            this.clear();
             this.isCrossCrop = true;
+
         } else {
             this.isCrossCrop = false;
             // load crop data if it's not a cross crop
