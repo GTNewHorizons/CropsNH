@@ -8,13 +8,13 @@ import java.util.Locale;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.IItemRenderer;
 
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import gregtech.GTMod;
 import gregtech.api.interfaces.IItemContainer;
-import gregtech.api.util.GTLanguageManager;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
@@ -396,7 +396,7 @@ public enum CropsNHItemList implements IItemContainer {
         // Construct a translation key from UnlocalizedName and CamelCased DisplayName
         final String tKey = rStack.getUnlocalizedName() + ".with." + tCamelCasedDisplayNameBuilder + ".name";
 
-        rStack.setStackDisplayName(GTLanguageManager.addStringLocalization(tKey, aDisplayName));
+        rStack.setStackDisplayName(StatCollector.translateToLocalFormatted(tKey, aDisplayName));
         return CropsNHUtils.copyStackWithSize(rStack, (int) aAmount);
     }
 
