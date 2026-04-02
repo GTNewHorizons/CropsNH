@@ -72,11 +72,11 @@ public class BlockUnderRequirementLoader {
         CropsNHBlockUnderTypes.osmium.addBlockAndOreDict().addMaterial(Materials.Osmium);
         CropsNHBlockUnderTypes.platinum.addBlockAndOreDict().addMaterial(Materials.Platinum, Materials.Cooperite);
         CropsNHBlockUnderTypes.silver.addBlockAndOreDict().addMaterial(Materials.Silver);
-        CropsNHBlockUnderTypes.thorium.addBlockAndOreDict().addMaterial(Materials.Thorium);
+        CropsNHBlockUnderTypes.thorium.addBlockAndOreDict().addMaterial(Materials.Thorium, WerkstoffLoader.Thorianit.getBridgeMaterial());
         CropsNHBlockUnderTypes.tin.addBlockAndOreDict().addMaterial(Materials.Tin);
         CropsNHBlockUnderTypes.titanium.addBlockAndOreDict().addMaterial(Materials.Titanium, Materials.Ilmenite, Materials.Rutile);
         CropsNHBlockUnderTypes.tungsten.addBlockAndOreDict().addMaterial(Materials.Tungsten, Materials.Scheelite, Materials.Tungstate);
-        CropsNHBlockUnderTypes.uranium.addBlockAndOreDict().addBlockAndOreDict("Uranium235", "Uranium238").addMaterial(Materials.Uranium, Materials.Uranium235);
+        CropsNHBlockUnderTypes.uranium.addBlockAndOreDict().addBlockAndOreDict("Uranium235", "Uranium238").addMaterial(Materials.Uranium, Materials.Uranium235, Materials.Uraninite, Materials.Pitchblende);
         CropsNHBlockUnderTypes.zinc.addBlockAndOreDict().addMaterial(Materials.Zinc, Materials.Sphalerite);
         // gem ores
         CropsNHBlockUnderTypes.garnetGem.addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow, Materials.GarnetSand);
