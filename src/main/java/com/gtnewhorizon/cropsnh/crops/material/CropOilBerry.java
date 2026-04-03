@@ -13,7 +13,7 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropOilBerry extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
+    private final static ISoilList soilTypes = CropsNHSoilTypes.soulsand;
 
     public CropOilBerry() {
         super("oilBerry", new Color(0x0A0A0A), new Color(0x333333));
