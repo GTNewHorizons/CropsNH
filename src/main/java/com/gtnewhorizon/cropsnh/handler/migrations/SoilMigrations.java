@@ -2,7 +2,6 @@ package com.gtnewhorizon.cropsnh.handler.migrations;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.reference.Data;
