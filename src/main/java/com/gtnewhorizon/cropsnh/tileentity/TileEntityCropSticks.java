@@ -678,6 +678,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     public void loadCropNBT(NBTTagCompound tag) {
+        // if we ever do a change to how we store seed data, we also need to update the soil migration handler
         if (tag == null || !tag.hasKey(Names.NBT.crop, Data.NBTType._object)) {
             this.clear();
             return;
