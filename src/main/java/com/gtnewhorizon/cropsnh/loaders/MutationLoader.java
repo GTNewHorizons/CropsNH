@@ -761,7 +761,7 @@ public class MutationLoader {
             }
             if (ModUtils.TwilightForest.isModLoaded()) {
                 new CropMutation(KnightmetalBerry, IronOreBerry, Torchberry, BonsaiDarkOak)
-                    .addToMutationPools(aOreBerry, aMetal, aDanger, aGray)
+                    .addToMutationPools(aOreBerry, aMetal, aDanger, aGray, aGreen)
                     .register();
             }
             if (ModUtils.Thaumcraft.isModLoaded()) {
