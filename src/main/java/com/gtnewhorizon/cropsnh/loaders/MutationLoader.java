@@ -341,7 +341,7 @@ public class MutationLoader {
                 .register();
             if (ModUtils.Natura.isModLoaded()) {
                 new CropMutation(Glowshroom, BlueGlowshroom, GreenGlowshroom, PurpleGlowshroom)
-                    .addToMutationPools(aFood, aMushroom, aIngredient, aNether, aLight)
+                    .addToMutationPools(aFood, aMushroom, aIngredient, aNether, aLight, aGreen)
                     .register();
             }
             new CropMutation(Ivy, Vine, BonsaiSpruce)
@@ -363,7 +363,7 @@ public class MutationLoader {
             .addToMutationPools(aSilk, aTendrilly, aAddictive)
             .register();
         new CropMutation(Hemp, Flax, Papyrus)
-            .addToMutationPools(aGreen, aOrange)
+            .addToMutationPools(aSilk, aGreen, aOrange, aStem, aAddictive)
             .register();
         // endregion cropsnh
 
@@ -405,17 +405,17 @@ public class MutationLoader {
                 .register();
         }
         new CropMutation(Chilly, Cactus, Cocoa)
-            .addToMutationPools(aFood, aRed)
+            .addToMutationPools(aFood, aRed, aFire)
             .register();
         new CropMutation(Coffee, Cocoa, BonsaiAcacia)
-            .addToMutationPools(aLeaves, aIngredient, aBean)
+            .addToMutationPools(aLeaves, aIngredient, aBean, aAddictive)
             .register();
         new CropMutation(Cucumber, Melon, Carrot)
-            .addToMutationPools(aFood, aGreen)
+            .addToMutationPools(aFood, aGreen, aTendrilly)
             .register();
         if (Mods.Natura.isModLoaded()) {
             new CropMutation(Grape, Blueberry, Blackberry)
-                .addToMutationPools(aFood, aPurple)
+                .addToMutationPools(aFood, aPurple, aClimbable, aTendrilly)
                 .register();
         }
         new CropMutation(Hops, Hemp, Dandelion)
@@ -427,7 +427,7 @@ public class MutationLoader {
                 .register();
         }
         new CropMutation(Lemon, BonsaiOak, BonsaiAcacia)
-            .addToMutationPools(aFood, aYellow, aWood, aLeafy)
+            .addToMutationPools(aFood, aYellow, aTree, aLeafy)
             .register();
         // allium is the genus for onions
         new CropMutation(Onion, Allium, Carrot)
@@ -442,7 +442,7 @@ public class MutationLoader {
                 .register();
         }
         new CropMutation(Tomato, Onion, RedTulip)
-            .addToMutationPools(aFood, aRed)
+            .addToMutationPools(aFood, aRed, aTendrilly)
             .register();
         // endregion food
 
@@ -509,7 +509,7 @@ public class MutationLoader {
             .register();
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
             new CropMutation(Glowheat, Glowflower, Wheat)
-                .addToMutationPools(aLight, aShiny, aCrystal, aLight)
+                .addToMutationPools(aLight, aShiny, aCrystal, aWheat)
                 .register();
         }
         new CropMutation(GodOfThunder, BobsYerUncleRanks, Withereed)
@@ -582,7 +582,7 @@ public class MutationLoader {
             .machineOnly()
             .register();
         new CropMutation(RedStraw, NetherStoneLily, Wheat)
-            .addToMutationPools(aRed, aWheat)
+            .addToMutationPools(aRed, aStone, aWheat)
             .register();
         new CropMutation(SaltyRoot, SugarBeet, Canola)
             .addToMutationPools(aGray, aRoot, aSaltpeter)
@@ -742,39 +742,39 @@ public class MutationLoader {
                 .register();
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
                 new CropMutation(CopperOreBerry, Malaxia, BoPBerry, StoneLily)
-                    .addToMutationPools(aOreBerry, aCopper, aMetal, aShiny, aDanger)
+                    .addToMutationPools(aOreBerry, aCopper, aMetal, aShiny, aDanger, aOrange)
                     .register();
             }
             new CropMutation(EssenceOreBerry, Creeperweed, Zomplant, Spidernip, Tearstalks)
-                .addToMutationPools(aOreBerry, aEssence, aUndead, aDanger)
+                .addToMutationPools(aOreBerry, aEssence, aUndead, aDanger, aGreen)
                 .register();
             new CropMutation(GoldOreBerry, CopperOreBerry, IronOreBerry, TinOreBerry)
-                .addToMutationPools(aOreBerry, aGold, aMetal, aDanger)
+                .addToMutationPools(aOreBerry, aGold, aMetal, aDanger, aYellow)
                 .register();
             new CropMutation(IronOreBerry, TinOreBerry, StoneLily)
                 .addToMutationPools(aOreBerry, aGray, aMetal, aDanger, aIron)
                 .register();
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
                 new CropMutation(TinOreBerry, Cassitine, BoPBerry, StoneLily)
-                    .addToMutationPools(aOreBerry, aTin, aMetal, aShiny, aDanger)
+                    .addToMutationPools(aOreBerry, aTin, aMetal, aShiny, aDanger, aWhite)
                     .register();
             }
             if (ModUtils.TwilightForest.isModLoaded()) {
                 new CropMutation(KnightmetalBerry, IronOreBerry, Torchberry, BonsaiDarkOak)
-                    .addToMutationPools(aOreBerry, aMetal, aDanger)
+                    .addToMutationPools(aOreBerry, aMetal, aDanger, aGray)
                     .register();
             }
             if (ModUtils.Thaumcraft.isModLoaded()) {
                 // TODO: ADD GREATWOOD AND SILVER WOOD BONSAIS AND ADD DETERMINISTIC RECIPE FOR THAUMIUM ORE BERRY
                 new CropMutation(ThaumiumOreBerry, StoneLily, GoldOreBerry)
-                    .addToMutationPools(aOreBerry, aMagic, aMetal, aVoid, aDanger)
+                    .addToMutationPools(aOreBerry, aMagic, aMetal, aVoid, aDanger, aPurple)
                     .register();
                 new CropMutation(VoidOreBerry, ThaumiumOreBerry, GoldOreBerry)
-                    .addToMutationPools(aOreBerry, aMagic, aMetal, aVoid, aDanger)
+                    .addToMutationPools(aOreBerry, aMagic, aMetal, aVoid, aDanger, aBlack)
                     .register();
                 if (ModUtils.ThaumicBases.isModLoaded()) {
                     new CropMutation(ThauminiteOreBerry, ThaumiumOreBerry, ManaBean)
-                        .addToMutationPools(aOreBerry, aMagic, aMetal, aVoid, aDanger)
+                        .addToMutationPools(aOreBerry, aMagic, aMetal, aVoid, aDanger, aBlue)
                         .register();
                 }
             }
