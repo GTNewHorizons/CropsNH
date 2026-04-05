@@ -7,12 +7,15 @@ import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHStructureChannels;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -27,9 +30,9 @@ public abstract class CropsNHBlockIndustrialFarmTiredComponent extends BlockCasi
     protected final IIcon[] mSideIcons = new IIcon[16];
     protected final IIcon[] mBottomIcons = new IIcon[16];
     protected final IIcon[] mTopIcons = new IIcon[16];
-    private final int mMinTier;
-    private final int mMaxTier;
-    private final List<Pair<Block, Integer>> mStructureComponents;
+    public final int mMinTier;
+    public final int mMaxTier;
+    protected final List<Pair<Block, Integer>> mStructureComponents;
 
     protected CropsNHBlockIndustrialFarmTiredComponent(String aName, IItemContainer... aItems) {
         this(aName, VoltageIndex.MV, VoltageIndex.UXV, aItems);
@@ -50,11 +53,13 @@ public abstract class CropsNHBlockIndustrialFarmTiredComponent extends BlockCasi
         }
         this.mStructureComponents = new ArrayList<>(tExpectedLength);
         // register metas
-        int i = 0, tMeta = this.mMinTier;
+        int tMeta = this.mMinTier;
         for (IItemContainer item : aItems) {
             register(tMeta, item);
+            if (ModUtils.StructureLib.isModLoaded()) {
+                CropsNHStructureChannels.IFTier.registerAsIndicator(new ItemStack(this, 1, tMeta), tMeta - 1);
+            }
             this.mStructureComponents.add(Pair.of(this, tMeta));
-            i++;
             tMeta++;
         }
     }
