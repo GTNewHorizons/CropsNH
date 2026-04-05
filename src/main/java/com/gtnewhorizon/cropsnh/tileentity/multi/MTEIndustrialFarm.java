@@ -1023,6 +1023,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 int tAmountToConsume = getAmountToConsumeBasedOnPotency(tWaterPotencyMissing, tPotency, tRemaining);
                 tRemaining -= tAmountToConsume;
                 tWaterPotencyMissing -= tAmountToConsume * tPotency;
+                tFluidsToConsume.add(Pair.of(tFluidStack, tRemaining));
             }
             // consume fertilizer if needed
             if (tFertilizerPotencyMissing > 0 && tRemaining > 0
@@ -1033,12 +1034,10 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                     tRemaining);
                 tRemaining -= tAmountToConsume;
                 tFertilizerPotencyMissing -= tAmountToConsume * tPotency;
+                tFluidsToConsume.add(Pair.of(tFluidStack, tRemaining));
             }
             // if we consumed something add it to the list for later consumption.
-            if (tRemaining > 0L) {
-                tFluidsToConsume.add(Pair.of(tFluidStack, tRemaining));
-                if (tFertilizerPotencyMissing <= 0 && tWaterPotencyMissing <= 0) break;
-            }
+            if (tFertilizerPotencyMissing <= 0 && tWaterPotencyMissing <= 0) break;
         }
         if (tWaterPotencyMissing > 0 || tFertilizerPotencyMissing > 0) return CheckRecipeResultRegistry.NO_RECIPE;
 
