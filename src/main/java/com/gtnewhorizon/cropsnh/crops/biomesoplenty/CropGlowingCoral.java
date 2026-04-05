@@ -26,7 +26,7 @@ public class CropGlowingCoral extends NHCropCard {
 
         this.addDuplicationCatalyst("dustGlowstone", 1);
         // coral reef tags
-        this.addLikedBiomes(BiomeDictionary.Type.WATER, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.RIVER);
+        this.addLikedBiomes(BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.RIVER);
     }
 
     @Override
