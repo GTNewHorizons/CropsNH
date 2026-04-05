@@ -876,7 +876,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             StatCollector.translateToLocalFormatted(
                 "cropsnh_tooltip.cropManager.tooltip.4",
                 TooltipHelper.tierText(formatNumber(this.getHorizontalDiameter())),
-                TooltipHelper.tierText(formatNumber(this.getVerticalRadius()))),
+                TooltipHelper.tierText(formatNumber(this.getVerticalDiameter()))),
             StatCollector.translateToLocalFormatted(
                 "cropsnh_tooltip.cropManager.tooltip.5",
                 TooltipHelper.coloredText(
