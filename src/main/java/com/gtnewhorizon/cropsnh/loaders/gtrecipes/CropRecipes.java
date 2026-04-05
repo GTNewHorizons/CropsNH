@@ -9,7 +9,6 @@ import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 import static gregtech.common.items.ItemComb.Voltage;
 import static net.minecraftforge.fluids.FluidRegistry.getFluidStack;
 
-import gregtech.loaders.postload.recipes.MixerRecipes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -365,10 +364,10 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(extractorRecipes);
 
         ulvRecipe(3, 75).itemInputs(MaterialLeafLoader.rubyneLeaf.get(9))
-                .itemOutputs(
-                    new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ruby, 1) },
-                    new int[] { 50_00 })
-                .addTo(extractorRecipes);
+            .itemOutputs(
+                new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ruby, 1) },
+                new int[] { 50_00 })
+            .addTo(extractorRecipes);
 
         createOreConversionRecipe(MaterialLeafLoader.copponFiber, Voltage.LV, Materials.Copper, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.galvaniaLeaf, Voltage.LV, Materials.Zinc, TierAcid.t1);

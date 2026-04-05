@@ -2,7 +2,6 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
-import ic2.api.crops.Crops;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
