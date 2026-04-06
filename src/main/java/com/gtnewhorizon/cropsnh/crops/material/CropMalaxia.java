@@ -29,11 +29,6 @@ public class CropMalaxia extends NHCropCard {
     }
 
     @Override
-    public float getDropChance() {
-        return super.getDropChance() / 2.0f;
-    }
-
-    @Override
     public int getGrowthDuration() {
         return 2800;
     }
