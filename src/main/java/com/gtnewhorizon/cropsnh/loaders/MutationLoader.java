@@ -318,7 +318,7 @@ public class MutationLoader {
         // not adding it to the bonsai and tree pools on purpose, since it's
         // intended to be a bit harder to get your hands on without exploration.
         new CropMutation(BonsaiSlimy, Slimeplant, BonsaiJungle, BonsaiRubber)
-            .addToMutationPools(aSlime, aBouncy, aSticky)
+            .addToMutationPools(aSlime, aBouncy)
             .register();
         // endregion bonsais
 
