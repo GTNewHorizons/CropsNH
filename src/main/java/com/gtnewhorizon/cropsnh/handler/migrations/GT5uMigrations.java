@@ -15,6 +15,7 @@ import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
+import com.gtnewhorizons.postea.api.BlockAccessCompat;
 import com.gtnewhorizons.postea.api.ItemStackReplacementManager;
 import com.gtnewhorizons.postea.api.TileEntityReplacementManager;
 import com.gtnewhorizons.postea.utility.BlockInfo;
@@ -25,45 +26,48 @@ import gregtech.api.GregTechAPI;
 public abstract class GT5uMigrations {
 
     public static void postInit() {
-        TileEntityReplacementManager
-            .tileEntityTransformer("BaseMetaTileEntity", (oldNBT, world, chunk) -> switch (oldNBT.getInteger("mID")) {
-            // gene extractors
-            case 12501, 12502, 12503 -> new BlockInfo(Blocks.air, 0);
-            case 12504 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_EV_MTE_ID);
-            case 12505 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_IV_MTE_ID);
-            case 12506 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_LUV_MTE_ID);
-            case 12507 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_ZPM_MTE_ID);
-            case 12508 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_UV_MTE_ID);
-            case 12509 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_UHV_MTE_ID);
-            // seed generator/replicators
-            case 12510 -> migrateSBMachine(MTELoader.SEED_GENERATOR_LV_MTE_ID);
-            case 12511 -> migrateSBMachine(MTELoader.SEED_GENERATOR_MV_MTE_ID);
-            case 12512 -> migrateSBMachine(MTELoader.SEED_GENERATOR_HV_MTE_ID);
-            case 12513 -> migrateSBMachine(MTELoader.SEED_GENERATOR_EV_MTE_ID);
-            case 12514 -> migrateSBMachine(MTELoader.SEED_GENERATOR_IV_MTE_ID);
-            case 12515 -> migrateSBMachine(MTELoader.SEED_GENERATOR_LUV_MTE_ID);
-            case 12516 -> migrateSBMachine(MTELoader.SEED_GENERATOR_ZPM_MTE_ID);
-            case 12517 -> migrateSBMachine(MTELoader.SEED_GENERATOR_UV_MTE_ID);
-            case 12518 -> migrateSBMachine(MTELoader.SEED_GENERATOR_UHV_MTE_ID);
-            // gene synthesizers
-            case 12519, 12520, 12521 -> new BlockInfo(Blocks.air, 0);
-            case 12522 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_EV_MTE_ID);
-            case 12523 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_IV_MTE_ID);
-            case 12524 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_LUV_MTE_ID);
-            case 12525 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_ZPM_MTE_ID);
-            case 12526 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_UV_MTE_ID);
-            case 12527 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_UHV_MTE_ID);
-            // crop managers
-            case 31111 -> migrateCropManager(MTELoader.CROP_MANAGER_LV_MTE_ID);
-            case 31112 -> migrateCropManager(MTELoader.CROP_MANAGER_MV_MTE_ID);
-            case 31113 -> migrateCropManager(MTELoader.CROP_MANAGER_HV_MTE_ID);
-            case 31114 -> migrateCropManager(MTELoader.CROP_MANAGER_EV_MTE_ID);
-            case 31115 -> migrateCropManager(MTELoader.CROP_MANAGER_IV_MTE_ID);
-            case 31116 -> migrateCropManager(MTELoader.CROP_MANAGER_LUV_MTE_ID);
-            case 31117 -> migrateCropManager(MTELoader.CROP_MANAGER_ZPM_MTE_ID);
-            case 31118 -> migrateCropManager(MTELoader.CROP_MANAGER_UV_MTE_ID);
-            default -> null;
-            });
+        TileEntityReplacementManager.tileEntityTransformer("BaseMetaTileEntity", (oldNBT, world, chunk) -> {
+            // need to copy meta since that controls block harvestability
+            int oldBlockMeta = BlockAccessCompat.getBlockMetaAtTE(oldNBT, chunk);
+            return switch (oldNBT.getInteger("mID")) {
+                // gene extractors
+                case 12501, 12502, 12503 -> new BlockInfo(Blocks.air, 0);
+                case 12504 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_EV_MTE_ID, oldBlockMeta);
+                case 12505 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_IV_MTE_ID, oldBlockMeta);
+                case 12506 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_LUV_MTE_ID, oldBlockMeta);
+                case 12507 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_ZPM_MTE_ID, oldBlockMeta);
+                case 12508 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_UV_MTE_ID, oldBlockMeta);
+                case 12509 -> migrateSBMachine(MTELoader.CROP_GENE_EXTRACTOR_UHV_MTE_ID, oldBlockMeta);
+                // seed generator/replicators
+                case 12510 -> migrateSBMachine(MTELoader.SEED_GENERATOR_LV_MTE_ID, oldBlockMeta);
+                case 12511 -> migrateSBMachine(MTELoader.SEED_GENERATOR_MV_MTE_ID, oldBlockMeta);
+                case 12512 -> migrateSBMachine(MTELoader.SEED_GENERATOR_HV_MTE_ID, oldBlockMeta);
+                case 12513 -> migrateSBMachine(MTELoader.SEED_GENERATOR_EV_MTE_ID, oldBlockMeta);
+                case 12514 -> migrateSBMachine(MTELoader.SEED_GENERATOR_IV_MTE_ID, oldBlockMeta);
+                case 12515 -> migrateSBMachine(MTELoader.SEED_GENERATOR_LUV_MTE_ID, oldBlockMeta);
+                case 12516 -> migrateSBMachine(MTELoader.SEED_GENERATOR_ZPM_MTE_ID, oldBlockMeta);
+                case 12517 -> migrateSBMachine(MTELoader.SEED_GENERATOR_UV_MTE_ID, oldBlockMeta);
+                case 12518 -> migrateSBMachine(MTELoader.SEED_GENERATOR_UHV_MTE_ID, oldBlockMeta);
+                // gene synthesizers
+                case 12519, 12520, 12521 -> new BlockInfo(Blocks.air, 0);
+                case 12522 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_EV_MTE_ID, oldBlockMeta);
+                case 12523 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_IV_MTE_ID, oldBlockMeta);
+                case 12524 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_LUV_MTE_ID, oldBlockMeta);
+                case 12525 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_ZPM_MTE_ID, oldBlockMeta);
+                case 12526 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_UV_MTE_ID, oldBlockMeta);
+                case 12527 -> migrateSBMachine(MTELoader.CROP_SYNTHESIZER_UHV_MTE_ID, oldBlockMeta);
+                // crop managers
+                case 31111 -> migrateCropManager(MTELoader.CROP_MANAGER_LV_MTE_ID, oldBlockMeta);
+                case 31112 -> migrateCropManager(MTELoader.CROP_MANAGER_MV_MTE_ID, oldBlockMeta);
+                case 31113 -> migrateCropManager(MTELoader.CROP_MANAGER_HV_MTE_ID, oldBlockMeta);
+                case 31114 -> migrateCropManager(MTELoader.CROP_MANAGER_EV_MTE_ID, oldBlockMeta);
+                case 31115 -> migrateCropManager(MTELoader.CROP_MANAGER_IV_MTE_ID, oldBlockMeta);
+                case 31116 -> migrateCropManager(MTELoader.CROP_MANAGER_LUV_MTE_ID, oldBlockMeta);
+                case 31117 -> migrateCropManager(MTELoader.CROP_MANAGER_ZPM_MTE_ID, oldBlockMeta);
+                case 31118 -> migrateCropManager(MTELoader.CROP_MANAGER_UV_MTE_ID, oldBlockMeta);
+                default -> null;
+            };
+        });
 
         final String blockMachineId = ModUtils.GregTech.ID + ":gt.blockmachines";
         // crop gene extractor
@@ -202,8 +206,8 @@ public abstract class GT5uMigrations {
         // spotless:off
     }
 
-    private static @Nullable BlockInfo migrateCropManager(int newMetaID) {
-        return new BlockInfo(GregTechAPI.sBlockMachines, 1, oldNBT -> {
+    private static @Nullable BlockInfo migrateCropManager(int newMetaID, int oldBlockMeta) {
+        return new BlockInfo(GregTechAPI.sBlockMachines, oldBlockMeta, oldNBT -> {
             NBTTagCompound newNBT = (NBTTagCompound) oldNBT.copy();
             newNBT.setInteger("mID", newMetaID);
             if (newNBT.hasKey("mFluid", Data.NBTType._object)) {
@@ -226,8 +230,8 @@ public abstract class GT5uMigrations {
         });
     }
 
-    private static @Nullable BlockInfo migrateSBMachine(int newMetaID) {
-        return new BlockInfo(GregTechAPI.sBlockMachines, 1, oldNBT -> {
+    private static @Nullable BlockInfo migrateSBMachine(int newMetaID, int oldBlockMeta) {
+        return new BlockInfo(GregTechAPI.sBlockMachines, oldBlockMeta, oldNBT -> {
             NBTTagCompound newNBT = (NBTTagCompound) oldNBT.copy();
             newNBT.setInteger("mID", newMetaID);
             return newNBT;
