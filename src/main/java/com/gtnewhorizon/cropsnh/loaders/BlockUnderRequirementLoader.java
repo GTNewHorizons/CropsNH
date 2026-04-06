@@ -6,6 +6,7 @@ import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
+import bartworks.system.material.WerkstoffLoader;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 
@@ -59,26 +60,26 @@ public class BlockUnderRequirementLoader {
         CropsNHBlockUnderTypes.copper.addBlockAndOreDict().addMaterial(Materials.Copper);
         CropsNHBlockUnderTypes.chrome.addBlockAndOreDict().addMaterial(Materials.Chrome);
         CropsNHBlockUnderTypes.iridium.addBlockAndOreDict().addMaterial(Materials.Iridium);
-        CropsNHBlockUnderTypes.lead.addBlockAndOreDict().addMaterial(Materials.Lead);
+        CropsNHBlockUnderTypes.lead.addBlockAndOreDict().addMaterial(Materials.Lead, Materials.Galena);
         CropsNHBlockUnderTypes.magnesium.addBlockAndOreDict().addMaterial(Materials.Magnesium);
-        CropsNHBlockUnderTypes.manganese.addBlockAndOreDict().addMaterial(Materials.Manganese);
+        CropsNHBlockUnderTypes.manganese.addBlockAndOreDict().addMaterial(Materials.Manganese, Materials.Pyrolusite);
         CropsNHBlockUnderTypes.mica.addBlockAndOreDict().addMaterial(Materials.Mica)
             // Cupronickel coil
             .addBlock(new BlockWithMeta(GregTechAPI.sBlockCasings5, 0));
-        CropsNHBlockUnderTypes.naquadah.addBlockAndOreDict().addMaterial(Materials.Naquadah);
+        CropsNHBlockUnderTypes.naquadah.addBlockAndOreDict().addMaterial(Materials.Naquadah, Materials.NaquadahEnriched, Materials.Naquadria);
         CropsNHBlockUnderTypes.netherStar.addBlockAndOreDict().addMaterial(Materials.NetherStar);
         CropsNHBlockUnderTypes.nickel.addBlockAndOreDict().addMaterial(Materials.Nickel);
         CropsNHBlockUnderTypes.osmium.addBlockAndOreDict().addMaterial(Materials.Osmium);
-        CropsNHBlockUnderTypes.platinum.addBlockAndOreDict().addMaterial(Materials.Platinum);
+        CropsNHBlockUnderTypes.platinum.addBlockAndOreDict().addMaterial(Materials.Platinum, Materials.Cooperite);
         CropsNHBlockUnderTypes.silver.addBlockAndOreDict().addMaterial(Materials.Silver);
-        CropsNHBlockUnderTypes.thorium.addBlockAndOreDict().addMaterial(Materials.Thorium);
+        CropsNHBlockUnderTypes.thorium.addBlockAndOreDict().addMaterial(Materials.Thorium, WerkstoffLoader.Thorianit.getBridgeMaterial());
         CropsNHBlockUnderTypes.tin.addBlockAndOreDict().addMaterial(Materials.Tin);
-        CropsNHBlockUnderTypes.titanium.addBlockAndOreDict().addMaterial(Materials.Titanium);
-        CropsNHBlockUnderTypes.tungsten.addBlockAndOreDict().addMaterial(Materials.Tungsten);
-        CropsNHBlockUnderTypes.uranium.addBlockAndOreDict().addBlockAndOreDict("Uranium235", "Uranium238").addMaterial(Materials.Uranium, Materials.Uranium235);
-        CropsNHBlockUnderTypes.zinc.addBlockAndOreDict().addMaterial(Materials.Zinc);
+        CropsNHBlockUnderTypes.titanium.addBlockAndOreDict().addMaterial(Materials.Titanium, Materials.Ilmenite, Materials.Rutile);
+        CropsNHBlockUnderTypes.tungsten.addBlockAndOreDict().addMaterial(Materials.Tungsten, Materials.Scheelite, Materials.Tungstate);
+        CropsNHBlockUnderTypes.uranium.addBlockAndOreDict().addBlockAndOreDict("Uranium235", "Uranium238").addMaterial(Materials.Uranium, Materials.Uranium235, Materials.Uraninite, Materials.Pitchblende);
+        CropsNHBlockUnderTypes.zinc.addBlockAndOreDict().addMaterial(Materials.Zinc, Materials.Sphalerite);
         // gem ores
-        CropsNHBlockUnderTypes.garnetGem.addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow);
+        CropsNHBlockUnderTypes.garnetGem.addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow, Materials.GarnetSand);
         CropsNHBlockUnderTypes.olivine.addBlockAndOreDict().addMaterial(Materials.Olivine);
         CropsNHBlockUnderTypes.sapphire.addBlockAndOreDict().addMaterial(Materials.Sapphire);
         // non-gt ores
