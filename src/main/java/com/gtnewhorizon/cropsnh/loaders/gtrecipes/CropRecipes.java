@@ -648,8 +648,9 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         // player wants to go the straight berry route.
         // TODO: ADD HELPER FUNCTIONS TO GT5U TO HELP MAKE MAINTAINING THE RECIPES EASIER DOWN THE LINE
         final float BERRY_DT_RECIPE_MULT = 1.5f;
+        final int EXTRACTION_BY_PASS_ADDITION = (1 * SECONDS * 10) / 4;
         // light oil
-        hvRecipe((int) ((1 * SECONDS + 1 * TICKS) * BERRY_DT_RECIPE_MULT))
+        hvRecipe((int) ((1 * SECONDS + 1 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(1)
             .fluidOutputs(
@@ -661,8 +662,9 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // oil
-        hvRecipe((int) ((3 * SECONDS + 4 * TICKS) * BERRY_DT_RECIPE_MULT)).circuit(2)
+        hvRecipe((int) ((3 * SECONDS + 4 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
+            .circuit(2)
             .fluidOutputs(
                 Materials.SulfuricHeavyFuel.getFluid(300),
                 Materials.SulfuricLightFuel.getFluid(1_000),
@@ -672,7 +674,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // raw oil
-        hvRecipe((int) ((1 * SECONDS + 12 * TICKS) * BERRY_DT_RECIPE_MULT))
+        hvRecipe((int) ((1 * SECONDS + 12 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(3)
             .fluidOutputs(
@@ -684,7 +686,8 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // heavy oil
-        hvRecipe((int) ((5 * SECONDS) * BERRY_DT_RECIPE_MULT)).itemInputs(MaterialLeafLoader.oilBerry.get(10))
+        hvRecipe((int) ((5 * SECONDS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
+            .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(4)
             .fluidOutputs(
                 Materials.SulfuricHeavyFuel.getFluid(1_000),
