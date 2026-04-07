@@ -29,6 +29,7 @@ public class SeedData implements ISeedData {
     }
 
     public SeedData(NBTTagCompound tag) {
+        // if we ever do a change to how we store seed data, we also need to update the soil migration handler
         if (!tag.hasKey(Names.NBT.crop, Data.NBTType._string)) {
             // fail-safe
             this.crop = CropsNHCrops.Carrot;
