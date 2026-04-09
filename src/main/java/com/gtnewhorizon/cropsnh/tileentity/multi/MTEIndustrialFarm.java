@@ -213,9 +213,9 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             transpose(
                 new String[][] {
                     // spotless:off
-                { " cCc " },
-                { "cCCCc" },
-                { "cCCCc" },
+                { " cDc " },
+                { "cDDDc" },
+                { "cDDDc" },
                 { "c   c" }
                 // spotless:on
                 }))
@@ -225,6 +225,15 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 .atLeast(InputBus, InputHatch, OutputBus, Maintenance, MultiAmpEnergy.or(Energy))
                 .casingIndex(GTUtility.getCasingTextureIndex(CropsNHBlocks.blockCasings1, 0))
                 .allowOnly(ForgeDirection.NORTH)
+                .hint(1)
+                .buildAndChain(ofBlock(CropsNHBlocks.blockCasings1, 0)))
+        .addElement(
+            'D',
+            buildHatchAdder(MTEIndustrialFarm.class)
+                .atLeast(InputBus, InputHatch, OutputBus, Maintenance, MultiAmpEnergy.or(Energy))
+                .casingIndex(GTUtility.getCasingTextureIndex(CropsNHBlocks.blockCasings1, 0))
+                .allowOnly(ForgeDirection.SOUTH)
+                .shouldSkip((t, tile) -> true)
                 .hint(1)
                 .buildAndChain(ofBlock(CropsNHBlocks.blockCasings1, 0)))
         .addElement('c', ofBlock(CropsNHBlocks.blockCasings1, 0))
