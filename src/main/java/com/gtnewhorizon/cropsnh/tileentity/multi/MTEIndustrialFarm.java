@@ -222,8 +222,9 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         .addElement(
             'C',
             buildHatchAdder(MTEIndustrialFarm.class)
-                .anyOf(InputBus, InputHatch, OutputBus, Maintenance, MultiAmpEnergy.or(Energy))
+                .atLeast(InputBus, InputHatch, OutputBus, Maintenance, MultiAmpEnergy.or(Energy))
                 .casingIndex(GTUtility.getCasingTextureIndex(CropsNHBlocks.blockCasings1, 0))
+                .allowOnly(ForgeDirection.NORTH)
                 .hint(1)
                 .buildAndChain(ofBlock(CropsNHBlocks.blockCasings1, 0)))
         .addElement('c', ofBlock(CropsNHBlocks.blockCasings1, 0))
