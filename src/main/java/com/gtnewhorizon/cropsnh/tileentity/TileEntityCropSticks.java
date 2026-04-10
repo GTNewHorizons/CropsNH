@@ -1073,11 +1073,20 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     @Override
     public void transferDisease() {
         if (!this.hasCrop() || this.isSick || this.hasWeed()) return;
-        if (!this.passesResistanceCheck()) {
-            this.isSick = true;
-            this.isDirty = true;
-            this.markDirty();
+        // if we have weed-ex remaining, stop the weeding.
+        // migrator crops can't fall sick
+        if (this.seed.getCrop() instanceof CropMigrator) return;
+        // resistance can prevent weed-spread.
+        if (this.passesResistanceCheck()) return;
+        // weed-ex prevents crops that falling sick
+        if (this.weedEXStorage > 0) {
+            // allow over-consumption
+            this.weedEXStorage = Math.max(this.weedEXStorage - 2, 0);
+            return;
         }
+        this.isSick = true;
+        this.isDirty = true;
+        this.markDirty();
     }
 
     @Override
