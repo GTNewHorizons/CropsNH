@@ -29,6 +29,7 @@ import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.farming.SeedData;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
+import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -150,8 +151,13 @@ public abstract class CropsNHUtils {
         return ret;
     }
 
+    public static boolean shouldPanicIfNullFound() {
+        return ConfigurationHandler.panicIfNull || GTRecipeBuilder.PANIC_MODE_NULL;
+    }
+
     public static ItemStack getModItem(ModUtils mod, String name, int amount, int meta) {
         ItemStack ret = CropsNHUtils.getModItem(mod, name, amount);
+        if (ret == null) return null;
         Items.feather.setDamage(ret, meta);
         return ret;
     }
@@ -160,7 +166,7 @@ public abstract class CropsNHUtils {
         ItemStack ret = GameRegistry.findItemStack(mod.ID, name, amount);
         if (ret == null) {
             String fullId = "\"" + mod.ID + ":" + name + "\"";
-            if (GTRecipeBuilder.PANIC_MODE_NULL) {
+            if (shouldPanicIfNullFound()) {
                 throw new IllegalStateException("stack with id " + fullId + " could not be found!");
             } else {
                 try {
@@ -170,6 +176,7 @@ public abstract class CropsNHUtils {
                     e.printStackTrace();
                 }
             }
+            return null;
         }
         ret = ret.copy();
         ret.stackSize = amount;

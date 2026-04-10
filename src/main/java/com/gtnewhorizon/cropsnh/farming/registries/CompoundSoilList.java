@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 
@@ -52,6 +54,7 @@ public class CompoundSoilList implements ISoilList {
     @Override
     public void registerSoil(BlockWithMeta... soils) {
         // empty on purpose
+        throw new NotImplementedException("Compound soil list cannot contain soils of their own.");
     }
 
     @Override
