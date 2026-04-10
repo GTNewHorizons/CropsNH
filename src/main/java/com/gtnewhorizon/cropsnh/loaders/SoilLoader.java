@@ -30,6 +30,7 @@ public class SoilLoader {
         CropsNHSoilTypes.end.registerBlock(new BlockWithMeta(Blocks.end_stone));
         CropsNHSoilTypes.netherrack.registerBlock(new BlockWithMeta(Blocks.netherrack));
         CropsNHSoilTypes.brick.registerBlock(new BlockWithMeta(Blocks.brick_block));
+        CropsNHSoilTypes.gravel.registerBlock(new BlockWithMeta(Blocks.gravel));
 
         // modded soils
         if (ModUtils.Botania.isModLoaded()) {
@@ -53,6 +54,12 @@ public class SoilLoader {
             CropsNHSoilTypes.stone.registerBlock(
                 new BlockWithMeta(ModUtils.ExtraUtilities.getBlock("color_stonebrick")),
                 new BlockWithMeta(ModUtils.ExtraUtilities.getBlock("color_stone")));
+        }
+        // leaving it as an is mod loaded since one of the longer term goals of CropsNH is to decouple CropsNH from
+        // GT5u;
+        if (ModUtils.GregTech.isModLoaded()) {
+            // We don't need all 3, but all 3 are created by GT5u and GTNH be weird sometimes.
+            CropsNHSoilTypes.oilSands.registerOreDict("oreOilsands", "oreNetherrackOilsands", "oreEndstoneOilsands");
         }
         if (ModUtils.MagicBees.isModLoaded()) {
             BlockWithMeta enchantedEarth = new BlockWithMeta(ModUtils.MagicBees.getBlock("magicbees.enchantedEarth"));

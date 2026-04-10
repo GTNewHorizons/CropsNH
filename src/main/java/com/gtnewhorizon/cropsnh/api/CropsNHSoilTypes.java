@@ -31,6 +31,10 @@ public final class CropsNHSoilTypes {
     public static final ISoilList graveyard = SoilRegistry.instance.get("graveyard");
     /** Slime related crops */
     public static final ISoilList slimy = SoilRegistry.instance.get("slimy");
+    /** contains gravel type blocks */
+    public static final ISoilList gravel = SoilRegistry.instance.get("gravel");
+    /** contains oil Sand ores */
+    public static final ISoilList oilSands = SoilRegistry.instance.get("oilSands");
 
     public static final ISoilList mushroom = new CompoundSoilList(stone, dirtGrass, mycelium);
     public static final ISoilList netherMushroom = new CompoundSoilList(
@@ -38,5 +42,10 @@ public final class CropsNHSoilTypes {
         CropsNHSoilTypes.netherrack);
     public static final ISoilList sugarcane = new CompoundSoilList(sand, dirtGrass);
     public static final ISoilList slimyDirt = new CompoundSoilList(CropsNHSoilTypes.dirtGrass, CropsNHSoilTypes.slimy);
+    public static final ISoilList oil = new CompoundSoilList(
+        CropsNHSoilTypes.sand,
+        CropsNHSoilTypes.gravel,
+        CropsNHSoilTypes.soulsand,
+        CropsNHSoilTypes.oilSands);
 
 }

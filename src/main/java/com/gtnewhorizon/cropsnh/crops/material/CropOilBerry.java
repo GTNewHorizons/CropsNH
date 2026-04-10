@@ -43,7 +43,7 @@ public class CropOilBerry extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return CropsNHSoilTypes.stone;
+        return CropsNHSoilTypes.oil;
     }
 
     @Override
