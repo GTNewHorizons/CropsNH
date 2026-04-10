@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.handler.migrations;
 
 import net.minecraft.nbt.NBTTagCompound;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.reference.Data;
@@ -16,8 +17,12 @@ public class SoilMigrations {
     private static final ObjectOpenHashSet<String> TO_MIGRATE = new ObjectOpenHashSet<>();
 
     public static void postInit() {
-        // when a crops gets it's soil changed to something incompatible with it's previous soil, add a migration here
+        // when a crops gets it's soil changed to something incompatible with its previous soil, add a migration here
         // and remove it on the next major GTNH release.
+
+        // TODO: REMOVE BEFORE THE NEXT MAJOR RELEASE OF GTNH AFTER 2.9
+        // changed from stone to oil
+        markForSoilMigration(CropsNHCrops.OilBerry);
     }
 
     public static void loadCompleted() {

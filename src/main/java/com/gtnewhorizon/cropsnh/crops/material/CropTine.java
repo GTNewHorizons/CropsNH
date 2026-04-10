@@ -14,8 +14,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropTine extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropTine() {
         super("tine", new Color(0x7D7D7D), new Color(0xACACAC));
 
@@ -52,7 +50,7 @@ public class CropTine extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

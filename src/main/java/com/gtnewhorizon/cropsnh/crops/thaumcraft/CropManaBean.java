@@ -23,10 +23,6 @@ import thaumcraft.common.items.ItemManaBean;
 
 public class CropManaBean extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.silverwoodLog;
-
-    // TODO: ADD THE NON MIXED MANA BEANS
-
     public CropManaBean() {
         super("manaBean", new Color(0x135C43), new Color(0x2AAF83));
 
@@ -72,7 +68,7 @@ public class CropManaBean extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.thaumLogs;
     }
 
     @Override

@@ -8,8 +8,6 @@ import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthR
 
 public abstract class CropMushroom extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.mushroom;
-
     public CropMushroom(String id, Color color1, Color color2) {
         super(id, color1, color2);
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(9));
@@ -17,6 +15,6 @@ public abstract class CropMushroom extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.mushroom;
     }
 }

@@ -12,8 +12,6 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 public class CropInkbloom extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
-
     public CropInkbloom() {
         super("inkbloom", new Color(0x000000), new Color(0x2E1F27));
 
@@ -29,7 +27,7 @@ public class CropInkbloom extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override

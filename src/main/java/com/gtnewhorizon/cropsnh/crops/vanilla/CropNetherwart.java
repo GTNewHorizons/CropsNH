@@ -25,8 +25,6 @@ import com.gtnewhorizon.cropsnh.utility.XSTR;
 
 public class CropNetherwart extends NHCropCard {
 
-    private final ISoilList soil = CropsNHSoilTypes.soulsand;
-
     public CropNetherwart() {
         super("netherwart", new Color(0x4d1115), new Color(0xbe3f4a));
 
@@ -64,7 +62,7 @@ public class CropNetherwart extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soil;
+        return CropsNHSoilTypes.soulsand;
     }
 
     @Override

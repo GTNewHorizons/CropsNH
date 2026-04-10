@@ -15,8 +15,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropEvilOre extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
-
     public CropEvilOre() {
         super("evilOre", new Color(0x897B73), new Color(0xEFEBE7));
 
@@ -51,7 +49,7 @@ public class CropEvilOre extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.netherrack;
     }
 
     @Override

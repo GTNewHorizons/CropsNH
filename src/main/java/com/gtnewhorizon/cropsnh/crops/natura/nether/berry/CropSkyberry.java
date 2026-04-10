@@ -13,8 +13,6 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropSkyberry extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
-
     public CropSkyberry() {
         super("skyberry", new Color(0x2E8BA7), new Color(0x45E0FF));
 
@@ -43,7 +41,7 @@ public class CropSkyberry extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.netherrack;
     }
 
     @Override

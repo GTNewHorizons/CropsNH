@@ -15,8 +15,6 @@ import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 public class CropLemon extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
-
     public CropLemon() {
         super("lemon", new Color(0xD8950C), new Color(0xFFEF83));
         // TODO: MOVE LEMON ITEM TO CROPS NH
@@ -47,7 +45,7 @@ public class CropLemon extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override

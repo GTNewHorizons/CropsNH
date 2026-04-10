@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.crops.biomesoplenty;
+package com.gtnewhorizon.cropsnh.crops.natura.nether.glowshroom;
 
 import java.awt.Color;
 
@@ -13,33 +13,24 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
-public class CropGlowflower extends NHCropCard {
+public class CropNautraGlowshroom extends NHCropCard {
 
-    public CropGlowflower() {
-        super("glowflower", new Color(0x004D4C), new Color(0x12A4A2));
+    public CropNautraGlowshroom(String name, Color color1, Color color2, int shroomMeta) {
+        super(name, color1, color2);
 
-        ItemStack glowflower = CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "flowers", 2, 3);
-        this.addDrop(glowflower.copy(), 100_00);
+        ItemStack glowshroom = CropsNHUtils.getModItem(ModUtils.Natura, "Glowshroom", 1, shroomMeta);
+        this.addDrop(glowshroom.copy(), 100_00);
 
-        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(glowflower, 1));
+        this.addAlternateSeed(glowshroom.copy());
 
         this.addDuplicationCatalyst("dustGlowstone", 1);
-        // mystic grove tags
-        this.addLikedBiomes(
-            BiomeDictionary.Type.WET,
-            BiomeDictionary.Type.LUSH,
-            BiomeDictionary.Type.MAGICAL,
-            BiomeDictionary.Type.FOREST);
+
+        this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.MUSHROOM, BiomeDictionary.Type.MAGICAL);
     }
 
     @Override
     public String getCreator() {
         return "bartimaeusnek";
-    }
-
-    @Override
-    public ISoilList getSoilTypes() {
-        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override
@@ -49,16 +40,21 @@ public class CropGlowflower extends NHCropCard {
 
     @Override
     public int getGrowthDuration() {
-        return 2000;
+        return 600;
+    }
+
+    @Override
+    public ISoilList getSoilTypes() {
+        return CropsNHSoilTypes.netherMushroom;
     }
 
     @Override
     public ISeedShape getSeedShape() {
-        return SeedShape.flower;
+        return SeedShape.spore;
     }
 
     @Override
     public int getMaxGrowthStage() {
-        return 3;
+        return 2;
     }
 }

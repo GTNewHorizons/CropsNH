@@ -30,7 +30,6 @@ import gregtech.api.enums.VoltageIndex;
 public abstract class NHCropCard extends CropCard {
 
     // DEFAULTS
-    private static final ISoilList DEFAULT_SOIL = CropsNHSoilTypes.farmland;
     protected IIcon[] sprites = null;
     protected final String internalId;
 
@@ -61,7 +60,7 @@ public abstract class NHCropCard extends CropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return DEFAULT_SOIL;
+        return CropsNHSoilTypes.farmland;
     }
 
     public CropCard addBlockUnderRequirement(BlockUnderRequirement req) {

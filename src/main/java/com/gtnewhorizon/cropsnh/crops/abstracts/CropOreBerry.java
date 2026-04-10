@@ -10,8 +10,6 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public abstract class CropOreBerry extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     private final String materialName;
 
     public CropOreBerry(String materialName, Color color1, Color color2) {
@@ -26,7 +24,7 @@ public abstract class CropOreBerry extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

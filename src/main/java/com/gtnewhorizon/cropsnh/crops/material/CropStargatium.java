@@ -18,8 +18,6 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropStargatium extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropStargatium() {
         super("stargatium", new Color(0x333333), new Color(0x555555));
 
@@ -60,7 +58,7 @@ public class CropStargatium extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

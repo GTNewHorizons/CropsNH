@@ -14,8 +14,6 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 public class CropCactus extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.sand;
-
     public CropCactus() {
         super("cactus", new Color(0x094210), new Color(0x117F20));
 
@@ -48,7 +46,7 @@ public class CropCactus extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.sand;
     }
 
     @Override

@@ -16,8 +16,6 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropOlivia extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropOlivia() {
         super("olivia", new Color(0x79CD79), new Color(0x96FF96));
 
@@ -49,7 +47,7 @@ public class CropOlivia extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

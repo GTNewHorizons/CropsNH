@@ -11,7 +11,6 @@ import com.gtnewhorizon.gtnhlib.util.data.IMod;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.api.util.GTRecipeBuilder;
 
 public enum ModUtils implements IMod {
 
@@ -104,7 +103,7 @@ public enum ModUtils implements IMod {
         Item item = GameRegistry.findItem(this.ID, name);
         if (item == null) {
             String fullId = "\"" + this.ID + ":" + name + "\"";
-            if (GTRecipeBuilder.PANIC_MODE_NULL) {
+            if (CropsNHUtils.shouldPanicIfNullFound()) {
                 throw new IllegalStateException("Item with id " + fullId + " could not be found!");
             } else {
                 try {
@@ -123,7 +122,7 @@ public enum ModUtils implements IMod {
 
         if (block == null) {
             String fullId = "\"" + this.ID + ":" + name + "\"";
-            if (GTRecipeBuilder.PANIC_MODE_NULL) {
+            if (CropsNHUtils.shouldPanicIfNullFound()) {
                 throw new IllegalStateException("block with id " + fullId + " could not be found!");
             } else {
                 try {
