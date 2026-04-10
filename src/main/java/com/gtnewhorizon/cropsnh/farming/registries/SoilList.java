@@ -56,9 +56,9 @@ public class SoilList implements ISoilList {
         // then add the soil regularly
         for (BlockWithMeta soil : soils) {
             if (soil == null || soil.getBlock() == null) {
-                if (CropsNHUtils.shouldPanicIfNullFound()) {
-                    continue;
-                }
+                if (CropsNHUtils.shouldPanicIfNullFound())
+                    throw new IllegalArgumentException("Passed an null array to registerSoil!");
+                continue;
             }
             this.validSoils.add(soil.getBlock(), soil.ignoreMeta() ? OreDictionary.WILDCARD_VALUE : soil.getMeta());
         }
