@@ -228,6 +228,7 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
 
         // find crops it's a soil or under-block for.
         outer: for (ICropCard cropCard : CropRegistry.instance.getAllInRegistrationOrder()) {
+            if (cropCard.hideFromNEI()) continue;
             if (cropCard.getSoilTypes()
                 .isRegistered(block, CropsNHUtils.getItemMeta(item))) {
                 arecipes.add(new CachedCropRecipe(null, cropCard));
