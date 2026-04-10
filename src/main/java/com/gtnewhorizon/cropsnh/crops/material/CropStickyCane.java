@@ -16,8 +16,6 @@ import gregtech.api.enums.ItemList;
 
 public class CropStickyCane extends NHCropCard {
 
-    private final static ISoilList soil = CropsNHSoilTypes.sugarcane;
-
     public CropStickyCane() {
         super("stickyCane", new Color(0x8DB560), new Color(0xD9D891));
         // TODO: REPLACE WITH RESIN REPLACEMENT DOWN THE LINE
@@ -29,7 +27,7 @@ public class CropStickyCane extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soil;
+        return CropsNHSoilTypes.sugarcane;
     }
 
     @Override

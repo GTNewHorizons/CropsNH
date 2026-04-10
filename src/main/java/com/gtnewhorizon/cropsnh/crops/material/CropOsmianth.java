@@ -19,8 +19,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropOsmianth extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropOsmianth() {
         super("osmianth", new Color(0x2525BC), new Color(0x2E2EEC));
 
@@ -57,7 +55,7 @@ public class CropOsmianth extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

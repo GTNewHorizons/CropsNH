@@ -23,7 +23,14 @@ public interface ISoilList {
      *
      * @param soils The list of soils to add to the list.
      */
-    void registerSoil(BlockWithMeta... soils);
+    ISoilList registerBlock(BlockWithMeta... soils);
+
+    /**
+     * Adds all blocks belonging to a given ore dict family to a soil.
+     *
+     * @param oreDicts The name of the ore dict to query.
+     */
+    ISoilList registerOreDict(String... oreDicts);
 
     /**
      * Dumps the contents of the string builder at runtime.

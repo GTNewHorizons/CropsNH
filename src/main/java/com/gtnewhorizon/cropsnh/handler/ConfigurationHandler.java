@@ -31,6 +31,7 @@ public class ConfigurationHandler {
     // cropsnh
     public static int cropsPerCraft;
     public static boolean debug;
+    public static boolean panicIfNull;
     public static boolean enableEasterEggs;
     // crops
     public static float growthMultiplier;
@@ -93,6 +94,12 @@ public class ConfigurationHandler {
 
         debug = config
             .getBoolean("debug", Categories.CATEGORY_CROPSNH, false, "Set to true if you wish to enable debug mode");
+
+        panicIfNull = config.getBoolean(
+            "panic when finding null",
+            Categories.CATEGORY_CROPSNH,
+            false,
+            "Set to true to allow the loader methods to panic when finding nulls. This config is if GT5u's RA2 PANIC_MODE_NULL flag if it's set.");
 
         enableEasterEggs = config
             .getBoolean("Enable easter eggs", Categories.CATEGORY_CROPSNH, true, "Set to true to enable easter eggs.");

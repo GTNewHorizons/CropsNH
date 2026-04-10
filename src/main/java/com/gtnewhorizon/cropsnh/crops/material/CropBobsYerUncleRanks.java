@@ -14,8 +14,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropBobsYerUncleRanks extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropBobsYerUncleRanks() {
         super("bobsYerUncleRanks", new Color(0x009529), new Color(0x41F384));
 
@@ -52,7 +50,7 @@ public class CropBobsYerUncleRanks extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

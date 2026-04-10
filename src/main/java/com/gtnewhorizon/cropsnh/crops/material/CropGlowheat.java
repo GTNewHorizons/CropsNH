@@ -15,8 +15,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropGlowheat extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
-
     // this is meant to be an upgrade to the glowflower
     public CropGlowheat() {
         super("glowheat", new Color(0xABAB00), new Color(0xD2D200));
@@ -52,7 +50,7 @@ public class CropGlowheat extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.netherrack;
     }
 
     @Override

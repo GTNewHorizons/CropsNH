@@ -15,8 +15,6 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropSaguaroCactus extends CropFood {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.sand;
-
     public CropSaguaroCactus() {
         super("saguaroCactus", new Color(0x3D401B), new Color(0x828839));
 
@@ -48,7 +46,7 @@ public class CropSaguaroCactus extends CropFood {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.sand;
     }
 
     @Override

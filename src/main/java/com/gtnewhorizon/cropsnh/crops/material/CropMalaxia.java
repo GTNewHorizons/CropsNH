@@ -13,8 +13,6 @@ import gregtech.api.enums.Materials;
 
 public class CropMalaxia extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropMalaxia() {
         super("malaxia", new Color(0xB26003), new Color(0xD77106));
         this.addDrop(Materials.Copper.getDustTiny(1), 100_00);
@@ -35,7 +33,7 @@ public class CropMalaxia extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.crops.oreberries;
+package com.gtnewhorizon.cropsnh.crops.oreBerries;
 
 import java.awt.Color;
 

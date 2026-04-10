@@ -21,9 +21,6 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropTrollplant extends NHCropCard {
 
-    // Yes, this is entirely arbitrary and specifically exists to mess with people
-    private final static ISoilList soilTypes = CropsNHSoilTypes.brick;
-
     public CropTrollplant() {
         super("trollplant", new Color(0x000000), new Color(0xFFFFFF));
 
@@ -67,7 +64,7 @@ public class CropTrollplant extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.brick;
     }
 
     @Override

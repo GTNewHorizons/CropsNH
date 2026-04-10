@@ -18,8 +18,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropBlazereed extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
-
     public CropBlazereed() {
         super("blazereed", new Color(0xB38C00), new Color(0xFFC800));
 
@@ -49,7 +47,7 @@ public class CropBlazereed extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.netherrack;
     }
 
     @Override

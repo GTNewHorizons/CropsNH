@@ -18,8 +18,6 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropLazulia extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropLazulia() {
         super("lazulia", new Color(0x142EAF), new Color(0x7497EA));
 
@@ -51,7 +49,7 @@ public class CropLazulia extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

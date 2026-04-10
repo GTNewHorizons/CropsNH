@@ -14,8 +14,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropBauxia extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropBauxia() {
         super("bauxia", new Color(0x460D00), new Color(0xC88E76));
 
@@ -47,7 +45,7 @@ public class CropBauxia extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

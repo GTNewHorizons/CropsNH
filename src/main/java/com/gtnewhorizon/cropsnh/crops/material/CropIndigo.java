@@ -13,8 +13,6 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 public class CropIndigo extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
-
     public CropIndigo() {
         super("indigo", new Color(0x6446BD), new Color(0xA285EF));
 
@@ -43,7 +41,7 @@ public class CropIndigo extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override

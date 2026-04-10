@@ -20,8 +20,6 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropWithereed extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropWithereed() {
         super("withereed", new Color(0x161616), new Color(0x2C2C2C));
 
@@ -65,7 +63,7 @@ public class CropWithereed extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

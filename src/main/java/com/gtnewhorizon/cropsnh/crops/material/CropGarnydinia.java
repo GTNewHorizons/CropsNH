@@ -17,8 +17,6 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropGarnydinia extends NHCropCard {
 
-    private static final ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropGarnydinia() {
         super("garnydinia", new Color(0xA24141), new Color(0xA3A341));
         // 45% garnet dust
@@ -67,7 +65,7 @@ public class CropGarnydinia extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

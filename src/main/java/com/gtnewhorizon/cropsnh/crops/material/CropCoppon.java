@@ -14,8 +14,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropCoppon extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropCoppon() {
         super("coppon", new Color(0xBE7000), new Color(0xD88000));
 
@@ -51,7 +49,7 @@ public class CropCoppon extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

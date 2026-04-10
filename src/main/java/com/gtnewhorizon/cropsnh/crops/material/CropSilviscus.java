@@ -13,8 +13,6 @@ import gregtech.api.enums.Materials;
 
 public class CropSilviscus extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropSilviscus() {
         super("silviscus", new Color(0xB3B3D0), new Color(0xD0D0F1));
         this.addDrop(Materials.Silver.getDustTiny(1), 100_00);
@@ -41,7 +39,7 @@ public class CropSilviscus extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override
