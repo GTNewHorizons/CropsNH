@@ -32,6 +32,8 @@ public class ItemPlantCure extends Item implements ICropRightClickHandler {
         if (world.isRemote) return true;
         if (te.cureDisease()) {
             // add a bit of fertilizer so it doesn't fall sick again for a bit.
+            // for curing large fields, of sickness, the intended solution is to use a crop manager to apply weed-ex
+            // over the area and then use plant cure to save all the crops.
             te.addFertilizer(25, 25, 25, false);
             if (!player.capabilities.isCreativeMode) {
                 heldItem.damageItem(1, player);
