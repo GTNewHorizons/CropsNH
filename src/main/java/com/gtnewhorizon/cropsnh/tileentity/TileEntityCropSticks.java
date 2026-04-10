@@ -843,6 +843,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         // if we have weed-ex remaining, stop the weeding.
         if (this.weedEXStorage > 0) {
             this.weedEXStorage = Math.max(this.weedEXStorage - 5, 0);
+            this.markDirty();
             return;
         }
         // else weed this thing
@@ -1082,6 +1083,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (this.weedEXStorage > 0) {
             // allow over-consumption
             this.weedEXStorage = Math.max(this.weedEXStorage - 2, 0);
+            this.markDirty();
             return;
         }
         this.isSick = true;
