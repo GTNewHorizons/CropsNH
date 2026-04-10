@@ -15,7 +15,6 @@ public class CropBonsai extends NHCropCard {
 
     private final int tier;
     private final String creator;
-    private static final ISoilList soil = CropsNHSoilTypes.dirt;
 
     public CropBonsai(String id, Color color1, Color color2, String creator, int tier, ItemStack sapling,
         ItemStack log) {
@@ -40,7 +39,7 @@ public class CropBonsai extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soil;
+        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override

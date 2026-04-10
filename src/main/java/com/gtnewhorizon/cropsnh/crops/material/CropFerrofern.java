@@ -14,8 +14,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropFerrofern extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropFerrofern() {
         super("ferrofern", new Color(0xA1A1A1), new Color(0xE6E6E6));
 
@@ -46,7 +44,7 @@ public class CropFerrofern extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

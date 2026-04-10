@@ -13,8 +13,6 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropBlightberry extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
-
     public CropBlightberry() {
         super("blightberry", new Color(0x3BC956), new Color(0xA3F2A0));
 
@@ -43,7 +41,7 @@ public class CropBlightberry extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.netherrack;
     }
 
     @Override

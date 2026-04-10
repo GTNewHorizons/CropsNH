@@ -16,8 +16,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropPyrolusium extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropPyrolusium() {
         super("pyrolusium", new Color(0xB51900), new Color(0xCF1E11));
 
@@ -53,7 +51,7 @@ public class CropPyrolusium extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

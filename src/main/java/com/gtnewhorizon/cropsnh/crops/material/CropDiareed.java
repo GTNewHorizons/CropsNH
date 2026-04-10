@@ -20,8 +20,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropDiareed extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropDiareed() {
         super("diareed", new Color(0x34BFA8), new Color(0x8CF4E2));
 
@@ -60,7 +58,7 @@ public class CropDiareed extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

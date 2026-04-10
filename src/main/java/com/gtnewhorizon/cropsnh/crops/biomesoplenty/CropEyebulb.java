@@ -15,8 +15,6 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropEyebulb extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
-
     public CropEyebulb() {
         super("eyebulb", new Color(0x552323), new Color(0x875D5D));
 
@@ -35,7 +33,7 @@ public class CropEyebulb extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.netherrack;
     }
 
     @Override

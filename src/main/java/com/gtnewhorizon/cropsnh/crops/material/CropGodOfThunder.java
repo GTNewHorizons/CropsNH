@@ -15,8 +15,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropGodOfThunder extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropGodOfThunder() {
         super("godOfThunder", new Color(0x001E00), new Color(0x0C290C));
 
@@ -53,7 +51,7 @@ public class CropGodOfThunder extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

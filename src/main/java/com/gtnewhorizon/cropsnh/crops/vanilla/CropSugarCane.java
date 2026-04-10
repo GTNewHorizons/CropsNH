@@ -16,8 +16,6 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 public class CropSugarCane extends NHCropCard {
 
-    private final static ISoilList soil = CropsNHSoilTypes.sugarcane;
-
     public CropSugarCane() {
         super("sugarCane", new Color(0x698747), new Color(0xAADB74));
 
@@ -35,7 +33,7 @@ public class CropSugarCane extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soil;
+        return CropsNHSoilTypes.sugarcane;
     }
 
     @Override

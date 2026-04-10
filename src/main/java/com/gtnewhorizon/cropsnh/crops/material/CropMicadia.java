@@ -14,8 +14,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropMicadia extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropMicadia() {
         super("micadia", new Color(0xD5CCC3), new Color(0xF4F2EF));
 
@@ -51,7 +49,7 @@ public class CropMicadia extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

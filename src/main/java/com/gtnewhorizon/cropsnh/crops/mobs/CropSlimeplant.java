@@ -14,8 +14,6 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 public class CropSlimeplant extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
-
     public CropSlimeplant() {
         super("slimeplant", new Color(0x5A3F1E), new Color(0x9DF28A));
 
@@ -48,7 +46,7 @@ public class CropSlimeplant extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override

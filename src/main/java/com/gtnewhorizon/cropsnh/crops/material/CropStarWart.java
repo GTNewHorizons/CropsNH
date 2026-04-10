@@ -19,8 +19,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropStarWart extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropStarWart() {
         super("starWart", new Color(0x8985BE), new Color(0xFFFFFF));
 
@@ -59,7 +57,7 @@ public class CropStarWart extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

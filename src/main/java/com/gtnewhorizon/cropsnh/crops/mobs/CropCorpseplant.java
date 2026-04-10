@@ -12,8 +12,6 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 public class CropCorpseplant extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.graveyard;
-
     public CropCorpseplant() {
         super("corpseplant", new Color(0x551515), new Color(0xE32F2F));
         this.addDrop(new ItemStack(Items.dye, 1, 15), 62_50);
@@ -40,7 +38,7 @@ public class CropCorpseplant extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.graveyard;
     }
 
     @Override

@@ -16,43 +16,27 @@ public class SoilLoader {
     public static void postInit() {
 
         // register vanilla soils
-        BlockWithMeta farmland = new BlockWithMeta(Blocks.farmland);
-        // also includes podzol and that weird non-grass growing dirt
-        BlockWithMeta dirt = new BlockWithMeta(Blocks.dirt);
-        BlockWithMeta grass = new BlockWithMeta(Blocks.grass);
-        BlockWithMeta soulSand = new BlockWithMeta(Blocks.soul_sand);
-        BlockWithMeta sand = new BlockWithMeta(Blocks.sand);
-        BlockWithMeta mycelium = new BlockWithMeta(Blocks.mycelium);
-        BlockWithMeta stone = new BlockWithMeta(Blocks.stone);
-        BlockWithMeta cobblestone = new BlockWithMeta(Blocks.cobblestone);
-        BlockWithMeta netherrack = new BlockWithMeta(Blocks.netherrack);
-        BlockWithMeta endstone = new BlockWithMeta(Blocks.end_stone);
-        BlockWithMeta snow = new BlockWithMeta(Blocks.snow);
-        BlockWithMeta brick = new BlockWithMeta(Blocks.brick_block);
-
         CropsNHSoilTypes.stone.registerBlock(
             new BlockWithMeta(Blocks.stone),
             new BlockWithMeta(Blocks.cobblestone),
             new BlockWithMeta(Blocks.stonebrick),
             new BlockWithMeta(Blocks.mossy_cobblestone));
-        CropsNHSoilTypes.farmland.registerBlock(farmland);
-        CropsNHSoilTypes.sand.registerBlock(sand);
-        CropsNHSoilTypes.soulsand.registerBlock(soulSand);
-        CropsNHSoilTypes.dirt.registerBlock(dirt, grass);
-        CropsNHSoilTypes.mycelium.registerBlock(mycelium);
-        CropsNHSoilTypes.nether.registerBlock(soulSand, netherrack);
-        CropsNHSoilTypes.end.registerBlock(endstone);
-        CropsNHSoilTypes.stone.registerBlock(stone, cobblestone);
-        CropsNHSoilTypes.snow.registerBlock(snow);
-        CropsNHSoilTypes.netherrack.registerBlock(netherrack);
-        CropsNHSoilTypes.brick.registerBlock(brick);
+        CropsNHSoilTypes.farmland.registerBlock(new BlockWithMeta(Blocks.farmland));
+        CropsNHSoilTypes.sand.registerBlock(new BlockWithMeta(Blocks.sand));
+        CropsNHSoilTypes.soulsand.registerBlock(new BlockWithMeta(Blocks.soul_sand));
+        // also includes podzol and that weird non-grass growing dirt
+        CropsNHSoilTypes.dirtGrass.registerBlock(new BlockWithMeta(Blocks.dirt), new BlockWithMeta(Blocks.grass));
+        CropsNHSoilTypes.mycelium.registerBlock(new BlockWithMeta(Blocks.mycelium));
+        CropsNHSoilTypes.end.registerBlock(new BlockWithMeta(Blocks.end_stone));
+        CropsNHSoilTypes.netherrack.registerBlock(new BlockWithMeta(Blocks.netherrack));
+        CropsNHSoilTypes.brick.registerBlock(new BlockWithMeta(Blocks.brick_block));
 
         // modded soils
         if (ModUtils.Botania.isModLoaded()) {
             CropsNHSoilTypes.end.registerBlock(new BlockWithMeta(ModUtils.Botania.getBlock("endStoneBrick")));
         }
         if (ModUtils.Chisel.isModLoaded()) {
-            CropsNHSoilTypes.dirt.registerBlock(new BlockWithMeta(ModUtils.Chisel.getBlock("dirt")));
+            CropsNHSoilTypes.dirtGrass.registerBlock(new BlockWithMeta(ModUtils.Chisel.getBlock("dirt")));
             CropsNHSoilTypes.end.registerBlock(new BlockWithMeta(ModUtils.Chisel.getBlock("end_Stone")));
             CropsNHSoilTypes.netherrack.registerBlock(new BlockWithMeta(ModUtils.Chisel.getBlock("netherrack")));
             CropsNHSoilTypes.stone.registerBlock(
@@ -69,9 +53,6 @@ public class SoilLoader {
             CropsNHSoilTypes.stone.registerBlock(
                 new BlockWithMeta(ModUtils.ExtraUtilities.getBlock("color_stonebrick")),
                 new BlockWithMeta(ModUtils.ExtraUtilities.getBlock("color_stone")));
-        }
-        if (ModUtils.GalaxySpace.isModLoaded()) {
-            CropsNHSoilTypes.snow.registerBlock(new BlockWithMeta(ModUtils.GalaxySpace.getBlock("enceladusblocks"), 0));
         }
         if (ModUtils.MagicBees.isModLoaded()) {
             BlockWithMeta enchantedEarth = new BlockWithMeta(ModUtils.MagicBees.getBlock("magicbees.enchantedEarth"));
@@ -121,7 +102,6 @@ public class SoilLoader {
                 silverwoodLog1,
                 silverwoodLog2,
                 silverwoodLog3);
-            CropsNHSoilTypes.silverwoodLog.registerBlock(silverwoodLog1, silverwoodLog2, silverwoodLog3);
         }
         if (ModUtils.ThaumicBases.isModLoaded()) {
             CropsNHSoilTypes.brick.registerBlock(new BlockWithMeta(ModUtils.ThaumicBases.getBlock("oldBrick")));

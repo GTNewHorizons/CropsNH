@@ -18,8 +18,6 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public class CropGaiaWart extends NHCropCard {
 
-    private final ISoilList soil = CropsNHSoilTypes.soulsand;
-
     public CropGaiaWart() {
         super(Names.Objects.gaiaWart, new Color(0x0F213A), new Color(0x2664A1));
         this.addDrop(new ItemStack(CropsNHItems.gaiaWart, 1), 10000);
@@ -53,7 +51,7 @@ public class CropGaiaWart extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return this.soil;
+        return CropsNHSoilTypes.soulsand;
     }
 
     @Override
