@@ -52,8 +52,12 @@ public class CompoundSoilList implements ISoilList {
     }
 
     @Override
-    public void registerSoil(BlockWithMeta... soils) {
-        // empty on purpose
+    public ISoilList registerBlock(BlockWithMeta... soils) {
+        throw new NotImplementedException("Compound soil list cannot contain soils of their own.");
+    }
+
+    @Override
+    public ISoilList registerOreDict(String... oreDicts) {
         throw new NotImplementedException("Compound soil list cannot contain soils of their own.");
     }
 
