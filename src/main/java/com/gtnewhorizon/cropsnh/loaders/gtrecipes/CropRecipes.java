@@ -1,7 +1,18 @@
 package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 
 import static bartworks.API.recipe.BartWorksRecipeMaps.bacterialVatRecipes;
-import static gregtech.api.recipe.RecipeMaps.*;
+import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
+import static gregtech.api.recipe.RecipeMaps.autoclaveRecipes;
+import static gregtech.api.recipe.RecipeMaps.brewingRecipes;
+import static gregtech.api.recipe.RecipeMaps.centrifugeRecipes;
+import static gregtech.api.recipe.RecipeMaps.chemicalBathRecipes;
+import static gregtech.api.recipe.RecipeMaps.chemicalReactorRecipes;
+import static gregtech.api.recipe.RecipeMaps.compressorRecipes;
+import static gregtech.api.recipe.RecipeMaps.extractorRecipes;
+import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
+import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
+import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
+import static gregtech.api.recipe.RecipeMaps.multiblockChemicalReactorRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
 import static gregtech.api.util.GTRecipeConstants.GLASS;
@@ -133,7 +144,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         addGaiaWartRecipes();
         addHopsRecipes();
         addCoffeeRecipes();
-        addRubyneRecipes();
     }
 
     private static void addCoffeeRecipes() {
@@ -297,8 +307,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.bobsYerUncleBerry, Materials.Emerald);
         createOreDuplicationRecipe(MaterialLeafLoader.bobsYerUncleBerry, Materials.Beryllium);
 
-        createOreDuplicationRecipe(MaterialLeafLoader.rubyneLeaf, Materials.Ruby);
-
         if (ModUtils.GalacticraftCore.isModLoaded()) {
             createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.MeteoricIron, Voltage.HV);
             createOreDuplicationRecipe(
@@ -363,12 +371,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                 new int[] { 50_00 })
             .addTo(extractorRecipes);
 
-        ulvRecipe(3, 75).itemInputs(MaterialLeafLoader.rubyneLeaf.get(9))
-            .itemOutputs(
-                new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ruby, 1) },
-                new int[] { 50_00 })
-            .addTo(extractorRecipes);
-
         createOreConversionRecipe(MaterialLeafLoader.copponFiber, Voltage.LV, Materials.Copper, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.galvaniaLeaf, Voltage.LV, Materials.Zinc, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.nickelbackLeaf, Voltage.LV, Materials.Nickel, TierAcid.t1);
@@ -382,8 +384,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         // emeralds are needed for mv sensors/emitters so slightly higher reqs
         createOreConversionRecipe(MaterialLeafLoader.bobsYerUncleBerry, Voltage.LV, Materials.Emerald, TierAcid.t2);
         createOreConversionRecipe(MaterialLeafLoader.bauxiaLeaf, Voltage.MV, Materials.Bauxite, TierAcid.t2);
-        // Ruby juice needs hydrochloric acid so keep acids consistent for ruby recipes.
-        createOreConversionRecipe(MaterialLeafLoader.rubyneLeaf, Voltage.LV, Materials.Ruby, TierAcid.t2);
 
         createOreConversionRecipe(
             MaterialLeafLoader.platinaLeaf,
@@ -760,84 +760,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(assemblerRecipes);
     }
 
-    private static void addRubyneRecipes() {
-        // Crushed ruby
-        mvRecipe(3, 0)
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.crushed, Materials.Ruby, 1),
-                GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.SodiumHydroxide, 1),
-                CropsNHItemList.rubyneLeaf.get(1))
-            .fluidInputs(Materials.HydrochloricAcid.getFluid(1000))
-            .fluidOutputs(Materials.RubyJuice.getFluid(4000))
-            .addTo(mixerRecipes);
-
-        // Crushed Purified
-        mvRecipe(3, 0)
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.Ruby, 1),
-                GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.SodiumHydroxide, 1),
-                CropsNHItemList.rubyneLeaf.get(1))
-            .fluidInputs(Materials.HydrochloricAcid.getFluid(1000))
-            .fluidOutputs(Materials.RubyJuice.getFluid(4000))
-            .addTo(mixerRecipes);
-
-        // Impure Dust
-        mvRecipe(3, 0)
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dustImpure, Materials.Ruby, 1),
-                GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.SodiumHydroxide, 1),
-                CropsNHItemList.rubyneLeaf.get(1))
-            .fluidInputs(Materials.HydrochloricAcid.getFluid(1000))
-            .fluidOutputs(Materials.RubyJuice.getFluid(4000))
-            .addTo(mixerRecipes);
-
-        // Purified Dust
-        mvRecipe(3, 0)
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dustPure, Materials.Ruby, 1),
-                GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.SodiumHydroxide, 1),
-                CropsNHItemList.rubyneLeaf.get(1))
-            .fluidInputs(Materials.HydrochloricAcid.getFluid(1000))
-            .fluidOutputs(Materials.RubyJuice.getFluid(4000))
-            .addTo(mixerRecipes);
-
-        // HV bulk versions
-        hvRecipe(4, 0)
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.crushed, Materials.Ruby, 9),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SodiumHydroxide, 1),
-                CropsNHItemList.rubyneLeaf.get(9))
-            .fluidInputs(Materials.HydrochloricAcid.getFluid(9000))
-            .fluidOutputs(Materials.RubyJuice.getFluid(36000))
-            .addTo(mixerRecipes);
-
-        hvRecipe(4, 0)
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.Ruby, 9),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SodiumHydroxide, 1),
-                CropsNHItemList.rubyneLeaf.get(9))
-            .fluidInputs(Materials.HydrochloricAcid.getFluid(9000))
-            .fluidOutputs(Materials.RubyJuice.getFluid(36000))
-            .addTo(mixerRecipes);
-
-        hvRecipe(4, 0)
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dustImpure, Materials.Ruby, 9),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SodiumHydroxide, 1),
-                CropsNHItemList.rubyneLeaf.get(9))
-            .fluidInputs(Materials.HydrochloricAcid.getFluid(9000))
-            .fluidOutputs(Materials.RubyJuice.getFluid(36000))
-            .addTo(mixerRecipes);
-
-        hvRecipe(4, 0)
-            .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dustPure, Materials.Ruby, 9),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.SodiumHydroxide, 1),
-                CropsNHItemList.rubyneLeaf.get(9))
-            .fluidInputs(Materials.HydrochloricAcid.getFluid(9000))
-            .fluidOutputs(Materials.RubyJuice.getFluid(36000))
-            .addTo(mixerRecipes);
-    }
 
     // region ore conversion helpers
 

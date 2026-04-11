@@ -2,6 +2,9 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.util.GTOreDictUnificator;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
@@ -19,7 +22,8 @@ public class CropRubyne extends NHCropCard {
     public CropRubyne() {
         super("rubyne", new Color(0x931212), new Color(0xA64747));
 
-        this.addDrop(CropsNHItemList.rubyneLeaf.get(1), 100_00);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ruby, 1L), 75_00);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Ruby, 1L), 25_00);
 
         this.addBlockUnderRequirement(CropsNHBlockUnderTypes.ruby);
 
@@ -33,7 +37,7 @@ public class CropRubyne extends NHCropCard {
 
     @Override
     public int getTier() {
-        return 6;
+        return 4;
     }
 
     @Override
@@ -43,7 +47,7 @@ public class CropRubyne extends NHCropCard {
 
     @Override
     public int getGrowthDuration() {
-        return 1200;
+        return 800;
     }
 
     @Override
