@@ -8,7 +8,6 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import gregtech.api.GregTechAPI;
 import gregtech.api.interfaces.IIconContainer;
-import gtPlusPlus.api.objects.Logger;
 
 public class CropsNHBlockTextures {
 
@@ -30,7 +29,6 @@ public class CropsNHBlockTextures {
         public CustomIcon(String aModID, String aIconName) {
             this.mIconName = aIconName;
             this.mModID = aModID;
-            Logger.WARNING("Constructing a Custom Texture. " + this.mIconName);
             GregTechAPI.sGTBlockIconload.add(this);
         }
 
