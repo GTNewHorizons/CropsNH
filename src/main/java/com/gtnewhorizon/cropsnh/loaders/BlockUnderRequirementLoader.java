@@ -80,7 +80,7 @@ public class BlockUnderRequirementLoader {
         CropsNHBlockUnderTypes.zinc.addBlockAndOreDict().addMaterial(Materials.Zinc, Materials.Sphalerite);
         CropsNHBlockUnderTypes.sulfur.addBlockAndOreDict().addMaterial(Materials.Sulfur, Materials.Sphalerite, Materials.Galena);
         if (ModUtils.Natura.isModLoaded()) {
-            // CropsNHBlockUnderTypes.sulfur.addBlock(new BlockWithMeta(ModUtils.Natura.getBlock("cloud"), 3));
+            CropsNHBlockUnderTypes.sulfur.addBlock(new BlockWithMeta(ModUtils.Natura.getBlock("Cloud"), 3));
         }
         // gem ores
         CropsNHBlockUnderTypes.garnetGem.addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow, Materials.GarnetSand);
