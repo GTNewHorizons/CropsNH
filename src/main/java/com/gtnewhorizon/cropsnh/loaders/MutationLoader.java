@@ -156,6 +156,7 @@ import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Tea;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Tearstalks;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.ThauminiteOreBerry;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.ThaumiumOreBerry;
+import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Thiosulfine;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Thornvine;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.TinOreBerry;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Tine;
@@ -502,6 +503,9 @@ public class MutationLoader {
             .register();
         new CropMutation(Galvania, Tine, Ferrofern)
             .addToMutationPools(aMetal, aAlloy, aBush)
+            .register();
+        new CropMutation(Thiosulfine, Galvania, Plumbilia)
+            .addToMutationPools(aYellow, aFlower, aBad)
             .register();
         new CropMutation(Garnydinia, Diareed, RedStraw)
             .addToMutationPools(aShiny, aCrystal, aRed, aYellow, aMetal)
