@@ -8,12 +8,10 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.items.CropsNHAlcoholBottle;
+import com.gtnewhorizon.cropsnh.items.ItemCropsNHResource;
 import com.gtnewhorizon.cropsnh.items.ItemEnvironmentalModule;
-import com.gtnewhorizon.cropsnh.items.ItemFertilizer;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
-import com.gtnewhorizon.cropsnh.items.ItemHempHurd;
 import com.gtnewhorizon.cropsnh.items.ItemMug;
-import com.gtnewhorizon.cropsnh.items.ItemPoisonPowder;
 import com.gtnewhorizon.cropsnh.items.produce.ItemBerry;
 import com.gtnewhorizon.cropsnh.items.produce.ItemGaiaWart;
 import com.gtnewhorizon.cropsnh.items.produce.ItemGoldfish;
@@ -46,6 +44,8 @@ public class CropsNHItems {
     public static Item fertilizer;
     public static Item poisonPowder;
     public static Item hempHurd;
+    public static Item sulfurDopedGalvaniaResidue;
+    public static Item sulfurDopedPlumbiliaResidue;
     public static Item materialLeaf;
     public static Item environmentalModule;
 
@@ -57,9 +57,13 @@ public class CropsNHItems {
         CropsNHItemList.reinforcedSpade.set(new ItemStack(reinforcedSpade = new ItemReinforcedSpade(), 1, 0));
         CropsNHItemList.plantCure.set(new ItemStack(plantCure = new ItemPlantCure(), 1));
         CropsNHItemList.goldfish.set(new ItemStack(goldfish = new ItemGoldfish(), 1, 0));
-        CropsNHItemList.fertilizer.set(new ItemStack(fertilizer = new ItemFertilizer(), 1, 0));
-        CropsNHItemList.poisonPowder.set(new ItemStack(poisonPowder = new ItemPoisonPowder(), 1, 0));
-        CropsNHItemList.hempHurd.set(new ItemStack(hempHurd = new ItemHempHurd(), 1, 0));
+        CropsNHItemList.fertilizer.set(new ItemStack(fertilizer = new ItemCropsNHResource("fertilizer"), 1, 0));
+        CropsNHItemList.poisonPowder.set(new ItemStack(poisonPowder = new ItemCropsNHResource("poisonPowder"), 1, 0));
+        CropsNHItemList.hempHurd.set(new ItemStack(hempHurd = new ItemCropsNHResource("hempHurd"), 1, 0));
+        CropsNHItemList.sulfurDopedGalvaniaResidue.set(
+            new ItemStack(sulfurDopedGalvaniaResidue = new ItemCropsNHResource("sulfurDopedGalvaniaResidue"), 1, 0));
+        CropsNHItemList.sulfurDopedPlumbiliaResidue.set(
+            new ItemStack(sulfurDopedPlumbiliaResidue = new ItemCropsNHResource("sulfurDopedPlumbiliaResidue"), 1, 0));
 
         CropsNHItemList.weedEX.set(new ItemStack(weedEX = new ItemWeedEX(), 1));
         FluidContainerRegistry.registerFluidContainer(
@@ -136,6 +140,7 @@ public class CropsNHItems {
         CropsNHItemList.starWart.set(MaterialLeafLoader.starWart.get());
         CropsNHItemList.hops.set(MaterialLeafLoader.hops.get());
         CropsNHItemList.hempStem.set(MaterialLeafLoader.hempStem.get());
+        CropsNHItemList.thiosulfineFlower.set(MaterialLeafLoader.thiosulfineFlower.get());
         //spotless:on
 
         environmentalModule = new ItemEnvironmentalModule();
