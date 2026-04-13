@@ -35,6 +35,8 @@ public enum CropsNHItemList implements IItemContainer {
     fertilizerCell,
     plantCure,
     weedEX,
+    sulfurDopedGalvaniaResidue,
+    sulfurDopedPlumbiliaResidue,
 
     emptyMug,
     coldCoffeeMug,
@@ -237,6 +239,7 @@ public enum CropsNHItemList implements IItemContainer {
     starWart,
     hops,
     hempStem,
+    thiosulfineFlower,
 
     environmentalModule_base,
     environmentalModule_HOT,
