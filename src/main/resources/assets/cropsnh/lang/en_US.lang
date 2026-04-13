@@ -81,8 +81,8 @@ tile.cropsnh:cropSticks.name=Crop Sticks
 cropsnh.casings1.0.name=Bricked Agricultural Casing
 
 # Fluids
-fluid.cropsnh:EnrichedFertilizer=Enriched Fertilizer
-fluid.cropsnh:fertilizer=Enriched Fertilizer
+fluid.cropsnh.enrichedFertilizer=Enriched Fertilizer
+fluid.cropsnh.fertilizer=Fertilizer
 fluid.cropsnh:DKorn=Doppelkorn
 fluid.cropsnh:Korn=Korn
 fluid.cropsnh:FWheat=Fermented Wheat

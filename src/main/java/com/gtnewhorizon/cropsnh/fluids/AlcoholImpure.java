@@ -25,11 +25,6 @@ public class AlcoholImpure extends Fluid implements Runnable {
     }
 
     @Override
-    public String getUnlocalizedName() {
-        return this.getName();
-    }
-
-    @Override
     public void run() {
         String ResourcePath = ModUtils.GregTech.getResourceLocation("fluids/fluid." + texture)
             .toString();
