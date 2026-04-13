@@ -78,6 +78,10 @@ public class BlockUnderRequirementLoader {
         CropsNHBlockUnderTypes.tungsten.addBlockAndOreDict().addMaterial(Materials.Tungsten, Materials.Scheelite, Materials.Tungstate);
         CropsNHBlockUnderTypes.uranium.addBlockAndOreDict().addBlockAndOreDict("Uranium235", "Uranium238").addMaterial(Materials.Uranium, Materials.Uranium235, Materials.Uraninite, Materials.Pitchblende);
         CropsNHBlockUnderTypes.zinc.addBlockAndOreDict().addMaterial(Materials.Zinc, Materials.Sphalerite);
+        CropsNHBlockUnderTypes.sulfur.addBlockAndOreDict().addMaterial(Materials.Sulfur, Materials.Sphalerite, Materials.Galena);
+        if (ModUtils.Natura.isModLoaded()) {
+            CropsNHBlockUnderTypes.sulfur.addBlock(new BlockWithMeta(ModUtils.Natura.getBlock("Cloud"), 3));
+        }
         // gem ores
         CropsNHBlockUnderTypes.garnetGem.addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow, Materials.GarnetSand);
         CropsNHBlockUnderTypes.olivine.addBlockAndOreDict().addMaterial(Materials.Olivine);

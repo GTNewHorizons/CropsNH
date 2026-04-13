@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 
 import static bartworks.API.recipe.BartWorksRecipeMaps.bacterialVatRecipes;
+import static gregtech.api.recipe.RecipeMaps.alloySmelterRecipes;
 import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
 import static gregtech.api.recipe.RecipeMaps.autoclaveRecipes;
 import static gregtech.api.recipe.RecipeMaps.brewingRecipes;
@@ -18,6 +19,7 @@ import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
+import static gregtech.api.util.GTRecipeConstants.COIL_HEAT;
 import static gregtech.api.util.GTRecipeConstants.GLASS;
 import static gregtech.api.util.GTRecipeConstants.QFT_CATALYST;
 import static gregtech.api.util.GTRecipeConstants.QFT_FOCUS_TIER;
@@ -61,6 +63,7 @@ import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.GTUtility;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
+import gtnhlanth.api.recipe.LanthanidesRecipeMaps;
 
 public abstract class CropRecipes extends BaseGTRecipeLoader {
 
@@ -152,6 +155,88 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         addGaiaWartRecipes();
         addHopsRecipes();
         addCoffeeRecipes();
+        addThiosulfineRecipes();
+    }
+
+    private static void addThiosulfineRecipes() {
+
+        // 1. alloy smelter the leaves together
+        lvRecipe(Voltage.LV.getSimpleTime())
+            .itemInputs(CropsNHItemList.galvaniaLeaf.get(4), CropsNHItemList.thiosulfineFlower.get(1))
+            .itemOutputs(CropsNHItemList.sulfurDopedGalvaniaResidue.get(1))
+            .addTo(alloySmelterRecipes);
+
+        lvRecipe(Voltage.LV.getSimpleTime())
+            .itemInputs(CropsNHItemList.plumbiliaLeaf.get(4), CropsNHItemList.thiosulfineFlower.get(1))
+            .itemOutputs(CropsNHItemList.sulfurDopedPlumbiliaResidue.get(1))
+            .addTo(alloySmelterRecipes);
+
+        // 2. chemical bath to get the ores
+        addThiosulfineCembathConversionRecipes(
+            CropsNHItemList.sulfurDopedGalvaniaResidue.get(1),
+            Materials.Sphalerite,
+            Materials.Gallium);
+        addThiosulfineCembathConversionRecipes(
+            CropsNHItemList.sulfurDopedPlumbiliaResidue.get(1),
+            Materials.Galena,
+            Materials.Silver);
+
+        // digester recipe skips for later game scaling since digester has poc for better scaling
+        addThiosulfineDigesterRecipes(
+            mvRecipe(Voltage.MV.getSimpleTime())
+                .itemInputs(CropsNHItemList.galvaniaLeaf.get(4), CropsNHItemList.thiosulfineFlower.get(1))
+                .fluidInputs(TierAcid.t1.get())
+                .fluidOutputs(Materials.Gallium.getMolten(1 * INGOTS)),
+            Materials.Sphalerite,
+            LanthanidesRecipeMaps.digesterRecipes);
+
+        addThiosulfineDigesterRecipes(
+            mvRecipe(Voltage.MV.getSimpleTime())
+                .itemInputs(CropsNHItemList.plumbiliaLeaf.get(4), CropsNHItemList.thiosulfineFlower.get(1))
+                .fluidInputs(TierAcid.t1.get())
+                .fluidOutputs(Materials.Silver.getMolten(1 * INGOTS)),
+            Materials.Galena,
+            LanthanidesRecipeMaps.digesterRecipes);
+
+    }
+
+    private static void addThiosulfineCembathConversionRecipes(ItemStack residue, Materials mainMaterial,
+        Materials sideMaterial) {
+        GTRecipeBuilder builder = lvRecipe(Voltage.LV.getSimpleTime()).itemInputs(residue)
+            .fluidInputs(TierAcid.t1.get());
+
+        int[] outputChances = new int[] { 100_00, 25_00 };
+
+        builder.copy()
+            .circuit(PURIFIED_RECIPE_CIRCUIT)
+            .itemOutputs(
+                GTOreDictUnificator.get(OrePrefixes.crushedPurified, mainMaterial, 1),
+                GTOreDictUnificator.get(OrePrefixes.dust, sideMaterial, 1))
+            .outputChances(outputChances)
+            .addTo(chemicalBathRecipes);
+
+        builder.copy()
+            .circuit(IMPURE_DUST_RECIPE_CIRCUIT)
+            .itemOutputs(
+                GTOreDictUnificator.get(OrePrefixes.dustImpure, mainMaterial, 1),
+                GTOreDictUnificator.get(OrePrefixes.dust, sideMaterial, 1))
+            .outputChances(outputChances)
+            .addTo(chemicalBathRecipes);
+    }
+
+    private static void addThiosulfineDigesterRecipes(GTRecipeBuilder builder, Materials material, IRecipeMap map) {
+
+        builder.metadata(COIL_HEAT, 800);
+
+        builder.copy()
+            .circuit(PURIFIED_RECIPE_CIRCUIT)
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.crushedPurified, material, 1))
+            .addTo(map);
+
+        builder.copy()
+            .circuit(IMPURE_DUST_RECIPE_CIRCUIT)
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dustImpure, material, 1))
+            .addTo(map);
     }
 
     private static void addCoffeeRecipes() {
@@ -318,6 +403,8 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.bobsYerUncleBerry, Materials.Emerald);
         createOreDuplicationRecipe(MaterialLeafLoader.bobsYerUncleBerry, Materials.Beryllium);
 
+        createOreDuplicationRecipe(MaterialLeafLoader.thiosulfineFlower, Materials.Sulfur);
+
         if (ModUtils.GalacticraftCore.isModLoaded()) {
             createOreDuplicationRecipe(MaterialLeafLoader.spaceFlower.get(9), Materials.MeteoricIron, Voltage.HV, null);
             createOreDuplicationRecipe(
@@ -401,6 +488,12 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                 new int[] { 50_00 })
             .addTo(extractorRecipes);
 
+        ulvRecipe(3, 75).itemInputs(MaterialLeafLoader.thiosulfineFlower.get(9))
+            .itemOutputs(
+                new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1) },
+                new int[] { 50_00 })
+            .addTo(extractorRecipes);
+
         createOreConversionRecipe(MaterialLeafLoader.copponFiber, Voltage.LV, Materials.Copper, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.galvaniaLeaf, Voltage.LV, Materials.Zinc, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.nickelbackLeaf, Voltage.LV, Materials.Nickel, TierAcid.t1);
@@ -409,6 +502,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreConversionRecipe(MaterialLeafLoader.tineTwig, Voltage.LV, Materials.Tin, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.argentiaLeaf, Voltage.LV, Materials.Silver, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.ferrofernLeaf, Voltage.LV, Materials.Iron, TierAcid.t1);
+        createOreConversionRecipe(MaterialLeafLoader.thiosulfineFlower, Voltage.LV, Materials.Sulfur, TierAcid.t1);
 
         createOreConversionRecipe(MaterialLeafLoader.auroniaLeaf, Voltage.LV, Materials.Gold, TierAcid.t2);
         // emeralds are needed for mv sensors/emitters so slightly higher reqs

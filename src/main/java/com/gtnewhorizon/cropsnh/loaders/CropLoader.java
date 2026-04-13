@@ -99,6 +99,7 @@ import com.gtnewhorizon.cropsnh.crops.material.CropStarWart;
 import com.gtnewhorizon.cropsnh.crops.material.CropStargatium;
 import com.gtnewhorizon.cropsnh.crops.material.CropSteeleafranks;
 import com.gtnewhorizon.cropsnh.crops.material.CropStickyCane;
+import com.gtnewhorizon.cropsnh.crops.material.CropThiosulfine;
 import com.gtnewhorizon.cropsnh.crops.material.CropTine;
 import com.gtnewhorizon.cropsnh.crops.material.CropTitania;
 import com.gtnewhorizon.cropsnh.crops.material.CropTransformium;
@@ -428,6 +429,7 @@ public class CropLoader {
             CropRegistry.instance.register(CropsNHCrops.Steeleafranks = new CropSteeleafranks());
         }
         CropRegistry.instance.register(CropsNHCrops.StickyCane = new CropStickyCane());
+        CropRegistry.instance.register(CropsNHCrops.Thiosulfine = new CropThiosulfine());
         CropRegistry.instance.register(CropsNHCrops.Tine = new CropTine());
         CropRegistry.instance.register(CropsNHCrops.Titania = new CropTitania());
         CropRegistry.instance.register(CropsNHCrops.Transformium = new CropTransformium());
