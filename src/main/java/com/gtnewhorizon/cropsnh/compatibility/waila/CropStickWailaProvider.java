@@ -13,6 +13,7 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -22,7 +23,6 @@ import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.crops.CropMigrator;
 import com.gtnewhorizon.cropsnh.farming.SeedData;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
@@ -47,11 +47,12 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                 return weedStack;
             }
             NBTTagCompound nbt = dataAccessor.getNBTData();
-            ISeedData seedData = nbt.hasKey(Names.NBT.crop, Data.NBTType._object)
+            ISeedData seedData = nbt.hasKey(Names.NBT.crop, Constants.NBT.TAG_COMPOUND)
                 ? new SeedData(nbt.getCompoundTag(Names.NBT.crop))
                 : teCrop.getSeed();
             if (seedData != null) {
-                if (seedData.getCrop() instanceof CropMigrator && nbt.hasKey(Names.NBT.extra, Data.NBTType._object)) {
+                if (seedData.getCrop() instanceof CropMigrator
+                    && nbt.hasKey(Names.NBT.extra, Constants.NBT.TAG_COMPOUND)) {
                     return new CropMigrator.AdditionalData(nbt.getCompoundTag(Names.NBT.extra)).seed.getStack();
                 }
                 return seedData.getStack();
@@ -77,11 +78,11 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weeds"));
                 } else {
                     String header, value;
-                    ISeedData seedData = nbt.hasKey(Names.NBT.crop, Data.NBTType._object)
+                    ISeedData seedData = nbt.hasKey(Names.NBT.crop, Constants.NBT.TAG_COMPOUND)
                         ? new SeedData(nbt.getCompoundTag(Names.NBT.crop))
                         : teCrop.getSeed();
                     if (seedData.getCrop() instanceof CropMigrator
-                        && nbt.hasKey(Names.NBT.extra, Data.NBTType._object)) {
+                        && nbt.hasKey(Names.NBT.extra, Constants.NBT.TAG_COMPOUND)) {
                         seedData = new CropMigrator.AdditionalData(nbt.getCompoundTag(Names.NBT.extra)).seed;
                     }
                     if (seedData.getStats()
@@ -105,15 +106,15 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     }
 
                     // add failed reqs
-                    if (nbt.hasKey(WAILA_FAILED_REQ, 9)) {
-                        NBTTagList failedReqs = nbt.getTagList(WAILA_FAILED_REQ, 10);
+                    if (nbt.hasKey(WAILA_FAILED_REQ, Constants.NBT.TAG_LIST)) {
+                        NBTTagList failedReqs = nbt.getTagList(WAILA_FAILED_REQ, Constants.NBT.TAG_COMPOUND);
                         for (int i = 0; i < failedReqs.tagCount(); i++) {
                             NBTTagCompound req = failedReqs.getCompoundTagAt(i);
-                            if (!req.hasKey(WAILA_FAILED_REQ_KEY, 8)) continue;
+                            if (!req.hasKey(WAILA_FAILED_REQ_KEY, Constants.NBT.TAG_STRING)) continue;
                             String key = req.getString(WAILA_FAILED_REQ_KEY);
                             String translated;
-                            if (req.hasKey(WAILA_FAILED_REQ_VALUES, 9)) {
-                                NBTTagList values = req.getTagList(WAILA_FAILED_REQ_VALUES, 8);
+                            if (req.hasKey(WAILA_FAILED_REQ_VALUES, Constants.NBT.TAG_LIST)) {
+                                NBTTagList values = req.getTagList(WAILA_FAILED_REQ_VALUES, Constants.NBT.TAG_STRING);
                                 Object[] formatValues = new Object[values.tagCount()];
                                 for (int j = 0; j < values.tagCount(); j++) {
                                     formatValues[j] = values.getStringTagAt(j);

@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+import static net.minecraftforge.common.util.Constants.NBT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,7 +55,6 @@ import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
@@ -645,7 +645,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-        if (tag.hasKey(Names.NBT.crossCrop, Data.NBTType._boolean) && tag.getBoolean(Names.NBT.crossCrop)) {
+        if (tag.hasKey(Names.NBT.crossCrop, NBT.TAG_BYTE) && tag.getBoolean(Names.NBT.crossCrop)) {
             this.clear();
             this.isCrossCrop = true;
 
@@ -655,33 +655,32 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             this.loadCropNBT(tag);
             // only update the growth progress
             if (this.hasCrop()) {
-                if (tag.hasKey(Names.NBT.progress, Data.NBTType._int)) {
+                if (tag.hasKey(Names.NBT.progress, NBT.TAG_INT)) {
                     this.growthProgress = tag.getInteger(Names.NBT.progress);
                 }
-                if (tag.hasKey(Names.NBT.sick, Data.NBTType._boolean)) {
+                if (tag.hasKey(Names.NBT.sick, NBT.TAG_BYTE)) {
                     this.isSick = tag.getBoolean(Names.NBT.sick);
                 }
             }
         }
         this.hasSoilChanged = tag.getBoolean(Names.NBT.hasSoilChanged);
         // get crop status stuff
-        this.waterStorage = tag.hasKey(Names.NBT.water, Data.NBTType._int) ? tag.getInteger(Names.NBT.water) : 0;
-        this.fertilizerStorage = tag.hasKey(Names.NBT.fertilizer, Data.NBTType._int)
-            ? tag.getInteger(Names.NBT.fertilizer)
+        this.waterStorage = tag.hasKey(Names.NBT.water, NBT.TAG_INT) ? tag.getInteger(Names.NBT.water) : 0;
+        this.fertilizerStorage = tag.hasKey(Names.NBT.fertilizer, NBT.TAG_INT) ? tag.getInteger(Names.NBT.fertilizer)
             : 0;
-        this.weedEXStorage = tag.hasKey(Names.NBT.weedEX, Data.NBTType._int) ? tag.getInteger(Names.NBT.weedEX) : 0;
+        this.weedEXStorage = tag.hasKey(Names.NBT.weedEX, NBT.TAG_INT) ? tag.getInteger(Names.NBT.weedEX) : 0;
         this.isDirty = true;
     }
 
     public void loadCropNBT(NBTTagCompound tag) {
         // if we ever do a change to how we store seed data, we also need to update the soil migration handler
-        if (tag == null || !tag.hasKey(Names.NBT.crop, Data.NBTType._object)) {
+        if (tag == null || !tag.hasKey(Names.NBT.crop, NBT.TAG_COMPOUND)) {
             this.clear();
             return;
         }
         ISeedData seedData = new SeedData(tag.getCompoundTag(Names.NBT.crop));
         this.plantSeed(seedData);
-        if (tag.hasKey(Names.NBT.extra, Data.NBTType._object)) {
+        if (tag.hasKey(Names.NBT.extra, NBT.TAG_COMPOUND)) {
             this.additionalCropData = this.seed.getCrop()
                 .readAdditionalData(tag.getCompoundTag(Names.NBT.extra));
         }

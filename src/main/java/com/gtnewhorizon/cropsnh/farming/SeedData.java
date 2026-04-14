@@ -2,13 +2,13 @@ package com.gtnewhorizon.cropsnh.farming;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.Constants;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
 
@@ -30,7 +30,7 @@ public class SeedData implements ISeedData {
 
     public SeedData(NBTTagCompound tag) {
         // if we ever do a change to how we store seed data, we also need to update the soil migration handler
-        if (!tag.hasKey(Names.NBT.crop, Data.NBTType._string)) {
+        if (!tag.hasKey(Names.NBT.crop, Constants.NBT.TAG_STRING)) {
             // fail-safe
             this.crop = CropsNHCrops.Carrot;
         } else {
