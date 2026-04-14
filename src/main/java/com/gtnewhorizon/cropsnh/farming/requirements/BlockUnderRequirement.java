@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -20,6 +18,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
@@ -64,12 +64,12 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
     private final Set<Materials> materials = new ObjectOpenHashSet<>();
     private final Set<String> oreDictionaries = new ObjectOpenHashSet<>();
     private final MetaSet<Block> blocks = new MetaSet<>();
-    private final Pair<String, Object[]> unlocalizedDesc;
+    private final Pair<String, String[]> unlocalizedDesc;
 
     private BlockUnderRequirement(String materialDescription) {
         this.materialDescription = materialDescription;
         this.unlocalizedDesc = Pair
-            .of(Reference.MOD_ID + "_growthReq.blockUnder." + this.materialDescription, new Object[] {});
+            .of(Reference.MOD_ID + "_growthReq.blockUnder." + this.materialDescription, null);
     }
 
     public BlockUnderRequirement addMaterial(Materials... args) {
@@ -103,12 +103,13 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
     }
 
     @Override
-    public String getDescription() {
-        return StatCollector.translateToLocalFormatted(this.unlocalizedDesc.getLeft(), unlocalizedDesc.getRight());
+    public @NotNull String getDescription() {
+        return StatCollector
+            .translateToLocalFormatted(this.unlocalizedDesc.getLeft(), (Object[]) unlocalizedDesc.getRight());
     }
 
     @Override
-    public Pair<String, Object[]> getUnlocalizedDescription() {
+    public @NotNull Pair<@NotNull String, @Nullable String[]> getUnlocalizedDescription() {
         return this.unlocalizedDesc;
     }
 
@@ -164,7 +165,7 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
     }
 
     @Override
-    public boolean canBreed(ArrayList<ICropCard> parents, IGregTechTileEntity te, ItemStack[] catalysts,
+    public boolean canBreed(ArrayList<ICropCard> parents, IGregTechTileEntity te, ItemStack @NotNull [] catalysts,
         int[] consumptionTracker) {
         for (int i = 0; i < catalysts.length; i++) {
             // if stack is bad or if we can't consume it, abort early
@@ -179,7 +180,7 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
         return false;
     }
 
-    public @Nullable ItemStack findIndustrialFarmInsertionCatalyst(List<ItemStack> catalysts) {
+    public @Nullable ItemStack findIndustrialFarmInsertionCatalyst(@NotNull List<ItemStack> catalysts) {
         for (ItemStack stack : catalysts) {
             // if stack is bad or if we can't consume it, abort early
             if (GTUtility.isStackInvalid(stack) || stack.stackSize <= 0) continue;
