@@ -225,11 +225,13 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .fluidOutputs(sideMaterial.getMolten(1 * INGOTS))
             .metadata(COIL_HEAT, 800);
 
-        digesterBuilder.circuit(PURIFIED_RECIPE_CIRCUIT)
+        digesterBuilder.copy()
+            .circuit(PURIFIED_RECIPE_CIRCUIT)
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.crushedPurified, mainMaterial, 1))
             .addTo(LanthanidesRecipeMaps.digesterRecipes);
 
-        digesterBuilder.circuit(IMPURE_DUST_RECIPE_CIRCUIT)
+        digesterBuilder.copy()
+            .circuit(IMPURE_DUST_RECIPE_CIRCUIT)
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dustImpure, mainMaterial, 1))
             .addTo(LanthanidesRecipeMaps.digesterRecipes);
 
