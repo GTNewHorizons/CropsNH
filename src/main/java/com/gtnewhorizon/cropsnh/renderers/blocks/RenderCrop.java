@@ -30,11 +30,12 @@ public class RenderCrop extends RenderBlockBase {
         boolean callFromTESR) {
         if (tile instanceof TileEntityCropSticks) {
             TileEntityCropSticks crop = (TileEntityCropSticks) tile;
+            int colorMult = crop.isSick() ? 0xAAFFAA : COLOR_MULTIPLIER_STANDARD;
             tessellator.addTranslation(0, -3 * Constants.UNIT, 0);
-            drawScaledPrism(tessellator, 2, 0, 2, 3, 16, 3, block.getIcon(0, 0), COLOR_MULTIPLIER_STANDARD);
-            drawScaledPrism(tessellator, 13, 0, 2, 14, 16, 3, block.getIcon(0, 0), COLOR_MULTIPLIER_STANDARD);
-            drawScaledPrism(tessellator, 13, 0, 13, 14, 16, 14, block.getIcon(0, 0), COLOR_MULTIPLIER_STANDARD);
-            drawScaledPrism(tessellator, 2, 0, 13, 3, 16, 14, block.getIcon(0, 0), COLOR_MULTIPLIER_STANDARD);
+            drawScaledPrism(tessellator, 2, 0, 2, 3, 16, 3, block.getIcon(0, 0), colorMult);
+            drawScaledPrism(tessellator, 13, 0, 2, 14, 16, 3, block.getIcon(0, 0), colorMult);
+            drawScaledPrism(tessellator, 13, 0, 13, 14, 16, 14, block.getIcon(0, 0), colorMult);
+            drawScaledPrism(tessellator, 2, 0, 13, 3, 16, 14, block.getIcon(0, 0), colorMult);
             tessellator.addTranslation(0, 3 * Constants.UNIT, 0);
             if (crop.isCrossCrop()) {
                 drawScaledPrism(tessellator, 0, 10, 2, 16, 11, 3, block.getIcon(0, 0), COLOR_MULTIPLIER_STANDARD);

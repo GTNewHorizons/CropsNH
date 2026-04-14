@@ -17,8 +17,6 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropSteeleafranks extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropSteeleafranks() {
         super("steeleafranks", new Color(0x163916), new Color(0x327F32));
 
@@ -53,7 +51,7 @@ public class CropSteeleafranks extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

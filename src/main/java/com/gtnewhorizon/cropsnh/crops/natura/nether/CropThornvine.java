@@ -13,8 +13,6 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropThornvine extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.netherrack;
-
     public CropThornvine() {
         super("thornvine", new Color(0x987005), new Color(0xDFE485));
 
@@ -43,7 +41,7 @@ public class CropThornvine extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.netherrack;
     }
 
     @Override

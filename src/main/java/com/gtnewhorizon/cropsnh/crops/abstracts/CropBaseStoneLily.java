@@ -8,7 +8,6 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public abstract class CropBaseStoneLily extends NHCropCard {
 
-    private static ISoilList soilTypes = CropsNHSoilTypes.stone;
     private final String materialName;
 
     public CropBaseStoneLily(String materialName, Color color1, Color color2) {
@@ -33,7 +32,7 @@ public abstract class CropBaseStoneLily extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

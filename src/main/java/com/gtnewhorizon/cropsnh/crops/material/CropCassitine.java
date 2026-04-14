@@ -13,8 +13,6 @@ import gregtech.api.enums.Materials;
 
 public class CropCassitine extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropCassitine() {
         super("cassitine", new Color(0x6C6C6C), new Color(0x7F7F7F));
         this.addDrop(Materials.Tin.getDustTiny(1), 100_00);
@@ -30,18 +28,13 @@ public class CropCassitine extends NHCropCard {
     }
 
     @Override
-    public float getDropChance() {
-        return super.getDropChance() / 2.0f;
-    }
-
-    @Override
     public int getGrowthDuration() {
         return 2800;
     }
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

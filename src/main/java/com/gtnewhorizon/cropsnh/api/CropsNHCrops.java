@@ -113,6 +113,7 @@ public class CropsNHCrops {
     public static ICropCard StarWart;
     public static ICropCard Steeleafranks;
     public static ICropCard StickyCane;
+    public static ICropCard Thiosulfine;
     public static ICropCard Tine;
     public static ICropCard Titania;
     public static ICropCard Transformium;

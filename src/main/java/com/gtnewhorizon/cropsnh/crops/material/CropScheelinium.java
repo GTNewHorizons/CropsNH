@@ -15,8 +15,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropScheelinium extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropScheelinium() {
         super("scheelinium", new Color(0x313CA3), new Color(0x232C9E));
 
@@ -55,7 +53,7 @@ public class CropScheelinium extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

@@ -31,6 +31,7 @@ public class BlockOverclockedGrowthAccelerationUnit extends CropsNHBlockIndustri
             CropsNHItemList.OverclockedGrowthAccelerationUnit_UIV,
             CropsNHItemList.OverclockedGrowthAccelerationUnit_UMV,
             CropsNHItemList.OverclockedGrowthAccelerationUnit_UXV);
+
     }
 
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {

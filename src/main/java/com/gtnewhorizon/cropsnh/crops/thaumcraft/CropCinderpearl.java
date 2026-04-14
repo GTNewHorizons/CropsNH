@@ -16,8 +16,6 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropCinderpearl extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
-
     public CropCinderpearl() {
         super("cinderpearl", new Color(0xFF9611), new Color(0xFFD86F));
 
@@ -50,7 +48,7 @@ public class CropCinderpearl extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override

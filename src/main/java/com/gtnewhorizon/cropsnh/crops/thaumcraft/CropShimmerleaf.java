@@ -16,8 +16,6 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropShimmerleaf extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
-
     public CropShimmerleaf() {
         super("shimmerleaf", new Color(0x78A59C), new Color(0xA9C6C1));
 
@@ -50,7 +48,7 @@ public class CropShimmerleaf extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override

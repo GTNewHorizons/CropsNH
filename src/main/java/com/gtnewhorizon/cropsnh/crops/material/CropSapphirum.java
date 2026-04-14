@@ -16,8 +16,6 @@ import gregtech.api.util.GTOreDictUnificator;
 
 public class CropSapphirum extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropSapphirum() {
         super("sapphirum", new Color(0x47478F), new Color(0x5959B3));
 
@@ -49,7 +47,7 @@ public class CropSapphirum extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

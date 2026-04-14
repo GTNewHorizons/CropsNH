@@ -15,8 +15,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropNickelback extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropNickelback() {
         super("nickelback", new Color(0x7E81AD), new Color(0xB7B8E9));
 
@@ -51,7 +49,7 @@ public class CropNickelback extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

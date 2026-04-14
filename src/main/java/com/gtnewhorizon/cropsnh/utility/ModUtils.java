@@ -11,7 +11,6 @@ import com.gtnewhorizon.gtnhlib.util.data.IMod;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
-import gregtech.api.util.GTRecipeBuilder;
 
 public enum ModUtils implements IMod {
 
@@ -31,6 +30,7 @@ public enum ModUtils implements IMod {
     GalaxySpace(ModIDs.GalaxySpace),
     GoodGenerator(ModIDs.GoodGenerator),
     GregTech(ModIDs.GregTech),
+    GTPlusPlus(ModIDs.GTPlusPlus),
     HodgePodge(ModIDs.HodgePodge),
     IndustrialCraft2(ModIDs.IndustrialCraft2),
     MagicBees(ModIDs.MagicBees),
@@ -39,6 +39,7 @@ public enum ModUtils implements IMod {
     NotEnoughItems(ModIDs.NotEnoughItems),
     PamsHarvestCraft(ModIDs.PamsHarvestCraft),
     RandomThings(ModIDs.RandomThings),
+    StructureLib(ModIDs.StructureLib),
     TaintedMagic(ModIDs.TaintedMagic),
     Thaumcraft(ModIDs.Thaumcraft),
     ThaumicBases(ModIDs.ThaumicBases),
@@ -102,7 +103,7 @@ public enum ModUtils implements IMod {
         Item item = GameRegistry.findItem(this.ID, name);
         if (item == null) {
             String fullId = "\"" + this.ID + ":" + name + "\"";
-            if (GTRecipeBuilder.PANIC_MODE_NULL) {
+            if (CropsNHUtils.shouldPanicIfNullFound()) {
                 throw new IllegalStateException("Item with id " + fullId + " could not be found!");
             } else {
                 try {
@@ -121,7 +122,7 @@ public enum ModUtils implements IMod {
 
         if (block == null) {
             String fullId = "\"" + this.ID + ":" + name + "\"";
-            if (GTRecipeBuilder.PANIC_MODE_NULL) {
+            if (CropsNHUtils.shouldPanicIfNullFound()) {
                 throw new IllegalStateException("block with id " + fullId + " could not be found!");
             } else {
                 try {
@@ -157,6 +158,7 @@ public enum ModUtils implements IMod {
         public static final String GalaxySpace = "GalaxySpace";
         public static final String GoodGenerator = "GoodGenerator";
         public static final String GregTech = "gregtech";
+        public static final String GTPlusPlus = "miscutils";
         public static final String HodgePodge = "hodgepodge";
         public static final String IndustrialCraft2 = "IC2";
         public static final String Natura = "Natura";
@@ -165,6 +167,7 @@ public enum ModUtils implements IMod {
         public static final String NotEnoughItems = "NotEnoughItems";
         public static final String PamsHarvestCraft = "harvestcraft";
         public static final String RandomThings = "RandomThings";
+        public static final String StructureLib = "structurelib";
         public static final String TaintedMagic = "TaintedMagic";
         public static final String Thaumcraft = "Thaumcraft";
         public static final String ThaumicBases = "thaumicbases";

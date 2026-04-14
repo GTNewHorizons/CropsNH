@@ -14,8 +14,6 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.CropFood;
 
 public class CropMeatrose extends CropFood {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
-
     public CropMeatrose() {
         super("meatrose", new Color(0xDD3830), new Color(0xEF7070));
         // TODO: MOVE ITEM DROP TO CROPS NH OR SOMETHING
@@ -50,7 +48,7 @@ public class CropMeatrose extends CropFood {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override

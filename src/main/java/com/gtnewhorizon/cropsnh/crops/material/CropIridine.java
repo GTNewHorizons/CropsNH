@@ -19,8 +19,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropIridine extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropIridine() {
         super("iridine", new Color(0xB3B3B3), new Color(0xE8E8E8));
 
@@ -57,7 +55,7 @@ public class CropIridine extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

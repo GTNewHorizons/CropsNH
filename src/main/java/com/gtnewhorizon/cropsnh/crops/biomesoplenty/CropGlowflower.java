@@ -15,8 +15,6 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropGlowflower extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
-
     public CropGlowflower() {
         super("glowflower", new Color(0x004D4C), new Color(0x12A4A2));
 
@@ -41,7 +39,7 @@ public class CropGlowflower extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override

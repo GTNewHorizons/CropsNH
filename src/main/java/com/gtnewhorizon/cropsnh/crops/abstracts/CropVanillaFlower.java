@@ -9,8 +9,6 @@ import com.gtnewhorizon.cropsnh.api.SeedShape;
 
 public abstract class CropVanillaFlower extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.dirt;
-
     public CropVanillaFlower(String id, Color color1, Color color2) {
         super(id, color1, color2);
     }
@@ -27,7 +25,7 @@ public abstract class CropVanillaFlower extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.dirtGrass;
     }
 
     @Override

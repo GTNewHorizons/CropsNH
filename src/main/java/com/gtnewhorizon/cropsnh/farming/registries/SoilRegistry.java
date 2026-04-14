@@ -40,7 +40,7 @@ public class SoilRegistry implements ISoilRegistry {
      * @see SoilList#SoilList(String, SoilRegistry, boolean)
      */
     void registerGlobalSoil(BlockWithMeta... soils) {
-        this.allSoils.registerSoil(soils);
+        this.allSoils.registerBlock(soils);
     }
 
     @Override

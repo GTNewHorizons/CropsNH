@@ -16,8 +16,6 @@ import gregtech.api.enums.VoltageIndex;
 
 public class CropTitania extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropTitania() {
         super("titania", new Color(0x815E8D), new Color(0xDCA0F0));
 
@@ -61,7 +59,7 @@ public class CropTitania extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

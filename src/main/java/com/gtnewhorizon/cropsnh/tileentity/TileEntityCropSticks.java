@@ -678,6 +678,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     public void loadCropNBT(NBTTagCompound tag) {
+        // if we ever do a change to how we store seed data, we also need to update the soil migration handler
         if (tag == null || !tag.hasKey(Names.NBT.crop, Data.NBTType._object)) {
             this.clear();
             return;
@@ -842,6 +843,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         // if we have weed-ex remaining, stop the weeding.
         if (this.weedEXStorage > 0) {
             this.weedEXStorage = Math.max(this.weedEXStorage - 5, 0);
+            this.markDirty();
             return;
         }
         // else weed this thing
@@ -1072,11 +1074,21 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     @Override
     public void transferDisease() {
         if (!this.hasCrop() || this.isSick || this.hasWeed()) return;
-        if (!this.passesResistanceCheck()) {
-            this.isSick = true;
-            this.isDirty = true;
+        // if we have weed-ex remaining, stop the weeding.
+        // migrator crops can't fall sick
+        if (this.seed.getCrop() instanceof CropMigrator) return;
+        // resistance can prevent weed-spread.
+        if (this.passesResistanceCheck()) return;
+        // weed-ex prevents crops that falling sick
+        if (this.weedEXStorage > 0) {
+            // allow over-consumption
+            this.weedEXStorage = Math.max(this.weedEXStorage - 2, 0);
             this.markDirty();
+            return;
         }
+        this.isSick = true;
+        this.isDirty = true;
+        this.markDirty();
     }
 
     @Override

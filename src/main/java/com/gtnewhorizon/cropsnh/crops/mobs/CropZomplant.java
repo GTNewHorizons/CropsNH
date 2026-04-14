@@ -15,8 +15,6 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 public class CropZomplant extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.graveyard;
-
     public CropZomplant() {
         super("zomplant", new Color(0x3A6529), new Color(0x679056));
 
@@ -51,7 +49,7 @@ public class CropZomplant extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.graveyard;
     }
 
     @Override

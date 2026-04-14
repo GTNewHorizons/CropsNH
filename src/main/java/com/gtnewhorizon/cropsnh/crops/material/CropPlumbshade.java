@@ -13,8 +13,6 @@ import gregtech.api.enums.Materials;
 
 public class CropPlumbshade extends NHCropCard {
 
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
-
     public CropPlumbshade() {
         super("plumbshade", new Color(0x523B52), new Color(0x6D4E6D));
         this.addDrop(Materials.Lead.getDustTiny(1), 100_00);
@@ -30,18 +28,13 @@ public class CropPlumbshade extends NHCropCard {
     }
 
     @Override
-    public float getDropChance() {
-        return super.getDropChance() / 2.0f;
-    }
-
-    @Override
     public int getGrowthDuration() {
         return 2800;
     }
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override

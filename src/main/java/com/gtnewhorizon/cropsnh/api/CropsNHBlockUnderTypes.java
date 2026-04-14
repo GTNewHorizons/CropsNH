@@ -67,4 +67,5 @@ public final class CropsNHBlockUnderTypes {
     public static final BlockUnderRequirement mixedCrystalCluster = BlockUnderRequirement.get("mixedCrystalCluster");
     public static final BlockUnderRequirement space = BlockUnderRequirement.get("space");
     public static final BlockUnderRequirement ruby = BlockUnderRequirement.get("ruby");
+    public static final BlockUnderRequirement sulfur = BlockUnderRequirement.get("sulfur");
 }

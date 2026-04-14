@@ -1,10 +1,12 @@
 package com.gtnewhorizon.cropsnh.farming.registries;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -42,14 +44,69 @@ public class SoilList implements ISoilList {
     }
 
     @Override
-    public void registerSoil(BlockWithMeta... soils) {
+    public ISoilList registerBlock(BlockWithMeta... soils) {
+        // abort early if param bad
+        if (soils == null) {
+            if (CropsNHUtils.shouldPanicIfNullFound())
+                throw new IllegalArgumentException("Passed an null array to registerSoil!");
+            return this;
+        }
         // this ensures that any registered soil is also registered to the global tracker
         if (!this.isGlobal) this.registry.registerGlobalSoil(soils);
         // then add the soil regularly
         for (BlockWithMeta soil : soils) {
-            if (soil == null || soil.getBlock() == null) continue;
+            if (soil == null || soil.getBlock() == null) {
+                if (CropsNHUtils.shouldPanicIfNullFound())
+                    throw new IllegalArgumentException("Passed an null array to registerSoil!");
+                continue;
+            }
             this.validSoils.add(soil.getBlock(), soil.ignoreMeta() ? OreDictionary.WILDCARD_VALUE : soil.getMeta());
         }
+        return this;
+    }
+
+    @Override
+    public ISoilList registerOreDict(String... oreDicts) {
+        // abort early if param bad
+        if (oreDicts == null) {
+            if (CropsNHUtils.shouldPanicIfNullFound())
+                throw new IllegalArgumentException("Passed an null array to registerOreDict!");
+            return this;
+        }
+
+        for (String oreDictName : oreDicts) {
+            // abort is entry is invalid, panic if value is null
+            if (oreDictName == null) {
+                if (CropsNHUtils.shouldPanicIfNullFound())
+                    throw new IllegalArgumentException("Passed an array with null oreId to registerOreDict!");
+                continue;
+            }
+            // get candidates, panic if ore dict has no entries
+            List<ItemStack> candidates = OreDictionary.getOres(oreDictName, false);
+            if (candidates == null) {
+                if (CropsNHUtils.shouldPanicIfNullFound())
+                    throw new IllegalArgumentException("Passed an array with null oreId to registerOreDict!");
+                continue;
+            } ;
+            boolean foundBlock = false;
+            for (ItemStack stack : candidates) {
+                // Abort if stack is valid
+                if (stack == null || stack.getItem() == null) continue;
+                // Check if candidate can be translated to block, and that the translated block isn't an air block
+                // since crop sticks are explicitly not allowed on those.
+                Block block = CropsNHUtils.getBlockFromItem(stack);
+                if (block == null || block.getMaterial() == Material.air) continue;
+                // all good, register as soil
+                this.registerBlock(new BlockWithMeta(block, CropsNHUtils.getItemMeta(stack)));
+                foundBlock = true;
+            }
+            if (!foundBlock && CropsNHUtils.shouldPanicIfNullFound()) {
+                throw new IllegalArgumentException(
+                    String.format("Requested ore dict \"%s\" did not contain a valid block!", oreDictName));
+            }
+        }
+
+        return this;
     }
 
     @Override

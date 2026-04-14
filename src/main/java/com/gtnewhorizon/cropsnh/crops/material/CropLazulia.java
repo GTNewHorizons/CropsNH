@@ -2,6 +2,8 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
@@ -10,16 +12,17 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.util.GTOreDictUnificator;
 
 public class CropLazulia extends NHCropCard {
-
-    private final static ISoilList soilTypes = CropsNHSoilTypes.stone;
 
     public CropLazulia() {
         super("lazulia", new Color(0x142EAF), new Color(0x7497EA));
 
-        this.addDrop(Materials.Lapis.getDust(1), 100_00);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Lapis, 1), 66_67);
+        this.addDrop(new ItemStack(Items.dye, 1, 4), 33_33);
 
         this.addBlockUnderRequirement(CropsNHBlockUnderTypes.lapis);
 
@@ -46,7 +49,7 @@ public class CropLazulia extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return soilTypes;
+        return CropsNHSoilTypes.stone;
     }
 
     @Override
