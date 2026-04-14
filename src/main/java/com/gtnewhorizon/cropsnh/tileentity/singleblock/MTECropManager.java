@@ -16,6 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -29,7 +30,6 @@ import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.WeedEXRegistry;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures;
 import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
@@ -846,10 +846,10 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         this.mWaterEnabled = NBTHelper.getBoolean(aNBT, "mWaterEnabled", false);
         this.mFertilizerEnabled = NBTHelper.getBoolean(aNBT, "mFertilizerEnabled", false);
         // load the item overflow queue
-        if (aNBT.hasKey("mDropOverflow", Data.NBTType._list)) {
+        if (aNBT.hasKey("mDropOverflow", Constants.NBT.TAG_LIST)) {
             NBTHelper.loadItemStackMap(
                 this.mDropOverflow,
-                aNBT.getTagList("mDropOverflow", Data.NBTType._object),
+                aNBT.getTagList("mDropOverflow", Constants.NBT.TAG_COMPOUND),
                 Integer::sum);
         }
     }

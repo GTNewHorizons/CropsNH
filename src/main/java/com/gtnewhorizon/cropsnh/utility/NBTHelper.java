@@ -8,19 +8,19 @@ import java.util.function.BiFunction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.gtnhlib.util.map.ItemStackMap;
 
 public abstract class NBTHelper {
 
     public static boolean getBoolean(NBTTagCompound tag, String key, boolean def) {
-        if (tag == null || !tag.hasKey(key, Data.NBTType._boolean)) return def;
+        if (tag == null || !tag.hasKey(key, Constants.NBT.TAG_BYTE)) return def;
         return tag.getBoolean(key);
     }
 
     public static int getInteger(NBTTagCompound tag, String key, int def) {
-        if (tag == null || !tag.hasKey(key, Data.NBTType._int)) return def;
+        if (tag == null || !tag.hasKey(key, Constants.NBT.TAG_INT)) return def;
         return tag.getInteger(key);
     }
 
@@ -35,13 +35,13 @@ public abstract class NBTHelper {
     public static long getIntgegerNumber(NBTTagCompound tag, String key, long def) {
         if (tag == null) return def;
         switch (tag.func_150299_b(key)) {
-            case Data.NBTType._byte:
+            case Constants.NBT.TAG_BYTE:
                 return tag.getByte(key);
-            case Data.NBTType._short:
+            case Constants.NBT.TAG_SHORT:
                 return tag.getShort(key);
-            case Data.NBTType._int:
+            case Constants.NBT.TAG_INT:
                 return tag.getInteger(key);
-            case Data.NBTType._long:
+            case Constants.NBT.TAG_LONG:
                 return tag.getLong(key);
             default:
                 return def;
@@ -59,17 +59,17 @@ public abstract class NBTHelper {
     public static double getFloatingNumber(NBTTagCompound tag, String key, double def) {
         if (tag == null) return def;
         switch (tag.func_150299_b(key)) {
-            case Data.NBTType._byte:
+            case Constants.NBT.TAG_BYTE:
                 return tag.getByte(key);
-            case Data.NBTType._short:
+            case Constants.NBT.TAG_SHORT:
                 return tag.getShort(key);
-            case Data.NBTType._int:
+            case Constants.NBT.TAG_INT:
                 return tag.getInteger(key);
-            case Data.NBTType._long:
+            case Constants.NBT.TAG_LONG:
                 return tag.getLong(key);
-            case Data.NBTType._float:
+            case Constants.NBT.TAG_FLOAT:
                 return tag.getFloat(key);
-            case Data.NBTType._double:
+            case Constants.NBT.TAG_DOUBLE:
                 return tag.getDouble(key);
             default:
                 return def;

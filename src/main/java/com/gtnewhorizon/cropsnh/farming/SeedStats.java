@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.farming;
 
+import static net.minecraftforge.common.util.Constants.NBT;
+
 import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
@@ -7,7 +9,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 
 public class SeedStats implements ISeedStats {
@@ -62,10 +63,10 @@ public class SeedStats implements ISeedStats {
 
     public static SeedStats readFromNBT(NBTTagCompound tag) {
         if (tag == null) return new SeedStats();
-        byte gr = tag.hasKey(Names.NBT.growth, Data.NBTType._byte) ? tag.getByte(Names.NBT.growth) : 1;
-        byte ga = tag.hasKey(Names.NBT.gain, Data.NBTType._byte) ? tag.getByte(Names.NBT.gain) : 1;
-        byte re = tag.hasKey(Names.NBT.resistance, Data.NBTType._byte) ? tag.getByte(Names.NBT.resistance) : 1;
-        boolean analyzed = tag.hasKey(Names.NBT.analyzed, Data.NBTType._boolean) && tag.getBoolean(Names.NBT.analyzed);
+        byte gr = tag.hasKey(Names.NBT.growth, NBT.TAG_BYTE) ? tag.getByte(Names.NBT.growth) : 1;
+        byte ga = tag.hasKey(Names.NBT.gain, NBT.TAG_BYTE) ? tag.getByte(Names.NBT.gain) : 1;
+        byte re = tag.hasKey(Names.NBT.resistance, NBT.TAG_BYTE) ? tag.getByte(Names.NBT.resistance) : 1;
+        boolean analyzed = tag.hasKey(Names.NBT.analyzed, NBT.TAG_BYTE) && tag.getBoolean(Names.NBT.analyzed);
         return new SeedStats(gr, ga, re, analyzed);
     }
 
