@@ -68,8 +68,7 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
 
     private BlockUnderRequirement(String materialDescription) {
         this.materialDescription = materialDescription;
-        this.unlocalizedDesc = Pair
-            .of(Reference.MOD_ID + "_growthReq.blockUnder." + this.materialDescription, null);
+        this.unlocalizedDesc = Pair.of(Reference.MOD_ID + "_growthReq.blockUnder." + this.materialDescription, null);
     }
 
     public BlockUnderRequirement addMaterial(Materials... args) {
