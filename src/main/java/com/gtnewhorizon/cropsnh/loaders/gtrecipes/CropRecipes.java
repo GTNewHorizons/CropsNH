@@ -984,7 +984,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(assemblerRecipes);
     }
 
-
     // region ore conversion helpers
 
     public static void createOreConversionRecipe(IMaterialLeafVariant variant, Voltage voltage, Werkstoff ore,

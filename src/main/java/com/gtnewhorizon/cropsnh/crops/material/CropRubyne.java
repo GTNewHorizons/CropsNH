@@ -2,18 +2,19 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
-import gregtech.api.util.GTOreDictUnificator;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
-import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
+import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.util.GTOreDictUnificator;
 
 public class CropRubyne extends NHCropCard {
 
@@ -48,6 +49,11 @@ public class CropRubyne extends NHCropCard {
     @Override
     public int getGrowthDuration() {
         return 800;
+    }
+
+    @Override
+    public IPlantRenderShape getRenderShape() {
+        return PlantRenderShape.X;
     }
 
     @Override
