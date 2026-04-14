@@ -129,6 +129,7 @@ import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.RedGraniteLily;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.RedMushroom;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.RedStraw;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.RedTulip;
+import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.Rubyne;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.SaguaroCactus;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.SaltyRoot;
 import static com.gtnewhorizon.cropsnh.api.CropsNHCrops.SandLily;
@@ -587,6 +588,9 @@ public class MutationLoader {
             .register();
         new CropMutation(RedStraw, NetherStoneLily, Wheat)
             .addToMutationPools(aRed, aStone, aWheat)
+            .register();
+        new CropMutation(Rubyne, RedStraw, Lazulia)
+            .addToMutationPools(aRed, aCrystal, aShiny)
             .register();
         new CropMutation(SaltyRoot, SugarBeet, Canola)
             .addToMutationPools(aGray, aRoot, aSaltpeter)
