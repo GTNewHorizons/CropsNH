@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.compatibility.waila;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -9,7 +11,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -99,10 +100,7 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     information.add(header + ": " + value + "%");
 
                     if (nbt.getBoolean(Names.NBT.sick)) {
-                        information.add(
-                            EnumChatFormatting.RED
-                                + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.isSick")
-                                + EnumChatFormatting.RESET);
+                        information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.isSick"));
                     }
 
                     // add failed reqs
@@ -123,7 +121,9 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                             } else {
                                 translated = StatCollector.translateToLocal(key);
                             }
-                            information.add(EnumChatFormatting.RED + translated + EnumChatFormatting.RESET);
+                            information.add(
+                                StatCollector
+                                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.failedReq", translated));
                         }
                     }
 
@@ -131,14 +131,10 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     ISeedStats stats = seedData.getStats();
                     if (stats.isAnalyzed()) {
                         information.add(
-                            String.format(
-                                "%s -- %s: %d  %s: %d  %s: %d",
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.stats"),
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.growth"),
+                            StatCollector.translateToLocalFormatted(
+                                Reference.MOD_ID + "_tooltip.stats",
                                 stats.getGrowth(),
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.gain"),
                                 stats.getGain(),
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.resistance"),
                                 stats.getResistance()));
                     }
                 }
@@ -147,15 +143,11 @@ public class CropStickWailaProvider implements IWailaDataProvider {
             }
 
             information.add(
-                String.format(
-                    "%s -- %s: %d  %s: %d  %s: %d",
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.soil"),
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.fertilizer"),
-                    nbt.getInteger(Names.NBT.fertilizer),
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.water"),
-                    nbt.getInteger(Names.NBT.water),
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weedEx"),
-                    nbt.getInteger(Names.NBT.weedEX)));
+                StatCollector.translateToLocalFormatted(
+                    Reference.MOD_ID + "_tooltip.soil",
+                    formatNumber(nbt.getInteger(Names.NBT.fertilizer)),
+                    formatNumber(nbt.getInteger(Names.NBT.water)),
+                    formatNumber(nbt.getInteger(Names.NBT.weedEX))));
         }
         return information;
     }

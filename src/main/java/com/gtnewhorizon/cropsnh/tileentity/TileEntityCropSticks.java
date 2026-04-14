@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.tileentity;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +23,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
@@ -284,16 +285,16 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 // do not display crop stats for weeds
                 if (!(this.seed.getCrop() instanceof CropWeed)) {
                     if (this.isSick) {
-                        information.add(
-                            EnumChatFormatting.RED
-                                + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.isSick")
-                                + EnumChatFormatting.RESET);
+                        information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.isSick"));
                     }
 
                     List<IGrowthRequirement> failedReqs = this.failedChecks;
                     if (failedReqs != null) {
                         for (IGrowthRequirement req : failedReqs) {
-                            information.add(EnumChatFormatting.RED + req.getDescription() + EnumChatFormatting.RESET);
+                            information.add(
+                                StatCollector.translateToLocalFormatted(
+                                    Reference.MOD_ID + "_tooltip.failedReq",
+                                    req.getDescription()));
                         }
                     }
 
@@ -301,18 +302,17 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                     if (this.seed.getStats()
                         .isAnalyzed()) {
                         information.add(
-                            String.format(
-                                "%s -- %s: %d  %s: %d  %s: %d",
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.stats"),
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.growth"),
-                                this.seed.getStats()
-                                    .getGrowth(),
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.gain"),
-                                this.seed.getStats()
-                                    .getGain(),
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.resistance"),
-                                this.seed.getStats()
-                                    .getResistance()));
+                            StatCollector.translateToLocalFormatted(
+                                Reference.MOD_ID + "_tooltip.stats",
+                                formatNumber(
+                                    this.seed.getStats()
+                                        .getGrowth()),
+                                formatNumber(
+                                    this.seed.getStats()
+                                        .getGain()),
+                                formatNumber(
+                                    this.seed.getStats()
+                                        .getResistance())));
                     }
                 }
             }
@@ -321,15 +321,11 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         }
 
         information.add(
-            String.format(
-                "%s -- %s: %d  %s: %d  %s: %d",
-                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.soil"),
-                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.fertilizer"),
-                this.fertilizerStorage,
-                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.water"),
-                this.waterStorage,
-                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weedEx"),
-                this.weedEXStorage));
+            StatCollector.translateToLocalFormatted(
+                Reference.MOD_ID + "_tooltip.soil",
+                formatNumber(this.fertilizerStorage),
+                formatNumber(this.waterStorage),
+                formatNumber(this.weedEXStorage)));
     }
 
     // endregion status checks

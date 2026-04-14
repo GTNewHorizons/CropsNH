@@ -99,19 +99,17 @@ death.attack.cropsnh:heartAttack=%1$s drank too much coffee
 death.attack.cropsnh:heartAttack.player=%1$s had a heart attack whilst fighting %2$s
 
 # Tooltips
-cropsnh_tooltip.isSick=Is sick, can't grow!
+cropsnh_tooltip.isSick=§cIs sick, can't grow!§r
 cropsnh_tooltip.unidentified=Unidentified
 cropsnh_tooltip.seed=Seed
-cropsnh_tooltip.stats=Stats
+cropsnh_tooltip.stats=Stats -- Growth: %1$s  Gain: %2$s  Resistance: %3$s
 cropsnh_tooltip.growth=Growth
 cropsnh_tooltip.gain=Gain
 cropsnh_tooltip.resistance=Resistance
 cropsnh_tooltip.min_seed_bed_tier=Minimum Seed Bed tier: %1$s
-cropsnh_tooltip.soil=Soil
-cropsnh_tooltip.fertilizer=Fertilizer
-cropsnh_tooltip.water=Water
-cropsnh_tooltip.weedEx=Weed-EX
-cropsnh_tooltip.weeds=Weeds -- BLAZE IT
+cropsnh_tooltip.soil=Soil -- Fertilizer: %1$s  Water: %2$s  Weed-EX: %3$s
+cropsnh_tooltip.weeds=Weeds -- §cBLAZE IT§r
+cropsnh_tooltip.failedReq=§c%1$s§r
 cropsnh_tooltip.plantLens=Use this to inspect crops
 cropsnh_tooltip.handRake=Use this to remove weeds from crops
 cropsnh_tooltip.spade=Use this to remove weeds and get seeds when harvesting
