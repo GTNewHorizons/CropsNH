@@ -1,14 +1,12 @@
 package com.gtnewhorizon.cropsnh.handler.migrations;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.Constants;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
-import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizons.postea.api.TileEntityReplacementManager;
-import com.gtnewhorizons.postea.utility.BlockInfo;
 
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
@@ -30,20 +28,18 @@ public class SoilMigrations {
         if (TO_MIGRATE.isEmpty()) return;
         TileEntityReplacementManager.tileEntityTransformer("cropsnh:cropSticksTE", (tag, world, chunk) -> {
             // if no crop, abort
-            if (tag == null || !tag.hasKey(Names.NBT.crop, Data.NBTType._object)) {
+            if (tag == null || !tag.hasKey(Names.NBT.crop, Constants.NBT.TAG_COMPOUND)) {
                 return null;
             }
             // if broken seed data abort
             NBTTagCompound seedNBT = tag.getCompoundTag(Names.NBT.crop);
-            if (seedNBT == null || !seedNBT.hasKey(Names.NBT.crop, Data.NBTType._string)) return null;
+            if (seedNBT == null || !seedNBT.hasKey(Names.NBT.crop, Constants.NBT.TAG_STRING)) return null;
             // check if the seed type is marked for soil migrations
             if (!TO_MIGRATE.contains(seedNBT.getString(Names.NBT.crop))) return null;
 
-            // if it's something we should migrate, migrate it
-            return new BlockInfo(CropsNHBlocks.blockCropSticks, 0, (nbt) -> {
-                nbt.setBoolean(Names.NBT.hasSoilChanged, true);
-                return nbt;
-            });
+            // set the tag and tell postea the block doesn't need to change.
+            tag.setBoolean(Names.NBT.hasSoilChanged, true);;
+            return null;
         });
     }
 

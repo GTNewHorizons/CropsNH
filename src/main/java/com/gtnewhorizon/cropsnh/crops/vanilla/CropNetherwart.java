@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.util.Constants;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
@@ -20,7 +21,6 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.SeedData;
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
 
 public class CropNetherwart extends NHCropCard {
@@ -142,7 +142,7 @@ public class CropNetherwart extends NHCropCard {
 
         public AdditionalData(NBTTagCompound nbt) {
             this(
-                nbt.hasKey(CHANCE_NBT_KEY, Data.NBTType._int) ? nbt.getInteger(CHANCE_NBT_KEY)
+                nbt.hasKey(CHANCE_NBT_KEY, Constants.NBT.TAG_INT) ? nbt.getInteger(CHANCE_NBT_KEY)
                     : DEFAULT_CONVERSION_CHANCE);
         }
 
