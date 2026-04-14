@@ -1,9 +1,12 @@
 package com.gtnewhorizon.cropsnh.farming.requirements.growth;
 
-import net.minecraft.util.StatCollector;
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import net.minecraft.world.World;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
@@ -14,21 +17,18 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
  */
 public class MaxLightLevelGrowthRequirement implements IWorldGrowthRequirement {
 
-    private final static String unlocalizedDesc = Reference.MOD_ID + "_growthReq.maxLight.format";
+    private final Pair<String, String[]> unlocalizedDesc;
     private final int maxLightLevel;
 
     public MaxLightLevelGrowthRequirement(int maxLightLevel) {
         this.maxLightLevel = maxLightLevel;
+        this.unlocalizedDesc = Pair
+            .of(Reference.MOD_ID + "_growthReq.maxLight.format", new String[] { formatNumber(this.maxLightLevel) });
     }
 
     @Override
-    public String getDescription() {
-        return StatCollector.translateToLocalFormatted(unlocalizedDesc, this.maxLightLevel);
-    }
-
-    @Override
-    public Pair<String, Object[]> getUnlocalizedDescription() {
-        return Pair.of(unlocalizedDesc, new Object[] { this.maxLightLevel });
+    public @NotNull Pair<@NotNull String, @Nullable String[]> getUnlocalizedDescription() {
+        return unlocalizedDesc;
     }
 
     @Override

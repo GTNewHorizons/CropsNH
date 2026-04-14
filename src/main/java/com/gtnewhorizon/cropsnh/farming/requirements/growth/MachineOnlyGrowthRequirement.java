@@ -1,9 +1,10 @@
 package com.gtnewhorizon.cropsnh.farming.requirements.growth;
 
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
@@ -11,32 +12,21 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public class MachineOnlyGrowthRequirement implements IWorldGrowthRequirement {
 
-    private final Pair<String, Object[]> unlocalizedDesc;
-    private final Pair<String, Object[]> unlocalizedDescForNEI;
+    private final Pair<String, String[]> unlocalizedDesc;
+    private final Pair<String, String[]> unlocalizedDescForNEI;
 
     public MachineOnlyGrowthRequirement() {
-        this.unlocalizedDesc = Pair.of(Reference.MOD_ID + "_growthReq.lockout.machineOnly", new Object[] {});
-        this.unlocalizedDescForNEI = Pair.of(Reference.MOD_ID + "_growthReq.lockout.machineOnly.nei", new Object[] {});
+        this.unlocalizedDesc = Pair.of(Reference.MOD_ID + "_growthReq.lockout.machineOnly", null);
+        this.unlocalizedDescForNEI = Pair.of(Reference.MOD_ID + "_growthReq.lockout.machineOnly.nei", null);
     }
 
     @Override
-    public String getDescription() {
-        return StatCollector.translateToLocalFormatted(this.unlocalizedDesc.getLeft(), this.unlocalizedDesc.getRight());
-    }
-
-    @Override
-    public String getDescriptionForNEI() {
-        return StatCollector
-            .translateToLocalFormatted(this.unlocalizedDescForNEI.getLeft(), this.unlocalizedDescForNEI.getRight());
-    }
-
-    @Override
-    public Pair<String, Object[]> getUnlocalizedDescription() {
+    public @NotNull Pair<@NotNull String, @Nullable String[]> getUnlocalizedDescription() {
         return this.unlocalizedDesc;
     }
 
     @Override
-    public Pair<String, Object[]> getUnlocalizedDescriptionForNEI() {
+    public @NotNull Pair<@NotNull String, @Nullable String[]> getUnlocalizedDescriptionForNEI() {
         return this.unlocalizedDescForNEI;
     }
 

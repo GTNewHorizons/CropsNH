@@ -24,6 +24,7 @@ import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 import static net.minecraft.util.StatCollector.translateToLocal;
+import static net.minecraftforge.common.util.Constants.NBT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,7 +72,6 @@ import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.items.ItemEnvironmentalModule;
 import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
@@ -715,7 +715,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
         super.loadNBTData(aNBT);
-        if (aNBT.hasKey(NBT_INVENTORY_TAG, Data.NBTType._object)) {
+        if (aNBT.hasKey(NBT_INVENTORY_TAG, NBT.TAG_COMPOUND)) {
             this.mIFStackHandler.deserializeNBT(aNBT.getCompoundTag(NBT_INVENTORY_TAG));
         }
         this.mOutputTracker = new IFDropTable(aNBT, NBT_OUTPUT_TRACKER);
