@@ -160,83 +160,83 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     private static void addThiosulfineRecipes() {
 
-        // 1. alloy smelter the leaves together
-        lvRecipe(Voltage.LV.getSimpleTime())
-            .itemInputs(CropsNHItemList.galvaniaLeaf.get(4), CropsNHItemList.thiosulfineFlower.get(1))
-            .itemOutputs(CropsNHItemList.sulfurDopedGalvaniaResidue.get(1))
-            .addTo(alloySmelterRecipes);
-
-        lvRecipe(Voltage.LV.getSimpleTime())
-            .itemInputs(CropsNHItemList.plumbiliaLeaf.get(4), CropsNHItemList.thiosulfineFlower.get(1))
-            .itemOutputs(CropsNHItemList.sulfurDopedPlumbiliaResidue.get(1))
-            .addTo(alloySmelterRecipes);
-
-        // 2. chemical bath to get the ores
-        addThiosulfineCembathConversionRecipes(
+        addResidueConversionRecipe(
+            hvRecipe(Voltage.HV.getSimpleTime()),
+            CropsNHItemList.galvaniaLeaf.get(4),
+            CropsNHItemList.thiosulfineFlower.get(1),
             CropsNHItemList.sulfurDopedGalvaniaResidue.get(1),
+            TierAcid.t1.get(),
             Materials.Sphalerite,
-            Materials.Gallium);
-        addThiosulfineCembathConversionRecipes(
+            Materials.Gallium,
+            new int[] { 25_00, 25_00 },
+            // acts as an incentive to setup salty root
+            TierAcid.t2.get());
+
+        addResidueConversionRecipe(
+            mvRecipe(Voltage.MV.getSimpleTime()),
+            CropsNHItemList.plumbiliaLeaf.get(4),
+            CropsNHItemList.thiosulfineFlower.get(1),
             CropsNHItemList.sulfurDopedPlumbiliaResidue.get(1),
+            TierAcid.t1.get(),
             Materials.Galena,
-            Materials.Silver);
-
-        // digester recipe skips for later game scaling since digester has poc for better scaling
-        addThiosulfineDigesterRecipes(
-            mvRecipe(Voltage.MV.getSimpleTime())
-                .itemInputs(CropsNHItemList.galvaniaLeaf.get(4), CropsNHItemList.thiosulfineFlower.get(1))
-                .fluidInputs(TierAcid.t1.get())
-                .fluidOutputs(Materials.Gallium.getMolten(1 * INGOTS)),
-            Materials.Sphalerite,
-            LanthanidesRecipeMaps.digesterRecipes);
-
-        addThiosulfineDigesterRecipes(
-            mvRecipe(Voltage.MV.getSimpleTime())
-                .itemInputs(CropsNHItemList.plumbiliaLeaf.get(4), CropsNHItemList.thiosulfineFlower.get(1))
-                .fluidInputs(TierAcid.t1.get())
-                .fluidOutputs(Materials.Silver.getMolten(1 * INGOTS)),
-            Materials.Galena,
-            LanthanidesRecipeMaps.digesterRecipes);
+            Materials.Silver,
+            new int[] { 100_00, 25_00 },
+            // acts as an incentive to setup salty root
+            TierAcid.t2.get());
 
     }
 
-    private static void addThiosulfineCembathConversionRecipes(ItemStack residue, Materials mainMaterial,
-        Materials sideMaterial) {
-        GTRecipeBuilder builder = lvRecipe(Voltage.LV.getSimpleTime()).itemInputs(residue)
-            .fluidInputs(TierAcid.t1.get());
-
-        int[] outputChances = new int[] { 100_00, 25_00 };
-
+    private static void addResidueConversionRecipe(GTRecipeBuilder builder, ItemStack mainLeaf, ItemStack extraLeaf,
+        ItemStack residue, FluidStack chemBathAcid, Materials mainMaterial, Materials sideMaterial, int[] outputChances,
+        FluidStack digesterAcid) {
+        // leaves to residue
         builder.copy()
+            .itemInputs(mainLeaf.copy(), extraLeaf.copy())
+            .itemOutputs(residue.copy())
+            .addTo(alloySmelterRecipes);
+
+        // residue to ore
+        GTRecipeBuilder chembathBuilder = builder.copy()
+            .itemInputs(residue.copy())
+            .fluidInputs(chemBathAcid.copy());
+
+        ItemStack chembathSideMaterialDrop = GTOreDictUnificator.get(OrePrefixes.dust, sideMaterial, 1);
+
+        // residue to purified ore
+        chembathBuilder.copy()
             .circuit(PURIFIED_RECIPE_CIRCUIT)
             .itemOutputs(
                 GTOreDictUnificator.get(OrePrefixes.crushedPurified, mainMaterial, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, sideMaterial, 1))
+                chembathSideMaterialDrop)
             .outputChances(outputChances)
             .addTo(chemicalBathRecipes);
 
-        builder.copy()
+        // residue to impure dust
+        chembathBuilder.copy()
             .circuit(IMPURE_DUST_RECIPE_CIRCUIT)
-            .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.dustImpure, mainMaterial, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, sideMaterial, 1))
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dustImpure, mainMaterial, 1), chembathSideMaterialDrop)
             .outputChances(outputChances)
             .addTo(chemicalBathRecipes);
+
+        // digester recipes
+        GTRecipeBuilder digesterBuilder = builder.copy()
+            .fluidInputs(digesterAcid.copy())
+            .itemInputs(extraLeaf.copy(), mainLeaf.copy())
+            .fluidOutputs(sideMaterial.getMolten(1 * INGOTS))
+            .metadata(COIL_HEAT, 800);
+
+        digesterBuilder.circuit(PURIFIED_RECIPE_CIRCUIT)
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.crushedPurified, mainMaterial, 1))
+            .addTo(LanthanidesRecipeMaps.digesterRecipes);
+
+        digesterBuilder.circuit(IMPURE_DUST_RECIPE_CIRCUIT)
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dustImpure, mainMaterial, 1))
+            .addTo(LanthanidesRecipeMaps.digesterRecipes);
+
     }
 
     private static void addThiosulfineDigesterRecipes(GTRecipeBuilder builder, Materials material, IRecipeMap map) {
 
-        builder.metadata(COIL_HEAT, 800);
-
-        builder.copy()
-            .circuit(PURIFIED_RECIPE_CIRCUIT)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.crushedPurified, material, 1))
-            .addTo(map);
-
-        builder.copy()
-            .circuit(IMPURE_DUST_RECIPE_CIRCUIT)
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dustImpure, material, 1))
-            .addTo(map);
     }
 
     private static void addCoffeeRecipes() {
