@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.items.tools;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -17,8 +19,11 @@ import net.minecraftforge.event.entity.player.UseHoeEvent;
 import com.google.common.collect.Sets;
 import com.gtnewhorizon.cropsnh.api.ICropLeftClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
+import com.gtnewhorizon.cropsnh.api.ICropSeedDropOverride;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
+import com.gtnewhorizon.cropsnh.api.IHarvestDropModifier;
 import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
+import com.gtnewhorizon.cropsnh.crops.CropMigrator;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
@@ -32,7 +37,8 @@ import cpw.mods.fml.relauncher.SideOnly;
  * Tool to uproot weeds.
  * Comes in a wooden and iron variant.
  */
-public abstract class ItemSpadeNH extends ItemTool implements ICropLeftClickHandler, ICropRightClickHandler {
+public abstract class ItemSpadeNH extends ItemTool
+    implements ICropLeftClickHandler, ICropRightClickHandler, ICropSeedDropOverride, IHarvestDropModifier {
 
     public static final Set<Block> BLOCKS_AFFECTED = Sets.newHashSet(
         Blocks.grass,
@@ -119,38 +125,43 @@ public abstract class ItemSpadeNH extends ItemTool implements ICropLeftClickHand
         return true;
     }
 
-    private boolean doWork(ICropStickTile te, boolean clearAfter) {
-        if (te.isCrossCrop()) return false;
+    @Override
+    public boolean overrideSeedDrop(EntityPlayer player, ItemStack heldItem, Collection<ItemStack> dropTracker,
+        ICropStickTile cropTE, boolean hasHarvested) {
+        return hasHarvested;
+    }
+
+    @Override
+    public void modifyCropDrops(EntityPlayer player, ItemStack heldItem, Collection<ItemStack> dropTracker,
+        ICropStickTile cropTE) {
+        this.addSeedDrop(cropTE, dropTracker);
+    }
+
+    private boolean doWork(ICropStickTile cropTE, boolean clearAfter) {
+        if (cropTE.isCrossCrop()) return false;
         // if it's weeds clear them
-        if (te.hasWeed()) {
+        if (cropTE.hasWeed()) {
             // drop tall grass if it's mature
-            if (te.isMature()) {
-                te.dropItem(CropsNHUtils.getWeedDrop(1));
+            if (cropTE.isMature()) {
+                cropTE.dropItem(CropsNHUtils.getWeedDrop(1));
             }
-            te.clear();
+            cropTE.clear();
             return true;
         }
 
-        // else only drop seeds if we can harvest the crops, would be usually harvestable but isn't due to a harvest
-        // only requirement
-        if (te.doPlayerHarvest() || (te.isMature() && te.areGrowthRequirementsMet())) {
-            // get the seeds
-            ItemStack seedDrop = te.getSeedStack();
-            if (seedDrop != null) {
-                seedDrop.stackSize = getSeedCount(
-                    te.getSeed()
-                        .getStats()
-                        .getResistance());
-                if (seedDrop.stackSize > 0) {
-                    te.dropItem(seedDrop);
-                }
-            }
-            if (clearAfter) te.clear();
-            else te.setGrowthProgress(0);
+        // If the crop is mature, has all it's growth requirements met, but can't be harvested, the spades still lets
+        // players farm seeds.
+        if (cropTE.isMature() && !(cropTE.getSeed()
+            .getCrop() instanceof CropMigrator) && !cropTE.canHarvest() && cropTE.areGrowthRequirementsMet()) {
+            ArrayList<ItemStack> dropTracker = new ArrayList<>(1);
+            addSeedDrop(cropTE, dropTracker);
+            dropTracker.forEach(cropTE::dropItem);
+            if (clearAfter) cropTE.clear();
+            else cropTE.setGrowthProgress(0);
             return true;
         }
         return false;
     }
 
-    protected abstract int getSeedCount(int resist);
+    protected abstract void addSeedDrop(ICropStickTile cropTE, Collection<ItemStack> dropTracker);
 }

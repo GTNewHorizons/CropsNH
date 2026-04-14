@@ -200,9 +200,12 @@ public interface ICropStickTile {
     /**
      * Harvests the crop and drops the items in the TE's world.
      *
+     * @param player         The player breaking the crop.
+     * @param isBreakingCrop True if the player is removing a crop.
+     *
      * @return True if the crop was harvested.
      */
-    boolean doPlayerHarvest();
+    boolean doPlayerHarvest(EntityPlayer player, boolean isBreakingCrop);
 
     /**
      * Drops and item at the position of the crop sticks.
