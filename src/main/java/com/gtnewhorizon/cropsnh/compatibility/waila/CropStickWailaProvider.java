@@ -95,9 +95,10 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     }
 
                     // add growth progress
-                    header = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.progress");
-                    value = String.format("%3.2f", nbt.getFloat(WAILA_PROGRESS) * 100.0f);
-                    information.add(header + ": " + value + "%");
+                    information.add(
+                        StatCollector.translateToLocalFormatted(
+                            Reference.MOD_ID + "_tooltip.progress",
+                            String.format("%3.2f", nbt.getFloat(WAILA_PROGRESS) * 100.0f)));
 
                     if (nbt.getBoolean(Names.NBT.sick)) {
                         information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.isSick"));
