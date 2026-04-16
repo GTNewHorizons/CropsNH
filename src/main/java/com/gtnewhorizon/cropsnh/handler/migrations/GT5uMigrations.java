@@ -7,11 +7,11 @@ import javax.annotation.Nullable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.loaders.MTELoader;
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
@@ -210,7 +210,7 @@ public abstract class GT5uMigrations {
         return new BlockInfo(GregTechAPI.sBlockMachines, oldBlockMeta, oldNBT -> {
             NBTTagCompound newNBT = (NBTTagCompound) oldNBT.copy();
             newNBT.setInteger("mID", newMetaID);
-            if (newNBT.hasKey("mFluid", Data.NBTType._object)) {
+            if (newNBT.hasKey("mFluid", Constants.NBT.TAG_COMPOUND)) {
                 FluidStack stack = FluidStack.loadFluidStackFromNBT(newNBT.getCompoundTag("mFluid"));
                 if (stack.getFluid() == CropsNHUtils.getWeedEXFluid()) {
                     newNBT.setInteger("mWeedEx", stack.amount);

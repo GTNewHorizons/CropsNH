@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.util.Constants;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropRegistry;
@@ -71,7 +72,7 @@ public class CropRegistry implements ICropRegistry {
         // check if it's a generic seed first.
         if (stack.getItem() instanceof ItemGenericSeed && stack.hasTagCompound()
             && stack.getTagCompound()
-                .hasKey(Names.NBT.crop, 8)) {
+                .hasKey(Names.NBT.crop, Constants.NBT.TAG_STRING)) {
             return cropRegistry.getOrDefault(
                 stack.getTagCompound()
                     .getString(Names.NBT.crop),

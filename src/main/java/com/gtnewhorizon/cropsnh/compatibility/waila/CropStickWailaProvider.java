@@ -1,22 +1,28 @@
 package com.gtnewhorizon.cropsnh.compatibility.waila;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.crops.CropMigrator;
 import com.gtnewhorizon.cropsnh.farming.SeedData;
-import com.gtnewhorizon.cropsnh.reference.Data;
+import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
@@ -27,7 +33,11 @@ import mcp.mobius.waila.api.IWailaDataProvider;
 
 public class CropStickWailaProvider implements IWailaDataProvider {
 
-    private final static ItemStack weedStack = new ItemStack(Blocks.tallgrass, 1, 1);
+    private static final String WAILA_PROGRESS = "wp";
+    private static final String WAILA_FAILED_REQ = "wf";
+    private static final String WAILA_FAILED_REQ_KEY = "k";
+    private static final String WAILA_FAILED_REQ_VALUES = "v";
+    private static final ItemStack weedStack = new ItemStack(Blocks.tallgrass, 1, 1);
 
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor dataAccessor, IWailaConfigHandler configHandler) {
@@ -37,11 +47,12 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                 return weedStack;
             }
             NBTTagCompound nbt = dataAccessor.getNBTData();
-            ISeedData seedData = nbt.hasKey(Names.NBT.crop, Data.NBTType._object)
+            ISeedData seedData = nbt.hasKey(Names.NBT.crop, Constants.NBT.TAG_COMPOUND)
                 ? new SeedData(nbt.getCompoundTag(Names.NBT.crop))
                 : teCrop.getSeed();
             if (seedData != null) {
-                if (seedData.getCrop() instanceof CropMigrator && nbt.hasKey(Names.NBT.extra, Data.NBTType._object)) {
+                if (seedData.getCrop() instanceof CropMigrator
+                    && nbt.hasKey(Names.NBT.extra, Constants.NBT.TAG_COMPOUND)) {
                     return new CropMigrator.AdditionalData(nbt.getCompoundTag(Names.NBT.extra)).seed.getStack();
                 }
                 return seedData.getStack();
@@ -67,11 +78,11 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weeds"));
                 } else {
                     String header, value;
-                    ISeedData seedData = nbt.hasKey(Names.NBT.crop, Data.NBTType._object)
+                    ISeedData seedData = nbt.hasKey(Names.NBT.crop, Constants.NBT.TAG_COMPOUND)
                         ? new SeedData(nbt.getCompoundTag(Names.NBT.crop))
                         : teCrop.getSeed();
                     if (seedData.getCrop() instanceof CropMigrator
-                        && nbt.hasKey(Names.NBT.extra, Data.NBTType._object)) {
+                        && nbt.hasKey(Names.NBT.extra, Constants.NBT.TAG_COMPOUND)) {
                         seedData = new CropMigrator.AdditionalData(nbt.getCompoundTag(Names.NBT.extra)).seed;
                     }
                     if (seedData.getStats()
@@ -85,21 +96,36 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     }
 
                     // add growth progress
-                    header = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.progress");
-                    value = String.format("%3.2f", nbt.getFloat("waila_perc") * 100.0f);
-                    information.add(header + ": " + value + "%");
+                    information.add(
+                        StatCollector.translateToLocalFormatted(
+                            Reference.MOD_ID + "_tooltip.progress",
+                            String.format("%3.2f", nbt.getFloat(WAILA_PROGRESS) * 100.0f)));
 
                     if (nbt.getBoolean(Names.NBT.sick)) {
-                        information.add(
-                            EnumChatFormatting.RED
-                                + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.isSick")
-                                + EnumChatFormatting.RESET);
+                        information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.isSick"));
                     }
 
-                    List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
-                    if (failedReqs != null) {
-                        for (IGrowthRequirement req : failedReqs) {
-                            information.add(EnumChatFormatting.RED + req.getDescription() + EnumChatFormatting.RESET);
+                    // add failed reqs
+                    if (nbt.hasKey(WAILA_FAILED_REQ, Constants.NBT.TAG_LIST)) {
+                        NBTTagList failedReqs = nbt.getTagList(WAILA_FAILED_REQ, Constants.NBT.TAG_COMPOUND);
+                        for (int i = 0; i < failedReqs.tagCount(); i++) {
+                            NBTTagCompound req = failedReqs.getCompoundTagAt(i);
+                            if (!req.hasKey(WAILA_FAILED_REQ_KEY, Constants.NBT.TAG_STRING)) continue;
+                            String key = req.getString(WAILA_FAILED_REQ_KEY);
+                            String translated;
+                            if (req.hasKey(WAILA_FAILED_REQ_VALUES, Constants.NBT.TAG_LIST)) {
+                                NBTTagList values = req.getTagList(WAILA_FAILED_REQ_VALUES, Constants.NBT.TAG_STRING);
+                                Object[] formatValues = new Object[values.tagCount()];
+                                for (int j = 0; j < values.tagCount(); j++) {
+                                    formatValues[j] = values.getStringTagAt(j);
+                                }
+                                translated = StatCollector.translateToLocalFormatted(key, formatValues);
+                            } else {
+                                translated = StatCollector.translateToLocal(key);
+                            }
+                            information.add(
+                                StatCollector
+                                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.failedReq", translated));
                         }
                     }
 
@@ -107,14 +133,10 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     ISeedStats stats = seedData.getStats();
                     if (stats.isAnalyzed()) {
                         information.add(
-                            String.format(
-                                "%s -- %s: %d  %s: %d  %s: %d",
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.stats"),
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.growth"),
+                            StatCollector.translateToLocalFormatted(
+                                Reference.MOD_ID + "_tooltip.stats",
                                 stats.getGrowth(),
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.gain"),
                                 stats.getGain(),
-                                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.resistance"),
                                 stats.getResistance()));
                     }
                 }
@@ -123,15 +145,11 @@ public class CropStickWailaProvider implements IWailaDataProvider {
             }
 
             information.add(
-                String.format(
-                    "%s -- %s: %d  %s: %d  %s: %d",
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.soil"),
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.fertilizer"),
-                    nbt.getInteger(Names.NBT.fertilizer),
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.water"),
-                    nbt.getInteger(Names.NBT.water),
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weedEx"),
-                    nbt.getInteger(Names.NBT.weedEX)));
+                StatCollector.translateToLocalFormatted(
+                    Reference.MOD_ID + "_tooltip.soil",
+                    formatNumber(nbt.getInteger(Names.NBT.fertilizer)),
+                    formatNumber(nbt.getInteger(Names.NBT.water)),
+                    formatNumber(nbt.getInteger(Names.NBT.weedEX))));
         }
         return information;
     }
@@ -145,8 +163,43 @@ public class CropStickWailaProvider implements IWailaDataProvider {
     @Override
     public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, int x,
         int y, int z) {
-        if (te instanceof TileEntityCropSticks) {
-            tag.setFloat("waila_perc", ((TileEntityCropSticks) te).getGrowthPercent());
+        if (te instanceof TileEntityCropSticks teCrop) {
+            List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
+            if (failedReqs != null && !failedReqs.isEmpty()) {
+                NBTTagList failedList = new NBTTagList();
+                for (IGrowthRequirement req : failedReqs) {
+                    if (req == null) {
+                        if (ConfigurationHandler.panicIfNull) {
+                            throw new NullPointerException("failed req list contained a null.");
+                        }
+                        continue;
+                    }
+                    Pair<String, String[]> unloc = req.getUnlocalizedDescription();
+                    if (unloc.getLeft() == null) {
+                        if (ConfigurationHandler.panicIfNull) {
+                            throw new NullPointerException("failed req had a null lang key.");
+                        }
+                        continue;
+                    }
+
+                    // create the basic structure
+                    NBTTagCompound entry = new NBTTagCompound();
+                    entry.setString(WAILA_FAILED_REQ_KEY, unloc.getKey());
+                    // add loc values if needed
+                    if (unloc.getRight() != null && unloc.getRight().length > 0) {
+                        NBTTagList locValues = new NBTTagList();
+                        for (String value : unloc.getRight()) {
+                            locValues.appendTag(new NBTTagString(value));
+                        }
+                        entry.setTag(WAILA_FAILED_REQ_VALUES, locValues);
+                    }
+
+                    // append to list
+                    failedList.appendTag(entry);
+                }
+                tag.setTag(WAILA_FAILED_REQ, failedList);
+            }
+            tag.setFloat(WAILA_PROGRESS, teCrop.getGrowthPercent());
             te.writeToNBT(tag);
         }
         return tag;

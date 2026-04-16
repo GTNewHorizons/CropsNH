@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.handler.migrations;
 
 import static com.gtnewhorizon.cropsnh.handler.MigrationHandler.addOreDictItemOnlyReplacement;
+import static net.minecraftforge.common.util.Constants.NBT;
 
 import javax.annotation.Nullable;
 
@@ -23,7 +24,6 @@ import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.reference.Data;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
@@ -93,11 +93,10 @@ public class IC2Migrations {
         MissingMappingHandler.addIgnore(ic2SeedId);
         ItemStackReplacementManager.addTransformationHandler(ic2SeedId, (originalId, stack) -> {
             // if tag is invalid
-            if (!stack.hasKey("tag", Data.NBTType._object)) return false;
+            if (!stack.hasKey("tag", NBT.TAG_COMPOUND)) return false;
             NBTTagCompound oldTag = stack.getCompoundTag("tag");
             // if tag is invalid abort
-            if (!oldTag.hasKey("owner", Data.NBTType._string) || !oldTag.hasKey("name", Data.NBTType._string))
-                return false;
+            if (!oldTag.hasKey("owner", NBT.TAG_STRING) || !oldTag.hasKey("name", NBT.TAG_STRING)) return false;
             String owner = oldTag.getString("owner");
             String name = oldTag.getString("name");
             // if crop can't be found default to carrot to keep stat progression.
