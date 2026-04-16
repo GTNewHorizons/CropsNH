@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.items.tools;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -48,6 +49,16 @@ public abstract class ItemSpadeNH extends ItemTool
         Blocks.mycelium,
         CropsNHBlocks.blockCropSticks);
 
+    public static final IdentityHashMap<Block, Block> TILLABLE_BLOCKS = new IdentityHashMap<>() {
+
+        {
+            this.put(Blocks.grass, Blocks.farmland);
+            this.put(Blocks.dirt, Blocks.farmland);
+            this.put(Blocks.farmland, Blocks.dirt);
+            this.put(Blocks.mycelium, Blocks.farmland);
+        }
+    };
+
     public ItemSpadeNH(float damage, ToolMaterial mat) {
         super(damage, mat, BLOCKS_AFFECTED);
         this.setMaxStackSize(1);
@@ -67,12 +78,20 @@ public abstract class ItemSpadeNH extends ItemTool
     }
 
     @Override
+    public boolean doesSneakBypassUse(World world, int x, int y, int z, EntityPlayer player) {
+        // always allow interactions with crop sticks (even when sneaking)
+        return world.getBlock(x, y, z) == CropsNHBlocks.blockCropSticks;
+    }
+
+    @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
         float hitX, float hitY, float hitZ) {
+        // default to default behaviour if player can't modify block
         if (!player.canPlayerEdit(x, y, z, side, stack)) {
             return super.onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
         }
 
+        // act like a hoe
         var event = new UseHoeEvent(player, stack, world, x, y, z);
         if (MinecraftForge.EVENT_BUS.post(event)) {
             return super.onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
@@ -84,28 +103,25 @@ public abstract class ItemSpadeNH extends ItemTool
 
         if (side != 0 && world.getBlock(x, y + 1, z)
             .getMaterial() == Material.air) {
-            if (world.getBlock(x, y, z) == Blocks.grass || world.getBlock(x, y, z) == Blocks.dirt
-                || world.getBlock(x, y, z) == Blocks.mycelium
-                || world.getBlock(x, y, z) == Blocks.farmland) {
-                var spadeBlock = Blocks.farmland;
+            Block interactingWith = world.getBlock(x, y, z);
+            Block transformTo = TILLABLE_BLOCKS.get(interactingWith);
+            if (transformTo != null) {
+                Block.SoundType noise = Blocks.farmland.stepSound;
                 world.playSoundEffect(
                     x + 0.5f,
                     y + 0.5f,
                     z + 0.5f,
-                    spadeBlock.stepSound.getStepResourcePath(),
-                    (spadeBlock.stepSound.getVolume() + 1f) / 2f,
-                    spadeBlock.stepSound.getPitch() * 0.8f);
+                    noise.getStepResourcePath(),
+                    (noise.getVolume() + 1f) / 2f,
+                    noise.getPitch() * 0.8f);
                 if (!world.isRemote) {
-                    world.setBlock(
-                        x,
-                        y,
-                        z,
-                        (world.getBlock(x, y, z) == Blocks.farmland) ? Blocks.dirt : Blocks.farmland);
+                    world.setBlock(x, y, z, transformTo);
                 }
                 return true;
             }
         }
 
+        // if hoeing failed, return default.
         return super.onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
     }
 
