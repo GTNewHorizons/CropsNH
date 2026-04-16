@@ -589,7 +589,7 @@ public class MutationLoader {
         new CropMutation(RedStraw, NetherStoneLily, Wheat)
             .addToMutationPools(aRed, aStone, aWheat)
             .register();
-        new CropMutation(Rubyne, RedStraw, Lazulia)
+        new CropMutation(Rubyne, RedStraw, Diareed)
             .addToMutationPools(aRed, aCrystal, aShiny)
             .register();
         new CropMutation(SaltyRoot, SugarBeet, Canola)
