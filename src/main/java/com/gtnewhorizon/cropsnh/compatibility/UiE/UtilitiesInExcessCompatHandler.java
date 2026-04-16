@@ -7,7 +7,7 @@ import cpw.mods.fml.common.Optional;
 public class UtilitiesInExcessCompatHandler {
 
     @Optional.Method(modid = ModUtils.ModIDs.UtilitiesInExcess)
-    public static void onRegeisteEventHandlers() {
+    public static void onRegisterEventHandlers() {
         if (!ModUtils.UtilitiesInExcess.isModLoaded()) return;
         // MinecraftForge.EVENT_BUS.register(new WateringCanHandler());
     }

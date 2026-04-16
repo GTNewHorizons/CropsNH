@@ -18,7 +18,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -58,7 +57,6 @@ import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
-import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
 
@@ -1184,9 +1182,6 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (this.waterStorage > 0) this.waterStorage--;
     }
 
-    private static Item EXTRA_UTILS_WATERING_CAN = null;
-    private static Class<?> UTILITY_IN_EXCESS_WATERING_CAN = null;
-
     @Override
     public boolean onRightClick(EntityPlayer player, ItemStack heldItem) {
         if (worldObj.isRemote) return true;
@@ -1216,30 +1211,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 }
                 return true;
             }
-            // technically temporary since It's getting replaced with UiE
-            // mixin would work better but, this is a temp impl that I expect to remove as soon as UiE is in the pack.
-            if (ModUtils.ExtraUtilities.isModLoaded()) {
-                if (EXTRA_UTILS_WATERING_CAN == null) {
-                    EXTRA_UTILS_WATERING_CAN = CropsNHUtils.getModItem(ModUtils.ExtraUtilities, "watering_can", 1, 0)
-                        .getItem();
-                }
-                if (heldItem.getItem() == EXTRA_UTILS_WATERING_CAN && CropsNHUtils.getItemMeta(heldItem) != 2) {
-                    this.addWater(10, 90, 100, false);
-                    return true;
-                }
-            }
-            // TODO: REMOVE UIE WATERING CAN COMPAT WHEN EVENT IS PROPERLY IMPLEMENTED
-            if (ModUtils.UtilitiesInExcess.isModLoaded()) {
-                if (UTILITY_IN_EXCESS_WATERING_CAN == null) {
-                    Item can = CropsNHUtils.getModItem(ModUtils.UtilitiesInExcess, "watering_can_basic", 1, 0)
-                        .getItem();
-                    UTILITY_IN_EXCESS_WATERING_CAN = can.getClass();
-                }
-                if (UTILITY_IN_EXCESS_WATERING_CAN.isInstance(heldItem.getItem())) {
-                    this.addWater(10, 90, 100, false);
-                    return true;
-                }
-            }
+
         }
         if (this.seed != null) {
             if (this.seed.getCrop()

@@ -11,6 +11,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.compatibility.UiE.UtilitiesInExcessCompatHandler;
+import com.gtnewhorizon.cropsnh.compatibility.extrautils.ExUWateringCanHandler;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
@@ -35,8 +36,10 @@ public abstract class CommonProxy implements IProxy {
 
     @Override
     public void registerEventHandlers() {
-        if (ModUtils.UtilitiesInExcess.isModLoaded()) UtilitiesInExcessCompatHandler.onRegeisteEventHandlers();
+        // TODO: Enable when UIE gets added to GTNH
+        if (ModUtils.UtilitiesInExcess.isModLoaded()) UtilitiesInExcessCompatHandler.onRegisterEventHandlers();
         MinecraftForge.EVENT_BUS.register(new BlockScanningEventHandler());
+        if (ModUtils.ExtraUtilities.isModLoaded()) MinecraftForge.EVENT_BUS.register(new ExUWateringCanHandler());
     }
 
     @Override
