@@ -4,15 +4,21 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.compatibility.UiE.UtilitiesInExcessCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.extrautils.ExUWateringCanHandler;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
+import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
+import com.gtnewhorizon.cropsnh.items.tools.ItemSpadeNH;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
@@ -45,6 +51,30 @@ public abstract class CommonProxy implements IProxy {
     @Override
     public void initConfiguration(FMLPreInitializationEvent event) {
         ConfigurationHandler.init(event);
+    }
+
+    public static class PreventCropSticksFromBreakingWhenSneaking {
+
+        @SubscribeEvent
+        public void canHarvest(PlayerEvent.HarvestCheck harvestCheck) {
+            if (shouldStopBreakingCropStick(harvestCheck.block, harvestCheck.entityPlayer)) {
+                harvestCheck.success = false;
+            }
+        }
+
+        @SubscribeEvent
+        public void getBreakSpeed(PlayerEvent.BreakSpeed breakSpeedCheck) {
+            if (shouldStopBreakingCropStick(breakSpeedCheck.block, breakSpeedCheck.entityPlayer)) {
+                breakSpeedCheck.newSpeed = 0.0f;
+            }
+        }
+
+        private static boolean shouldStopBreakingCropStick(Block block, EntityPlayer player) {
+            if (block != CropsNHBlocks.blockCropSticks || !player.isSneaking()) return false;
+            ItemStack heldItem = player.getHeldItem();
+            return heldItem != null && heldItem.getItem() instanceof ItemSpadeNH;
+        }
+
     }
 
     public static class BlockScanningEventHandler {

@@ -27,6 +27,6 @@ public class CropsNHTiCHarvestHandler implements CropHarvestHandler {
             crop.clear();
             return true;
         }
-        return crop.doPlayerHarvest();
+        return crop.doPlayerHarvest(player, false);
     }
 }

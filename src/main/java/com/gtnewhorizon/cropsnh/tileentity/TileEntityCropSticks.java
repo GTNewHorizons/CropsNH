@@ -35,8 +35,10 @@ import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.IAdditionalCropData;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropMutation;
+import com.gtnewhorizon.cropsnh.api.ICropSeedDropOverride;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.api.IHarvestDropModifier;
 import com.gtnewhorizon.cropsnh.api.IMutationPool;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
@@ -573,16 +575,63 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     @Override
-    public boolean doPlayerHarvest() {
-        // check if we can harvest this crop
-        if (!canHarvest()) return false;
-        ArrayList<ItemStack> drops = harvest(1.0d);
-        if (drops != null) {
-            for (ItemStack drop : drops) {
-                if (CropsNHUtils.isStackInvalid(drop)) continue;
-                this.dropItem(drop);
+    public boolean doPlayerHarvest(EntityPlayer player, boolean isRemovingCrop) {
+        // abort early if we don't have a crop, or if it's a weed. (spades handle removing weeds)
+        if (!this.hasCrop() || this.hasWeed()) return false;
+
+        // abort early if we can't harvest the crop, and we're not removing the crop.
+        boolean willHarvest = this.canHarvest();
+        if (!willHarvest && !isRemovingCrop) return false;
+
+        // create trackers
+        ArrayList<ItemStack> drops = new ArrayList<>();
+        ItemStack heldItem = player.getHeldItem();
+
+        // do regular harvest if we can
+        if (willHarvest) {
+            // harvest the crop
+            ArrayList<ItemStack> harvestDrops = this.harvest(1.0d);
+            if (harvestDrops != null) {
+                drops.addAll(harvestDrops);
+            }
+            // apply any item based modifiers
+            if (heldItem != null && heldItem.getItem() != null
+                && heldItem.getItem() instanceof IHarvestDropModifier modifier) {
+                modifier.modifyCropDrops(player, heldItem, drops, this);
             }
         }
+
+        // do seed drop
+        if (this.hasCrop() && !this.hasWeed() && isRemovingCrop) {
+            // check if we should skip the seed drop
+            boolean shouldSkipSeedDrop = false;
+            if (!(this.seed.getCrop() instanceof CropMigrator) && heldItem != null
+                && heldItem.getItem() != null
+                && heldItem.getItem() instanceof ICropSeedDropOverride modifier) {
+                shouldSkipSeedDrop = modifier.overrideSeedDrop(player, heldItem, drops, this, willHarvest);
+            }
+
+            // add seed drop if we should
+            if (!shouldSkipSeedDrop) {
+                ItemStack seedDrop = getSeedDrop();
+                if (seedDrop != null) {
+                    dropItem(seedDrop);
+                }
+            }
+        }
+
+        // drop items
+        for (ItemStack drop : drops) {
+            if (CropsNHUtils.isStackInvalid(drop)) continue;
+            this.dropItem(drop);
+        }
+
+        // remove the crop if we are doing so.
+        if (isRemovingCrop) {
+            this.clear();
+        }
+
+        // crop was either harvested or removed.
         return true;
     }
 
@@ -1227,7 +1276,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         }
         // attempt to harvest
         if (this.isMature()) {
-            this.doPlayerHarvest();
+            this.doPlayerHarvest(player, false);
         }
         return true;
     }
@@ -1243,15 +1292,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     @Override
     public boolean onLeftClick(EntityPlayer player, ItemStack heldItem) {
         if (this.hasCrop() && !this.hasWeed()) {
-            if (this.isMature()) {
-                this.doPlayerHarvest();
-            }
-            ItemStack seedDrop = getSeedDrop();
-            if (seedDrop != null) {
-                dropItem(seedDrop);
-            }
-
-            this.clear();
+            this.doPlayerHarvest(player, true);
         }
         if (this.isCrossCrop) {
             this.setCrossCrop(false);
