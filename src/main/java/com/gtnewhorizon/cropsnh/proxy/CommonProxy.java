@@ -45,6 +45,7 @@ public abstract class CommonProxy implements IProxy {
         // TODO: Enable when UIE gets added to GTNH
         if (ModUtils.UtilitiesInExcess.isModLoaded()) UtilitiesInExcessCompatHandler.onRegisterEventHandlers();
         MinecraftForge.EVENT_BUS.register(new BlockScanningEventHandler());
+        MinecraftForge.EVENT_BUS.register(new PreventCropSticksFromBreakingWhenSneaking());
         if (ModUtils.ExtraUtilities.isModLoaded()) MinecraftForge.EVENT_BUS.register(new ExUWateringCanHandler());
     }
 
