@@ -198,11 +198,14 @@ public interface ICropStickTile {
     ArrayList<ItemStack> harvest(double dropMultiplier);
 
     /**
-     * Harvests the crop and drops the items in the TE's world.
+     * Harvests or removes the crop and drops the items in the TE's world.
      *
-     * @return True if the crop was harvested.
+     * @param player         The player breaking the crop.
+     * @param isRemovingCrop True if the player is removing a crop.
+     *
+     * @return True if the crop was changed (harvested or removed).
      */
-    boolean doPlayerHarvest();
+    boolean doPlayerHarvest(EntityPlayer player, boolean isRemovingCrop);
 
     /**
      * Drops and item at the position of the crop sticks.

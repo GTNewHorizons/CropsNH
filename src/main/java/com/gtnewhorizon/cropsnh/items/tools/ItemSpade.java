@@ -1,7 +1,11 @@
 package com.gtnewhorizon.cropsnh.items.tools;
 
-import com.gtnewhorizon.cropsnh.reference.Constants;
-import com.gtnewhorizon.cropsnh.utility.XSTR;
+import java.util.Collection;
+
+import net.minecraft.item.ItemStack;
+
+import com.gtnewhorizon.cropsnh.api.ICropStickTile;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 /**
  * Tool to uproot weeds.
@@ -19,8 +23,9 @@ public class ItemSpade extends ItemSpadeNH {
     }
 
     @Override
-    protected int getSeedCount(int resist) {
-        // regular seed chance
-        return XSTR.XSTR_INSTANCE.nextInt(Constants.MAX_SEED_STAT) < resist ? 1 : 0;
+    protected void addSeedDrop(ICropStickTile cropTE, Collection<ItemStack> dropTracker) {
+        // just roll the normal chance
+        ItemStack drop = cropTE.getSeedDrop();
+        if (CropsNHUtils.isStackValid(drop)) dropTracker.add(drop);
     }
 }
