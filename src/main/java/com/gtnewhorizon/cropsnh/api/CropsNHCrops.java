@@ -103,6 +103,7 @@ public class CropsNHCrops {
     public static ICropCard Pyrolusium;
     public static ICropCard Reactoria;
     public static ICropCard RedStraw;
+    public static ICropCard Rubyne;
     public static ICropCard SaltyRoot;
     public static ICropCard Sapphirum;
     public static ICropCard Scheelinium;
