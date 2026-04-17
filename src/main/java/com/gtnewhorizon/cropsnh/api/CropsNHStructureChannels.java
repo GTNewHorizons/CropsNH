@@ -34,6 +34,10 @@ public enum CropsNHStructureChannels implements IStructureChannels {
         return StatCollector.translateToLocal(this.mTooltip);
     }
 
+    public String getUnlocalizedTooltip() {
+        return this.mTooltip;
+    }
+
     @Override
     public void registerAsIndicator(ItemStack indicator, int channelValue) {
         StructureLibAPI.registerChannelItem(get(), Mods.ModIDs.CROPS_NH, channelValue, indicator);
