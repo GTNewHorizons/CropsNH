@@ -12,7 +12,11 @@ public class StructureLibCompatHandler {
         StructureLibAPI.registerChannelDescription(
             CropsNHStructureChannels.IFUpgrades.get(),
             Reference.MOD_ID,
-            CropsNHStructureChannels.IFUpgrades.get());
+            CropsNHStructureChannels.IFUpgrades.getUnlocalizedTooltip());
+        StructureLibAPI.registerChannelDescription(
+            CropsNHStructureChannels.IFTier.get(),
+            Reference.MOD_ID,
+            CropsNHStructureChannels.IFTier.getUnlocalizedTooltip());
     }
 
 }
