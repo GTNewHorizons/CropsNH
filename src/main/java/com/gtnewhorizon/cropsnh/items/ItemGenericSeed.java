@@ -13,6 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.Constants;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropMutation;
@@ -68,7 +69,19 @@ public class ItemGenericSeed extends ItemCropsNH {
     public String getUnlocalizedName(ItemStack stack) {
         // load the crop card
         ICropCard cropCard = CropRegistry.instance.get(stack);
-        if (cropCard == null) return Names.L10N.invalidSeed;
+        if (cropCard == null) {
+            if (stack != null && stack.hasTagCompound()) {
+                NBTTagCompound tag = stack.getTagCompound();
+                if (tag.hasKey(Names.NBT.growth, Constants.NBT.TAG_BYTE)
+                    && tag.hasKey(Names.NBT.gain, Constants.NBT.TAG_BYTE)
+                    && tag.hasKey(Names.NBT.resistance, Constants.NBT.TAG_BYTE)
+                    && tag.hasKey(Names.NBT.analyzed, Constants.NBT.TAG_BYTE)
+                    && tag.getBoolean(Names.NBT.analyzed)) {
+                    return Names.L10N.anyCropsNHSeed;
+                }
+            }
+            return Names.L10N.invalidSeed;
+        }
 
         // if the seed hasn't been analyzed don't name the seeds.
         ISeedStats stats = SeedStats.getStatsFromStack(stack);
