@@ -215,7 +215,13 @@ public class ItemGenericSeed extends ItemCropsNH {
     public int getColorFromItemStack(ItemStack stack, int pass) {
         // load the crop card
         ICropCard cropCard = CropRegistry.instance.get(stack);
-        if (cropCard == null) return pass == 0 ? 0xB7BB3F : 0x00E210;
+        if (cropCard == null) {
+            if (stack != null && stack.hasTagCompound()
+                && stack.getTagCompound()
+                    .hasKey("crop", Constants.NBT.TAG_STRING))
+                return pass == 0 ? 0x000000 : 0xffffff;
+            return pass == 0 ? 0xB7BB3F : 0x00E210;
+        }
         return pass == 0 ? cropCard.getPrimarySeedColor() : cropCard.getSecondarySeedColor();
     }
 
