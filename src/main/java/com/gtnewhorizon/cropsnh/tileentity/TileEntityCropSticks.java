@@ -1195,6 +1195,12 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         // let the can grow logic run on the client so that it's able to tell the player why a crop isn't growing.
         boolean canGrow = this.canGrow();
         if (worldObj.isRemote) return;
+        // add water to crops when it's raining and the crop stick is not in a snow less biome
+        // this technically ignores glass, but I'll let that slide.
+        if (this.worldObj.canLightningStrikeAt(this.xCoord, this.yCoord, this.zCoord)) {
+            // 101 because the first will be consumed and then it's not the full bonus.
+            this.addWater(11, 100, 101, false);
+        }
         if (this.hasCrop()) {
             // abort early if the migrator crop is present (it should only be harvested by the player)
             if (this.seed.getCrop() instanceof CropMigrator) {
