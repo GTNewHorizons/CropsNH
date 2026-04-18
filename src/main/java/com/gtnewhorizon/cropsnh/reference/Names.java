@@ -9,6 +9,7 @@ public final class Names {
         private static final String growthReqPrefix = modPrefix + "growthReq.";
         public static final String unknownSeed = genericSeedPrefix + "unknown";
         public static final String invalidSeed = genericSeedPrefix + "invalid";
+        public static final String anyCropsNHSeed = genericSeedPrefix + "any";
         public static final String genericSeedFormat = genericSeedPrefix + "format";
         public static final String blockUnderReqFormat = growthReqPrefix + "format";
     }

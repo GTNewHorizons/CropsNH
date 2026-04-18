@@ -13,6 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.Constants;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropMutation;
@@ -68,7 +69,19 @@ public class ItemGenericSeed extends ItemCropsNH {
     public String getUnlocalizedName(ItemStack stack) {
         // load the crop card
         ICropCard cropCard = CropRegistry.instance.get(stack);
-        if (cropCard == null) return Names.L10N.invalidSeed;
+        if (cropCard == null) {
+            if (stack != null && stack.hasTagCompound()) {
+                NBTTagCompound tag = stack.getTagCompound();
+                if (tag.hasKey(Names.NBT.growth, Constants.NBT.TAG_BYTE)
+                    && tag.hasKey(Names.NBT.gain, Constants.NBT.TAG_BYTE)
+                    && tag.hasKey(Names.NBT.resistance, Constants.NBT.TAG_BYTE)
+                    && tag.hasKey(Names.NBT.analyzed, Constants.NBT.TAG_BYTE)
+                    && tag.getBoolean(Names.NBT.analyzed)) {
+                    return Names.L10N.anyCropsNHSeed;
+                }
+            }
+            return Names.L10N.invalidSeed;
+        }
 
         // if the seed hasn't been analyzed don't name the seeds.
         ISeedStats stats = SeedStats.getStatsFromStack(stack);
@@ -105,16 +118,17 @@ public class ItemGenericSeed extends ItemCropsNH {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List toolTip, boolean showAdvancedItemTooltips) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> toolTip,
+        boolean showAdvancedItemTooltips) {
         if (stack == null || !(stack.getItem() instanceof ItemGenericSeed) || !stack.hasTagCompound()) {
             return;
         }
         ICropCard crop = CropRegistry.instance.get(stack);
-        if (crop == null) return;
+        // if (crop == null) return;
 
         ISeedStats stats = SeedStats.readFromNBT(stack.getTagCompound());
         if (stats.isAnalyzed()) {
-            if (crop.getFlavourText() != null) {
+            if (crop != null && crop.getFlavourText() != null) {
                 toolTip.add(StatCollector.translateToLocal(crop.getFlavourText()));
             }
 
@@ -140,32 +154,36 @@ public class ItemGenericSeed extends ItemCropsNH {
                     stats.getResistance(),
                     EnumChatFormatting.RESET));
 
-            if (crop.getCrossingThreshold() < 0.0f) {
-                toolTip.add(
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.mustUseSeedSynthesizerToReplicate"));
-            }
-
-            Collection<ICropMutation> mutations = MutationRegistry.instance.getDeterministicMutationsForCrop(crop);
-            if (mutations != null && mutations.stream()
-                .allMatch(
-                    m -> m.getRequirements()
-                        .stream()
-                        .anyMatch(r -> r instanceof MachineOnlyBreedingRequirement))) {
-                toolTip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.mustUseBreederMachine"));
-            }
-
-            Iterable<IGrowthRequirement> reqs = crop.getGrowthRequirements();
-            if (reqs != null) {
-                for (IGrowthRequirement req : reqs) {
-                    toolTip.add(req.getDescription());
+            if (crop != null) {
+                if (crop.getCrossingThreshold() < 0.0f) {
+                    toolTip.add(
+                        StatCollector
+                            .translateToLocal(Reference.MOD_ID + "_tooltip.mustUseSeedSynthesizerToReplicate"));
                 }
-            }
-            int minSeedBedTier = crop.getMinSeedBedTier();
-            if (minSeedBedTier >= 0) {
-                toolTip.add(
-                    StatCollector.translateToLocalFormatted(
-                        Reference.MOD_ID + "_tooltip.min_seed_bed_tier",
-                        GTValues.TIER_COLORS[minSeedBedTier] + GTValues.VN[minSeedBedTier] + EnumChatFormatting.RESET));
+
+                Collection<ICropMutation> mutations = MutationRegistry.instance.getDeterministicMutationsForCrop(crop);
+                if (mutations != null && mutations.stream()
+                    .allMatch(
+                        m -> m.getRequirements()
+                            .stream()
+                            .anyMatch(r -> r instanceof MachineOnlyBreedingRequirement))) {
+                    toolTip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.mustUseBreederMachine"));
+                }
+
+                Iterable<IGrowthRequirement> reqs = crop.getGrowthRequirements();
+                if (reqs != null) {
+                    for (IGrowthRequirement req : reqs) {
+                        toolTip.add(req.getDescription());
+                    }
+                }
+                int minSeedBedTier = crop.getMinSeedBedTier();
+                if (minSeedBedTier >= 0) {
+                    toolTip.add(
+                        StatCollector.translateToLocalFormatted(
+                            Reference.MOD_ID + "_tooltip.min_seed_bed_tier",
+                            GTValues.TIER_COLORS[minSeedBedTier] + GTValues.VN[minSeedBedTier]
+                                + EnumChatFormatting.RESET));
+                }
             }
         } else {
             toolTip.add(" " + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.unidentified"));
@@ -197,7 +215,13 @@ public class ItemGenericSeed extends ItemCropsNH {
     public int getColorFromItemStack(ItemStack stack, int pass) {
         // load the crop card
         ICropCard cropCard = CropRegistry.instance.get(stack);
-        if (cropCard == null) return pass == 0 ? 0x000000 : 0xffffff;
+        if (cropCard == null) {
+            if (stack != null && stack.hasTagCompound()
+                && stack.getTagCompound()
+                    .hasKey("crop", Constants.NBT.TAG_STRING))
+                return pass == 0 ? 0x000000 : 0xffffff;
+            return pass == 0 ? 0xB7BB3F : 0x00E210;
+        }
         return pass == 0 ? cropCard.getPrimarySeedColor() : cropCard.getSecondarySeedColor();
     }
 
