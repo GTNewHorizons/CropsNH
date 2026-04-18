@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh;
 
 import com.gtnewhorizon.cropsnh.compatibility.StructureLib.StructureLibCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.TiC.TiCCompatHandler;
+import com.gtnewhorizon.cropsnh.compatibility.extrautils.ExUWateringCanHandler;
 import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.waila.WailaRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
@@ -115,6 +116,7 @@ public class CropsNH {
         GTRecipeLoader.PostInit();
         MigrationHandler.postInit();
         ForestryCompatHandler.onPostInit();
+        ExUWateringCanHandler.postInit();
 
         LogHelper.debug("Post-Initialization Complete");
     }
