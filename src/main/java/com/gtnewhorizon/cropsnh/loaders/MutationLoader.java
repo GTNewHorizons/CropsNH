@@ -456,7 +456,7 @@ public class MutationLoader {
             .addToMutationPools(aShiny, aLeaves, aMetal, aTin)
             .register();
         new CropMutation(StickyCane, BonsaiJungle, SugarCane)
-            .addToMutationPools(aReed, aSticky)
+            .addToMutationPools(aReed, aSticky, aGreen, aStem)
             .register();
         new CropMutation(PurpleTulip, RedTulip, BlueOrchid)
             .addToMutationPools(aPurple, aFlower, aTulip)
@@ -889,7 +889,7 @@ public class MutationLoader {
             .addToMutationPools(aGreen, aCactus, aDanger)
             .register();
         new CropMutation(SugarCane, Carrot, Potato)
-            .addToMutationPools(aReed)
+            .addToMutationPools(aReed, aGreen, aFood, aStem)
             .register();
         new CropMutation(Netherwart, RedMushroom, BrownMushroom)
             .addToMutationPools(aRed, aNether, aIngredient, aSoulsand)
