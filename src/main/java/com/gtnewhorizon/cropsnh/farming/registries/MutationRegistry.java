@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,6 +20,7 @@ import com.gtnewhorizon.cropsnh.api.IMutationPool;
 import com.gtnewhorizon.cropsnh.api.IMutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationMap;
 import com.gtnewhorizon.cropsnh.farming.mutation.MutationPool;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.DebugHelper;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
@@ -171,20 +171,33 @@ public class MutationRegistry implements IMutationRegistry {
     }
 
     public void pruneMutationPools() {
-        for (Iterator<Map.Entry<String, IMutationPool>> iter = this.mutationPools.entrySet()
-            .iterator(); iter.hasNext();) {
-            Map.Entry<String, IMutationPool> entry = iter.next();
-            // remove all pools that have 2 members or less since spreading would result in the same behaviour.
-            if (entry.getValue()
-                .getMembers()
-                .size() <= 2) {
-                LogHelper.debug(
-                    "Pruning Mutation Pool (size is " + entry.getValue()
+        // remove all pools that have less than 2 members since spreading would result in the same behaviour.
+        this.mutationPools.entrySet()
+            .removeIf(entry -> {
+                if (entry.getValue()
+                    .getMembers()
+                    .size() < 2) {
+                    if (CropsNHUtils.shouldPanicIfNullFound() && entry.getValue()
                         .getMembers()
-                        .size() + "): " + entry.getKey());
-                iter.remove();
-            }
-        }
+                        .isEmpty()) {
+                        throw new IllegalStateException("Found mutation with 0 parent: " + entry.getKey());
+                    }
+                    // logging as debug since in an incomplete dev env some will result in some single parent pools
+                    LogHelper.debug(
+                        String.format(
+                            "Pruning Mutation Pool: \"%s\" (contains: %s)",
+                            entry.getKey(),
+                            entry.getValue()
+                                .getMembers()
+                                .stream()
+                                .map(ICropCard::getId)
+                                .collect(Collectors.joining(", "))));
+                    return true;
+                }
+                return false;
+            });
+        // logging as debug to help update the lang file quicker
+        LogHelper.debug("mutation pool list:\n" + String.join("\n", mutationPools.keySet()));
     }
 
     /**

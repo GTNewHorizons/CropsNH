@@ -19,7 +19,6 @@ public abstract class CropsNHMutationPools {
     public final static String aCactus = "cactus";
     public final static String aCarrots = "carrots";
     public final static String aChicken = "chicken";
-    public final static String aClean = "clean";
     public final static String aClimbable = "climbable";
     public final static String aCoal = "coal";
     public final static String aCopper = "copper";
@@ -30,7 +29,6 @@ public abstract class CropsNHMutationPools {
     public final static String aDark = "dark";
     public final static String aDense = "dense";
     public final static String aEnder = "ender";
-    public final static String aEssence = "essence";
     public final static String aEvil = "evil";
     public final static String aFire = "fire";
     public final static String aFish = "fish";
@@ -40,7 +38,6 @@ public abstract class CropsNHMutationPools {
     public final static String aGray = "gray";
     public final static String aGreen = "green";
     public final static String aHealing = "healing";
-    public final static String aHeavy = "heavy";
     public final static String aIngredient = "ingredient";
     public final static String aIron = "iron";
     public final static String aLead = "lead";
@@ -60,7 +57,6 @@ public abstract class CropsNHMutationPools {
     public final static String aPoison = "poison";
     public final static String aPrimordial = "primordial";
     public final static String aPurple = "purple";
-    public final static String aRadioactive = "radioactive";
     public final static String aRed = "red";
     public final static String aReed = "reed";
     public final static String aRoot = "root";
@@ -80,16 +76,13 @@ public abstract class CropsNHMutationPools {
     public final static String aTendrilly = "tendrilly";
     public final static String aTin = "tin";
     public final static String aToxic = "toxic";
-    public final static String aTransform = "transform";
     public final static String aTree = "tree";
-    public final static String aTroll = "troll";
     public final static String aTulip = "tulip";
     public final static String aUndead = "undead";
     public final static String aVoid = "void";
     public final static String aWater = "water";
     public final static String aWheat = "wheat";
     public final static String aWhite = "white";
-    public final static String aWither = "wither";
     public final static String aWood = "wood";
     public final static String aYellow = "yellow";
     public final static String aZombie = "zombie";
