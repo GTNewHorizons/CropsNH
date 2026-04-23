@@ -21,7 +21,7 @@ public class CropThiosulfine extends NHCropCard {
 
         this.addBlockUnderRequirement(CropsNHBlockUnderTypes.sulfur);
 
-        this.addDuplicationCatalyst("dustSlufur", 1);
+        this.addDuplicationCatalyst("dustSulfur", 1);
 
         // volcanic areas tend to be very sulfur rich
         this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.HOT);
