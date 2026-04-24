@@ -444,7 +444,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
             .addTo(RecipeMaps.assemblerRecipes);
 
         mvRecipe(duractionSecs, durationFrac)
-            .itemInputs(CropsNHItemList.environmentalModule_base.get(1), new ItemStack(Items.rotten_flesh, 8, 1))
+            .itemInputs(CropsNHItemList.environmentalModule_base.get(1), new ItemStack(Items.rotten_flesh, 8, 0))
             .itemOutputs(CropsNHItemList.environmentalModule_DEAD.get(1))
             .addTo(RecipeMaps.assemblerRecipes);
 
