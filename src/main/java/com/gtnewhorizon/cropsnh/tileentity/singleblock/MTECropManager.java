@@ -63,7 +63,8 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     private static final int FERTILIZER_SLOT_COUNT = 4;
     private static final int OUTPUT_SLOT_COUNT = 15;
     private static final int BATTERY_SLOT_COUNT = 1;
-    private static final int TOTAL_SLOT_COUNT = WEEDEX_SLOT_COUNT + FERTILIZER_SLOT_COUNT + OUTPUT_SLOT_COUNT
+    private static final int TOTAL_SLOT_COUNT = WEEDEX_SLOT_COUNT + FERTILIZER_SLOT_COUNT
+        + OUTPUT_SLOT_COUNT
         + BATTERY_SLOT_COUNT;
 
     private static final int SLOT_WEEDEX_START = 0;
