@@ -52,6 +52,7 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
 import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
 import gtPlusPlus.xmod.gregtech.api.gui.GTPPUITextures;
@@ -61,7 +62,10 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     private static final int WEEDEX_SLOT_COUNT = 2;
     private static final int FERTILIZER_SLOT_COUNT = 4;
     private static final int OUTPUT_SLOT_COUNT = 15;
-    private static final int TOTAL_SLOT_COUNT = WEEDEX_SLOT_COUNT + FERTILIZER_SLOT_COUNT + OUTPUT_SLOT_COUNT;
+    private static final int BATTERY_SLOT_COUNT = 1;
+    private static final int TOTAL_SLOT_COUNT = WEEDEX_SLOT_COUNT + FERTILIZER_SLOT_COUNT
+        + OUTPUT_SLOT_COUNT
+        + BATTERY_SLOT_COUNT;
 
     private static final int SLOT_WEEDEX_START = 0;
     private static final int SLOT_WEEDEX_END = SLOT_WEEDEX_START - 1 + WEEDEX_SLOT_COUNT;
@@ -69,6 +73,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     private static final int SLOT_FERT_END = SLOT_FERT_START - 1 + FERTILIZER_SLOT_COUNT;
     private static final int SLOT_OUTPUT_START = SLOT_FERT_END + 1;
     private static final int SLOT_OUTPUT_END = SLOT_OUTPUT_START - 1 + OUTPUT_SLOT_COUNT;
+    private static final int SLOT_BATTERY = SLOT_OUTPUT_END + 1;
 
     // run ever 2.5s, refresh cache every other run when empty, else wait 60s to refresh cache
     private final static int GLOBAL_UPDATE_RATE = 2 * 20 + 10;
@@ -79,6 +84,8 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     public boolean mWeedEXEnabled = false;
     public boolean mFertilizerEnabled = false;
     public boolean mWaterEnabled = false;
+    public boolean mCharge = false;
+    public boolean mDecharge = false;
 
     private int mWater;
     private final int mWaterCap;
@@ -138,7 +145,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     @Override
     public long maxAmperesIn() {
-        return 8;
+        return 1;
     }
 
     @Override
@@ -189,6 +196,26 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     @Override
     public boolean isElectric() {
         return true;
+    }
+
+    @Override
+    public int rechargerSlotStartIndex() {
+        return SLOT_BATTERY;
+    }
+
+    @Override
+    public int dechargerSlotStartIndex() {
+        return SLOT_BATTERY;
+    }
+
+    @Override
+    public int rechargerSlotCount() {
+        return mCharge ? BATTERY_SLOT_COUNT : 0;
+    }
+
+    @Override
+    public int dechargerSlotCount() {
+        return mDecharge ? BATTERY_SLOT_COUNT : 0;
     }
 
     // endregion Base MTE Params
@@ -247,6 +274,12 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     @Override
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         super.onPostTick(aBaseMetaTileEntity, aTick);
+
+        if (getBaseMetaTileEntity().isServerSide()) {
+            mCharge = getBaseMetaTileEntity().getStoredEU() / 2 > getBaseMetaTileEntity().getEUCapacity() / 3;
+            mDecharge = getBaseMetaTileEntity().getStoredEU() < getBaseMetaTileEntity().getEUCapacity() / 3;
+        }
+
         if (!getBaseMetaTileEntity().isServerSide() || !getBaseMetaTileEntity().isAllowedToWork()
             || (!getBaseMetaTileEntity().hasWorkJustBeenEnabled() && aTick % GLOBAL_UPDATE_RATE != 0)) return;
 
@@ -289,7 +322,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     // region harvesting
 
     public boolean doesInventoryHaveSpace() {
-        for (int i = SLOT_OUTPUT_START; i < this.getSizeInventory(); i++) {
+        for (int i = SLOT_OUTPUT_START; i <= SLOT_OUTPUT_END; i++) {
             if (this.mInventory[i] == null || this.mInventory[i].stackSize < 64) {
                 return true;
             }
@@ -616,6 +649,10 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
         return CropsNHItemList.weedEX.getItem() == aStack.getItem();
     }
 
+    private static boolean isBattery(ItemStack aStack) {
+        return GTModHandler.isElectricItem(aStack);
+    }
+
     @Override
     public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
         ItemStack aStack) {
@@ -630,6 +667,8 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 return aIndex >= SLOT_FERT_START && aIndex <= SLOT_FERT_END;
             } else if (isWeedEXCan(aStack)) {
                 return aIndex >= SLOT_WEEDEX_START && aIndex <= SLOT_WEEDEX_END;
+            } else if (isBattery(aStack)) {
+                return aIndex == SLOT_BATTERY;
             }
         }
         return false;
@@ -1019,6 +1058,9 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 .canInsert(false)
                 .build()
                 .setPos(79, 7));
+
+        // battery slot
+        builder.widget(createChargerSlot(109, 63));
 
         // endregion slots
 
