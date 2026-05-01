@@ -1001,7 +1001,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             val -> mWeedEXEnabled = val,
             BUTTON_OVERLAY_TOGGLE_WEED_EX,
             Reference.MOD_ID + "_tooltip.cropManager.weedEX.",
-            27,
+            26,
             63);
 
         // fertilization toggle
@@ -1011,7 +1011,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             val -> mFertilizerEnabled = val,
             BUTTON_OVERLAY_TOGGLE_FERTILIZER,
             Reference.MOD_ID + "_tooltip.cropManager.fertilizer.",
-            47,
+            45,
             63);
 
         // harvest toggle
@@ -1021,7 +1021,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             val -> mHarvestEnabled = val,
             BUTTON_OVERLAY_TOGGLE_HARVEST,
             Reference.MOD_ID + "_tooltip.cropManager.harvest.",
-            67,
+            64,
             63);
 
         // endregion toggles
@@ -1060,7 +1060,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 .setPos(79, 7));
 
         // battery slot
-        builder.widget(createChargerSlot(109, 63));
+        builder.widget(createChargerSlot(115, 63));
 
         // endregion slots
 
@@ -1074,7 +1074,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             this::getWaterCapacity,
             Reference.MOD_ID + "_tooltip.cropManager.water",
             this::setWaterAmount,
-            47,
+            46,
             7);
 
         // weed-ex
@@ -1085,7 +1085,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             this::getWeedEXCapacity,
             Reference.MOD_ID + "_tooltip.cropManager.weedEX",
             this::setWeedEXAmount,
-            57,
+            56,
             7);
 
         // liquid fertilizer
@@ -1096,7 +1096,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
             this::getLiquidFertilizerCapacity,
             Reference.MOD_ID + "_tooltip.cropManager.liquidFertilizer",
             this::setLiquidFertilizerAmount,
-            67,
+            66,
             7);
 
         // endregion tank bars
