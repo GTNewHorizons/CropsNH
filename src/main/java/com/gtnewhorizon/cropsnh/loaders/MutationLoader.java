@@ -374,9 +374,11 @@ public class MutationLoader {
                 .register();
         }
         if (ModUtils.Natura.isModLoaded()) {
-            new CropMutation(Barley, Bamboo, Wheat)
-                .addToMutationPools(aGreen, aFood, aWheat)
-                .register();
+            if (ModUtils.BiomesOPlenty.isModLoaded()) {
+                new CropMutation(Barley, Bamboo, Wheat)
+                    .addToMutationPools(aGreen, aFood, aWheat)
+                    .register();
+            }
             new CropMutation(Blackberry, Strawberry, Blueberry)
                 .addToMutationPools(aBerry, aFood, aBlack)
                 .register();
