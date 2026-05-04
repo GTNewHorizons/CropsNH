@@ -2,6 +2,8 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
@@ -17,7 +19,8 @@ public class CropBobsYerUncleRanks extends NHCropCard {
     public CropBobsYerUncleRanks() {
         super("bobsYerUncleRanks", new Color(0x009529), new Color(0x41F384));
 
-        this.addDrop(CropsNHItemList.bobsYerUncleBerry.get(1), 100_00);
+        this.addDrop(CropsNHItemList.bobsYerUncleBerry.get(1), 75_00);
+        this.addDrop(new ItemStack(Items.emerald, 1, 0), 25_00);
 
         this.addBlockUnderRequirement(CropsNHBlockUnderTypes.emerald);
 
