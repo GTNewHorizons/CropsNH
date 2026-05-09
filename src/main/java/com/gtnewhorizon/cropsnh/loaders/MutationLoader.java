@@ -556,7 +556,7 @@ public class MutationLoader {
             .addToMutationPools(aWhite, aStem)
             .register();
         // TODO: ADD CHROME CROP AND REPLACE TITANIA WITH NEW CROP IN PLATINA MUTATION
-        new CropMutation(Platina, Diareed, Titania)
+        new CropMutation(Platina, Diareed, Rubyne)
             .machineOnly()
             .register();
         new CropMutation(Plumbilia, Coppon, Withereed)
