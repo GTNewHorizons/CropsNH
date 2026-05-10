@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
+import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
@@ -15,6 +17,10 @@ public class OreDictLoader {
         register(CropsNHItemList.goldfish.get(1), "listAllfishraw");
         register(CropsNHItemList.huckleBerry.get(1), "cropHuckleberry", "listAllberry", "listAllfruit");
         register(CropsNHItemList.sugarBeet.get(1), "cropSugarbeet", "listAllveggie", "listAllrootveggie");
+        // give material leaves a special ore dict so they can be affected by fuzzy card/ore dict card
+        for (IMaterialLeafVariant variant : ItemMaterialLeaf.getRegisteredVariants()) {
+            register(variant.get(), "materialCropLeaf");
+        }
     }
 
     public static void init() {
