@@ -16,7 +16,7 @@ public class CropArditeOreBerry extends CropOreBerry {
     public CropArditeOreBerry() {
         super("ardite", new Color(0xAD5A00), new Color(0xFA8100));
 
-        this.addDrop(Materials.Ardite.getNuggets(6), 100_00);
+        this.addDrop(Materials.Ardite.getNuggets(1), 100_00);
 
         this.addBlockUnderRequirement(CropsNHBlockUnderTypes.ardite);
 
