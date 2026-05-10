@@ -45,7 +45,7 @@ public class ItemGoldfish extends ItemFood {
         if (!ConfigurationHandler.putAnEndToExistentialDread) {
             player.playSound(ConfigurationHandler.goldfishScream, 5, (float) 0.5);
         }
-        return true;
+        return false;
     }
 
     @Override
