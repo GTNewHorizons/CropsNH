@@ -5,8 +5,8 @@
     "description": "Crops - GTNH flavor",
     "version": "${modVersion}",
     "mcversion": "${minecraftVersion}",
-    "url": "http://github.com/GTNewHorizons/GTNHCrops",
-    "updateUrl": "http://github.com/GTNewHorizons/GTNHCrops",
+    "url": "https://github.com/GTNewHorizons/CropsNH",
+    "updateUrl": "https://github.com/GTNewHorizons/CropsNH",
     "authorList": [
       "C0bra5",
       "GTNH Team"
