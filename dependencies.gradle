@@ -72,6 +72,7 @@ dependencies {
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:EnderIO:2.10.22:dev') { transitive = false }
     // // watering can interactions
     // runtimeOnlyNonPublishable(rfg.deobf("curse.maven:extra-utilities-225561:2264383")) { transitive = false }
+    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Backhand:1.8.9:dev') { transitive = false }
 }
 
 project.getConfigurations()
