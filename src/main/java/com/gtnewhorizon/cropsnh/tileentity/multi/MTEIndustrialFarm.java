@@ -1264,17 +1264,17 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         // calc unscaled growth speed of crop.
         int tUnscaledGrowthSpeed = this.getGrowthSpeedUnscaled(aCrop);
         if (tUnscaledGrowthSpeed <= 0) return -1;
-        // calculate growth points per cycle
-        double tGrowthPerCycle = (((double) tUnscaledGrowthSpeed) / TileEntityCropSticks.TICK_RATE) * CYCLE_DURATION;
-        // apply growth speed multipliers
-        tGrowthPerCycle *= this.getGrowthSpeedMultiplier();
-        if (tGrowthPerCycle <= 0) return -1;
-        // calculate percentage grown each tick.
-        return Math.min(
-            1.0d,
-            1.0d / Math.ceil(
-                aCrop.getCrop()
-                    .getGrowthDuration() / tGrowthPerCycle));
+        // calculate percentage grown each tick up to 100% since growth
+        // don't carry over if you wait to harvest in world crops.
+        // this is intentional balancing and shouldn't be included in the future mega multi.
+        int cropGrowthDuration = aCrop.getCrop()
+            .getGrowthDuration();
+        int growthTicksPerHarvest = (cropGrowthDuration / tUnscaledGrowthSpeed)
+            + (cropGrowthDuration % tUnscaledGrowthSpeed == 0 ? 0 : 1);
+        // calculate percent progress per growth tick
+        double growthPercentPerGrowthTick = 1.0d / growthTicksPerHarvest;
+        // scale it to the cycle's rate and apply growth speed multipliers
+        return growthPercentPerGrowthTick * CYCLE_TICK_RATE_SCALAR * getGrowthSpeedMultiplier();
     }
 
     /**
