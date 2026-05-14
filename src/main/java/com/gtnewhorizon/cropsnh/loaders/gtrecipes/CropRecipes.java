@@ -161,13 +161,11 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     private static void addIndigoBlossomRecipes() {
         // extraction to indigo dye item
-        recipe(2, 15 ,0)
-            .itemInputs(CropsNHItemList.indigoBlossom.get(1))
+        recipe(2, 15, 0).itemInputs(CropsNHItemList.indigoBlossom.get(1))
             .itemOutputs(ItemList.Dye_Indigo.get(1))
             .addTo(extractorRecipes);
         // extraction to indigo dye fluid
-        recipe( 4, 6, 40)
-            .itemInputs(CropsNHItemList.indigoBlossom.get(1))
+        recipe(4, 6, 40).itemInputs(CropsNHItemList.indigoBlossom.get(1))
             .fluidOutputs(getFluidStack("indigo", 1 * INGOTS))
             .addTo(fluidExtractionRecipes);
     }
