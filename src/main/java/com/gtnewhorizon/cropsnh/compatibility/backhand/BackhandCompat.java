@@ -6,9 +6,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import com.gtnewhorizon.cropsnh.blocks.BlockCropSticks;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.gtnhlib.eventbus.EventBusSubscriber;
-import com.rwtema.extrautils.item.ItemWateringCan;
 
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -19,7 +19,7 @@ public class BackhandCompat {
 
     @EventBusSubscriber.Condition
     public static boolean register() {
-        return ModUtils.Backhand.isModLoaded() && ModUtils.ExtraUtilities.isModLoaded();
+        return ModUtils.Backhand.isModLoaded();
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -29,9 +29,14 @@ public class BackhandCompat {
             return;
         }
 
-        ItemStack mainHand = MAIN_HAND.getItem(event.entityPlayer);
-        if (mainHand == null || !(mainHand.getItem() instanceof ItemWateringCan)) return;
-        if (event.world.getBlock(event.x, event.y, event.z) instanceof BlockCropSticks) {
+        ItemStack mainHandStack = MAIN_HAND.getItem(event.entityPlayer);
+        if (mainHandStack == null || CropsNHUtils.isStackInvalid(mainHandStack)) return;
+
+        // check crop sticks
+        if (BlockCropSticks.BLOCK_INTERACTION_WITH
+            .contains(mainHandStack.getItem(), CropsNHUtils.getItemMeta(mainHandStack))
+            // do world check after since it's more computationally expansive
+            && event.world.getBlock(event.x, event.y, event.z) instanceof BlockCropSticks) {
             event.setCanceled(true);
         }
     }
