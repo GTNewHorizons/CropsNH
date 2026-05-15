@@ -70,6 +70,7 @@ import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
+import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.items.ItemEnvironmentalModule;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -117,18 +118,19 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     /** Whether the crop can see the sky when calculating the growth speed. (true because uv lamps or something) */
     public static final boolean SIMULATED_CAN_SEE_SKY = true;
     /**
-     * The amount of fertilizer that should be stored in the crop stick when calculating the growth sped while there is
-     * no fertilizer unit installed
+     * The amount of fertilizer that should be stored in the crop stick when calculating the growth speed when
+     * fertilizer is not provided.
      */
-    public static final int SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_UNIT_MISSING = 20;
+    public static final int SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_NOT_PROVIDED = 0;
     /**
-     * The amount of fertilizer that should be stored in the crop stick when calculating the growth sped while there is
-     * a fertilizer unit installed
+     * The amount of fertilizer that should be stored in the crop stick when calculating the growth speed when
+     * fertilizer is provided.
      */
-    public static final int SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_UNIT_INSTALLED = 200;
+    public static final int SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_PROVIDED = 200;
 
     private final static String NBT_INVENTORY_TAG = "mIFInventory";
     private final static String NBT_OUTPUT_TRACKER = "mOutputTracker";
+    private final static String NBT_HAS_FERTILIZER = "mHasFertilizer";
 
     /** The default mode, used to insert seed and under-block */
     public static final int MODE_INPUT = 0;
@@ -157,6 +159,8 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     public int mUpgradeTier = -1;
     /** The number of seeds and under-blocks that can be stored in the controller. */
     public int mSeedCapacity = 0;
+    /** True if the current recipe has enough fertilizer to get the bonus. */
+    public boolean mHasFertilizer = false;
     /** The number of environmental enhancement units installed on the multi. */
     public int mEnvironmentalEnhancementUnitCount = 0;
     /** The number of growth acceleration units installed on the multi. */
@@ -650,19 +654,18 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.3",
                 formatNumber(this.getGrowthSpeedMultiplier() * 100.0f)));
-        // Water Usage per Cycle
-        int waterUsage = this.getConsumablePotencyNeededPerCycle();
         ret.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.industrialFarm.scanner.4",
-                formatNumber(waterUsage) + getFluidUnit(),
+                formatNumber(this.getWaterPotencyNeededPerCycle()) + getFluidUnit(),
                 formatNumber(CYCLE_DURATION)));
         // Fertilizer Usage per Cycle
-        int fertUsage = this.mFertilizerUnitCount > 0 ? waterUsage : 0;
+        String fertLangKey = Reference.MOD_ID + "_tooltip.industrialFarm.scanner.5";
+        if (this.mFertilizerUnitCount > 0) fertLangKey += ".enriched";
         ret.add(
             StatCollector.translateToLocalFormatted(
-                Reference.MOD_ID + "_tooltip.industrialFarm.scanner.5",
-                formatNumber(fertUsage) + getFluidUnit(),
+                fertLangKey,
+                formatNumber(this.getFertilizerPotencyNeededPerCycle()) + getFluidUnit(),
                 formatNumber(CYCLE_DURATION)));
         // nutrient score
         ISeedData tSeedData = CropsNHUtils.getAnalyzedSeedData(this.getSeedStack());
@@ -719,6 +722,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             this.mIFStackHandler.deserializeNBT(aNBT.getCompoundTag(NBT_INVENTORY_TAG));
         }
         this.mOutputTracker = new IFDropTable(aNBT, NBT_OUTPUT_TRACKER);
+        this.mHasFertilizer = aNBT.getBoolean(NBT_HAS_FERTILIZER);
     }
 
     @Override
@@ -726,6 +730,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         super.saveNBTData(aNBT);
         aNBT.setTag(NBT_INVENTORY_TAG, this.mIFStackHandler.serializeNBT());
         aNBT.setTag(NBT_OUTPUT_TRACKER, this.mOutputTracker.save());
+        aNBT.setBoolean(NBT_HAS_FERTILIZER, this.mHasFertilizer);
     }
     // endregion NBT
 
@@ -802,6 +807,14 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     @Nonnull
     public static final CheckRecipeResult CHECK_RECIPE_RESULT_CANNOT_GROW = SimpleCheckRecipeResult
         .ofFailure(Reference.MOD_ID + ".industrialFarm.cannotGrow");
+    /** Can't generate resources because the growth requires aren't met */
+    @Nonnull
+    public static final CheckRecipeResult NOT_ENOUGH_WATER = SimpleCheckRecipeResult
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.notEnoughWater");
+    /** Can't generate resources because the growth requires aren't met */
+    @Nonnull
+    public static final CheckRecipeResult NOT_ENOUGH_FERTILIZER = SimpleCheckRecipeResult
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.notEnoughFertilizer");
 
     @Override
     public @Nonnull CheckRecipeResult checkProcessing() {
@@ -1063,17 +1076,25 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
 
     // region farm mode
 
-    private int getConsumablePotencyNeededPerCycle() {
-        return (int) Math.ceil(
-            this.mSeedCapacity * CYCLE_TICK_RATE_SCALAR
-                * (this.mExpectedOCs <= 63 ? 1L << this.mExpectedOCs : GTUtility.powInt(2.0d, this.mExpectedOCs)));
+    private double getOCPotencyMultiplier() {
+        return this.mExpectedOCs <= 63 ? 1L << this.mExpectedOCs : GTUtility.powInt(2.0d, this.mExpectedOCs);
+    }
+
+    private int getWaterPotencyNeededPerCycle() {
+        return GTUtility.safeInt(
+            (long) Math.ceil(BlockSeedBed.getWaterConsumption(this.mUpgradeTier) * this.getOCPotencyMultiplier()));
+    }
+
+    private int getFertilizerPotencyNeededPerCycle() {
+        return GTUtility.safeInt(
+            (long) Math.ceil(BlockSeedBed.getFertilizerConsumption(this.mUpgradeTier) * this.getOCPotencyMultiplier()));
     }
 
     private int getAmountToConsumeBasedOnPotency(int aMissingPotency, int aInputPotency, int aInputAmount) {
         if (aMissingPotency <= 0 || aInputPotency <= 0 || aInputAmount <= 0) return 0;
         // Prefer over-consuming in case something with a stupid high potency gets introduced.
         int tMaxConsume = aMissingPotency / aInputPotency + ((aMissingPotency % aInputPotency) > 0 ? 1 : 0);
-        return (int) Math.min(tMaxConsume, aInputAmount);
+        return Math.min(tMaxConsume, aInputAmount);
     }
 
     private CheckRecipeResult checkProcessingFarmMode() {
@@ -1117,36 +1138,53 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         // Math.ceil(Math.ceil(this.mSeedCapacity * CYCLE_DURATION / (double)TileEntityCrop.TICK_RATE * (1 <<
         // this.mExpectedOCs)) / potencyPer1LOfLiquid)
         // Desmos visualizer: https://www.desmos.com/calculator/gmul5gq6cv
-        List<Pair<FluidStack, Integer>> tFluidsToConsume = new ArrayList<>();
-        int tWaterPotencyMissing = this.getConsumablePotencyNeededPerCycle();
-        int tFertilizerPotencyMissing = this.mFertilizerUnitCount > 0 ? tWaterPotencyMissing : 0;
+        List<Pair<FluidStack, Integer>> tWaterFluidsToConsume = new ArrayList<>();
+        List<Pair<FluidStack, Integer>> tFertilizerFluidsToConsume = new ArrayList<>();
+        int tWaterPotencyMissing = this.getWaterPotencyNeededPerCycle();
+        int tFertilizerPotencyMissing = this.getFertilizerPotencyNeededPerCycle();
         for (FluidStack tFluidStack : this.getStoredFluids()) {
             if (CropsNHUtils.isStackInvalid(tFluidStack)) continue;
             Fluid tFluid = tFluidStack.getFluid();
             int tRemaining = tFluidStack.amount;
             int tPotency;
             // consume water if needed
-            if (tWaterPotencyMissing > 0 && (tPotency = HydrationRegistry.instance.getPotency(tFluid)) > 0) {
+            if (tWaterPotencyMissing > 0 && tRemaining > 0
+                && (tPotency = HydrationRegistry.instance.getPotency(tFluid)) > 0) {
                 int tAmountToConsume = getAmountToConsumeBasedOnPotency(tWaterPotencyMissing, tPotency, tRemaining);
-                tRemaining -= tAmountToConsume;
-                tWaterPotencyMissing -= tAmountToConsume * tPotency;
-                tFluidsToConsume.add(Pair.of(tFluidStack, tRemaining));
+                if (tAmountToConsume > 0) {
+                    tRemaining -= tAmountToConsume;
+                    tWaterPotencyMissing -= tAmountToConsume * tPotency;
+                    tWaterFluidsToConsume.add(Pair.of(tFluidStack, tAmountToConsume));
+                }
             }
             // consume fertilizer if needed
-            if (tFertilizerPotencyMissing > 0 && tRemaining > 0
-                && (tPotency = FertilizerRegistry.instance.getPotency(tFluid)) > 0) {
-                int tAmountToConsume = getAmountToConsumeBasedOnPotency(
-                    tFertilizerPotencyMissing,
-                    tPotency,
-                    tRemaining);
-                tRemaining -= tAmountToConsume;
-                tFertilizerPotencyMissing -= tAmountToConsume * tPotency;
-                tFluidsToConsume.add(Pair.of(tFluidStack, tRemaining));
+            if (tFertilizerPotencyMissing > 0 && tRemaining > 0) {
+                if (this.mFertilizerUnitCount > 0) {
+                    // when a fertilizer unit is installed, it can only consume enriched fert,
+                    // and there is no potency bonus applied.
+                    tPotency = tFluidStack.getFluid() == CropsNHFluids.enrichedFertilizer ? 1 : 0;
+                } else {
+                    // else you can use any liquid fertilizer you want.
+                    tPotency = FertilizerRegistry.instance.getPotency(tFluid);
+                }
+                if (tPotency > 0) {
+                    int tAmountToConsume = getAmountToConsumeBasedOnPotency(
+                        tFertilizerPotencyMissing,
+                        tPotency,
+                        tRemaining);
+                    if (tAmountToConsume > 0) {
+                        tRemaining -= tAmountToConsume;
+                        tFertilizerPotencyMissing -= tAmountToConsume * tPotency;
+                        tFertilizerFluidsToConsume.add(Pair.of(tFluidStack, tAmountToConsume));
+                    }
+                }
             }
             // if we consumed something add it to the list for later consumption.
             if (tFertilizerPotencyMissing <= 0 && tWaterPotencyMissing <= 0) break;
         }
-        if (tWaterPotencyMissing > 0 || tFertilizerPotencyMissing > 0) return CheckRecipeResultRegistry.NO_RECIPE;
+        if (tWaterPotencyMissing > 0) return NOT_ENOUGH_WATER;
+        if (this.mFertilizerUnitCount > 0 && tFertilizerPotencyMissing > 0) return NOT_ENOUGH_FERTILIZER;
+        this.mHasFertilizer = tFertilizerPotencyMissing <= 0;
 
         // calc drops
         IFDropTable tDropProgess = getDropsPerCycle(tSeedData);
@@ -1164,8 +1202,13 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             }
         }
         // consume fluids
-        for (Pair<FluidStack, Integer> tFluidToConsume : tFluidsToConsume) {
-            tFluidToConsume.getLeft().amount = tFluidToConsume.getRight();
+        for (Pair<FluidStack, Integer> tWaterFluidToConsume : tWaterFluidsToConsume) {
+            tWaterFluidToConsume.getLeft().amount -= tWaterFluidToConsume.getRight();
+        }
+        if (this.mHasFertilizer) {
+            for (Pair<FluidStack, Integer> tFertilizerFluidToConsume : tFertilizerFluidsToConsume) {
+                tFertilizerFluidToConsume.getLeft().amount -= tFertilizerFluidToConsume.getRight();
+            }
         }
         // output if everything is safe
         this.mOutputItems = this.mOutputTracker.getDrops(false);
@@ -1211,9 +1254,11 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .filter(tBiomeTags::contains)
             .count();
         // calc fertilizer storage to simulate
-        int tFertilizerStorage = this.mFertilizerUnitCount <= 0
-            ? SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_UNIT_MISSING
-            : SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_UNIT_INSTALLED;
+        // mHasFert or fert unit installed to make the value consistent when he upgrade is installed since the value
+        // won't change when it's installed.
+        int tFertilizerStorage = this.mHasFertilizer || this.mFertilizerUnitCount > 0
+            ? SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_PROVIDED
+            : SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_NOT_PROVIDED;
         // calc available nutrient points for growth speed calculation
         return TileEntityCropSticks.getNutrientsPerCycle(
             tLikedBiomes,
