@@ -8,6 +8,8 @@ dependencies {
     devOnlyNonPublishable("com.github.GTNewHorizons:waila:1.19.22:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:ForestryMC:4.11.12:dev") { transitive = false }
     devOnlyNonPublishable("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
+    devOnlyNonPublishable('com.github.GTNewHorizons:Backhand:1.8.8:dev') { transitive = false }
+
 
     // // debugging tools
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NewHorizonsCoreMod:2.8.195:dev")
