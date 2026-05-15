@@ -311,7 +311,7 @@ GT5U.gui.text.cropsnh.industrialFarm.seedsFull=Seed capacity reached
 GT5U.gui.text.cropsnh.industrialFarm.seedOverflow=Seed Storage exceeds current capacity
 GT5U.gui.text.cropsnh.industrialFarm.cannotGrow=This seed cannot grow in the current environment
 GT5U.gui.text.cropsnh.industrialFarm.notEnoughWater=Not enough water
-GT5U.gui.text.cropsnh.industrialFarm.notEnoughFertilizer=Not enough Fertilizer
+GT5U.gui.text.cropsnh.industrialFarm.notEnoughEnrichedFertilizer=Not enough Enriched Fertilizer
 
 # Industrial Farm Scanner Tooltips
 cropsnh_tooltip.industrialFarm.scanner.0=Tier: §e%1$s§r

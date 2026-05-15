@@ -807,14 +807,14 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     @Nonnull
     public static final CheckRecipeResult CHECK_RECIPE_RESULT_CANNOT_GROW = SimpleCheckRecipeResult
         .ofFailure(Reference.MOD_ID + ".industrialFarm.cannotGrow");
-    /** Can't generate resources because the growth requires aren't met */
+    /** Can't generate resources because there machine doesn't have enough water. */
     @Nonnull
     public static final CheckRecipeResult NOT_ENOUGH_WATER = SimpleCheckRecipeResult
         .ofFailure(Reference.MOD_ID + ".industrialFarm.notEnoughWater");
-    /** Can't generate resources because the growth requires aren't met */
+    /** Can't generate resources because there isn't enough enriched fertilizer. */
     @Nonnull
-    public static final CheckRecipeResult NOT_ENOUGH_FERTILIZER = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID + ".industrialFarm.notEnoughFertilizer");
+    public static final CheckRecipeResult NOT_ENOUGH_Enriched_FERTILIZER = SimpleCheckRecipeResult
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.notEnoughEnrichedFertilizer");
 
     @Override
     public @Nonnull CheckRecipeResult checkProcessing() {
@@ -1183,7 +1183,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             if (tFertilizerPotencyMissing <= 0 && tWaterPotencyMissing <= 0) break;
         }
         if (tWaterPotencyMissing > 0) return NOT_ENOUGH_WATER;
-        if (this.mFertilizerUnitCount > 0 && tFertilizerPotencyMissing > 0) return NOT_ENOUGH_FERTILIZER;
+        if (this.mFertilizerUnitCount > 0 && tFertilizerPotencyMissing > 0) return NOT_ENOUGH_Enriched_FERTILIZER;
         this.mHasFertilizer = tFertilizerPotencyMissing <= 0;
 
         // calc drops
