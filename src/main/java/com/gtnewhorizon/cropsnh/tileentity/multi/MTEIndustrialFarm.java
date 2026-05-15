@@ -897,7 +897,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             if (tSeedData.getCrop()
                 .getMinSeedBedTier() > this.mUpgradeTier) return CHECK_RECIPE_RESULT_SEED_BED_TIER_TOO_LOW;
             // check if the crop can grow
-            if (getGrowthSpeedUnscaled(tSeedData) <= 0) return CHECK_RECIPE_RESULT_CANNOT_GROW;
+            boolean tOldHasFertilizer = this.mHasFertilizer;
+            // assume we have fertilizer when inserting to prevent issues with high tier crops that may require it.
+            this.mHasFertilizer = true;
+            int tGrowthSpeedUnscaled = this.getGrowthSpeedUnscaled(tSeedData);
+            this.mHasFertilizer = tOldHasFertilizer;
+            if (tGrowthSpeedUnscaled <= 0) return CHECK_RECIPE_RESULT_CANNOT_GROW;
             // if it has a block under try to consume it
             reqs: for (IGrowthRequirement tRequirement : tSeedData.getCrop()
                 .getGrowthRequirements()) {
@@ -1187,7 +1192,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         this.mHasFertilizer = tFertilizerPotencyMissing <= 0;
 
         // calc drops
-        IFDropTable tDropProgess = getDropsPerCycle(tSeedData);
+        IFDropTable tDropProgess = this.getDropsPerCycle(tSeedData);
         if (tDropProgess == null) return CHECK_RECIPE_RESULT_CANNOT_GROW;
         tDropProgess.addTo(this.mOutputTracker, tSeedData.getStack().stackSize);
         // check if output void protection is enabled
