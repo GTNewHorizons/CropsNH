@@ -42,7 +42,7 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
     }
 
     public static int getFertilizerConsumptionPerCycle(int aTier) {
-        return BlockSeedBed.getWaterConsumption(aTier);
+        return BlockSeedBed.getFertilizerConsumption(aTier);
     }
 
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
@@ -61,26 +61,28 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.fertilizerUnit.1",
                 TooltipHelper.fluidText(getFertilizerConsumptionPerCycle(CropsNHUtils.getItemMeta(stack)))));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.fertilizerUnit.2"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.fertilizerUnit.3"));
         if (advancedTooltips) {
             tooltip.add(
                 StatCollector
-                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.2.adv", speedIncreaseText));
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.4.adv", speedIncreaseText));
             tooltip.add(
                 StatCollector
-                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.3.adv", roundIncreaseText));
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.5.adv", roundIncreaseText));
             tooltip.add(
                 StatCollector
-                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.4.adv", powerIncreaseText));
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.6.adv", powerIncreaseText));
         } else {
             tooltip.add(
                 StatCollector
-                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.2", speedIncreaseText));
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.4", speedIncreaseText));
             tooltip.add(
                 StatCollector
-                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.3", roundIncreaseText));
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.5", roundIncreaseText));
             tooltip.add(
                 StatCollector
-                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.4", powerIncreaseText));
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.fertilizerUnit.6", powerIncreaseText));
         }
         // generic
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.upgradeTierMustMatchSeedBed"));
