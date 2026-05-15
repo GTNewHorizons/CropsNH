@@ -381,8 +381,8 @@ cropsnh.growthAccelerationUnit.13.name=Growth Acceleration Unit (UXV)
 # Fertilizer Unit
 cropsnh_tooltip.fertilizerUnit.0=Allows the Industrial Farm to consume §fEnriched Fertilizer§7 in order to boost production
 cropsnh_tooltip.fertilizerUnit.1=Requires %1$s of §fEnriched Fertilizer§7 per cycle
-cropsnh_tooltip.fertilizerUnit.2=§cYou cannot use regular fertilizer when this unit is installed§7
-cropsnh_tooltip.fertilizerUnit.3=§cIgnores the potency bonus of enriched fertilizer§7
+cropsnh_tooltip.fertilizerUnit.2=§cYou cannot use regular Fertilizer when this unit is installed§7
+cropsnh_tooltip.fertilizerUnit.3=§cIgnores the potency bonus of Enriched Fertilizer§7
 cropsnh_tooltip.fertilizerUnit.4=Increases growth speed by %1$s
 cropsnh_tooltip.fertilizerUnit.4.adv=Increases growth speed by %1$s (multiplicative)
 cropsnh_tooltip.fertilizerUnit.5=Increases number of drops by %1$s
