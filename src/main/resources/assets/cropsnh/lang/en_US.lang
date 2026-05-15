@@ -348,8 +348,9 @@ cropsnh.seedBed.13.name=Seed Bed (UXV)
 
 # OC Growth Accel Unit
 cropsnh_tooltip.overclockedGrowthAccelerationUnit.0=Allows §foverclocking§7 of the Industrial Farm
-cropsnh_tooltip.overclockedGrowthAccelerationUnit.1=Each overclock §bdoubles§7 production without affecting recipe time
+cropsnh_tooltip.overclockedGrowthAccelerationUnit.1=Each overclock §bdoubles§7 production and input consumption without affecting recipe time
 cropsnh_tooltip.overclockedGrowthAccelerationUnit.2=Won't work if a §fGrowth Acceleration Unit§7 is also present
+cropsnh_tooltip.overclockedGrowthAccelerationUnit.3=Allows for the use of a single TecTech Multi-Amp Energy Hatch instead of multiple regular energy hatches
 cropsnh.overclockedGrowthAccelerationUnit.7.name=Overclocked Growth Acceleration Unit (ZPM)
 cropsnh.overclockedGrowthAccelerationUnit.8.name=Overclocked Growth Acceleration Unit (UV)
 cropsnh.overclockedGrowthAccelerationUnit.9.name=Overclocked Growth Acceleration Unit (UHV)
@@ -443,7 +444,7 @@ cropsnh.advancedHarvestingUnit.13.name=Advanced Harvesting Unit (UXV)
 
 # MTE Machine Type Flavour Text
 # multi tooltips
-cropsnh_tooltip.MBTT.multiAmpsWithUpgrade=Supports TecTech Multi-Amp Hatches when using an Overclocked Growth Accelerator Upgrade!
+cropsnh_tooltip.MBTT.multiAmpsWithUpgrade=Supports a single TecTech Multi-Amp Energy Hatch instead of a regular hatches when using an Overclocked Growth Accelerator Upgrade!
 # Crop Produce Flavour Text
 cropsnh_tooltip.berry.huckle.1=Huckle-dae-Duckle-dae-Doo
 cropsnh_tooltip.berry.huckle.2=A sweet treat!

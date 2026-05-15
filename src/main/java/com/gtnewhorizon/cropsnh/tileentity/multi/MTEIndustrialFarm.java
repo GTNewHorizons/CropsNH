@@ -127,6 +127,10 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
      * fertilizer is provided.
      */
     public static final int SIMULATED_FERTILIZER_STORAGE_WHEN_FERTILIZER_PROVIDED = 200;
+    /**
+     * The maximum number of multi-amp hatches allowed when using an OC upgrade.
+     */
+    public static final int MAX_MULTIAMP_EHATCH_AMOUNT = 1;
 
     private final static String NBT_INVENTORY_TAG = "mIFInventory";
     private final static String NBT_OUTPUT_TRACKER = "mOutputTracker";
@@ -472,8 +476,16 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             return false;
         }
 
-        // validate hatches depending on the presence of the oc upgrade.
+        // validate exotic hatches depending on the presence of the oc upgrade.
         if (this.mOverclockedGrowthAccelerationUnitCount > 0) {
+            // limit the number of multi-amp hatches
+            if (this.mExoticEnergyHatches.size() > MAX_MULTIAMP_EHATCH_AMOUNT) {
+                return false;
+            }
+            // can't mix and match when using multi-amps
+            if (!this.mExoticEnergyHatches.isEmpty() && !this.mEnergyHatches.isEmpty()) {
+                return false;
+            }
             for (MTEHatch hatch : this.mExoticEnergyHatches) {
                 if (hatch.getConnectionType() == MTEHatch.ConnectionType.LASER) {
                     return false;
@@ -483,7 +495,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                     return false;
                 }
             }
-        } else if (this.mExoticEnergyHatches.size() != 0) {
+        } else if (!this.mExoticEnergyHatches.isEmpty()) {
             return false;
         }
 
