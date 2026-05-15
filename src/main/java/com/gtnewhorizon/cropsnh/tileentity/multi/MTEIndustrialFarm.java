@@ -610,7 +610,11 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addGlassEnergyLimitInfo()
             .addInfo(
                 EnumChatFormatting.GREEN
-                    + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade")
+                    + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.0")
+                    + EnumChatFormatting.RESET)
+            .addInfo(
+                EnumChatFormatting.GREEN
+                    + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.1")
                     + EnumChatFormatting.RESET)
             .addCasingInfoRange(
                 StatCollector.translateToLocal(Reference.MOD_ID + ".casings1.0.name"),
