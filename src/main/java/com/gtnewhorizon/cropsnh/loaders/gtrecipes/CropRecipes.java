@@ -362,6 +362,8 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Salt);
         createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.RockSalt);
         createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Saltpeter);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Spodumene);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Lepidolite);
         createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Barite);
         createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Borax);
 
