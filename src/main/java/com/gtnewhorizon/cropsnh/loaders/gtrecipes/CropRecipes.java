@@ -71,6 +71,8 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     private static final int IMPURE_DUST_RECIPE_CIRCUIT = 2;
     public static final int DEFAULT_ORE_DUPLICATION_ORE_AMOUNT = 4;
     public static final int DEFAULT_ORE_CONVERSION_LEAF_AMOUNT = 4;
+    /** for explicitly telling the game to not add a fluid byproduct. */
+    public static final FluidStack NO_FLUID = new FluidStack(FluidRegistry.WATER, 0);
 
     public enum TierAcid {
 
@@ -351,6 +353,19 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.BandedIron);
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.Pyrite);
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.MeteoricIron);
+        // disabling fluids on those 2, only granite needs it but molten basalt would probably be in the same boat
+        // as molten granite which usually requires molten lava to make.
+        createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.BasalticMineralSand, NO_FLUID);
+        createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.GraniticMineralSand, NO_FLUID);
+
+        // quadrupling leaf amount to account for salty root's higher than usual harvest multiplier of 4.
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Salt);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.RockSalt);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Saltpeter);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Spodumene);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Lepidolite);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Barite);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Borax);
 
         createOreDuplicationRecipe(MaterialLeafLoader.nickelbackLeaf, Materials.Nickel);
         createOreDuplicationRecipe(MaterialLeafLoader.nickelbackLeaf, Materials.Garnierite);
@@ -1193,6 +1208,10 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(variant, oreType, Voltage.LV, null);
     }
 
+    public static void createOreDuplicationRecipe(ItemStack leaf, Materials oreType) {
+        createOreDuplicationRecipe(leaf, oreType, Voltage.LV, null);
+    }
+
     public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType,
         FluidStack fluidByproduct) {
         createOreDuplicationRecipe(variant, oreType, Voltage.LV, fluidByproduct);
@@ -1230,7 +1249,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                 .getMolten(1 * INGOTS);
         }
 
-        // TODO: ask around about the circuit thing since technically with the ghost slot this is feasible.
         createOreDuplicationRecipe(
             new ItemStack[] { leaf, crushed },
             purified,
@@ -1249,23 +1267,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             fluidByproduct,
             voltage,
             multiblockChemicalReactorRecipes);
-    }
-
-    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, ItemStack crushed, Materials oreType,
-        Voltage voltage) {
-        if (variant == null || crushed == null || oreType == null) {
-            throw new IllegalArgumentException("no argument can be null");
-        }
-        ItemStack leaf = variant.get(1);
-        ItemStack purified = GTOreDictUnificator
-            .get(OrePrefixes.crushedPurified, oreType, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT);
-        FluidStack byproduct = null;
-        if (!oreType.mOreByProducts.isEmpty()) {
-            byproduct = oreType.mOreByProducts.get(0)
-                .getMolten(1 * INGOTS);
-        }
-
-        createOreDuplicationRecipe(new ItemStack[] { leaf, crushed }, purified, byproduct, voltage, UniversalChemical);
     }
 
     public static void createOreDuplicationRecipe(ItemStack[] inputs, ItemStack purified, FluidStack byproduct,
@@ -1287,7 +1288,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .itemOutputs(purified);
 
         // add byproduct if one is available
-        if (byproduct != null) {
+        if (byproduct != null && byproduct != NO_FLUID) {
             builder.fluidOutputs(byproduct);
         }
 
