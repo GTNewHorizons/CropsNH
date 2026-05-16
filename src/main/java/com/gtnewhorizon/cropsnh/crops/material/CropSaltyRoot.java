@@ -55,6 +55,7 @@ public class CropSaltyRoot extends NHCropCard {
 
     @Override
     public float getDropChance() {
+        // if this ever gets changed, the ore multiplication recipe needs to also be changed.
         return 4.0F;
     }
 

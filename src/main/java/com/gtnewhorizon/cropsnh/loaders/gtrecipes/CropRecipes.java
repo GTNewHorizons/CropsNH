@@ -351,6 +351,15 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.BandedIron);
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.Pyrite);
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.MeteoricIron);
+        createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.BasalticMineralSand);
+        createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.GraniticMineralSand);
+
+        // quadrupling leaf amount to account for salty root's higher than usual harvest multiplier of 4.
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Salt);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.RockSalt);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Saltpeter);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Barite);
+        createOreDuplicationRecipe(MaterialLeafLoader.saltyRoot.get(4), Materials.Borax);
 
         createOreDuplicationRecipe(MaterialLeafLoader.nickelbackLeaf, Materials.Nickel);
         createOreDuplicationRecipe(MaterialLeafLoader.nickelbackLeaf, Materials.Garnierite);
@@ -1191,6 +1200,10 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType) {
         createOreDuplicationRecipe(variant, oreType, Voltage.LV, null);
+    }
+
+    public static void createOreDuplicationRecipe(ItemStack leaf, Materials oreType) {
+        createOreDuplicationRecipe(leaf, oreType, Voltage.LV, null);
     }
 
     public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType,
