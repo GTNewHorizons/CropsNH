@@ -8,11 +8,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
-import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
+import com.gtnewhorizon.cropsnh.blocks.BlockCropSticks;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
@@ -33,16 +32,10 @@ public class ExUWateringCanHandler {
         if (EXTRA_UTILS_WATERING_CAN == null) {
             throw new LoaderException("Unable to find ExU watering can while ExU is installed!");
         }
-    }
-
-    // cancel the event so the watering animation plays
-    @SubscribeEvent
-    public void wateringCanHook(PlayerInteractEvent event) {
-        if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) return;
-        ItemStack heldItem = event.entityPlayer.getHeldItem();
-        if (heldItem == null || heldItem.getItem() != EXTRA_UTILS_WATERING_CAN) return;
-        if (event.world.getBlock(event.x, event.y, event.z) != CropsNHBlocks.blockCropSticks) return;
-        event.setCanceled(true);
+        // reg (filled)
+        BlockCropSticks.BLOCK_INTERACTION_WITH.add(EXTRA_UTILS_WATERING_CAN, 0);
+        // reinforced
+        BlockCropSticks.BLOCK_INTERACTION_WITH.add(EXTRA_UTILS_WATERING_CAN, 3);
     }
 
     @SubscribeEvent
@@ -68,6 +61,10 @@ public class ExUWateringCanHandler {
     }
 
     // taken from the item class since it's usually a protected method
+    // the one from the Minecraft class results in slight inaccuracies so O figured it used the item one
+    // plus the Minecraft class version doesn't feel like it would work well with multiplayer since it's updated in
+    // render code. I could probably use a mixin as an access transformer, but this was faster and this is only a
+    // temporary measure until UiE get off the ground.
     private MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer player,
         boolean useLiquids) {
         float f = 1.0F;

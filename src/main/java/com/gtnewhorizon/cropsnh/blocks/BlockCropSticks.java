@@ -6,6 +6,7 @@ import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -29,6 +30,8 @@ import com.gtnewhorizon.cropsnh.renderers.blocks.RenderBlockBase;
 import com.gtnewhorizon.cropsnh.renderers.blocks.RenderCrop;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropsNH;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+import com.gtnewhorizon.cropsnh.utility.MetaSet;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -38,6 +41,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class BlockCropSticks extends BlockContainerCropsNH {
 
+    public static final MetaSet<Item> BLOCK_INTERACTION_WITH = new MetaSet<>();
     // 2 pixels all sides
     private static final float COLLISION_BOX_XZ_SHRINK = 0.125F;
     // 3 pixels on top side
@@ -79,11 +83,15 @@ public class BlockCropSticks extends BlockContainerCropsNH {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float fX, float fY,
         float fZ) {
+        // check if the item is blocked form interacting with crops directly
+        final ItemStack heldItem = player.getCurrentEquippedItem();
+        if (heldItem != null && heldItem.getItem() != null && BLOCK_INTERACTION_WITH.contains(heldItem.getItem(), CropsNHUtils.getItemMeta(heldItem))) {
+            return false;
+        }
 
         // else ensure that we have a crop tile
         final TileEntity te = world.getTileEntity(x, y, z);
         if (!(te instanceof final ICropStickTile crop)) return true;
-        final ItemStack heldItem = player.getCurrentEquippedItem();
 
         // if it can interact with crops deffer to that tool's logic.
         if (heldItem != null && heldItem.getItem() instanceof ICropRightClickHandler) {

@@ -16,6 +16,7 @@ public enum ModUtils implements IMod {
 
     Angelica(ModIDs.Angelica),
     Avaritia(ModIDs.Avaritia),
+    Backhand(ModIDs.Backhand),
     BiomesOPlenty(ModIDs.BiomesOPlenty),
     BloodMagic(ModIDs.BloodMagic),
     Botania(ModIDs.Botania),
@@ -144,6 +145,7 @@ public enum ModUtils implements IMod {
 
         public static final String Angelica = "angelica";
         public static final String Avaritia = "Avaritia";
+        public static final String Backhand = "backhand";
         public static final String BiomesOPlenty = "BiomesOPlenty";
         public static final String BloodMagic = "AWWayofTime";
         public static final String Botania = "Botania";
