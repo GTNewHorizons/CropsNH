@@ -444,7 +444,7 @@ cropsnh.advancedHarvestingUnit.13.name=Advanced Harvesting Unit (UXV)
 
 # MTE Machine Type Flavour Text
 # multi tooltips
-cropsnh_tooltip.MBTT.multiAmpsWithUpgrade.0=Supports a single TecTech Multi-Amp Energy Hatch when an Overclocked Growth Acceleration Unit!
+cropsnh_tooltip.MBTT.multiAmpsWithUpgrade.0=Supports a single TecTech Multi-Amp Energy Hatch when using an Overclocked Growth Acceleration Unit!
 cropsnh_tooltip.MBTT.multiAmpsWithUpgrade.1=You cannot use regular hatches when using a Multi-Amp Energy Hatch
 # Crop Produce Flavour Text
 cropsnh_tooltip.berry.huckle.1=Huckle-dae-Duckle-dae-Doo
