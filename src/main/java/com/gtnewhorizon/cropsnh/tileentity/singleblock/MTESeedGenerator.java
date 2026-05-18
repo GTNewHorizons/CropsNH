@@ -20,6 +20,14 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 
 import java.util.Arrays;
 
+import com.cleanroommc.modularui.factory.PosGuiData;
+import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.screen.UISettings;
+import com.cleanroommc.modularui.value.sync.PanelSyncManager;
+import com.gtnewhorizon.cropsnh.init.CropsNHUITexturesMUI2;
+import gregtech.api.modularui2.GTGuiTextures;
+import gregtech.api.recipe.BasicUIProperties;
+import gregtech.common.gui.modularui.singleblock.base.MTEBasicMachineWithRecipeBaseGui;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
@@ -265,24 +273,22 @@ public class MTESeedGenerator extends MTEBasicMachine {
     }
 
     @Override
-    protected SlotWidget createItemInputSlot(int index, IDrawable[] backgrounds, Pos2d pos) {
-        if (index == 0) {
-            return (SlotWidget) super.createItemInputSlot(index, backgrounds, pos)
-                .setBackground(getGUITextureSet().getItemSlot(), CropsNHUITextures.OVERLAY_SLOT_SEED);
-        } else {
-            return (SlotWidget) super.createItemInputSlot(index, backgrounds, pos)
-                .setBackground(getGUITextureSet().getItemSlot());
-        }
+    protected BasicUIProperties getUIProperties() {
+        return super.getUIProperties().toBuilder()
+            .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
+                if (isFluid || isSpecial || index != 0) return null;
+                return CropsNHUITexturesMUI2.OVERLAY_SLOT_SEED_STANDARD;
+            })
+            .build();
     }
 
     @Override
-    protected SlotWidget createItemOutputSlot(int index, IDrawable[] backgrounds, Pos2d pos) {
-        if (index == 0) {
-            return (SlotWidget) super.createItemOutputSlot(index, backgrounds, pos)
-                .setBackground(getGUITextureSet().getItemSlot(), CropsNHUITextures.OVERLAY_SLOT_SEED);
-        } else {
-            return (SlotWidget) super.createItemOutputSlot(index, backgrounds, pos)
-                .setBackground(getGUITextureSet().getItemSlot());
-        }
+    public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
+        return new MTEBasicMachineWithRecipeBaseGui(this, this.getUIProperties()).build(data, syncManager, uiSettings);
+    }
+
+    @Override
+    protected boolean useMui2() {
+        return true;
     }
 }

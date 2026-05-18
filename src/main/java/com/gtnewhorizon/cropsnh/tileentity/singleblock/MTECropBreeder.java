@@ -23,6 +23,14 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import com.cleanroommc.modularui.factory.PosGuiData;
+import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.screen.UISettings;
+import com.cleanroommc.modularui.value.sync.PanelSyncManager;
+import com.gtnewhorizon.cropsnh.init.CropsNHUITexturesMUI2;
+import gregtech.api.modularui2.GTGuiTextures;
+import gregtech.api.recipe.BasicUIProperties;
+import gregtech.common.gui.modularui.singleblock.base.MTEBasicMachineWithRecipeBaseGui;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
@@ -36,14 +44,10 @@ import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
-import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
-import com.gtnewhorizons.modularui.api.drawable.IDrawable;
-import com.gtnewhorizons.modularui.api.math.Pos2d;
-import com.gtnewhorizons.modularui.common.widget.SlotWidget;
 
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.VoltageIndex;
@@ -336,12 +340,22 @@ public class MTECropBreeder extends MTEBasicMachine {
     }
 
     @Override
-    protected SlotWidget createItemOutputSlot(int index, IDrawable[] backgrounds, Pos2d pos) {
-        if (index == 0) {
-            return (SlotWidget) super.createItemOutputSlot(index, backgrounds, pos)
-                .setBackground(getGUITextureSet().getItemSlot(), CropsNHUITextures.OVERLAY_SLOT_SEED);
-        }
-        return (SlotWidget) super.createItemOutputSlot(index, backgrounds, pos)
-            .setBackground(getGUITextureSet().getItemSlot());
+    protected BasicUIProperties getUIProperties() {
+        return super.getUIProperties().toBuilder()
+            .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
+                if (isFluid || isOutput || isSpecial || index != 0) return null;
+                return CropsNHUITexturesMUI2.OVERLAY_SLOT_SEED_STANDARD;
+            })
+            .build();
+    }
+
+    @Override
+    public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
+        return new MTEBasicMachineWithRecipeBaseGui(this, this.getUIProperties()).build(data, syncManager, uiSettings);
+    }
+
+    @Override
+    protected boolean useMui2() {
+        return true;
     }
 }
