@@ -25,16 +25,17 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
+import com.cleanroommc.modularui.factory.PosGuiData;
+import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.screen.UISettings;
+import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
-import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
+import com.gtnewhorizon.cropsnh.init.CropsNHUITexturesMUI2;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
-import com.gtnewhorizons.modularui.api.drawable.IDrawable;
-import com.gtnewhorizons.modularui.api.math.Pos2d;
-import com.gtnewhorizons.modularui.common.widget.SlotWidget;
 
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TierEU;
@@ -42,10 +43,12 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEBasicMachine;
+import gregtech.api.recipe.BasicUIProperties;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
+import gregtech.common.gui.modularui.singleblock.base.MTEBasicMachineBaseGui;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 
 public class MTESeedGenerator extends MTEBasicMachine {
@@ -265,24 +268,22 @@ public class MTESeedGenerator extends MTEBasicMachine {
     }
 
     @Override
-    protected SlotWidget createItemInputSlot(int index, IDrawable[] backgrounds, Pos2d pos) {
-        if (index == 0) {
-            return (SlotWidget) super.createItemInputSlot(index, backgrounds, pos)
-                .setBackground(getGUITextureSet().getItemSlot(), CropsNHUITextures.OVERLAY_SLOT_SEED);
-        } else {
-            return (SlotWidget) super.createItemInputSlot(index, backgrounds, pos)
-                .setBackground(getGUITextureSet().getItemSlot());
-        }
+    protected BasicUIProperties getUIProperties() {
+        return super.getUIProperties().toBuilder()
+            .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
+                if (isFluid || isSpecial || index != 0) return null;
+                return CropsNHUITexturesMUI2.OVERLAY_SLOT_SEED_STANDARD;
+            })
+            .build();
     }
 
     @Override
-    protected SlotWidget createItemOutputSlot(int index, IDrawable[] backgrounds, Pos2d pos) {
-        if (index == 0) {
-            return (SlotWidget) super.createItemOutputSlot(index, backgrounds, pos)
-                .setBackground(getGUITextureSet().getItemSlot(), CropsNHUITextures.OVERLAY_SLOT_SEED);
-        } else {
-            return (SlotWidget) super.createItemOutputSlot(index, backgrounds, pos)
-                .setBackground(getGUITextureSet().getItemSlot());
-        }
+    public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
+        return new MTEBasicMachineBaseGui(this, this.getUIProperties()).build(data, syncManager, uiSettings);
+    }
+
+    @Override
+    protected boolean useMui2() {
+        return true;
     }
 }
