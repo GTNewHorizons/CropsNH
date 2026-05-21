@@ -292,6 +292,12 @@ public interface ICropStickTile {
     boolean onInvalidSoilDetected();
 
     /**
+     * @return The items to drop when breaking the crop stick.
+     * @implNote This also harvests the crop.
+     */
+    ArrayList<ItemStack> getBreakItems();
+
+    /**
      * Breaks the crop stick and drops the relevant items.
      */
     void breakCropStick(boolean isTrampling);

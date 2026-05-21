@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.blocks;
 
+import java.util.ArrayList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
@@ -135,6 +137,25 @@ public class BlockCropSticks extends BlockContainerCropsNH {
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
         this.onBlockClicked(world, x, y, z, player);
+    }
+
+    @Override
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+        if (world.getTileEntity(x, y, z) instanceof ICropStickTile cropTE) {
+            return cropTE.getBreakItems();
+        }
+        return super.getDrops(world, x, y, z, metadata, fortune);
+    }
+
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block b, int meta) {
+        if (CropsNHUtils.isServer() && world.getTileEntity(x, y, z) instanceof ICropStickTile cropTE
+            && cropTE.hasCrop()) {
+            cropTE.getSeed()
+                .getCrop()
+                .onRemoved(cropTE);
+        }
+        super.breakBlock(world, x, y, z, b, meta);
     }
 
     /**
