@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
@@ -7,6 +8,7 @@ import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import bartworks.system.material.WerkstoffLoader;
+import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 
@@ -33,10 +35,10 @@ public class BlockUnderRequirementLoader {
         CropsNHBlockUnderTypes.blackGranite.addOreDict("stoneGraniteBlack");
         CropsNHBlockUnderTypes.marble.addOreDict("stoneMarble");
         CropsNHBlockUnderTypes.basalt.addOreDict("stoneBasalt");
-        // Botania Stone Lilies
-        CropsNHBlockUnderTypes.botaniaAndesite.addOreDict("stoneAndesite", "stoneAndesitePolished", "stoneAndesiteBricks", "stoneAndesiteChiseled");
-        CropsNHBlockUnderTypes.botaniaDiorite.addOreDict("stoneDiorite", "stoneDioritePolished", "stoneDioriteBricks", "stoneDioriteChiseled");
-        CropsNHBlockUnderTypes.botaniaGranite.addOreDict("stoneGranite", "stoneGranitePolished", "stoneGraniteBricks", "stoneGraniteChiseled");
+        // Modern Stone Lilies
+        CropsNHBlockUnderTypes.modernAndesite.addOreDict("stoneAndesite", "stoneAndesitePolished", "stoneAndesiteBricks", "stoneAndesiteChiseled");
+        CropsNHBlockUnderTypes.modernDiorite.addOreDict("stoneDiorite", "stoneDioritePolished", "stoneDioriteBricks", "stoneDioriteChiseled");
+        CropsNHBlockUnderTypes.modernGranite.addOreDict("stoneGranite", "stoneGranitePolished", "stoneGraniteBricks", "stoneGraniteChiseled");
         // Et Futurum Stone Lilies
         if (ModUtils.EtFuturumRequiem.isModLoaded()) {
             CropsNHBlockUnderTypes.tuff.addBlock(new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("tuff")));
@@ -122,13 +124,13 @@ public class BlockUnderRequirementLoader {
             CropsNHBlockUnderTypes.aluminiumBauxite.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("aluminumblock"))
             );
-            CropsNHBlockUnderTypes.botaniaAndesite.addBlock(
+            CropsNHBlockUnderTypes.modernAndesite.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("andesite"))
             );
-            CropsNHBlockUnderTypes.botaniaDiorite.addBlock(
+            CropsNHBlockUnderTypes.modernDiorite.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("diorite"))
             );
-            CropsNHBlockUnderTypes.botaniaGranite.addBlock(
+            CropsNHBlockUnderTypes.modernGranite.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("granite"))
             );
             CropsNHBlockUnderTypes.clay.addBlock(
@@ -268,6 +270,23 @@ public class BlockUnderRequirementLoader {
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("smooth_red_sandstone")),
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("red_sandstone"))
             );
+
+            // gotta check if the block was registered since it's a config.
+            Block efrStone = GameRegistry.findBlock(ModUtils.EtFuturumRequiem.ID, "stone");
+            if (efrStone != null) {
+                CropsNHBlockUnderTypes.modernGranite.addBlock(
+                    new BlockWithMeta(efrStone, 1),
+                    new BlockWithMeta(efrStone, 2)
+                );
+                CropsNHBlockUnderTypes.modernDiorite.addBlock(
+                    new BlockWithMeta(efrStone, 3),
+                    new BlockWithMeta(efrStone, 4)
+                );
+                CropsNHBlockUnderTypes.modernAndesite.addBlock(
+                    new BlockWithMeta(efrStone, 5),
+                    new BlockWithMeta(efrStone, 6)
+                );
+            }
         }
         if (ModUtils.ExtraUtilities.isModLoaded()) {
             CropsNHBlockUnderTypes.stone.addBlock(

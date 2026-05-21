@@ -1,13 +1,17 @@
-package com.gtnewhorizon.cropsnh.crops.stoneilies.botania;
+package com.gtnewhorizon.cropsnh.crops.stoneilies.modern;
 
 import java.awt.Color;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CropGraniteLily extends CropBaseStoneLily {
 
@@ -16,13 +20,17 @@ public class CropGraniteLily extends CropBaseStoneLily {
 
         final int DROP_COUNT = 1;
         final int DROP_CHANCE = 100_00;
-        if (ModUtils.Botania.isModLoaded() || ModUtils.EtFuturumRequiem.isModLoaded()) {
+        if (ModUtils.Chisel.isModLoaded() || ModUtils.Botania.isModLoaded()) {
             this.addDrop(OreDictHelper.getCopiedOreStack("stoneGranite", DROP_COUNT), DROP_CHANCE);
-        } else {
-            this.addDrop(ModUtils.Chisel.getStack("granite", DROP_COUNT, 0), DROP_CHANCE);
+        } else if (ModUtils.EtFuturumRequiem.isModLoaded()) {
+            // gotta check if the block was registered since it's a config.
+            Block efrStone = GameRegistry.findBlock(ModUtils.EtFuturumRequiem.ID, "stone");
+            if (efrStone != null) {
+                this.addDrop(new ItemStack(efrStone, DROP_COUNT, 1), DROP_CHANCE);
+            }
         }
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.botaniaGranite);
+        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.modernGranite);
 
         this.addLikedBiomes(BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HILLS);
     }

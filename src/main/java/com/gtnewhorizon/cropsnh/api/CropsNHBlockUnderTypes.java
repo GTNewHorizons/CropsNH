@@ -16,9 +16,9 @@ public final class CropsNHBlockUnderTypes {
     public static final BlockUnderRequirement blackGranite = BlockUnderRequirement.get("blackGranite");
     public static final BlockUnderRequirement marble = BlockUnderRequirement.get("marble");
     public static final BlockUnderRequirement basalt = BlockUnderRequirement.get("basalt");
-    public static final BlockUnderRequirement botaniaAndesite = BlockUnderRequirement.get("botaniaAndesite");
-    public static final BlockUnderRequirement botaniaDiorite = BlockUnderRequirement.get("botaniaDiorite");
-    public static final BlockUnderRequirement botaniaGranite = BlockUnderRequirement.get("botaniaGranite");
+    public static final BlockUnderRequirement modernAndesite = BlockUnderRequirement.get("modernAndesite");
+    public static final BlockUnderRequirement modernDiorite = BlockUnderRequirement.get("modernDiorite");
+    public static final BlockUnderRequirement modernGranite = BlockUnderRequirement.get("modernGranite");
     public static final BlockUnderRequirement tuff = BlockUnderRequirement.get("tuff");
     public static final BlockUnderRequirement deepslate = BlockUnderRequirement.get("deepslate");
     public static final BlockUnderRequirement coal = BlockUnderRequirement.get("coal");

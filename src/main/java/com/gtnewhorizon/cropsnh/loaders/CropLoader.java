@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.loaders;
 
 import java.awt.Color;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -148,11 +149,11 @@ import com.gtnewhorizon.cropsnh.crops.stoneilies.CropRedGraniteLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.CropSandLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.CropSoulSandLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.CropStoneLily;
-import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropAndesiteLily;
-import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropDioriteLily;
-import com.gtnewhorizon.cropsnh.crops.stoneilies.botania.CropGraniteLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.etfuturum.CropDeepslateLily;
 import com.gtnewhorizon.cropsnh.crops.stoneilies.etfuturum.CropTuffLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.modern.CropAndesiteLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.modern.CropDioriteLily;
+import com.gtnewhorizon.cropsnh.crops.stoneilies.modern.CropGraniteLily;
 import com.gtnewhorizon.cropsnh.crops.thaumcraft.CropCinderpearl;
 import com.gtnewhorizon.cropsnh.crops.thaumcraft.CropManaBean;
 import com.gtnewhorizon.cropsnh.crops.thaumcraft.CropPrimordialBerry;
@@ -188,6 +189,7 @@ import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.ItemList;
 
 public class CropLoader {
@@ -491,8 +493,9 @@ public class CropLoader {
     }
 
     private static void registerStoneLilies() {
-        if (ModUtils.Botania.isModLoaded() || ModUtils.EtFuturumRequiem.isModLoaded()
-            || ModUtils.Chisel.isModLoaded()) {
+        // gotta check if the block was registered since it's a config.
+        Block efrStone = GameRegistry.findBlock(ModUtils.EtFuturumRequiem.ID, "stone");
+        if (ModUtils.Botania.isModLoaded() || ModUtils.Chisel.isModLoaded() || efrStone != null) {
             CropRegistry.instance.register(CropsNHCrops.AndesiteLily = new CropAndesiteLily());
             CropRegistry.instance.register(CropsNHCrops.DioriteLily = new CropDioriteLily());
             CropRegistry.instance.register(CropsNHCrops.GraniteLily = new CropGraniteLily());

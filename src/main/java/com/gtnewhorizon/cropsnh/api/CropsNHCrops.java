@@ -162,7 +162,7 @@ public class CropsNHCrops {
     public static ICropCard TinOreBerry;
     public static ICropCard VoidOreBerry;
 
-    // Stone Lilies (Botania)
+    // Stone Lilies (modern)
     public static ICropCard AndesiteLily;
     public static ICropCard DioriteLily;
     public static ICropCard GraniteLily;
