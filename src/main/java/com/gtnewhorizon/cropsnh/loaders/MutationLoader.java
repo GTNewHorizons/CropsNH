@@ -765,7 +765,7 @@ public class MutationLoader {
         // endregion ore berries
 
         // region stone lilies
-        if (ModUtils.Botania.isModLoaded()) {
+        if (ModUtils.Botania.isModLoaded() || ModUtils.EtFuturumRequiem.isModLoaded() || ModUtils.Chisel.isModLoaded()) {
             new CropMutation(AndesiteLily, StoneLily, ClayLily)
                 .addToMutationPools(aGray, aStone, aMetal)
                 .register();
@@ -777,7 +777,7 @@ public class MutationLoader {
                 .register();
         }
         if (ModUtils.EtFuturumRequiem.isModLoaded()) {
-            new CropMutation(TuffLily, BlackGraniteLily, StoneLily)
+            new CropMutation(TuffLily, BlackGraniteLily, AndesiteLily)
                 .addToMutationPools(aGray, aStone, aDark)
                 .register();
             new CropMutation(DeepslateLily,TuffLily, BlackGraniteLily)

@@ -491,7 +491,8 @@ public class CropLoader {
     }
 
     private static void registerStoneLilies() {
-        if (ModUtils.Botania.isModLoaded()) {
+        if (ModUtils.Botania.isModLoaded() || ModUtils.EtFuturumRequiem.isModLoaded()
+            || ModUtils.Chisel.isModLoaded()) {
             CropRegistry.instance.register(CropsNHCrops.AndesiteLily = new CropAndesiteLily());
             CropRegistry.instance.register(CropsNHCrops.DioriteLily = new CropDioriteLily());
             CropRegistry.instance.register(CropsNHCrops.GraniteLily = new CropGraniteLily());
