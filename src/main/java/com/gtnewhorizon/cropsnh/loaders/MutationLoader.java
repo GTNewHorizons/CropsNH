@@ -262,6 +262,7 @@ import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aWood;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aYellow;
 import static com.gtnewhorizon.cropsnh.api.CropsNHMutationPools.aZombie;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
@@ -270,6 +271,7 @@ import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.breeding.MachineBreedingCatalystRequirement;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.Mods;
 
 public class MutationLoader {
@@ -765,7 +767,9 @@ public class MutationLoader {
         // endregion ore berries
 
         // region stone lilies
-        if (ModUtils.Botania.isModLoaded()) {
+        // gotta check if the block was registered since it's a config.
+        Block efrStone = GameRegistry.findBlock(ModUtils.EtFuturumRequiem.ID, "stone");
+        if (ModUtils.Botania.isModLoaded() || ModUtils.Chisel.isModLoaded() || efrStone != null) {
             new CropMutation(AndesiteLily, StoneLily, ClayLily)
                 .addToMutationPools(aGray, aStone, aMetal)
                 .register();
@@ -775,14 +779,15 @@ public class MutationLoader {
             new CropMutation(GraniteLily, BlackGraniteLily, RedGraniteLily)
                 .addToMutationPools(aRed, aStone, aFire)
                 .register();
-        }
-        if (ModUtils.EtFuturumRequiem.isModLoaded()) {
-            new CropMutation(TuffLily, BlackGraniteLily, StoneLily)
-                .addToMutationPools(aGray, aStone, aDark)
-                .register();
-            new CropMutation(DeepslateLily,TuffLily, BlackGraniteLily)
-                .addToMutationPools(aBlack, aStone, aDark)
-                .register();
+
+            if (ModUtils.EtFuturumRequiem.isModLoaded()) {
+                new CropMutation(TuffLily, BlackGraniteLily, AndesiteLily)
+                    .addToMutationPools(aGray, aStone, aDark)
+                    .register();
+                new CropMutation(DeepslateLily,TuffLily, BlackGraniteLily)
+                    .addToMutationPools(aBlack, aStone, aDark)
+                    .register();
+            }
         }
         new CropMutation(BasaltLily, StoneLily, InkBloom)
             .addToMutationPools(aBlack, aStone, aDark)
