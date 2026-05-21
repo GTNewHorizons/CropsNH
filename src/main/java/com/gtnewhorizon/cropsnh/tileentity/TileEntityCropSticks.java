@@ -1372,7 +1372,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     @Override
-    public void breakCropStick(boolean isTrampling) {
+    public ArrayList<ItemStack> getBreakItems() {
         ArrayList<ItemStack> toDrop = new ArrayList<>();
         toDrop.add(CropsNHItemList.cropSticks.get(this.isCrossCrop ? 2 : 1));
         if (this.hasCrop()) {
@@ -1381,7 +1381,14 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             ArrayList<ItemStack> drops = this.harvest(1.0d);
             if (drops != null) toDrop.addAll(drops);
             if (seedDrop != null) toDrop.add(seedDrop);
-            // no more crop in here.
+        }
+        return toDrop;
+    }
+
+    @Override
+    public void breakCropStick(boolean isTrampling) {
+        ArrayList<ItemStack> toDrop = this.getBreakItems();
+        if (this.hasCrop()) {
             this.clear();
             // when trampling replace farmland with dirt if soil is farmland
             // might be worth turning this into a registry if we ever add more
