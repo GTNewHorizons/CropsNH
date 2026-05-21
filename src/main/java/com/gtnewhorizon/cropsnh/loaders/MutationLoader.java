@@ -779,14 +779,15 @@ public class MutationLoader {
             new CropMutation(GraniteLily, BlackGraniteLily, RedGraniteLily)
                 .addToMutationPools(aRed, aStone, aFire)
                 .register();
-        }
-        if (ModUtils.EtFuturumRequiem.isModLoaded()) {
-            new CropMutation(TuffLily, BlackGraniteLily, AndesiteLily)
-                .addToMutationPools(aGray, aStone, aDark)
-                .register();
-            new CropMutation(DeepslateLily,TuffLily, BlackGraniteLily)
-                .addToMutationPools(aBlack, aStone, aDark)
-                .register();
+
+            if (ModUtils.EtFuturumRequiem.isModLoaded()) {
+                new CropMutation(TuffLily, BlackGraniteLily, AndesiteLily)
+                    .addToMutationPools(aGray, aStone, aDark)
+                    .register();
+                new CropMutation(DeepslateLily,TuffLily, BlackGraniteLily)
+                    .addToMutationPools(aBlack, aStone, aDark)
+                    .register();
+            }
         }
         new CropMutation(BasaltLily, StoneLily, InkBloom)
             .addToMutationPools(aBlack, aStone, aDark)
