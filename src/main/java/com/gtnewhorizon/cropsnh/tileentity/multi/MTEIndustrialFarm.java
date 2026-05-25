@@ -456,6 +456,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         int tSlices = GTUtility.clamp(this.mUpgradeTier - MIN_CASING_TIER + MIN_SLICES, MIN_SLICES, MAX_SLICES);
         for (int tSliceIndex = 1; tSliceIndex < tSlices; tSliceIndex++) {
             if (!checkPiece(STRUCTURE_PIECE_LATER, 2, 2, -tSliceIndex - 1, errors)) return;
+            if (this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return;
         }
 
         if (!checkPiece(STRUCTURE_PIECE_LAST, 2, 2, -tSlices - 1, errors)) return;
