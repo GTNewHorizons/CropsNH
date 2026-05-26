@@ -103,6 +103,7 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.error.StructureError;
 import gregtech.api.structure.error.StructureErrorRegistry;
 import gregtech.api.structure.error.StructureErrors;
+import gregtech.api.structure.error.TranslatableText;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.ItemEjectionHelper;
@@ -437,12 +438,20 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         return survivalBuildPiece(STRUCTURE_PIECE_LAST, trigger, 2, 2, -tSlices - 1, elementBudget, env, false, true);
     }
 
-    private static final StructureError SE_EEU_COUNT = StructureErrors
-        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.EEUCount");
+    private static final StructureError SE_COMPONENT_TIER_TOO_LOW = StructureErrors.of(
+        Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.ComponentTierTooLow",
+        TranslatableText.literal(GTValues.VN[MIN_CASING_TIER]));
+    private static final StructureError SE_GLASS_TIER_TOO_LOW = StructureErrors.of(
+        Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.GlassTierTooLow",
+        TranslatableText.literal(GTValues.VN[MIN_CASING_TIER]));
+    private static final StructureError SE_EEU_COUNT = StructureErrors.of(
+        Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.EEUCount",
+        TranslatableText.literal(BlockEnvironmentalEnhancementUnit.MAX_UPGRADE_COUNT));
     private static final StructureError SE_FU_COUNT = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.FUCount");
-    private static final StructureError SE_AHU_COUNT = StructureErrors
-        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.AHUCount");
+    private static final StructureError SE_AHU_COUNT = StructureErrors.of(
+        Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.AHUCount",
+        TranslatableText.literal(BlockAdvancedHarvestingUnit.MAX_UPGRADE_COUNT));
     private static final StructureError SE_OCGAU_COUNT = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.OCGAUCount");
     private static final StructureError SE_OCGAU_EXCLUSIVITY = StructureErrors
@@ -471,16 +480,19 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
 
         // check the first slice
         if (!checkPiece(STRUCTURE_PIECE_LATER, 2, 2, -1, errors)) return;
-        if (this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return;
+        // check if components are below the minimum tiers allowed
+        if (hasUnderTiredComponents(errors)) return;
 
         int tSlices = GTUtility.clamp(this.mUpgradeTier - MIN_CASING_TIER + MIN_SLICES, MIN_SLICES, MAX_SLICES);
         for (int tSliceIndex = 1; tSliceIndex < tSlices; tSliceIndex++) {
             if (!checkPiece(STRUCTURE_PIECE_LATER, 2, 2, -tSliceIndex - 1, errors)) return;
-            if (this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return;
+            // check if components are below the minimum tiers allowed
+            if (hasUnderTiredComponents(errors)) return;
         }
 
         if (!checkPiece(STRUCTURE_PIECE_LAST, 2, 2, -tSlices - 1, errors)) return;
-        if (this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return;
+        // check if components are below the minimum tiers allowed
+        if (hasUnderTiredComponents(errors)) return;
 
         checkHasInputBus(errors);
         checkHasInputHatch(errors);
@@ -506,7 +518,6 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         // can't have OCGAU and reg GAU at the same time
         if (this.mGrowthAccelerationUnitCount > 0 && this.mOverclockedGrowthAccelerationUnitCount > 0) {
             errors.add(SE_OCGAU_EXCLUSIVITY);
-            return;
         }
         if (!errors.isEmpty()) return;
 
@@ -570,6 +581,18 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         }
 
         this.mSeedCapacity = BlockSeedBed.getCapacity(this.mUpgradeTier);
+    }
+
+    private boolean hasUnderTiredComponents(List<StructureError> errors) {
+        // Must be MV glass or higher
+        if (this.mGlassTier < MIN_CASING_TIER) {
+            errors.add(SE_GLASS_TIER_TOO_LOW);
+        }
+        // Must be MV upgrades or higher
+        if (this.mUpgradeTier < MIN_CASING_TIER) {
+            errors.add(SE_COMPONENT_TIER_TOO_LOW);
+        }
+        return !errors.isEmpty();
     }
 
     private long getPowerUsage() {
