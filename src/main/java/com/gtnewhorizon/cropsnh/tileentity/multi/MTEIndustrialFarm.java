@@ -190,7 +190,6 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     private static final String STRUCTURE_PIECE_FIRST = "first";
     private static final String STRUCTURE_PIECE_LATER = "later";
     private static final String STRUCTURE_PIECE_LAST = "last";
-    private static final int CASING_INDEX = Constants.GT_CASING_PAGE << 7;
     private static final int MIN_CASING_TIER = VoltageIndex.MV;
     private static final int MAX_CASING_TIER = VoltageIndex.UXV;
     private static final int MIN_SLICES = 1;
@@ -556,6 +555,24 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
 
         // calculate power usage
         // base eu/t should be based on the seedbed/upgrade tier.
+        long powerUsage = getPowerUsage();
+
+        if (this.mOverclockedGrowthAccelerationUnitCount > 0) {
+            OverclockCalculator calculator = new OverclockCalculator().setRecipeEUt(powerUsage)
+                .setEUt(this.getMaxInputEu())
+                .setDuration(Integer.MAX_VALUE)
+                .calculate();
+            this.mExpectedOCs = calculator.getPerformedOverclocks();
+            this.mExpectedEUt = calculator.getConsumption();
+        } else {
+            this.mExpectedOCs = 0;
+            this.mExpectedEUt = powerUsage;
+        }
+
+        this.mSeedCapacity = BlockSeedBed.getCapacity(this.mUpgradeTier);
+    }
+
+    private long getPowerUsage() {
         long basePower = GTValues.VP[this.mUpgradeTier];
         long powerUsage = basePower;
         if (this.mEnvironmentalEnhancementUnitCount > 0) {
@@ -573,20 +590,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             powerUsage += (long) (basePower * BlockAdvancedHarvestingUnit.BASE_POWER_INCREASE
                 * this.mAdvancedHarvestingUnitCount);
         }
-
-        if (this.mOverclockedGrowthAccelerationUnitCount > 0) {
-            OverclockCalculator calculator = new OverclockCalculator().setRecipeEUt(powerUsage)
-                .setEUt(this.getMaxInputEu())
-                .setDuration(Integer.MAX_VALUE)
-                .calculate();
-            this.mExpectedOCs = calculator.getPerformedOverclocks();
-            this.mExpectedEUt = calculator.getConsumption();
-        } else {
-            this.mExpectedOCs = 0;
-            this.mExpectedEUt = powerUsage;
-        }
-
-        this.mSeedCapacity = BlockSeedBed.getCapacity(this.mUpgradeTier);
+        return powerUsage;
     }
 
     @Override
@@ -753,10 +757,6 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
 
     public void setSeedStack(ItemStack aStack) {
         this.mIFStackHandler.setStackInSlot(SLOT_SEED, aStack);
-    }
-
-    public boolean canInsertIntoSeedSlot(ItemStack aStack) {
-        return this.mIFStackHandler.isItemValid(SLOT_SEED, aStack);
     }
 
     public ItemStack getBlockUnderStack() {
@@ -969,10 +969,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                     ItemStack tExistingBlockUnderStack = this.getBlockUnderStack();
                     if (CropsNHUtils.isStackValid(tExistingBlockUnderStack)) {
                         // check if the existing block under matches the new crop.
+                        // this shouldn't happen much since blockunders can't be manually accessed by the player.
                         if (!tBlockUnderReq.isValidBlockUnder(tExistingBlockUnderStack)) {
                             return CHECK_RECIPE_RESULT_BLOCK_UNDER_MISMATCH_INPUT;
                         }
                         tNewBlockUnderStack = tExistingBlockUnderStack;
+                        break;
                     } else {
                         for (tBlockUnderIndex = 0; tBlockUnderIndex < aInputs.size(); tBlockUnderIndex++) {
                             ItemStack tBlockUnderCandidate = aInputs.get(tBlockUnderIndex);
@@ -1237,7 +1239,8 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                         tPotency,
                         tRemaining);
                     if (tAmountToConsume > 0) {
-                        tRemaining -= tAmountToConsume;
+                        // uncomment if we ever add other types of liquid inputs
+                        // tRemaining -= tAmountToConsume;
                         tFertilizerPotencyMissing -= tAmountToConsume * tPotency;
                         tFertilizerFluidsToConsume.add(Pair.of(tFluidStack, tAmountToConsume));
                     }
