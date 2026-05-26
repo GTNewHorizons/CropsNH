@@ -438,23 +438,23 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         return survivalBuildPiece(STRUCTURE_PIECE_LAST, trigger, 2, 2, -tSlices - 1, elementBudget, env, false, true);
     }
 
-    private static StructureError SE_EEU_COUNT = StructureErrors
+    private static final StructureError SE_EEU_COUNT = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.EEUCount");
-    private static StructureError SE_FU_COUNT = StructureErrors
+    private static final StructureError SE_FU_COUNT = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.FUCount");
-    private static StructureError SE_AHU_COUNT = StructureErrors
+    private static final StructureError SE_AHU_COUNT = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.AHUCount");
-    private static StructureError SE_OCGAU_COUNT = StructureErrors
+    private static final StructureError SE_OCGAU_COUNT = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.OCGAUCount");
-    private static StructureError SE_OCGAU_EXCLUSIVITY = StructureErrors
+    private static final StructureError SE_OCGAU_EXCLUSIVITY = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.OCGAUExclusivity");
-    private static StructureError SE_OCGAU_MULTI_AMP_EHATCH_COUNT = StructureErrors
+    private static final StructureError SE_OCGAU_MULTI_AMP_EHATCH_COUNT = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.MultiAmpEHatchCount");
-    private static StructureError SE_EHATCH_TYPE_NO_MIX = StructureErrors
+    private static final StructureError SE_EHATCH_TYPE_NO_MIX = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.EHatchTypeNoMix");
-    private static StructureError SE_LASER_NOT_ALLOWED = StructureErrors
+    private static final StructureError SE_LASER_NOT_ALLOWED = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.LaserNotAllowed");
-    private static StructureError SE_MULTI_AMP_NOT_ALLOWED = StructureErrors
+    private static final StructureError SE_MULTI_AMP_NOT_ALLOWED = StructureErrors
         .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.MultiAmpNotAllowed");
 
     @Override
