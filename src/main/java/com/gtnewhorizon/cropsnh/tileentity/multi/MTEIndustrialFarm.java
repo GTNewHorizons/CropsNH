@@ -100,6 +100,10 @@ import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.render.TextureFactory;
+import gregtech.api.structure.error.StructureError;
+import gregtech.api.structure.error.StructureErrorRegistry;
+import gregtech.api.structure.error.StructureErrors;
+import gregtech.api.structure.error.TranslatableText;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.ItemEjectionHelper;
@@ -187,7 +191,6 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     private static final String STRUCTURE_PIECE_FIRST = "first";
     private static final String STRUCTURE_PIECE_LATER = "later";
     private static final String STRUCTURE_PIECE_LAST = "last";
-    private static final int CASING_INDEX = Constants.GT_CASING_PAGE << 7;
     private static final int MIN_CASING_TIER = VoltageIndex.MV;
     private static final int MAX_CASING_TIER = VoltageIndex.UXV;
     private static final int MIN_SLICES = 1;
@@ -435,8 +438,35 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         return survivalBuildPiece(STRUCTURE_PIECE_LAST, trigger, 2, 2, -tSlices - 1, elementBudget, env, false, true);
     }
 
+    private static final StructureError SE_COMPONENT_TIER_TOO_LOW = StructureErrors.of(
+        Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.ComponentTierTooLow",
+        TranslatableText.literal(GTValues.VN[MIN_CASING_TIER]));
+    private static final StructureError SE_GLASS_TIER_TOO_LOW = StructureErrors.of(
+        Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.GlassTierTooLow",
+        TranslatableText.literal(GTValues.VN[MIN_CASING_TIER]));
+    private static final StructureError SE_EEU_COUNT = StructureErrors.of(
+        Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.EEUCount",
+        TranslatableText.literal(BlockEnvironmentalEnhancementUnit.MAX_UPGRADE_COUNT));
+    private static final StructureError SE_FU_COUNT = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.FUCount");
+    private static final StructureError SE_AHU_COUNT = StructureErrors.of(
+        Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.AHUCount",
+        TranslatableText.literal(BlockAdvancedHarvestingUnit.MAX_UPGRADE_COUNT));
+    private static final StructureError SE_OCGAU_COUNT = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.OCGAUCount");
+    private static final StructureError SE_OCGAU_EXCLUSIVITY = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.OCGAUExclusivity");
+    private static final StructureError SE_OCGAU_MULTI_AMP_EHATCH_COUNT = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.MultiAmpEHatchCount");
+    private static final StructureError SE_EHATCH_TYPE_NO_MIX = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.EHatchTypeNoMix");
+    private static final StructureError SE_LASER_NOT_ALLOWED = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.LaserNotAllowed");
+    private static final StructureError SE_MULTI_AMP_NOT_ALLOWED = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.MultiAmpNotAllowed");
+
     @Override
-    public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+    public void checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack, List<StructureError> errors) {
         this.mUpgradeTier = -1;
         this.mGlassTier = -1;
         this.mEnvironmentalEnhancementUnitCount = 0;
@@ -446,88 +476,97 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         this.mOverclockedGrowthAccelerationUnitCount = 0;
         this.mSeedCapacity = 0;
 
-        boolean tSuccess = checkPiece(STRUCTURE_PIECE_FIRST, 2, 2, 0);
-        if (!tSuccess) return false;
+        if (!checkPiece(STRUCTURE_PIECE_FIRST, 2, 2, 0, errors)) return;
 
         // check the first slice
-        tSuccess = checkPiece(STRUCTURE_PIECE_LATER, 2, 2, -1);
-        if (!tSuccess || this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return false;
+        if (!checkPiece(STRUCTURE_PIECE_LATER, 2, 2, -1, errors)) return;
+        // check if components are below the minimum tiers allowed
+        if (hasUnderTiredComponents(errors)) return;
 
         int tSlices = GTUtility.clamp(this.mUpgradeTier - MIN_CASING_TIER + MIN_SLICES, MIN_SLICES, MAX_SLICES);
         for (int tSliceIndex = 1; tSliceIndex < tSlices; tSliceIndex++) {
-            tSuccess = checkPiece(STRUCTURE_PIECE_LATER, 2, 2, -tSliceIndex - 1);
-            if (!tSuccess || this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return false;
+            if (!checkPiece(STRUCTURE_PIECE_LATER, 2, 2, -tSliceIndex - 1, errors)) return;
+            // check if components are below the minimum tiers allowed
+            if (hasUnderTiredComponents(errors)) return;
         }
 
-        tSuccess = checkPiece(STRUCTURE_PIECE_LAST, 2, 2, -tSlices - 1);
-        if (!tSuccess || this.mGlassTier < MIN_CASING_TIER || this.mUpgradeTier < MIN_CASING_TIER) return false;
+        if (!checkPiece(STRUCTURE_PIECE_LAST, 2, 2, -tSlices - 1, errors)) return;
+        // check if components are below the minimum tiers allowed
+        if (hasUnderTiredComponents(errors)) return;
 
-        if (this.mOutputBusses.size() < 1) return false;
-        if (this.mInputHatches.size() < 1) return false;
-        if (this.mMaintenanceHatches.size() != 1) return false;
-        if (this.mEnergyHatches.size() + this.mExoticEnergyHatches.size() < 1) return false;
+        checkHasInputBus(errors);
+        checkHasInputHatch(errors);
+        checkHasOutputBus(errors);
+        checkHasMaintenanceHatch(errors);
+        checkHasAnyEnergy(errors);
+
+        if (!errors.isEmpty()) return;
 
         // validate upgrade counts
-        if (this.mEnvironmentalEnhancementUnitCount > BlockEnvironmentalEnhancementUnit.MAX_UPGRADE_COUNT
-            || this.mFertilizerUnitCount > BlockFertilizerUnit.MAX_UPGRADE_COUNT
-            || this.mAdvancedHarvestingUnitCount > BlockAdvancedHarvestingUnit.MAX_UPGRADE_COUNT
-            || this.mOverclockedGrowthAccelerationUnitCount > BlockOverclockedGrowthAccelerationUnit.MAX_UPGRADE_COUNT
-            || (this.mGrowthAccelerationUnitCount > 0 && this.mOverclockedGrowthAccelerationUnitCount > 0)) {
-            return false;
+        if (this.mEnvironmentalEnhancementUnitCount > BlockEnvironmentalEnhancementUnit.MAX_UPGRADE_COUNT) {
+            errors.add(SE_EEU_COUNT);
         }
+        if (this.mFertilizerUnitCount > BlockFertilizerUnit.MAX_UPGRADE_COUNT) {
+            errors.add(SE_FU_COUNT);
+        }
+        if (this.mAdvancedHarvestingUnitCount > BlockAdvancedHarvestingUnit.MAX_UPGRADE_COUNT) {
+            errors.add(SE_AHU_COUNT);
+        }
+        if (this.mOverclockedGrowthAccelerationUnitCount > BlockOverclockedGrowthAccelerationUnit.MAX_UPGRADE_COUNT) {
+            errors.add(SE_OCGAU_COUNT);
+        }
+        // can't have OCGAU and reg GAU at the same time
+        if (this.mGrowthAccelerationUnitCount > 0 && this.mOverclockedGrowthAccelerationUnitCount > 0) {
+            errors.add(SE_OCGAU_EXCLUSIVITY);
+        }
+        if (!errors.isEmpty()) return;
 
         // validate exotic hatches depending on the presence of the oc upgrade.
         if (this.mOverclockedGrowthAccelerationUnitCount > 0) {
             // limit the number of multi-amp hatches
             if (this.mExoticEnergyHatches.size() > MAX_MULTIAMP_EHATCH_AMOUNT) {
-                return false;
+                errors.add(SE_OCGAU_MULTI_AMP_EHATCH_COUNT);
             }
             // can't mix and match when using multi-amps
             if (!this.mExoticEnergyHatches.isEmpty() && !this.mEnergyHatches.isEmpty()) {
-                return false;
+                errors.add(SE_EHATCH_TYPE_NO_MIX);
             }
             for (MTEHatch hatch : this.mExoticEnergyHatches) {
+                // probably superfluous but eh. it's not like this will be the perf bottleneck of this machine
                 if (hatch.getConnectionType() == MTEHatch.ConnectionType.LASER) {
-                    return false;
+                    errors.add(SE_LASER_NOT_ALLOWED);
+                    break;
                 }
-                // validate the tier while we're at it
+                // hatch tier must be <= to glass tier
                 if (this.mGlassTier < VoltageIndex.UMV && hatch.mTier > this.mGlassTier) {
-                    return false;
+                    errors.add(StructureErrorRegistry.ENERGY_TIER_EXCEED_GLASS);
+                    break;
                 }
             }
         } else if (!this.mExoticEnergyHatches.isEmpty()) {
-            return false;
+            // when no OCGAU is installed, multi-amp energy hatches aren't allowed
+            errors.add(SE_MULTI_AMP_NOT_ALLOWED);
         }
 
         // validate normal energy hatch tiers
         for (MTEHatch hatch : this.mEnergyHatches) {
             // probably superfluous but eh. it's not like this will be the perf bottleneck of this machine
             if (hatch.getConnectionType() == MTEHatch.ConnectionType.LASER) {
-                return false;
+                errors.add(SE_LASER_NOT_ALLOWED);
+                break;
             }
+            // hatch tier must be <= to glass tier
             if (this.mGlassTier < VoltageIndex.UMV && hatch.mTier > this.mGlassTier) {
-                return false;
+                errors.add(StructureErrorRegistry.ENERGY_TIER_EXCEED_GLASS);
+                break;
             }
         }
 
+        if (!errors.isEmpty()) return;
+
         // calculate power usage
         // base eu/t should be based on the seedbed/upgrade tier.
-        long basePower = GTValues.VP[this.mUpgradeTier], powerUsage = basePower;
-        if (this.mEnvironmentalEnhancementUnitCount > 0) {
-            powerUsage += basePower * BlockEnvironmentalEnhancementUnit.BASE_POWER_INCREASE
-                * this.mEnvironmentalEnhancementUnitCount;
-        }
-        if (this.mGrowthAccelerationUnitCount > 0) {
-            powerUsage += basePower * BlockGrowthAccelerationUnit.BASE_POWER_INCREASE
-                * this.mGrowthAccelerationUnitCount;
-        }
-        if (this.mFertilizerUnitCount > 0) {
-            powerUsage += basePower * BlockFertilizerUnit.BASE_POWER_INCREASE * this.mFertilizerUnitCount;
-        }
-        if (this.mAdvancedHarvestingUnitCount > 0) {
-            powerUsage += basePower * BlockAdvancedHarvestingUnit.BASE_POWER_INCREASE
-                * this.mAdvancedHarvestingUnitCount;
-        }
+        long powerUsage = getPowerUsage();
 
         if (this.mOverclockedGrowthAccelerationUnitCount > 0) {
             OverclockCalculator calculator = new OverclockCalculator().setRecipeEUt(powerUsage)
@@ -542,8 +581,39 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         }
 
         this.mSeedCapacity = BlockSeedBed.getCapacity(this.mUpgradeTier);
+    }
 
-        return true;
+    private boolean hasUnderTiredComponents(List<StructureError> errors) {
+        // Must be MV glass or higher
+        if (this.mGlassTier < MIN_CASING_TIER) {
+            errors.add(SE_GLASS_TIER_TOO_LOW);
+        }
+        // Must be MV upgrades or higher
+        if (this.mUpgradeTier < MIN_CASING_TIER) {
+            errors.add(SE_COMPONENT_TIER_TOO_LOW);
+        }
+        return !errors.isEmpty();
+    }
+
+    private long getPowerUsage() {
+        long basePower = GTValues.VP[this.mUpgradeTier];
+        long powerUsage = basePower;
+        if (this.mEnvironmentalEnhancementUnitCount > 0) {
+            powerUsage += (long) (basePower * BlockEnvironmentalEnhancementUnit.BASE_POWER_INCREASE
+                * this.mEnvironmentalEnhancementUnitCount);
+        }
+        if (this.mGrowthAccelerationUnitCount > 0) {
+            powerUsage += (long) (basePower * BlockGrowthAccelerationUnit.BASE_POWER_INCREASE
+                * this.mGrowthAccelerationUnitCount);
+        }
+        if (this.mFertilizerUnitCount > 0) {
+            powerUsage += (long) (basePower * BlockFertilizerUnit.BASE_POWER_INCREASE * this.mFertilizerUnitCount);
+        }
+        if (this.mAdvancedHarvestingUnitCount > 0) {
+            powerUsage += (long) (basePower * BlockAdvancedHarvestingUnit.BASE_POWER_INCREASE
+                * this.mAdvancedHarvestingUnitCount);
+        }
+        return powerUsage;
     }
 
     @Override
@@ -710,10 +780,6 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
 
     public void setSeedStack(ItemStack aStack) {
         this.mIFStackHandler.setStackInSlot(SLOT_SEED, aStack);
-    }
-
-    public boolean canInsertIntoSeedSlot(ItemStack aStack) {
-        return this.mIFStackHandler.isItemValid(SLOT_SEED, aStack);
     }
 
     public ItemStack getBlockUnderStack() {
@@ -926,10 +992,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                     ItemStack tExistingBlockUnderStack = this.getBlockUnderStack();
                     if (CropsNHUtils.isStackValid(tExistingBlockUnderStack)) {
                         // check if the existing block under matches the new crop.
+                        // this shouldn't happen much since blockunders can't be manually accessed by the player.
                         if (!tBlockUnderReq.isValidBlockUnder(tExistingBlockUnderStack)) {
                             return CHECK_RECIPE_RESULT_BLOCK_UNDER_MISMATCH_INPUT;
                         }
                         tNewBlockUnderStack = tExistingBlockUnderStack;
+                        break;
                     } else {
                         for (tBlockUnderIndex = 0; tBlockUnderIndex < aInputs.size(); tBlockUnderIndex++) {
                             ItemStack tBlockUnderCandidate = aInputs.get(tBlockUnderIndex);
@@ -1194,7 +1262,8 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                         tPotency,
                         tRemaining);
                     if (tAmountToConsume > 0) {
-                        tRemaining -= tAmountToConsume;
+                        // uncomment if we ever add other types of liquid inputs
+                        // tRemaining -= tAmountToConsume;
                         tFertilizerPotencyMissing -= tAmountToConsume * tPotency;
                         tFertilizerFluidsToConsume.add(Pair.of(tFluidStack, tAmountToConsume));
                     }
