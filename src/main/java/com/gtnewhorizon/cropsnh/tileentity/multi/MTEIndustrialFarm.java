@@ -101,6 +101,8 @@ import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.error.StructureError;
+import gregtech.api.structure.error.StructureErrorRegistry;
+import gregtech.api.structure.error.StructureErrors;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.ItemEjectionHelper;
@@ -436,6 +438,25 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         return survivalBuildPiece(STRUCTURE_PIECE_LAST, trigger, 2, 2, -tSlices - 1, elementBudget, env, false, true);
     }
 
+    private static StructureError SE_EEU_COUNT = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.EEUCount");
+    private static StructureError SE_FU_COUNT = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.FUCount");
+    private static StructureError SE_AHU_COUNT = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.AHUCount");
+    private static StructureError SE_OCGAU_COUNT = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.OCGAUCount");
+    private static StructureError SE_OCGAU_EXCLUSIVITY = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.OCGAUExclusivity");
+    private static StructureError SE_OCGAU_MULTI_AMP_EHATCH_COUNT = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.MultiAmpEHatchCount");
+    private static StructureError SE_EHATCH_TYPE_NO_MIX = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.EHatchTypeNoMix");
+    private static StructureError SE_LASER_NOT_ALLOWED = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.LaserNotAllowed");
+    private static StructureError SE_MULTI_AMP_NOT_ALLOWED = StructureErrors
+        .of(Reference.MOD_ID + "_tooltip.industrialFarm.structure.error.MultiAmpNotAllowed");
+
     @Override
     public void checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack, List<StructureError> errors) {
         this.mUpgradeTier = -1;
@@ -466,70 +487,91 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         checkHasInputHatch(errors);
         checkHasOutputBus(errors);
         checkHasMaintenanceHatch(errors);
-        checkHasEnergyHatch(errors);
+        checkHasAnyEnergy(errors);
 
         if (!errors.isEmpty()) return;
 
         // validate upgrade counts
-        if (this.mEnvironmentalEnhancementUnitCount > BlockEnvironmentalEnhancementUnit.MAX_UPGRADE_COUNT
-            || this.mFertilizerUnitCount > BlockFertilizerUnit.MAX_UPGRADE_COUNT
-            || this.mAdvancedHarvestingUnitCount > BlockAdvancedHarvestingUnit.MAX_UPGRADE_COUNT
-            || this.mOverclockedGrowthAccelerationUnitCount > BlockOverclockedGrowthAccelerationUnit.MAX_UPGRADE_COUNT
-            || (this.mGrowthAccelerationUnitCount > 0 && this.mOverclockedGrowthAccelerationUnitCount > 0)) {
+        if (this.mEnvironmentalEnhancementUnitCount > BlockEnvironmentalEnhancementUnit.MAX_UPGRADE_COUNT) {
+            errors.add(SE_EEU_COUNT);
+        }
+        if (this.mFertilizerUnitCount > BlockFertilizerUnit.MAX_UPGRADE_COUNT) {
+            errors.add(SE_FU_COUNT);
+        }
+        if (this.mAdvancedHarvestingUnitCount > BlockAdvancedHarvestingUnit.MAX_UPGRADE_COUNT) {
+            errors.add(SE_AHU_COUNT);
+        }
+        if (this.mOverclockedGrowthAccelerationUnitCount > BlockOverclockedGrowthAccelerationUnit.MAX_UPGRADE_COUNT) {
+            errors.add(SE_OCGAU_COUNT);
+        }
+        // can't have OCGAU and reg GAU at the same time
+        if (this.mGrowthAccelerationUnitCount > 0 && this.mOverclockedGrowthAccelerationUnitCount > 0) {
+            errors.add(SE_OCGAU_EXCLUSIVITY);
             return;
         }
+        if (!errors.isEmpty()) return;
 
         // validate exotic hatches depending on the presence of the oc upgrade.
         if (this.mOverclockedGrowthAccelerationUnitCount > 0) {
             // limit the number of multi-amp hatches
             if (this.mExoticEnergyHatches.size() > MAX_MULTIAMP_EHATCH_AMOUNT) {
-                return;
+                errors.add(SE_OCGAU_MULTI_AMP_EHATCH_COUNT);
             }
             // can't mix and match when using multi-amps
             if (!this.mExoticEnergyHatches.isEmpty() && !this.mEnergyHatches.isEmpty()) {
-                return;
+                errors.add(SE_EHATCH_TYPE_NO_MIX);
             }
             for (MTEHatch hatch : this.mExoticEnergyHatches) {
+                // probably superfluous but eh. it's not like this will be the perf bottleneck of this machine
                 if (hatch.getConnectionType() == MTEHatch.ConnectionType.LASER) {
-                    return;
+                    errors.add(SE_LASER_NOT_ALLOWED);
+                    break;
                 }
-                // validate the tier while we're at it
+                // hatch tier must be <= to glass tier
                 if (this.mGlassTier < VoltageIndex.UMV && hatch.mTier > this.mGlassTier) {
-                    return;
+                    errors.add(StructureErrorRegistry.ENERGY_TIER_EXCEED_GLASS);
+                    break;
                 }
             }
         } else if (!this.mExoticEnergyHatches.isEmpty()) {
-            return;
+            // when no OCGAU is installed, multi-amp energy hatches aren't allowed
+            errors.add(SE_MULTI_AMP_NOT_ALLOWED);
         }
 
         // validate normal energy hatch tiers
         for (MTEHatch hatch : this.mEnergyHatches) {
             // probably superfluous but eh. it's not like this will be the perf bottleneck of this machine
             if (hatch.getConnectionType() == MTEHatch.ConnectionType.LASER) {
-                return;
+                errors.add(SE_LASER_NOT_ALLOWED);
+                break;
             }
+            // hatch tier must be <= to glass tier
             if (this.mGlassTier < VoltageIndex.UMV && hatch.mTier > this.mGlassTier) {
-                return;
+                errors.add(StructureErrorRegistry.ENERGY_TIER_EXCEED_GLASS);
+                break;
             }
         }
 
+        if (!errors.isEmpty()) return;
+
         // calculate power usage
         // base eu/t should be based on the seedbed/upgrade tier.
-        long basePower = GTValues.VP[this.mUpgradeTier], powerUsage = basePower;
+        long basePower = GTValues.VP[this.mUpgradeTier];
+        long powerUsage = basePower;
         if (this.mEnvironmentalEnhancementUnitCount > 0) {
-            powerUsage += basePower * BlockEnvironmentalEnhancementUnit.BASE_POWER_INCREASE
-                * this.mEnvironmentalEnhancementUnitCount;
+            powerUsage += (long) (basePower * BlockEnvironmentalEnhancementUnit.BASE_POWER_INCREASE
+                * this.mEnvironmentalEnhancementUnitCount);
         }
         if (this.mGrowthAccelerationUnitCount > 0) {
-            powerUsage += basePower * BlockGrowthAccelerationUnit.BASE_POWER_INCREASE
-                * this.mGrowthAccelerationUnitCount;
+            powerUsage += (long) (basePower * BlockGrowthAccelerationUnit.BASE_POWER_INCREASE
+                * this.mGrowthAccelerationUnitCount);
         }
         if (this.mFertilizerUnitCount > 0) {
-            powerUsage += basePower * BlockFertilizerUnit.BASE_POWER_INCREASE * this.mFertilizerUnitCount;
+            powerUsage += (long) (basePower * BlockFertilizerUnit.BASE_POWER_INCREASE * this.mFertilizerUnitCount);
         }
         if (this.mAdvancedHarvestingUnitCount > 0) {
-            powerUsage += basePower * BlockAdvancedHarvestingUnit.BASE_POWER_INCREASE
-                * this.mAdvancedHarvestingUnitCount;
+            powerUsage += (long) (basePower * BlockAdvancedHarvestingUnit.BASE_POWER_INCREASE
+                * this.mAdvancedHarvestingUnitCount);
         }
 
         if (this.mOverclockedGrowthAccelerationUnitCount > 0) {
