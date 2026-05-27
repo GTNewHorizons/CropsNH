@@ -1,5 +1,9 @@
 package com.gtnewhorizon.cropsnh.tileentity.singleblock;
 
+import static com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures.OVERLAY_FRONT_CROP_SYNTHESIZER;
+import static com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures.OVERLAY_FRONT_CROP_SYNTHESIZER_ACTIVE;
+import static com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures.OVERLAY_FRONT_CROP_SYNTHESIZER_ACTIVE_GLOW;
+import static com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures.OVERLAY_FRONT_CROP_SYNTHESIZER_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER_ACTIVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER_ACTIVE_GLOW;
@@ -99,15 +103,15 @@ public class MTECropSynthesizer extends MTEBasicMachine {
                     .glow()
                     .build()),
             TextureFactory.of(
-                TextureFactory.of(OVERLAY_FRONT_SCANNER_ACTIVE),
+                TextureFactory.of(OVERLAY_FRONT_CROP_SYNTHESIZER_ACTIVE),
                 TextureFactory.builder()
-                    .addIcon(OVERLAY_FRONT_SCANNER_ACTIVE_GLOW)
+                    .addIcon(OVERLAY_FRONT_CROP_SYNTHESIZER_ACTIVE_GLOW)
                     .glow()
                     .build()),
             TextureFactory.of(
-                TextureFactory.of(OVERLAY_FRONT_SCANNER),
+                TextureFactory.of(OVERLAY_FRONT_CROP_SYNTHESIZER),
                 TextureFactory.builder()
-                    .addIcon(OVERLAY_FRONT_SCANNER_GLOW)
+                    .addIcon(OVERLAY_FRONT_CROP_SYNTHESIZER_GLOW)
                     .glow()
                     .build()),
             TextureFactory.of(

@@ -15,6 +15,10 @@ public class CropsNHBlockTextures {
     public static final IIconContainer Casing_CropHarvester_Boxes = new CustomIcon("tileEntities/gt4/OVERLAY_BOXES");
     public static final IIconContainer Casing_Bricked_Agricultural_Casing = new CustomIcon(
         "industrialFarm/brickedAgriculturalCasing");
+    public static final IIconContainer OVERLAY_FRONT_CROP_SYNTHESIZER_ACTIVE = new CustomIcon("tileEntities/machines/crop_synthesizer/OVERLAY_CROP_SYNTHESIZER_FRONT_ACTIVE");
+    public static final IIconContainer OVERLAY_FRONT_CROP_SYNTHESIZER_ACTIVE_GLOW = new CustomIcon("tileEntities/machines/crop_synthesizer/OVERLAY_CROP_SYNTHESIZER_FRONT_ACTIVE_GLOW");
+    public static final IIconContainer OVERLAY_FRONT_CROP_SYNTHESIZER = new CustomIcon("tileEntities/machines/crop_synthesizer/OVERLAY_CROP_SYNTHESIZER_FRONT");
+    public static final IIconContainer OVERLAY_FRONT_CROP_SYNTHESIZER_GLOW = new CustomIcon("tileEntities/machines/crop_synthesizer/OVERLAY_CROP_SYNTHESIZER_FRONT_GLOW");
 
     public static class CustomIcon implements IIconContainer, Runnable {
 
