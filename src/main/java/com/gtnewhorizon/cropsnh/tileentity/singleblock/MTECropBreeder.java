@@ -1,5 +1,9 @@
 package com.gtnewhorizon.cropsnh.tileentity.singleblock;
 
+import static com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures.OVERLAY_FRONT_CROP_BREEDER;
+import static com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures.OVERLAY_FRONT_CROP_BREEDER_ACTIVE;
+import static com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures.OVERLAY_FRONT_CROP_BREEDER_ACTIVE_GLOW;
+import static com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures.OVERLAY_FRONT_CROP_BREEDER_GLOW;
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER_ACTIVE;
@@ -124,15 +128,15 @@ public class MTECropBreeder extends MTEBasicMachine {
                     .glow()
                     .build()),
             TextureFactory.of(
-                TextureFactory.of(OVERLAY_FRONT_SCANNER_ACTIVE),
+                TextureFactory.of(OVERLAY_FRONT_CROP_BREEDER_ACTIVE),
                 TextureFactory.builder()
-                    .addIcon(OVERLAY_FRONT_SCANNER_ACTIVE_GLOW)
+                    .addIcon(OVERLAY_FRONT_CROP_BREEDER_ACTIVE_GLOW)
                     .glow()
                     .build()),
             TextureFactory.of(
-                TextureFactory.of(OVERLAY_FRONT_SCANNER),
+                TextureFactory.of(OVERLAY_FRONT_CROP_BREEDER),
                 TextureFactory.builder()
-                    .addIcon(OVERLAY_FRONT_SCANNER_GLOW)
+                    .addIcon(OVERLAY_FRONT_CROP_BREEDER_GLOW)
                     .glow()
                     .build()),
             TextureFactory.of(

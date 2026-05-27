@@ -26,6 +26,11 @@ public class CropsNHBlockTextures {
     public static final IIconContainer OVERLAY_FRONT_SEED_GENERATOR = new CustomIcon("tileEntities/machines/seed_generator/OVERLAY_SEED_GENERATOR_FRONT");
     public static final IIconContainer OVERLAY_FRONT_SEED_GENERATOR_GLOW = new CustomIcon("tileEntities/machines/seed_generator/OVERLAY_SEED_GENERATOR_FRONT_GLOW");
 
+    public static final IIconContainer OVERLAY_FRONT_CROP_BREEDER_ACTIVE = new CustomIcon("tileEntities/machines/crop_breeder/OVERLAY_CROP_BREEDER_FRONT_ACTIVE");
+    public static final IIconContainer OVERLAY_FRONT_CROP_BREEDER_ACTIVE_GLOW = new CustomIcon("tileEntities/machines/crop_breeder/OVERLAY_CROP_BREEDER_FRONT_ACTIVE_GLOW");
+    public static final IIconContainer OVERLAY_FRONT_CROP_BREEDER = new CustomIcon("tileEntities/machines/crop_breeder/OVERLAY_CROP_BREEDER_FRONT");
+    public static final IIconContainer OVERLAY_FRONT_CROP_BREEDER_GLOW = new CustomIcon("tileEntities/machines/crop_breeder/OVERLAY_CROP_BREEDER_FRONT_GLOW");
+
 
     public static class CustomIcon implements IIconContainer, Runnable {
 
