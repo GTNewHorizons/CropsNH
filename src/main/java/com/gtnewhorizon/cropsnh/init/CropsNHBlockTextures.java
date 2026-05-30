@@ -16,6 +16,42 @@ public class CropsNHBlockTextures {
     public static final IIconContainer Casing_Bricked_Agricultural_Casing = new CustomIcon(
         "industrialFarm/brickedAgriculturalCasing");
 
+    public static final IIconContainer OVERLAY_FRONT_CROP_SYNTHESIZER_ACTIVE = new CustomIcon(
+        "tileEntities/machines/crop_synthesizer/OVERLAY_CROP_SYNTHESIZER_FRONT_ACTIVE");
+    public static final IIconContainer OVERLAY_FRONT_CROP_SYNTHESIZER_ACTIVE_GLOW = new CustomIcon(
+        "tileEntities/machines/crop_synthesizer/OVERLAY_CROP_SYNTHESIZER_FRONT_ACTIVE_GLOW");
+    public static final IIconContainer OVERLAY_FRONT_CROP_SYNTHESIZER = new CustomIcon(
+        "tileEntities/machines/crop_synthesizer/OVERLAY_CROP_SYNTHESIZER_FRONT");
+    public static final IIconContainer OVERLAY_FRONT_CROP_SYNTHESIZER_GLOW = new CustomIcon(
+        "tileEntities/machines/crop_synthesizer/OVERLAY_CROP_SYNTHESIZER_FRONT_GLOW");
+
+    public static final IIconContainer OVERLAY_FRONT_SEED_GENERATOR_ACTIVE = new CustomIcon(
+        "tileEntities/machines/seed_generator/OVERLAY_SEED_GENERATOR_FRONT_ACTIVE");
+    public static final IIconContainer OVERLAY_FRONT_SEED_GENERATOR_ACTIVE_GLOW = new CustomIcon(
+        "tileEntities/machines/seed_generator/OVERLAY_SEED_GENERATOR_FRONT_ACTIVE_GLOW");
+    public static final IIconContainer OVERLAY_FRONT_SEED_GENERATOR = new CustomIcon(
+        "tileEntities/machines/seed_generator/OVERLAY_SEED_GENERATOR_FRONT");
+    public static final IIconContainer OVERLAY_FRONT_SEED_GENERATOR_GLOW = new CustomIcon(
+        "tileEntities/machines/seed_generator/OVERLAY_SEED_GENERATOR_FRONT_GLOW");
+
+    public static final IIconContainer OVERLAY_FRONT_CROP_BREEDER_ACTIVE = new CustomIcon(
+        "tileEntities/machines/crop_breeder/OVERLAY_CROP_BREEDER_FRONT_ACTIVE");
+    public static final IIconContainer OVERLAY_FRONT_CROP_BREEDER_ACTIVE_GLOW = new CustomIcon(
+        "tileEntities/machines/crop_breeder/OVERLAY_CROP_BREEDER_FRONT_ACTIVE_GLOW");
+    public static final IIconContainer OVERLAY_FRONT_CROP_BREEDER = new CustomIcon(
+        "tileEntities/machines/crop_breeder/OVERLAY_CROP_BREEDER_FRONT");
+    public static final IIconContainer OVERLAY_FRONT_CROP_BREEDER_GLOW = new CustomIcon(
+        "tileEntities/machines/crop_breeder/OVERLAY_CROP_BREEDER_FRONT_GLOW");
+
+    public static final IIconContainer OVERLAY_FRONT_GENE_EXTRACTOR_ACTIVE = new CustomIcon(
+        "tileEntities/machines/gene_extractor/OVERLAY_GENE_EXTRACTOR_FRONT_ACTIVE");
+    public static final IIconContainer OVERLAY_FRONT_GENE_EXTRACTOR_ACTIVE_GLOW = new CustomIcon(
+        "tileEntities/machines/gene_extractor/OVERLAY_GENE_EXTRACTOR_FRONT_ACTIVE_GLOW");
+    public static final IIconContainer OVERLAY_FRONT_GENE_EXTRACTOR = new CustomIcon(
+        "tileEntities/machines/gene_extractor/OVERLAY_GENE_EXTRACTOR_FRONT");
+    public static final IIconContainer OVERLAY_FRONT_GENE_EXTRACTOR_GLOW = new CustomIcon(
+        "tileEntities/machines/gene_extractor/OVERLAY_GENE_EXTRACTOR_FRONT_GLOW");
+
     public static class CustomIcon implements IIconContainer, Runnable {
 
         protected IIcon mIcon;
