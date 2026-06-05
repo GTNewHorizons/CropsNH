@@ -1153,7 +1153,10 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             this.setBlockUnderStack(blockUnderStack.stackSize <= 0 ? null : blockUnderStack);
         }
         // eject seeds and blocks
-        ejectionHelper.commit();
+        for (ItemStack stack : simulated) {
+            stack.stackSize = maxParallels;
+        }
+        this.mOutputItems = simulated.toArray(new ItemStack[0]);
 
         // notify success
         this.mMaxProgresstime = 5;
