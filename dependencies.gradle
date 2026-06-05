@@ -57,6 +57,7 @@ dependencies {
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Tainted-Magic:7.7.7-GTNH:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:WitcheryExtras:1.4.15:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:WitchingGadgets:1.8.45-GTNH:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:ThaumicTinkerer:2.12.22:dev") { transitive = false }
     // // required in order to have pam
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Chisel:2.17.26-GTNH:dev") { transitive = false }
     // // mod specific crops and soils
