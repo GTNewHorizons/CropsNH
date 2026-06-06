@@ -52,6 +52,7 @@ import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilTramplingResistanceRegistry;
+import com.gtnewhorizon.cropsnh.farming.requirements.growth.MachineOnlyGrowthRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
@@ -510,9 +511,6 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             && this.isMature()
             && this.failedChecks == null;
     }
-
-    static double test = 0;
-    static int printCounter = 0;
 
     @Override
     public ArrayList<ItemStack> harvest(double dropMultiplier) {
