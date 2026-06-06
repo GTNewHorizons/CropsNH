@@ -716,6 +716,10 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         this.fertilizerStorage = tag.hasKey(Names.NBT.fertilizer, NBT.TAG_INT) ? tag.getInteger(Names.NBT.fertilizer)
             : 0;
         this.weedEXStorage = tag.hasKey(Names.NBT.weedEX, NBT.TAG_INT) ? tag.getInteger(Names.NBT.weedEX) : 0;
+
+        if (CropsNHUtils.isServer() && this.worldObj != null) {
+            this.areGrowthRequirementsMet();
+        }
         this.isDirty = true;
     }
 
@@ -1104,7 +1108,9 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (!this.hasCrop()) return false;
         this.seed.getCrop()
             .onFirstTick(this, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
-
+        // run a growth req check on the first tick since dislocator focus is a thing.
+        this.areGrowthRequirementsMet();
+        // detect invalid soils
         if (this.hasSoilChanged && !this.isValidSoilForCrop(this.seed.getCrop())) {
             boolean ret = this.onInvalidSoilDetected();
             this.hasSoilChanged = false;
@@ -1258,6 +1264,8 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 if (!player.capabilities.isCreativeMode) {
                     heldItem.stackSize--;
                 }
+                // run a check to see if the growth reqs are met
+                this.areGrowthRequirementsMet();
                 return true;
             } else if (result == SeedPlantingResult.WRONG_SOIL) {
                 if (player instanceof EntityPlayerMP mpPlayer) {
