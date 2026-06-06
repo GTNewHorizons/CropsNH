@@ -516,6 +516,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             }
             return true;
         }
+        return false;
     }
 
     @Override
