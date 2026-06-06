@@ -185,6 +185,11 @@ public class MTESeedGenerator extends MTEBasicMachine {
             ItemStack tStack = this.getInputAt(i);
             tSeedData = CropsNHUtils.getAnalyzedSeedData(tStack);
             if (tSeedData != null) {
+                // don't replicate seeds that require the synthesizer in the seed generator
+                if (tSeedData.getCrop()
+                    .getCrossingThreshold() < 0.0f) {
+                    continue;
+                }
                 ISeedStats tStats = tSeedData.getStats();
                 // check if we have enough fluid to duplicate the seed.
                 tFluidToConsume = getFluidAmount(
