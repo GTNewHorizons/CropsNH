@@ -506,10 +506,16 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
 
     @Override
     public boolean canHarvest() {
-        return !this.worldObj.isRemote && this.hasCrop()
+        if (!this.worldObj.isRemote && this.hasCrop()
             && !this.hasWeed()
             && this.isMature()
-            && this.failedChecks == null;
+            && this.failedChecks == null) {
+            for (IGrowthRequirement req : seed.getCrop()
+                .getGrowthRequirements()) {
+                if (req instanceof MachineOnlyGrowthRequirement) return false;
+            }
+            return true;
+        }
     }
 
     @Override
