@@ -86,6 +86,33 @@ public class MTECropBreeder extends MTEBasicMachine {
         ALLOWED_LIQUID_FERTILIZER.putIfAbsent(CropsNHFluids.enrichedFertilizer, 1.0f);
     }
 
+    private static String[] getToolTip(int aTier) {
+        List<String> tt = new ArrayList<>();
+        tt.add(CropsNHUtils.getMachineTypeText("cropBreeder"));
+        tt.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropBreeder.0"));
+        tt.add(
+            StatCollector.translateToLocalFormatted(
+                Reference.MOD_ID + "_tooltip.cropBreeder.1",
+                TooltipHelper.fluidText(FERTILIZER_PER_TIER)));
+        tt.add(
+            StatCollector.translateToLocalFormatted(
+                Reference.MOD_ID + "_tooltip.cropBreeder.2",
+                TooltipHelper.fluidText(FERTILIZER_PER_STAT)));
+        tt.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropBreeder.3"));
+        tt.add(
+            StatCollector.translateToLocalFormatted(
+                Reference.MOD_ID + "_tooltip.cropBreeder.4",
+                formatNumber(getOutputChance(aTier))));
+        tt.add(
+            StatCollector.translateToLocalFormatted(
+                Reference.MOD_ID + "_tooltip.cropBreeder.5",
+                TooltipHelper.fluidText(getCustomFluidCapacity(aTier))));
+        if (aTier <= VoltageIndex.MV) {
+            tt.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropBreeder.mv_warn"));
+        }
+        return tt.toArray(new String[0]);
+    }
+
     public MTECropBreeder(int aID, int aTier) {
         super(
             aID,
@@ -93,22 +120,7 @@ public class MTECropBreeder extends MTEBasicMachine {
             StatCollector.translateToLocal("cropsnh_tooltip.cropBreeder.name." + aTier),
             aTier,
             AMPERAGE,
-            new String[] {
-                // spotless:off
-                CropsNHUtils.getMachineTypeText("cropBreeder"),
-                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropBreeder.0"),
-                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropBreeder.1",
-                    TooltipHelper.fluidText(FERTILIZER_PER_TIER)
-                ),
-                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropBreeder.2",
-                    TooltipHelper.fluidText(FERTILIZER_PER_STAT)
-                ),
-                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropBreeder.3"),
-                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropBreeder.4",
-                    formatNumber(getOutputChance(aTier))
-                )
-                // spotless:on
-            },
+            getToolTip(aTier),
             getInputSlotCount(aTier),
             OUTPUT_SLOT_COUNT,
             TextureFactory.of(
@@ -308,7 +320,7 @@ public class MTECropBreeder extends MTEBasicMachine {
         if (GTUtility.isStackInvalid(aStack) || !(aStack.getItem() instanceof ItemGenericSeed)) return null;
         // check that it's a crop card and that it can cross.
         ICropCard cc = CropRegistry.instance.get(aStack);
-        if (cc == null || cc.getCrossingThreshold() < 0.0f) return null;
+        if (cc == null) return null;
         // fail if the crop isn't analyzed
         SeedStats stats = SeedStats.getStatsFromStack(aStack);
         if (stats == null || !stats.isAnalyzed()) return null;
@@ -335,7 +347,12 @@ public class MTECropBreeder extends MTEBasicMachine {
 
     @Override
     public int getCapacity() {
-        return getCapacityForTier(mTier) / 5;
+        // iv and below gets low capacity, iv and above get more to allow for higher speed processing at higher tier.
+        return getCustomFluidCapacity(this.mTier);
+    }
+
+    public static int getCustomFluidCapacity(int aTier) {
+        return aTier < VoltageIndex.IV ? getCapacityForTier(aTier) / 5 : getCapacityForTier(aTier);
     }
 
     @Override

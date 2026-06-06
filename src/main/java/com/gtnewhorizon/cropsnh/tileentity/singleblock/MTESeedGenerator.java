@@ -18,7 +18,9 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_SCANNER_ACTIVE_
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_TOP_SCANNER_GLOW;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -39,6 +41,7 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TierEU;
+import gregtech.api.enums.VoltageIndex;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -66,6 +69,25 @@ public class MTESeedGenerator extends MTEBasicMachine {
         ALLOWED_LIQUID_FERTILIZER.putIfAbsent(CropsNHFluids.enrichedFertilizer, 1.0f);
     }
 
+    private static String[] getToolTip(int aTier) {
+        List<String> tt = new ArrayList<>();
+        tt.add(CropsNHUtils.getMachineTypeText("seedGenerator"));
+        tt.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.0"));
+        tt.add(
+            StatCollector.translateToLocalFormatted(
+                Reference.MOD_ID + "_tooltip.seedGenerator.1",
+                TooltipHelper.fluidText(FERTILIZER_PER_STAT)));
+        tt.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.2"));
+        tt.add(
+            StatCollector.translateToLocalFormatted(
+                Reference.MOD_ID + "_tooltip.seedGenerator.3",
+                TooltipHelper.fluidText(getCustomFluidCapacity(aTier))));
+        if (aTier <= VoltageIndex.MV) {
+            tt.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.mv_warn"));
+        }
+        return tt.toArray(new String[0]);
+    }
+
     public MTESeedGenerator(int aID, int aTier) {
         super(
             aID,
@@ -73,16 +95,7 @@ public class MTESeedGenerator extends MTEBasicMachine {
             StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.name." + aTier),
             aTier,
             AMPERAGE,
-            new String[] {
-                // spotless:off
-                CropsNHUtils.getMachineTypeText("seedGenerator"),
-                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.0"),
-                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedGenerator.1",
-                    TooltipHelper.fluidText(FERTILIZER_PER_STAT)
-                ),
-                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.2"),
-                // spotless:on
-            },
+            getToolTip(aTier),
             INPUT_SLOT_COUNT,
             OUTPUT_SLOT_COUNT,
             TextureFactory.of(
@@ -172,6 +185,11 @@ public class MTESeedGenerator extends MTEBasicMachine {
             ItemStack tStack = this.getInputAt(i);
             tSeedData = CropsNHUtils.getAnalyzedSeedData(tStack);
             if (tSeedData != null) {
+                // don't replicate seeds that require the synthesizer in the seed generator
+                if (tSeedData.getCrop()
+                    .getCrossingThreshold() < 0.0f) {
+                    continue;
+                }
                 ISeedStats tStats = tSeedData.getStats();
                 // check if we have enough fluid to duplicate the seed.
                 tFluidToConsume = getFluidAmount(
@@ -264,7 +282,12 @@ public class MTESeedGenerator extends MTEBasicMachine {
 
     @Override
     public int getCapacity() {
-        return getCapacityForTier(mTier) / 10;
+        // iv and below gets low capacity, iv and above get more to allow for higher speed processing at higher tier.
+        return getCustomFluidCapacity(this.mTier);
+    }
+
+    public static int getCustomFluidCapacity(int aTier) {
+        return aTier < VoltageIndex.IV ? getCapacityForTier(aTier) / 10 : getCapacityForTier(aTier);
     }
 
     @Override
