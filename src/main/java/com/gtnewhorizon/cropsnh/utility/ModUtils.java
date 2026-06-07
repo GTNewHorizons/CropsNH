@@ -24,6 +24,7 @@ public enum ModUtils implements IMod {
     CropsPlusPlus(ModIDs.CropsPlusPlus),
     EtFuturumRequiem(ModIDs.EtFuturumRequiem),
     ExtraUtilities(ModIDs.ExtraUtilities),
+    FindIt(ModIDs.FindIt),
     ForbiddenMagic(ModIDs.ForbiddenMagic),
     Forestry(ModIDs.Forestry),
     GalacticraftCore(ModIDs.GalacticraftCore),
@@ -153,6 +154,7 @@ public enum ModUtils implements IMod {
         public static final String CropsPlusPlus = "berriespp";
         public static final String EtFuturumRequiem = "etfuturum";
         public static final String ExtraUtilities = "ExtraUtilities";
+        public static final String FindIt = "findit";
         public static final String ForbiddenMagic = "ForbiddenMagic";
         public static final String Forestry = "Forestry";
         public static final String GalacticraftCore = "GalacticraftCore";

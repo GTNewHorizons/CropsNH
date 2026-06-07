@@ -3,7 +3,7 @@ package com.gtnewhorizon.cropsnh;
 import com.gtnewhorizon.cropsnh.compatibility.StructureLib.StructureLibCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.TiC.TiCCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.extrautils.ExUWateringCanHandler;
-import com.gtnewhorizon.cropsnh.compatibility.findit.CropsNHHandler;
+import com.gtnewhorizon.cropsnh.compatibility.findit.FindItCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.waila.WailaRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
@@ -29,10 +29,8 @@ import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropBreeder;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTESeedGenerator;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
-import com.gtnh.findit.FindIt;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -86,9 +84,6 @@ public class CropsNH {
         CropsNHItems.preInit();
         CropsNHFluids.preInit();
         OreDictLoader.preInit();
-        if (Loader.isModLoaded("findit")) {
-            FindIt.INSTANCE.pluginsList.add(new CropsNHHandler());
-        }
         LogHelper.debug("Pre-Initialization Complete");
     }
 
@@ -123,6 +118,7 @@ public class CropsNH {
         MigrationHandler.postInit();
         ForestryCompatHandler.onPostInit();
         ExUWateringCanHandler.postInit();
+        FindItCompatHandler.postInit();
 
         LogHelper.debug("Post-Initialization Complete");
     }
