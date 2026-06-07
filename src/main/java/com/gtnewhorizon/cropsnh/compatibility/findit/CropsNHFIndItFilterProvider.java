@@ -11,7 +11,7 @@ import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnh.findit.IStackFilter;
 import com.gtnh.findit.service.itemfinder.FindItemRequest;
 
-public class CropsNHHandler implements IStackFilter.IStackFilterProvider {
+public class CropsNHFIndItFilterProvider implements IStackFilter.IStackFilterProvider {
 
     private static class CropStackFilter implements IStackFilter {
 
