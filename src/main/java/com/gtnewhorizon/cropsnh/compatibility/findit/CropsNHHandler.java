@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.compatibility.findit;
 
+import com.gtnewhorizon.cropsnh.api.ICropStickTile;
+import com.gtnewhorizon.cropsnh.api.ISeedData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -29,7 +31,11 @@ public class CropsNHHandler implements IStackFilter.IStackFilterProvider {
 
     @Override
     public IStackFilter getFilter(EntityPlayer player, TileEntity tileEntity) {
-        return null;
+        if (!(tileEntity instanceof ICropStickTile cropStick)) return null;
+        ISeedData seed = cropStick.getSeed();
+        if (seed == null) return null;
+        ICropCard crop = seed.getCrop();
+        return crop == null ? null : new CropStackFilter(crop.getId());
     }
 
     @Override
