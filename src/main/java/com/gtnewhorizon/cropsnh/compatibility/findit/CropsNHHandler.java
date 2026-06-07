@@ -1,12 +1,12 @@
 package com.gtnewhorizon.cropsnh.compatibility.findit;
 
-import com.gtnewhorizon.cropsnh.api.ICropStickTile;
-import com.gtnewhorizon.cropsnh.api.ISeedData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
+import com.gtnewhorizon.cropsnh.api.ICropStickTile;
+import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnh.findit.IStackFilter;
 import com.gtnh.findit.service.itemfinder.FindItemRequest;
