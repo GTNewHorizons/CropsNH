@@ -5,7 +5,6 @@ import com.gtnewhorizon.cropsnh.tileentity.multi.MTEIndustrialFarm;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropBreeder;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropGeneExtractor;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropManager;
-import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropManagerMUI2;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropSynthesizer;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTESeedGenerator;
 
@@ -162,8 +161,6 @@ public class MTELoader {
             .set(new MTECropSynthesizer(CROP_SYNTHESIZER_UMV_MTE_ID, VoltageIndex.UMV).getStackForm(1L));
 
         CropsNHItemList.IndustrialFarmController.set(new MTEIndustrialFarm(28055).getStackForm(1L));
-        // TODO: DELETE ME
-        new MTECropManagerMUI2(28056, VoltageIndex.LV).getStackForm(1L);
     }
 
 }

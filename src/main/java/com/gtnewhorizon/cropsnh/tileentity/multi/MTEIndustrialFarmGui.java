@@ -19,7 +19,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.widgets.layout.Flow;
 import com.cleanroommc.modularui.widgets.slot.ItemSlot;
 import com.cleanroommc.modularui.widgets.slot.ModularSlot;
-import com.gtnewhorizon.cropsnh.init.CropsNHUITexturesMUI2;
+import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
@@ -137,9 +137,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                             ? Reference.MOD_ID + "_tooltip.industrialFarm.environmentalModule.enabled"
                             : Reference.MOD_ID + "_tooltip.industrialFarm.environmentalModule.disabled"));
             })
-            .background(
-                GTGuiTextures.SLOT_ITEM_STANDARD,
-                CropsNHUITexturesMUI2.OVERLAY_SLOT_ENVIRONMENTAL_MODULE_STANDARD)
+            .background(GTGuiTextures.SLOT_ITEM_STANDARD, CropsNHUITextures.OVERLAY_SLOT_ENVIRONMENTAL_MODULE_STANDARD)
             .overlay(
                 new DisabledSlotOverlay(
                     () -> multiblock.mMaxProgresstime != 0 || multiblock.isAllowedToWork()
@@ -171,7 +169,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                                 Reference.MOD_ID + "_tooltip.industrialFarm.seedWithBlockExtractionWarning"));
                     }
                 })
-                .background(GTGuiTextures.SLOT_ITEM_STANDARD, CropsNHUITexturesMUI2.OVERLAY_SLOT_SEED_STANDARD)
+                .background(GTGuiTextures.SLOT_ITEM_STANDARD, CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD)
                 .overlay(SEED_SLOT_DISABLED_OVERLAY))
             .childIf(
                 multiblock.doesBindPlayerInventory(),

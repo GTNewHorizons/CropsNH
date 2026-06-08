@@ -26,7 +26,7 @@ import com.cleanroommc.modularui.widgets.layout.Flow;
 import com.cleanroommc.modularui.widgets.layout.Grid;
 import com.cleanroommc.modularui.widgets.slot.ItemSlot;
 import com.cleanroommc.modularui.widgets.slot.ModularSlot;
-import com.gtnewhorizon.cropsnh.init.CropsNHUITexturesMUI2;
+import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -38,14 +38,14 @@ import gregtech.common.modularui2.widget.GTProgressWidget;
 
 public class MTECropManagerGUI {
 
-    private static final int LEFT_GRID_SLOT_START = MTECropManagerMUI2.SLOT_WEEDEX_START;
-    private static final int LEFT_GRID_SLOT_COUNT = MTECropManagerMUI2.WEEDEX_SLOT_COUNT
+    private static final int LEFT_GRID_SLOT_START = MTECropManager.SLOT_WEEDEX_START;
+    private static final int LEFT_GRID_SLOT_COUNT = MTECropManager.WEEDEX_SLOT_COUNT
         + MTECropManager.FERTILIZER_SLOT_COUNT;
     private static final int LEFT_GRID_COLS = 2;
     private static final int LEFT_GRID_ROWS = (int) Math.ceil((float) LEFT_GRID_SLOT_COUNT / LEFT_GRID_COLS);
 
-    private static final int RIGHT_GRID_SLOT_START = MTECropManagerMUI2.SLOT_OUTPUT_START;
-    private static final int RIGHT_GRID_SLOT_COUNT = MTECropManagerMUI2.OUTPUT_SLOT_COUNT;
+    private static final int RIGHT_GRID_SLOT_START = MTECropManager.SLOT_OUTPUT_START;
+    private static final int RIGHT_GRID_SLOT_COUNT = MTECropManager.OUTPUT_SLOT_COUNT;
     private static final int RIGHT_GRID_COLS = 5;
     private static final int RIGHT_GRID_ROWS = (int) Math.ceil((float) RIGHT_GRID_SLOT_COUNT / RIGHT_GRID_COLS);
 
@@ -54,10 +54,10 @@ public class MTECropManagerGUI {
     private static final String SYNC_WEEDEX_HANDLER_NAME = "weedex";
     private static final String SYNC_FERT_HANDLER_NAME = "fert";
     // the base gui for all Steam Boilers of all types
-    protected final MTECropManagerMUI2 base;
+    protected final MTECropManager base;
     protected final IGregTechTileEntity baseMetaTileEntity;
 
-    public MTECropManagerGUI(MTECropManagerMUI2 base) {
+    public MTECropManagerGUI(MTECropManager base) {
         this.base = base;
         this.baseMetaTileEntity = base.getBaseMetaTileEntity();
     }
@@ -68,19 +68,26 @@ public class MTECropManagerGUI {
                 (newItem, onlyAmountChanged, client, init) -> {
                     if (!client && !init) baseMetaTileEntity.markInventoryBeenModified();
                 })
-            .filter(aStack -> MTECropManagerMUI2.allowPutStack(aIndex, aStack));
+            .filter(aStack -> MTECropManager.allowPutStack(aIndex, aStack));
         ItemSlot itemSlot = new ItemSlot().slot(modularSlot);
 
         // add overlay for weed-ex slots
-        if (aIndex >= MTECropManagerMUI2.SLOT_WEEDEX_START && aIndex <= MTECropManagerMUI2.SLOT_WEEDEX_END) {
-            itemSlot.backgroundOverlay(CropsNHUITexturesMUI2.OVERLAY_SLOT_WEED_EX_STANDARD);
+        if (aIndex >= MTECropManager.SLOT_WEEDEX_START && aIndex <= MTECropManager.SLOT_WEEDEX_END) {
+            itemSlot.backgroundOverlay(CropsNHUITextures.OVERLAY_SLOT_WEED_EX_STANDARD);
+            modularSlot.slotGroup(SYNC_INV_HANDLER_NAME);
         }
         // add overlay for fertilizer slots
-        else if (aIndex >= MTECropManagerMUI2.SLOT_FERT_START && aIndex <= MTECropManagerMUI2.SLOT_FERT_END) {
-            itemSlot.backgroundOverlay(CropsNHUITexturesMUI2.OVERLAY_SLOT_FERTILIZER_STANDARD);
+        else if (aIndex >= MTECropManager.SLOT_FERT_START && aIndex <= MTECropManager.SLOT_FERT_END) {
+            itemSlot.backgroundOverlay(CropsNHUITextures.OVERLAY_SLOT_FERTILIZER_STANDARD);
+            modularSlot.slotGroup(SYNC_INV_HANDLER_NAME);
+        }
+        // add overlay for fertilizer slots
+        else if (aIndex == MTECropManager.SLOT_BATTERY) {
+            itemSlot.backgroundOverlay(GTGuiTextures.OVERLAY_SLOT_CHARGER);
+            modularSlot.slotGroup(SYNC_INV_HANDLER_NAME);
         }
         // prevent inserting into output slots
-        else if (aIndex >= MTECropManagerMUI2.SLOT_OUTPUT_START && aIndex <= MTECropManagerMUI2.SLOT_OUTPUT_END) {
+        else if (aIndex >= MTECropManager.SLOT_OUTPUT_START && aIndex <= MTECropManager.SLOT_OUTPUT_END) {
             modularSlot.accessibility(false, true);
         }
 
@@ -91,7 +98,7 @@ public class MTECropManagerGUI {
         String syncHandlerNameBase, UITexture texture, String tooltipFormat) {
         // create syncs
         IntSyncValue stored = new IntSyncValue(storageSupplier);
-        IntSyncValue cap = new IntSyncValue(storageSupplier);
+        IntSyncValue cap = new IntSyncValue(capSupplier);
         DoubleSyncValue perc = new DoubleSyncValue(() -> (double) storageSupplier.getAsInt() / capSupplier.getAsInt());
         // register syncs
         syncManager.syncValue(syncHandlerNameBase + "Stored", stored);
@@ -106,8 +113,8 @@ public class MTECropManagerGUI {
                 a.add(
                     StatCollector.translateToLocalFormatted(
                         tooltipFormat,
-                        formatNumber(storageSupplier.getAsInt()),
-                        formatNumber(capSupplier.getAsInt()),
+                        formatNumber(stored.getIntValue()),
+                        formatNumber(cap.getIntValue()),
                         getFluidUnit()));
             })
             .direction(ProgressWidget.Direction.UP)
@@ -131,7 +138,7 @@ public class MTECropManagerGUI {
     }
 
     public ModularPanel build(PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
-        syncManager.registerSlotGroup(SYNC_INV_HANDLER_NAME, 0);
+        syncManager.registerSlotGroup(SYNC_INV_HANDLER_NAME, LEFT_GRID_COLS, true);
 
         BooleanSyncValue powerSwitchSyncer = new BooleanSyncValue(baseMetaTileEntity::isAllowedToWork, bool -> {
             if (bool) baseMetaTileEntity.enableWorking();
@@ -168,23 +175,23 @@ public class MTECropManagerGUI {
                     () -> base.mWater,
                     () -> base.mWaterCap,
                     SYNC_WATER_HANDLER_NAME,
-                    CropsNHUITexturesMUI2.PROGRESSBAR_CROP_MANAGER_WATER,
+                    CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_WATER,
                     Reference.MOD_ID + "_tooltip.cropManager.waterStorage"))
             .child(
                 createTankBar(
                     syncManager,
-                    () -> base.mWater,
-                    () -> base.mWaterCap,
+                    () -> base.mWeedEX,
+                    () -> base.mWeedEXCap,
                     SYNC_WEEDEX_HANDLER_NAME,
-                    CropsNHUITexturesMUI2.PROGRESSBAR_CROP_MANAGER_WEED_EX,
+                    CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_WEED_EX,
                     Reference.MOD_ID + "_tooltip.cropManager.weedEXStorage"))
             .child(
                 createTankBar(
                     syncManager,
-                    () -> base.mWater,
-                    () -> base.mWaterCap,
+                    () -> base.mLiquidFertilizer,
+                    () -> base.mLiquidFertilizerCap,
                     SYNC_FERT_HANDLER_NAME,
-                    CropsNHUITexturesMUI2.PROGRESSBAR_CROP_MANAGER_LIQUID_FERTILIZER,
+                    CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_LIQUID_FERTILIZER,
                     Reference.MOD_ID + "_tooltip.cropManager.liquidFertilizerStorage"));
 
         IWidget rightGrid = new ParentWidget<>()
@@ -236,7 +243,7 @@ public class MTECropManagerGUI {
                         false,
                         tooltip -> tooltip.addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.water"))
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
-                    .overlay(CropsNHUITexturesMUI2.BUTTON_OVERLAY_TOGGLE_WATER)
+                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_WATER)
                     .size(18))
             .child(
                 new ToggleButton().value(weedEXSync)
@@ -248,7 +255,7 @@ public class MTECropManagerGUI {
                         false,
                         tooltip -> tooltip.addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.weedEX"))
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
-                    .overlay(CropsNHUITexturesMUI2.BUTTON_OVERLAY_TOGGLE_WEED_EX)
+                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_WEED_EX)
                     .size(18))
             .child(
                 new ToggleButton().value(fertSync)
@@ -262,7 +269,7 @@ public class MTECropManagerGUI {
                         tooltip -> tooltip
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.fertilizer"))
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
-                    .overlay(CropsNHUITexturesMUI2.BUTTON_OVERLAY_TOGGLE_FERTILIZER)
+                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_FERTILIZER)
                     .size(18))
             .child(
                 new ToggleButton().value(harvestSync)
@@ -274,14 +281,15 @@ public class MTECropManagerGUI {
                         false,
                         tooltip -> tooltip.addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.harvest"))
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
-                    .overlay(CropsNHUITexturesMUI2.BUTTON_OVERLAY_TOGGLE_HARVEST)
+                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_HARVEST)
                     .size(18));
 
         IWidget bottomLayer = new ParentWidget<>().fullWidth()
             .paddingLeft(7)
             .paddingRight(7)
             .coverChildrenHeight()
-            .child(toggleRow);
+            .child(toggleRow)
+            .child(createSlot(MTECropManager.SLOT_BATTERY).left(18 * 6 + 7));
 
         return GTGuis.mteTemplatePanelBuilder(base, data, syncManager, uiSettings)
             .build()

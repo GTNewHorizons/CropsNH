@@ -40,7 +40,7 @@ import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
-import com.gtnewhorizon.cropsnh.init.CropsNHUITexturesMUI2;
+import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -360,7 +360,7 @@ public class MTECropBreeder extends MTEBasicMachine {
         return super.getUIProperties().toBuilder()
             .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
                 if (isFluid || isOutput || isSpecial || index != 0) return null;
-                return CropsNHUITexturesMUI2.OVERLAY_SLOT_SEED_STANDARD;
+                return CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD;
             })
             .build();
     }

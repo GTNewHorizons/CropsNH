@@ -34,7 +34,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
-import com.gtnewhorizon.cropsnh.init.CropsNHUITexturesMUI2;
+import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
@@ -295,7 +295,7 @@ public class MTESeedGenerator extends MTEBasicMachine {
         return super.getUIProperties().toBuilder()
             .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
                 if (isFluid || isSpecial || index != 0) return null;
-                return CropsNHUITexturesMUI2.OVERLAY_SLOT_SEED_STANDARD;
+                return CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD;
             })
             .build();
     }
