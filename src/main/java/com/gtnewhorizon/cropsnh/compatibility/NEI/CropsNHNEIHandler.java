@@ -9,20 +9,20 @@ import org.lwjgl.opengl.GL11;
 
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
+import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.recipe.HandlerInfo;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.Mods;
 import gregtech.api.gui.GUIColorOverride;
 
 @SideOnly(Side.CLIENT)
 public abstract class CropsNHNEIHandler extends TemplateRecipeHandler {
 
     protected static final GUIColorOverride colorOverride = GUIColorOverride
-        .get(new ResourceLocation(Mods.GregTech.ID, "gui/background/nei_single_recipe.png"));
+        .get(new ResourceLocation(ModUtils.GregTech.ID, "gui/background/nei_single_recipe.png"));
 
     private static final HashMap<Class<? extends CropsNHNEIHandler>, Boolean> handlerStatuses = new HashMap<>();
 
