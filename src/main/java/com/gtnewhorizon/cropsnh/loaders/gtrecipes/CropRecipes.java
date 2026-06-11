@@ -61,6 +61,9 @@ import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.GTUtility;
+import gregtech.common.items.CombType;
+import gregtech.common.items.DropType;
+import gregtech.loaders.misc.GTBees;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 import gtnhlanth.api.recipe.LanthanidesRecipeMaps;
@@ -715,6 +718,15 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     }
 
     private static void addOilBerryRecipes() {
+        // oil comb centrifuging to oil berries
+        if (ModUtils.Forestry.isModLoaded()) {
+            GTBees.combs.addCentrifugeToItemStack(
+                CombType.OIL,
+                new ItemStack[] { CropsNHItemList.oilBerry.get(6), GTBees.drop.getStackForType(DropType.OIL),
+                    ItemList.FR_Wax.get(1) },
+                new int[] { 100 * 100, 100 * 100, 50 * 100 },
+                Voltage.ULV);
+        }
 
         // fluid extraction
         lvRecipe(1, 00).itemInputs(MaterialLeafLoader.oilBerry.get(1))
