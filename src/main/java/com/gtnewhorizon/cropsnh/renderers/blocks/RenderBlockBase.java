@@ -40,7 +40,7 @@ public abstract class RenderBlockBase extends TileEntitySpecialRenderer
         this(block, null, inventory);
     }
 
-    protected RenderBlockBase(Block block, TileEntity te, boolean inventory) {
+    protected RenderBlockBase(Block block, Class<? extends TileEntity> te, boolean inventory) {
         this.block = block;
         if (!renderIds.containsKey(block)) {
             this.registerRenderer(block, te);
@@ -50,9 +50,9 @@ public abstract class RenderBlockBase extends TileEntitySpecialRenderer
         }
     }
 
-    private void registerRenderer(Block block, TileEntity te) {
+    private void registerRenderer(Block block, Class<? extends TileEntity> te) {
         if (te != null && this.shouldBehaveAsTESR()) {
-            ClientRegistry.bindTileEntitySpecialRenderer(te.getClass(), this);
+            ClientRegistry.bindTileEntitySpecialRenderer(te, this);
             renderIds.put(block, -1);
         }
         if (this.shouldBehaveAsISBRH()) {
