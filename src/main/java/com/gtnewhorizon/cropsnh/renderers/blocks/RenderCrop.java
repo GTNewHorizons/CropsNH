@@ -21,7 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class RenderCrop extends RenderBlockBase {
 
     public RenderCrop() {
-        super(CropsNHBlocks.blockCropSticks, new TileEntityCropSticks(), false);
+        super(CropsNHBlocks.blockCropSticks, TileEntityCropSticks.class, false);
     }
 
     @Override
