@@ -50,7 +50,7 @@ public abstract class RenderBlockBase extends TileEntitySpecialRenderer
         }
     }
 
-    private void registerRenderer(Block block,  Class<? extends TileEntity> te) {
+    private void registerRenderer(Block block, Class<? extends TileEntity> te) {
         if (te != null && this.shouldBehaveAsTESR()) {
             ClientRegistry.bindTileEntitySpecialRenderer(te, this);
             renderIds.put(block, -1);
