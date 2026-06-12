@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.items.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -49,10 +50,9 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
                 ((float) x + 0.5F),
                 ((float) y + 0.5F),
                 ((float) z + 0.5F),
-                net.minecraft.init.Blocks.leaves.stepSound.func_150496_b(),
-                (net.minecraft.init.Blocks.leaves.stepSound.getVolume() + 1.0F) / 2.0F,
-                net.minecraft.init.Blocks.leaves.stepSound.getPitch() * 0.8F);
-
+                Blocks.planks.stepSound.func_150496_b(),
+                (Blocks.planks.stepSound.getVolume() + 1.0F) / 2.0F,
+                Blocks.planks.stepSound.getPitch() * 0.8F);
             // consume items if not in creative mode
             if (!player.capabilities.isCreativeMode) {
                 stack.stackSize -= isPlacingCross ? 2 : 1;

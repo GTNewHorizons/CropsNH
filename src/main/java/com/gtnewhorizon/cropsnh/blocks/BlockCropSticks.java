@@ -64,6 +64,7 @@ public class BlockCropSticks extends BlockContainerCropsNH {
             1.0F - COLLISION_BOX_XZ_SHRINK,
             1.0F - COLLISION_BOX_Y_SHRINK,
             1.0F - COLLISION_BOX_XZ_SHRINK);
+        this.stepSound = Block.soundTypeWood;
     }
 
     @Override

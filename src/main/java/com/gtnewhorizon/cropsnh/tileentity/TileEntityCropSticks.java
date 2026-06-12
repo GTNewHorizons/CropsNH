@@ -484,9 +484,9 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                     ((double) xCoord + 0.5d),
                     ((double) yCoord + 0.5d),
                     ((double) zCoord + 0.5d),
-                    net.minecraft.init.Blocks.planks.stepSound.func_150496_b(),
-                    (net.minecraft.init.Blocks.leaves.stepSound.getVolume() + 1.0f) / 2.0f,
-                    net.minecraft.init.Blocks.leaves.stepSound.getPitch() * 0.8f);
+                    Blocks.planks.stepSound.func_150496_b(),
+                    (Blocks.planks.stepSound.getVolume() + 1.0f) / 2.0f,
+                    Blocks.planks.stepSound.getPitch() * 0.8f);
             }
         }
     }
