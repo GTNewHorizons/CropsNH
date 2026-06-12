@@ -35,6 +35,7 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
         float hitX, float hitY, float hitZ) {
         // check if we are targeting the top side of a valid soil block
         if (side != 1 || !SoilRegistry.instance.isRegistered(world, x, y, z)
+            || world.getHeight() <= y + 1
             || !world.canPlaceEntityOnSide(CropsNHBlocks.blockCropSticks, x, y + 1, z, false, 0, player, stack)) {
             return false;
         }
@@ -44,8 +45,15 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
 
         world.setBlock(x, y + 1, z, CropsNHBlocks.blockCropSticks);
 
-        if (!world.isRemote) {
-            // play the placement sound effect.
+        if (!player.capabilities.isCreativeMode) {
+            stack.stackSize -= isPlacingCross ? 2 : 1;
+        }
+
+        // upgrade it if necessary
+        if (isPlacingCross && world.getTileEntity(x, y + 1, z) instanceof ICropStickTile crop) {
+            crop.setCrossCrop(true);
+            world.markBlockForUpdate(x, y + 1, z);
+        } else {
             world.playSoundEffect(
                 ((float) x + 0.5F),
                 ((float) y + 0.5F),
@@ -53,16 +61,6 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
                 Blocks.planks.stepSound.func_150496_b(),
                 (Blocks.planks.stepSound.getVolume() + 1.0F) / 2.0F,
                 Blocks.planks.stepSound.getPitch() * 0.8F);
-            // consume items if not in creative mode
-            if (!player.capabilities.isCreativeMode) {
-                stack.stackSize -= isPlacingCross ? 2 : 1;
-            }
-        }
-
-        // upgrade it if necessary
-        if (isPlacingCross && world.getTileEntity(x, y + 1, z) instanceof ICropStickTile crop) {
-            crop.setCrossCrop(true);
-            world.markBlockForUpdate(x, y + 1, z);
         }
         return true;
     }
