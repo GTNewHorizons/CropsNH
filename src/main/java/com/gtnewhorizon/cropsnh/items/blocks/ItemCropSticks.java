@@ -56,7 +56,7 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
         } else {
             world.playSoundEffect(
                 ((float) x + 0.5F),
-                ((float) y + 0.5F),
+                ((float) y + 1.5F),
                 ((float) z + 0.5F),
                 Blocks.planks.stepSound.func_150496_b(),
                 (Blocks.planks.stepSound.getVolume() + 1.0F) / 2.0F,
