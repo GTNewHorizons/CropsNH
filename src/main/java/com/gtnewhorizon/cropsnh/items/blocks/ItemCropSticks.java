@@ -3,7 +3,6 @@ package com.gtnewhorizon.cropsnh.items.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
@@ -29,28 +28,22 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
         return true;
     }
 
-    // this is called when you right click with this item in hand
+    // this is called when you right-click with this item in hand
     @Override
-    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
         float hitX, float hitY, float hitZ) {
+        // check if we are targeting the top side of a valid soil block
+        if (side != 1 || !SoilRegistry.instance.isRegistered(world, x, y, z)
+            || !world.canPlaceEntityOnSide(CropsNHBlocks.blockCropSticks, x, y + 1, z, false, 0, player, stack)) {
+            return false;
+        }
+
+        // you can shift-right-click to place a cross.
+        boolean isPlacingCross = player.isSneaking() && (player.capabilities.isCreativeMode || stack.stackSize >= 2);
+
+        world.setBlock(x, y + 1, z, CropsNHBlocks.blockCropSticks);
+
         if (!world.isRemote) {
-            // check if we are targetting the top side of the block and wether
-            if (side != 1 || !SoilRegistry.instance.isRegistered(world, x, y, z)) return false;
-
-            // you can shift-right-click to place a cross.
-            boolean isPlacingCross = player.isSneaking()
-                && (player.capabilities.isCreativeMode || stack.stackSize >= 2);
-
-            // place the crop stick block
-            world.setBlock(x, y + 1, z, CropsNHBlocks.blockCropSticks);
-            // upgrade it if necessary
-            if (isPlacingCross) {
-                TileEntity te = world.getTileEntity(x, y, z);
-                if (te instanceof ICropStickTile) {
-                    ((ICropStickTile) te).setCrossCrop(true);
-                }
-            }
-
             // play the placement sound effect.
             world.playSoundEffect(
                 ((float) x + 0.5F),
@@ -65,8 +58,13 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
                 stack.stackSize -= isPlacingCross ? 2 : 1;
             }
         }
-        // default to false or else the player won't be able to place crop sticks
-        return false;
+
+        // upgrade it if necessary
+        if (isPlacingCross && world.getTileEntity(x, y + 1, z) instanceof ICropStickTile crop) {
+            crop.setCrossCrop(true);
+            world.markBlockForUpdate(x, y + 1, z);
+        }
+        return true;
     }
 
     @Override
