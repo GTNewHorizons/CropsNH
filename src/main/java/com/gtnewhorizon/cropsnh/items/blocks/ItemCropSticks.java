@@ -53,15 +53,16 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
         if (isPlacingCross && world.getTileEntity(x, y + 1, z) instanceof ICropStickTile crop) {
             crop.setCrossCrop(true);
             world.markBlockForUpdate(x, y + 1, z);
-        } else {
-            world.playSoundEffect(
-                ((float) x + 0.5F),
-                ((float) y + 1.5F),
-                ((float) z + 0.5F),
-                Blocks.planks.stepSound.func_150496_b(),
-                (Blocks.planks.stepSound.getVolume() + 1.0F) / 2.0F,
-                Blocks.planks.stepSound.getPitch() * 0.8F);
         }
+
+        // play placement sound
+        world.playSoundEffect(
+            ((float) x + 0.5F),
+            ((float) y + 1.5F),
+            ((float) z + 0.5F),
+            Blocks.planks.stepSound.func_150496_b(),
+            (Blocks.planks.stepSound.getVolume() + 1.0F) / 2.0F,
+            Blocks.planks.stepSound.getPitch() * 0.8F);
         return true;
     }
 
@@ -72,6 +73,7 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
         if (heldItem == null || heldItem.stackSize < 1 || !te.canUpgrade()) return false;
         // upgrade the crop stick to a cross
         te.setCrossCrop(true);
+        te.playCrossCropSound();
         // consume items if necessary
         heldItem.stackSize -= player.capabilities.isCreativeMode ? 0 : 1;
         return true;
