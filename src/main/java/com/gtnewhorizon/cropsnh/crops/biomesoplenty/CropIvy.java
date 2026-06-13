@@ -20,7 +20,7 @@ public class CropIvy extends NHCropCard {
 
         this.addDrop(ivy.copy(), 100_00);
 
-        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(ivy, 2));
+        this.addAlternateSeed(ivy.copy());
         // under-garden (nether)
         this.addLikedBiomes(
             BiomeDictionary.Type.NETHER,

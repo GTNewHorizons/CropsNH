@@ -20,7 +20,7 @@ public class CropWaterlily extends NHCropCard {
 
         this.addDrop(new ItemStack(Blocks.waterlily, 2), 80_000);
 
-        this.addAlternateSeed(new ItemStack(Blocks.waterlily, 2));
+        this.addAlternateSeed(new ItemStack(Blocks.waterlily));
 
         this.addLikedBiomes(BiomeDictionary.Type.WET, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.RIVER);
     }
