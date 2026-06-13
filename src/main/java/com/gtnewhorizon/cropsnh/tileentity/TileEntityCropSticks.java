@@ -478,17 +478,18 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             this.clear();
             this.isCrossCrop = status;
             this.isDirty = true;
-            if (!worldObj.isRemote && isCrossCrop) {
-                // play a plank noise
-                worldObj.playSoundEffect(
-                    ((double) xCoord + 0.5d),
-                    ((double) yCoord + 0.5d),
-                    ((double) zCoord + 0.5d),
-                    Blocks.planks.stepSound.func_150496_b(),
-                    (Blocks.planks.stepSound.getVolume() + 1.0f) / 2.0f,
-                    Blocks.planks.stepSound.getPitch() * 0.8f);
-            }
         }
+    }
+
+    @Override
+    public void playCrossCropSound() {
+        this.worldObj.playSoundEffect(
+            ((double) this.xCoord + 0.5d),
+            ((double) this.yCoord + 0.5d),
+            ((double) this.zCoord + 0.5d),
+            Blocks.planks.stepSound.func_150496_b(),
+            (Blocks.planks.stepSound.getVolume() + 1.0f) / 2.0f,
+            Blocks.planks.stepSound.getPitch() * 0.8f);
     }
 
     // endregion seed planting
@@ -1288,6 +1289,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             }
         } else if (this.isCrossCrop) {
             this.setCrossCrop(false);
+            this.playCrossCropSound();
             if (!player.capabilities.isCreativeMode) {
                 dropItem(new ItemStack(CropsNHBlocks.blockCropSticks, 1));
             }
@@ -1315,6 +1317,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         }
         if (this.isCrossCrop) {
             this.setCrossCrop(false);
+            this.playCrossCropSound();
             if (!player.capabilities.isCreativeMode) {
                 dropItem(new ItemStack(CropsNHBlocks.blockCropSticks, 1));
             }
