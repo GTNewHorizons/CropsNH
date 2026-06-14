@@ -74,7 +74,7 @@ public abstract class CropsNHNEIHandler extends TemplateRecipeHandler {
 
     protected static boolean isBadArg(ItemStack stack) {
         return stack == null || stack.getItem() == null
-        // no using NEI as a getho seed scanner.
+        // no using NEI as a ghetto seed scanner.
             || (stack.getItem() instanceof ItemGenericSeed && !SeedStats.getStatsFromStack(stack)
                 .isAnalyzed());
     }
