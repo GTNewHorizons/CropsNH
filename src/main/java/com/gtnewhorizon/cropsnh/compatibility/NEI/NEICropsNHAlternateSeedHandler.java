@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
@@ -16,7 +17,6 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.HandlerInfo;
-import net.minecraft.util.StatCollector;
 
 public class NEICropsNHAlternateSeedHandler extends CropsNHNEIHandler {
 
