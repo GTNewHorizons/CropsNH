@@ -27,7 +27,7 @@ import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
-import com.gtnewhorizon.cropsnh.init.CropsNHUITexturesMUI2;
+import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -265,7 +265,7 @@ public class MTECropGeneExtractor extends MTEBasicMachine {
             .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
                 if (isFluid || isOutput) return null;
                 if (isSpecial) return GTGuiTextures.OVERLAY_SLOT_DATA_ORB;
-                return CropsNHUITexturesMUI2.OVERLAY_SLOT_SEED_STANDARD;
+                return CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD;
             })
             .build();
     }

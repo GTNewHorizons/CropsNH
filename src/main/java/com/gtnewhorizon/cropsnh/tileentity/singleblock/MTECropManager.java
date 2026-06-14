@@ -1,14 +1,11 @@
 package com.gtnewhorizon.cropsnh.tileentity.singleblock;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
-import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.getFluidUnit;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,29 +20,23 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.cleanroommc.modularui.factory.PosGuiData;
+import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.screen.UISettings;
+import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.WeedEXRegistry;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures;
-import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
 import com.gtnewhorizon.gtnhlib.util.map.ItemStackMap;
-import com.gtnewhorizons.modularui.api.drawable.UITexture;
-import com.gtnewhorizons.modularui.api.screen.ModularWindow;
-import com.gtnewhorizons.modularui.api.screen.UIBuildContext;
-import com.gtnewhorizons.modularui.common.widget.CycleButtonWidget;
-import com.gtnewhorizons.modularui.common.widget.FakeSyncWidget;
-import com.gtnewhorizons.modularui.common.widget.ProgressBar;
-import com.gtnewhorizons.modularui.common.widget.SlotGroup;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Textures;
-import gregtech.api.gui.modularui.GTUIInfos;
-import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -55,25 +46,24 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
-import gtPlusPlus.xmod.gregtech.api.gui.GTPPUITextures;
 
 public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidgets {
 
-    private static final int WEEDEX_SLOT_COUNT = 2;
-    private static final int FERTILIZER_SLOT_COUNT = 4;
-    private static final int OUTPUT_SLOT_COUNT = 15;
-    private static final int BATTERY_SLOT_COUNT = 1;
-    private static final int TOTAL_SLOT_COUNT = WEEDEX_SLOT_COUNT + FERTILIZER_SLOT_COUNT
+    public static final int WEEDEX_SLOT_COUNT = 2;
+    public static final int FERTILIZER_SLOT_COUNT = 4;
+    public static final int OUTPUT_SLOT_COUNT = 15;
+    public static final int BATTERY_SLOT_COUNT = 1;
+    public static final int TOTAL_SLOT_COUNT = WEEDEX_SLOT_COUNT + FERTILIZER_SLOT_COUNT
         + OUTPUT_SLOT_COUNT
         + BATTERY_SLOT_COUNT;
 
-    private static final int SLOT_WEEDEX_START = 0;
-    private static final int SLOT_WEEDEX_END = SLOT_WEEDEX_START - 1 + WEEDEX_SLOT_COUNT;
-    private static final int SLOT_FERT_START = SLOT_WEEDEX_END + 1;
-    private static final int SLOT_FERT_END = SLOT_FERT_START - 1 + FERTILIZER_SLOT_COUNT;
-    private static final int SLOT_OUTPUT_START = SLOT_FERT_END + 1;
-    private static final int SLOT_OUTPUT_END = SLOT_OUTPUT_START - 1 + OUTPUT_SLOT_COUNT;
-    private static final int SLOT_BATTERY = SLOT_OUTPUT_END + 1;
+    public static final int SLOT_WEEDEX_START = 0;
+    public static final int SLOT_WEEDEX_END = SLOT_WEEDEX_START - 1 + WEEDEX_SLOT_COUNT;
+    public static final int SLOT_FERT_START = SLOT_WEEDEX_END + 1;
+    public static final int SLOT_FERT_END = SLOT_FERT_START - 1 + FERTILIZER_SLOT_COUNT;
+    public static final int SLOT_OUTPUT_START = SLOT_FERT_END + 1;
+    public static final int SLOT_OUTPUT_END = SLOT_OUTPUT_START - 1 + OUTPUT_SLOT_COUNT;
+    public static final int SLOT_BATTERY = SLOT_OUTPUT_END + 1;
 
     // run ever 2.5s, refresh cache every other run when empty, else wait 60s to refresh cache
     private final static int GLOBAL_UPDATE_RATE = 2 * 20 + 10;
@@ -87,12 +77,12 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     public boolean mCharge = false;
     public boolean mDecharge = false;
 
-    private int mWater;
-    private final int mWaterCap;
-    private int mWeedEX;
-    private final int mWeedEXCap;
-    private int mLiquidFertilizer;
-    private final int mLiquidFertilizerCap;
+    public int mWater;
+    public final int mWaterCap;
+    public int mWeedEX;
+    public final int mWeedEXCap;
+    public int mLiquidFertilizer;
+    public final int mLiquidFertilizerCap;
 
     private final HashSet<ICropStickTile> mCropCache = new HashSet<>();
     private boolean mInvalidCache = false;
@@ -267,7 +257,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     @Override
     public boolean onRightclick(final IGregTechTileEntity aBaseMetaTileEntity, final EntityPlayer aPlayer) {
         if (super.onRightclick(aBaseMetaTileEntity, aPlayer)) return true;
-        GTUIInfos.openGTTileEntityUI(aBaseMetaTileEntity, aPlayer);
+        this.openGui(aPlayer);
         return true;
     }
 
@@ -644,12 +634,16 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     // region item IO
 
-    private static boolean isWeedEXCan(ItemStack aStack) {
+    public static boolean isFertilizerStack(ItemStack aStack) {
+        return FertilizerRegistry.instance.isRegistered(aStack);
+    }
+
+    public static boolean isWeedEXCan(ItemStack aStack) {
         if (aStack == null || aStack.getItem() == null) return false;
         return CropsNHItemList.weedEX.getItem() == aStack.getItem();
     }
 
-    private static boolean isBattery(ItemStack aStack) {
+    public static boolean isBattery(ItemStack aStack) {
         return GTModHandler.isElectricItem(aStack);
     }
 
@@ -662,8 +656,12 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
     @Override
     public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
         ItemStack aStack) {
+        return allowPutStack(aIndex, aStack);
+    }
+
+    public static boolean allowPutStack(int aIndex, ItemStack aStack) {
         if (aStack != null) {
-            if (FertilizerRegistry.instance.isRegistered(aStack)) {
+            if (isFertilizerStack(aStack)) {
                 return aIndex >= SLOT_FERT_START && aIndex <= SLOT_FERT_END;
             } else if (isWeedEXCan(aStack)) {
                 return aIndex >= SLOT_WEEDEX_START && aIndex <= SLOT_WEEDEX_END;
@@ -932,174 +930,14 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
                 TooltipHelper.fluidText(this.getWeedEXCapacity())));
     }
 
-    public static final UITexture PROGRESSBAR_WATER = GTUITextures.PROGRESSBAR_BOILER_WATER;
-    public static final UITexture PROGRESSBAR_WEED_EX = UITexture
-        .fullImage(Reference.MOD_ID, "gui/progressbar/cropmanager_weed_ex");
-    public static final UITexture PROGRESSBAR_LIQUID_FERTILIZER = UITexture
-        .fullImage(Reference.MOD_ID, "gui/progressbar/cropmanager_liquid_fertilizer");
-
-    public static final UITexture BUTTON_OVERLAY_TOGGLE_WATER = UITexture
-        .fullImage(Reference.MOD_ID, "gui/overlay_button/water_toggle");
-    public static final UITexture BUTTON_OVERLAY_TOGGLE_WEED_EX = UITexture
-        .fullImage(Reference.MOD_ID, "gui/overlay_button/weed_ex_toggle");
-    public static final UITexture BUTTON_OVERLAY_TOGGLE_FERTILIZER = UITexture
-        .fullImage(Reference.MOD_ID, "gui/overlay_button/fertilizer_toggle");
-    public static final UITexture BUTTON_OVERLAY_TOGGLE_HARVEST = UITexture
-        .fullImage(Reference.MOD_ID, "gui/overlay_button/harvest_toggle");
-
-    private static void addToggleWidget(ModularWindow.Builder builder, Supplier<Boolean> supplier,
-        Consumer<Boolean> consumer, UITexture texture, String baseTooltip, int x, int y) {
-        builder.widget(
-            new CycleButtonWidget().setToggle(supplier, consumer)
-                .setTexture(texture)
-                .addTooltip(state -> StatCollector.translateToLocal(baseTooltip + state))
-                .setBackground(GTUITextures.BUTTON_STANDARD)
-                .setPos(x, y)
-                .setSize(18, 18));
-    }
-
-    private static void addTankBar(ModularWindow.Builder builder, UITexture texture, Supplier<Integer> amountGetter,
-        Supplier<Integer> capacityGetter, String tooltipFormat, Consumer<Integer> amountSetter, int x, int y) {
-        builder.widget(
-            new ProgressBar().setTexture(GTPPUITextures.PROGRESSBAR_BOILER_EMPTY, texture, 54)
-                .setDirection(ProgressBar.Direction.UP)
-                .setProgress(
-                    () -> Math.max(0.0f, Math.min(1.0f, (float) amountGetter.get() / (float) capacityGetter.get())))
-                .setSynced(false, false)
-                .dynamicTooltip(
-                    () -> Collections.singletonList(
-                        StatCollector.translateToLocalFormatted(
-                            tooltipFormat,
-                            formatNumber(amountGetter.get()),
-                            formatNumber(capacityGetter.get()),
-                            getFluidUnit())))
-                .setUpdateTooltipEveryTick(true)
-                .setPos(x, y)
-                .setSize(10, 54))
-            .widget(new FakeSyncWidget.IntegerSyncer(amountGetter, amountSetter));
+    @Override
+    protected boolean useMui2() {
+        return true;
     }
 
     @Override
-    public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {
-
-        // region toggles
-
-        // hydration toggle
-        addToggleWidget(
-            builder,
-            () -> mWaterEnabled,
-            val -> mWaterEnabled = val,
-            BUTTON_OVERLAY_TOGGLE_WATER,
-            Reference.MOD_ID + "_tooltip.cropManager.water.",
-            7,
-            63);
-
-        // weed ex toggle
-        addToggleWidget(
-            builder,
-            () -> mWeedEXEnabled,
-            val -> mWeedEXEnabled = val,
-            BUTTON_OVERLAY_TOGGLE_WEED_EX,
-            Reference.MOD_ID + "_tooltip.cropManager.weedEX.",
-            26,
-            63);
-
-        // fertilization toggle
-        addToggleWidget(
-            builder,
-            () -> mFertilizerEnabled,
-            val -> mFertilizerEnabled = val,
-            BUTTON_OVERLAY_TOGGLE_FERTILIZER,
-            Reference.MOD_ID + "_tooltip.cropManager.fertilizer.",
-            45,
-            63);
-
-        // harvest toggle
-        addToggleWidget(
-            builder,
-            () -> mHarvestEnabled,
-            val -> mHarvestEnabled = val,
-            BUTTON_OVERLAY_TOGGLE_HARVEST,
-            Reference.MOD_ID + "_tooltip.cropManager.harvest.",
-            64,
-            63);
-
-        // endregion toggles
-
-        // region slots
-
-        // weed ex slots
-        builder.widget(
-            SlotGroup.ofItemHandler(inventoryHandler, 2)
-                .startFromSlot(SLOT_WEEDEX_START)
-                .endAtSlot(SLOT_WEEDEX_END)
-                .applyForWidget(
-                    widget -> widget.setFilter(MTECropManager::isWeedEXCan)
-                        .setBackground(getGUITextureSet().getItemSlot(), CropsNHUITextures.OVERLAY_SLOT_WEED_EX))
-                .build()
-                .setPos(7, 7));
-
-        // fertilizer slots
-        builder.widget(
-            SlotGroup.ofItemHandler(inventoryHandler, 2)
-                .startFromSlot(SLOT_FERT_START)
-                .endAtSlot(SLOT_FERT_END)
-                .applyForWidget(
-                    widget -> widget.setFilter(FertilizerRegistry.instance::isRegistered)
-                        .setBackground(getGUITextureSet().getItemSlot(), CropsNHUITextures.OVERLAY_SLOT_FERTILIZER))
-                .build()
-                .setPos(7, 25));
-
-        // output slots
-        builder.widget(
-            SlotGroup.ofItemHandler(inventoryHandler, 5)
-                .startFromSlot(SLOT_OUTPUT_START)
-                .endAtSlot(SLOT_OUTPUT_END)
-                .canInsert(false)
-                .build()
-                .setPos(79, 7));
-
-        // battery slot
-        builder.widget(createChargerSlot(115, 63));
-
-        // endregion slots
-
-        // region tank bars
-
-        // water
-        addTankBar(
-            builder,
-            PROGRESSBAR_WATER,
-            this::getWaterAmount,
-            this::getWaterCapacity,
-            Reference.MOD_ID + "_tooltip.cropManager.water",
-            this::setWaterAmount,
-            46,
-            7);
-
-        // weed-ex
-        addTankBar(
-            builder,
-            PROGRESSBAR_WEED_EX,
-            this::getWeedEXAmount,
-            this::getWeedEXCapacity,
-            Reference.MOD_ID + "_tooltip.cropManager.weedEX",
-            this::setWeedEXAmount,
-            56,
-            7);
-
-        // liquid fertilizer
-        addTankBar(
-            builder,
-            PROGRESSBAR_LIQUID_FERTILIZER,
-            this::getLiquidFertilizerAmount,
-            this::getLiquidFertilizerCapacity,
-            Reference.MOD_ID + "_tooltip.cropManager.liquidFertilizer",
-            this::setLiquidFertilizerAmount,
-            66,
-            7);
-
-        // endregion tank bars
+    public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
+        return new MTECropManagerGUI(this).build(data, syncManager, uiSettings);
     }
 
     // endregion ui

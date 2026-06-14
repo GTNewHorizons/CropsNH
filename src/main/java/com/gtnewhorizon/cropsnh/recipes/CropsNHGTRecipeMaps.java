@@ -13,14 +13,19 @@ import com.gtnewhorizon.cropsnh.recipes.frontends.CropSynthesizerFrontend;
 import com.gtnewhorizon.cropsnh.recipes.frontends.SeedGeneratorFrontend;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropSynthesizer;
+import com.gtnewhorizons.modularui.api.drawable.UITexture;
 
 import gregtech.api.gui.modularui.GTUITextures;
+import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMapBuilder;
 import gregtech.api.recipe.RecipeMetadataKey;
 import gregtech.api.recipe.metadata.SimpleRecipeMetadataKey;
 
 public class CropsNHGTRecipeMaps {
+
+    // TODO: REMOVE ONCE NEI HANDLERS START USING MUI2 FOR OVERLAY SOURCES
+    public static final UITexture OVERLAY_SLOT_SEED = UITexture.fullImage(Reference.MOD_ID, "gui/overlay_slot/seed");
 
     public static final RecipeMetadataKey<ICropCard> CROPSNH_CROP_METADATAKEY = SimpleRecipeMetadataKey
         .create(ICropCard.class, Reference.MOD_ID + "_crop");
@@ -35,7 +40,13 @@ public class CropsNHGTRecipeMaps {
         .disableRegisterNEI()
         .slotOverlays((index, isFluid, isOutput, isSpecial) -> {
             if (!isOutput && !isFluid && index == 0) {
-                return CropsNHUITextures.OVERLAY_SLOT_SEED;
+                return OVERLAY_SLOT_SEED;
+            }
+            return null;
+        })
+        .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
+            if (!isOutput && !isFluid && index == 0) {
+                return CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD;
             }
             return null;
         })
@@ -49,7 +60,13 @@ public class CropsNHGTRecipeMaps {
         .disableRegisterNEI()
         .slotOverlays((index, isFluid, isOutput, isSpecial) -> {
             if (isOutput && !isFluid && index == 0) {
-                return CropsNHUITextures.OVERLAY_SLOT_SEED;
+                return OVERLAY_SLOT_SEED;
+            }
+            return null;
+        })
+        .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
+            if (isOutput && !isFluid && index == 0) {
+                return CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD;
             }
             return null;
         })
@@ -64,10 +81,19 @@ public class CropsNHGTRecipeMaps {
         .disableRegisterNEI()
         .slotOverlays((index, isFluid, isOutput, isSpecial) -> {
             if (!isOutput && !isFluid && index == 0) {
-                return CropsNHUITextures.OVERLAY_SLOT_SEED;
+                return OVERLAY_SLOT_SEED;
             }
             if (isOutput && !isFluid && index == 0) {
                 return GTUITextures.OVERLAY_SLOT_DATA_ORB;
+            }
+            return null;
+        })
+        .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
+            if (!isOutput && !isFluid && index == 0) {
+                return CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD;
+            }
+            if (isOutput && !isFluid && index == 0) {
+                return GTGuiTextures.OVERLAY_SLOT_DATA_ORB;
             }
             return null;
         })
@@ -82,7 +108,13 @@ public class CropsNHGTRecipeMaps {
         .disableRegisterNEI()
         .slotOverlays((index, isFluid, isOutput, isSpecial) -> {
             if (!isFluid && !isSpecial) {
-                return isOutput ? CropsNHUITextures.OVERLAY_SLOT_SEED : GTUITextures.OVERLAY_SLOT_DATA_ORB;
+                return isOutput ? OVERLAY_SLOT_SEED : GTUITextures.OVERLAY_SLOT_DATA_ORB;
+            }
+            return null;
+        })
+        .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
+            if (!isFluid && !isSpecial) {
+                return isOutput ? CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD : GTGuiTextures.OVERLAY_SLOT_DATA_ORB;
             }
             return null;
         })
