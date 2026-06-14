@@ -43,6 +43,7 @@ import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
 import bartworks.common.loaders.BioCultureLoader;
 import bartworks.common.loaders.BioItemList;
@@ -160,6 +161,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         addGaiaWartRecipes();
         addHopsRecipes();
         addCoffeeRecipes();
+        addChiliRecipes();
         addThiosulfineRecipes();
         addIndigoBlossomRecipes();
     }
@@ -262,6 +264,12 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         GTModHandler.addShapelessCraftingRecipe(
             GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coffee, 1L),
             new Object[] { "craftingToolMortar", "cropCoffee" });
+    }
+
+    private static void addChiliRecipes() {
+        recipe(2, 20 * SECONDS).itemInputs(OreDictHelper.getCopiedOreStack("cropChilipepper", 1))
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Chili, 1L))
+            .addTo(maceratorRecipes);
     }
 
     private static void addHopsRecipes() {
