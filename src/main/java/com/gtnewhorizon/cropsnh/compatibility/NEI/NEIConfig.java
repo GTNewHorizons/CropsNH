@@ -59,7 +59,7 @@ public class NEIConfig implements IConfigureNEI {
         // mutation pool handler
         registerNEIHandler(new NEICropsNHMutationPoolHandler());
         // alternate seed handler
-        registerNEIHandler(new CropsNHNEIAlternateSeedHandler());
+        registerNEIHandler(new NEICropsNHAlternateSeedHandler());
         // seed generator handler
         addHandler(
             new CropsNHNEISeedGeneratorHandler(

@@ -16,8 +16,9 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.HandlerInfo;
+import net.minecraft.util.StatCollector;
 
-public class CropsNHNEIAlternateSeedHandler extends CropsNHNEIHandler {
+public class NEICropsNHAlternateSeedHandler extends CropsNHNEIHandler {
 
     private static final String id = Reference.MOD_ID + "AlternateSeeds";
     private static final String background = new ResourceLocation(
@@ -102,7 +103,7 @@ public class CropsNHNEIAlternateSeedHandler extends CropsNHNEIHandler {
 
     @Override
     public String getRecipeName() {
-        return "Alternate Seeds";
+        return StatCollector.translateToLocal(Reference.MOD_ID + "_nei.altSeeds.title");
     }
 
     // defines rectangles on the recipe gui which can be clicked to show all crop mutation recipes
