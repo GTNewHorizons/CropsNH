@@ -66,6 +66,11 @@ public interface ICropStickTile {
     void setCrossCrop(boolean status);
 
     /**
+     * Plays the cross-crop placement and removal noise.
+     */
+    void playCrossCropSound();
+
+    /**
      * @return if a plant can be planted here, meaning the crop is empty and is not a cross crop
      */
     boolean canPlantSeed();
