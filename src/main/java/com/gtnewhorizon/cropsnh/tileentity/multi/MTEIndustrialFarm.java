@@ -339,20 +339,20 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             if (env.getActor() instanceof EntityPlayerMP) {
                 // skip if the upgrades are disabled
                 if (!CropsNHStructureChannels.IFUpgrades.hasValue(trigger)) {
-                    return PlaceResult.SKIP;
+                    return PlaceResult.REJECT_CONTINUE;
                 }
             }
             // check if we can place the upgrade at the current tier
             Integer tTier = this.mBlock.getTier(getStructureLengthFromTrigger(trigger) - MIN_SLICES + MIN_CASING_TIER);
             if (tTier == null) {
-                return PlaceResult.SKIP;
+                return PlaceResult.REJECT_CONTINUE;
             }
             // re-base the stack size as needed
             trigger = trigger.copy();
             trigger.stackSize = tTier - this.mBlock.mMinTier + 1;
             // skip if reject
             PlaceResult result = this.mElement.survivalPlaceBlock(t, world, x, y, z, trigger, env);
-            return result == PlaceResult.REJECT ? PlaceResult.SKIP : result;
+            return result == PlaceResult.REJECT ? PlaceResult.REJECT_CONTINUE : result;
         }
     }
 
