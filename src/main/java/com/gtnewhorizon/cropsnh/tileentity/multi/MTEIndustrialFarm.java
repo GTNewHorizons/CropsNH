@@ -494,7 +494,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         // check if components are below the minimum tiers allowed
         if (hasUnderTiredComponents(errors)) return;
 
-        checkHasInputBus(errors);
+        // input hatch is optional since it's not needed for crops with no sub-soils
         checkHasInputHatch(errors);
         checkHasOutputBus(errors);
         checkHasMaintenanceHatch(errors);
