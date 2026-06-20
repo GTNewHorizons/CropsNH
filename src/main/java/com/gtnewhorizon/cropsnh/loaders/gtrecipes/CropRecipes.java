@@ -72,6 +72,8 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     private static final int PURIFIED_RECIPE_CIRCUIT = 1;
     private static final int IMPURE_DUST_RECIPE_CIRCUIT = 2;
+    private static final int SECONDARY_PURIFIED_RECIPE_CIRCUIT = 3;
+    private static final int SECONDARY_IMPURE_DUST_RECIPE_CIRCUIT = 4;
     public static final int DEFAULT_ORE_DUPLICATION_ORE_AMOUNT = 4;
     public static final int DEFAULT_ORE_CONVERSION_LEAF_AMOUNT = 4;
     /** for explicitly telling the game to not add a fluid byproduct. */
@@ -539,7 +541,13 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreConversionRecipe(MaterialLeafLoader.auroniaLeaf, Voltage.LV, Materials.Gold, TierAcid.t2);
         // emeralds are needed for mv sensors/emitters so slightly higher reqs
         createOreConversionRecipe(MaterialLeafLoader.bobsYerUncleBerry, Voltage.LV, Materials.Emerald, TierAcid.t2);
-        createOreConversionRecipe(MaterialLeafLoader.bauxiaLeaf, Voltage.MV, Materials.Bauxite, TierAcid.t2);
+        createOreConversionRecipe(
+            MaterialLeafLoader.bauxiaLeaf,
+            Voltage.MV,
+            Materials.Aluminium,
+            TierAcid.t2,
+            PURIFIED_RECIPE_CIRCUIT,
+            IMPURE_DUST_RECIPE_CIRCUIT);
 
         for (PlatinaRecipeVariation variation : new PlatinaRecipeVariation[] {
             new PlatinaRecipeVariation(1, 3, WerkstoffLoader.PTResidue.get(OrePrefixes.dustTiny, 1)),
@@ -553,6 +561,17 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                 .addTo(UniversalChemical);
         }
 
+        // dream mandate: passive bauxite ore generation should be HV at the very least
+        // since crops are significantly easier to produce a lot of stuff from, I'm bumping that gate to EV for crops.
+        // Mostly because the mv recipe still outputs bauxite dust, and is therefore more similar to the bee's output
+        // early on as it's reduced by a ton, and will therefore require a lot more infra to do a moon skip.
+        createOreConversionRecipe(
+            MaterialLeafLoader.bauxiaLeaf,
+            Voltage.EV,
+            Materials.Bauxite,
+            TierAcid.t4,
+            SECONDARY_PURIFIED_RECIPE_CIRCUIT,
+            SECONDARY_IMPURE_DUST_RECIPE_CIRCUIT);
         createOreConversionRecipe(MaterialLeafLoader.scheeliniumLeaf, Voltage.EV, Materials.Scheelite, TierAcid.t5);
         createOreConversionRecipe(MaterialLeafLoader.reactoriaLeaf, Voltage.EV, Materials.Pitchblende, TierAcid.t5);
         createOreConversionRecipe(MaterialLeafLoader.reactoriaStem, Voltage.EV, Materials.Uranium, TierAcid.t6);
@@ -1078,6 +1097,20 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             -1);
     }
 
+    public static void createOreConversionRecipe(IMaterialLeafVariant variant, Voltage voltage, Materials ore,
+        TierAcid catalyst, int purifiedCircuit, int impureCircuit) {
+        createOreConversionRecipe(
+            variant,
+            DEFAULT_ORE_CONVERSION_LEAF_AMOUNT,
+            voltage,
+            ore,
+            DEFAULT_ORE_CONVERSION_LEAF_AMOUNT,
+            catalyst,
+            -1,
+            purifiedCircuit,
+            impureCircuit);
+    }
+
     public static void createOreConversionRecipe(IMaterialLeafVariant variant, int amount, Voltage voltage,
         Materials ore, TierAcid catalyst, int duration) {
         createOreConversionRecipe(variant, amount, voltage, ore, amount, catalyst, duration);
@@ -1085,6 +1118,20 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     public static void createOreConversionRecipe(IMaterialLeafVariant variant, int leafAmount, Voltage voltage,
         Materials ore, int oreAmount, TierAcid catalyst, int duration) {
+        createOreConversionRecipe(
+            variant,
+            leafAmount,
+            voltage,
+            ore,
+            oreAmount,
+            catalyst,
+            duration,
+            PURIFIED_RECIPE_CIRCUIT,
+            IMPURE_DUST_RECIPE_CIRCUIT);
+    }
+
+    public static void createOreConversionRecipe(IMaterialLeafVariant variant, int leafAmount, Voltage voltage,
+        Materials ore, int oreAmount, TierAcid catalyst, int duration, int purifiedCircuit, int impureCircuit) {
         if (variant == null || voltage == null || ore == null) {
             throw new IllegalArgumentException("variant, voltage and outputFluid cannot be null.");
         }
@@ -1103,7 +1150,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreConversionRecipe(
             voltage,
             duration,
-            new ItemStack[] { leaf, GTUtility.getIntegratedCircuit(PURIFIED_RECIPE_CIRCUIT) },
+            new ItemStack[] { leaf, GTUtility.getIntegratedCircuit(purifiedCircuit) },
             acid,
             purified,
             null,
@@ -1111,7 +1158,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreConversionRecipe(
             voltage,
             duration,
-            new ItemStack[] { leaf, GTUtility.getIntegratedCircuit(IMPURE_DUST_RECIPE_CIRCUIT) },
+            new ItemStack[] { leaf, GTUtility.getIntegratedCircuit(impureCircuit) },
             acid,
             impureDust,
             null,
