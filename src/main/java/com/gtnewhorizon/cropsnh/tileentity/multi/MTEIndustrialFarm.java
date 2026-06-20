@@ -1285,7 +1285,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         tDropProgess.addTo(this.mOutputTracker, tSeedData.getStack().stackSize);
         // check if output void protection is enabled
         if (this.voidingMode.protectItem) {
-            ItemEjectionHelper tHelper = new ItemEjectionHelper(this.getOutputBusses(), true);
+            ItemEjectionHelper tHelper = new ItemEjectionHelper(this.getOutputBusses(), true, true);
             ItemStack[] tDrops = this.mOutputTracker.getDrops(true);
             if (tDrops.length != 0 && tHelper.ejectItems(Arrays.asList(tDrops), 1) <= 0) {
                 // remove the added items
