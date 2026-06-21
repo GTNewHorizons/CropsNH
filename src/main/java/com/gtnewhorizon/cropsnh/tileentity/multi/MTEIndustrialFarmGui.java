@@ -179,7 +179,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                             .ignoreMaxStackSize(true)
                             .slotGroup("if_inv"))
                     .tooltipDynamic(x -> {
-                           x.addLine(
+                        x.addLine(
                             StatCollector
                                 .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.blockUnderSlot"));
                         x.addLine(

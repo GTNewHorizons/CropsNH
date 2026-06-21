@@ -2,11 +2,9 @@ package com.gtnewhorizon.cropsnh.tileentity.singleblock;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.getFluidUnit;
-import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 
 import java.util.function.IntSupplier;
 
-import gregtech.common.gui.modularui.util.MachineModularSlot;
 import net.minecraft.util.StatCollector;
 
 import com.cleanroommc.modularui.api.drawable.IKey;
@@ -30,6 +28,7 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.common.gui.modularui.singleblock.base.MTETieredMachineBlockBaseGui;
+import gregtech.common.gui.modularui.util.MachineModularSlot;
 
 public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManager> {
 
@@ -254,17 +253,18 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
                         tooltip -> tooltip.addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.harvest"))
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
                     .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_HARVEST))
-            .child(Flow.row()
-                .width(18)
-                .marginLeft(18)
-                .mainAxisAlignment(Alignment.MainAxis.CENTER)
-                .childIf(this.supportsMuffler(), this::createMufflerButton)
-            )
+            .child(
+                Flow.row()
+                    .width(18)
+                    .marginLeft(18)
+                    .mainAxisAlignment(Alignment.MainAxis.CENTER)
+                    .childIf(this.supportsMuffler(), this::createMufflerButton))
             .child(createSlot(MTECropManager.SLOT_BATTERY))
-            .child(Flow.row()
-                .width(18)
-                .mainAxisAlignment(Alignment.MainAxis.CENTER)
-                .childIf(this.supportsPowerSwitch(), this::createPowerSwitchButton));
+            .child(
+                Flow.row()
+                    .width(18)
+                    .mainAxisAlignment(Alignment.MainAxis.CENTER)
+                    .childIf(this.supportsPowerSwitch(), this::createPowerSwitchButton));
     }
 
 }
