@@ -92,6 +92,7 @@ import gregtech.api.enums.VoidingMode;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
 import gregtech.api.metatileentity.implementations.MTEHatch;
@@ -99,7 +100,6 @@ import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
-import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.error.StructureError;
 import gregtech.api.structure.error.StructureErrorRegistry;
 import gregtech.api.structure.error.StructureErrors;
@@ -113,7 +113,7 @@ import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
 import gregtech.common.misc.GTStructureChannels;
 
 public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustrialFarm>
-    implements ISurvivalConstructable {
+    implements ISurvivalConstructable, ICasingTextureProvider {
 
     /** The duration of the production cycle in seconds. */
     public static final int CYCLE_DURATION = 5 * SECONDS;
@@ -339,20 +339,20 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             if (env.getActor() instanceof EntityPlayerMP) {
                 // skip if the upgrades are disabled
                 if (!CropsNHStructureChannels.IFUpgrades.hasValue(trigger)) {
-                    return PlaceResult.SKIP;
+                    return PlaceResult.REJECT_CONTINUE;
                 }
             }
             // check if we can place the upgrade at the current tier
             Integer tTier = this.mBlock.getTier(getStructureLengthFromTrigger(trigger) - MIN_SLICES + MIN_CASING_TIER);
             if (tTier == null) {
-                return PlaceResult.SKIP;
+                return PlaceResult.REJECT_CONTINUE;
             }
             // re-base the stack size as needed
             trigger = trigger.copy();
             trigger.stackSize = tTier - this.mBlock.mMinTier + 1;
             // skip if reject
             PlaceResult result = this.mElement.survivalPlaceBlock(t, world, x, y, z, trigger, env);
-            return result == PlaceResult.REJECT ? PlaceResult.SKIP : result;
+            return result == PlaceResult.REJECT ? PlaceResult.REJECT_CONTINUE : result;
         }
     }
 
@@ -494,7 +494,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         // check if components are below the minimum tiers allowed
         if (hasUnderTiredComponents(errors)) return;
 
-        checkHasInputBus(errors);
+        // input bus is optional since it's not needed for crops with no sub-soils
         checkHasInputHatch(errors);
         checkHasOutputBus(errors);
         checkHasMaintenanceHatch(errors);
@@ -617,30 +617,22 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity baseMetaTileEntity, ForgeDirection sideDirection,
-        ForgeDirection facingDirection, int colorIndex, boolean active, boolean redstoneLevel) {
-        ITexture casingTexture = Textures.BlockIcons.casingTexturePages[Constants.GT_CASING_PAGE][0];
-        if (sideDirection == facingDirection) {
-            if (active) return new ITexture[] { casingTexture, TextureFactory.builder()
-                .addIcon(OVERLAY_FRONT_ASSEMBLY_LINE_ACTIVE)
-                .extFacing()
-                .build(),
-                TextureFactory.builder()
-                    .addIcon(OVERLAY_FRONT_ASSEMBLY_LINE_ACTIVE_GLOW)
-                    .extFacing()
-                    .glow()
-                    .build() };
-            return new ITexture[] { casingTexture, TextureFactory.builder()
-                .addIcon(OVERLAY_FRONT_ASSEMBLY_LINE)
-                .extFacing()
-                .build(),
-                TextureFactory.builder()
-                    .addIcon(OVERLAY_FRONT_ASSEMBLY_LINE_GLOW)
-                    .extFacing()
-                    .glow()
-                    .build() };
-        }
-        return new ITexture[] { casingTexture };
+    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection aFacing,
+        int colorIndex, boolean aActive, boolean redstoneLevel) {
+        return Textures.BlockIcons.createTextureWithCasing(
+            this,
+            side,
+            aFacing,
+            aActive,
+            OVERLAY_FRONT_ASSEMBLY_LINE,
+            OVERLAY_FRONT_ASSEMBLY_LINE_GLOW,
+            OVERLAY_FRONT_ASSEMBLY_LINE_ACTIVE,
+            OVERLAY_FRONT_ASSEMBLY_LINE_ACTIVE_GLOW);
+    }
+
+    @Override
+    public ITexture getCasingTexture() {
+        return Textures.BlockIcons.casingTexturePages[Constants.GT_CASING_PAGE][0];
     }
     // endregion structure
 
@@ -1285,7 +1277,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         tDropProgess.addTo(this.mOutputTracker, tSeedData.getStack().stackSize);
         // check if output void protection is enabled
         if (this.voidingMode.protectItem) {
-            ItemEjectionHelper tHelper = new ItemEjectionHelper(this.getOutputBusses(), true);
+            ItemEjectionHelper tHelper = new ItemEjectionHelper(this.getOutputBusses(), true, true);
             ItemStack[] tDrops = this.mOutputTracker.getDrops(true);
             if (tDrops.length != 0 && tHelper.ejectItems(Arrays.asList(tDrops), 1) <= 0) {
                 // remove the added items
