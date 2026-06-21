@@ -6,14 +6,13 @@ import static gregtech.api.metatileentity.BaseTileEntity.TOOLTIP_DELAY;
 
 import java.util.function.IntSupplier;
 
+import gregtech.common.gui.modularui.util.MachineModularSlot;
 import net.minecraft.util.StatCollector;
 
 import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.api.widget.IWidget;
 import com.cleanroommc.modularui.drawable.UITexture;
-import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
-import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.utils.Alignment;
 import com.cleanroommc.modularui.value.sync.BooleanSyncValue;
 import com.cleanroommc.modularui.value.sync.DoubleSyncValue;
@@ -29,14 +28,10 @@ import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.modularui2.GTGuiTextures;
-import gregtech.api.modularui2.GTGuis;
-import gregtech.api.modularui2.common.CommonButtons;
 import gregtech.common.gui.modularui.singleblock.base.MTETieredMachineBlockBaseGui;
-import gregtech.common.modularui2.widget.GTProgressWidget;
 
-public class MTECropManagerGUI {
+public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManager> {
 
     private static final int LEFT_GRID_SLOT_START = MTECropManager.SLOT_WEEDEX_START;
     private static final int LEFT_GRID_SLOT_COUNT = MTECropManager.WEEDEX_SLOT_COUNT
@@ -53,21 +48,13 @@ public class MTECropManagerGUI {
     private static final String SYNC_WATER_HANDLER_NAME = "water";
     private static final String SYNC_WEEDEX_HANDLER_NAME = "weedex";
     private static final String SYNC_FERT_HANDLER_NAME = "fert";
-    // the base gui for all Steam Boilers of all types
-    protected final MTECropManager base;
-    protected final IGregTechTileEntity baseMetaTileEntity;
 
-    public MTECropManagerGUI(MTECropManager base) {
-        this.base = base;
-        this.baseMetaTileEntity = base.getBaseMetaTileEntity();
+    public MTECropManagerGui(MTECropManager machine) {
+        super(machine);
     }
 
     private ItemSlot createSlot(int aIndex) {
-        ModularSlot modularSlot = new ModularSlot(base.inventoryHandler, aIndex)
-            .changeListener(
-                (newItem, onlyAmountChanged, client, init) -> {
-                    if (!client && !init) baseMetaTileEntity.markInventoryBeenModified();
-                })
+        ModularSlot modularSlot = new MachineModularSlot(machine.inventoryHandler, aIndex, baseMetaTileEntity)
             .filter(aStack -> MTECropManager.allowPutStack(aIndex, aStack));
         ItemSlot itemSlot = new ItemSlot().slot(modularSlot);
 
@@ -108,7 +95,7 @@ public class MTECropManagerGUI {
 
         final int height = Math.max(LEFT_GRID_ROWS, RIGHT_GRID_ROWS) * MTETieredMachineBlockBaseGui.SLOT_SIZE;
         // create widget
-        var asd = new GTProgressWidget().syncHandler(percSyncHandlerName)
+        return new ProgressWidget().syncHandler(percSyncHandlerName)
             .tooltipDynamic((a) -> {
                 a.add(
                     StatCollector.translateToLocalFormatted(
@@ -120,37 +107,26 @@ public class MTECropManagerGUI {
             .direction(ProgressWidget.Direction.UP)
             .texture(GTGuiTextures.SLOT_ITEM_STANDARD, texture, height)
             .size(10, height);
-
-        return asd;
     }
 
-    protected ToggleButton createMufflerButton() {
-        return CommonButtons.createMuffleButton("mufflerSyncer")
-            .disableThemeBackground(true)
-            .disableHoverThemeBackground(true);
-    }
-
-    protected ToggleButton createPowerSwitchButton() {
-        return CommonButtons.createSmallPowerSwitchButton("powerSwitch")
-            .disableThemeBackground(true)
-            .disableHoverThemeBackground(true)
-            .tooltipShowUpTimer(TOOLTIP_DELAY);
-    }
-
-    public ModularPanel build(PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
+    @Override
+    protected void registerSyncValues(PanelSyncManager syncManager) {
+        super.registerSyncValues(syncManager);
         syncManager.registerSlotGroup(SYNC_INV_HANDLER_NAME, LEFT_GRID_COLS, true);
+    }
 
-        BooleanSyncValue powerSwitchSyncer = new BooleanSyncValue(baseMetaTileEntity::isAllowedToWork, bool -> {
-            if (bool) baseMetaTileEntity.enableWorking();
-            else baseMetaTileEntity.disableWorking();
-        }).allowC2S();
-        syncManager.syncValue("powerSwitch", powerSwitchSyncer);
+    @Override
+    protected boolean supportsMuffler() {
+        return false;
+    }
 
-        BooleanSyncValue mufflerSyncer = new BooleanSyncValue(
-            baseMetaTileEntity::isMuffled,
-            baseMetaTileEntity::setMuffler).allowC2S();
-        syncManager.syncValue("mufflerSyncer", mufflerSyncer);
+    @Override
+    protected boolean supportsTopRightCornerFlow() {
+        return false;
+    }
 
+    @Override
+    protected ParentWidget<?> createContentSection(ModularPanel panel, PanelSyncManager syncManager) {
         // create left slots
         IWidget leftGrid = new ParentWidget<>()
             .size(
@@ -172,24 +148,24 @@ public class MTECropManagerGUI {
             .child(
                 createTankBar(
                     syncManager,
-                    () -> base.mWater,
-                    () -> base.mWaterCap,
+                    () -> machine.mWater,
+                    () -> machine.mWaterCap,
                     SYNC_WATER_HANDLER_NAME,
                     CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_WATER,
                     Reference.MOD_ID + "_tooltip.cropManager.waterStorage"))
             .child(
                 createTankBar(
                     syncManager,
-                    () -> base.mWeedEX,
-                    () -> base.mWeedEXCap,
+                    () -> machine.mWeedEX,
+                    () -> machine.mWeedEXCap,
                     SYNC_WEEDEX_HANDLER_NAME,
                     CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_WEED_EX,
                     Reference.MOD_ID + "_tooltip.cropManager.weedEXStorage"))
             .child(
                 createTankBar(
                     syncManager,
-                    () -> base.mLiquidFertilizer,
-                    () -> base.mLiquidFertilizerCap,
+                    () -> machine.mLiquidFertilizer,
+                    () -> machine.mLiquidFertilizerCap,
                     SYNC_FERT_HANDLER_NAME,
                     CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_LIQUID_FERTILIZER,
                     Reference.MOD_ID + "_tooltip.cropManager.liquidFertilizerStorage"));
@@ -215,36 +191,34 @@ public class MTECropManagerGUI {
             .child(indicators)
             .child(rightGrid);
 
-        BooleanSyncValue waterSync = new BooleanSyncValue(() -> base.mWaterEnabled, (v) -> base.mWaterEnabled = v)
-            .allowC2S();
-        BooleanSyncValue weedEXSync = new BooleanSyncValue(() -> base.mWeedEXEnabled, (v) -> base.mWeedEXEnabled = v)
-            .allowC2S();
-        BooleanSyncValue fertSync = new BooleanSyncValue(
-            () -> base.mFertilizerEnabled,
-            (v) -> base.mFertilizerEnabled = v).allowC2S();
-        BooleanSyncValue harvestSync = new BooleanSyncValue(() -> base.mHarvestEnabled, (v) -> base.mHarvestEnabled = v)
-            .allowC2S();
-        syncManager.syncValue("waterEnabled", waterSync);
-        syncManager.syncValue("weedEXEnabled", weedEXSync);
-        syncManager.syncValue("fertEnabled", fertSync);
-        syncManager.syncValue("harvestEnabled", harvestSync);
+        return super.createContentSection(panel, syncManager).child(topLayer);
+    }
 
-        IWidget toggleRow = Flow.row()
-            .leftRel(0)
-            .coverChildren()
-            .childPadding(0)
-            .child(
-                new ToggleButton().value(waterSync)
-                    .tooltip(
-                        true,
-                        tooltip -> tooltip.addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.water"))
-                            .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.enabled")))
-                    .tooltip(
-                        false,
-                        tooltip -> tooltip.addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.water"))
-                            .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
-                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_WATER)
-                    .size(18))
+    @Override
+    protected Flow createBottomLeftCornerFlow(ModularPanel panel, PanelSyncManager syncManager) {
+        BooleanSyncValue waterSync = new BooleanSyncValue(() -> machine.mWaterEnabled, (v) -> machine.mWaterEnabled = v)
+            .allowC2S();
+        BooleanSyncValue weedEXSync = new BooleanSyncValue(
+            () -> machine.mWeedEXEnabled,
+            (v) -> machine.mWeedEXEnabled = v).allowC2S();
+        BooleanSyncValue fertSync = new BooleanSyncValue(
+            () -> machine.mFertilizerEnabled,
+            (v) -> machine.mFertilizerEnabled = v).allowC2S();
+        BooleanSyncValue harvestSync = new BooleanSyncValue(
+            () -> machine.mHarvestEnabled,
+            (v) -> machine.mHarvestEnabled = v).allowC2S();
+
+        return super.createBottomLeftCornerFlow(panel, syncManager).child(
+            new ToggleButton().value(waterSync)
+                .tooltip(
+                    true,
+                    tooltip -> tooltip.addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.water"))
+                        .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.enabled")))
+                .tooltip(
+                    false,
+                    tooltip -> tooltip.addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.water"))
+                        .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
+                .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_WATER))
             .child(
                 new ToggleButton().value(weedEXSync)
                     .tooltip(
@@ -255,8 +229,7 @@ public class MTECropManagerGUI {
                         false,
                         tooltip -> tooltip.addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.weedEX"))
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
-                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_WEED_EX)
-                    .size(18))
+                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_WEED_EX))
             .child(
                 new ToggleButton().value(fertSync)
                     .tooltip(
@@ -269,8 +242,7 @@ public class MTECropManagerGUI {
                         tooltip -> tooltip
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.fertilizer"))
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
-                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_FERTILIZER)
-                    .size(18))
+                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_FERTILIZER))
             .child(
                 new ToggleButton().value(harvestSync)
                     .tooltip(
@@ -281,25 +253,18 @@ public class MTECropManagerGUI {
                         false,
                         tooltip -> tooltip.addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.harvest"))
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
-                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_HARVEST)
-                    .size(18));
-
-        IWidget bottomLayer = new ParentWidget<>().fullWidth()
-            .paddingLeft(7)
-            .paddingRight(7)
-            .coverChildrenHeight()
-            .child(toggleRow)
-            .child(createSlot(MTECropManager.SLOT_BATTERY).left(18 * 6 + 7));
-
-        return GTGuis.mteTemplatePanelBuilder(base, data, syncManager, uiSettings)
-            .build()
-            .child(
-                Flow.column()
-                    .horizontalCenter()
-                    .top(7)
-                    .childPadding(2)
-                    .child(topLayer)
-                    .child(bottomLayer));
+                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_HARVEST))
+            .child(Flow.row()
+                .width(18)
+                .marginLeft(18)
+                .mainAxisAlignment(Alignment.MainAxis.CENTER)
+                .childIf(this.supportsMuffler(), this::createMufflerButton)
+            )
+            .child(createSlot(MTECropManager.SLOT_BATTERY))
+            .child(Flow.row()
+                .width(18)
+                .mainAxisAlignment(Alignment.MainAxis.CENTER)
+                .childIf(this.supportsPowerSwitch(), this::createPowerSwitchButton));
     }
 
 }

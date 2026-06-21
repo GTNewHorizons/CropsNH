@@ -38,7 +38,6 @@ import com.gtnewhorizon.gtnhlib.util.map.ItemStackMap;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.modularui.IAddUIWidgets;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTETieredMachineBlock;
@@ -47,7 +46,7 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
 
-public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidgets {
+public class MTECropManager extends MTETieredMachineBlock {
 
     public static final int WEEDEX_SLOT_COUNT = 2;
     public static final int FERTILIZER_SLOT_COUNT = 4;
@@ -937,7 +936,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IAddUIWidge
 
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
-        return new MTECropManagerGUI(this).build(data, syncManager, uiSettings);
+        return new MTECropManagerGui(this).build(data, syncManager, uiSettings);
     }
 
     // endregion ui

@@ -112,7 +112,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
             }
         }
             // #80000000 (ARGB)
-            .setColor(-2147483648);
+            .color(-2147483648);
 
         public DisabledSlotOverlay(Supplier<Boolean> supplier) {
             super(() -> supplier.get() ? GRAY_TEXTURE : IDrawable.EMPTY);
@@ -153,7 +153,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
     protected Flow createLeftPanelGapRow(ModularPanel parent, PanelSyncManager syncManager) {
         return super.createLeftPanelGapRow(parent, syncManager).childIf(
             multiblock.doesBindPlayerInventory(),
-            new ItemSlot()
+            () -> new ItemSlot()
                 .slot(
                     new ModularSlot(multiblock.mIFStackHandler, MTEIndustrialFarm.SLOT_SEED).ignoreMaxStackSize(true)
                         .slotGroup("if_inv"))
@@ -169,17 +169,17 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                                 Reference.MOD_ID + "_tooltip.industrialFarm.seedWithBlockExtractionWarning"));
                     }
                 })
-                .background(CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD)
+                .backgroundOverlay(CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD)
                 .overlay(SEED_SLOT_DISABLED_OVERLAY))
             .childIf(
                 multiblock.doesBindPlayerInventory(),
-                new ItemSlot()
+                () -> new ItemSlot()
                     .slot(
                         new ModularSlot(multiblock.mIFStackHandler, MTEIndustrialFarm.SLOT_BLOCK_UNDER)
                             .ignoreMaxStackSize(true)
                             .slotGroup("if_inv"))
                     .tooltipDynamic(x -> {
-                        x.addLine(
+                           x.addLine(
                             StatCollector
                                 .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.blockUnderSlot"));
                         x.addLine(
@@ -196,9 +196,9 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                                     .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.blockInsertion"));
                         }
                     })
-                    .background(GTGuiTextures.SLOT_ITEM_STANDARD, GTGuiTextures.OVERLAY_SLOT_BLOCK_STANDARD)
+                    .backgroundOverlay(GTGuiTextures.OVERLAY_SLOT_BLOCK_STANDARD)
                     .overlay(SEED_SLOT_DISABLED_OVERLAY))
-            .childIf(multiblock.doesBindPlayerInventory(), createEnvModuleSlot(0))
-            .childIf(multiblock.doesBindPlayerInventory(), createEnvModuleSlot(1));
+            .childIf(multiblock.doesBindPlayerInventory(), () -> createEnvModuleSlot(0))
+            .childIf(multiblock.doesBindPlayerInventory(), () -> createEnvModuleSlot(1));
     }
 }
