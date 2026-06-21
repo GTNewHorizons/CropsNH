@@ -137,7 +137,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                             ? Reference.MOD_ID + "_tooltip.industrialFarm.environmentalModule.enabled"
                             : Reference.MOD_ID + "_tooltip.industrialFarm.environmentalModule.disabled"));
             })
-            .background(GTGuiTextures.SLOT_ITEM_STANDARD, CropsNHUITextures.OVERLAY_SLOT_ENVIRONMENTAL_MODULE_STANDARD)
+            .backgroundOverlay(CropsNHUITextures.OVERLAY_SLOT_ENVIRONMENTAL_MODULE_STANDARD)
             .overlay(
                 new DisabledSlotOverlay(
                     () -> multiblock.mMaxProgresstime != 0 || multiblock.isAllowedToWork()
