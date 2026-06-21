@@ -169,7 +169,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                                 Reference.MOD_ID + "_tooltip.industrialFarm.seedWithBlockExtractionWarning"));
                     }
                 })
-                .background(GTGuiTextures.SLOT_ITEM_STANDARD, CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD)
+                .background(CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD)
                 .overlay(SEED_SLOT_DISABLED_OVERLAY))
             .childIf(
                 multiblock.doesBindPlayerInventory(),
