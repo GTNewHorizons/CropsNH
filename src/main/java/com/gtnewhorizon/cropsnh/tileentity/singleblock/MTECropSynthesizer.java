@@ -28,7 +28,7 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
-import com.gtnewhorizon.cropsnh.init.CropsNHUITexturesMUI2;
+import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
 import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -273,7 +273,7 @@ public class MTECropSynthesizer extends MTEBasicMachine {
         return super.getUIProperties().toBuilder()
             .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
                 if (isFluid || isSpecial) return null;
-                if (isOutput) return CropsNHUITexturesMUI2.OVERLAY_SLOT_SEED_STANDARD;
+                if (isOutput) return CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD;
                 return GTGuiTextures.OVERLAY_SLOT_DATA_ORB;
             })
             .build();
