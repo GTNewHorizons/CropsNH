@@ -95,12 +95,13 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
         final int height = Math.max(LEFT_GRID_ROWS, RIGHT_GRID_ROWS) * MTETieredMachineBlockBaseGui.SLOT_SIZE;
         // create widget
         return new ProgressWidget().syncHandler(percSyncHandlerName)
-            .tooltipDynamic((a) -> a.add(
-                StatCollector.translateToLocalFormatted(
-                    tooltipFormat,
-                    formatNumber(stored.getIntValue()),
-                    formatNumber(cap.getIntValue()),
-                    getFluidUnit())))
+            .tooltipDynamic(
+                (a) -> a.add(
+                    StatCollector.translateToLocalFormatted(
+                        tooltipFormat,
+                        formatNumber(stored.getIntValue()),
+                        formatNumber(cap.getIntValue()),
+                        getFluidUnit())))
             .direction(ProgressWidget.Direction.UP)
             .texture(GTGuiTextures.SLOT_ITEM_STANDARD, texture, height)
             .size(10, height);
