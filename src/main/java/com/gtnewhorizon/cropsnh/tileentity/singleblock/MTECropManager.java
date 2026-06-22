@@ -633,6 +633,11 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region item IO
 
+    @Override
+    public boolean isItemValidForSlot(int aIndex, ItemStack aStack) {
+        return allowPutStack(aIndex, aStack);
+    }
+
     public static boolean isFertilizerStack(ItemStack aStack) {
         return FertilizerRegistry.instance.isRegistered(aStack);
     }
