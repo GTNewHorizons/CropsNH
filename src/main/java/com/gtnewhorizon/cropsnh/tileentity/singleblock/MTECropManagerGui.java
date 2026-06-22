@@ -95,14 +95,12 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
         final int height = Math.max(LEFT_GRID_ROWS, RIGHT_GRID_ROWS) * MTETieredMachineBlockBaseGui.SLOT_SIZE;
         // create widget
         return new ProgressWidget().syncHandler(percSyncHandlerName)
-            .tooltipDynamic((a) -> {
-                a.add(
-                    StatCollector.translateToLocalFormatted(
-                        tooltipFormat,
-                        formatNumber(stored.getIntValue()),
-                        formatNumber(cap.getIntValue()),
-                        getFluidUnit()));
-            })
+            .tooltipDynamic((a) -> a.add(
+                StatCollector.translateToLocalFormatted(
+                    tooltipFormat,
+                    formatNumber(stored.getIntValue()),
+                    formatNumber(cap.getIntValue()),
+                    getFluidUnit())))
             .direction(ProgressWidget.Direction.UP)
             .texture(GTGuiTextures.SLOT_ITEM_STANDARD, texture, height)
             .size(10, height);
@@ -127,23 +125,11 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
     @Override
     protected ParentWidget<?> createContentSection(ModularPanel panel, PanelSyncManager syncManager) {
         // create left slots
-        IWidget leftGrid = new ParentWidget<>()
-            .size(
-                LEFT_GRID_COLS * MTETieredMachineBlockBaseGui.SLOT_SIZE,
-                LEFT_GRID_ROWS * MTETieredMachineBlockBaseGui.SLOT_SIZE)
-            .child(
-                new Grid().coverChildren()
-                    .gridOfSizeWidth(
-                        LEFT_GRID_SLOT_COUNT,
-                        LEFT_GRID_COLS,
-                        ($x, $y, i) -> createSlot(i + LEFT_GRID_SLOT_START))
-                    .horizontalCenter()
-                    .verticalCenter());
+        Grid leftGrid = new Grid().coverChildren()
+            .gridOfSizeWidth(LEFT_GRID_SLOT_COUNT, LEFT_GRID_COLS, ($x, $y, i) -> createSlot(i + LEFT_GRID_SLOT_START));
 
-        IWidget indicators = Flow.row()
+        Flow indicators = Flow.row()
             .coverChildren()
-            .crossAxisAlignment(Alignment.CrossAxis.CENTER)
-            .childPadding(0)
             .child(
                 createTankBar(
                     syncManager,
@@ -169,20 +155,13 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
                     CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_LIQUID_FERTILIZER,
                     Reference.MOD_ID + "_tooltip.cropManager.liquidFertilizerStorage"));
 
-        IWidget rightGrid = new ParentWidget<>()
-            .size(
-                RIGHT_GRID_COLS * MTETieredMachineBlockBaseGui.SLOT_SIZE,
-                RIGHT_GRID_ROWS * MTETieredMachineBlockBaseGui.SLOT_SIZE)
-            .child(
-                new Grid().coverChildren()
-                    .gridOfSizeWidth(
-                        RIGHT_GRID_SLOT_COUNT,
-                        RIGHT_GRID_COLS,
-                        ($x, $y, i) -> createSlot(i + RIGHT_GRID_SLOT_START))
-                    .horizontalCenter()
-                    .verticalCenter());
+        Grid rightGrid = new Grid().coverChildren()
+            .gridOfSizeWidth(
+                RIGHT_GRID_SLOT_COUNT,
+                RIGHT_GRID_COLS,
+                ($x, $y, i) -> createSlot(i + RIGHT_GRID_SLOT_START));
 
-        IWidget topLayer = Flow.row()
+        Flow topLayer = Flow.row()
             .horizontalCenter()
             .coverChildren()
             .childPadding(3)
@@ -255,14 +234,14 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
                     .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_HARVEST))
             .child(
                 Flow.row()
-                    .width(18)
-                    .marginLeft(18)
+                    .width(MTETieredMachineBlockBaseGui.SLOT_SIZE)
+                    .marginLeft(MTETieredMachineBlockBaseGui.SLOT_SIZE)
                     .mainAxisAlignment(Alignment.MainAxis.CENTER)
                     .childIf(this.supportsMuffler(), this::createMufflerButton))
             .child(createSlot(MTECropManager.SLOT_BATTERY))
             .child(
                 Flow.row()
-                    .width(18)
+                    .width(MTETieredMachineBlockBaseGui.SLOT_SIZE)
                     .mainAxisAlignment(Alignment.MainAxis.CENTER)
                     .childIf(this.supportsPowerSwitch(), this::createPowerSwitchButton));
     }
