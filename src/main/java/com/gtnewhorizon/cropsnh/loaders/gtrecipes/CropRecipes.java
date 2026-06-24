@@ -874,6 +874,18 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     private static void addSaltyRootRecipes() {
         lvRecipe(5, 0).itemInputs(MaterialLeafLoader.saltyRoot.get(1))
+            .circuit(1)
+            .fluidInputs(new FluidStack(FluidRegistry.WATER, 100))
+            .itemOutputs(
+                new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.dust, Materials.Salt, 1),
+                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.RockSalt, 1),
+                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Saltpeter, 1) },
+                new int[] { 95_00, 80_00, 50_00 })
+            .addTo(chemicalBathRecipes);
+
+        // lock borax production to the tier the chembath multi unlocks (grisium right now, which is ev)
+        evRecipe(5, 0).itemInputs(MaterialLeafLoader.saltyRoot.get(1))
+            .circuit(2)
             .fluidInputs(new FluidStack(FluidRegistry.WATER, 100))
             .itemOutputs(
                 new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.dust, Materials.Salt, 1),
