@@ -952,7 +952,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
         // lock borax production to the tier the chembath multi unlocks (grisium right now, which is ev)
         // only reduce recipe time by 1 OC to imply the much thorough washing required to get borax.
-        evRecipe(2, 5).itemInputs(MaterialLeafLoader.saltyRoot.get(1))
+        evRecipe(2, 50).itemInputs(MaterialLeafLoader.saltyRoot.get(1))
             .circuit(2)
             .fluidInputs(new FluidStack(FluidRegistry.WATER, 100))
             .itemOutputs(
