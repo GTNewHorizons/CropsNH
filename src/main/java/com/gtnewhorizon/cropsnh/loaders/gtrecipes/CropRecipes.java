@@ -28,6 +28,9 @@ import static gregtech.common.items.ItemComb.Voltage;
 import static gtPlusPlus.api.recipe.GTPPRecipeMaps.quantumForceTransformerRecipes;
 import static net.minecraftforge.fluids.FluidRegistry.getFluidStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -69,6 +72,8 @@ import gregtech.loaders.misc.GTBees;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 import gtnhlanth.api.recipe.LanthanidesRecipeMaps;
+import it.unimi.dsi.fastutil.ints.IntObjectImmutablePair;
+import it.unimi.dsi.fastutil.ints.IntObjectPair;
 
 public abstract class CropRecipes extends BaseGTRecipeLoader {
 
@@ -393,10 +398,26 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Grossular);
         createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Spessartine);
         createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Pyrolusite);
-        createOreDuplicationRecipe(
-            MaterialLeafLoader.pyrolusiumLeaf,
-            Materials.Tantalite,
-            Materials.Tantalum.getMolten(1 * INGOTS));
+        createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Tantalite);
+
+        final List<IntObjectPair<OrePrefixes>> tantaliteEBFVariations = new ArrayList<>(2);
+        tantaliteEBFVariations.add(IntObjectImmutablePair.of(PURIFIED_RECIPE_CIRCUIT, OrePrefixes.crushedPurified));
+        tantaliteEBFVariations.add(IntObjectImmutablePair.of(IMPURE_DUST_RECIPE_CIRCUIT, OrePrefixes.dustImpure));
+        for (IntObjectPair<OrePrefixes> variation : tantaliteEBFVariations) {
+            recipe(Voltage.HV.getChemicalEnergy(), Voltage.HV.getComplexTime())
+                .itemInputs(
+                    CropsNHItemList.pyrolusiumLeaf.get(4),
+                    GTOreDictUnificator
+                        .get(OrePrefixes.crushed, Materials.Tantalite, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT))
+                .circuit(variation.leftInt())
+                // meant to mirror however much the usual tantalite persulfate recipe uses.
+                .fluidInputs(Materials.SodiumPersulfate.getFluid(100))
+                .itemOutputs(
+                    GTOreDictUnificator.get(variation.right(), Materials.Tantalite, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT),
+                    GTOreDictUnificator.get(OrePrefixes.ingotHot, Materials.Tantalum, 1))
+                .metadata(COIL_HEAT, 800)
+                .addTo(RecipeMaps.blastFurnaceRecipes);
+        }
 
         createOreDuplicationRecipe(MaterialLeafLoader.titaniaLeaf, Materials.Titanium);
         createOreDuplicationRecipe(MaterialLeafLoader.titaniaLeaf, Materials.Ilmenite);
