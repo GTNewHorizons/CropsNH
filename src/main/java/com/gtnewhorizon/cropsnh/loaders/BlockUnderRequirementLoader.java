@@ -325,6 +325,12 @@ public class BlockUnderRequirementLoader {
                 new BlockWithMeta(ModUtils.ThaumicBases.getBlock("oldCobbleMossy"))
             );
         }
+        if (ModUtils.TwilightForest.isModLoaded()) {
+            // the TF Steeleaf block doesn't have the blockSteeleaf ore dict for some reason
+            CropsNHBlockUnderTypes.steeleaf.addBlock(
+                new BlockWithMeta(ModUtils.TwilightForest.getBlock("tile.SteeleafBlock"))
+            );
+        }
         // spotless:on
     }
 }
