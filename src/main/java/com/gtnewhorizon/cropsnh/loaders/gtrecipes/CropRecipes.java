@@ -407,8 +407,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             recipe(Voltage.HV.getChemicalEnergy(), Voltage.HV.getComplexTime())
                 .itemInputs(
                     CropsNHItemList.pyrolusiumLeaf.get(4),
-                    GTOreDictUnificator
-                        .get(OrePrefixes.crushed, Materials.Tantalite, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT))
+                    GTOreDictUnificator.get(OrePrefixes.crushed, Materials.Tantalite, 1))
                 .circuit(variation.leftInt())
                 // meant to mirror however much the usual tantalite persulfate recipe uses.
                 .fluidInputs(Materials.SodiumPersulfate.getFluid(100))
