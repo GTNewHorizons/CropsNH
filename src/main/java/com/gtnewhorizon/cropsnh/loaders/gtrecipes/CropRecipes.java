@@ -746,8 +746,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                     new ItemStack(Blocks.leaves, 64, 0),
                     ModUtils.TwilightForest.getStack("item.torchberries", 64, 0),
                     ModUtils.TwilightForest.getStack("item.liveRoot", 64, 0),
-                    // infuse some more magical steel™
-                    ModUtils.TwilightForest.getStack("item.shardCluster", 64, 0),
                     // requires the entire TF bee progression
                     ModUtils.NewHorizonsCoreMod.getStack("SnowQueenBlood", 16, 0))
                 // give out the seed as the quest book currently gives out a steeleaf block for obtaining a seed.
