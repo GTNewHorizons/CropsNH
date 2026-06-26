@@ -27,8 +27,8 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
 
+import bartworks.API.enums.BioCultureEnum;
 import bartworks.common.loaders.BioCultureLoader;
-import bartworks.common.loaders.BioItemList;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.ToolDictNames;
@@ -112,7 +112,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
             CropRecipes.TierAcid.distilWater }) {
             evRecipe(17, 50).itemInputs(new ItemStack(Items.sugar, 64))
                 .circuit(2)
-                .special(BioItemList.getPetriDish(BioCultureLoader.CommonYeast))
+                .special(BioCultureEnum.getPetriDish(BioCultureLoader.CommonYeast))
                 .fluidInputs(water.get(100))
                 .fluidOutputs(new FluidStack(CropsNHFluids.GHP, 1))
                 .metadata(GLASS, 3)

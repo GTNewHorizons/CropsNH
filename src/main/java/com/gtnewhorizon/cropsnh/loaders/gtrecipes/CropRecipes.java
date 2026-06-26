@@ -49,8 +49,8 @@ import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
+import bartworks.API.enums.BioCultureEnum;
 import bartworks.common.loaders.BioCultureLoader;
-import bartworks.common.loaders.BioItemList;
 import bartworks.system.material.Werkstoff;
 import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -286,7 +286,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                     new ItemStack(Items.sugar, 4),
                     CropsNHItemList.hops.get(16L),
                     GTOreDictUnificator.get(OrePrefixes.dust, Materials.Wheat, 8L))
-                .special(BioItemList.getPetriDish(BioCultureLoader.BeerYeast))
+                .special(BioCultureEnum.getPetriDish(BioCultureLoader.BeerYeast))
                 .fluidInputs(water.get(100))
                 .fluidOutputs(FluidRegistry.getFluidStack("potion.beer", 5))
                 .metadata(GLASS, 3)
@@ -296,7 +296,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                 .itemInputs(
                     CropsNHItemList.hops.get(32L),
                     GTOreDictUnificator.get(OrePrefixes.dust, Materials.Wheat, 16L))
-                .special(BioItemList.getPetriDish(BioCultureLoader.BeerYeast))
+                .special(BioCultureEnum.getPetriDish(BioCultureLoader.BeerYeast))
                 .fluidInputs(water.get(100))
                 .fluidOutputs(FluidRegistry.getFluidStack("potion.darkbeer", 10))
                 .metadata(GLASS, 3)
