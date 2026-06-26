@@ -91,6 +91,7 @@ public class BlockUnderRequirementLoader {
         CropsNHBlockUnderTypes.ruby.addBlockAndOreDict().addMaterial(Materials.Ruby);
         // non-gt ores
         CropsNHBlockUnderTypes.knightmetal.addBlockAndOreDict().addMaterial(Materials.Knightmetal);
+        CropsNHBlockUnderTypes.steeleaf.addBlockAndOreDict().addMaterial(Materials.Steeleaf);
         CropsNHBlockUnderTypes.cobalt.addBlockAndOreDict().addMaterial(Materials.Cobalt);
         CropsNHBlockUnderTypes.ardite.addBlockAndOreDict().addMaterial(Materials.Ardite);
         // magic ores
@@ -322,6 +323,12 @@ public class BlockUnderRequirementLoader {
             CropsNHBlockUnderTypes.stone.addBlock(
                 new BlockWithMeta(ModUtils.ThaumicBases.getBlock("oldCobble")),
                 new BlockWithMeta(ModUtils.ThaumicBases.getBlock("oldCobbleMossy"))
+            );
+        }
+        if (ModUtils.TwilightForest.isModLoaded()) {
+            // the TF Steeleaf block doesn't have the blockSteeleaf ore dict for some reason
+            CropsNHBlockUnderTypes.steeleaf.addBlock(
+                new BlockWithMeta(ModUtils.TwilightForest.getBlock("tile.SteeleafBlock"))
             );
         }
         // spotless:on

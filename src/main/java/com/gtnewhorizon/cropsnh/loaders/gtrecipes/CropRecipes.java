@@ -28,6 +28,9 @@ import static gregtech.common.items.ItemComb.Voltage;
 import static gtPlusPlus.api.recipe.GTPPRecipeMaps.quantumForceTransformerRecipes;
 import static net.minecraftforge.fluids.FluidRegistry.getFluidStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -36,8 +39,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
+import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.handler.CropsNHFurnaceFuelHandler;
 import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
@@ -67,6 +72,8 @@ import gregtech.loaders.misc.GTBees;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 import gtnhlanth.api.recipe.LanthanidesRecipeMaps;
+import it.unimi.dsi.fastutil.ints.IntObjectImmutablePair;
+import it.unimi.dsi.fastutil.ints.IntObjectPair;
 
 public abstract class CropRecipes extends BaseGTRecipeLoader {
 
@@ -256,10 +263,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     }
 
-    private static void addThiosulfineDigesterRecipes(GTRecipeBuilder builder, Materials material, IRecipeMap map) {
-
-    }
-
     private static void addCoffeeRecipes() {
         GTModHandler.addShapelessCraftingRecipe(
             GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coffee, 1L),
@@ -395,10 +398,25 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Grossular);
         createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Spessartine);
         createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Pyrolusite);
-        createOreDuplicationRecipe(
-            MaterialLeafLoader.pyrolusiumLeaf,
-            Materials.Tantalite,
-            Materials.Tantalum.getMolten(1 * INGOTS));
+        createOreDuplicationRecipe(MaterialLeafLoader.pyrolusiumLeaf, Materials.Tantalite);
+
+        final List<IntObjectPair<OrePrefixes>> tantaliteEBFVariations = new ArrayList<>(2);
+        tantaliteEBFVariations.add(IntObjectImmutablePair.of(PURIFIED_RECIPE_CIRCUIT, OrePrefixes.crushedPurified));
+        tantaliteEBFVariations.add(IntObjectImmutablePair.of(IMPURE_DUST_RECIPE_CIRCUIT, OrePrefixes.dustImpure));
+        for (IntObjectPair<OrePrefixes> variation : tantaliteEBFVariations) {
+            recipe(Voltage.HV.getChemicalEnergy(), Voltage.HV.getComplexTime())
+                .itemInputs(
+                    CropsNHItemList.pyrolusiumLeaf.get(4),
+                    GTOreDictUnificator.get(OrePrefixes.crushed, Materials.Tantalite, 1))
+                .circuit(variation.leftInt())
+                // meant to mirror however much the usual tantalite persulfate recipe uses.
+                .fluidInputs(Materials.SodiumPersulfate.getFluid(100))
+                .itemOutputs(
+                    GTOreDictUnificator.get(variation.right(), Materials.Tantalite, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT),
+                    GTOreDictUnificator.get(OrePrefixes.ingotHot, Materials.Tantalum, 1))
+                .metadata(COIL_HEAT, 800)
+                .addTo(RecipeMaps.blastFurnaceRecipes);
+        }
 
         createOreDuplicationRecipe(MaterialLeafLoader.titaniaLeaf, Materials.Titanium);
         createOreDuplicationRecipe(MaterialLeafLoader.titaniaLeaf, Materials.Ilmenite);
@@ -652,15 +670,18 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     private static void addMagicEssenceRecipes() {
         if (!ModUtils.Thaumcraft.isModLoaded()) return;
         Item thaumResourceItem = GameRegistry.findItem(ModUtils.Thaumcraft.ID, "ItemResource");
+
         // salis mundus extraction
         ulvRecipe(3, 20).itemInputs(MaterialLeafLoader.magicEssence.get(1))
             .itemOutputs(new ItemStack(thaumResourceItem, 16, 14))
             .addTo(RecipeMaps.extractorRecipes);
+
         // iron to thaumium conversion
         mvRecipe(12, 0).itemInputs(new Object[] { "dustIron", 4 }, CropsNHItemList.magicEssence.get(1))
             .fluidInputs(TierAcid.t1.get(1000))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Thaumium, 4))
             .addTo(GTRecipeConstants.UniversalChemical);
+
         // thaumium to void conversion
         hvRecipe(12, 0)
             .itemInputs(
@@ -670,6 +691,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .fluidInputs(TierAcid.t2.get(4000))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Void, 4))
             .addTo(multiblockChemicalReactorRecipes);
+
         if (ModUtils.TaintedMagic.isModLoaded()) {
             // void to shadow metal conversion
             ivRecipe(12, 0).itemInputs(new Object[] { "dustVoid", 4 }, CropsNHItemList.magicEssence.get(4))
@@ -690,6 +712,50 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                     .addTo(multiblockChemicalReactorRecipes);
             }
         }
+
+        // knightmetal -> Steeleaf
+        // Steeleafranks is a _very_ lazy steel source that used to be accessible to players without much of any
+        // investment, it's slow growth speed was intended to maintain it's viability in the early tiers, but it's clear
+        // that players will simply get around this by simply using larger fields, as the steps to produce steel from
+        // steeleaf are simply that much faster than the intended BBF route.
+        //
+        // Since steeleaf is usually an exploration reward, the conversion recipe makes sense and probably should be
+        // left as is for regular players to enjoy, so the crop itself has been adjusted in order to not penalize
+        // regular players.
+        //
+        // My current solution is to lock the access to steeleaf to the ownership of steeleaf blocks, while this isn't
+        // exactly the most effective solution (a dim lock requirement would be much more effective since the portal
+        // device is locked to LV circuits), this will at least require a lot more setup in order to scale up the farms
+        // to become viable.
+        //
+        // Adding dim requirements would require pushing forward some new features during a feature freeze, so that's
+        // on hold for now, unless it's approved at which point I'll pr the dev branch i've been working on that adds
+        // these locks and the minimum breeding req systems.
+        //
+        // The below requirement is a stop gap measure, as steeleafranks is the only alternative route GoG can use to
+        // get steeleaf usually aside from guessing where the snow queen castle is and somehow setting up a mob farm
+        // within the bounding box. The below recipe makes up for this by essentially requirering deep bee and crop
+        // progression and relies on the questbook's reward of a single steeleaf block for obtaining a steeleafranks
+        // seed, allowing players to then propagate it.
+        // TODO: REMOVE ONCE MULTI THAT MAKES TF RESOURCES IS ADDED TO GTNH (CURRENTLY AIMED AT 2.10)
+        if (ModUtils.TwilightForest.isModLoaded() && ModUtils.NewHorizonsCoreMod.isModLoaded()) {
+            hvRecipe(60, 0).fluidInputs(Materials.FierySteel.getMolten(INGOTS * 64))
+                .itemInputs(
+                    CropsNHItemList.magicEssence.get(64),
+                    // the "natural components"
+                    new ItemStack(Blocks.leaves, 64, 0),
+                    ModUtils.TwilightForest.getStack("item.torchberries", 64, 0),
+                    ModUtils.TwilightForest.getStack("item.liveRoot", 64, 0),
+                    // infuse some more magical steel™
+                    ModUtils.TwilightForest.getStack("item.shardCluster", 64, 0),
+                    // requires the entire TF bee progression
+                    ModUtils.NewHorizonsCoreMod.getStack("SnowQueenBlood", 16, 0))
+                // give out the seed as the quest book currently gives out a steeleaf block for obtaining a seed.
+                .itemOutputs(CropsNHCrops.Steeleafranks.getSeedItem(SeedStats.DEFAULT_ANALYZED))
+                .addTo(multiblockChemicalReactorRecipes);
+        }
+
+        // Platinum + Meteoric Iron -> Mytryl
         if (ModUtils.GalacticraftCore.isModLoaded()) {
             ivRecipe(90, 0).itemInputs(CropsNHItemList.spaceFlower.get(16), CropsNHItemList.magicEssence.get(4))
                 .fluidInputs(
@@ -699,6 +765,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                 .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Mytryl, 1))
                 .addTo(multiblockChemicalReactorRecipes);
         }
+
         // Magic essence from salis
         hvRecipe(7, 50).itemInputs(new ItemStack(thaumResourceItem, 64, 14))
             .fluidInputs(Materials.Void.getMolten(16 * INGOTS))
@@ -874,6 +941,19 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     private static void addSaltyRootRecipes() {
         lvRecipe(5, 0).itemInputs(MaterialLeafLoader.saltyRoot.get(1))
+            .circuit(1)
+            .fluidInputs(new FluidStack(FluidRegistry.WATER, 100))
+            .itemOutputs(
+                new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.dust, Materials.Salt, 1),
+                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.RockSalt, 1),
+                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Saltpeter, 1) },
+                new int[] { 95_00, 80_00, 50_00 })
+            .addTo(chemicalBathRecipes);
+
+        // lock borax production to the tier the chembath multi unlocks (grisium right now, which is ev)
+        // only reduce recipe time by 1 OC to imply the much thorough washing required to get borax.
+        evRecipe(2, 50).itemInputs(MaterialLeafLoader.saltyRoot.get(1))
+            .circuit(2)
             .fluidInputs(new FluidStack(FluidRegistry.WATER, 100))
             .itemOutputs(
                 new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.dust, Materials.Salt, 1),

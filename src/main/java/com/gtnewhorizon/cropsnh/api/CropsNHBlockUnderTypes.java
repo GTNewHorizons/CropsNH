@@ -68,4 +68,5 @@ public final class CropsNHBlockUnderTypes {
     public static final BlockUnderRequirement space = BlockUnderRequirement.get("space");
     public static final BlockUnderRequirement ruby = BlockUnderRequirement.get("ruby");
     public static final BlockUnderRequirement sulfur = BlockUnderRequirement.get("sulfur");
+    public static final BlockUnderRequirement steeleaf = BlockUnderRequirement.get("steeleaf");
 }
