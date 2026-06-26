@@ -50,19 +50,27 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     public static final int WEEDEX_SLOT_COUNT = 2;
     public static final int FERTILIZER_SLOT_COUNT = 4;
-    public static final int OUTPUT_SLOT_COUNT = 15;
     public static final int BATTERY_SLOT_COUNT = 1;
-    public static final int TOTAL_SLOT_COUNT = WEEDEX_SLOT_COUNT + FERTILIZER_SLOT_COUNT
-        + OUTPUT_SLOT_COUNT
-        + BATTERY_SLOT_COUNT;
+
+    // The output (internal harvest storage) region scales with tier; every other region is fixed.
+    public static int getOutputSlotCount(int aTier) {
+        return 5 * (aTier + 2);
+    }
+
+    public static int getTotalSlotCount(int aTier) {
+        return WEEDEX_SLOT_COUNT + FERTILIZER_SLOT_COUNT + getOutputSlotCount(aTier) + BATTERY_SLOT_COUNT;
+    }
 
     public static final int SLOT_WEEDEX_START = 0;
     public static final int SLOT_WEEDEX_END = SLOT_WEEDEX_START - 1 + WEEDEX_SLOT_COUNT;
     public static final int SLOT_FERT_START = SLOT_WEEDEX_END + 1;
     public static final int SLOT_FERT_END = SLOT_FERT_START - 1 + FERTILIZER_SLOT_COUNT;
     public static final int SLOT_OUTPUT_START = SLOT_FERT_END + 1;
-    public static final int SLOT_OUTPUT_END = SLOT_OUTPUT_START - 1 + OUTPUT_SLOT_COUNT;
-    public static final int SLOT_BATTERY = SLOT_OUTPUT_END + 1;
+
+    // Tier-dependent slot layout; assigned in the constructor once mTier is known.
+    public final int mOutputSlotCount;
+    public final int mSlotOutputEnd;
+    public final int mSlotBattery;
 
     // run ever 2.5s, refresh cache every other run when empty, else wait 60s to refresh cache
     private final static int GLOBAL_UPDATE_RATE = 2 * 20 + 10;
@@ -93,8 +101,11 @@ public class MTECropManager extends MTETieredMachineBlock {
             String.format("basicmachine.cropManager.tier.%02d", aTier),
             StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropManager.name." + aTier),
             aTier,
-            TOTAL_SLOT_COUNT,
+            getTotalSlotCount(aTier),
             StatCollector.translateToLocal("cropsnh_tooltip.cropManager.description"));
+        this.mOutputSlotCount = getOutputSlotCount(this.mTier);
+        this.mSlotOutputEnd = SLOT_OUTPUT_START - 1 + this.mOutputSlotCount;
+        this.mSlotBattery = this.mSlotOutputEnd + 1;
         this.mWater = 0;
         this.mWaterCap = this.mTier * 32000;
         this.mWeedEX = 0;
@@ -108,7 +119,10 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     public MTECropManager(final String aName, final int aTier, final String[] aDescription,
         final ITexture[][][] aTextures) {
-        super(aName, aTier, TOTAL_SLOT_COUNT, aDescription, aTextures);
+        super(aName, aTier, getTotalSlotCount(aTier), aDescription, aTextures);
+        this.mOutputSlotCount = getOutputSlotCount(this.mTier);
+        this.mSlotOutputEnd = SLOT_OUTPUT_START - 1 + this.mOutputSlotCount;
+        this.mSlotBattery = this.mSlotOutputEnd + 1;
         this.mWater = 0;
         this.mWaterCap = this.mTier * 32000;
         this.mWeedEX = 0;
@@ -129,7 +143,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     @Override
     public int getSizeInventory() {
-        return TOTAL_SLOT_COUNT;
+        return getTotalSlotCount(this.mTier);
     }
 
     @Override
@@ -189,12 +203,12 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     @Override
     public int rechargerSlotStartIndex() {
-        return SLOT_BATTERY;
+        return mSlotBattery;
     }
 
     @Override
     public int dechargerSlotStartIndex() {
-        return SLOT_BATTERY;
+        return mSlotBattery;
     }
 
     @Override
@@ -311,7 +325,7 @@ public class MTECropManager extends MTETieredMachineBlock {
     // region harvesting
 
     public boolean doesInventoryHaveSpace() {
-        for (int i = SLOT_OUTPUT_START; i <= SLOT_OUTPUT_END; i++) {
+        for (int i = SLOT_OUTPUT_START; i <= mSlotOutputEnd; i++) {
             if (this.mInventory[i] == null || this.mInventory[i].stackSize < 64) {
                 return true;
             }
@@ -373,7 +387,7 @@ public class MTECropManager extends MTETieredMachineBlock {
     }
 
     private int tryInsertOutputStack(ItemStack aDropItem, int remaining) {
-        for (int slot = SLOT_OUTPUT_START; slot <= SLOT_OUTPUT_END && remaining > 0; slot++) {
+        for (int slot = SLOT_OUTPUT_START; slot <= mSlotOutputEnd && remaining > 0; slot++) {
             // compute the max we can transfer at once.
             ItemStack invStack = mInventory[slot];
             int maxStackSize = Math.min(aDropItem.getMaxStackSize(), this.getInventoryStackLimit());
@@ -654,7 +668,7 @@ public class MTECropManager extends MTETieredMachineBlock {
     @Override
     public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
         ItemStack aStack) {
-        return aStack != null && aIndex >= SLOT_OUTPUT_START && aIndex <= SLOT_OUTPUT_END;
+        return aStack != null && aIndex >= SLOT_OUTPUT_START && aIndex <= mSlotOutputEnd;
     }
 
     @Override
@@ -663,14 +677,14 @@ public class MTECropManager extends MTETieredMachineBlock {
         return allowPutStack(aIndex, aStack);
     }
 
-    public static boolean allowPutStack(int aIndex, ItemStack aStack) {
+    public boolean allowPutStack(int aIndex, ItemStack aStack) {
         if (aStack != null) {
             if (isFertilizerStack(aStack)) {
                 return aIndex >= SLOT_FERT_START && aIndex <= SLOT_FERT_END;
             } else if (isWeedEXCan(aStack)) {
                 return aIndex >= SLOT_WEEDEX_START && aIndex <= SLOT_WEEDEX_END;
             } else if (isBattery(aStack)) {
-                return aIndex == SLOT_BATTERY;
+                return aIndex == mSlotBattery;
             }
         }
         return false;

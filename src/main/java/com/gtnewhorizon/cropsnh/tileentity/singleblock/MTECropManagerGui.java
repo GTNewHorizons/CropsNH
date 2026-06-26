@@ -17,6 +17,8 @@ import com.cleanroommc.modularui.value.sync.DoubleSyncValue;
 import com.cleanroommc.modularui.value.sync.IntSyncValue;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.widget.ParentWidget;
+import com.cleanroommc.modularui.widget.scroll.VerticalScrollData;
+import com.cleanroommc.modularui.widgets.ListWidget;
 import com.cleanroommc.modularui.widgets.ProgressWidget;
 import com.cleanroommc.modularui.widgets.ToggleButton;
 import com.cleanroommc.modularui.widgets.layout.Flow;
@@ -39,9 +41,20 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
     private static final int LEFT_GRID_ROWS = (int) Math.ceil((float) LEFT_GRID_SLOT_COUNT / LEFT_GRID_COLS);
 
     private static final int RIGHT_GRID_SLOT_START = MTECropManager.SLOT_OUTPUT_START;
-    private static final int RIGHT_GRID_SLOT_COUNT = MTECropManager.OUTPUT_SLOT_COUNT;
     private static final int RIGHT_GRID_COLS = 5;
-    private static final int RIGHT_GRID_ROWS = (int) Math.ceil((float) RIGHT_GRID_SLOT_COUNT / RIGHT_GRID_COLS);
+    // How many output rows the original (LV) layout fit; the panel grows from this baseline.
+    private static final int RIGHT_GRID_BASELINE_ROWS = 3;
+    // Cap on rows shown at once; beyond this the output grid scrolls instead of growing the panel.
+    private static final int RIGHT_GRID_MAX_VISIBLE_ROWS = 6;
+    // Scrollbar width, reserved as a gutter to the right of the slots so it stays clickable.
+    private static final int SCROLLBAR_THICKNESS = 6;
+
+    // The output region scales with tier, so these depend on the machine instance.
+    private final int rightGridSlotCount;
+    private final int rightGridRows;
+    private final int rightGridVisibleRows;
+    // Non-zero only when the output grid actually scrolls, so non-scrolling tiers keep the original width.
+    private final int scrollbarGutter;
 
     private static final String SYNC_INV_HANDLER_NAME = "item_inv";
     private static final String SYNC_WATER_HANDLER_NAME = "water";
@@ -50,6 +63,23 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
 
     public MTECropManagerGui(MTECropManager machine) {
         super(machine);
+        this.rightGridSlotCount = machine.mOutputSlotCount;
+        this.rightGridRows = (int) Math.ceil((float) this.rightGridSlotCount / RIGHT_GRID_COLS);
+        this.rightGridVisibleRows = Math.min(this.rightGridRows, RIGHT_GRID_MAX_VISIBLE_ROWS);
+        this.scrollbarGutter = this.rightGridRows > this.rightGridVisibleRows ? SCROLLBAR_THICKNESS : 0;
+    }
+
+    @Override
+    protected int getBasePanelHeight() {
+        // Grow the panel to fit the visible output rows, up to the scroll cap.
+        int extraRows = Math.max(0, rightGridVisibleRows - RIGHT_GRID_BASELINE_ROWS);
+        return super.getBasePanelHeight() + extraRows * MTETieredMachineBlockBaseGui.SLOT_SIZE;
+    }
+
+    @Override
+    protected int getBasePanelWidth() {
+        // Widen the panel to make room for the scrollbar gutter when the output grid scrolls.
+        return super.getBasePanelWidth() + scrollbarGutter;
     }
 
     private ItemSlot createSlot(int aIndex) {
@@ -67,12 +97,12 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
             modularSlot.slotGroup(SYNC_INV_HANDLER_NAME);
         }
         // add overlay for fertilizer slots
-        else if (aIndex == MTECropManager.SLOT_BATTERY) {
+        else if (aIndex == machine.mSlotBattery) {
             itemSlot.backgroundOverlay(GTGuiTextures.OVERLAY_SLOT_CHARGER);
             modularSlot.slotGroup(SYNC_INV_HANDLER_NAME);
         }
         // prevent inserting into output slots
-        else if (aIndex >= MTECropManager.SLOT_OUTPUT_START && aIndex <= MTECropManager.SLOT_OUTPUT_END) {
+        else if (aIndex >= MTECropManager.SLOT_OUTPUT_START && aIndex <= machine.mSlotOutputEnd) {
             modularSlot.accessibility(false, true);
         }
 
@@ -91,7 +121,7 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
         String percSyncHandlerName = syncHandlerNameBase + "Perc";
         syncManager.syncValue(percSyncHandlerName, perc);
 
-        final int height = Math.max(LEFT_GRID_ROWS, RIGHT_GRID_ROWS) * MTETieredMachineBlockBaseGui.SLOT_SIZE;
+        final int height = Math.max(LEFT_GRID_ROWS, rightGridVisibleRows) * MTETieredMachineBlockBaseGui.SLOT_SIZE;
         // create widget
         return new ProgressWidget().syncHandler(percSyncHandlerName)
             .tooltipDynamic(
@@ -155,11 +185,20 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
                     CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_LIQUID_FERTILIZER,
                     Reference.MOD_ID + "_tooltip.cropManager.liquidFertilizerStorage"));
 
-        Grid rightGrid = new Grid().coverChildren()
-            .gridOfSizeWidth(
-                RIGHT_GRID_SLOT_COUNT,
-                RIGHT_GRID_COLS,
-                ($x, $y, i) -> createSlot(i + RIGHT_GRID_SLOT_START));
+        // The output grid scales with tier; wrap it in a fixed-height scroll box so it never overflows the panel.
+        // The slots stay left-aligned and the scrollbar lives in the reserved gutter on the right.
+        ListWidget<IWidget, ?> rightGrid = new ListWidget<>()
+            .size(
+                RIGHT_GRID_COLS * MTETieredMachineBlockBaseGui.SLOT_SIZE + scrollbarGutter,
+                rightGridVisibleRows * MTETieredMachineBlockBaseGui.SLOT_SIZE)
+            .crossAxisAlignment(Alignment.CrossAxis.START)
+            .scrollDirection(new VerticalScrollData(false, SCROLLBAR_THICKNESS));
+        rightGrid.child(
+            new Grid().coverChildren()
+                .gridOfSizeWidth(
+                    rightGridSlotCount,
+                    RIGHT_GRID_COLS,
+                    ($x, $y, i) -> createSlot(i + RIGHT_GRID_SLOT_START)));
 
         Flow topLayer = Flow.row()
             .horizontalCenter()
@@ -238,7 +277,7 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
                     .marginLeft(MTETieredMachineBlockBaseGui.SLOT_SIZE)
                     .mainAxisAlignment(Alignment.MainAxis.CENTER)
                     .childIf(this.supportsMuffler(), this::createMufflerButton))
-            .child(createSlot(MTECropManager.SLOT_BATTERY))
+            .child(createSlot(machine.mSlotBattery))
             .child(
                 Flow.row()
                     .width(MTETieredMachineBlockBaseGui.SLOT_SIZE)
