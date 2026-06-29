@@ -192,6 +192,12 @@ public class MTECropSynthesizer extends MTEBasicMachine {
             return DID_NOT_FIND_RECIPE;
         }
 
+        // check machine tier against recipe
+        int minMachineTier = MTECropGeneExtractor.getVoltageTierForCrop(cc);
+        if (this.mTier < minMachineTier) {
+            return DID_NOT_FIND_RECIPE;
+        }
+
         // check if we got enough UUM.
         int fluidToconsume = getFluidAmount(cc, growth, gain, resistance);
         if (this.mFluid.amount < fluidToconsume) {

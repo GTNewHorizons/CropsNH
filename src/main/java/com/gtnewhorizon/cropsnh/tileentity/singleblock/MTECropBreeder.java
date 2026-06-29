@@ -46,6 +46,7 @@ import com.gtnewhorizon.cropsnh.recipes.CropsNHGTRecipeMaps;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
+import gregtech.api.enums.GTValues;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.interfaces.ITexture;
@@ -235,7 +236,13 @@ public class MTECropBreeder extends MTEBasicMachine {
                 .reversed());
 
         // try to find the first matching recipe
+        int machineEUt;
         for (ICropMutation mutation : deterministicMutations) {
+            // filter out recipes that can't be processed
+            machineEUt = mutation.getBreedingMachineRecipeEUt();
+            if (machineEUt > GTValues.V[this.mTier]) {
+                continue;
+            }
             // abort early if the amount of fluid in the tank can't create this crop.
             ISeedStats newStats = getNewSeedStats(mutation, breedingParents);
             int amountOfFluidToConsume = getFluidAmount(
@@ -259,9 +266,7 @@ public class MTECropBreeder extends MTEBasicMachine {
 
             // check if we can run the recipe
             if (!skipOC) {
-                this.calculateOverclockedNess(
-                    mutation.getBreedingMachineRecipeEUt(),
-                    mutation.getBreedingMachineRecipeDuration());
+                this.calculateOverclockedNess(machineEUt, mutation.getBreedingMachineRecipeDuration());
                 // In case recipe is too OP for that machine
                 if (mMaxProgresstime == Integer.MAX_VALUE - 1 && mEUt == Integer.MAX_VALUE - 1)
                     return FOUND_RECIPE_BUT_DID_NOT_MEET_REQUIREMENTS;
