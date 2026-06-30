@@ -119,7 +119,11 @@ public class OreDictLoader {
         register(CropsNHUtils.getModItem(ModUtils.Witchery, "seedssnowbell", 1, 0), "listAllseed", "seedSnowbell");
         register(CropsNHUtils.getModItem(ModUtils.Witchery, "seedsbelladonna", 1, 0), "listAllseed", "seedBelladonna");
         register(CropsNHUtils.getModItem(ModUtils.Witchery, "garlic", 1, 0), "listAllherb");
-        register(CropsNHUtils.getModItem(ModUtils.Witchery, "ingredient", 1, 69), "listAllveggie", "cropArtichoke");
+        register(
+            CropsNHUtils.getModItem(ModUtils.Witchery, "ingredient", 1, 69),
+            "listAllveggie",
+            "cropArtichoke",
+            "cropWaterArtichoke");
         register(CropsNHUtils.getModItem(ModUtils.Witchery, "ingredient", 1, 156), "itemWolfsBane");
         register(CropsNHUtils.getModItem(ModUtils.Witchery, "ingredient", 1, 22), "itemMandrake");
         register(CropsNHUtils.getModItem(ModUtils.Witchery, "ingredient", 1, 78), "itemSnowbell");
