@@ -285,7 +285,7 @@ public abstract class CropCard implements ICropCard {
                 }
                 continue;
             }
-            stack.copy();
+            stack = stack.copy();
             stack.stackSize = 1;
             this.addAlternateSeed(stack);
         }
