@@ -16,7 +16,7 @@ public class CropWolfsbane extends NHCropCard {
     public CropWolfsbane() {
         super("wolfsbane", new Color(0x76716E), new Color(0xDAD0CE));
 
-        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("seedWolfsBane", 1));
+        this.addAlternateSeed("seedWolfsBane");
 
         this.addDrop(OreDictHelper.getCopiedOreStack("itemWolfsBane", 1), 100_00);
 

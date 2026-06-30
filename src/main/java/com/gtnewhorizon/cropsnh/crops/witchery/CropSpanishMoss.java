@@ -14,7 +14,7 @@ public class CropSpanishMoss extends NHCropCard {
     public CropSpanishMoss() {
         super("spanishMoss", new Color(0x3F5227), new Color(0xC1CEBB));
 
-        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropSpanishMoss", 1));
+        this.addAlternateSeed("cropSpanishMoss");
 
         this.addDrop(OreDictHelper.getCopiedOreStack("cropSpanishMoss", 1), 100_00);
 

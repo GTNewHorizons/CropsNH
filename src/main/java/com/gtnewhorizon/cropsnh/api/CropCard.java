@@ -239,7 +239,20 @@ public abstract class CropCard implements ICropCard {
     }
 
     public CropCard addAlternateSeed(ItemStack alternateSeed) {
-        this.alternateSeeds.add(alternateSeed.copy());
+        if (alternateSeed == null || alternateSeed.getItem() == null) {
+            if (CropsNHUtils.shouldPanicIfNullFound()) {
+                throw new IllegalStateException("Attempted to add a null alt seed!");
+            } else {
+                try {
+                    throw new Exception("CROPS NH ALTERNATE SEED IS NULL");
+                } catch (Exception e) {
+                    LogHelper.warn(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            this.alternateSeeds.add(alternateSeed.copy());
+        }
         return this;
     }
 

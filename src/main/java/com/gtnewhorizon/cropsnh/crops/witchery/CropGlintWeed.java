@@ -16,7 +16,7 @@ public class CropGlintWeed extends NHCropCard {
     public CropGlintWeed() {
         super("glintWeed", new Color(0xB3890B), new Color(0xB3890B));
 
-        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropGlintWeed", 1));
+        this.addAlternateSeed("cropGlintWeed");
 
         this.addDrop(OreDictHelper.getCopiedOreStack("cropGlintWeed", 1), 100_00);
 

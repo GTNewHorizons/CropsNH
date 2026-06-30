@@ -16,7 +16,7 @@ public class CropWaterArtichoke extends CropFood {
     public CropWaterArtichoke() {
         super("waterArtichoke", new Color(0x6F644E), new Color(0x968C74));
 
-        this.addAlternateSeed(OreDictHelper.getCopiedOreStack("cropArtichoke", 1));
+        this.addAlternateSeed("seedArtichoke");
 
         this.addDrop(OreDictHelper.getCopiedOreStack("cropArtichoke", 1), 100_00);
 
