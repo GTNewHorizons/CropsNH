@@ -230,18 +230,28 @@ public abstract class CropCard implements ICropCard {
     }
 
     public CropCard addDrop(ItemStack stack, int chance) {
-        if (stack == null) {
-            LogHelper.warn("Attempted to add a null drop to " + this.getId());
+        if (CropsNHUtils.isStackInvalid(stack)) {
+            if (CropsNHUtils.shouldPanicIfNullFound()) {
+                throw new IllegalStateException("Attempted to add null drop to " + this.id);
+            } else {
+                try {
+                    throw new Exception("CROPS NH ATTEMPTED TO ADD NULL DROP TO " + this.id);
+                } catch (Exception e) {
+                    LogHelper.warn(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
             return this;
+        } else {
+            this.dropTable.put(stack, chance);
         }
-        this.dropTable.put(stack, chance);
         return this;
     }
 
     public CropCard addAlternateSeed(ItemStack alternateSeed) {
         if (alternateSeed == null || alternateSeed.getItem() == null) {
             if (CropsNHUtils.shouldPanicIfNullFound()) {
-                throw new IllegalStateException("Attempted to add a null alt seed!");
+                throw new IllegalStateException("Attempted to add a null alt seed to " + this.id);
             } else {
                 try {
                     throw new Exception("CROPS NH ALTERNATE SEED IS NULL");
@@ -257,11 +267,25 @@ public abstract class CropCard implements ICropCard {
     }
 
     public CropCard addAlternateSeed(String oreDict) {
-        for (int i = 0; i < OreDictionary.getOres(oreDict)
-            .size(); i++) {
-            ItemStack stack = OreDictionary.getOres(oreDict)
-                .get(i)
-                .copy();
+        for (ItemStack stack : OreDictionary.getOres(oreDict)) {
+            if (stack == null || stack.getItem() == null) {
+                if (CropsNHUtils.shouldPanicIfNullFound()) {
+                    throw new IllegalStateException(
+                        "Found null in ore dict " + oreDict + " while attempting to add alt seed to " + this.id);
+                } else {
+                    try {
+                        throw new Exception(
+                            "CROPS NH FOUND NULL STACK IN ORE DICT " + oreDict
+                                + " WHILE ADDING ALT SEEDS TO "
+                                + this.id);
+                    } catch (Exception e) {
+                        LogHelper.warn(e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+                continue;
+            }
+            stack.copy();
             stack.stackSize = 1;
             this.addAlternateSeed(stack);
         }
@@ -274,22 +298,50 @@ public abstract class CropCard implements ICropCard {
     }
 
     private void addDuplicationCatalystInternal(ItemStack stack) {
-        if (GTUtility.isStackInvalid(stack)) {
-            LogHelper.warn("Attempted to add a null duplication catalyst to " + this.getId());
-        }
         this.duplicationCatalysts.add(stack.copy());
     }
 
     public CropCard addDuplicationCatalyst(ItemStack stack) {
-        this.duplicationCatalystsForNEI.add(stack);
-        addDuplicationCatalystInternal(stack);
+        if (GTUtility.isStackInvalid(stack)) {
+            if (CropsNHUtils.shouldPanicIfNullFound()) {
+                throw new IllegalStateException("Attempted to add null stack as duplication catalyst to " + this.id);
+            } else {
+                try {
+                    throw new Exception("CROPS NH ATTEMPTED TO ADD NULL DUPLICATION CATALYST TO " + this.id);
+                } catch (Exception e) {
+                    LogHelper.warn(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            this.duplicationCatalystsForNEI.add(stack);
+            this.addDuplicationCatalystInternal(stack);
+        }
         return this;
     }
 
     public CropCard addDuplicationCatalyst(String oreDict, int count) {
         this.duplicationCatalystsForNEI.add(new Object[] { oreDict, count });
-        ArrayList<ItemStack> oreDictEntries = OreDictionary.getOres(oreDict);
-        for (ItemStack stack : oreDictEntries) {
+        for (ItemStack stack : OreDictionary.getOres(oreDict)) {
+            if (GTUtility.isStackInvalid(stack)) {
+                if (CropsNHUtils.shouldPanicIfNullFound()) {
+                    throw new IllegalStateException(
+                        "Found null stack in ore dict " + oreDict
+                            + " while attempting to add duplication catalysts to "
+                            + this.id);
+                } else {
+                    try {
+                        throw new Exception(
+                            "CROPS NH FOUND NULL STACK IN ORE DICT " + oreDict
+                                + " WHILE ADDING ALT SEEDS TO "
+                                + this.id);
+                    } catch (Exception e) {
+                        LogHelper.warn(e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
+                continue;
+            }
             ItemStack copy = stack.copy();
             copy.stackSize = count;
             this.addDuplicationCatalystInternal(copy);
