@@ -500,7 +500,7 @@ public class CropLoader {
             CropRegistry.instance.register(CropsNHCrops.DioriteLily = new CropDioriteLily());
             CropRegistry.instance.register(CropsNHCrops.GraniteLily = new CropGraniteLily());
         }
-        if (ModUtils.EtFuturumRequiem.isModLoaded()) {
+        if (ModUtils.EtFuturumRequiem.isModLoaded() && ModUtils.NewHorizonsCoreMod.isModLoaded()) {
             CropRegistry.instance.register(CropsNHCrops.DeepslateLily = new CropDeepslateLily());
             CropRegistry.instance.register(CropsNHCrops.TuffLily = new CropTuffLily());
         }

@@ -17,8 +17,6 @@ public class CropMaloberry extends CropFood {
 
         this.addAlternateSeed("cropMaloberry");
         this.addAlternateSeed("cropGooseberry");
-        this.addAlternateSeed("seedMaloberry");
-        this.addAlternateSeed("seedGooseberry");
 
         // likes higher latitudes, but doesn't live in the snow too much.
         this.addLikedBiomes(BiomeDictionary.Type.COLD, BiomeDictionary.Type.WET, BiomeDictionary.Type.LUSH);
