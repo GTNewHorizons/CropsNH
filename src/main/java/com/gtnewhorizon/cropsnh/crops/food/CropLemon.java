@@ -19,7 +19,6 @@ public class CropLemon extends NHCropCard {
         super("lemon", new Color(0xD8950C), new Color(0xFFEF83));
         // TODO: MOVE LEMON ITEM TO CROPS NH
         this.addDrop(OreDictHelper.getCopiedOreStack("cropLemon"), 100_00);
-        this.addAlternateSeed("seedLemon");
         this.addAlternateSeed("cropLemon");
         if (ModUtils.PamsHarvestCraft.isModLoaded()) {
             this.addAlternateSeed(CropsNHUtils.getModItem(ModUtils.PamsHarvestCraft, "pamlemonSapling", 1, 0));

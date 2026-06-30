@@ -14,7 +14,6 @@ public class CropHuckleberry extends CropFood {
 
         this.addDrop(CropsNHItemList.huckleBerry.get(1), 100_00);
 
-        this.addAlternateSeed("seedHuckleberry");
         this.addAlternateSeed("cropHuckleberry");
         // mostly appears along the appalachia and neighbouring flats in Canada and the US
         this.addLikedBiomes(
