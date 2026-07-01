@@ -39,10 +39,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
-import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.handler.CropsNHFurnaceFuelHandler;
 import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
@@ -734,22 +732,18 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         //
         // The below requirement is a stop gap measure, as steeleafranks is the only alternative route GoG can use to
         // get steeleaf usually aside from guessing where the snow queen castle is and somehow setting up a mob farm
-        // within the bounding box. The below recipe makes up for this by essentially requirering deep bee and crop
-        // progression and relies on the questbook's reward of a single steeleaf block for obtaining a steeleafranks
-        // seed, allowing players to then propagate it.
+        // within the bounding box. The below recipe makes up for this by essentially locking it HV and some bee prog
+        // to get hydra blood.
         // TODO: REMOVE ONCE MULTI THAT MAKES TF RESOURCES IS ADDED TO GTNH (CURRENTLY AIMED AT 2.10)
         if (ModUtils.TwilightForest.isModLoaded() && ModUtils.NewHorizonsCoreMod.isModLoaded()) {
-            hvRecipe(60, 0).fluidInputs(Materials.FierySteel.getMolten(INGOTS * 64))
+            hvRecipe(12, 0).fluidInputs()
                 .itemInputs(
-                    CropsNHItemList.magicEssence.get(64),
-                    // the "natural components"
-                    new ItemStack(Blocks.leaves, 64, 0),
-                    ModUtils.TwilightForest.getStack("item.torchberries", 64, 0),
-                    ModUtils.TwilightForest.getStack("item.liveRoot", 64, 0),
-                    // requires the entire TF bee progression
-                    ModUtils.NewHorizonsCoreMod.getStack("SnowQueenBlood", 16, 0))
-                // give out the seed as the quest book currently gives out a steeleaf block for obtaining a seed.
-                .itemOutputs(CropsNHCrops.Steeleafranks.getSeedItem(SeedStats.DEFAULT_ANALYZED))
+                    CropsNHItemList.magicEssence.get(4),
+                    GTOreDictUnificator.get(OrePrefixes.ingot, Materials.FierySteel, 4),
+                    GTOreDictUnificator.get(OrePrefixes.ingot, Materials.IronWood, 4),
+                    new ItemStack(Blocks.leaves, 4, 0))
+                .fluidInputs(TierAcid.t4.get(4000))
+                .itemOutputs(ModUtils.TwilightForest.getStack("item.steeleafIngot", 1, 0))
                 .addTo(multiblockChemicalReactorRecipes);
         }
 
