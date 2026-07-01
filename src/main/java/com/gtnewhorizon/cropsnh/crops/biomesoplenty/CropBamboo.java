@@ -58,4 +58,9 @@ public class CropBamboo extends NHCropCard {
     public int getMaxGrowthStage() {
         return 3;
     }
+
+    @Override
+    public float getEntityDamage() {
+        return 1.0F;
+    }
 }
