@@ -40,7 +40,6 @@ public class CropMutation implements ICropMutation {
     public final ICropCard parent4;
     public int breedingMachineEUt = (int) TierEU.RECIPE_LV;
     public int breedingMachineDuration = 400;
-    private final HashSet<String> mutationPools = new HashSet<>();
 
     public CropMutation(ICropCard output, ICropCard parent1, ICropCard parent2) {
         this(output, parent1, parent2, null, null);
@@ -132,17 +131,6 @@ public class CropMutation implements ICropMutation {
     }
 
     /**
-     * Registers the output crop for the given mutation pools.
-     *
-     * @param mutationPools The mutation pools to add to the output crop.
-     */
-    public CropMutation addToMutationPools(String... mutationPools) {
-        // do not add them directly since we may add the machine only req later.
-        this.mutationPools.addAll(Arrays.asList(mutationPools));
-        return this;
-    }
-
-    /**
      * Registers an underblock requirement via it's category id
      *
      * @param name the name of the underblock category
@@ -204,12 +192,6 @@ public class CropMutation implements ICropMutation {
 
     public void register() {
         // Only register the crop to the mutation pools if the crop can be bred in world.
-        if (this.requirements.stream()
-            .noneMatch(x -> x instanceof MachineOnlyBreedingRequirement)) {
-            for (String poolName : this.mutationPools) {
-                MutationRegistry.instance.register(poolName, this.output);
-            }
-        }
         MutationRegistry.instance.register(this);
     }
 

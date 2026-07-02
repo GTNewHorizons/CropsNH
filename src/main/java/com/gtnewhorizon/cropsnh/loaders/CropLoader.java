@@ -327,6 +327,7 @@ public class CropLoader {
     }
 
     private static void registerBoPCrops() {
+        CropRegistry.instance.register(CropsNHCrops.Moss = new CropMoss());
         if (!ModUtils.BiomesOPlenty.isModLoaded()) return;
         CropRegistry.instance.register(CropsNHCrops.Bamboo = new CropBamboo());
         CropRegistry.instance.register(CropsNHCrops.BoPBerry = new CropBoPBerry());
@@ -338,9 +339,6 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.Ivy = new CropIvy());
         CropRegistry.instance.register(CropsNHCrops.Turnip = new CropTurnip());
         CropRegistry.instance.register(CropsNHCrops.WildCarrot = new CropWildCarrot());
-        if (ModUtils.TwilightForest.isModLoaded()) {
-            CropRegistry.instance.register(CropsNHCrops.Moss = new CropMoss());
-        }
     }
 
     private static void registerNaturaCrops() {
