@@ -314,7 +314,7 @@ public class MutationLoader {
         // region biomes o plenty
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
 
-            MutationRegistry.instance.register(Bamboo, GREEN, STEM, LEAFY);
+            MutationRegistry.instance.register(Bamboo, GREEN, STEM, DANGEROUS, LEAFY);
             new CropMutation(Bamboo, BonsaiJungle, Vine)
                 .register();
 
@@ -372,7 +372,7 @@ public class MutationLoader {
         // region food
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
 
-            MutationRegistry.instance.register(BoPBerry, RED, BERRY, EDIBLE);
+            MutationRegistry.instance.register(BoPBerry, RED, BERRY, BUSH, EDIBLE);
             new CropMutation(BoPBerry, Poppy, Blackberry)
                 .register();
 
@@ -393,19 +393,19 @@ public class MutationLoader {
                     .register();
             }
 
-            MutationRegistry.instance.register(Blackberry, BLACK, BERRY, EDIBLE);
+            MutationRegistry.instance.register(Blackberry, BLACK, BERRY, BUSH, EDIBLE);
             new CropMutation(Blackberry, Strawberry, Blueberry)
                 .register();
 
-            MutationRegistry.instance.register(Blueberry, BLUE, BERRY, EDIBLE);
+            MutationRegistry.instance.register(Blueberry, BLUE, BERRY, BUSH, EDIBLE);
             new CropMutation(Blueberry, AzureBluet, BonsaiOak)
                 .register();
 
-            MutationRegistry.instance.register(Maloberry, YELLOW, BERRY, EDIBLE);
+            MutationRegistry.instance.register(Maloberry, YELLOW, BERRY, BUSH, EDIBLE);
             new CropMutation(Maloberry, OrangeTulip, Blueberry)
                 .register();
 
-            MutationRegistry.instance.register(Raspberry, RED, BERRY, EDIBLE);
+            MutationRegistry.instance.register(Raspberry, RED, BERRY, BUSH, EDIBLE);
             new CropMutation(Raspberry, RedTulip, OxeyeDaisy)
                 .register();
 
@@ -415,7 +415,7 @@ public class MutationLoader {
         }
 
         if (ModUtils.PamsHarvestCraft.isModLoaded()) {
-            MutationRegistry.instance.register(Strawberry, RED, BERRY, EDIBLE);
+            MutationRegistry.instance.register(Strawberry, RED, BERRY, BUSH, EDIBLE);
             new CropMutation(Strawberry, Wheat, Raspberry)
                 .register();
         }
@@ -433,7 +433,7 @@ public class MutationLoader {
             .register();
 
         if (Mods.Natura.isModLoaded()) {
-            MutationRegistry.instance.register(Grape, PURPLE, CLIMBABLE, TENDRILLY, EDIBLE);
+            MutationRegistry.instance.register(Grape, PURPLE, CLIMBABLE, LEAFY, TENDRILLY, EDIBLE);
             new CropMutation(Grape, Blueberry, Blackberry)
                 .register();
         }
@@ -777,23 +777,30 @@ public class MutationLoader {
         // region natura
         if (ModUtils.Natura.isModLoaded()) {
 
-            MutationRegistry.instance.register(Blightberry, GREEN, NETHER, BERRY, DANGEROUS, POISONOUS, ADDICTIVE, EDIBLE);
+            // giving the 4 natura nether berry the potion ingredient tag because they essentially are potions since
+            // they all give potion effects
+
+            // give regeneration
+            MutationRegistry.instance.register(Blightberry, GREEN, NETHER, BERRY, BUSH, DANGEROUS, POISONOUS, ADDICTIVE, EDIBLE, HEALING, POTION_INGREDIENT);
             new CropMutation(Blightberry, Maloberry, Raspberry)
                 .register();
 
-            MutationRegistry.instance.register(Duskberry, GRAY, NETHER, BERRY, DANGEROUS, POISONOUS, ADDICTIVE, EDIBLE);
+            // gives night vision
+            MutationRegistry.instance.register(Duskberry, GRAY, NETHER, BERRY, BUSH, DANGEROUS, POISONOUS, ADDICTIVE, EDIBLE, POTION_INGREDIENT);
             new CropMutation(Duskberry, InkBloom, Blackberry)
                 .register();
 
-            MutationRegistry.instance.register(Skyberry, BLUE, NETHER, BERRY, DANGEROUS, POISONOUS, ADDICTIVE, EDIBLE);
+            // gives jump boost
+            MutationRegistry.instance.register(Skyberry, BLUE, NETHER, BERRY, BUSH, DANGEROUS, POISONOUS, ADDICTIVE, EDIBLE, POTION_INGREDIENT);
             new CropMutation(Skyberry, Dayflower, Blueberry)
                 .register();
 
-            MutationRegistry.instance.register(Stingberry, BROWN, NETHER, BERRY, DANGEROUS, POISONOUS, ADDICTIVE, EDIBLE);
+            // gives strength
+            MutationRegistry.instance.register(Stingberry, BROWN, NETHER, BERRY, BUSH, DANGEROUS, POISONOUS, ADDICTIVE, EDIBLE, POTION_INGREDIENT);
             new CropMutation(Stingberry, Thornvine, SaguaroCactus)
                 .register();
 
-            MutationRegistry.instance.register(Cotton, WHITE, TENDRILLY, COTTON);
+            MutationRegistry.instance.register(Cotton, WHITE, TENDRILLY, COTTON, SILK);
             new CropMutation(Cotton, Flax, Hemp)
                 .register();
 
@@ -829,7 +836,7 @@ public class MutationLoader {
             new CropMutation(ArditeOreBerry, NetherStoneLily, Coppon, CopperOreBerry, Malaxia)
                 .register();
 
-            MutationRegistry.instance.register(CobaltOreBerry, BLUE, NETHER, TWILIGHT_FOREST, ORE_BERRY, DANGEROUS, METALLIC);
+            MutationRegistry.instance.register(CobaltOreBerry, BLUE, NETHER, ORE_BERRY, DANGEROUS, METALLIC);
             new CropMutation(CobaltOreBerry, NetherStoneLily, ArditeOreBerry, Lazulia, GoldOreBerry)
                 .register();
 
@@ -839,7 +846,7 @@ public class MutationLoader {
                     .register();
             }
 
-            MutationRegistry.instance.register(EssenceOreBerry, GREEN, ORE_BERRY, DANGEROUS, UNDEAD);
+            MutationRegistry.instance.register(EssenceOreBerry, GREEN, ORE_BERRY, DANGEROUS, UNDEAD, EDIBLE);
             new CropMutation(EssenceOreBerry, Creeperweed, Zomplant, Spidernip, Tearstalks)
                 .register();
 
@@ -905,7 +912,7 @@ public class MutationLoader {
                 new CropMutation(TuffLily, BlackGraniteLily, AndesiteLily)
                     .register();
 
-                MutationRegistry.instance.register(DeepslateLily, BLACK, DARK, STONE);
+                MutationRegistry.instance.register(DeepslateLily, BLACK, DARK, DENSE, STONE);
                 new CropMutation(DeepslateLily,TuffLily, BlackGraniteLily)
                     .register();
             }
