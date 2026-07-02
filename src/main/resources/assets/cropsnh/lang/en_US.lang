@@ -282,7 +282,6 @@ cropsnh_tooltip.industrialFarm.0=Grows crops at an industrial scale
 # separator
 cropsnh_tooltip.industrialFarm.1=The §blength§7 of the machine depends on the §ctier§7 of the §fSeed Bed§7
 cropsnh_tooltip.industrialFarm.2=The §ctier§7 of the §fupgrades§7 must match the §ctier§7 of the §fSeed Bed§7
-cropsnh_tooltip.industrialFarm.structure.hatch=Any casing with hint number 1
 cropsnh_tooltip.industrialFarm.structure.seedBed=Seed Bed
 cropsnh_tooltip.industrialFarm.structure.upgrades.name=IF Upgrade Unit
 cropsnh_tooltip.industrialFarm.structure.upgrades.info=Any wooden frame box
