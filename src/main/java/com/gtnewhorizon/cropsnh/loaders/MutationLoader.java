@@ -639,7 +639,7 @@ public class MutationLoader {
             .machineOnly()
             .register();
 
-        MutationRegistry.instance.register(RedStraw, RED, STONE, WHEAT, POTION_INGREDIENT);
+        MutationRegistry.instance.register(RedStraw, RED, STONE, WHEAT, EMISSIVE, POTION_INGREDIENT);
         new CropMutation(RedStraw, NetherStoneLily, Wheat)
             .register();
 
