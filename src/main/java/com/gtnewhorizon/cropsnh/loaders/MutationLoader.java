@@ -372,9 +372,11 @@ public class MutationLoader {
         // region food
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
 
-            MutationRegistry.instance.register(BoPBerry, RED, BERRY, BUSH, EDIBLE);
-            new CropMutation(BoPBerry, Poppy, Blackberry)
-                .register();
+            if (ModUtils.Natura.isModLoaded()) {
+                MutationRegistry.instance.register(BoPBerry, RED, BERRY, BUSH, EDIBLE);
+                new CropMutation(BoPBerry, Poppy, Blackberry)
+                    .register();
+            }
 
             MutationRegistry.instance.register(Turnip, PURPLE, ROOT, EDIBLE);
             new CropMutation(Turnip, Potato, BoPBerry)
