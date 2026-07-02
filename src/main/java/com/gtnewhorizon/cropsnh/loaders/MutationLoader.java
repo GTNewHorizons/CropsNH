@@ -963,8 +963,8 @@ public class MutationLoader {
         // region thaumcraft
         if (ModUtils.Thaumcraft.isModLoaded()) {
 
+            MutationRegistry.instance.register(Cinderpearl, ORANGE, MAGICAL, BLAZE);
             if (ModUtils.Witchery.isModLoaded()) {
-                MutationRegistry.instance.register(Cinderpearl, ORANGE, MAGICAL, BLAZE);
                 new CropMutation(Cinderpearl, EmberMoss, GlintWeed)
                     .register();
             }
