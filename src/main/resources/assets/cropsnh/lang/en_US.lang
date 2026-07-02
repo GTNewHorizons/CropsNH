@@ -284,8 +284,8 @@ cropsnh_tooltip.industrialFarm.1=The §blength§7 of the machine depends on the 
 cropsnh_tooltip.industrialFarm.2=The §ctier§7 of the §fupgrades§7 must match the §ctier§7 of the §fSeed Bed§7
 cropsnh_tooltip.industrialFarm.structure.hatch=Any casing with hint number 1
 cropsnh_tooltip.industrialFarm.structure.seedBed=Seed Bed
-cropsnh_tooltip.industrialFarm.structure.upgrades.name=Upgrades (tiered)
-cropsnh_tooltip.industrialFarm.structure.upgrades.info=Any wooden frame boxes
+cropsnh_tooltip.industrialFarm.structure.upgrades.name=IF Upgrade Unit
+cropsnh_tooltip.industrialFarm.structure.upgrades.info=Any wooden frame box
 cropsnh_tooltip.industrialFarm.structure.error.ComponentTierTooLow=Component tier is too low (min %s)
 cropsnh_tooltip.industrialFarm.structure.error.GlassTierTooLow=Glass tier too low (min %s)
 cropsnh_tooltip.industrialFarm.structure.error.EEUCount=Too many environmental enhancement units (max %s) 
@@ -362,7 +362,7 @@ cropsnh.seedBed.13.name=Seed Bed (UXV)
 cropsnh_tooltip.overclockedGrowthAccelerationUnit.0=Allows §foverclocking§7 of the Industrial Farm
 cropsnh_tooltip.overclockedGrowthAccelerationUnit.1=Each overclock §bdoubles§7 production and input consumption without affecting recipe time
 cropsnh_tooltip.overclockedGrowthAccelerationUnit.2=Won't work if a §fGrowth Acceleration Unit§7 is also present
-cropsnh_tooltip.overclockedGrowthAccelerationUnit.3=Allows for the use of a single TecTech Multi-Amp Energy Hatch instead of multiple regular energy hatches
+cropsnh_tooltip.overclockedGrowthAccelerationUnit.3=Allows for the use of a single Multi-Amp Energy Hatch instead of multiple regular energy hatches
 cropsnh.overclockedGrowthAccelerationUnit.7.name=Overclocked Growth Acceleration Unit (ZPM)
 cropsnh.overclockedGrowthAccelerationUnit.8.name=Overclocked Growth Acceleration Unit (UV)
 cropsnh.overclockedGrowthAccelerationUnit.9.name=Overclocked Growth Acceleration Unit (UHV)
@@ -456,8 +456,8 @@ cropsnh.advancedHarvestingUnit.13.name=Advanced Harvesting Unit (UXV)
 
 # MTE Machine Type Flavour Text
 # multi tooltips
-cropsnh_tooltip.MBTT.multiAmpsWithUpgrade.0=Supports a single TecTech Multi-Amp Energy Hatch when using an Overclocked Growth Acceleration Unit!
-cropsnh_tooltip.MBTT.multiAmpsWithUpgrade.1=You cannot use regular hatches when using a Multi-Amp Energy Hatch
+cropsnh_tooltip.MBTT.multiAmpsWithUpgrade.0=§aSupports a single Multi-Amp Energy Hatch when using an Overclocked Growth Acceleration Unit!
+cropsnh_tooltip.MBTT.multiAmpsWithUpgrade.1=§aYou cannot use regular hatches when using a Multi-Amp Energy Hatch
 # Crop Produce Flavour Text
 cropsnh_tooltip.berry.huckle.1=Huckle-dae-Duckle-dae-Doo
 cropsnh_tooltip.berry.huckle.2=A sweet treat!
