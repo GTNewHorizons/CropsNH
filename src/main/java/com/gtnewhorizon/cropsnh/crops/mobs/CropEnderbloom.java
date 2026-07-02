@@ -10,7 +10,9 @@ import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.util.GTOreDictUnificator;
 
 public class CropEnderbloom extends NHCropCard {
 
@@ -23,6 +25,7 @@ public class CropEnderbloom extends NHCropCard {
         this.addBlockUnderRequirement(CropsNHBlockUnderTypes.endStone);
 
         this.addDuplicationCatalyst(new ItemStack(Items.ender_pearl, 1, 0));
+        this.addDuplicationCatalyst(GTOreDictUnificator.get(OrePrefixes.dust, Materials.EnderPearl, 1));
 
         this.addLikedBiomes(BiomeDictionary.Type.END, BiomeDictionary.Type.COLD);
     }
