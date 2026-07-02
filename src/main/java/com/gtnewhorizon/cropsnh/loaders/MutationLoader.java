@@ -411,15 +411,13 @@ public class MutationLoader {
             new CropMutation(SaguaroCactus, Cactus, SandLily)
                 .register();
 
-            if (ModUtils.PamsHarvestCraft.isModLoaded()) {
-                MutationRegistry.instance.register(Strawberry, RED, BERRY, BUSH, EDIBLE);
-                new CropMutation(Strawberry, Wheat, Raspberry)
-                    .register();
+            MutationRegistry.instance.register(Strawberry, RED, BERRY, BUSH, EDIBLE);
+            new CropMutation(Strawberry, Wheat, Raspberry)
+                .register();
 
-                MutationRegistry.instance.register(Blackberry, BLACK, BERRY, BUSH, EDIBLE);
-                new CropMutation(Blackberry, Strawberry, Blueberry)
-                    .register();
-            }
+            MutationRegistry.instance.register(Blackberry, BLACK, BERRY, BUSH, EDIBLE);
+            new CropMutation(Blackberry, Strawberry, Blueberry)
+                .register();
         }
 
 
