@@ -23,7 +23,6 @@ import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
-import static net.minecraft.util.StatCollector.translateToLocal;
 import static net.minecraftforge.common.util.Constants.NBT;
 
 import java.util.ArrayList;
@@ -41,7 +40,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -669,7 +667,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addSeparator()
             .addGlassEnergyLimitInfo()
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.0"))
-            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.1"))
+            .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.1"));
 
         String hatchHint = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.hatch");
         tt.beginVariableStructureBlock(2 + MIN_SLICES, 2 + MAX_SLICES, 5, 5, 4, 4, true)
@@ -683,16 +681,38 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addStructureInfo(StatCollector.translateToLocal("GT5U.MBTT.Structure.Base"))
             .addCasing("16-27", StatCollector.translateToLocal(Reference.MOD_ID + ".casings1.0.name"), false)
             .addCasing("4", "Any Tiered Glass", true)
-            .addCasing("3", StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.seedBed"), true)
-            .addCasing("0-1", GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Wood, 1).getDisplayName(), false)
-            .addMiscHatch("0-1", StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.upgrades.name"), StatCollector.translateToLocal("cropsnh_tooltip.industrialFarm.structure.upgrades.info"), 2)
+            .addCasing(
+                "3",
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.seedBed"),
+                true)
+            .addCasing(
+                "0-1",
+                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Wood, 1)
+                    .getDisplayName(),
+                false)
+            .addMiscHatch(
+                "0-1",
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.upgrades.name"),
+                StatCollector.translateToLocal("cropsnh_tooltip.industrialFarm.structure.upgrades.info"),
+                2)
             .addStructureInfo("")
             .addStructureInfo(StatCollector.translateToLocal("GT5U.MBTT.Structure.Slice"))
             .addCasing("4", "Any Tiered Glass", true)
-            .addCasing("3", StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.seedBed"), true)
+            .addCasing(
+                "3",
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.seedBed"),
+                true)
             .addCasing("2", StatCollector.translateToLocal(Reference.MOD_ID + ".casings1.0.name"), false)
-            .addCasing("0-1", GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Wood, 1).getDisplayName(), false)
-            .addMiscHatch("0-1", StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.upgrades.name"), StatCollector.translateToLocal("cropsnh_tooltip.industrialFarm.structure.upgrades.info"), 2)
+            .addCasing(
+                "0-1",
+                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Wood, 1)
+                    .getDisplayName(),
+                false)
+            .addMiscHatch(
+                "0-1",
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.upgrades.name"),
+                StatCollector.translateToLocal("cropsnh_tooltip.industrialFarm.structure.upgrades.info"),
+                2)
             .addStructureInfo("")
             .addMasterChannel(StatCollector.translateToLocal("channels.gregtech.master.length"))
             .addSubChannel(GTStructureChannels.BOROGLASS)
