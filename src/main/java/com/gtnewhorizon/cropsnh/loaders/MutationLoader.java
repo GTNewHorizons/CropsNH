@@ -334,8 +334,8 @@ public class MutationLoader {
             new CropMutation(GlowingCoral, Glowflower, Waterlily)
                 .register();
 
+            MutationRegistry.instance.register(Glowshroom, GREEN, NETHER, MUSHROOM, EMISSIVE, POTION_INGREDIENT);
             if (ModUtils.Natura.isModLoaded()) {
-                MutationRegistry.instance.register(Glowshroom, GREEN, NETHER, MUSHROOM, EMISSIVE, POTION_INGREDIENT);
                 new CropMutation(Glowshroom, BlueGlowshroom, GreenGlowshroom, PurpleGlowshroom)
                     .register();
             }
@@ -343,9 +343,12 @@ public class MutationLoader {
             MutationRegistry.instance.register(Ivy, GREEN, FLOWER, TENDRILLY, DANGEROUS, POISONOUS, CLIMBABLE);
             new CropMutation(Ivy, Vine, BonsaiSpruce)
                 .register();
+        }
 
+        // a bit of duplicated code but it works out since moss doesn't care what mod is loaded to load.
+        MutationRegistry.instance.register(Moss, GREEN, TWILIGHT_FOREST, CLIMBABLE, TENDRILLY);
+        if (ModUtils.BiomesOPlenty.isModLoaded()) {
             // Also findable via bop but i like having it as an in to that pool.
-            MutationRegistry.instance.register(Moss, GREEN, TWILIGHT_FOREST, CLIMBABLE, TENDRILLY);
             new CropMutation(Moss, Ivy, FloweringVine)
                 .register();
         }
@@ -372,8 +375,8 @@ public class MutationLoader {
         // region food
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
 
+            MutationRegistry.instance.register(BoPBerry, RED, BERRY, BUSH, EDIBLE);
             if (ModUtils.Natura.isModLoaded()) {
-                MutationRegistry.instance.register(BoPBerry, RED, BERRY, BUSH, EDIBLE);
                 new CropMutation(BoPBerry, Poppy, Blackberry)
                     .register();
             }
@@ -389,8 +392,8 @@ public class MutationLoader {
 
         if (ModUtils.Natura.isModLoaded()) {
 
+            MutationRegistry.instance.register(Barley, GREEN, WHEAT, EDIBLE);
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
-                MutationRegistry.instance.register(Barley, GREEN, WHEAT, EDIBLE);
                 new CropMutation(Barley, Bamboo, Wheat)
                     .register();
             }
@@ -411,10 +414,6 @@ public class MutationLoader {
             new CropMutation(SaguaroCactus, Cactus, SandLily)
                 .register();
 
-            MutationRegistry.instance.register(Strawberry, RED, BERRY, BUSH, EDIBLE);
-            new CropMutation(Strawberry, Wheat, Raspberry)
-                .register();
-
             MutationRegistry.instance.register(Blackberry, BLACK, BERRY, BUSH, EDIBLE);
             new CropMutation(Blackberry, Strawberry, Blueberry)
                 .register();
@@ -433,8 +432,8 @@ public class MutationLoader {
         new CropMutation(Cucumber, Melon, Carrot)
             .register();
 
+        MutationRegistry.instance.register(Grape, PURPLE, CLIMBABLE, LEAFY, TENDRILLY, EDIBLE);
         if (Mods.Natura.isModLoaded()) {
-            MutationRegistry.instance.register(Grape, PURPLE, CLIMBABLE, LEAFY, TENDRILLY, EDIBLE);
             new CropMutation(Grape, Blueberry, Blackberry)
                 .register();
         }
@@ -443,8 +442,8 @@ public class MutationLoader {
         new CropMutation(Hops, Hemp, Dandelion)
             .register();
 
+        MutationRegistry.instance.register(Huckleberry, PURPLE, BUSH, LEAFY, BERRY, EDIBLE);
         if (Mods.Natura.isModLoaded()) {
-            MutationRegistry.instance.register(Huckleberry, PURPLE, BUSH, LEAFY, BERRY, EDIBLE);
             new CropMutation(Huckleberry, Blackberry, Grape)
                 .register();
         }
@@ -458,12 +457,18 @@ public class MutationLoader {
         new CropMutation(Onion, Allium, Carrot)
             .register();
 
+        MutationRegistry.instance.register(Strawberry, RED, BERRY, BUSH, EDIBLE);
+        if (ModUtils.Natura.isModLoaded()) {
+            new CropMutation(Strawberry, Wheat, Raspberry)
+                .register();
+        }
+
         MutationRegistry.instance.register(SugarBeet, WHITE, ROOT, ADDICTIVE, EDIBLE, POTION_INGREDIENT);
         new CropMutation(SugarBeet, SugarCane, Allium)
             .register();
 
+        MutationRegistry.instance.register(Tea, GREEN, LEAFY, EDIBLE);
         if (ModUtils.Natura.isModLoaded()) {
-            MutationRegistry.instance.register(Tea, GREEN, LEAFY, EDIBLE);
             new CropMutation(Tea, Blueberry, BonsaiJungle)
                 .register();
         }
@@ -557,8 +562,8 @@ public class MutationLoader {
             .machineOnly()
             .register();
 
+        MutationRegistry.instance.register(Glowheat, EMISSIVE, SHINY, CRYSTALLINE, WHEAT, POTION_INGREDIENT);
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
-            MutationRegistry.instance.register(Glowheat, EMISSIVE, SHINY, CRYSTALLINE, WHEAT, POTION_INGREDIENT);
             new CropMutation(Glowheat, Glowflower, Wheat)
                 .register();
         }
@@ -587,7 +592,7 @@ public class MutationLoader {
                 .register();
         }
 
-        if (ModUtils.Thaumcraft.isModLoaded() && ModUtils.ThaumicTinkerer.isModLoaded()) {
+        if (ModUtils.Thaumcraft.isModLoaded()) {
             new CropMutation(MagicalNightshade, PrimordialBerry, ManaBean, Cinderpearl, Shimmerleaf)
                 .machineOnly()
                 .register();
@@ -710,14 +715,14 @@ public class MutationLoader {
         // endregion material crops
 
         // region mobs
+        MutationRegistry.instance.register(InkBloom, BLACK, FLOWER, WATERY);
         if (ModUtils.Natura.isModLoaded()) {
-            MutationRegistry.instance.register(InkBloom, BLACK, FLOWER, WATERY);
             new CropMutation(InkBloom, Blackberry, Goldfish)
                 .register();
         }
 
+        MutationRegistry.instance.register(Blazereed, FIERY, BLAZE, REED, SULFUR, NETHER, EVIL, POTION_INGREDIENT);
         if (ModUtils.Thaumcraft.isModLoaded()) {
-            MutationRegistry.instance.register(Blazereed, FIERY, BLAZE, REED, SULFUR, NETHER, EVIL, POTION_INGREDIENT);
             new CropMutation(Blazereed, SugarCane, Cinderpearl)
                 .register();
         }
@@ -726,8 +731,8 @@ public class MutationLoader {
         new CropMutation(Corium, Wheat, Cocoa)
             .register();
 
+        MutationRegistry.instance.register(Corpseplant, POISONOUS, UNDEAD, TENDRILLY, EDIBLE, EVIL, BROWN);
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
-            MutationRegistry.instance.register(Corpseplant, POISONOUS, UNDEAD, TENDRILLY, EDIBLE, EVIL, BROWN);
             new CropMutation(Corpseplant, Zomplant, Eyebulb)
                 .register();
         }
@@ -768,8 +773,8 @@ public class MutationLoader {
         new CropMutation(Tearstalks, Goldfish, SoulSandLily, NetherStoneLily)
             .register();
 
+        MutationRegistry.instance.register(Zomplant, BROWN, EVIL, POISONOUS, UNDEAD, EDIBLE);
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
-            MutationRegistry.instance.register(Zomplant, BROWN, EVIL, POISONOUS, UNDEAD, EDIBLE);
             new CropMutation(Zomplant, Withereed, Eyebulb)
                 .register();
         }
@@ -809,17 +814,17 @@ public class MutationLoader {
             new CropMutation(Thornvine, Vine, Cactus)
                 .register();
 
+            MutationRegistry.instance.register(BlueGlowshroom, BLUE, NETHER, MUSHROOM, EMISSIVE, EDIBLE, POTION_INGREDIENT);
+            MutationRegistry.instance.register(GreenGlowshroom, GREEN, NETHER, MUSHROOM, EMISSIVE, EDIBLE, POTION_INGREDIENT);
+            MutationRegistry.instance.register(PurpleGlowshroom, PURPLE, NETHER, MUSHROOM, EMISSIVE, EDIBLE, POTION_INGREDIENT);
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
 
-                MutationRegistry.instance.register(BlueGlowshroom, BLUE, NETHER, MUSHROOM, EMISSIVE, EDIBLE, POTION_INGREDIENT);
                 new CropMutation(BlueGlowshroom, BlueOrchid, Glowflower)
                     .register();
 
-                MutationRegistry.instance.register(GreenGlowshroom, GREEN, NETHER, MUSHROOM, EMISSIVE, EDIBLE, POTION_INGREDIENT);
                 new CropMutation(GreenGlowshroom, Cactus, Glowflower)
                     .register();
 
-                MutationRegistry.instance.register(PurpleGlowshroom, PURPLE, NETHER, MUSHROOM, EMISSIVE, EDIBLE, POTION_INGREDIENT);
                 new CropMutation(PurpleGlowshroom, Indigo, Glowflower)
                     .register();
             }
@@ -833,16 +838,8 @@ public class MutationLoader {
             new CropMutation(AluminiumOreBerry, GoldOreBerry, EssenceOreBerry)
                 .register();
 
-            MutationRegistry.instance.register(ArditeOreBerry, ORANGE, ORE_BERRY, DANGEROUS, METALLIC);
-            new CropMutation(ArditeOreBerry, NetherStoneLily, Coppon, CopperOreBerry, Malaxia)
-                .register();
-
-            MutationRegistry.instance.register(CobaltOreBerry, BLUE, NETHER, ORE_BERRY, DANGEROUS, METALLIC);
-            new CropMutation(CobaltOreBerry, NetherStoneLily, ArditeOreBerry, Lazulia, GoldOreBerry)
-                .register();
-
+            MutationRegistry.instance.register(CopperOreBerry, ORANGE, ORE_BERRY, DANGEROUS, METALLIC, SHINY, COPPER);
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
-                MutationRegistry.instance.register(CopperOreBerry, ORANGE, ORE_BERRY, DANGEROUS, METALLIC, SHINY, COPPER);
                 new CropMutation(CopperOreBerry, Malaxia, BoPBerry, StoneLily)
                     .register();
             }
@@ -859,33 +856,48 @@ public class MutationLoader {
             new CropMutation(IronOreBerry, TinOreBerry, StoneLily)
                 .register();
 
+            MutationRegistry.instance.register(TinOreBerry, WHITE, ORE_BERRY, DANGEROUS, METALLIC, SHINY, TIN);
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
-                MutationRegistry.instance.register(TinOreBerry, WHITE, ORE_BERRY, DANGEROUS, METALLIC, SHINY, TIN);
                 new CropMutation(TinOreBerry, Cassitine, BoPBerry, StoneLily)
                     .register();
             }
 
-            if (ModUtils.TwilightForest.isModLoaded()) {
-                MutationRegistry.instance.register(KnightmetalBerry, GRAY, TWILIGHT_FOREST, ORE_BERRY, DANGEROUS, METALLIC);
-                new CropMutation(KnightmetalBerry, IronOreBerry, Torchberry, BonsaiDarkOak)
-                    .register();
-            }
+            MutationRegistry.instance.register(ArditeOreBerry, ORANGE, ORE_BERRY, DANGEROUS, METALLIC);
+            new CropMutation(ArditeOreBerry, NetherStoneLily, Coppon, CopperOreBerry, Malaxia)
+                .register();
 
-            if (ModUtils.Thaumcraft.isModLoaded()) {
+            MutationRegistry.instance.register(CobaltOreBerry, BLUE, NETHER, ORE_BERRY, DANGEROUS, METALLIC);
+            new CropMutation(CobaltOreBerry, NetherStoneLily, ArditeOreBerry, Lazulia, GoldOreBerry)
+                .register();
+        }
+
+        if (ModUtils.Thaumcraft.isModLoaded()) {
+            MutationRegistry.instance.register(ThaumiumOreBerry, PURPLE, ORE_BERRY, DANGEROUS, MAGICAL, METALLIC, VOID_TOUCHED);
+            MutationRegistry.instance.register(VoidOreBerry, BLACK, ORE_BERRY, DANGEROUS, MAGICAL, METALLIC, VOID_TOUCHED);
+            if (ModUtils.TinkerConstruct.isModLoaded()) {
                 // TODO: ADD GREATWOOD AND SILVER WOOD BONSAIS AND ADD DETERMINISTIC RECIPE FOR THAUMIUM ORE BERRY
-                MutationRegistry.instance.register(ThaumiumOreBerry, PURPLE, ORE_BERRY, DANGEROUS, MAGICAL, METALLIC, VOID_TOUCHED);
                 new CropMutation(ThaumiumOreBerry, StoneLily, GoldOreBerry)
                     .register();
 
-                MutationRegistry.instance.register(VoidOreBerry, BLACK, ORE_BERRY, DANGEROUS, MAGICAL, METALLIC, VOID_TOUCHED);
                 new CropMutation(VoidOreBerry, ThaumiumOreBerry, GoldOreBerry)
                     .register();
+            }
+        }
 
-                if (ModUtils.ThaumicBases.isModLoaded()) {
-                    MutationRegistry.instance.register(ThauminiteOreBerry, BLUE, ORE_BERRY, DANGEROUS, MAGICAL, METALLIC, VOID_TOUCHED);
-                    new CropMutation(ThauminiteOreBerry, ThaumiumOreBerry, ManaBean)
-                        .register();
-                }
+
+        if (ModUtils.ThaumicBases.isModLoaded()) {
+            MutationRegistry.instance.register(ThauminiteOreBerry, BLUE, ORE_BERRY, DANGEROUS, MAGICAL, METALLIC, VOID_TOUCHED);
+            if (ModUtils.TinkerConstruct.isModLoaded()) {
+                new CropMutation(ThauminiteOreBerry, ThaumiumOreBerry, ManaBean)
+                    .register();
+            }
+        }
+
+        if (ModUtils.TwilightForest.isModLoaded()) {
+            MutationRegistry.instance.register(KnightmetalBerry, GRAY, TWILIGHT_FOREST, ORE_BERRY, DANGEROUS, METALLIC);
+            if (ModUtils.TinkerConstruct.isModLoaded()) {
+                new CropMutation(KnightmetalBerry, IronOreBerry, Torchberry, BonsaiDarkOak)
+                    .register();
             }
         }
         // endregion ore berries
@@ -906,17 +918,17 @@ public class MutationLoader {
             MutationRegistry.instance.register(GraniteLily, RED, STONE);
             new CropMutation(GraniteLily, BlackGraniteLily, RedGraniteLily)
                 .register();
+        }
 
-            if (ModUtils.EtFuturumRequiem.isModLoaded()) {
+        if (ModUtils.EtFuturumRequiem.isModLoaded() && ModUtils.NewHorizonsCoreMod.isModLoaded()) {
 
-                MutationRegistry.instance.register(TuffLily, GRAY, DARK, STONE);
-                new CropMutation(TuffLily, BlackGraniteLily, AndesiteLily)
-                    .register();
+            MutationRegistry.instance.register(TuffLily, GRAY, DARK, STONE);
+            new CropMutation(TuffLily, BlackGraniteLily, AndesiteLily)
+                .register();
 
-                MutationRegistry.instance.register(DeepslateLily, BLACK, DARK, DENSE, STONE);
-                new CropMutation(DeepslateLily,TuffLily, BlackGraniteLily)
-                    .register();
-            }
+            MutationRegistry.instance.register(DeepslateLily, BLACK, DARK, DENSE, STONE);
+            new CropMutation(DeepslateLily,TuffLily, BlackGraniteLily)
+                .register();
         }
 
         MutationRegistry.instance.register(BasaltLily, BLACK, DARK, STONE);
@@ -1081,8 +1093,8 @@ public class MutationLoader {
             new CropMutation(Belladonna, PurpleTulip, Huckleberry)
                 .register();
 
+            MutationRegistry.instance.register(EmberMoss, RED, CLIMBABLE, DANGEROUS, FIERY, TENDRILLY, POTION_INGREDIENT);
             if (ModUtils.BiomesOPlenty.isModLoaded()) {
-                MutationRegistry.instance.register(EmberMoss, RED, CLIMBABLE, DANGEROUS, FIERY, TENDRILLY, POTION_INGREDIENT);
                 new CropMutation(EmberMoss, RedTulip, Moss)
                     .register();
             }
