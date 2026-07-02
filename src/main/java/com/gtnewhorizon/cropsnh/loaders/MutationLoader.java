@@ -1107,7 +1107,7 @@ public class MutationLoader {
             new CropMutation(SpanishMoss, Moss, EmberMoss)
                 .register();
 
-            MutationRegistry.instance.register(WaterArtichoke, BLUE, FLOWER, WATERY, POTION_INGREDIENT);
+            MutationRegistry.instance.register(WaterArtichoke, BLUE, FLOWER, WATERY, EDIBLE, POTION_INGREDIENT);
             new CropMutation(WaterArtichoke, Waterlily, Hops)
                 .register();
 
