@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -59,8 +60,10 @@ public class FertilizerLoader {
 
         // forestry fertilizer
         if (ModUtils.Forestry.isModLoaded()) {
-            FertilizerRegistry.instance.register(PluginCore.items.fertilizerCompound, OreDictionary.WILDCARD_VALUE, 25);
-            FertilizerRegistry.instance.register(PluginCore.items.fertilizerBio, OreDictionary.WILDCARD_VALUE, 50);
+            Item fertCompound = ModUtils.Forestry.getItem("fertilizerCompound");
+            Item fertBio = ModUtils.Forestry.getItem("fertilizerBio");
+            FertilizerRegistry.instance.register(fertCompound, OreDictionary.WILDCARD_VALUE, 25);
+            FertilizerRegistry.instance.register(fertBio, OreDictionary.WILDCARD_VALUE, 50);
         }
 
         // add crops nh fert to EIG
