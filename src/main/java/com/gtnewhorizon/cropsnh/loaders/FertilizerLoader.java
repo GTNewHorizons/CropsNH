@@ -14,7 +14,6 @@ import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
-import forestry.plugins.PluginCore;
 import gregtech.api.enums.Materials;
 import gregtech.api.util.GTModHandler;
 import kubatech.tileentity.gregtech.multiblock.MTEExtremeIndustrialGreenhouse;
