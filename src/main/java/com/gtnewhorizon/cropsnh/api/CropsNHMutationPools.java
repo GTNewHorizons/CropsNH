@@ -130,7 +130,7 @@ public abstract class CropsNHMutationPools {
     public final static String EDIBLE = "food";
     /** 5. Drop: Does it contain gold? */
     public final static String GOLD = "gold";
-    /** 5. Drop: Can it heal the player? */
+    /** 5. Drop: Can it heal the player or does it have restorative properties? */
     public final static String HEALING = "healing";
     /** 5. Drop: Does it contain iron? */
     public final static String IRON = "iron";
