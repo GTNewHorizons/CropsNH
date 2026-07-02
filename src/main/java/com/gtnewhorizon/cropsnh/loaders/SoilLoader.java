@@ -93,6 +93,9 @@ public class SoilLoader {
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 3),
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 14),
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 15));
+        } else {
+            // default soil to souls and if TiC isn't loaded.
+            CropsNHSoilTypes.graveyard.registerBlock(new BlockWithMeta(Blocks.soul_sand));
         }
         if (ModUtils.Thaumcraft.isModLoaded()) {
             BlockWithMeta greatwoodLog1 = new BlockWithMeta(ConfigBlocks.blockMagicalLog, 0);

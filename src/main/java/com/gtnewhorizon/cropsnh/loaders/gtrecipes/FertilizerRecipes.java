@@ -44,6 +44,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
     }
 
     private static void addBeeCompat() {
+        if (!ModUtils.Forestry.isModLoaded()) return;
         GTBeeDefinition.FERTILIZER.getSpecies()
             .addSpecialty(CropsNHItemList.fertilizer.get(1), 0.3f);
     }
