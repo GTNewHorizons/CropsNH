@@ -990,7 +990,7 @@ public class MutationLoader {
                     .register();
             }
         }
-        // endregion thaumcraft
+        // endregion twilight forest
 
         // region vanilla
         MutationRegistry.instance.register(Cocoa, BROWN, BEAN, TREE, LEAFY, ADDICTIVE, EDIBLE);
