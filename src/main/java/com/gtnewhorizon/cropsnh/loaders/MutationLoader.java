@@ -745,9 +745,9 @@ public class MutationLoader {
         new CropMutation(Enderbloom, EndStoneLily, Creeperweed)
             .register();
 
+        MutationRegistry.instance.register(Goldfish, NETHER, FISH, EDIBLE, DANGEROUS, WATERY, ADDICTIVE);
         if (ModUtils.Witchery.isModLoaded()) {
             // addictive because after a while, you come to love their screechyness
-            MutationRegistry.instance.register(Goldfish, NETHER, FISH, EDIBLE, DANGEROUS, WATERY, ADDICTIVE);
             new CropMutation(Goldfish, Waterlily, WaterArtichoke, Mandrake)
                 .register();
         }
