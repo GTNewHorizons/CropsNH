@@ -983,10 +983,12 @@ public class MutationLoader {
         // endregion thaumcraft
 
         // region twilight forest
-        if (ModUtils.TwilightForest.isModLoaded() && ModUtils.BiomesOPlenty.isModLoaded()) {
+        if (ModUtils.TwilightForest.isModLoaded()) {
             MutationRegistry.instance.register(Torchberry, YELLOW, TWILIGHT_FOREST, BERRY, EMISSIVE);
-            new CropMutation(Torchberry, Glowflower, BoPBerry)
-                .register();
+            if (ModUtils.BiomesOPlenty.isModLoaded()) {
+                new CropMutation(Torchberry, Glowflower, BoPBerry)
+                    .register();
+            }
         }
         // endregion thaumcraft
 
