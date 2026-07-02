@@ -995,7 +995,7 @@ public class MutationLoader {
         new CropMutation(Cocoa, Melon, BonsaiJungle)
             .register();
 
-        MutationRegistry.instance.register(Melon, GREEN, STEM, EDIBLE, POTION_INGREDIENT);
+        MutationRegistry.instance.register(Melon, GREEN, STEM, EDIBLE, HEALING, POTION_INGREDIENT);
         new CropMutation(Melon, Pumpkin, BonsaiJungle)
             .register();
 
