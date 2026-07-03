@@ -233,6 +233,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             this.failedChecks = null;
             return false;
         }
+
         // Weeds don't care where you are, they will grow
         if (this.getSeed()
             .getCrop() instanceof CropWeed) {
@@ -240,7 +241,16 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             return true;
         }
 
-        return !this.isMature() && this.areGrowthRequirementsMet();
+        // Do sporadic growth requirement checks on mature crops to get around things like light level checks failing
+        // on load, and disincentive players from moving around their sub-soil blocks to grow multiple crops without
+        // enough sub-soil blocks.
+        if (isMature()) {
+            if (XSTR.XSTR_INSTANCE.nextBoolean()) this.areGrowthRequirementsMet();
+            return false;
+        }
+
+        // if it's not mature just do a growth req check
+        return this.areGrowthRequirementsMet();
     }
 
     @Override
@@ -510,7 +520,13 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (!this.worldObj.isRemote && this.hasCrop()
             && !this.hasWeed()
             && this.isMature()
-            && this.failedChecks == null) {
+            && (this.failedChecks == null || this.areGrowthRequirementsMet())) {
+            if (this.failedChecks != null) {
+                // double-check growth reqs check when there are failed growth reqs, the return is for growth checking
+                // so we need to look at the failed checks list to see if we missed something.
+                this.areGrowthRequirementsMet();
+                if (this.failedChecks == null) return false;
+            }
             for (IGrowthRequirement req : seed.getCrop()
                 .getGrowthRequirements()) {
                 if (req instanceof MachineOnlyGrowthRequirement) return false;
