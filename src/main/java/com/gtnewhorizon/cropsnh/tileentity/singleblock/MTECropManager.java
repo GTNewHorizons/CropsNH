@@ -16,7 +16,9 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -30,6 +32,7 @@ import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.WeedEXRegistry;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures;
+import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
@@ -771,6 +774,22 @@ public class MTECropManager extends MTETieredMachineBlock {
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
         return null;
+    }
+
+    // report all three internal tanks so Waila shows a bar per fluid instead of the single empty water tank.
+    // each tank only accepts a fixed set of fluids, so a representative fluid is used for display.
+    @Override
+    public FluidTankInfo[] getTankInfo(ForgeDirection side) {
+        ArrayList<FluidTankInfo> tanks = new ArrayList<>(3);
+        addTankInfo(tanks, FluidRegistry.WATER, this.mWater, this.getWaterCapacity());
+        addTankInfo(tanks, CropsNHUtils.getWeedEXFluid(), this.mWeedEX, this.getWeedEXCapacity());
+        addTankInfo(tanks, CropsNHFluids.fertilizer, this.mLiquidFertilizer, this.getLiquidFertilizerCapacity());
+        return tanks.toArray(new FluidTankInfo[0]);
+    }
+
+    private static void addTankInfo(ArrayList<FluidTankInfo> tanks, Fluid fluid, int amount, int capacity) {
+        if (fluid == null) return;
+        tanks.add(new FluidTankInfo(new FluidStack(fluid, amount), capacity));
     }
 
     // endregion fluid io
