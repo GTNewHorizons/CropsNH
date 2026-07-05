@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
@@ -21,8 +21,7 @@ import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.reference.Reference;
-import com.gtnewhorizons.modularui.api.GlStateManager;
-import com.gtnewhorizons.modularui.api.math.Alignment;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
@@ -35,7 +34,9 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
 
     public static final int X_SeedStart = 3;
     public static final int Y_SeedStart = 1;
-    public static final int SeedRowCount = 9;
+    public static final int COL_COUNT = 9;
+    public static final int MAX_ROWS = 5;
+    public static final int MAX_CROPS_PER_SECTION = MAX_ROWS * COL_COUNT;
 
     private static final int COLOR_BLACK = 1644054;
 
@@ -44,7 +45,6 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
         return new HandlerInfo.Builder(id, Reference.MOD_NAME, Reference.MOD_ID)
             .setDisplayStack(CropsNHItemList.cropSticks.get(1))
             .setHeight(110)
-            .setMaxRecipesPerPage(3)
             .setShowFavoritesButton(false)
             .setShowOverlayButton(false)
             .build();
@@ -57,33 +57,21 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
         final String poolNameLine;
 
         /**
-         * @param pool       The mutation pool to display
-         * @param firstStack The item to put first (when looking at usages or recipes for)
-         * @param firstCrop  The crop associated with the item to pur first (when looking at usages or recipes for)
+         * @param pool    The mutation pool to display.
+         * @param members The members to display of for the pool (can be a subsection of the pool if overflow is likely
+         *                to occur).
          */
-        public CachedMutationPoolRecipe(IMutationPool pool, ItemStack firstStack, ICropCard firstCrop) {
+        public CachedMutationPoolRecipe(IMutationPool pool, ItemStack[] members, int startOffset) {
 
             this.poolNameLine = StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_nei.mutationPool.poolName",
                 StatCollector.translateToLocal(pool.getUnlocalisedName()));
 
-            int i = 0;
-            // if a crop card is passed it's assumed to be a member of the pool and is will be displayed first.
-            if (firstCrop != null && firstStack != null) {
-                this.members.add(new PositionedStack(firstStack, X_SeedStart, Y_SeedStart, false));
-                i++;
-            }
-            // sort drops by alphabetical order otherwize
-            Iterable<ICropCard> members = pool.getMembers()
-                .stream()
-                .filter(card -> card != firstCrop)
-                .sorted(Comparator.comparing(x -> StatCollector.translateToLocal(x.getUnlocalizedName())))
-                .collect(Collectors.toList());
-            for (ICropCard member : members) {
-                int x = X_SeedStart + 18 * (i % SeedRowCount);
-                int y = Y_SeedStart + 18 * (i / SeedRowCount);
-                this.members.add(new PositionedStack(member.getSeedItem(SeedStats.DEFAULT_ANALYZED), x, y, false));
-                i++;
+            int end = Math.min(members.length - startOffset, MAX_CROPS_PER_SECTION);
+            for (int i = 0; i < end; i++) {
+                int x = X_SeedStart + 18 * (i % COL_COUNT);
+                int y = Y_SeedStart + 18 * (i / COL_COUNT);
+                this.members.add(new PositionedStack(members[i + startOffset], x, y, false));
             }
         }
 
@@ -104,39 +92,12 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
         }
     }
 
-    public static class ChancedPositionnedStack extends PositionedStack {
-
-        private final static Alignment alignment = Alignment.TopLeft;
-        private final static float scale = 0.45f;
-        private final static int color = colorOverride.getTextColorOrDefault("nei_overlay_yellow", 0xFDD835);
-        private final String chanceText;
-
-        public ChancedPositionnedStack(Object object, int x, int y, int chance) {
-            super(object, x, y, false);
-            this.chanceText = String.format("%d.%02d%%", (chance / 100), (chance % 100));
-        }
-
-        public void drawChanceText() {
-            FontRenderer fontRenderer = net.minecraft.client.Minecraft.getMinecraft().fontRenderer;
-            int width = fontRenderer.getStringWidth(this.chanceText);
-            int x = (int) ((this.relx + 8 + 8 * alignment.x) / scale) - (width / 2 * (alignment.x + 1));
-            int y = (int) ((this.rely + 8 + 8 * alignment.y) / scale)
-                - (fontRenderer.FONT_HEIGHT / 2 * (alignment.y + 1))
-                - (alignment.y - 1) / 2;
-
-            GlStateManager.pushMatrix();
-            GlStateManager.scale(scale, scale, 1);
-            fontRenderer.drawString(this.chanceText, x, y, color, false);
-            GlStateManager.popMatrix();
-        }
-    }
-
     // loads the crop mutation pools for a given product
     @Override
     protected void loadCraftingRecipesDo(String pId, Object... results) {
         if (pId.equalsIgnoreCase(id)) {
             for (IMutationPool pool : MutationRegistry.instance.getMutationPools()) {
-                arecipes.add(new CachedMutationPoolRecipe(pool, null, null));
+                this.addRecipes(pool, null, null);
             }
         } else if (pId.equalsIgnoreCase("item")) {
             for (Object object : results) {
@@ -160,8 +121,44 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
         if (cc == null || cc.hideFromNEI()) return;
         for (IMutationPool pool : MutationRegistry.instance.getMutationPools()) {
             if (pool.contains(cc)) {
-                this.arecipes.add(new CachedMutationPoolRecipe(pool, item, cc));
+                this.addRecipes(pool, cc, item);
             }
+        }
+    }
+
+    /**
+     * Adds one or many recipe sections for a given pool
+     *
+     * @param pool                  The pool to add sections for.
+     * @param inspectedItemCropCard The crop card associated with the item that was inspected.
+     * @param inspectedItem         The item that was inspected.
+     */
+    private void addRecipes(IMutationPool pool, @Nullable ICropCard inspectedItemCropCard,
+        @Nullable ItemStack inspectedItem) {
+        // first sort by name
+        Stream<ICropCard> stream = pool.getMembers()
+            .stream()
+            .sorted(Comparator.comparing(cc -> StatCollector.translateToLocal(cc.getUnlocalizedName())));
+
+        // if we passed in a crop card, put it in first, it's assumed to be in the list.
+        if (inspectedItemCropCard != null) {
+            stream = stream.sorted(Comparator.comparing(cc -> cc == inspectedItemCropCard ? 0 : 1));
+        }
+
+        // resolve the array
+        ItemStack[] members = stream.map(x -> x.getSeedItem(SeedStats.DEFAULT_ANALYZED))
+            .toArray(ItemStack[]::new);
+
+        // if we passed in a crop card and a stack, override the stack iwth a copy of the passed stack
+        if (inspectedItemCropCard != null && inspectedItem != null) {
+            ItemStack copied = CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(inspectedItem, 1);
+            // can still be null if the item in the stack was somehow null
+            if (copied != null) members[0] = copied;
+        }
+
+        // create all the sections as necessary
+        for (int i = 0; i < members.length; i += MAX_CROPS_PER_SECTION) {
+            this.arecipes.add(new CachedMutationPoolRecipe(pool, members, i));
         }
     }
 
