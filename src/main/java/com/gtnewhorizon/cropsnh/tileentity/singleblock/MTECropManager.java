@@ -5,7 +5,7 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,7 +16,9 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -30,6 +32,7 @@ import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.WeedEXRegistry;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlockTextures;
+import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
@@ -64,28 +67,46 @@ public class MTECropManager extends MTETieredMachineBlock {
     public static final int SLOT_OUTPUT_END = SLOT_OUTPUT_START - 1 + OUTPUT_SLOT_COUNT;
     public static final int SLOT_BATTERY = SLOT_OUTPUT_END + 1;
 
-    // run ever 2.5s, refresh cache every other run when empty, else wait 60s to refresh cache
+    /** How often the crop manager runs its work loop. */
     private final static int GLOBAL_UPDATE_RATE = 2 * 20 + 10;
+    /** How often the crop manager updates its crop cache when said cache is empty. */
     private final static int CACHE_REFRESH_EMPTY = GLOBAL_UPDATE_RATE * 2;
+    /** How often the crop manager updates its crop cache when said cache contains crops. */
     private final static int CACHE_REFRESH_ANY = GLOBAL_UPDATE_RATE * 12;
 
+    /** Whether the crop manager is allowed to harvest crops. */
     public boolean mHarvestEnabled = true;
+    /** Whether the crop manager is allowed to apply Weed-EX to crops. */
     public boolean mWeedEXEnabled = false;
+    /** Whether the crop manager is allowed to fertilize crops. */
     public boolean mFertilizerEnabled = false;
+    /** Whether the crop manager is allowed to water crops. */
     public boolean mWaterEnabled = false;
+
     public boolean mCharge = false;
     public boolean mDecharge = false;
 
-    public int mWater;
-    public final int mWaterCap;
-    public int mWeedEX;
-    public final int mWeedEXCap;
-    public int mLiquidFertilizer;
-    public final int mLiquidFertilizerCap;
+    /** Water potency stored in the crop manager. */
+    private int mWater = 0;
+    /** The maximum amount of water potency that can be stored in the crop manager. */
+    private final int mWaterCap;
+    /** Weed-EX potency stored in the crop manager. */
+    private int mWeedEX = 0;
+    /** The maximum amount of Weed-EX potency that can be stored in the crop manager. */
+    private final int mWeedEXCap;
+    /** Liquid fertilizer potency stored in the crop manager. */
+    private int mLiquidFertilizer = 0;
+    /** The maximum amount of liquid fertilizer potency that can be stored in the crop manager. */
+    private final int mLiquidFertilizerCap;
 
+    /** A cache of all known crops within the crop manager's range. */
     private final HashSet<ICropStickTile> mCropCache = new HashSet<>();
+    /** Whether the crop cache appears to contain invalid data. */
     private boolean mInvalidCache = false;
+    /** A holder for drops when a single harvest cycle would overflow the manager's inventory. */
     private final ItemStackMap<Integer> mDropOverflow = new ItemStackMap<>(true);
+    /** A cache holding synchronized tank information for waila. */
+    private final FluidTankInfo[] mWailaFluidTankInfos;
 
     public MTECropManager(final int aID, final int aTier) {
         super(
@@ -95,27 +116,46 @@ public class MTECropManager extends MTETieredMachineBlock {
             aTier,
             TOTAL_SLOT_COUNT,
             StatCollector.translateToLocal("cropsnh_tooltip.cropManager.description"));
-        this.mWater = 0;
-        this.mWaterCap = this.mTier * 32000;
-        this.mWeedEX = 0;
-        this.mWeedEXCap = this.mTier * 750 * 2;
-        this.mLiquidFertilizer = 0;
-        this.mLiquidFertilizerCap = this.mTier * 144 * 64 * 4;
+        this.mWaterCap = calcWaterCap();
+        this.mWeedEXCap = calcWeedEXCap();
+        this.mLiquidFertilizerCap = calcLiquidFertilizerCap();
+        this.mWailaFluidTankInfos = getDefaultWailaFluidTankInfos();
+    }
 
+    private int calcWaterCap() {
+        return this.mTier * 32000;
+    }
+
+    private int calcWeedEXCap() {
+        return this.mTier * 750 * 2;
+    }
+
+    private int calcLiquidFertilizerCap() {
+        return this.mTier * 144 * 64 * 4;
+    }
+
+    private FluidTankInfo[] getDefaultWailaFluidTankInfos() {
+        return new FluidTankInfo[] {
+            new FluidTankInfo(new FluidStack(FluidRegistry.WATER, this.mWater), this.mWaterCap),
+            new FluidTankInfo(CropsNHUtils.getWeedEXFluid(this.mWeedEX), this.mWeedEXCap),
+            new FluidTankInfo(new FluidStack(CropsNHFluids.fertilizer, this.mWeedEX), this.mLiquidFertilizerCap) };
     }
 
     // region TE creation
 
-    public MTECropManager(final String aName, final int aTier, final String[] aDescription,
+    private MTECropManager(final String aName, final int aTier, final String[] aDescription,
         final ITexture[][][] aTextures) {
         super(aName, aTier, TOTAL_SLOT_COUNT, aDescription, aTextures);
-        this.mWater = 0;
-        this.mWaterCap = this.mTier * 32000;
-        this.mWeedEX = 0;
-        this.mWeedEXCap = this.mTier * 750 * 2;
-        this.mLiquidFertilizer = 0;
-        this.mLiquidFertilizerCap = this.mTier * 144 * 64 * 4;
+        this.mWaterCap = calcWaterCap();
+        this.mWeedEXCap = calcWeedEXCap();
+        this.mLiquidFertilizerCap = calcLiquidFertilizerCap();
+        this.mWailaFluidTankInfos = getDefaultWailaFluidTankInfos();
+    }
 
+    private void updateFluidTanksForWaila() {
+        this.mWailaFluidTankInfos[0].fluid.amount = this.mWater;
+        this.mWailaFluidTankInfos[1].fluid.amount = this.mWeedEX;
+        this.mWailaFluidTankInfos[2].fluid.amount = this.mLiquidFertilizer;
     }
 
     @Override
@@ -211,11 +251,11 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region crop manager params
 
-    public long powerUsage() {
+    private long powerUsage() {
         return this.maxEUInput() / 8;
     }
 
-    public long powerUsageSecondary() {
+    private long powerUsageSecondary() {
         return this.maxEUInput() / 32;
     }
 
@@ -310,7 +350,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region harvesting
 
-    public boolean doesInventoryHaveSpace() {
+    private boolean doesInventoryHaveSpace() {
         for (int i = SLOT_OUTPUT_START; i <= SLOT_OUTPUT_END; i++) {
             if (this.mInventory[i] == null || this.mInventory[i].stackSize < 64) {
                 return true;
@@ -319,7 +359,7 @@ public class MTECropManager extends MTETieredMachineBlock {
         return false;
     }
 
-    public void harvest() {
+    private void harvest() {
         // if harvest isn't enabled, don't
         if (!this.mHarvestEnabled || !doesInventoryHaveSpace()) return;
 
@@ -406,7 +446,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region secondary actions
 
-    public void processSecondaryFunctions() {
+    private void processSecondaryFunctions() {
         for (ICropStickTile crop : this.mCropCache) {
             if (crop == null) {
                 this.mInvalidCache = true;
@@ -441,14 +481,19 @@ public class MTECropManager extends MTETieredMachineBlock {
                 applyFertilizer(crop, false);
             }
         }
+
+        // update them last so we aren't constantly doing extra work we'll be overriding anyway.
+        updateFluidTanksForWaila();
     }
 
     // region water apply
 
+    /** The max amount of water the crop manager set in a crop manager. */
     public final static int WATER_CAP = 200;
+    /** The minimum threshold at which a crop manager is allowed to start adding water to a crop. */
     private final static int WATER_THRESHOLD = 180;
 
-    public boolean applyHydration(ICropStickTile aCrop, boolean simulate) {
+    private boolean applyHydration(ICropStickTile aCrop, boolean simulate) {
         if (this.getFluidAmount() == 0 || aCrop.getWaterStorage() > WATER_THRESHOLD) return false;
 
         int drain = Math.min(this.getFluidAmount(), WATER_CAP - aCrop.getWaterStorage());
@@ -462,7 +507,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region weed ex apply
 
-    public void refillWeedEX() {
+    private void refillWeedEX() {
         if (this.getWeedEXAmount() >= this.getWeedEXCapacity()) return;
         for (int i = SLOT_WEEDEX_START; i <= SLOT_WEEDEX_END; i++) {
             if (isWeedEXCan(this.mInventory[i])) {
@@ -489,8 +534,11 @@ public class MTECropManager extends MTETieredMachineBlock {
         return damageToAdd * 10;
     }
 
+    /** The maximum amount of Weed-EX the crop manager is allowed to set in a crop. */
     private static final int WEEDEX_CAP = 150;
+    /** The minimum threshold at which a crop manager is allowed to start adding Weed-EX to a crop. */
     private static final int WEEDEX_THRESHOLD = 75;
+    /** The amount of liquid Weed-EX consumed per application. */
     private static final int WEEDEX_COST = 10;
 
     public boolean applyWeedEX(ICropStickTile aCrop, boolean aSimulate) {
@@ -507,11 +555,14 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region fertilizer apply
 
+    /** The maximum amount of fertilizer the crop manager is allowed to set in a crop. */
     public static final int FERTILIZER_CAP = 200;
+    /** The minimum threshold at which a crop manager is allowed to start adding item fertilizers to a crop. */
     private static final int FERTILIZER_ITEM_THRESHOLD_MIN = FERTILIZER_CAP / 2;
+    /** The minimum threshold at which a crop manager is allowed to start adding liquid fertilizers to a crop. */
     private static final int FERTILIZER_LIQUID_THRESHOLD = 180;
 
-    public boolean applyFertilizer(ICropStickTile aCrop, boolean aSimulate) {
+    private boolean applyFertilizer(ICropStickTile aCrop, boolean aSimulate) {
         int storedFert = aCrop.getFertilizerStorage();
         int amount = 0;
         int threshold = FERTILIZER_LIQUID_THRESHOLD;
@@ -582,6 +633,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     public void setWaterAmount(int amount) {
         this.mWater = amount;
+        this.mWailaFluidTankInfos[0].fluid.amount = amount;
     }
 
     // endregion water status
@@ -603,6 +655,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     public void setWeedEXAmount(int a) {
         this.mWeedEX = a;
+        this.mWailaFluidTankInfos[1].fluid.amount = a;
     }
 
     // endregion weed ex status
@@ -623,6 +676,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     public void setLiquidFertilizerAmount(int a) {
         this.mLiquidFertilizer = a;
+        this.mWailaFluidTankInfos[2].fluid.amount = a;
     }
 
     // endregion liquid fertilizer status
@@ -685,9 +739,9 @@ public class MTECropManager extends MTETieredMachineBlock {
         public final int cur;
         public final int cap;
         public final int potency;
-        public final Consumer<Integer> setter;
+        public final IntConsumer setter;
 
-        public FluidCheckResult(int cur, int cap, int potency, Consumer<Integer> setter) {
+        public FluidCheckResult(int cur, int cap, int potency, IntConsumer setter) {
             this.cur = cur;
             this.cap = cap;
             this.potency = potency;
@@ -697,7 +751,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     private FluidCheckResult canFill(Fluid fluid) {
         int potency, cur, cap;
-        Consumer<Integer> setter;
+        IntConsumer setter;
         if ((potency = this.getWaterPotency(fluid)) > 0) {
             cur = this.getWaterAmount();
             cap = this.getWaterCapacity();
@@ -771,6 +825,13 @@ public class MTECropManager extends MTETieredMachineBlock {
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
         return null;
+    }
+
+    // report all three internal tanks so Waila shows a bar per fluid instead of the single empty water tank.
+    // each tank only accepts a fixed set of fluids, so a representative fluid is used for display.
+    @Override
+    public FluidTankInfo[] getTankInfo(ForgeDirection side) {
+        return this.mWailaFluidTankInfos;
     }
 
     // endregion fluid io
@@ -872,9 +933,9 @@ public class MTECropManager extends MTETieredMachineBlock {
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
         // load tanks
-        this.mWater = NBTHelper.getInteger(aNBT, "mWater", 0);
-        this.mWeedEX = NBTHelper.getInteger(aNBT, "mWeedEx", 0);
-        this.mLiquidFertilizer = NBTHelper.getInteger(aNBT, "mLiquidFertilizer", 0);
+        this.setWaterAmount(NBTHelper.getInteger(aNBT, "mWater", 0));
+        this.setWeedEXAmount(NBTHelper.getInteger(aNBT, "mWeedEx", 0));
+        this.setLiquidFertilizerAmount(NBTHelper.getInteger(aNBT, "mLiquidFertilizer", 0));
         // load modes
         this.mHarvestEnabled = NBTHelper.getBoolean(aNBT, "mHarvestEnabled", true);
         // versioning for upgrade to new system
