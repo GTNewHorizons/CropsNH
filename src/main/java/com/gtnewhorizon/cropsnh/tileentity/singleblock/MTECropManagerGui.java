@@ -133,24 +133,24 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
             .child(
                 createTankBar(
                     syncManager,
-                    () -> machine.mWater,
-                    () -> machine.mWaterCap,
+                    machine::getWaterAmount,
+                    machine::getWaterCapacity,
                     SYNC_WATER_HANDLER_NAME,
                     CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_WATER,
                     Reference.MOD_ID + "_tooltip.cropManager.waterStorage"))
             .child(
                 createTankBar(
                     syncManager,
-                    () -> machine.mWeedEX,
-                    () -> machine.mWeedEXCap,
+                    machine::getWeedEXAmount,
+                    machine::getWeedEXCapacity,
                     SYNC_WEEDEX_HANDLER_NAME,
                     CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_WEED_EX,
                     Reference.MOD_ID + "_tooltip.cropManager.weedEXStorage"))
             .child(
                 createTankBar(
                     syncManager,
-                    () -> machine.mLiquidFertilizer,
-                    () -> machine.mLiquidFertilizerCap,
+                    machine::getLiquidFertilizerAmount,
+                    machine::getLiquidFertilizerCapacity,
                     SYNC_FERT_HANDLER_NAME,
                     CropsNHUITextures.PROGRESSBAR_CROP_MANAGER_LIQUID_FERTILIZER,
                     Reference.MOD_ID + "_tooltip.cropManager.liquidFertilizerStorage"));
