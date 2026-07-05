@@ -67,11 +67,11 @@ public class MTECropManager extends MTETieredMachineBlock {
     public static final int SLOT_OUTPUT_END = SLOT_OUTPUT_START - 1 + OUTPUT_SLOT_COUNT;
     public static final int SLOT_BATTERY = SLOT_OUTPUT_END + 1;
 
-    /** How often the crop manager runs it's work loop. */
+    /** How often the crop manager runs its work loop. */
     private final static int GLOBAL_UPDATE_RATE = 2 * 20 + 10;
-    /** How often the crop manager updates it's crop cache when said cache is empty. */
+    /** How often the crop manager updates its crop cache when said cache is empty. */
     private final static int CACHE_REFRESH_EMPTY = GLOBAL_UPDATE_RATE * 2;
-    /** How often the crop manager updates it's crop cache when said cache contains crops. */
+    /** How often the crop manager updates its crop cache when said cache contains crops. */
     private final static int CACHE_REFRESH_ANY = GLOBAL_UPDATE_RATE * 12;
 
     /** Whether the crop manager is allowed to harvest crops. */
