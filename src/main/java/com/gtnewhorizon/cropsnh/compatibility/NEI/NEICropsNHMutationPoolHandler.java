@@ -61,18 +61,21 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
          * @param members The members to display of for the pool (can be a subsection of the pool if overflow is likely
          *                to occur).
          */
-        public CachedMutationPoolRecipe(IMutationPool pool, ItemStack[] members, int startOffset) {
+        public CachedMutationPoolRecipe(IMutationPool pool, ItemStack[] members) {
 
             this.poolNameLine = StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_nei.mutationPool.poolName",
                 StatCollector.translateToLocal(pool.getUnlocalisedName()));
 
-            int end = Math.min(members.length - startOffset, MAX_CROPS_PER_SECTION);
-            for (int i = 0; i < end; i++) {
+            for (int i = 0; i < members.length; i++) {
                 int x = X_SeedStart + 18 * (i % COL_COUNT);
                 int y = Y_SeedStart + 18 * (i / COL_COUNT);
-                this.members.add(new PositionedStack(members[i + startOffset], x, y, false));
+                this.members.add(new PositionedStack(members[i], x, y, false));
             }
+        }
+
+        public int getRowCount() {
+            return Math.max(1, this.members.size() / COL_COUNT + (this.members.size() % COL_COUNT == 0 ? 0 : 1));
         }
 
         // return ingredients
@@ -157,9 +160,7 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
         }
 
         // create all the sections as necessary
-        for (int i = 0; i < members.length; i += MAX_CROPS_PER_SECTION) {
-            this.arecipes.add(new CachedMutationPoolRecipe(pool, members, i));
-        }
+        this.arecipes.add(new CachedMutationPoolRecipe(pool, members));
     }
 
     // loads the crop product recipes for a given seed
@@ -187,11 +188,6 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
         return new ResourceLocation(Reference.MOD_ID, "textures/gui/nei/mutationPool.png").toString();
     }
 
-    @Override
-    public int recipiesPerPage() {
-        return 3;
-    }
-
     // defines rectangles on the recipe gui which can be clicked to show all crop mutation recipes
     @Override
     public void loadTransferRects() {
@@ -205,10 +201,31 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
         // add background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GuiDraw.changeTexture(this.getGuiTexture());
-        GuiDraw.drawTexturedModalRect(2, 0, 7, 11, 162, 90);
+        int y = 0;
+
+        // draw top
+        GuiDraw.drawTexturedModalRect(2, y, 0, 0, 162, 9);
+        y += 9;
+
+        // draw middle parts
+        int rowCount = recipe.getRowCount();
+        for (int i = 1; i < rowCount; i++) {
+            GuiDraw.drawTexturedModalRect(2, y, 0, 10, 162, 18);
+            y += 18;
+        }
+
+        // draw bottom
+        GuiDraw.drawTexturedModalRect(2, y, 0, 29, 162, 9);
+        y += 9;
 
         // draw the darn thing already
         String nameLineString = recipe.getPoolNameLine();
-        drawFixesWidthLine(nameLineString, 2, 92, COLOR_BLACK, false, 166);
+        drawFixesWidthLine(nameLineString, 2, y + 2, COLOR_BLACK, false, 166);
+    }
+
+    @Override
+    public int getRecipeHeight(int recipeIndex) {
+        CachedMutationPoolRecipe recipe = (CachedMutationPoolRecipe) this.arecipes.get(recipeIndex);
+        return recipe.getRowCount() * 18 + 20;
     }
 }
