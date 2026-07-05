@@ -286,7 +286,7 @@ public class MutationLoader {
         new CropMutation(BonsaiSpruce, BonsaiOak, Pumpkin)
             .register();
 
-        MutationRegistry.instance.register(BonsaiDarkOak, BROWN, TREE, LEAFY, DARK, WOODEN);
+        MutationRegistry.instance.register(BonsaiDarkOak, BROWN, TREE, LEAFY, DARK, WOODEN, EDIBLE);
         new CropMutation(BonsaiDarkOak, BonsaiSpruce, BonsaiOak)
             .register();
 
