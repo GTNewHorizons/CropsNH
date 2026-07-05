@@ -113,7 +113,7 @@ public abstract class CropsNHUtils {
     private static IIcon MISSING_TEXTURE = null;
 
     /**
-     * @return A default texture icon to be used for all mising textures.
+     * @return A default texture icon to be used for all missing textures.
      */
     @SideOnly(Side.CLIENT)
     public static IIcon getMissingTexture() {
