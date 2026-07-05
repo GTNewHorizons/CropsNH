@@ -67,27 +67,43 @@ public class MTECropManager extends MTETieredMachineBlock {
     public static final int SLOT_OUTPUT_END = SLOT_OUTPUT_START - 1 + OUTPUT_SLOT_COUNT;
     public static final int SLOT_BATTERY = SLOT_OUTPUT_END + 1;
 
-    // run ever 2.5s, refresh cache every other run when empty, else wait 60s to refresh cache
+    /** How often the crop manager runs it's work loop. */
     private final static int GLOBAL_UPDATE_RATE = 2 * 20 + 10;
+    /** How often the crop manager updates it's crop cache when said cache is empty. */
     private final static int CACHE_REFRESH_EMPTY = GLOBAL_UPDATE_RATE * 2;
+    /** How often the crop manager updates it's crop cache when said cache contains crops. */
     private final static int CACHE_REFRESH_ANY = GLOBAL_UPDATE_RATE * 12;
 
+    /** Whether the crop manager is allowed to harvest crops. */
     public boolean mHarvestEnabled = true;
+    /** Whether the crop manager is allowed to apply Weed-EX to crops. */
     public boolean mWeedEXEnabled = false;
+    /** Whether the crop manager is allowed to fertilize crops. */
     public boolean mFertilizerEnabled = false;
+    /** Whether the crop manager is allowed to water crops. */
     public boolean mWaterEnabled = false;
+
     public boolean mCharge = false;
     public boolean mDecharge = false;
 
-    public int mWater;
-    public final int mWaterCap;
-    public int mWeedEX;
-    public final int mWeedEXCap;
-    public int mLiquidFertilizer;
-    public final int mLiquidFertilizerCap;
+    /** Water potency stored in the crop manager. */
+    private int mWater = 0;
+    /** The maximum amount of water potency that can be stored in the crop manager. */
+    private final int mWaterCap;
+    /** Weed-EX potency stored in the crop manager. */
+    private int mWeedEX = 0;
+    /** The maximum amount of Weed-EX potency that can be stored in the crop manager. */
+    private final int mWeedEXCap;
+    /** Liquid fertilizer potency stored in the crop manager. */
+    private int mLiquidFertilizer = 0;
+    /** The maximum amount of liquid fertilizer potency that can be stored in the crop manager. */
+    private final int mLiquidFertilizerCap;
 
+    /** A cache of all known crops within the crop manager's range. */
     private final HashSet<ICropStickTile> mCropCache = new HashSet<>();
+    /** Whether the crop cache appears to contain invalid data. */
     private boolean mInvalidCache = false;
+    /** A holder for drops when a single harvest cycle would overflow the manager's inventory. */
     private final ItemStackMap<Integer> mDropOverflow = new ItemStackMap<>(true);
 
     public MTECropManager(final int aID, final int aTier) {
@@ -98,26 +114,31 @@ public class MTECropManager extends MTETieredMachineBlock {
             aTier,
             TOTAL_SLOT_COUNT,
             StatCollector.translateToLocal("cropsnh_tooltip.cropManager.description"));
-        this.mWater = 0;
-        this.mWaterCap = this.mTier * 32000;
-        this.mWeedEX = 0;
-        this.mWeedEXCap = this.mTier * 750 * 2;
-        this.mLiquidFertilizer = 0;
-        this.mLiquidFertilizerCap = this.mTier * 144 * 64 * 4;
+        this.mWaterCap = calcWaterCap();
+        this.mWeedEXCap = calcWeedEXCap();
+        this.mLiquidFertilizerCap = calcLiquidFertilizerCap();
+    }
 
+    private int calcWaterCap() {
+        return this.mTier * 32000;
+    }
+
+    private int calcWeedEXCap() {
+        return this.mTier * 750 * 2;
+    }
+
+    private int calcLiquidFertilizerCap() {
+        return this.mTier * 144 * 64 * 4;
     }
 
     // region TE creation
 
-    public MTECropManager(final String aName, final int aTier, final String[] aDescription,
+    private MTECropManager(final String aName, final int aTier, final String[] aDescription,
         final ITexture[][][] aTextures) {
         super(aName, aTier, TOTAL_SLOT_COUNT, aDescription, aTextures);
-        this.mWater = 0;
-        this.mWaterCap = this.mTier * 32000;
-        this.mWeedEX = 0;
-        this.mWeedEXCap = this.mTier * 750 * 2;
-        this.mLiquidFertilizer = 0;
-        this.mLiquidFertilizerCap = this.mTier * 144 * 64 * 4;
+        this.mWaterCap = calcWaterCap();
+        this.mWeedEXCap = calcWeedEXCap();
+        this.mLiquidFertilizerCap = calcLiquidFertilizerCap();
 
     }
 
@@ -214,11 +235,11 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region crop manager params
 
-    public long powerUsage() {
+    private long powerUsage() {
         return this.maxEUInput() / 8;
     }
 
-    public long powerUsageSecondary() {
+    private long powerUsageSecondary() {
         return this.maxEUInput() / 32;
     }
 
@@ -313,7 +334,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region harvesting
 
-    public boolean doesInventoryHaveSpace() {
+    private boolean doesInventoryHaveSpace() {
         for (int i = SLOT_OUTPUT_START; i <= SLOT_OUTPUT_END; i++) {
             if (this.mInventory[i] == null || this.mInventory[i].stackSize < 64) {
                 return true;
@@ -322,7 +343,7 @@ public class MTECropManager extends MTETieredMachineBlock {
         return false;
     }
 
-    public void harvest() {
+    private void harvest() {
         // if harvest isn't enabled, don't
         if (!this.mHarvestEnabled || !doesInventoryHaveSpace()) return;
 
@@ -409,7 +430,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region secondary actions
 
-    public void processSecondaryFunctions() {
+    private void processSecondaryFunctions() {
         for (ICropStickTile crop : this.mCropCache) {
             if (crop == null) {
                 this.mInvalidCache = true;
@@ -448,10 +469,12 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region water apply
 
+    /** The max amount of water the crop manager set in a crop manager. */
     public final static int WATER_CAP = 200;
+    /** The minimum threshold at which a crop manager is allowed to start adding water to a crop. */
     private final static int WATER_THRESHOLD = 180;
 
-    public boolean applyHydration(ICropStickTile aCrop, boolean simulate) {
+    private boolean applyHydration(ICropStickTile aCrop, boolean simulate) {
         if (this.getFluidAmount() == 0 || aCrop.getWaterStorage() > WATER_THRESHOLD) return false;
 
         int drain = Math.min(this.getFluidAmount(), WATER_CAP - aCrop.getWaterStorage());
@@ -465,7 +488,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region weed ex apply
 
-    public void refillWeedEX() {
+    private void refillWeedEX() {
         if (this.getWeedEXAmount() >= this.getWeedEXCapacity()) return;
         for (int i = SLOT_WEEDEX_START; i <= SLOT_WEEDEX_END; i++) {
             if (isWeedEXCan(this.mInventory[i])) {
@@ -492,8 +515,11 @@ public class MTECropManager extends MTETieredMachineBlock {
         return damageToAdd * 10;
     }
 
+    /** The maximum amount of Weed-EX the crop manager is allowed to set in a crop. */
     private static final int WEEDEX_CAP = 150;
+    /** The minimum threshold at which a crop manager is allowed to start adding Weed-EX to a crop. */
     private static final int WEEDEX_THRESHOLD = 75;
+    /** The amount of liquid Weed-EX consumed per application. */
     private static final int WEEDEX_COST = 10;
 
     public boolean applyWeedEX(ICropStickTile aCrop, boolean aSimulate) {
@@ -510,11 +536,14 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region fertilizer apply
 
+    /** The maximum amount of fertilizer the crop manager is allowed to set in a crop. */
     public static final int FERTILIZER_CAP = 200;
+    /** The minimum threshold at which a crop manager is allowed to start adding item fertilizers to a crop. */
     private static final int FERTILIZER_ITEM_THRESHOLD_MIN = FERTILIZER_CAP / 2;
+    /** The minimum threshold at which a crop manager is allowed to start adding liquid fertilizers to a crop. */
     private static final int FERTILIZER_LIQUID_THRESHOLD = 180;
 
-    public boolean applyFertilizer(ICropStickTile aCrop, boolean aSimulate) {
+    private boolean applyFertilizer(ICropStickTile aCrop, boolean aSimulate) {
         int storedFert = aCrop.getFertilizerStorage();
         int amount = 0;
         int threshold = FERTILIZER_LIQUID_THRESHOLD;
