@@ -196,6 +196,7 @@ public abstract class GT5uMigrations {
         ItemStackReplacementManager
             .addSimpleReplacement(gtMetaItem2, 32538, CropsNHItemList.micadiaFlower.get(1), true);
         ItemStackReplacementManager.addSimpleReplacement(gtMetaItem2, 32540, CropsNHItemList.tineTwig.get(1), true);
+        addOreDictItemOnlyReplacement(gtMetaItem2, 32550, "cropChilipepper");
         addOreDictItemOnlyReplacement(gtMetaItem2, 32551, "cropLemon");
         addOreDictItemOnlyReplacement(gtMetaItem2, 32552, "cropTomato");
         ItemStackReplacementManager.addSimpleReplacement(gtMetaItem2, 32553, CropsNHItemList.maxTomato.get(1), true);
