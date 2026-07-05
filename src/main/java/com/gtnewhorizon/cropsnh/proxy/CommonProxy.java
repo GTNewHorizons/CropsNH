@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -90,16 +90,17 @@ public abstract class CommonProxy implements IProxy {
                 teCrop.getSeed()
                     .setAnalyzed(true);
             }
-            teCrop.getPlantLensStatus(event.mList);
-            event.mList.add(
-                StatCollector.translateToLocalFormatted(
+            // Add components (not pre-translated strings) so the client translates them in its own locale.
+            teCrop.getPlantLensStatusComponents(event.mComponents);
+            event.mComponents.add(
+                new ChatComponentTranslation(
                     Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
                     formatNumber(teCrop.getNutrientScore()),
                     formatNumber(TileEntityCropSticks.MAX_NUTRIENT_SCORE)));
             List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
             if (failedReqs != null) {
                 for (IGrowthRequirement req : failedReqs) {
-                    event.mList.add(req.getDescription());
+                    event.mComponents.add(TileEntityCropSticks.describeRequirement(req));
                 }
             }
         }
