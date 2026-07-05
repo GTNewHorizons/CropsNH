@@ -5,7 +5,7 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -105,6 +105,8 @@ public class MTECropManager extends MTETieredMachineBlock {
     private boolean mInvalidCache = false;
     /** A holder for drops when a single harvest cycle would overflow the manager's inventory. */
     private final ItemStackMap<Integer> mDropOverflow = new ItemStackMap<>(true);
+    /** A cache holding synchronized tank information for waila. */
+    private final FluidTankInfo[] mWailaFluidTankInfos;
 
     public MTECropManager(final int aID, final int aTier) {
         super(
@@ -117,6 +119,7 @@ public class MTECropManager extends MTETieredMachineBlock {
         this.mWaterCap = calcWaterCap();
         this.mWeedEXCap = calcWeedEXCap();
         this.mLiquidFertilizerCap = calcLiquidFertilizerCap();
+        this.mWailaFluidTankInfos = getDefaultWailaFluidTankInfos();
     }
 
     private int calcWaterCap() {
@@ -131,6 +134,13 @@ public class MTECropManager extends MTETieredMachineBlock {
         return this.mTier * 144 * 64 * 4;
     }
 
+    private FluidTankInfo[] getDefaultWailaFluidTankInfos() {
+        return new FluidTankInfo[] {
+            new FluidTankInfo(new FluidStack(FluidRegistry.WATER, this.mWater), this.mWaterCap),
+            new FluidTankInfo(CropsNHUtils.getWeedEXFluid(this.mWeedEX), this.mWeedEXCap),
+            new FluidTankInfo(new FluidStack(CropsNHFluids.fertilizer, this.mWeedEX), this.mLiquidFertilizerCap) };
+    }
+
     // region TE creation
 
     private MTECropManager(final String aName, final int aTier, final String[] aDescription,
@@ -139,7 +149,13 @@ public class MTECropManager extends MTETieredMachineBlock {
         this.mWaterCap = calcWaterCap();
         this.mWeedEXCap = calcWeedEXCap();
         this.mLiquidFertilizerCap = calcLiquidFertilizerCap();
+        this.mWailaFluidTankInfos = getDefaultWailaFluidTankInfos();
+    }
 
+    private void updateFluidTanksForWaila() {
+        this.mWailaFluidTankInfos[0].fluid.amount = this.mWater;
+        this.mWailaFluidTankInfos[1].fluid.amount = this.mWeedEX;
+        this.mWailaFluidTankInfos[2].fluid.amount = this.mLiquidFertilizer;
     }
 
     @Override
@@ -465,6 +481,9 @@ public class MTECropManager extends MTETieredMachineBlock {
                 applyFertilizer(crop, false);
             }
         }
+
+        // update them last so we aren't constantly doing extra work we'll be overriding anyway.
+        updateFluidTanksForWaila();
     }
 
     // region water apply
@@ -614,6 +633,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     public void setWaterAmount(int amount) {
         this.mWater = amount;
+        this.mWailaFluidTankInfos[0].fluid.amount = amount;
     }
 
     // endregion water status
@@ -635,6 +655,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     public void setWeedEXAmount(int a) {
         this.mWeedEX = a;
+        this.mWailaFluidTankInfos[1].fluid.amount = a;
     }
 
     // endregion weed ex status
@@ -655,6 +676,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     public void setLiquidFertilizerAmount(int a) {
         this.mLiquidFertilizer = a;
+        this.mWailaFluidTankInfos[2].fluid.amount = a;
     }
 
     // endregion liquid fertilizer status
@@ -717,9 +739,9 @@ public class MTECropManager extends MTETieredMachineBlock {
         public final int cur;
         public final int cap;
         public final int potency;
-        public final Consumer<Integer> setter;
+        public final IntConsumer setter;
 
-        public FluidCheckResult(int cur, int cap, int potency, Consumer<Integer> setter) {
+        public FluidCheckResult(int cur, int cap, int potency, IntConsumer setter) {
             this.cur = cur;
             this.cap = cap;
             this.potency = potency;
@@ -729,7 +751,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     private FluidCheckResult canFill(Fluid fluid) {
         int potency, cur, cap;
-        Consumer<Integer> setter;
+        IntConsumer setter;
         if ((potency = this.getWaterPotency(fluid)) > 0) {
             cur = this.getWaterAmount();
             cap = this.getWaterCapacity();
@@ -809,16 +831,7 @@ public class MTECropManager extends MTETieredMachineBlock {
     // each tank only accepts a fixed set of fluids, so a representative fluid is used for display.
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection side) {
-        ArrayList<FluidTankInfo> tanks = new ArrayList<>(3);
-        addTankInfo(tanks, FluidRegistry.WATER, this.mWater, this.getWaterCapacity());
-        addTankInfo(tanks, CropsNHUtils.getWeedEXFluid(), this.mWeedEX, this.getWeedEXCapacity());
-        addTankInfo(tanks, CropsNHFluids.fertilizer, this.mLiquidFertilizer, this.getLiquidFertilizerCapacity());
-        return tanks.toArray(new FluidTankInfo[0]);
-    }
-
-    private static void addTankInfo(ArrayList<FluidTankInfo> tanks, Fluid fluid, int amount, int capacity) {
-        if (fluid == null) return;
-        tanks.add(new FluidTankInfo(new FluidStack(fluid, amount), capacity));
+        return this.mWailaFluidTankInfos;
     }
 
     // endregion fluid io
@@ -920,9 +933,9 @@ public class MTECropManager extends MTETieredMachineBlock {
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
         // load tanks
-        this.mWater = NBTHelper.getInteger(aNBT, "mWater", 0);
-        this.mWeedEX = NBTHelper.getInteger(aNBT, "mWeedEx", 0);
-        this.mLiquidFertilizer = NBTHelper.getInteger(aNBT, "mLiquidFertilizer", 0);
+        this.setWaterAmount(NBTHelper.getInteger(aNBT, "mWater", 0));
+        this.setWeedEXAmount(NBTHelper.getInteger(aNBT, "mWeedEx", 0));
+        this.setLiquidFertilizerAmount(NBTHelper.getInteger(aNBT, "mLiquidFertilizer", 0));
         // load modes
         this.mHarvestEnabled = NBTHelper.getBoolean(aNBT, "mHarvestEnabled", true);
         // versioning for upgrade to new system
