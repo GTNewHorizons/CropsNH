@@ -292,6 +292,7 @@ public class CropLoader {
                 new ItemStack(Blocks.sapling, 1, 5),
                 new ItemStack(Blocks.log2, 1, 1)
             )
+            .addDrop(new ItemStack(Items.apple, 2), 500)
             // roofed/dark forest
             .addLikedBiomes(BiomeDictionary.Type.DENSE, BiomeDictionary.Type.SPOOKY, BiomeDictionary.Type.FOREST)
         );
