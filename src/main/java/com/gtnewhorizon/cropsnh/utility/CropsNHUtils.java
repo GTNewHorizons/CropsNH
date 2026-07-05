@@ -244,7 +244,7 @@ public abstract class CropsNHUtils {
      * @param mod    The mod the item is from.
      * @param name   The string ID of the item to fetch.
      * @param amount The amount of to set the stack size to.
-     * @param meta   The meta valud of the item to fetch.
+     * @param meta   The meta value of the item to fetch.
      * @return The item from the other mod or null if it doesn't exist.
      */
     public static ItemStack getModItem(ModUtils mod, String name, int amount, int meta) {
