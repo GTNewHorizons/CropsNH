@@ -35,8 +35,6 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
     public static final int X_SeedStart = 3;
     public static final int Y_SeedStart = 1;
     public static final int COL_COUNT = 9;
-    public static final int MAX_ROWS = 5;
-    public static final int MAX_CROPS_PER_SECTION = MAX_ROWS * COL_COUNT;
 
     private static final int COLOR_BLACK = 1644054;
 
