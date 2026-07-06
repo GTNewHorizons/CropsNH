@@ -22,7 +22,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
@@ -279,33 +281,52 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         return success;
     }
 
+    /**
+     * Gets the plant status in the form a list of strings each representing one line.
+     *
+     * @param information The list to append the lines to.
+     */
     public void getPlantLensStatus(List<String> information) {
+        // Build the status as chat components, then translate on the current side.
+        // The loupe only calls this on the client, so getFormattedText() uses the client locale.
+        List<IChatComponent> components = new ArrayList<>();
+        this.getPlantLensStatusComponents(components);
+        for (IChatComponent component : components) {
+            information.add(component.getFormattedText());
+        }
+    }
+
+    /**
+     * Gets the plant status in the form of chat message components.
+     *
+     * @param information The list to append the chat messages components to.
+     */
+    public void getPlantLensStatusComponents(List<IChatComponent> information) {
         if (this.hasCrop()) {
             if (this.hasWeed()) {
-                information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.weeds"));
+                information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.weeds"));
             } else {
-                String header, value;
-
                 // Add the seed name
-                header = StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seed");
-                value = StatCollector.translateToLocal(
-                    this.seed.getCrop()
-                        .getUnlocalizedName());
-                information.add(header + ": " + value);
+                information.add(
+                    new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.seed").appendText(": ")
+                        .appendSibling(
+                            new ChatComponentTranslation(
+                                this.seed.getCrop()
+                                    .getUnlocalizedName())));
 
                 // do not display crop stats for weeds
                 if (!(this.seed.getCrop() instanceof CropWeed)) {
                     if (this.isSick) {
-                        information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.isSick"));
+                        information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.isSick"));
                     }
 
                     List<IGrowthRequirement> failedReqs = this.failedChecks;
                     if (failedReqs != null) {
                         for (IGrowthRequirement req : failedReqs) {
                             information.add(
-                                StatCollector.translateToLocalFormatted(
+                                new ChatComponentTranslation(
                                     Reference.MOD_ID + "_tooltip.failedReq",
-                                    req.getDescription()));
+                                    req.getChatComponent()));
                         }
                     }
 
@@ -313,7 +334,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                     if (this.seed.getStats()
                         .isAnalyzed()) {
                         information.add(
-                            StatCollector.translateToLocalFormatted(
+                            new ChatComponentTranslation(
                                 Reference.MOD_ID + "_tooltip.stats",
                                 formatNumber(
                                     this.seed.getStats()
@@ -328,11 +349,11 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 }
             }
         } else {
-            information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.empty"));
+            information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.empty"));
         }
 
         information.add(
-            StatCollector.translateToLocalFormatted(
+            new ChatComponentTranslation(
                 Reference.MOD_ID + "_tooltip.soil",
                 formatNumber(this.fertilizerStorage),
                 formatNumber(this.waterStorage),
