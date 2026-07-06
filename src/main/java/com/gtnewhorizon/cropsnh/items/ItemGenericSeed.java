@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.items;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -133,26 +135,17 @@ public class ItemGenericSeed extends ItemCropsNH {
             }
 
             toolTip.add(
-                String.format(
-                    "%s- %s: %d%s",
-                    EnumChatFormatting.GREEN,
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.growth"),
-                    stats.getGrowth(),
-                    EnumChatFormatting.RESET));
+                StatCollector.translateToLocalFormatted(
+                    Reference.MOD_ID + "_tooltip.genericSeed.growth",
+                    formatNumber(stats.getGrowth())));
             toolTip.add(
-                String.format(
-                    "%s- %s: %d%s",
-                    EnumChatFormatting.GREEN,
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.gain"),
-                    stats.getGain(),
-                    EnumChatFormatting.RESET));
+                StatCollector.translateToLocalFormatted(
+                    Reference.MOD_ID + "_tooltip.genericSeed.gain",
+                    formatNumber(stats.getGain())));
             toolTip.add(
-                String.format(
-                    "%s- %s: %d%s",
-                    EnumChatFormatting.GREEN,
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.resistance"),
-                    stats.getResistance(),
-                    EnumChatFormatting.RESET));
+                StatCollector.translateToLocalFormatted(
+                    Reference.MOD_ID + "_tooltip.genericSeed.resistance",
+                    formatNumber(stats.getResistance())));
 
             if (crop != null) {
                 if (crop.getCrossingThreshold() < 0.0f) {
