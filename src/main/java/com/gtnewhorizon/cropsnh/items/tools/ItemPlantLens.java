@@ -6,7 +6,7 @@ import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -65,17 +65,20 @@ public class ItemPlantLens extends ItemCropsNH implements ICropRightClickHandler
             seedData.setAnalyzed(true);
         }
 
-        if (!world.isRemote) {
-            te.updateState();
+        // client shouldn't be reading out the data since the client data for crops isn't always up to date.
+        if (world.isRemote) {
             return true;
         }
 
+        // just in case some weird thing happened on the server, mark it as dirty for good measure.
+        te.updateState();
+
         // display some info text to the player about the crop if it's on the client side.
-        if (te instanceof TileEntityCropSticks) {
-            List<String> info = new ArrayList<>();
-            ((TileEntityCropSticks) te).getPlantLensStatus(info);
-            for (String line : info) {
-                player.addChatComponentMessage(new ChatComponentText(line));
+        if (te instanceof TileEntityCropSticks cropTE) {
+            List<IChatComponent> info = new ArrayList<>();
+            cropTE.getPlantLensStatus(info);
+            for (IChatComponent line : info) {
+                player.addChatComponentMessage(line);
             }
         }
         return true;

@@ -1,12 +1,9 @@
 package com.gtnewhorizon.cropsnh.proxy;
 
-import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -16,13 +13,14 @@ import com.gtnewhorizon.cropsnh.compatibility.extrautils.ExUWateringCanHandler;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.items.tools.ItemSpadeNH;
-import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
+import com.gtnewhorizon.cropsnh.utility.CropsNHChatComponentNutrientScore;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.api.events.BlockScanningEvent;
+import gregtech.api.util.scanner.ScannerHelper;
 
 @SuppressWarnings("unused")
 public abstract class CommonProxy implements IProxy {
@@ -91,15 +89,13 @@ public abstract class CommonProxy implements IProxy {
                     .setAnalyzed(true);
             }
 
+            event.mComponents.add(ScannerHelper.addTitleComp("title_crops"));
+
             // add chat components to scanner
-            teCrop.getPlantLensStatusComponents(event.mComponents);
+            teCrop.getPlantLensStatus(event.mComponents);
 
             // add nutrient score line
-            event.mComponents.add(
-                new ChatComponentTranslation(
-                    Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
-                    formatNumber(teCrop.getNutrientScore()),
-                    formatNumber(TileEntityCropSticks.MAX_NUTRIENT_SCORE)));
+            event.mComponents.add(new CropsNHChatComponentNutrientScore(teCrop.getNutrientScore()));
         }
     }
 }

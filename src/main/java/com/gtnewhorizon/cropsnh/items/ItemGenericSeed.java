@@ -108,17 +108,8 @@ public class ItemGenericSeed extends ItemCropsNH {
         ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(stack);
         if (seedData == null) return super.getRarity(stack);
 
-        int tier = seedData.getCrop()
-            .getTier();
-        if (tier > 12) {
-            return EnumRarity.epic;
-        } else if (tier > 8) {
-            return EnumRarity.rare;
-        } else if (tier > 4) {
-            return EnumRarity.uncommon;
-        } else {
-            return EnumRarity.common;
-        }
+        return seedData.getCrop()
+            .getRarity();
 
     }
 
