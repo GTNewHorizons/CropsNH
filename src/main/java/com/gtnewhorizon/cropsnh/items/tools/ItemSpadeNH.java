@@ -74,7 +74,7 @@ public abstract class ItemSpadeNH extends ItemTool
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
-        list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip." + this.getInternalName()));
+        list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.item." + this.getInternalName()));
     }
 
     @Override
