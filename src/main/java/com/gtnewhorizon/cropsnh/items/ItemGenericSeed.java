@@ -5,6 +5,9 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import java.util.Collection;
 import java.util.List;
 
+import com.gtnewhorizon.cropsnh.api.ISeedData;
+import com.gtnewhorizon.cropsnh.farming.SeedData;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -103,10 +106,10 @@ public class ItemGenericSeed extends ItemCropsNH {
     @Override
     public EnumRarity getRarity(ItemStack stack) {
         // load the crop card
-        ICropCard cropCard = CropRegistry.instance.get(stack);
-        if (cropCard == null) return super.getRarity(stack);
+        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(stack);
+        if (seedData == null) return super.getRarity(stack);
 
-        int tier = cropCard.getTier();
+        int tier = seedData.getCrop().getTier();
         if (tier > 12) {
             return EnumRarity.epic;
         } else if (tier > 8) {
