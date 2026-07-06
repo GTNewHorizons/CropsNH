@@ -1,5 +1,8 @@
 package com.gtnewhorizon.cropsnh.reference;
 
+/**
+ * A util holder to hold references to pre-built lang keys and other string constants.
+ */
 public final class Names {
 
     public static class L10N {
