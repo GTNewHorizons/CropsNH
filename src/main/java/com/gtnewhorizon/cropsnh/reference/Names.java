@@ -49,8 +49,6 @@ public final class Names {
         public static final String cropSticks = "cropSticks";
         public static final String seed = "seed";
         public static final String plantLens = "plantLens";
-        public static final String spade = "spade";
-        public static final String reinforcedSpade = "reinforcedSpade";
         public static final String genericSeed = "genericSeed";
         // needs to be prefixed to properly uniquify the l10n
         public static final String casings1 = Reference.MOD_ID + ".casings1";
