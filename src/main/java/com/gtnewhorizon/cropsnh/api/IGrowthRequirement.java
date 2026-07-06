@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.api;
 
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -35,6 +37,18 @@ public interface IGrowthRequirement {
      */
     default @NotNull Pair<@NotNull String, @Nullable String[]> getUnlocalizedDescriptionForNEI() {
         return this.getUnlocalizedDescription();
+    }
+
+    /**
+     * @return A chat component describing the component.
+     */
+    default IChatComponent getChatComponent() {
+        Pair<String, String[]> unloc = this.getUnlocalizedDescription();
+        String[] args = unloc.getRight();
+        if (args == null || args.length == 0) {
+            return new ChatComponentTranslation(unloc.getLeft());
+        }
+        return new ChatComponentTranslation(unloc.getLeft(), (Object[]) args);
     }
 
 }

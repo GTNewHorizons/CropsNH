@@ -108,7 +108,7 @@ public abstract class CommonProxy implements IProxy {
             List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
             if (failedReqs != null) {
                 for (IGrowthRequirement req : failedReqs) {
-                    event.mComponents.add(TileEntityCropSticks.describeRequirement(req));
+                    event.mComponents.add(req.getChatComponent());
                 }
             }
         }

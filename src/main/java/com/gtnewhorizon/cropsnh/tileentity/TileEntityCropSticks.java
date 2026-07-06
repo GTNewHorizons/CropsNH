@@ -32,8 +32,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.IAdditionalCropData;
@@ -328,7 +326,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                             information.add(
                                 new ChatComponentTranslation(
                                     Reference.MOD_ID + "_tooltip.failedReq",
-                                    describeRequirement(req)));
+                                    req.getChatComponent()));
                         }
                     }
 
@@ -360,19 +358,6 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 formatNumber(this.fertilizerStorage),
                 formatNumber(this.waterStorage),
                 formatNumber(this.weedEXStorage)));
-    }
-
-    /**
-     * Wraps a growth requirement's description in a chat component, preserving its translation key and arguments so it
-     * is localized client-side rather than on the server.
-     */
-    public static IChatComponent describeRequirement(IGrowthRequirement req) {
-        Pair<String, String[]> unloc = req.getUnlocalizedDescription();
-        String[] args = unloc.getRight();
-        if (args == null || args.length == 0) {
-            return new ChatComponentTranslation(unloc.getLeft());
-        }
-        return new ChatComponentTranslation(unloc.getLeft(), (Object[]) args);
     }
 
     // endregion status checks
