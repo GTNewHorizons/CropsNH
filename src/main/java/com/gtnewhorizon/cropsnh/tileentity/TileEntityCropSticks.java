@@ -282,9 +282,9 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     /**
-     * Gets the plant status in the form a list of strings.
-     * 
-     * @param information The list to append the chat messages components to.
+     * Gets the plant status in the form a list of strings each representing one line.
+     *
+     * @param information The list to append the lines to.
      */
     public void getPlantLensStatus(List<String> information) {
         // Build the status as chat components, then translate on the current side.
@@ -298,7 +298,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
 
     /**
      * Gets the plant status in the form of chat message components.
-     * 
+     *
      * @param information The list to append the chat messages components to.
      */
     public void getPlantLensStatusComponents(List<IChatComponent> information) {
