@@ -82,21 +82,29 @@ public abstract class CommonProxy implements IProxy {
 
         @SubscribeEvent
         public void onBlockScanned(BlockScanningEvent event) {
+            // check if we're scanning a crop stick
             if (!(event.mTileEntity instanceof TileEntityCropSticks teCrop)) return;
             event.mEUCost += 1000;
+
+            // analyze the seed if it's not already analyzed
             if (teCrop.hasCrop() && !teCrop.getSeed()
                 .getStats()
                 .isAnalyzed()) {
                 teCrop.getSeed()
                     .setAnalyzed(true);
             }
-            // Add components (not pre-translated strings) so the client translates them in its own locale.
+
+            // add chat components to scanner
             teCrop.getPlantLensStatusComponents(event.mComponents);
+
+            // add nutrient score line
             event.mComponents.add(
                 new ChatComponentTranslation(
                     Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
                     formatNumber(teCrop.getNutrientScore()),
                     formatNumber(TileEntityCropSticks.MAX_NUTRIENT_SCORE)));
+
+            // list any failed growth reqs
             List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
             if (failedReqs != null) {
                 for (IGrowthRequirement req : failedReqs) {

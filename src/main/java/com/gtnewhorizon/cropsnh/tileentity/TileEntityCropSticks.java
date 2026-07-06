@@ -283,6 +283,11 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         return success;
     }
 
+    /**
+     * Gets the plant status in the form a list of strings.
+     * 
+     * @param information The list to append the chat messages components to.
+     */
     public void getPlantLensStatus(List<String> information) {
         // Build the status as chat components, then translate on the current side.
         // The loupe only calls this on the client, so getFormattedText() uses the client locale.
@@ -294,8 +299,9 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     /**
-     * Fills {@code information} with the crop status as {@link IChatComponent} entries, keeping the translation keys
-     * intact so the client can translate them in its own locale (needed for the GT scanner on a dedicated server).
+     * Gets the plant status in the form of chat message components.
+     * 
+     * @param information The list to append the chat messages components to.
      */
     public void getPlantLensStatusComponents(List<IChatComponent> information) {
         if (this.hasCrop()) {
