@@ -6,6 +6,7 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
+import mcp.mobius.waila.api.impl.ModuleRegistrar;
 
 public class WailaRegistry {
 
@@ -21,6 +22,8 @@ public class WailaRegistry {
         registry.registerBodyProvider(cropStickProvider, TileEntityCropSticks.class);
         registry.registerStackProvider(cropStickProvider, TileEntityCropSticks.class);
         registry.registerNBTProvider(cropStickProvider, TileEntityCropSticks.class);
+        ModuleRegistrar.instance()
+            .registerTooltipRenderer("waila.cropsnh.cropStick.progress", new TTRenderCropsNHCropProgressBar());
     }
 
 }

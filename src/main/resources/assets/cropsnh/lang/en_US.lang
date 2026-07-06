@@ -117,6 +117,8 @@ cropsnh_tooltip.empty=Nothing planted
 cropsnh_tooltip.progress=Progress: %1$s%%
 cropsnh_tooltip.mustUseSeedSynthesizerToReplicate=This seed can only be replicated using the synthesizer
 cropsnh_tooltip.mustUseBreederMachine=Can only be bred using a crop breeding machine
+cropsnh_tooltip.waila.cropStick.progressBar.scanned=%1$s / %2$s (%3$,.1f%%)
+cropsnh_tooltip.waila.cropStick.progressBar.notScanned=%1$,.1f%%
 # TODO: remove "(Check usages in NEI)" after a major version of GTNH.
 cropsnh_tooltip.wrongSoil=This crop needs a different soil (Check usages in NEI)
 
