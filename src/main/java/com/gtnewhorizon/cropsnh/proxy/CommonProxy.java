@@ -2,8 +2,6 @@ package com.gtnewhorizon.cropsnh.proxy;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +11,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.compatibility.UiE.UtilitiesInExcessCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.extrautils.ExUWateringCanHandler;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
@@ -103,14 +100,6 @@ public abstract class CommonProxy implements IProxy {
                     Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
                     formatNumber(teCrop.getNutrientScore()),
                     formatNumber(TileEntityCropSticks.MAX_NUTRIENT_SCORE)));
-
-            // list any failed growth reqs
-            List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
-            if (failedReqs != null) {
-                for (IGrowthRequirement req : failedReqs) {
-                    event.mComponents.add(req.getChatComponent());
-                }
-            }
         }
     }
 }
