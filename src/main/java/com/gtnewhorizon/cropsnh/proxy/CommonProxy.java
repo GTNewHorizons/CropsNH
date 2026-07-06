@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -82,24 +82,33 @@ public abstract class CommonProxy implements IProxy {
 
         @SubscribeEvent
         public void onBlockScanned(BlockScanningEvent event) {
+            // check if we're scanning a crop stick
             if (!(event.mTileEntity instanceof TileEntityCropSticks teCrop)) return;
             event.mEUCost += 1000;
+
+            // analyze the seed if it's not already analyzed
             if (teCrop.hasCrop() && !teCrop.getSeed()
                 .getStats()
                 .isAnalyzed()) {
                 teCrop.getSeed()
                     .setAnalyzed(true);
             }
-            teCrop.getPlantLensStatus(event.mList);
-            event.mList.add(
-                StatCollector.translateToLocalFormatted(
+
+            // add chat components to scanner
+            teCrop.getPlantLensStatusComponents(event.mComponents);
+
+            // add nutrient score line
+            event.mComponents.add(
+                new ChatComponentTranslation(
                     Reference.MOD_ID + "_tooltip.industrialFarm.scanner.6",
                     formatNumber(teCrop.getNutrientScore()),
                     formatNumber(TileEntityCropSticks.MAX_NUTRIENT_SCORE)));
+
+            // list any failed growth reqs
             List<IGrowthRequirement> failedReqs = teCrop.getFailedChecks();
             if (failedReqs != null) {
                 for (IGrowthRequirement req : failedReqs) {
-                    event.mList.add(req.getDescription());
+                    event.mComponents.add(req.getChatComponent());
                 }
             }
         }
