@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
@@ -282,82 +283,78 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     /**
-     * Gets the plant status in the form a list of strings each representing one line.
-     *
-     * @param information The list to append the lines to.
-     */
-    public void getPlantLensStatus(List<String> information) {
-        // Build the status as chat components, then translate on the current side.
-        // The loupe only calls this on the client, so getFormattedText() uses the client locale.
-        List<IChatComponent> components = new ArrayList<>();
-        this.getPlantLensStatusComponents(components);
-        for (IChatComponent component : components) {
-            information.add(component.getFormattedText());
-        }
-    }
-
-    /**
-     * Gets the plant status in the form of chat message components.
+     * Gets the plant status to display in chat when a player scans a cropstick.
      *
      * @param information The list to append the chat messages components to.
      */
-    public void getPlantLensStatusComponents(List<IChatComponent> information) {
+    public void getPlantLensStatus(List<IChatComponent> information) {
+        // order should always be:
+        // 1. what's planted
+        // 2. crop stats
+        // 3. soil data
+        // 4. what's wrong
+        ChatComponentTranslation soilLine = new ChatComponentTranslation(
+            Reference.MOD_ID + "_tooltip.plantLens.soil",
+            formatNumber(this.fertilizerStorage),
+            formatNumber(this.waterStorage),
+            formatNumber(this.weedEXStorage));
         if (this.hasCrop()) {
             if (this.hasWeed()) {
-                information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.weeds"));
+                IChatComponent comp = new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.plantLens.weeds");
+                information.add(comp);
+                information.add(soilLine);
             } else {
                 // Add the seed name
-                information.add(
-                    new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.seed").appendText(": ")
-                        .appendSibling(
-                            new ChatComponentTranslation(
-                                this.seed.getCrop()
-                                    .getUnlocalizedName())));
+                ChatComponentTranslation seedComp = new ChatComponentTranslation(
+                    this.seed.getCrop()
+                        .getUnlocalizedName());
+                seedComp.getChatStyle()
+                    .setColor(
+                        this.getSeed()
+                            .getCrop()
+                            .getRarity().rarityColor);
+                information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.plantLens.seed", seedComp));
 
-                // do not display crop stats for weeds
-                if (!(this.seed.getCrop() instanceof CropWeed)) {
-                    if (this.isSick) {
-                        information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.isSick"));
-                    }
+                // write out the stats of the crop if the stats exist
+                if (this.seed.getStats()
+                    .isAnalyzed()) {
+                    information.add(
+                        new ChatComponentTranslation(
+                            Reference.MOD_ID + "_tooltip.plantLens.stats",
+                            formatNumber(
+                                this.seed.getStats()
+                                    .getGrowth()),
+                            formatNumber(
+                                this.seed.getStats()
+                                    .getGain()),
+                            formatNumber(
+                                this.seed.getStats()
+                                    .getResistance())));
+                }
 
-                    List<IGrowthRequirement> failedReqs = this.failedChecks;
-                    if (failedReqs != null) {
-                        for (IGrowthRequirement req : failedReqs) {
-                            information.add(
-                                new ChatComponentTranslation(
-                                    Reference.MOD_ID + "_tooltip.failedReq",
-                                    req.getChatComponent()));
-                        }
-                    }
+                // add soil info
+                information.add(soilLine);
 
-                    // write out the stats of the crop if the stats exist
-                    if (this.seed.getStats()
-                        .isAnalyzed()) {
-                        information.add(
-                            new ChatComponentTranslation(
-                                Reference.MOD_ID + "_tooltip.stats",
-                                formatNumber(
-                                    this.seed.getStats()
-                                        .getGrowth()),
-                                formatNumber(
-                                    this.seed.getStats()
-                                        .getGain()),
-                                formatNumber(
-                                    this.seed.getStats()
-                                        .getResistance())));
+                // if sick warn player
+                if (this.isSick) {
+                    information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.plantLens.isSick"));
+                }
+
+                // add failed reqs last
+                List<IGrowthRequirement> failedReqs = this.failedChecks;
+                if (failedReqs != null) {
+                    for (IGrowthRequirement req : failedReqs) {
+                        IChatComponent comp = req.getChatComponent();
+                        comp.getChatStyle()
+                            .setColor(EnumChatFormatting.RED);
+                        information.add(comp);
                     }
                 }
             }
         } else {
-            information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.empty"));
+            information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.plantLens.empty"));
+            information.add(soilLine);
         }
-
-        information.add(
-            new ChatComponentTranslation(
-                Reference.MOD_ID + "_tooltip.soil",
-                formatNumber(this.fertilizerStorage),
-                formatNumber(this.waterStorage),
-                formatNumber(this.weedEXStorage)));
     }
 
     // endregion status checks
@@ -1313,7 +1310,8 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             } else if (result == SeedPlantingResult.WRONG_SOIL) {
                 if (player instanceof EntityPlayerMP mpPlayer) {
                     mpPlayer.addChatComponentMessage(
-                        new ChatComponentText(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.wrongSoil")));
+                        new ChatComponentText(
+                            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.planting.wrongSoil")));
                 }
                 return true;
             }

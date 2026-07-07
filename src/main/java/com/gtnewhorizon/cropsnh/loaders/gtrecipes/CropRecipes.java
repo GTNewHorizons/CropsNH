@@ -771,6 +771,11 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                 .itemOutputs(CropsNHUtils.getModItem(ModUtils.NewHorizonsCoreMod, "PrimordialPearlFragment", 3))
                 .addTo(autoclaveRecipes);
         }
+
+        // prim perl -> magic essence
+        recipe(4, 6, 40).itemInputs(ModUtils.Thaumcraft.getStack("ItemEldritchObject", 1, 3))
+            .itemOutputs(CropsNHItemList.magicEssence.get(8))
+            .addTo(extractorRecipes);
     }
 
     private static void addMicadiaRecipes() {

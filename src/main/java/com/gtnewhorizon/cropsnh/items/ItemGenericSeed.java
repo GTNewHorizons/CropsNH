@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.items;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import net.minecraftforge.common.util.Constants;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropMutation;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
@@ -28,6 +31,7 @@ import com.gtnewhorizon.cropsnh.farming.requirements.breeding.MachineOnlyBreedin
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import gregtech.api.enums.GTValues;
 
@@ -101,19 +105,11 @@ public class ItemGenericSeed extends ItemCropsNH {
     @Override
     public EnumRarity getRarity(ItemStack stack) {
         // load the crop card
-        ICropCard cropCard = CropRegistry.instance.get(stack);
-        if (cropCard == null) return super.getRarity(stack);
+        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(stack);
+        if (seedData == null) return super.getRarity(stack);
 
-        int tier = cropCard.getTier();
-        if (tier > 12) {
-            return EnumRarity.epic;
-        } else if (tier > 8) {
-            return EnumRarity.rare;
-        } else if (tier > 4) {
-            return EnumRarity.uncommon;
-        } else {
-            return EnumRarity.common;
-        }
+        return seedData.getCrop()
+            .getRarity();
 
     }
 
@@ -133,32 +129,23 @@ public class ItemGenericSeed extends ItemCropsNH {
             }
 
             toolTip.add(
-                String.format(
-                    "%s- %s: %d%s",
-                    EnumChatFormatting.GREEN,
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.growth"),
-                    stats.getGrowth(),
-                    EnumChatFormatting.RESET));
+                StatCollector.translateToLocalFormatted(
+                    Reference.MOD_ID + "_tooltip.genericSeed.growth",
+                    formatNumber(stats.getGrowth())));
             toolTip.add(
-                String.format(
-                    "%s- %s: %d%s",
-                    EnumChatFormatting.GREEN,
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.gain"),
-                    stats.getGain(),
-                    EnumChatFormatting.RESET));
+                StatCollector.translateToLocalFormatted(
+                    Reference.MOD_ID + "_tooltip.genericSeed.gain",
+                    formatNumber(stats.getGain())));
             toolTip.add(
-                String.format(
-                    "%s- %s: %d%s",
-                    EnumChatFormatting.GREEN,
-                    StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.resistance"),
-                    stats.getResistance(),
-                    EnumChatFormatting.RESET));
+                StatCollector.translateToLocalFormatted(
+                    Reference.MOD_ID + "_tooltip.genericSeed.resistance",
+                    formatNumber(stats.getResistance())));
 
             if (crop != null) {
                 if (crop.getCrossingThreshold() < 0.0f) {
                     toolTip.add(
-                        StatCollector
-                            .translateToLocal(Reference.MOD_ID + "_tooltip.mustUseSeedSynthesizerToReplicate"));
+                        StatCollector.translateToLocal(
+                            Reference.MOD_ID + "_tooltip.genericSeed.mustUseSeedSynthesizerToReplicate"));
                 }
 
                 Collection<ICropMutation> mutations = MutationRegistry.instance.getDeterministicMutationsForCrop(crop);
@@ -167,7 +154,9 @@ public class ItemGenericSeed extends ItemCropsNH {
                         m -> m.getRequirements()
                             .stream()
                             .anyMatch(r -> r instanceof MachineOnlyBreedingRequirement))) {
-                    toolTip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.mustUseBreederMachine"));
+                    toolTip.add(
+                        StatCollector
+                            .translateToLocal(Reference.MOD_ID + "_tooltip.genericSeed.mustUseBreederMachine"));
                 }
 
                 Iterable<IGrowthRequirement> reqs = crop.getGrowthRequirements();
@@ -180,13 +169,13 @@ public class ItemGenericSeed extends ItemCropsNH {
                 if (minSeedBedTier >= 0) {
                     toolTip.add(
                         StatCollector.translateToLocalFormatted(
-                            Reference.MOD_ID + "_tooltip.min_seed_bed_tier",
+                            Reference.MOD_ID + "_tooltip.genericSeed.minSeedBedTier",
                             GTValues.TIER_COLORS[minSeedBedTier] + GTValues.VN[minSeedBedTier]
                                 + EnumChatFormatting.RESET));
                 }
             }
         } else {
-            toolTip.add(" " + StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.unidentified"));
+            toolTip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.genericSeed.scanToViewStats"));
         }
     }
 

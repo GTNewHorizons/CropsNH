@@ -1,17 +1,16 @@
 package com.gtnewhorizon.cropsnh.reference;
 
+/**
+ * A util holder to hold references to pre-built lang keys and other string constants.
+ */
 public final class Names {
 
     public static class L10N {
 
-        private static final String modPrefix = Reference.MOD_ID + "_";
-        private static final String genericSeedPrefix = modPrefix + "genericSeeds.";
-        private static final String growthReqPrefix = modPrefix + "growthReq.";
-        public static final String unknownSeed = genericSeedPrefix + "unknown";
-        public static final String invalidSeed = genericSeedPrefix + "invalid";
-        public static final String anyCropsNHSeed = genericSeedPrefix + "any";
-        public static final String genericSeedFormat = genericSeedPrefix + "format";
-        public static final String blockUnderReqFormat = growthReqPrefix + "format";
+        public static final String unknownSeed = Reference.MOD_ID + "_genericSeeds.unknown";
+        public static final String invalidSeed = Reference.MOD_ID + "_genericSeeds.invalid";
+        public static final String anyCropsNHSeed = Reference.MOD_ID + "_genericSeeds.any";
+        public static final String genericSeedFormat = Reference.MOD_ID + "_genericSeeds.format";
     }
 
     // NBT tags
@@ -53,8 +52,6 @@ public final class Names {
         public static final String cropSticks = "cropSticks";
         public static final String seed = "seed";
         public static final String plantLens = "plantLens";
-        public static final String spade = "spade";
-        public static final String reinforcedSpade = "reinforcedSpade";
         public static final String genericSeed = "genericSeed";
         // needs to be prefixed to properly uniquify the l10n
         public static final String casings1 = Reference.MOD_ID + ".casings1";

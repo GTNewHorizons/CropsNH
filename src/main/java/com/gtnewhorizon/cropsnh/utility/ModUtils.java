@@ -32,6 +32,7 @@ public enum ModUtils implements IMod {
     GalaxySpace(ModIDs.GalaxySpace),
     GoodGenerator(ModIDs.GoodGenerator),
     GregTech(ModIDs.GregTech),
+    GTNHLib(ModIDs.GTNHLib),
     GTPlusPlus(ModIDs.GTPlusPlus),
     HodgePodge(ModIDs.HodgePodge),
     IndustrialCraft2(ModIDs.IndustrialCraft2),
@@ -162,6 +163,7 @@ public enum ModUtils implements IMod {
         public static final String GalaxySpace = "GalaxySpace";
         public static final String GoodGenerator = "GoodGenerator";
         public static final String GregTech = "gregtech";
+        public static final String GTNHLib = "gtnhlib";
         public static final String GTPlusPlus = "miscutils";
         public static final String HodgePodge = "hodgepodge";
         public static final String IndustrialCraft2 = "IC2";

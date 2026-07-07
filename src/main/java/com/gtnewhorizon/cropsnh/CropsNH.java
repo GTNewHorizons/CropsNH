@@ -27,8 +27,10 @@ import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropBreeder;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTESeedGenerator;
+import com.gtnewhorizon.cropsnh.utility.CropsNHChatComponentNutrientScore;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.gtnewhorizon.gtnhlib.chat.ChatComponentCustomRegistry;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -61,6 +63,7 @@ import gregtech.api.util.GTUtility;
     + "after:" + ModUtils.ModIDs.TwilightForest + "; "
     + "after:" + ModUtils.ModIDs.StructureLib + "; "
     + "after:" + ModUtils.ModIDs.PamsHarvestCraft + "; "
+    + "after:" + ModUtils.ModIDs.GTNHLib + "; "
 // spotless:on
 )
 public class CropsNH {
@@ -80,6 +83,7 @@ public class CropsNH {
             .bus()
             .register(new ConfigurationHandler());
         GTUtility.addTexturePage((byte) Constants.GT_CASING_PAGE);
+        ChatComponentCustomRegistry.register(CropsNHChatComponentNutrientScore::new);
         CropsNHBlocks.preInit();
         CropsNHItems.preInit();
         CropsNHFluids.preInit();

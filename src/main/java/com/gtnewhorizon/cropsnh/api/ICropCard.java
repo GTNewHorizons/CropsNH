@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
@@ -78,6 +79,22 @@ public interface ICropCard {
      *         to obtain.
      */
     int getTier();
+
+    /**
+     * @return The item rarity associated with the seed.
+     */
+    default EnumRarity getRarity() {
+        int tier = this.getTier();
+        if (tier > 12) {
+            return EnumRarity.epic;
+        } else if (tier > 8) {
+            return EnumRarity.rare;
+        } else if (tier > 4) {
+            return EnumRarity.uncommon;
+        } else {
+            return EnumRarity.common;
+        }
+    }
 
     /**
      * This also applies for the synthesizer's minimum voltage tier.

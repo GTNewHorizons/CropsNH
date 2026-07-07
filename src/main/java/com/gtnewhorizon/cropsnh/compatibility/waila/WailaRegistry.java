@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.compatibility.waila;
 
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
@@ -21,6 +22,9 @@ public class WailaRegistry {
         registry.registerBodyProvider(cropStickProvider, TileEntityCropSticks.class);
         registry.registerStackProvider(cropStickProvider, TileEntityCropSticks.class);
         registry.registerNBTProvider(cropStickProvider, TileEntityCropSticks.class);
+        if (CropsNHUtils.isClient()) {
+            registry.registerTooltipRenderer("waila.cropsnh.cropStick.progress", new TTRenderCropsNHCropProgressBar());
+        }
     }
 
 }
