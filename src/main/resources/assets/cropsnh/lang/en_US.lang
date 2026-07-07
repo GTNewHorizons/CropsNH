@@ -737,7 +737,7 @@ cropsnh_breedingReq.lockout.worldOnly=Must use crop sticks
 # Lockout Growth Requirements
 cropsnh_growthReq.lockout.machineOnly=Can only be harvested in the Industrial Farm
 cropsnh_growthReq.lockout.machineOnly.nei=Only harvestable in the I. Farm
-cropsnh_growthReq.lockout.migrated=Invalid Soil! Break to get seed!
+cropsnh_growthReq.lockout.migrated=Invalid soil! Break to get seed!
 # Light Growth Requirements
 cropsnh_growthReq.minLight.format=Needs a light level of %1$s or higher
 cropsnh_growthReq.maxLight.format=Needs a light level of %1$s or lower

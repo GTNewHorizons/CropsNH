@@ -96,6 +96,9 @@ public class CropStickWailaProvider implements IWailaDataProvider {
                     information.add(soilLine);
                     information.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.plantLens.weeds"));
                 } else {
+                    if (seedData.getCrop() instanceof CropMigrator) {
+                        showFullProgress = false;
+                    }
                     // no need to add name, the waila header will take care of that.
 
                     // add soil info
