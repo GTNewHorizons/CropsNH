@@ -352,7 +352,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 }
             }
         } else {
-            information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.planLens.empty"));
+            information.add(new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.plantLens.empty"));
             information.add(soilLine);
         }
     }
