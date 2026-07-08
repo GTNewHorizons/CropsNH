@@ -4,6 +4,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.Constants;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
@@ -14,15 +16,15 @@ import com.gtnewhorizon.cropsnh.utility.NBTHelper;
 
 public class SeedData implements ISeedData {
 
-    public ICropCard crop;
-    public ISeedStats stats;
+    public @NotNull ICropCard crop;
+    public @NotNull ISeedStats stats;
     public ItemStack stack;
 
-    public SeedData(ICropCard crop, ISeedStats stats) {
+    public SeedData(@NotNull ICropCard crop, @NotNull ISeedStats stats) {
         this(crop, stats, crop.getSeedItem(stats));
     }
 
-    public SeedData(ICropCard crop, ISeedStats stats, ItemStack stack) {
+    public SeedData(@NotNull ICropCard crop, @NotNull ISeedStats stats, ItemStack stack) {
         this.crop = crop;
         this.stats = stats;
         this.stack = stack;
@@ -44,12 +46,12 @@ public class SeedData implements ISeedData {
     }
 
     @Override
-    public ICropCard getCrop() {
+    public @NotNull ICropCard getCrop() {
         return crop;
     }
 
     @Override
-    public ISeedStats getStats() {
+    public @NotNull ISeedStats getStats() {
         return this.stats;
     }
 
@@ -68,7 +70,7 @@ public class SeedData implements ISeedData {
     }
 
     @Override
-    public NBTTagCompound writeToNBT() {
+    public @NotNull NBTTagCompound writeToNBT() {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString(Names.NBT.crop, this.crop.getId());
         tag.setInteger(Names.NBT.amount, this.stack.stackSize);

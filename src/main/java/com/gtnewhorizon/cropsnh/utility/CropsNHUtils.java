@@ -40,7 +40,7 @@ public abstract class CropsNHUtils {
 
     /**
      * Removes duplicate items from an item list, and also kicks out invalid stacks from said list.
-     * 
+     *
      * @param stacks The list to deduplicate.
      */
     public static void deduplicateItemList(List<ItemStack> stacks) {
@@ -94,19 +94,41 @@ public abstract class CropsNHUtils {
     }
 
     /**
-     * Attempts to detect if the stack contains analyzed seeds.
+     * Attempts to detect if the stack contains analyzed seeds, or an alternative seed.
      *
      * @param aStack The stack to validate
      * @return Null if nothing was found else the seed data for the stack.
      */
     public static @Nullable ISeedData getAnalyzedSeedData(ItemStack aStack) {
+        return getSeedData(aStack, true, true);
+    }
+
+    /**
+     * Attempts to detect if the stack contains analyzed seeds or an alternative seed if allowed.
+     *
+     * @param aStack         The stack to validate
+     * @param aAllowAltSeeds True to allow alt seeds to be parsed.
+     * @return Null if nothing was found else the seed data for the stack.
+     */
+    public static @Nullable ISeedData getAnalyzedSeedData(ItemStack aStack, boolean aAllowAltSeeds) {
+        return getSeedData(aStack, aAllowAltSeeds, true);
+    }
+
+    /**
+     * Attempts to detect if the stack contains analyzed seeds or an alternative seed if allowed.
+     *
+     * @param aStack         The stack to validate
+     * @param aAllowAltSeeds True to allow alt seeds to be parsed.
+     * @return Null if nothing was found else the seed data for the stack.
+     */
+    public static @Nullable ISeedData getSeedData(ItemStack aStack, boolean aAllowAltSeeds, boolean analyzedOnly) {
         if (CropsNHUtils.isStackInvalid(aStack) || !(aStack.getItem() instanceof ItemGenericSeed)) return null;
         // check that it's a crop card and that it can cross.
-        ICropCard cc = CropRegistry.instance.get(aStack);
+        ICropCard cc = CropRegistry.instance.get(aStack, aAllowAltSeeds);
         if (cc == null) return null;
         // fail if the crop isn't analyzed
         SeedStats stats = SeedStats.getStatsFromStack(aStack);
-        if (stats == null || !stats.isAnalyzed()) return null;
+        if (stats == null || (analyzedOnly && !stats.isAnalyzed())) return null;
         return new SeedData(cc, stats, aStack);
     }
 
@@ -240,7 +262,7 @@ public abstract class CropsNHUtils {
 
     /**
      * Gets a stack from another mod.
-     * 
+     *
      * @param mod    The mod the item is from.
      * @param name   The string ID of the item to fetch.
      * @param amount The amount of to set the stack size to.
@@ -256,7 +278,7 @@ public abstract class CropsNHUtils {
 
     /**
      * Gets a stack from another mod.
-     * 
+     *
      * @param mod    The mod the item is from.
      * @param name   The string ID of the item to fetch.
      * @param amount The amount of to set the stack size to.
@@ -283,7 +305,7 @@ public abstract class CropsNHUtils {
 
     /**
      * Gets the damage/meta value of an item directly, bypassing any item specific getDamage logic.
-     * 
+     *
      * @param aStack The stack to get the meta of.
      * @return The raw meta value of the stack.
      */
