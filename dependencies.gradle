@@ -1,8 +1,11 @@
 // Add your dependencies here
 
 dependencies {
+    // compile and runtime required dependencies
     api("com.github.GTNewHorizons:GT5-Unofficial:5.09.54.23:dev")
     api("com.github.GTNewHorizons:GTNHLib:0.11.24:dev")
+
+    // compile required dependencies
     devOnlyNonPublishable("com.github.GTNewHorizons:TinkersConstruct:1.14.93-GTNH:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.111-GTNH:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:waila:1.19.30:dev") { transitive = false }
@@ -11,7 +14,7 @@ dependencies {
     devOnlyNonPublishable('com.github.GTNewHorizons:Backhand:1.8.11:dev') { transitive = false }
     devOnlyNonPublishable('com.github.GTNewHorizons:FindIt:1.4.3:dev') { transitive = false }
 
-
+    // // optional runtime dependencies, you'll want to copy over the full pack configs to your dev env or else it will crash.
     // // debugging tools
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NewHorizonsCoreMod:2.9.5:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:ServerUtilities:2.4.1:dev") { transitive = false }
