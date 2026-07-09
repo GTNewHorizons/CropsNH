@@ -1,3 +1,5 @@
+<div align="center"><img src="./docs/logo.png"  alt="Crops NH, IC2 crops reinvented"/></div>
+
 # CropsNH - A complete reimplementation of IC2 crops based on Agricraft.
 
 CropsNH is a complete replacement for the IC2 crop system developed for the [GregTech: New Horizons modpack](https://github.com/GTNewHorizons/GT-New-Horizons-Modpack).
