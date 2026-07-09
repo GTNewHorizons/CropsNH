@@ -632,7 +632,7 @@ public class MutationLoader {
             .machineOnly()
             .register();
 
-        MutationRegistry.instance.register(Plumbilia, METALLIC, LEAD, REED, DENSE);
+        MutationRegistry.instance.register(Plumbilia, METALLIC, LEAD, DENSE, TENDRILLY);
         new CropMutation(Plumbilia, Coppon, Withereed)
             .register();
 
