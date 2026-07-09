@@ -15,7 +15,7 @@ Here's a small summary of the things Crops NH does to improve over its predecess
 - It takes great inspiration from bees, overhauling most recipes used to process material crops.
 - It adds a more effective multiblock machine to grow crops that can actually compete with and surpass a tier-equivalent crop manager.
 - It more effectively integrates itself into the GTNH modpack, without compromising its careful balance.
-- It completely removes the need to rely on obscure black boxes such as an OpenComputer robot to use crops.
+- It completely removes the need to rely on obscure black boxes such as an OpenComputers robot to use crops.
 
 # FAQ
 
@@ -31,7 +31,7 @@ _If you found something left behind, please notify us immediately so it can be r
 Crops NH began as a fork of **<ins>Agricraft</ins>**. It still resembles it in some key aspects and mechanics, but the underlying codebase has been almost entirely replaced to better integrate with IC2 crops' mechanics. _This means that any addons for the original 1.7.10 release of Agricraft will not work with Crops NH and likely never will._
 
 ## Can I still use OpenComputers for crops?
-**<ins>No.</ins>** OpenComputer integration was intentionally removed from the codebase during the initial phases of the rework. This was to force us to create a gameplay loop satisfying enough that using OC for anything crop-related would feel like an absolute waste of time.
+**<ins>No.</ins>** OpenComputers integration was intentionally removed from the codebase during the initial phases of the rework. This was to force us to create a gameplay loop satisfying enough that using OC for anything crop-related would feel like an absolute waste of time.
 
 _Your valiant crop bots have served you well; may they rest in peace forever in the great farms above._
 
