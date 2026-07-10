@@ -13,6 +13,9 @@ dependencies {
     devOnlyNonPublishable("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
     devOnlyNonPublishable('com.github.GTNewHorizons:Backhand:1.8.11:dev') { transitive = false }
     devOnlyNonPublishable('com.github.GTNewHorizons:FindIt:1.4.3:dev') { transitive = false }
+    shadowImplementation('com.github.makamys:MCLib:0.3.7.8') {
+        exclude group: "codechicken"
+    }
 
     // // optional runtime dependencies, you'll want to copy over the full pack configs to your dev env or else it will crash.
     // // debugging tools

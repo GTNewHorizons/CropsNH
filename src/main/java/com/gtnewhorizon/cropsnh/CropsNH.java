@@ -5,6 +5,7 @@ import com.gtnewhorizon.cropsnh.compatibility.TiC.TiCCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.extrautils.ExUWateringCanHandler;
 import com.gtnewhorizon.cropsnh.compatibility.findit.FindItCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryCompatHandler;
+import com.gtnewhorizon.cropsnh.compatibility.mclib.MCLibCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.waila.WailaRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
@@ -35,6 +36,7 @@ import com.gtnewhorizon.gtnhlib.chat.ChatComponentCustomRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLConstructionEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -73,6 +75,11 @@ public class CropsNH {
 
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
     public static IProxy proxy;
+
+    @Mod.EventHandler
+    public static void construct(FMLConstructionEvent event) {
+        MCLibCompatHandler.onConstruct();
+    }
 
     @Mod.EventHandler
     @SuppressWarnings("unused")
