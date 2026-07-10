@@ -96,40 +96,40 @@ public abstract class CropsNHUtils {
     /**
      * Attempts to detect if the stack contains analyzed seeds, or an alternative seed.
      *
-     * @param aStack The stack to validate
+     * @param stack The stack to validate
      * @return Null if nothing was found else the seed data for the stack.
      */
-    public static @Nullable ISeedData getAnalyzedSeedData(ItemStack aStack) {
-        return getSeedData(aStack, true, true);
+    public static @Nullable ISeedData getAnalyzedSeedData(ItemStack stack) {
+        return getSeedData(stack, true, true);
     }
 
     /**
      * Attempts to detect if the stack contains analyzed seeds or an alternative seed if allowed.
      *
-     * @param aStack         The stack to validate
-     * @param aAllowAltSeeds True to allow alt seeds to be parsed.
+     * @param stack         The stack to validate
+     * @param allowAltSeeds True to allow alt seeds to be parsed.
      * @return Null if nothing was found else the seed data for the stack.
      */
-    public static @Nullable ISeedData getAnalyzedSeedData(ItemStack aStack, boolean aAllowAltSeeds) {
-        return getSeedData(aStack, aAllowAltSeeds, true);
+    public static @Nullable ISeedData getAnalyzedSeedData(ItemStack stack, boolean allowAltSeeds) {
+        return getSeedData(stack, allowAltSeeds, true);
     }
 
     /**
      * Attempts to detect if the stack contains analyzed seeds or an alternative seed if allowed.
      *
-     * @param aStack         The stack to validate
-     * @param aAllowAltSeeds True to allow alt seeds to be parsed.
+     * @param stack         The stack to validate
+     * @param allowAltSeeds True to allow alt seeds to be parsed.
      * @return Null if nothing was found else the seed data for the stack.
      */
-    public static @Nullable ISeedData getSeedData(ItemStack aStack, boolean aAllowAltSeeds, boolean analyzedOnly) {
-        if (CropsNHUtils.isStackInvalid(aStack) || !(aStack.getItem() instanceof ItemGenericSeed)) return null;
+    public static @Nullable ISeedData getSeedData(ItemStack stack, boolean allowAltSeeds, boolean analyzedOnly) {
+        if (CropsNHUtils.isStackInvalid(stack) || !(stack.getItem() instanceof ItemGenericSeed)) return null;
         // check that it's a crop card and that it can cross.
-        ICropCard cc = CropRegistry.instance.get(aStack, aAllowAltSeeds);
+        ICropCard cc = CropRegistry.instance.get(stack, allowAltSeeds);
         if (cc == null) return null;
         // fail if the crop isn't analyzed
-        SeedStats stats = SeedStats.getStatsFromStack(aStack);
+        SeedStats stats = SeedStats.getStatsFromStack(stack);
         if (stats == null || (analyzedOnly && !stats.isAnalyzed())) return null;
-        return new SeedData(cc, stats, aStack);
+        return new SeedData(cc, stats, stack);
     }
 
     private static IIcon MISSING_TEXTURE = null;
@@ -148,108 +148,108 @@ public abstract class CropsNHUtils {
     }
 
     /**
-     * @param aStack The stack to verify.
+     * @param stack The stack to verify.
      * @return True if the stack is not null, its contained item isn't null, and it's stack size is > 0.
      */
     @Contract("null -> false")
-    public static boolean isStackValid(@Nullable ItemStack aStack) {
-        return (aStack != null) && aStack.getItem() != null && aStack.stackSize > 0;
+    public static boolean isStackValid(@Nullable ItemStack stack) {
+        return (stack != null) && stack.getItem() != null && stack.stackSize > 0;
     }
 
     /**
-     * @param aStack The stack to verify.
+     * @param stack The stack to verify.
      * @return True if the stack is null, its contained item null, or it's stack size is <= 0.
      */
     @Contract("null -> true")
-    public static boolean isStackInvalid(@Nullable ItemStack aStack) {
-        return aStack == null || aStack.getItem() == null || aStack.stackSize <= 0;
+    public static boolean isStackInvalid(@Nullable ItemStack stack) {
+        return stack == null || stack.getItem() == null || stack.stackSize <= 0;
     }
 
     /**
-     * @param aStack The stack to verify.
+     * @param stack The stack to verify.
      * @return True if the stack is not null, its contained item isn't null, and it's amount is > 0.
      */
     @Contract("null -> false")
-    public static boolean isStackValid(@Nullable FluidStack aStack) {
-        return (aStack != null) && aStack.getFluid() != null && aStack.amount > 0;
+    public static boolean isStackValid(@Nullable FluidStack stack) {
+        return (stack != null) && stack.getFluid() != null && stack.amount > 0;
     }
 
     /**
-     * @param aStack The stack to verify.
+     * @param stack The stack to verify.
      * @return True if the stack is null, its contained fluid null, or it's amount is <= 0.
      */
     @Contract("null -> true")
-    public static boolean isStackInvalid(@Nullable FluidStack aStack) {
-        return aStack == null || aStack.getFluid() == null || aStack.amount <= 0;
+    public static boolean isStackInvalid(@Nullable FluidStack stack) {
+        return stack == null || stack.getFluid() == null || stack.amount <= 0;
     }
 
     /**
      * Copies the stack and returns a new stack with the given stack size. Will reject if the incoming stack has an
      * invalid stack size.
      *
-     * @param aStack The stack to copy.
-     * @param aSize  The size of the new stack.
+     * @param stack The stack to copy.
+     * @param size  The size of the new stack.
      * @return The copied stack with the requested size.
      */
     @Contract("null, _ -> null")
-    public static @Nullable ItemStack copyStackWithSize(@Nullable ItemStack aStack, int aSize) {
-        if (isStackInvalid(aStack)) return null;
-        ItemStack ret = aStack.copy();
-        ret.stackSize = aSize;
+    public static @Nullable ItemStack copyStackWithSize(@Nullable ItemStack stack, int size) {
+        if (isStackInvalid(stack)) return null;
+        ItemStack ret = stack.copy();
+        ret.stackSize = size;
         return ret;
     }
 
     // a bit of duplicated code to not have to deal with compiling inlining not working right
 
     /**
-     * @param aStack The stack to verify.
+     * @param stack The stack to verify.
      * @return True if the stack is not null and its contained item isn't null.
      */
     @Contract("null -> false")
-    public static boolean isStackValidIgnoreStackSize(@Nullable ItemStack aStack) {
-        return (aStack != null) && aStack.getItem() != null;
+    public static boolean isStackValidIgnoreStackSize(@Nullable ItemStack stack) {
+        return (stack != null) && stack.getItem() != null;
     }
 
     /**
-     * @param aStack The stack to verify.
+     * @param stack The stack to verify.
      * @return True if the stack is null or its contained item null.
      */
     @Contract("null -> true")
-    public static boolean isStackInvalidIgnoreStackSize(@Nullable ItemStack aStack) {
-        return aStack == null || aStack.getItem() == null;
+    public static boolean isStackInvalidIgnoreStackSize(@Nullable ItemStack stack) {
+        return stack == null || stack.getItem() == null;
     }
 
     /**
-     * @param aStack The stack to verify.
+     * @param stack The stack to verify.
      * @return True if the stack is not null and its contained item isn't null.
      */
     @Contract("null -> false")
-    public static boolean isStackValidIgnoreStackSize(@Nullable FluidStack aStack) {
-        return (aStack != null) && aStack.getFluid() != null;
+    public static boolean isStackValidIgnoreStackSize(@Nullable FluidStack stack) {
+        return (stack != null) && stack.getFluid() != null;
     }
 
     /**
-     * @param aStack The stack to verify.
+     * @param stack The stack to verify.
      * @return True if the stack is null or its contained fluid null.
      */
     @Contract("null -> true")
-    public static boolean isStackInvalidIgnoreStackSize(@Nullable FluidStack aStack) {
-        return aStack == null || aStack.getFluid() == null;
+    public static boolean isStackInvalidIgnoreStackSize(@Nullable FluidStack stack) {
+        return stack == null || stack.getFluid() == null;
     }
 
     /**
      * Copies the stack and returns a new stack with the given stack size, doesn't care if the incoming stack has an
      * invalid stack size.
      *
-     * @param aStack The stack to copy.
-     * @param aSize  The size of the new stack.
+     * @param stack The stack to copy.
+     * @param size  The size of the new stack.
      * @return The copied stack with the requested size.
      */
     @Contract("null, _ -> null")
-    public static @Nullable ItemStack copyStackWithSizeIgnoreInvalidStackSize(@Nullable ItemStack aStack, int aSize) {
-        if (isStackInvalidIgnoreStackSize(aStack)) return null;
-        ItemStack ret = aStack.copy();
-        ret.stackSize = aSize;
+    public static @Nullable ItemStack copyStackWithSizeIgnoreInvalidStackSize(@Nullable ItemStack stack, int size) {
+        if (isStackInvalidIgnoreStackSize(stack)) return null;
+        ItemStack ret = stack.copy();
+        ret.stackSize = size;
         return ret;
     }
 
@@ -306,11 +306,11 @@ public abstract class CropsNHUtils {
     /**
      * Gets the damage/meta value of an item directly, bypassing any item specific getDamage logic.
      *
-     * @param aStack The stack to get the meta of.
+     * @param stack The stack to get the meta of.
      * @return The raw meta value of the stack.
      */
-    public static int getItemMeta(ItemStack aStack) {
-        return Items.feather.getDamage(aStack);
+    public static int getItemMeta(ItemStack stack) {
+        return Items.feather.getDamage(stack);
     }
 
     /**

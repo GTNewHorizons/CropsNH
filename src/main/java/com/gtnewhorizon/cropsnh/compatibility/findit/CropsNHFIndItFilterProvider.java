@@ -19,16 +19,16 @@ public class CropsNHFIndItFilterProvider implements IStackFilter.IStackFilterPro
      */
     private static class AnalyzedSeedFilter implements IStackFilter {
 
-        private final int mId;
+        private final int id;
 
-        public AnalyzedSeedFilter(int aId) {
-            this.mId = aId;
+        public AnalyzedSeedFilter(int id) {
+            this.id = id;
         }
 
         @Override
-        public boolean matches(FindItemRequest aRequest) {
-            ISeedData data = CropsNHUtils.getSeedData(aRequest.getStackToFind(), false, true);
-            return data != null && this.mId == data.getCrop()
+        public boolean matches(FindItemRequest request) {
+            ISeedData data = CropsNHUtils.getSeedData(request.getStackToFind(), false, true);
+            return data != null && this.id == data.getCrop()
                 .getNumericId();
         }
     }
@@ -41,17 +41,17 @@ public class CropsNHFIndItFilterProvider implements IStackFilter.IStackFilterPro
         public UnanalyzedSeedFilter() {}
 
         @Override
-        public boolean matches(FindItemRequest aRequest) {
-            ISeedData data = CropsNHUtils.getSeedData(aRequest.getStackToFind(), false, false);
+        public boolean matches(FindItemRequest request) {
+            ISeedData data = CropsNHUtils.getSeedData(request.getStackToFind(), false, false);
             return data != null && !data.getStats()
                 .isAnalyzed();
         }
     }
 
     @Override
-    public IStackFilter getFilter(EntityPlayer aPlayer, TileEntity aTileEntity) {
+    public IStackFilter getFilter(EntityPlayer olayer, TileEntity tileEntity) {
         // check if it's a crop stick te
-        if (!(aTileEntity instanceof ICropStickTile cropTE) || !cropTE.hasCrop() || cropTE.hasWeed()) return null;
+        if (!(tileEntity instanceof ICropStickTile cropTE) || !cropTE.hasCrop() || cropTE.hasWeed()) return null;
 
         // ensure the crop actually has a seed, previous checks should ensure that but better safe than sorry.
         ISeedData seed = cropTE.getSeed();
@@ -78,9 +78,9 @@ public class CropsNHFIndItFilterProvider implements IStackFilter.IStackFilterPro
     }
 
     @Override
-    public IStackFilter getFilter(EntityPlayer aPlayer, ItemStack aStack) {
+    public IStackFilter getFilter(EntityPlayer player, ItemStack stack) {
         // check if it's a generic seed
-        ISeedData data = CropsNHUtils.getSeedData(aStack, false, false);
+        ISeedData data = CropsNHUtils.getSeedData(stack, false, false);
         if (data == null) return null;
 
         // match un-analyzed seeds together to make getting rid of em easier.
