@@ -49,7 +49,7 @@ public class CropsNHFIndItFilterProvider implements IStackFilter.IStackFilterPro
     }
 
     @Override
-    public IStackFilter getFilter(EntityPlayer olayer, TileEntity tileEntity) {
+    public IStackFilter getFilter(EntityPlayer player, TileEntity tileEntity) {
         // check if it's a crop stick te
         if (!(tileEntity instanceof ICropStickTile cropTE) || !cropTE.hasCrop() || cropTE.hasWeed()) return null;
 
