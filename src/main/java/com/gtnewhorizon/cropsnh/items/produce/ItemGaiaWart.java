@@ -1,5 +1,7 @@
 package com.gtnewhorizon.cropsnh.items.produce;
 
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,6 +10,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.reference.Names;
@@ -22,6 +25,12 @@ public class ItemGaiaWart extends Item {
     public ItemGaiaWart() {
         this.setCreativeTab(CreativeTabs.tabFood);
         RegisterHelper.registerItem(this, Names.Objects.gaiaWart);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("unchecked")
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
+        list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.item." + Names.Objects.gaiaWart));
     }
 
     @SideOnly(value = Side.CLIENT)
