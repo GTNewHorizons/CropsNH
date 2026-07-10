@@ -562,7 +562,7 @@ public class MutationLoader {
             .machineOnly()
             .register();
 
-        MutationRegistry.instance.register(Glowheat, EMISSIVE, SHINY, CRYSTALLINE, WHEAT, POTION_INGREDIENT);
+        MutationRegistry.instance.register(Glowheat, YELLOW, NETHER, WHEAT, EMISSIVE, SHINY, CRYSTALLINE, POTION_INGREDIENT);
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
             new CropMutation(Glowheat, Glowflower, Wheat)
                 .register();
@@ -572,7 +572,7 @@ public class MutationLoader {
             .machineOnly()
             .register();
 
-        MutationRegistry.instance.register(Indigo, FLOWER, BLUE);
+        MutationRegistry.instance.register(Indigo, BLUE, FLOWER);
         new CropMutation(Indigo, Dayflower, BlueOrchid)
             .register();
 
@@ -602,11 +602,11 @@ public class MutationLoader {
             .machineOnly()
             .register();
 
-        MutationRegistry.instance.register(MilkWart, EDIBLE, COW, HEALING);
+        MutationRegistry.instance.register(MilkWart, WHITE, EDIBLE, COW, HEALING);
         new CropMutation(MilkWart, Corium, Netherwart)
             .register();
 
-        MutationRegistry.instance.register(Nickelback, METALLIC, FIERY);
+        MutationRegistry.instance.register(Nickelback, GRAY, METALLIC, FIERY);
         new CropMutation(Nickelback, Ferrofern, Coppon)
             .register();
 
@@ -632,11 +632,11 @@ public class MutationLoader {
             .machineOnly()
             .register();
 
-        MutationRegistry.instance.register(Plumbilia, METALLIC, LEAD, DENSE, TENDRILLY);
+        MutationRegistry.instance.register(Plumbilia, PURPLE, METALLIC, LEAD, DENSE, TENDRILLY);
         new CropMutation(Plumbilia, Coppon, Withereed)
             .register();
 
-        MutationRegistry.instance.register(Pyrolusium, METALLIC, BUSH);
+        MutationRegistry.instance.register(Pyrolusium, RED, METALLIC, BUSH);
         new CropMutation(Pyrolusium, Nickelback, Bauxia)
             .register();
 
@@ -656,7 +656,7 @@ public class MutationLoader {
         new CropMutation(SaltyRoot, SugarBeet, Canola)
             .register();
 
-        MutationRegistry.instance.register(Sapphirum, CRYSTALLINE, SHINY, METALLIC);
+        MutationRegistry.instance.register(Sapphirum, BLUE, CRYSTALLINE, SHINY);
         new CropMutation(Sapphirum, EvilOre, Lazulia)
             .register();
 
@@ -686,7 +686,7 @@ public class MutationLoader {
                 .register();
         }
 
-        MutationRegistry.instance.register(Tine, SHINY, METALLIC, TIN, BUSH);
+        MutationRegistry.instance.register(Tine, GRAY, STEM, METALLIC, SHINY, WOODEN, TIN);
         new CropMutation(Tine, StoneLily, BonsaiSpruce)
             .register();
 
@@ -709,7 +709,7 @@ public class MutationLoader {
             .machineOnly()
             .register();
 
-        MutationRegistry.instance.register(Withereed, FIERY, UNDEAD, REED, COAL, STEM, SULFUR);
+        MutationRegistry.instance.register(Withereed, BLACK, REED, FIERY, UNDEAD, COAL, SULFUR);
         new CropMutation(Withereed, BasaltLily, BlackGraniteLily)
             .register();
         // endregion material crops
@@ -721,47 +721,47 @@ public class MutationLoader {
                 .register();
         }
 
-        MutationRegistry.instance.register(Blazereed, FIERY, BLAZE, REED, SULFUR, NETHER, EVIL, POTION_INGREDIENT);
+        MutationRegistry.instance.register(Blazereed, ORANGE, NETHER, REED, FIERY, EVIL, BLAZE, POTION_INGREDIENT, SULFUR);
         if (ModUtils.Thaumcraft.isModLoaded()) {
             new CropMutation(Blazereed, SugarCane, Cinderpearl)
                 .register();
         }
 
-        MutationRegistry.instance.register(Corium, COW, SILK, TENDRILLY);
+        MutationRegistry.instance.register(Corium, BROWN, MUSHROOM, COW);
         new CropMutation(Corium, Wheat, Cocoa)
             .register();
 
-        MutationRegistry.instance.register(Corpseplant, POISONOUS, UNDEAD, TENDRILLY, EDIBLE, EVIL, BROWN);
+        MutationRegistry.instance.register(Corpseplant, BROWN, BUSH, EVIL, POISONOUS, UNDEAD, ADDICTIVE, EDIBLE);
         if (ModUtils.BiomesOPlenty.isModLoaded()) {
             new CropMutation(Corpseplant, Zomplant, Eyebulb)
                 .register();
         }
 
         // sulfur, charcoal and salt peter
-        MutationRegistry.instance.register(Creeperweed, TENDRILLY, FIERY, SULFUR, SALTPETER, COAL, EVIL, POTION_INGREDIENT);
+        MutationRegistry.instance.register(Creeperweed, GREEN, EVIL, FIERY, TENDRILLY, SULFUR, SALTPETER, COAL, POTION_INGREDIENT);
         new CropMutation(Creeperweed, NetherStoneLily, Withereed, SaltyRoot)
             .register();
 
-        MutationRegistry.instance.register(EggPlant, CHICKEN, EDIBLE, FLOWER, ADDICTIVE);
+        MutationRegistry.instance.register(EggPlant, WHITE, MUSHROOM, ADDICTIVE, CHICKEN, EDIBLE);
         new CropMutation(EggPlant, Corium, OxeyeDaisy)
             .register();
 
-        MutationRegistry.instance.register(Enderbloom, FLOWER, SHINY, ALIEN, MAGICAL);
+        MutationRegistry.instance.register(Enderbloom, BLACK, FLOWER, VOID_TOUCHED, ALIEN, MAGICAL);
         new CropMutation(Enderbloom, EndStoneLily, Creeperweed)
             .register();
 
-        MutationRegistry.instance.register(Goldfish, NETHER, FISH, EDIBLE, DANGEROUS, WATERY, ADDICTIVE);
+        // addictive because after a while, you come to love their screechyness
+        MutationRegistry.instance.register(Goldfish, ORANGE, NETHER, STEM, DANGEROUS, WATERY, ADDICTIVE, EDIBLE, FISH);
         if (ModUtils.Witchery.isModLoaded()) {
-            // addictive because after a while, you come to love their screechyness
             new CropMutation(Goldfish, Waterlily, WaterArtichoke, Mandrake)
                 .register();
         }
 
-        MutationRegistry.instance.register(Meatrose, EDIBLE, FLOWER, COW, FISH, CHICKEN);
+        MutationRegistry.instance.register(Meatrose, RED, FLOWER, CHICKEN, COW, EDIBLE, FISH);
         new CropMutation(Meatrose, Goldfish, EggPlant, Corium)
             .register();
 
-        MutationRegistry.instance.register(Slimeplant, GREEN, STICKY, BUSH, EVIL, POTION_INGREDIENT);
+        MutationRegistry.instance.register(Slimeplant, GREEN, TREE, EVIL, LEAFY, STICKY, POTION_INGREDIENT);
         new CropMutation(Slimeplant, BlueOrchid, ClayLily)
             .register();
 
