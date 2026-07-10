@@ -516,8 +516,33 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             ((double) this.yCoord + 0.5d),
             ((double) this.zCoord + 0.5d),
             Blocks.planks.stepSound.func_150496_b(),
-            (Blocks.planks.stepSound.getVolume() + 1.0f) / 2.0f,
+            Blocks.planks.stepSound.getVolume() * 0.5f,
             Blocks.planks.stepSound.getPitch() * 0.8f);
+    }
+
+    @Override
+    public void playHarvestSound() {
+        Block.SoundType breakSound = Blocks.wheat.stepSound;
+        this.worldObj.playSoundEffect(
+            ((double) this.xCoord + 0.5d),
+            ((double) this.yCoord + 0.5d),
+            ((double) this.zCoord + 0.5d),
+            breakSound.func_150496_b(),
+            // a lot quieter to not deafen players with things like TiC scythes that harvest multiple crops at once.
+            breakSound.getVolume() * 0.25f,
+            breakSound.getPitch() * 0.8f);
+    }
+
+    @Override
+    public void playCropRemovalSound() {
+        Block.SoundType breakSound = Blocks.wheat.stepSound;
+        this.worldObj.playSoundEffect(
+            ((double) this.xCoord + 0.5d),
+            ((double) this.yCoord + 0.5d),
+            ((double) this.zCoord + 0.5d),
+            breakSound.func_150496_b(),
+            breakSound.getVolume() * 0.5f,
+            breakSound.getPitch() * 0.8f);
     }
 
     // endregion seed planting
@@ -669,6 +694,9 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         // remove the crop if we are doing so.
         if (isRemovingCrop) {
             this.clear();
+            this.playCropRemovalSound();
+        } else {
+            this.playHarvestSound();
         }
 
         // crop was either harvested or removed.

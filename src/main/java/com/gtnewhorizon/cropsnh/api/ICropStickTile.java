@@ -71,6 +71,16 @@ public interface ICropStickTile {
     void playCrossCropSound();
 
     /**
+     * Plays the sound that should be played when uprooting a crop.
+     */
+    void playHarvestSound();
+
+    /**
+     * Plays the sound that should be played when uprooting a crop.
+     */
+    void playCropRemovalSound();
+
+    /**
      * @return if a plant can be planted here, meaning the crop is empty and is not a cross crop
      */
     boolean canPlantSeed();
