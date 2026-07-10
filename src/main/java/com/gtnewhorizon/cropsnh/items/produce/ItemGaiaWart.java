@@ -13,14 +13,19 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import com.gtnewhorizon.cropsnh.compatibility.ic2.IC2CompatHandler;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.Mods;
 
 public class ItemGaiaWart extends Item {
+
+    /** How much to reduce radiation effects by when eaten. */
+    private static final int RADIATION_REDUCTION = 30 * 20;
 
     public ItemGaiaWart() {
         this.setCreativeTab(CreativeTabs.tabFood);
@@ -66,8 +71,11 @@ public class ItemGaiaWart extends Item {
         player.removePotionEffect(Potion.blindness.id);
         player.removePotionEffect(Potion.poison.id);
         player.removePotionEffect(Potion.wither.id);
-        // TODO: REIMPLEMENT RADIATION REDUCTION ONCE NUCLEAR HORIZONS IS IMPLEMENTED
-        // should reduce effect duration by 600
+        // reduces radiation effects by 30 seconds (600 ticks)
+        if (Mods.IndustrialCraft2.isModLoaded()) {
+            IC2CompatHandler.reduceRadiationTimer(player, RADIATION_REDUCTION);
+        }
+        // TODO: ADD NUCLEAR HORIZONS GAIA WART COMPAT WHEN IT'S READY
         return stack;
     }
 
