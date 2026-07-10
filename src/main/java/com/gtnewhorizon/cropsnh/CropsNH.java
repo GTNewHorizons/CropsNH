@@ -52,6 +52,7 @@ import gregtech.api.util.GTUtility;
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies =
 // spotless:off
     "required-after:" + ModUtils.ModIDs.GregTech + "; "
+    + "required-after:" + ModUtils.ModIDs.GTNHLib + "; "
     + "after:" + ModUtils.ModIDs.GalacticraftCore + "; "
     + "after:" + ModUtils.ModIDs.GTPlusPlus + "; "
     + "after:" + ModUtils.ModIDs.Forestry + "; "
@@ -63,7 +64,6 @@ import gregtech.api.util.GTUtility;
     + "after:" + ModUtils.ModIDs.TwilightForest + "; "
     + "after:" + ModUtils.ModIDs.StructureLib + "; "
     + "after:" + ModUtils.ModIDs.PamsHarvestCraft + "; "
-    + "after:" + ModUtils.ModIDs.GTNHLib + "; "
 // spotless:on
 )
 public class CropsNH {
