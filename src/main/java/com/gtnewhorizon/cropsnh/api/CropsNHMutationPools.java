@@ -82,7 +82,7 @@ public abstract class CropsNHMutationPools {
     public final static String DENSE = "dense";
     /** 4. Property: Will it attack the player or other entities or does it just look evil? */
     public final static String EVIL = "evil";
-    /** 4. Property: Could it light things on fire or is it fireproof? */
+    /** 4. Property: Could it light things on fire, catches on fire a bit too well, or is it fireproof? */
     public final static String FIERY = "fire";
     /** 4. Property: Is it's body mostly leafy? (eg: trees, ferns, lettuce) */
     public final static String LEAFY = "leafy";
