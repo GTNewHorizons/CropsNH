@@ -3,8 +3,9 @@ package com.gtnewhorizon.cropsnh.items.produce;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemFood;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
@@ -16,13 +17,10 @@ import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemGaiaWart extends ItemFood {
+public class ItemGaiaWart extends Item {
 
     public ItemGaiaWart() {
-        super(0, 1.0f, false);
-        this.setAlwaysEdible();
         this.setCreativeTab(CreativeTabs.tabFood);
-        this.setMaxStackSize(64);
         RegisterHelper.registerItem(this, Names.Objects.gaiaWart);
     }
 
@@ -32,8 +30,24 @@ public class ItemGaiaWart extends ItemFood {
     }
 
     @Override
-    public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer player) {
-        --itemstack.stackSize;
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+        return stack;
+    }
+
+    @Override
+    public int getMaxItemUseDuration(ItemStack stack) {
+        return 32;
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.eat;
+    }
+
+    @Override
+    public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
+        --stack.stackSize;
         world.playSoundAtEntity(player, "random.burp", 0.5f, world.rand.nextFloat() * 0.1f + 0.9f);
         player.removePotionEffect(Potion.confusion.id);
         player.removePotionEffect(Potion.digSlowdown.id);
@@ -45,7 +59,7 @@ public class ItemGaiaWart extends ItemFood {
         player.removePotionEffect(Potion.wither.id);
         // TODO: REIMPLEMENT RADIATION REDUCTION ONCE NUCLEAR HORIZONS IS IMPLEMENTED
         // should reduce effect duration by 600
-        return itemstack;
+        return stack;
     }
 
     @Override
