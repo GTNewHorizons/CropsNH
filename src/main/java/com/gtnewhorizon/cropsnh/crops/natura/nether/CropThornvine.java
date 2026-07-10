@@ -48,4 +48,9 @@ public class CropThornvine extends NHCropCard {
     public int getMaxGrowthStage() {
         return 3;
     }
+
+    @Override
+    public float getEntityDamage() {
+        return 1.0F;
+    }
 }
