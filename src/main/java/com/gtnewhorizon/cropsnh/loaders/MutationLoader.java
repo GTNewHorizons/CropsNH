@@ -656,7 +656,7 @@ public class MutationLoader {
         new CropMutation(SaltyRoot, SugarBeet, Canola)
             .register();
 
-        MutationRegistry.instance.register(Sapphirum, CRYSTALLINE, SHINY, METALLIC);
+        MutationRegistry.instance.register(Sapphirum, CRYSTALLINE, SHINY);
         new CropMutation(Sapphirum, EvilOre, Lazulia)
             .register();
 
