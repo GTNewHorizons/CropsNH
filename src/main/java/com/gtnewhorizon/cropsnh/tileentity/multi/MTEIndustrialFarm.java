@@ -594,7 +594,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     }
 
     private long getPowerUsage() {
-        long basePower = GTValues.VP[this.mUpgradeTier];
+        long basePower = BlockSeedBed.getBaseEUt(this.mUpgradeTier);
         long powerUsage = basePower;
         if (this.mEnvironmentalEnhancementUnitCount > 0) {
             powerUsage += (long) (basePower * BlockEnvironmentalEnhancementUnit.BASE_POWER_INCREASE
