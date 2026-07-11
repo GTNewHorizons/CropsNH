@@ -511,13 +511,44 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
 
     @Override
     public void playCrossCropSound() {
+        Block.SoundType sound = CropsNHBlocks.blockCropSticks.stepSound;
+        this.playSoundEffect(sound.func_150496_b(), sound.getVolume() * 0.5f, sound.getPitch() * 0.5f);
+    }
+
+    @Override
+    public void playBreakingSound() {
+        Block.SoundType sound = CropsNHBlocks.blockCropSticks.stepSound;
+        this.playSoundEffect(sound.func_150496_b(), sound.getVolume(), sound.getPitch());
+    }
+
+    @Override
+    public void playHarvestSound() {
+        this.playSoundEffect("minecraft_1.21:block.crop.break", 0.5f, XSTR.XSTR_INSTANCE.nextFloat() * 0.1f + 0.95f);
+    }
+
+    @Override
+    public void playCropRemovalSound() {
+        this.playSoundEffect("minecraft_1.21:block.crop.break", 1.0f, XSTR.XSTR_INSTANCE.nextFloat() * 0.1f + 0.95f);
+    }
+
+    @Override
+    public void playPlantingSound() {
+        this.playSoundEffect("minecraft_1.21:item.crop.plant", 1.0f, XSTR.XSTR_INSTANCE.nextFloat() * 0.1f + 0.95f);
+    }
+
+    @Override
+    public void playFertilizationSound() {
+        this.playSoundEffect("minecraft_1.21:item.bone_meal.use", 1.0f, XSTR.XSTR_INSTANCE.nextFloat() * 0.1f + 0.95f);
+    }
+
+    private void playSoundEffect(String soundId, float volume, float pitch) {
         this.worldObj.playSoundEffect(
             ((double) this.xCoord + 0.5d),
             ((double) this.yCoord + 0.5d),
             ((double) this.zCoord + 0.5d),
-            Blocks.planks.stepSound.func_150496_b(),
-            (Blocks.planks.stepSound.getVolume() + 1.0f) / 2.0f,
-            Blocks.planks.stepSound.getPitch() * 0.8f);
+            soundId,
+            volume,
+            pitch);
     }
 
     // endregion seed planting
@@ -669,6 +700,9 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         // remove the crop if we are doing so.
         if (isRemovingCrop) {
             this.clear();
+            this.playCropRemovalSound();
+        } else {
+            this.playHarvestSound();
         }
 
         // crop was either harvested or removed.
@@ -1295,6 +1329,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                     if (!player.capabilities.isCreativeMode) {
                         heldItem.stackSize--;
                     }
+                    this.playFertilizationSound();
                     return true;
                 }
             }
@@ -1304,6 +1339,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 if (!player.capabilities.isCreativeMode) {
                     heldItem.stackSize--;
                 }
+                this.playPlantingSound();
                 // run a check to see if the growth reqs are met
                 this.areGrowthRequirementsMet();
                 return true;
@@ -1469,7 +1505,12 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
 
         // only on living entities plz
         if (this.canTrample() && (this.shouldTrampleFromRunning(entity) || this.shouldTrampleFromFalling(entity))) {
+            boolean hadCrop = this.hasCrop();
             this.breakCropStick(true);
+            if (hadCrop) {
+                this.playCropRemovalSound();
+            }
+            this.playBreakingSound();
             return;
         }
 

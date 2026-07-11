@@ -17,6 +17,9 @@ Here's a small summary of the things Crops NH does to improve over its predecess
 - It more effectively integrates itself into the GTNH modpack, without compromising its careful balance.
 - It completely removes the need to rely on obscure black boxes such as an OpenComputers robot to use crops.
 
+The mod uses MCLib's AssetDirector module to download assets from Mojang's servers.
+Check [its wiki page](https://github.com/makamys/MCLib/wiki/AssetDirector) for more information.
+
 # FAQ
 
 ## Is Crops NH supported outside of the GTNH modpack?

@@ -25,4 +25,5 @@ repositories {
             includeGroup('net.glease')
         }
     }
+    maven { url 'https://jitpack.io' }
 }

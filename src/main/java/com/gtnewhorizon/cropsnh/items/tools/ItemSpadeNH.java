@@ -162,6 +162,7 @@ public abstract class ItemSpadeNH extends ItemTool
                 cropTE.dropItem(CropsNHUtils.getWeedDrop(1));
             }
             cropTE.clear();
+            cropTE.playCropRemovalSound();
             return true;
         }
 

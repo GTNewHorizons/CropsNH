@@ -66,9 +66,34 @@ public interface ICropStickTile {
     void setCrossCrop(boolean status);
 
     /**
-     * Plays the cross-crop placement and removal noise.
+     * Plays the sound for adding or removing cross-crop sticks.
      */
     void playCrossCropSound();
+
+    /**
+     * Plays the sound for breaking the block.
+     */
+    void playBreakingSound();
+
+    /**
+     * Plays the sound for harvesting a crop.
+     */
+    void playHarvestSound();
+
+    /**
+     * Plays the sound for removing a crop.
+     */
+    void playCropRemovalSound();
+
+    /**
+     * Plays the sound for planting a crop.
+     */
+    void playPlantingSound();
+
+    /**
+     * Plays the sound for fertilizing a crop.
+     */
+    void playFertilizationSound();
 
     /**
      * @return if a plant can be planted here, meaning the crop is empty and is not a cross crop
