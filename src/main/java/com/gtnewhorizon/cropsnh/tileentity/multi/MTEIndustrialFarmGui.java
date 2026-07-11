@@ -121,7 +121,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
 
     private final IDrawable SEED_SLOT_DISABLED_OVERLAY = new DisabledSlotOverlay(
         () -> multiblock.mMaxProgresstime != 0 || multiblock.isAllowedToWork()
-            || CropsNHUtils.isStackValid(multiblock.getBlockUnderStack()));
+            || CropsNHUtils.isStackValid(multiblock.getSubSoilStack()));
 
     private ItemSlot createEnvModuleSlot(int index) {
         return new ItemSlot()
@@ -163,7 +163,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                         StatCollector.translateToLocalFormatted(
                             Reference.MOD_ID + "_tooltip.industrialFarm.capacity",
                             multiblock.seedCapacity));
-                    if (CropsNHUtils.isStackValid(multiblock.getBlockUnderStack())) {
+                    if (CropsNHUtils.isStackValid(multiblock.getSubSoilStack())) {
                         x.addLine(
                             StatCollector.translateToLocal(
                                 Reference.MOD_ID + "_tooltip.industrialFarm.seedWithBlockExtractionWarning"));
@@ -173,20 +173,17 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                 .overlay(SEED_SLOT_DISABLED_OVERLAY))
             .childIf(
                 multiblock.doesBindPlayerInventory(),
-                () -> new ItemSlot()
-                    .slot(
-                        new ModularSlot(multiblock.ifStackHandler, MTEIndustrialFarm.SLOT_BLOCK_UNDER)
-                            .ignoreMaxStackSize(true)
-                            .slotGroup("if_inv"))
+                () -> new ItemSlot().slot(
+                    new ModularSlot(multiblock.ifStackHandler, MTEIndustrialFarm.SLOT_SUB_SOIL).ignoreMaxStackSize(true)
+                        .slotGroup("if_inv"))
                     .tooltipDynamic(x -> {
                         x.addLine(
-                            StatCollector
-                                .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.blockUnderSlot"));
+                            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.subSoilSlot"));
                         x.addLine(
                             StatCollector.translateToLocalFormatted(
                                 Reference.MOD_ID + "_tooltip.industrialFarm.capacity",
                                 multiblock.seedCapacity));
-                        if (CropsNHUtils.isStackValid(multiblock.getBlockUnderStack())) {
+                        if (CropsNHUtils.isStackValid(multiblock.getSubSoilStack())) {
                             x.addLine(
                                 StatCollector
                                     .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.blockExtraction"));

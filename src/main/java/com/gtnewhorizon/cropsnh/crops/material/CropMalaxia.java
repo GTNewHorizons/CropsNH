@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
@@ -16,7 +16,7 @@ public class CropMalaxia extends NHCropCard {
     public CropMalaxia() {
         super("malaxia", new Color(0xB26003), new Color(0xD77106));
         this.addDrop(Materials.Copper.getDustTiny(1), 100_00);
-        this.addGrowthRequirement(CropsNHBlockUnderTypes.copper);
+        this.addGrowthRequirement(CropsNHSubSoilTypes.copper);
         this.addDuplicationCatalyst("dustCopper", 1);
         this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.LUSH);
     }

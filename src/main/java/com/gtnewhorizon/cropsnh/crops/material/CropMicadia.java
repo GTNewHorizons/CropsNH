@@ -4,9 +4,9 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
@@ -19,7 +19,7 @@ public class CropMicadia extends NHCropCard {
 
         this.addDrop(CropsNHItemList.micadiaFlower.get(1), 100_00);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.mica);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.mica);
 
         this.addDuplicationCatalyst("dustMica", 1);
 

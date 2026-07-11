@@ -17,7 +17,7 @@ import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
-import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.SubSoilRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -63,7 +63,7 @@ public abstract class NHCropCard extends CropCard {
         return CropsNHSoilTypes.farmland;
     }
 
-    public CropCard addBlockUnderRequirement(BlockUnderRequirement req) {
+    public CropCard addSubSoilRequirement(SubSoilRequirement req) {
         this.growthRequirements.add(req);
         return this;
     }
@@ -176,21 +176,21 @@ public abstract class NHCropCard extends CropCard {
         return this.cachedSoils = stacks;
     }
 
-    private List<ItemStack> cachedBlockUnder = null;
+    private List<ItemStack> cachedSubSoils = null;
 
     @Override
-    public List<ItemStack> getBlocksUnderForNEI(boolean useCache) {
+    public List<ItemStack> getSubSoilsForNEI(boolean useCache) {
         // check cache
-        if (useCache && this.cachedBlockUnder != null) return this.cachedBlockUnder;
+        if (useCache && this.cachedSubSoils != null) return this.cachedSubSoils;
         // generate list
         LinkedList<ItemStack> stacks = new LinkedList<>();
         for (IGrowthRequirement req : this.growthRequirements) {
-            if (!(req instanceof BlockUnderRequirement)) continue;
-            stacks.addAll(((BlockUnderRequirement) req).getItemsForNEI());
+            if (!(req instanceof SubSoilRequirement)) continue;
+            stacks.addAll(((SubSoilRequirement) req).getItemsForNEI());
         }
         CropsNHUtils.deduplicateItemList(stacks);
         // update cache if we didn't hit it
-        return this.cachedBlockUnder = stacks;
+        return this.cachedSubSoils = stacks;
     }
 
     // endregion NEI

@@ -55,7 +55,7 @@ public class CropBreederFakeRecipeLoader extends BaseGTRecipeLoader {
                         .getSeedItem(SeedStats.DEFAULT_ANALYZED))
                 .nbtSensitive();
 
-            // find block under stuff
+            // find sub-soil stuff
             List<List<ItemStack>> catalysts = mutation.getBreedingMachineCatalystsForNEI(true);
             if (catalysts != null && !catalysts.isEmpty()) {
                 for (List<ItemStack> slot : catalysts) {
@@ -86,7 +86,7 @@ public class CropBreederFakeRecipeLoader extends BaseGTRecipeLoader {
                     if (opt.isPresent()) {
                         CropsNHGTRecipeMaps.fakeCropBreederRecipeMap.add(opt.get());
                     } else {
-                        throw new LoaderException("failed to load mutation recipe with underblocks");
+                        throw new LoaderException("failed to load mutation recipe with sub-soil");
                     }
                 }
             }

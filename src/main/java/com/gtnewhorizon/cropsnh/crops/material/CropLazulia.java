@@ -6,8 +6,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
@@ -24,7 +24,7 @@ public class CropLazulia extends NHCropCard {
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Lapis, 1), 66_67);
         this.addDrop(new ItemStack(Items.dye, 1, 4), 33_33);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.lapis);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.lapis);
 
         this.addDuplicationCatalyst("gemLapis", 1);
         this.addDuplicationCatalyst("dustLapis", 1);

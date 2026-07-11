@@ -66,7 +66,7 @@ import com.gtnewhorizon.cropsnh.blocks.BlockSeedBed;
 import com.gtnewhorizon.cropsnh.blocks.abstracts.CropsNHBlockIndustrialFarmTiredComponent;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
-import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.SubSoilRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.items.ItemEnvironmentalModule;
@@ -138,17 +138,17 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     private final static String NBT_OUTPUT_TRACKER = "mOutputTracker";
     private final static String NBT_HAS_FERTILIZER = "mHasFertilizer";
 
-    /** The default mode, used to insert seed and under-block */
+    /** The default mode, used to insert seed and sub-soil */
     public static final int MODE_INPUT = 0;
     /** The mode that generates resources. */
     public static final int MODE_FARM = 1;
-    /** Used to safely eject the seeds and under-blocks to the output bus. */
+    /** Used to safely eject the seeds and sub-soil to the output bus. */
     public static final int MODE_OUTPUT = 2;
 
     /** Slot index of the seed slot in the custom inventory */
     public final static int SLOT_SEED = 0;
-    /** Slot index of the under-block slot in the custom inventory */
-    public final static int SLOT_BLOCK_UNDER = 1;
+    /** Slot index of the sub-soil slot in the custom inventory */
+    public final static int SLOT_SUB_SOIL = 1;
     /** Starting slot index of the environmental slots in the custom inventory */
     public final static int SLOT_ENV_CARD_START = 2;
 
@@ -163,7 +163,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     public int glassTier = -1;
     /** The tier of the upgrades applied to the multi. */
     public int upgradeTier = -1;
-    /** The number of seeds and under-blocks that can be stored in the controller. */
+    /** The number of seeds and sub-soil that can be stored in the controller. */
     public int seedCapacity = 0;
     /** True if the current recipe has enough fertilizer to get the bonus. */
     public boolean hasFertilizer = false;
@@ -786,12 +786,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         this.ifStackHandler.setStackInSlot(SLOT_SEED, stack);
     }
 
-    public ItemStack getBlockUnderStack() {
-        return this.ifStackHandler.getStackInSlot(SLOT_BLOCK_UNDER);
+    public ItemStack getSubSoilStack() {
+        return this.ifStackHandler.getStackInSlot(SLOT_SUB_SOIL);
     }
 
-    public void setBlockUnderStack(ItemStack stack) {
-        this.ifStackHandler.setStackInSlot(SLOT_BLOCK_UNDER, stack);
+    public void setSubSoilStack(ItemStack stack) {
+        this.ifStackHandler.setStackInSlot(SLOT_SUB_SOIL, stack);
     }
 
     public ItemStack getEnvironmentalModuleStack(int slot) {
@@ -865,18 +865,18 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     // endregion gui
 
     // region processing
-    /** Can't insert a seed because the existing block under didn't match the new seed. */
+    /** Can't insert a seed because the existing sub-soil didn't match the new seed. */
     @Nonnull
-    public static final CheckRecipeResult CHECK_RECIPE_RESULT_BLOCK_UNDER_MISMATCH_INPUT = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID + ".industrialFarm.blockUnderMismatch.input");
-    /** Can't insert a seed because the existing block under didn't match the new seed. */
+    public static final CheckRecipeResult CHECK_RECIPE_RESULT_SUB_SOIL_MISMATCH_INPUT = SimpleCheckRecipeResult
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.subSoilMismatch.input");
+    /** Can't farm a crop because the existing sub-soil didn't match the seed. */
     @Nonnull
-    public static final CheckRecipeResult CHECK_RECIPE_RESULT_BLOCK_UNDER_MISMATCH_FARM = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID + ".industrialFarm.blockUnderMismatch.farm");
-    /** Can't insert a seed because the required under-block wasn't found */
+    public static final CheckRecipeResult CHECK_RECIPE_RESULT_SUB_SOIL_MISMATCH_FARM = SimpleCheckRecipeResult
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.subSoilMismatch.farm");
+    /** Can't insert a seed because the required sub-soil wasn't found */
     @Nonnull
-    public static final CheckRecipeResult CHECK_RECIPE_RESULT_BLOCK_UNDER_NOT_FOUND = SimpleCheckRecipeResult
-        .ofFailure(Reference.MOD_ID + ".industrialFarm.blockUnderNotFound");
+    public static final CheckRecipeResult CHECK_RECIPE_RESULT_SUB_SOIL_NOT_FOUND = SimpleCheckRecipeResult
+        .ofFailure(Reference.MOD_ID + ".industrialFarm.subSoilNotFound");
     /** The current tier of seed bed is too low for this seed. */
     @Nonnull
     public static final CheckRecipeResult CHECK_RECIPE_RESULT_SEED_BED_TIER_TOO_LOW = SimpleCheckRecipeResult
@@ -950,30 +950,30 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         int availableSeeds = consumeMatchingStacks(existing, inputs, 0, this.seedCapacity, true);
         if (availableSeeds == 0) return CheckRecipeResultRegistry.NO_RECIPE;
         int insertionMax = existing.stackSize + availableSeeds;
-        // if we have an under-block check how many to consume
-        ItemStack blockUnder = this.getBlockUnderStack();
-        blockUnder = CropsNHUtils.isStackValid(blockUnder) ? blockUnder : null;
-        if (blockUnder != null && insertionMax - blockUnder.stackSize > 0) {
-            int blockUndersToConsume = consumeMatchingStacks(blockUnder, inputs, 0, insertionMax, true);
-            if (blockUndersToConsume <= 0) {
-                return CHECK_RECIPE_RESULT_BLOCK_UNDER_NOT_FOUND;
+        // if we have a sub-soil check how many to consume
+        ItemStack subSoilStack = this.getSubSoilStack();
+        subSoilStack = CropsNHUtils.isStackValid(subSoilStack) ? subSoilStack : null;
+        if (subSoilStack != null && insertionMax - subSoilStack.stackSize > 0) {
+            int SubSoilsToConsume = consumeMatchingStacks(subSoilStack, inputs, 0, insertionMax, true);
+            if (SubSoilsToConsume <= 0) {
+                return CHECK_RECIPE_RESULT_SUB_SOIL_NOT_FOUND;
             }
-            insertionMax = Math.min(insertionMax, blockUnder.stackSize + blockUndersToConsume);
+            insertionMax = Math.min(insertionMax, subSoilStack.stackSize + SubSoilsToConsume);
         }
 
         // consume the items, and the relevant stacks should all get updated automatically.
         consumeMatchingStacks(existing, inputs, 0, insertionMax, false);
-        if (blockUnder != null) {
-            consumeMatchingStacks(blockUnder, inputs, 0, insertionMax, false);
+        if (subSoilStack != null) {
+            consumeMatchingStacks(subSoilStack, inputs, 0, insertionMax, false);
         }
         return CheckRecipeResultRegistry.SUCCESSFUL;
     }
 
     private CheckRecipeResult tryAddNewSeeds(List<ItemStack> inputs) {
         int seedIndex = 0;
-        int blockUnderIndex = 0;
+        int subSoilIndex = 0;
         ItemStack newSeedStack = null;
-        ItemStack newBlockUnderStack = null;
+        ItemStack newSubSoilStack = null;
         for (; seedIndex < inputs.size(); seedIndex++) {
             // the seed must be a valid item and an analyzed seed.
             final ItemStack seedCandidate = inputs.get(seedIndex);
@@ -989,34 +989,33 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             int growthSpeedUnscaled = this.getGrowthSpeedUnscaled(seedData);
             this.hasFertilizer = oldHasFertilizer;
             if (growthSpeedUnscaled <= 0) return CHECK_RECIPE_RESULT_CANNOT_GROW;
-            // if it has a block under try to consume it
+            // if it has a sub-soil try to consume it
             reqs: for (IGrowthRequirement requirement : seedData.getCrop()
                 .getGrowthRequirements()) {
-                if (requirement instanceof BlockUnderRequirement blockUnderReq) {
-                    ItemStack existingBlockUnderStack = this.getBlockUnderStack();
-                    if (CropsNHUtils.isStackValid(existingBlockUnderStack)) {
-                        // check if the existing block under matches the new crop.
-                        // this shouldn't happen much since blockunders can't be manually accessed by the player.
-                        if (!blockUnderReq.isValidBlockUnder(existingBlockUnderStack)) {
-                            return CHECK_RECIPE_RESULT_BLOCK_UNDER_MISMATCH_INPUT;
+                if (requirement instanceof SubSoilRequirement subSoilReq) {
+                    ItemStack existingSubSoilStack = this.getSubSoilStack();
+                    if (CropsNHUtils.isStackValid(existingSubSoilStack)) {
+                        // check if the existing sub-soil matches the new crop.
+                        // this shouldn't happen much since sub-soil can't be manually accessed by the player.
+                        if (!subSoilReq.isValidSubSoil(existingSubSoilStack)) {
+                            return CHECK_RECIPE_RESULT_SUB_SOIL_MISMATCH_INPUT;
                         }
-                        newBlockUnderStack = existingBlockUnderStack;
+                        newSubSoilStack = existingSubSoilStack;
                         break;
                     } else {
-                        for (blockUnderIndex = 0; blockUnderIndex < inputs.size(); blockUnderIndex++) {
-                            ItemStack blockUnderCandidate = inputs.get(blockUnderIndex);
-                            // abort early if it's the seed candidate or the not a valid under-block.
-                            if (blockUnderIndex == seedIndex || !blockUnderReq.isValidBlockUnder(blockUnderCandidate))
-                                continue;
+                        for (subSoilIndex = 0; subSoilIndex < inputs.size(); subSoilIndex++) {
+                            ItemStack subSoilCandidate = inputs.get(subSoilIndex);
+                            // abort early if it's the seed candidate or the not a valid sub-soil.
+                            if (subSoilIndex == seedIndex || !subSoilReq.isValidSubSoil(subSoilCandidate)) continue;
                             // else save the stack for later.
-                            newBlockUnderStack = blockUnderCandidate.copy();
-                            newBlockUnderStack.stackSize = 0;
+                            newSubSoilStack = subSoilCandidate.copy();
+                            newSubSoilStack.stackSize = 0;
                             break reqs;
                         }
                     }
 
-                    // under block not found, assume incorrect input instead of checking for other seeds.
-                    return CHECK_RECIPE_RESULT_BLOCK_UNDER_NOT_FOUND;
+                    // sub-soil not found, assume incorrect input instead of checking for other seeds.
+                    return CHECK_RECIPE_RESULT_SUB_SOIL_NOT_FOUND;
                 }
             }
             // put the seed searcher back by 1 slot and save the new search targets.
@@ -1028,37 +1027,37 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         if (newSeedStack == null) return CheckRecipeResultRegistry.NO_RECIPE;
 
         // find the maximum amount of items we can consume.
-        if (newBlockUnderStack == null) {
+        if (newSubSoilStack == null) {
             // just consume up to the capacity, no need for any other complex checks.
             consumeMatchingStacks(newSeedStack, inputs, seedIndex, this.seedCapacity, false);
         } else {
-            // check how many under-blocks will be in the machine if we try to consume everything.
-            int additionalBlockUnderAvailable = consumeMatchingStacks(
-                newBlockUnderStack,
+            // check how many sub-soil items will be in the machine if we try to consume everything.
+            int additionalSubSoilAvailable = consumeMatchingStacks(
+                newSubSoilStack,
                 inputs,
-                blockUnderIndex,
+                subSoilIndex,
                 this.seedCapacity,
                 true);
-            int blockUnderInMachineIfAllConsumed = newBlockUnderStack.stackSize + additionalBlockUnderAvailable;
+            int subSoilInMachineIfAllConsumed = newSubSoilStack.stackSize + additionalSubSoilAvailable;
             // Check how many seeds are available
             int availableSeeds = consumeMatchingStacks(
                 newSeedStack,
                 inputs,
                 seedIndex,
-                blockUnderInMachineIfAllConsumed,
+                subSoilInMachineIfAllConsumed,
                 true);
-            // Update the max under-block consumption based on how many seeds we're inserting in case there were some
+            // Update the max sub-soil consumption based on how many seeds we're inserting in case there were some
             // blocks already in the machine.
-            int maxAmountAfterIngest = Math.min(availableSeeds, blockUnderInMachineIfAllConsumed);
+            int maxAmountAfterIngest = Math.min(availableSeeds, subSoilInMachineIfAllConsumed);
             // consume
             consumeMatchingStacks(newSeedStack, inputs, seedIndex, maxAmountAfterIngest, false);
-            consumeMatchingStacks(newBlockUnderStack, inputs, blockUnderIndex, maxAmountAfterIngest, false);
+            consumeMatchingStacks(newSubSoilStack, inputs, subSoilIndex, maxAmountAfterIngest, false);
         }
 
         // update the inventory
         this.setSeedStack(newSeedStack);
-        if (newBlockUnderStack != null) {
-            this.setBlockUnderStack(newBlockUnderStack);
+        if (newSubSoilStack != null) {
+            this.setSubSoilStack(newSubSoilStack);
         }
 
         return CheckRecipeResultRegistry.SUCCESSFUL;
@@ -1114,12 +1113,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     /**
      * @implNote The output mode should never void anything,
      *           this is mainly due to the fact that you can't
-     *           extract seeds with under-blocks without output mode
+     *           extract seeds with sub-soil without output mode
      *           due to limitations in MUI2.
      */
     private CheckRecipeResult checkProcessingOutputMode() {
         ItemStack seedStack = this.getSeedStack();
-        ItemStack blockUnderStack = this.getBlockUnderStack();
+        ItemStack subSoilStack = this.getSubSoilStack();
         List<ItemStack> simulated = new ArrayList<>(2);
         // add seed if present
         if (CropsNHUtils.isStackValid(seedStack)) {
@@ -1127,20 +1126,20 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         } else {
             seedStack = null;
         }
-        // add block under if present
-        if (CropsNHUtils.isStackValid(blockUnderStack)) {
-            simulated.add(CropsNHUtils.copyStackWithSize(blockUnderStack, 1));
+        // add sub-soil if present
+        if (CropsNHUtils.isStackValid(subSoilStack)) {
+            simulated.add(CropsNHUtils.copyStackWithSize(subSoilStack, 1));
         } else {
-            blockUnderStack = null;
+            subSoilStack = null;
         }
         // check if anything remains
         if (simulated.isEmpty()) {
             return CheckRecipeResultRegistry.NO_RECIPE;
         }
         // calc max parallel based on min stack size.
-        int maxParallels = (seedStack != null && blockUnderStack != null)
-            ? Math.min(seedStack.stackSize, blockUnderStack.stackSize)
-            : (seedStack != null ? seedStack.stackSize : blockUnderStack.stackSize);
+        int maxParallels = (seedStack != null && subSoilStack != null)
+            ? Math.min(seedStack.stackSize, subSoilStack.stackSize)
+            : (seedStack != null ? seedStack.stackSize : subSoilStack.stackSize);
         // do the output voiding checks
         ItemEjectionHelper ejectionHelper = new ItemEjectionHelper(getOutputBusses(), true);
         maxParallels = ejectionHelper.ejectItems(simulated, maxParallels);
@@ -1152,9 +1151,9 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             seedStack.stackSize -= maxParallels;
             this.setSeedStack(seedStack.stackSize <= 0 ? null : seedStack);
         }
-        if (blockUnderStack != null) {
-            blockUnderStack.stackSize -= maxParallels;
-            this.setBlockUnderStack(blockUnderStack.stackSize <= 0 ? null : blockUnderStack);
+        if (subSoilStack != null) {
+            subSoilStack.stackSize -= maxParallels;
+            this.setSubSoilStack(subSoilStack.stackSize <= 0 ? null : subSoilStack);
         }
         // eject seeds and blocks
         for (ItemStack stack : simulated) {
@@ -1208,9 +1207,9 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
 
         // check the machine growth requirements
         ItemStack[] growthCatalysts;
-        ItemStack underBlockStack = this.getBlockUnderStack();
-        if (CropsNHUtils.isStackValid(underBlockStack)) {
-            growthCatalysts = new ItemStack[] { underBlockStack };
+        ItemStack subSoilStack = this.getSubSoilStack();
+        if (CropsNHUtils.isStackValid(subSoilStack)) {
+            growthCatalysts = new ItemStack[] { subSoilStack };
         } else {
             growthCatalysts = new ItemStack[0];
         }
@@ -1219,8 +1218,8 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             if (req instanceof IMachineGrowthRequirement machineGrowthReq) {
                 if (!machineGrowthReq.canGrow(seedData, this.getBaseMetaTileEntity(), growthCatalysts)) {
                     // custom logic for this one to display a custom message in case some update changes something.
-                    if (req instanceof BlockUnderRequirement) {
-                        return CHECK_RECIPE_RESULT_BLOCK_UNDER_MISMATCH_FARM;
+                    if (req instanceof SubSoilRequirement) {
+                        return CHECK_RECIPE_RESULT_SUB_SOIL_MISMATCH_FARM;
                     }
                     return CHECK_RECIPE_RESULT_CANNOT_GROW;
                 }

@@ -6,7 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 
 import gregtech.api.enums.VoltageIndex;
@@ -18,7 +18,7 @@ public class CropSoulSandLily extends CropBaseStoneLily {
 
         this.addDrop(new ItemStack(Blocks.soul_sand, 1), 25_00);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.soulSand);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.soulSand);
 
         this.addDuplicationCatalyst(new ItemStack(Blocks.soul_sand, 1));
 

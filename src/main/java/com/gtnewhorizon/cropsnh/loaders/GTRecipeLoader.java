@@ -308,7 +308,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
                 "PWS", "CMC", "ICI", 'P', MTEBasicMachineWithRecipe.X.ROBOT_ARM, 'W', getWateringCan(), 'S',
                 MTEBasicMachineWithRecipe.X.SENSOR, 'C', MTEBasicMachineWithRecipe.X.CIRCUIT, 'M',
                 CropsNHItemList.CropManager_MV.get(1),
-                // seed/block under storage
+                // seed/sub-soil storage
                 'I', ItemList.Hatch_Input_Bus_MV
             // spotless:on
             },

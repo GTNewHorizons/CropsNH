@@ -6,8 +6,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
@@ -31,7 +31,7 @@ public class CropWithereed extends NHCropCard {
         // skeleton skull: sqrt(6.66)
         this.addDrop(new ItemStack(Items.skull, 1, 0), 2_58);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.coal);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.coal);
 
         // wither skull
         this.addDuplicationCatalyst(new ItemStack(Items.skull, 1, 1));

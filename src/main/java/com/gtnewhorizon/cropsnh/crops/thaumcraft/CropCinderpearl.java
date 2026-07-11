@@ -5,8 +5,8 @@ import java.awt.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
@@ -24,7 +24,7 @@ public class CropCinderpearl extends NHCropCard {
 
         this.addAlternateSeed(cinderpearl);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.blaze);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.blaze);
 
         this.addDuplicationCatalyst("dustBlaze", 2);
 

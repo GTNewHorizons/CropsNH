@@ -6,8 +6,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
@@ -22,7 +22,7 @@ public class CropGaiaWart extends NHCropCard {
         super(Names.Objects.gaiaWart, new Color(0x0F213A), new Color(0x2664A1));
         this.addDrop(new ItemStack(CropsNHItems.gaiaWart, 1), 10000);
         this.addAlternateSeed(new ItemStack(CropsNHItems.gaiaWart, 1));
-        this.addGrowthRequirement(CropsNHBlockUnderTypes.snow);
+        this.addGrowthRequirement(CropsNHSubSoilTypes.snow);
         this.addDuplicationCatalyst(new ItemStack(Items.snowball, 1));
         // going to treat it like sugar cane
         this.addLikedBiomes(BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD);

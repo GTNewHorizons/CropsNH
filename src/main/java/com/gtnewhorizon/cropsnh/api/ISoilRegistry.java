@@ -17,7 +17,7 @@ public interface ISoilRegistry {
     boolean isRegistered(IBlockAccess world, int x, int y, int z);
 
     /**
-     * Checks if the block has been registered with any soil list under this registry.
+     * Checks if the block has been registered with any soil list in this registry.
      *
      * @param block The block to check for.
      * @param meta  The metadata of the block.

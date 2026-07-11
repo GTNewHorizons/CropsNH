@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
@@ -24,7 +24,7 @@ public class CropSpaceFlower extends NHCropCard {
         this.addDrop(CropsNHItemList.spaceFlower.get(1), 100_00);
 
         if (ModUtils.GalacticraftCore.isModLoaded()) {
-            this.addBlockUnderRequirement(CropsNHBlockUnderTypes.space);
+            this.addSubSoilRequirement(CropsNHSubSoilTypes.space);
         }
 
         this.addGrowthRequirement(new MachineOnlyGrowthRequirement());

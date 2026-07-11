@@ -18,7 +18,7 @@ import com.gtnewhorizon.cropsnh.api.ICropMutation;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
-import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.SubSoilRequirement;
 import com.gtnewhorizon.cropsnh.farming.requirements.breeding.MachineOnlyBreedingRequirement;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
@@ -97,15 +97,15 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
                     Y_soil,
                     true));
 
-            // get list of all block under
-            List<ItemStack> blockUnderList = mutation.getBlocksUnderForNEI(true);
-            if (!blockUnderList.isEmpty()) {
-                this.others.add(new PositionedStack(blockUnderList, X_seed, Y_base, true));
+            // get list of all sub-soil
+            List<ItemStack> subSoilList = mutation.getSubSoilsForNEI(true);
+            if (!subSoilList.isEmpty()) {
+                this.others.add(new PositionedStack(subSoilList, X_seed, Y_base, true));
             }
 
             for (IBreedingRequirement req : mutation.getRequirements()) {
-                // skip block under reqs since those are already displayed via the items
-                if (req instanceof BlockUnderRequirement) continue;
+                // skip sub-soil reqs since those are already displayed via the items
+                if (req instanceof SubSoilRequirement) continue;
                 this.reqLines.add(req.getDescription());
             }
         }
@@ -195,7 +195,7 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
                     .contains(cc)) continue;
                 this.arecipes.add(new CachedBreedingRecipe(mutation));
             }
-            // there shouldn't be an odd case where a seed is also a soil or a block under.
+            // there shouldn't be an odd case where a seed is also a soil or a sub-soil.
             return;
         }
 
@@ -204,7 +204,7 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
         // bail if the block isn't found
         if (block == null) return;
 
-        // find crops it's a soil or under-block for.
+        // find crops it's a soil or sub-soil for.
         outer: for (ICropMutation mutation : MutationRegistry.instance.getDeterministicMutations()) {
             // register mutations for which this is a soil
             if (mutation.getOutput()
@@ -214,11 +214,11 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
                 // mutations shouldn't be getting registered more than once
                 continue;
             }
-            // register mutations for which this is a block under.
+            // register mutations for which this is a sub-soil.
             for (IBreedingRequirement req : mutation.getRequirements()) {
-                if (!(req instanceof BlockUnderRequirement)) continue;
+                if (!(req instanceof SubSoilRequirement)) continue;
                 // The canBreed methods are more for machines and dim checks, canGrow fits our use-case better here.
-                if (((BlockUnderRequirement) req).canGrow(block, CropsNHUtils.getItemMeta(item), null)) {
+                if (((SubSoilRequirement) req).canGrow(block, CropsNHUtils.getItemMeta(item), null)) {
                     arecipes.add(new CachedBreedingRecipe(mutation));
                     // mutations shouldn't be getting registered more than once
                     continue outer;

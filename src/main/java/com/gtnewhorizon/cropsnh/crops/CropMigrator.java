@@ -20,10 +20,11 @@ import com.gtnewhorizon.cropsnh.farming.requirements.growth.MigratedCropGrowthRe
 import com.gtnewhorizon.cropsnh.reference.Constants;
 
 /**
- * A generally unobtainable crop that can't be obtained under regular circumstances.
- * Used to migrate crops that cannot be migrated without breaking something.
- *
- * It's seed drop is "guaranteed" and always drops 1 of itself.
+ * A generally unobtainable crop used to migrate crops that cannot be migrated without breaking something (usually the
+ * sub-soil).
+ * <p>
+ * If the crop stick containing it is broken or any attempt is made by a player to uproot it, it will always drop the
+ * seed for the crop it replaced. If it doesn't, it's considered a critical bug, and requires an emergency patch.
  */
 public class CropMigrator extends NHCropCard {
 
