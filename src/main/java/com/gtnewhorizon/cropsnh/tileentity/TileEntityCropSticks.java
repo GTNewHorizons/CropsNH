@@ -511,7 +511,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
 
     @Override
     public void playCrossCropSound() {
-        Block.SoundType sound = Blocks.planks.stepSound;
+        Block.SoundType sound = CropsNHBlocks.blockCropSticks.stepSound;
         this.playSoundEffect(sound.func_150496_b(), sound.getVolume() * 0.5f, sound.getPitch() * 0.5f);
     }
 
