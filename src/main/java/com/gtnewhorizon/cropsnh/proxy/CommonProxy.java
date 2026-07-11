@@ -1,10 +1,8 @@
 package com.gtnewhorizon.cropsnh.proxy;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
@@ -24,16 +22,6 @@ import gregtech.api.util.scanner.ScannerHelper;
 
 @SuppressWarnings("unused")
 public abstract class CommonProxy implements IProxy {
-
-    @Override
-    public Entity getEntityById(int dimension, int id) {
-        return getEntityById(getWorldByDimensionId(dimension), id);
-    }
-
-    @Override
-    public Entity getEntityById(World world, int id) {
-        return world.getEntityByID(id);
-    }
 
     @Override
     public void registerEventHandlers() {
