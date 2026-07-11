@@ -19,6 +19,7 @@ import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropManager;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import cpw.mods.fml.common.LoaderException;
+import gregtech.api.enums.GTValues;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.util.tooltip.TooltipHelper;
 
@@ -89,6 +90,10 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
         return aTier * HARVEST_ROUND_BONUS;
     }
 
+    public static long getBaseEUt(int tier) {
+        return GTValues.VP[tier];
+    }
+
     public void addInformation(ItemStack aStack, EntityPlayer aPlayer, List<String> aTooltip,
         boolean aAdvancedTooltips) {
         super.addInformation(aStack, aPlayer, aTooltip, aAdvancedTooltips);
@@ -101,32 +106,37 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
         aTooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.1",
-                TooltipHelper.parallelText(getCapacity(tMeta))));
+                TooltipHelper.euRateText(getBaseEUt(tMeta)),
+                TooltipHelper.voltageTierText(tMeta, false)));
         aTooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.2",
-                TooltipHelper.fluidText(getWaterConsumption(tMeta))));
+                TooltipHelper.parallelText(getCapacity(tMeta))));
         aTooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.3",
+                TooltipHelper.fluidText(getWaterConsumption(tMeta))));
+        aTooltip.add(
+            StatCollector.translateToLocalFormatted(
+                Reference.MOD_ID + "_tooltip.seedBed.4",
                 TooltipHelper.fluidText(getFertilizerConsumption(tMeta))));
         if (aAdvancedTooltips) {
             aTooltip.add(
                 StatCollector
-                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.4.adv", roundIncreaseText));
+                    .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.5.adv", roundIncreaseText));
         } else {
             aTooltip.add(
-                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.4", roundIncreaseText));
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.5", roundIncreaseText));
         }
 
         int length = getMultiLength(tMeta);
         String lengthText = TooltipHelper.tierText(formatNumber(length));
         if (length == 1) {
             aTooltip.add(
-                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.5.single", lengthText));
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.6.single", lengthText));
         } else {
             aTooltip.add(
-                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.5.plural", lengthText));
+                StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.6.plural", lengthText));
         }
 
     }
