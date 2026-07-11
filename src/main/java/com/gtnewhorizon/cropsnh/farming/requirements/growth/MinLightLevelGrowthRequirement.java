@@ -18,17 +18,25 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 public class MinLightLevelGrowthRequirement implements IWorldGrowthRequirement {
 
     private final Pair<String, String[]> unlocalizedDesc;
+    private final Pair<String, String[]> unlocalizedDescNEI;
     private final int minLightLevel;
 
     public MinLightLevelGrowthRequirement(int minLightLevel) {
         this.minLightLevel = minLightLevel;
         this.unlocalizedDesc = Pair
             .of(Reference.MOD_ID + "_growthReq.minLight.format", new String[] { formatNumber(this.minLightLevel) });
+        this.unlocalizedDescNEI = Pair
+            .of(Reference.MOD_ID + "_growthReq.minLight.format.nei", new String[] { formatNumber(this.minLightLevel) });
     }
 
     @Override
     public @NotNull Pair<@NotNull String, @Nullable String[]> getUnlocalizedDescription() {
         return this.unlocalizedDesc;
+    }
+
+    @Override
+    public @NotNull Pair<@NotNull String, @Nullable String[]> getUnlocalizedDescriptionForNEI() {
+        return this.unlocalizedDescNEI;
     }
 
     @Override

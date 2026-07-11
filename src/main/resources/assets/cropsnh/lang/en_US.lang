@@ -742,7 +742,9 @@ cropsnh_growthReq.lockout.machineOnly.nei=Only harvestable in the I. Farm
 cropsnh_growthReq.lockout.migrated=Invalid soil! Break to get seed!
 # Light Growth Requirements
 cropsnh_growthReq.minLight.format=Needs a light level of %1$s or higher
+cropsnh_growthReq.minLight.format.nei=Needs a light lvl. of %1$s or higher
 cropsnh_growthReq.maxLight.format=Needs a light level of %1$s or lower
+cropsnh_growthReq.maxLight.format.nei=Needs a light lvl. of %1$s or lower
 # Vanilla Stone Lily Growth Requirements
 cropsnh_growthReq.subSoil.stone=Needs a block of stone under it to grow
 cropsnh_growthReq.subSoil.sand=Needs a block of sand or sandstone under it to grow

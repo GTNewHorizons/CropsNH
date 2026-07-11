@@ -18,17 +18,25 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 public class MaxLightLevelGrowthRequirement implements IWorldGrowthRequirement {
 
     private final Pair<String, String[]> unlocalizedDesc;
+    private final Pair<String, String[]> unlocalizedDescNEI;
     private final int maxLightLevel;
 
     public MaxLightLevelGrowthRequirement(int maxLightLevel) {
         this.maxLightLevel = maxLightLevel;
         this.unlocalizedDesc = Pair
             .of(Reference.MOD_ID + "_growthReq.maxLight.format", new String[] { formatNumber(this.maxLightLevel) });
+        this.unlocalizedDescNEI = Pair
+            .of(Reference.MOD_ID + "_growthReq.maxLight.format.nei", new String[] { formatNumber(this.maxLightLevel) });
     }
 
     @Override
     public @NotNull Pair<@NotNull String, @Nullable String[]> getUnlocalizedDescription() {
-        return unlocalizedDesc;
+        return this.unlocalizedDesc;
+    }
+
+    @Override
+    public @NotNull Pair<@NotNull String, @Nullable String[]> getUnlocalizedDescriptionForNEI() {
+        return this.unlocalizedDescNEI;
     }
 
     @Override
