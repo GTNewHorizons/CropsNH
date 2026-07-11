@@ -227,8 +227,9 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
         // gt material check
         for (Materials material : this.materials) {
             if (block instanceof GTBlockOre && te instanceof TileEntityOres) {
-                Materials tMaterial = GregTechAPI.sGeneratedMaterials[((TileEntityOres) te).mMetaData % 1000];
-                if (tMaterial != null && tMaterial != Materials._NULL && tMaterial == material) {
+                Materials generatedMaterial = GregTechAPI.sGeneratedMaterials[((TileEntityOres) te).mMetaData % 1000];
+                if (generatedMaterial != null && generatedMaterial != Materials._NULL
+                    && generatedMaterial == material) {
                     return true;
                 }
             } else if (checkGTBlockOrOreMaterial(stack, material)) {

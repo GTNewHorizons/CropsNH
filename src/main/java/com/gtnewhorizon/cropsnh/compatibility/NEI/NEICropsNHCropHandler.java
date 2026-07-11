@@ -168,14 +168,14 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
 
     // loads the crop product recipes for a given product
     @Override
-    protected void loadCraftingRecipesDo(String pId, Object... results) {
-        if (pId.equalsIgnoreCase(id)) {
+    protected void loadCraftingRecipesDo(String id, Object... results) {
+        if (id.equalsIgnoreCase(NEICropsNHCropHandler.id)) {
             for (ICropCard cc : CropRegistry.instance.getAllInRegistrationOrder()) {
                 // no reason to display weeds
                 if (cc.hideFromNEI()) continue;
                 arecipes.add(new CachedCropRecipe(null, cc));
             }
-        } else if (pId.equalsIgnoreCase("item")) {
+        } else if (id.equalsIgnoreCase("item")) {
             for (Object object : results) {
                 if (object instanceof ItemStack) {
                     ItemStack stack = ((ItemStack) object).copy();

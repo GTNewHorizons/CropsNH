@@ -61,40 +61,40 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
         syncManager.syncValue(
             "mEnvironmentalEnhancementUnitCount",
             new IntSyncValue(
-                () -> multiblock.mEnvironmentalEnhancementUnitCount,
-                val -> multiblock.mEnvironmentalEnhancementUnitCount = val));
+                () -> multiblock.environmentalEnhancementUnitCount,
+                val -> multiblock.environmentalEnhancementUnitCount = val));
         syncManager.syncValue(
             "mFertilizerUnitCount",
-            new IntSyncValue(() -> multiblock.mFertilizerUnitCount, val -> multiblock.mFertilizerUnitCount = val));
+            new IntSyncValue(() -> multiblock.fertilizerUnitCount, val -> multiblock.fertilizerUnitCount = val));
         syncManager.syncValue(
             "mGrowthAccelerationUnitCount",
             new IntSyncValue(
-                () -> multiblock.mGrowthAccelerationUnitCount,
-                val -> multiblock.mGrowthAccelerationUnitCount = val));
+                () -> multiblock.growthAccelerationUnitCount,
+                val -> multiblock.growthAccelerationUnitCount = val));
         syncManager.syncValue(
             "mAdvancedHarvestingUnitCount",
             new IntSyncValue(
-                () -> multiblock.mAdvancedHarvestingUnitCount,
-                val -> multiblock.mAdvancedHarvestingUnitCount = val));
+                () -> multiblock.advancedHarvestingUnitCount,
+                val -> multiblock.advancedHarvestingUnitCount = val));
         syncManager.syncValue(
             "mOverclockedGrowthAccelerationUnitCount",
             new IntSyncValue(
-                () -> multiblock.mOverclockedGrowthAccelerationUnitCount,
-                val -> multiblock.mOverclockedGrowthAccelerationUnitCount = val));
+                () -> multiblock.overclockedGrowthAccelerationUnitCount,
+                val -> multiblock.overclockedGrowthAccelerationUnitCount = val));
 
         // Status
         syncManager.syncValue(
             "mSeedCapacity",
-            new IntSyncValue(() -> multiblock.mSeedCapacity, val -> multiblock.mSeedCapacity = val));
+            new IntSyncValue(() -> multiblock.seedCapacity, val -> multiblock.seedCapacity = val));
         syncManager.syncValue(
             "mUpgradeTier",
-            new IntSyncValue(() -> multiblock.mUpgradeTier, val -> multiblock.mUpgradeTier = val));
+            new IntSyncValue(() -> multiblock.upgradeTier, val -> multiblock.upgradeTier = val));
         syncManager.syncValue(
             "mExpectedOCs",
-            new IntSyncValue(() -> multiblock.mExpectedOCs, val -> multiblock.mExpectedOCs = val));
+            new IntSyncValue(() -> multiblock.expectedOCs, val -> multiblock.expectedOCs = val));
         syncManager.syncValue(
             "mExpectedEUt",
-            new LongSyncValue(() -> multiblock.mExpectedEUt, val -> multiblock.mExpectedEUt = val));
+            new LongSyncValue(() -> multiblock.expectedEUt, val -> multiblock.expectedEUt = val));
 
         syncManager.registerSlotGroup("if_inv", 4);
 
@@ -126,14 +126,14 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
     private ItemSlot createEnvModuleSlot(int index) {
         return new ItemSlot()
             .slot(
-                new ModularSlot(multiblock.mIFStackHandler, MTEIndustrialFarm.SLOT_ENV_CARD_START + index) {}
+                new ModularSlot(multiblock.ifStackHandler, MTEIndustrialFarm.SLOT_ENV_CARD_START + index) {}
                     .slotGroup("if_inv"))
             .tooltipDynamic(x -> {
                 x.addLine(
                     StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.environmentalModule"));
                 x.addLine(
                     StatCollector.translateToLocal(
-                        multiblock.mEnvironmentalEnhancementUnitCount >= 1 + index
+                        multiblock.environmentalEnhancementUnitCount >= 1 + index
                             ? Reference.MOD_ID + "_tooltip.industrialFarm.environmentalModule.enabled"
                             : Reference.MOD_ID + "_tooltip.industrialFarm.environmentalModule.disabled"));
             })
@@ -141,7 +141,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
             .overlay(
                 new DisabledSlotOverlay(
                     () -> multiblock.mMaxProgresstime != 0 || multiblock.isAllowedToWork()
-                        || multiblock.mEnvironmentalEnhancementUnitCount < 1 + index));
+                        || multiblock.environmentalEnhancementUnitCount < 1 + index));
     }
 
     @Override
@@ -155,14 +155,14 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
             multiblock.doesBindPlayerInventory(),
             () -> new ItemSlot()
                 .slot(
-                    new ModularSlot(multiblock.mIFStackHandler, MTEIndustrialFarm.SLOT_SEED).ignoreMaxStackSize(true)
+                    new ModularSlot(multiblock.ifStackHandler, MTEIndustrialFarm.SLOT_SEED).ignoreMaxStackSize(true)
                         .slotGroup("if_inv"))
                 .tooltipDynamic(x -> {
                     x.addLine(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.seedSlot"));
                     x.addLine(
                         StatCollector.translateToLocalFormatted(
                             Reference.MOD_ID + "_tooltip.industrialFarm.capacity",
-                            multiblock.mSeedCapacity));
+                            multiblock.seedCapacity));
                     if (CropsNHUtils.isStackValid(multiblock.getBlockUnderStack())) {
                         x.addLine(
                             StatCollector.translateToLocal(
@@ -175,7 +175,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                 multiblock.doesBindPlayerInventory(),
                 () -> new ItemSlot()
                     .slot(
-                        new ModularSlot(multiblock.mIFStackHandler, MTEIndustrialFarm.SLOT_BLOCK_UNDER)
+                        new ModularSlot(multiblock.ifStackHandler, MTEIndustrialFarm.SLOT_BLOCK_UNDER)
                             .ignoreMaxStackSize(true)
                             .slotGroup("if_inv"))
                     .tooltipDynamic(x -> {
@@ -185,7 +185,7 @@ public class MTEIndustrialFarmGui extends MTEMultiBlockBaseGui<MTEIndustrialFarm
                         x.addLine(
                             StatCollector.translateToLocalFormatted(
                                 Reference.MOD_ID + "_tooltip.industrialFarm.capacity",
-                                multiblock.mSeedCapacity));
+                                multiblock.seedCapacity));
                         if (CropsNHUtils.isStackValid(multiblock.getBlockUnderStack())) {
                             x.addLine(
                                 StatCollector

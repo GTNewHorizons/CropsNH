@@ -46,12 +46,12 @@ public class ScannerLoader extends BaseGTRecipeLoader {
         RecipeMaps.scannerHandlers.addFirst(ScannerLoader::scanCropsNHSeed);
     }
 
-    public static @Nullable GTScannerResult scanCropsNHSeed(@Nonnull MetaTileEntity aScanner, @Nonnull ItemStack aInput,
-        @Nullable ItemStack aSpecialSlot, @Nullable FluidStack aFluid) {
-        if (CropRegistry.instance.get(aInput, false) == null) return null;
-        ISeedStats stats = SeedStats.getStatsFromStack(aInput);
+    public static @Nullable GTScannerResult scanCropsNHSeed(@Nonnull MetaTileEntity scanner, @Nonnull ItemStack input,
+        @Nullable ItemStack specialSlot, @Nullable FluidStack fluid) {
+        if (CropRegistry.instance.get(input, false) == null) return null;
+        ISeedStats stats = SeedStats.getStatsFromStack(input);
         if (stats == null) return null;
-        ItemStack output = CropsNHUtils.copyStackWithSize(aInput, 1);
+        ItemStack output = CropsNHUtils.copyStackWithSize(input, 1);
         int eut, duration;
         if (stats.isAnalyzed()) {
             eut = 1;

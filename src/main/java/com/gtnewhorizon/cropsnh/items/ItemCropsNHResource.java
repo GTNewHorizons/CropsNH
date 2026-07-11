@@ -2,16 +2,16 @@ package com.gtnewhorizon.cropsnh.items;
 
 public class ItemCropsNHResource extends ItemCropsNH {
 
-    private final String mInternalName;
+    private final String internalName;
 
     public ItemCropsNHResource(String name) {
         super(name);
-        this.mInternalName = name;
+        this.internalName = name;
     }
 
     @Override
     protected String getInternalName() {
-        return this.mInternalName;
+        return this.internalName;
     }
 
 }

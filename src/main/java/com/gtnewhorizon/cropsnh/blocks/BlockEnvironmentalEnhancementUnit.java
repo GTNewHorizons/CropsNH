@@ -66,12 +66,12 @@ public class BlockEnvironmentalEnhancementUnit extends CropsNHBlockIndustrialFar
     }
 
     @Override
-    public void registerBlockIcons(IIconRegister aIconRegister) {
-        super.registerBlockIcons(aIconRegister);
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        super.registerBlockIcons(iconRegister);
         this.registerIconArray(
-            aIconRegister,
+            iconRegister,
             Reference.MOD_ID + ":industrialFarm/environmentalEnhancementUnit/",
-            this.mTopIcons);
-        System.arraycopy(mTopIcons, 0, this.mBottomIcons, 0, this.mTopIcons.length);
+            this.topIcons);
+        System.arraycopy(topIcons, 0, this.bottomIcons, 0, this.topIcons.length);
     }
 }

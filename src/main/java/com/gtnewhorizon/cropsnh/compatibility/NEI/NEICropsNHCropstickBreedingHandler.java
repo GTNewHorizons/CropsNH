@@ -138,8 +138,8 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
 
     // loads the crop product recipes for a given product
     @Override
-    protected void loadCraftingRecipesDo(String pId, Object... results) {
-        if (pId.equalsIgnoreCase(id)) {
+    protected void loadCraftingRecipesDo(String id, Object... results) {
+        if (id.equalsIgnoreCase(NEICropsNHCropstickBreedingHandler.id)) {
             for (ICropMutation mutation : MutationRegistry.instance.getDeterministicMutations()) {
                 if (mutation.getOutput()
                     .hideFromNEI()) continue;
@@ -148,7 +148,7 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
                     .anyMatch(x -> x instanceof MachineOnlyBreedingRequirement)) continue;
                 this.arecipes.add(new CachedBreedingRecipe(mutation));
             }
-        } else if (pId.equalsIgnoreCase("item")) {
+        } else if (id.equalsIgnoreCase("item")) {
             for (Object object : results) {
                 if (object instanceof ItemStack) {
                     ItemStack stack = ((ItemStack) object).copy();

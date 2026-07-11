@@ -41,8 +41,8 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
             CropsNHItemList.FertilizerUnit_UXV);
     }
 
-    public static int getFertilizerConsumptionPerCycle(int aTier) {
-        return BlockSeedBed.getFertilizerConsumption(aTier);
+    public static int getFertilizerConsumptionPerCycle(int tier) {
+        return BlockSeedBed.getFertilizerConsumption(tier);
     }
 
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
@@ -92,9 +92,9 @@ public class BlockFertilizerUnit extends CropsNHBlockIndustrialFarmTiredComponen
     }
 
     @Override
-    public void registerBlockIcons(IIconRegister aIconRegister) {
-        super.registerBlockIcons(aIconRegister);
-        this.registerIconArray(aIconRegister, Reference.MOD_ID + ":industrialFarm/fertilizerUnit/", this.mTopIcons);
-        System.arraycopy(mTopIcons, 0, this.mBottomIcons, 0, this.mTopIcons.length);
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        super.registerBlockIcons(iconRegister);
+        this.registerIconArray(iconRegister, Reference.MOD_ID + ":industrialFarm/fertilizerUnit/", this.topIcons);
+        System.arraycopy(topIcons, 0, this.bottomIcons, 0, this.topIcons.length);
     }
 }

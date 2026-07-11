@@ -271,35 +271,35 @@ public enum CropsNHItemList implements IItemContainer {
     environmentalModule_WASTELAND,
     environmentalModule_BEACH;
 
-    private ItemStack mStack;
-    private boolean mHasNotBeenSet;
-    private boolean mDeprecated;
-    private boolean mWarned;
+    private ItemStack stack;
+    private boolean hasNotBeenSet;
+    private boolean deprecated;
+    private boolean warned;
 
     CropsNHItemList() {
-        mHasNotBeenSet = true;
+        this.hasNotBeenSet = true;
     }
 
-    CropsNHItemList(boolean aDeprecated) {
-        if (aDeprecated) {
-            mDeprecated = true;
-            mHasNotBeenSet = true;
+    CropsNHItemList(boolean deprecated) {
+        if (deprecated) {
+            this.deprecated = true;
+            this.hasNotBeenSet = true;
         }
     }
 
     @Override
-    public IItemContainer set(Item aItem) {
-        mHasNotBeenSet = false;
-        if (aItem == null) return this;
-        ItemStack aStack = new ItemStack(aItem, 1, 0);
-        mStack = CropsNHUtils.copyStackWithSize(aStack, 1);
+    public IItemContainer set(Item item) {
+        this.hasNotBeenSet = false;
+        if (item == null) return this;
+        ItemStack stack = new ItemStack(item, 1, 0);
+        this.stack = CropsNHUtils.copyStackWithSize(stack, 1);
         return this;
     }
 
     @Override
-    public IItemContainer set(ItemStack aStack) {
-        mHasNotBeenSet = false;
-        mStack = CropsNHUtils.copyStackWithSize(aStack, 1);
+    public IItemContainer set(ItemStack stack) {
+        this.hasNotBeenSet = false;
+        this.stack = CropsNHUtils.copyStackWithSize(stack, 1);
         return this;
     }
 
@@ -312,8 +312,8 @@ public enum CropsNHItemList implements IItemContainer {
     @Override
     public Item getItem() {
         sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) return null;
-        return mStack.getItem();
+        if (GTUtility.isStackInvalid(this.stack)) return null;
+        return this.stack.getItem();
     }
 
     @Override
@@ -324,111 +324,112 @@ public enum CropsNHItemList implements IItemContainer {
 
     @Override
     public final boolean hasBeenSet() {
-        return !mHasNotBeenSet;
+        return !this.hasNotBeenSet;
     }
 
     @Override
-    public boolean isStackEqual(Object aStack) {
-        return isStackEqual(aStack, false, false);
+    public boolean isStackEqual(Object stack) {
+        return isStackEqual(stack, false, false);
     }
 
     @Override
-    public boolean isStackEqual(Object aStack, boolean aWildcard, boolean aIgnoreNBT) {
-        if (mDeprecated && !mWarned) {
+    public boolean isStackEqual(Object stack, boolean wildcard, boolean ignoreNBT) {
+        if (this.deprecated && !this.warned) {
             new Exception(this + " is now deprecated").printStackTrace(GTLog.err);
             // warn only once
-            mWarned = true;
+            this.warned = true;
         }
-        if (GTUtility.isStackInvalid(aStack)) return false;
-        return GTUtility.areUnificationsEqual((ItemStack) aStack, aWildcard ? getWildcard(1) : get(1), aIgnoreNBT);
+        if (GTUtility.isStackInvalid(stack)) return false;
+        return GTUtility.areUnificationsEqual((ItemStack) stack, wildcard ? getWildcard(1) : get(1), ignoreNBT);
     }
 
     @Override
-    public ItemStack get(long aAmount, Object... aReplacements) {
+    public ItemStack get(long amount, Object... replacements) {
         sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) {
+        if (GTUtility.isStackInvalid(this.stack)) {
             GTLog.out.println("Object in the ItemList is null at:");
             new NullPointerException().printStackTrace(GTLog.out);
-            return GTUtility.copyAmount(aAmount, aReplacements);
+            return GTUtility.copyAmount(amount, replacements);
         }
-        return CropsNHUtils.copyStackWithSize(mStack, (int) aAmount);
+        return CropsNHUtils.copyStackWithSize(this.stack, (int) amount);
     }
 
     @Override
-    public ItemStack getWildcard(long aAmount, Object... aReplacements) {
+    public ItemStack getWildcard(long amount, Object... replacements) {
         sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
-        return GTUtility.copyAmountAndMetaData(aAmount, WILDCARD, GTOreDictUnificator.get(mStack));
+        if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
+        return GTUtility.copyAmountAndMetaData(amount, WILDCARD, GTOreDictUnificator.get(this.stack));
     }
 
     @Override
-    public ItemStack getUndamaged(long aAmount, Object... aReplacements) {
+    public ItemStack getUndamaged(long amount, Object... replacements) {
         sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
-        return GTUtility.copyAmountAndMetaData(aAmount, 0, GTOreDictUnificator.get(mStack));
+        if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
+        return GTUtility.copyAmountAndMetaData(amount, 0, GTOreDictUnificator.get(this.stack));
     }
 
     @Override
-    public ItemStack getAlmostBroken(long aAmount, Object... aReplacements) {
+    public ItemStack getAlmostBroken(long amount, Object... replacements) {
         sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
-        return GTUtility.copyAmountAndMetaData(aAmount, mStack.getMaxDamage() - 1, GTOreDictUnificator.get(mStack));
+        if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
+        return GTUtility
+            .copyAmountAndMetaData(amount, this.stack.getMaxDamage() - 1, GTOreDictUnificator.get(this.stack));
     }
 
     @Override
-    public ItemStack getWithName(long aAmount, String aDisplayName, Object... aReplacements) {
-        ItemStack rStack = get(1, aReplacements);
-        if (GTUtility.isStackInvalid(rStack)) return NI;
+    public ItemStack getWithName(long amount, String displayName, Object... replacements) {
+        ItemStack stack = get(1, replacements);
+        if (GTUtility.isStackInvalid(stack)) return NI;
 
         // CamelCase alphanumeric words from aDisplayName
-        StringBuilder tCamelCasedDisplayNameBuilder = new StringBuilder();
-        final String[] tDisplayNameWords = aDisplayName.split("\\W");
-        for (String tWord : tDisplayNameWords) {
-            if (!tWord.isEmpty()) tCamelCasedDisplayNameBuilder.append(
-                tWord.substring(0, 1)
+        StringBuilder camelCasedDisplayNameBuilder = new StringBuilder();
+        final String[] displayNameWords = displayName.split("\\W");
+        for (String word : displayNameWords) {
+            if (!word.isEmpty()) camelCasedDisplayNameBuilder.append(
+                word.substring(0, 1)
                     .toUpperCase(Locale.US));
-            if (tWord.length() > 1) tCamelCasedDisplayNameBuilder.append(
-                tWord.substring(1)
+            if (word.length() > 1) camelCasedDisplayNameBuilder.append(
+                word.substring(1)
                     .toLowerCase(Locale.US));
         }
-        if (tCamelCasedDisplayNameBuilder.length() == 0) {
+        if (camelCasedDisplayNameBuilder.length() == 0) {
             // CamelCased DisplayName is empty, so use hash of aDisplayName
-            tCamelCasedDisplayNameBuilder.append(((Long) (long) aDisplayName.hashCode()));
+            camelCasedDisplayNameBuilder.append(((Long) (long) displayName.hashCode()));
         }
 
         // Construct a translation key from UnlocalizedName and CamelCased DisplayName
-        final String tKey = rStack.getUnlocalizedName() + ".with." + tCamelCasedDisplayNameBuilder + ".name";
+        final String key = stack.getUnlocalizedName() + ".with." + camelCasedDisplayNameBuilder + ".name";
 
-        rStack.setStackDisplayName(StatCollector.translateToLocalFormatted(tKey, aDisplayName));
-        return CropsNHUtils.copyStackWithSize(rStack, (int) aAmount);
+        stack.setStackDisplayName(StatCollector.translateToLocalFormatted(key, displayName));
+        return CropsNHUtils.copyStackWithSize(stack, (int) amount);
     }
 
     @Override
-    public ItemStack getWithCharge(long aAmount, int aEnergy, Object... aReplacements) {
-        ItemStack rStack = get(1, aReplacements);
-        if (GTUtility.isStackInvalid(rStack)) return null;
-        GTModHandler.chargeElectricItem(rStack, aEnergy, Integer.MAX_VALUE, true, false);
-        return CropsNHUtils.copyStackWithSize(rStack, (int) aAmount);
+    public ItemStack getWithCharge(long amount, int energy, Object... replacements) {
+        ItemStack stack = get(1, replacements);
+        if (GTUtility.isStackInvalid(stack)) return null;
+        GTModHandler.chargeElectricItem(stack, energy, Integer.MAX_VALUE, true, false);
+        return CropsNHUtils.copyStackWithSize(stack, (int) amount);
     }
 
     @Override
-    public ItemStack getWithDamage(long aAmount, long aMetaValue, Object... aReplacements) {
+    public ItemStack getWithDamage(long amount, long metaValue, Object... replacements) {
         sanityCheck();
-        if (GTUtility.isStackInvalid(mStack)) return GTUtility.copyAmount(aAmount, aReplacements);
-        return GTUtility.copyAmountAndMetaData(aAmount, aMetaValue, GTOreDictUnificator.get(mStack));
+        if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
+        return GTUtility.copyAmountAndMetaData(amount, metaValue, GTOreDictUnificator.get(this.stack));
     }
 
     @Override
-    public IItemContainer registerOre(Object... aOreNames) {
+    public IItemContainer registerOre(Object... oreNames) {
         sanityCheck();
-        for (Object tOreName : aOreNames) GTOreDictUnificator.registerOre(tOreName, get(1));
+        for (Object oreName : oreNames) GTOreDictUnificator.registerOre(oreName, get(1));
         return this;
     }
 
     @Override
-    public IItemContainer registerWildcardAsOre(Object... aOreNames) {
+    public IItemContainer registerWildcardAsOre(Object... oreNames) {
         sanityCheck();
-        for (Object tOreName : aOreNames) GTOreDictUnificator.registerOre(tOreName, getWildcard(1));
+        for (Object tOreName : oreNames) GTOreDictUnificator.registerOre(tOreName, getWildcard(1));
         return this;
     }
 
@@ -437,25 +438,25 @@ public enum CropsNHItemList implements IItemContainer {
      * VALUE!
      */
     public ItemStack getInternalStack_unsafe() {
-        return mStack;
+        return this.stack;
     }
 
     @Override
-    public IItemContainer setRender(IItemRenderer aRenderer) {
+    public IItemContainer setRender(IItemRenderer renderer) {
         if (GTMod.proxy.isClientSide()) {
             GTMod.clientProxy().metaItemRenderer
-                .registerSpecialRenderer(this.getItem(), this.getInternalStack_unsafe(), aRenderer);
+                .registerSpecialRenderer(this.getItem(), this.getInternalStack_unsafe(), renderer);
         }
         return this;
     }
 
     private void sanityCheck() {
-        if (mHasNotBeenSet)
+        if (this.hasNotBeenSet)
             throw new IllegalAccessError("The Enum '" + name() + "' has not been set to an Item at this time!");
-        if (mDeprecated && !mWarned) {
+        if (this.deprecated && !this.warned) {
             new Exception(this + " is now deprecated").printStackTrace(GTLog.err);
             // warn only once
-            mWarned = true;
+            this.warned = true;
         }
     }
 

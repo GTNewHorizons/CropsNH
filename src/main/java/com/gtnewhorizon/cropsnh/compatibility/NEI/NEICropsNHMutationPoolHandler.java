@@ -95,12 +95,12 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
 
     // loads the crop mutation pools for a given product
     @Override
-    protected void loadCraftingRecipesDo(String pId, Object... results) {
-        if (pId.equalsIgnoreCase(id)) {
+    protected void loadCraftingRecipesDo(String id, Object... results) {
+        if (id.equalsIgnoreCase(NEICropsNHMutationPoolHandler.id)) {
             for (IMutationPool pool : MutationRegistry.instance.getMutationPools()) {
                 this.addRecipes(pool, null, null);
             }
-        } else if (pId.equalsIgnoreCase("item")) {
+        } else if (id.equalsIgnoreCase("item")) {
             for (Object object : results) {
                 if (object instanceof ItemStack) {
                     ItemStack stack = ((ItemStack) object).copy();

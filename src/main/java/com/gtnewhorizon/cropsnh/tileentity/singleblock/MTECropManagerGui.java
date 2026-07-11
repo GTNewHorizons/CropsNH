@@ -52,27 +52,27 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
         super(machine);
     }
 
-    private ItemSlot createSlot(int aIndex) {
-        ModularSlot modularSlot = new MachineModularSlot(machine.inventoryHandler, aIndex, baseMetaTileEntity);
+    private ItemSlot createSlot(int index) {
+        ModularSlot modularSlot = new MachineModularSlot(machine.inventoryHandler, index, baseMetaTileEntity);
         ItemSlot itemSlot = new ItemSlot().slot(modularSlot);
 
         // add overlay for weed-ex slots
-        if (aIndex >= MTECropManager.SLOT_WEEDEX_START && aIndex <= MTECropManager.SLOT_WEEDEX_END) {
+        if (index >= MTECropManager.SLOT_WEEDEX_START && index <= MTECropManager.SLOT_WEEDEX_END) {
             itemSlot.backgroundOverlay(CropsNHUITextures.OVERLAY_SLOT_WEED_EX_STANDARD);
             modularSlot.slotGroup(SYNC_INV_HANDLER_NAME);
         }
         // add overlay for fertilizer slots
-        else if (aIndex >= MTECropManager.SLOT_FERT_START && aIndex <= MTECropManager.SLOT_FERT_END) {
+        else if (index >= MTECropManager.SLOT_FERT_START && index <= MTECropManager.SLOT_FERT_END) {
             itemSlot.backgroundOverlay(CropsNHUITextures.OVERLAY_SLOT_FERTILIZER_STANDARD);
             modularSlot.slotGroup(SYNC_INV_HANDLER_NAME);
         }
         // add overlay for fertilizer slots
-        else if (aIndex == MTECropManager.SLOT_BATTERY) {
+        else if (index == MTECropManager.SLOT_BATTERY) {
             itemSlot.backgroundOverlay(GTGuiTextures.OVERLAY_SLOT_CHARGER);
             modularSlot.slotGroup(SYNC_INV_HANDLER_NAME);
         }
         // prevent inserting into output slots
-        else if (aIndex >= MTECropManager.SLOT_OUTPUT_START && aIndex <= MTECropManager.SLOT_OUTPUT_END) {
+        else if (index >= MTECropManager.SLOT_OUTPUT_START && index <= MTECropManager.SLOT_OUTPUT_END) {
             modularSlot.accessibility(false, true);
         }
 
@@ -174,17 +174,17 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
 
     @Override
     protected Flow createBottomLeftCornerFlow(ModularPanel panel, PanelSyncManager syncManager) {
-        BooleanSyncValue waterSync = new BooleanSyncValue(() -> machine.mWaterEnabled, (v) -> machine.mWaterEnabled = v)
+        BooleanSyncValue waterSync = new BooleanSyncValue(() -> machine.waterEnabled, (v) -> machine.waterEnabled = v)
             .allowC2S();
         BooleanSyncValue weedEXSync = new BooleanSyncValue(
-            () -> machine.mWeedEXEnabled,
-            (v) -> machine.mWeedEXEnabled = v).allowC2S();
+            () -> machine.weedEXEnabled,
+            (v) -> machine.weedEXEnabled = v).allowC2S();
         BooleanSyncValue fertSync = new BooleanSyncValue(
-            () -> machine.mFertilizerEnabled,
-            (v) -> machine.mFertilizerEnabled = v).allowC2S();
+            () -> machine.fertilizerEnabled,
+            (v) -> machine.fertilizerEnabled = v).allowC2S();
         BooleanSyncValue harvestSync = new BooleanSyncValue(
-            () -> machine.mHarvestEnabled,
-            (v) -> machine.mHarvestEnabled = v).allowC2S();
+            () -> machine.harvestEnabled,
+            (v) -> machine.harvestEnabled = v).allowC2S();
 
         return super.createBottomLeftCornerFlow(panel, syncManager).child(
             new ToggleButton().value(waterSync)
