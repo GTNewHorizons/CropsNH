@@ -23,7 +23,7 @@ import com.gtnewhorizon.cropsnh.loaders.MTELoader;
 import com.gtnewhorizon.cropsnh.loaders.MutationLoader;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
 import com.gtnewhorizon.cropsnh.loaders.SoilLoader;
-import com.gtnewhorizon.cropsnh.loaders.SubSoilRequirementLoader;
+import com.gtnewhorizon.cropsnh.loaders.SubSoilLoader;
 import com.gtnewhorizon.cropsnh.proxy.IProxy;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -122,7 +122,7 @@ public class CropsNH {
         LogHelper.debug("Starting Post-Initialization");
         FertilizerLoader.postInit();
         SoilLoader.postInit();
-        SubSoilRequirementLoader.postInit();
+        SubSoilLoader.postInit();
         CropLoader.postInit();
         MutationLoader.postInit();
         AspectLoader.postInit();
