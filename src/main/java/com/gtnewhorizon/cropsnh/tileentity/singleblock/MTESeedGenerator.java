@@ -69,7 +69,7 @@ public class MTESeedGenerator extends MTEBasicMachine {
         ALLOWED_LIQUID_FERTILIZER.putIfAbsent(CropsNHFluids.enrichedFertilizer, 1.0f);
     }
 
-    private static String[] getToolTip(int aTier) {
+    private static String[] getToolTip(int tier) {
         List<String> tt = new ArrayList<>();
         tt.add(CropsNHUtils.getMachineTypeText("seedGenerator"));
         tt.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.0"));
@@ -81,21 +81,21 @@ public class MTESeedGenerator extends MTEBasicMachine {
         tt.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedGenerator.3",
-                TooltipHelper.fluidText(getCustomFluidCapacity(aTier))));
-        if (aTier <= VoltageIndex.MV) {
+                TooltipHelper.fluidText(getCustomFluidCapacity(tier))));
+        if (tier <= VoltageIndex.MV) {
             tt.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.mv_warn"));
         }
         return tt.toArray(new String[0]);
     }
 
-    public MTESeedGenerator(int aID, int aTier) {
+    public MTESeedGenerator(int id, int tier) {
         super(
-            aID,
-            String.format("basicmachine.seedgenerator.tier.%02d", aTier),
-            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.name." + aTier),
-            aTier,
+            id,
+            String.format("basicmachine.seedgenerator.tier.%02d", tier),
+            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedGenerator.name." + tier),
+            tier,
             AMPERAGE,
-            getToolTip(aTier),
+            getToolTip(tier),
             INPUT_SLOT_COUNT,
             OUTPUT_SLOT_COUNT,
             TextureFactory.of(
@@ -148,8 +148,8 @@ public class MTESeedGenerator extends MTEBasicMachine {
                     .build()));
     }
 
-    public MTESeedGenerator(String mName, byte mTier, String[] mDescriptionArray, ITexture[][][] mTextures) {
-        super(mName, mTier, AMPERAGE, mDescriptionArray, mTextures, INPUT_SLOT_COUNT, OUTPUT_SLOT_COUNT);
+    public MTESeedGenerator(String name, byte tier, String[] descriptionArray, ITexture[][][] textures) {
+        super(name, tier, AMPERAGE, descriptionArray, textures, INPUT_SLOT_COUNT, OUTPUT_SLOT_COUNT);
     }
 
     @Override
@@ -176,65 +176,65 @@ public class MTESeedGenerator extends MTEBasicMachine {
         }
 
         // try to identify a usable seed
-        ItemStack tSeedStack = null;
-        ISeedData tSeedData = null;
-        int[] tItemsToConsume = new int[this.mInputSlotCount];
-        Arrays.fill(tItemsToConsume, 0);
-        int tFluidToConsume = 0;
+        ItemStack seedStack = null;
+        ISeedData seedData = null;
+        int[] itemsToConsume = new int[this.mInputSlotCount];
+        Arrays.fill(itemsToConsume, 0);
+        int fluidToConsume = 0;
         outer: for (int i = 0; i < this.mInputSlotCount; i++) {
-            ItemStack tStack = this.getInputAt(i);
-            tSeedData = CropsNHUtils.getAnalyzedSeedData(tStack);
-            if (tSeedData != null) {
+            ItemStack stackInSlot = this.getInputAt(i);
+            seedData = CropsNHUtils.getAnalyzedSeedData(stackInSlot);
+            if (seedData != null) {
                 // don't replicate seeds that require the synthesizer in the seed generator
-                if (tSeedData.getCrop()
+                if (seedData.getCrop()
                     .getCrossingThreshold() < 0.0f) {
                     continue;
                 }
-                ISeedStats tStats = tSeedData.getStats();
+                ISeedStats stats = seedData.getStats();
                 // check if we have enough fluid to duplicate the seed.
-                tFluidToConsume = getFluidAmount(
-                    tStats.getGrowth(),
-                    tStats.getGain(),
-                    tStats.getResistance(),
+                fluidToConsume = getFluidAmount(
+                    stats.getGrowth(),
+                    stats.getGain(),
+                    stats.getResistance(),
                     drainMultiplier);
-                if (tFluidToConsume > this.mFluid.amount) {
+                if (fluidToConsume > this.mFluid.amount) {
                     continue;
                 }
                 // if a catalyst is required try to find a slot we can consume it from
-                if (tSeedData.getCrop()
+                if (!seedData.getCrop()
                     .getDuplicationCatalysts()
-                    .size() > 0) {
-                    for (ItemStack catalyst : tSeedData.getCrop()
+                    .isEmpty()) {
+                    for (ItemStack catalyst : seedData.getCrop()
                         .getDuplicationCatalysts()) {
                         int remaining = catalyst.stackSize;
                         for (int j = 0; remaining > 0 && j < this.mInputSlotCount; j++) {
                             ItemStack input = getInputAt(j);
                             if (GTUtility.areStacksEqual(catalyst, input)) {
-                                tItemsToConsume[j] = Math.min(input.stackSize, remaining);
-                                remaining -= tItemsToConsume[j];
+                                itemsToConsume[j] = Math.min(input.stackSize, remaining);
+                                remaining -= itemsToConsume[j];
                             }
                         }
                         if (remaining <= 0) {
                             // update the source stack if we find enough stuff
-                            tSeedStack = tStack.copy();
-                            tSeedStack.stackSize = 1;
+                            seedStack = stackInSlot.copy();
+                            seedStack.stackSize = 1;
                             break outer;
                         } else {
                             // reset the consumption tracker if we don't find what we want.
-                            Arrays.fill(tItemsToConsume, 0);
+                            Arrays.fill(itemsToConsume, 0);
                         }
                     }
                 } else {
                     // if no catalyst is required we are good to proceed to start consuming
-                    tSeedStack = tStack.copy();
-                    tSeedStack.stackSize = 1;
+                    seedStack = stackInSlot.copy();
+                    seedStack.stackSize = 1;
                 }
                 break;
             }
         }
 
         // both should be set if we did everything right
-        if (tSeedData == null || tSeedStack == null || !canOutput(tSeedStack)) {
+        if (seedData == null || seedStack == null || !canOutput(seedStack)) {
             return DID_NOT_FIND_RECIPE;
         }
 
@@ -247,13 +247,13 @@ public class MTESeedGenerator extends MTEBasicMachine {
         }
 
         // consume inputs
-        this.mFluid.amount -= tFluidToConsume;
-        for (int i = 0; i < tItemsToConsume.length; i++) {
-            if (tItemsToConsume[i] > 0) {
-                this.getInputAt(i).stackSize -= tItemsToConsume[i];
+        this.mFluid.amount -= fluidToConsume;
+        for (int i = 0; i < itemsToConsume.length; i++) {
+            if (itemsToConsume[i] > 0) {
+                this.getInputAt(i).stackSize -= itemsToConsume[i];
             }
         }
-        this.mOutputItems[0] = tSeedStack;
+        this.mOutputItems[0] = seedStack;
 
         return FOUND_AND_SUCCESSFULLY_USED_RECIPE;
     }
@@ -263,10 +263,10 @@ public class MTESeedGenerator extends MTEBasicMachine {
     }
 
     @Override
-    public void startSoundLoop(byte aIndex, double aX, double aY, double aZ) {
-        super.startSoundLoop(aIndex, aX, aY, aZ);
-        if (aIndex == 1) {
-            GTUtility.doSoundAtClient(SoundResource.GTCEU_LOOP_REPLICATOR, 10, 1.0F, aX, aY, aZ);
+    public void startSoundLoop(byte index, double x, double y, double z) {
+        super.startSoundLoop(index, x, y, z);
+        if (index == 1) {
+            GTUtility.doSoundAtClient(SoundResource.GTCEU_LOOP_REPLICATOR, 10, 1.0F, x, y, z);
         }
     }
 
@@ -276,8 +276,8 @@ public class MTESeedGenerator extends MTEBasicMachine {
     }
 
     @Override
-    public boolean isFluidInputAllowed(FluidStack aFluid) {
-        return super.isFluidInputAllowed(aFluid) && aFluid.getFluid() == CropsNHFluids.enrichedFertilizer;
+    public boolean isFluidInputAllowed(FluidStack fluid) {
+        return super.isFluidInputAllowed(fluid) && fluid.getFluid() == CropsNHFluids.enrichedFertilizer;
     }
 
     @Override
@@ -286,8 +286,8 @@ public class MTESeedGenerator extends MTEBasicMachine {
         return getCustomFluidCapacity(this.mTier);
     }
 
-    public static int getCustomFluidCapacity(int aTier) {
-        return aTier < VoltageIndex.IV ? getCapacityForTier(aTier) / 10 : getCapacityForTier(aTier);
+    public static int getCustomFluidCapacity(int tier) {
+        return tier < VoltageIndex.IV ? getCapacityForTier(tier) / 10 : getCapacityForTier(tier);
     }
 
     @Override

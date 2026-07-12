@@ -315,14 +315,14 @@ public interface ICropCard {
     void onFirstTick(ICropStickTile te, World world, int x, int y, int z);
 
     /**
-     * @return A list of all the blocks that go under the crop card.
+     * @return A list of all the soil for the crop.
      */
     List<ItemStack> getSoilsForNEI(boolean useCache);
 
     /**
-     * @return A list of all the blocks that are required to be under the crop for it to grow.
+     * @return A list of all the sub-soils for the crop.
      */
-    List<ItemStack> getBlocksUnderForNEI(boolean useCache);
+    List<ItemStack> getSubSoilsForNEI(boolean useCache);
 
     /**
      * @return Returns a generic seed for this crop card.

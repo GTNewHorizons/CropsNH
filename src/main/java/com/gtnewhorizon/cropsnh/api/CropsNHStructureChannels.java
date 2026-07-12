@@ -16,26 +16,26 @@ public enum CropsNHStructureChannels implements IStructureChannels {
     /** Enables auto-adding IF upgrades */
     IFUpgrades("if_upgrade");
 
-    final String mName;
-    final String mTooltip;
+    final String name;
+    final String tooltip;
 
-    CropsNHStructureChannels(String aName) {
-        this.mName = aName;
-        this.mTooltip = Reference.MOD_ID + "_tooltip.structure_channels." + aName;
+    CropsNHStructureChannels(String name) {
+        this.name = name;
+        this.tooltip = Reference.MOD_ID + "_tooltip.structure_channels." + name;
     }
 
     @Override
     public String get() {
-        return this.mName;
+        return this.name;
     }
 
     @Override
     public String getDefaultTooltip() {
-        return StatCollector.translateToLocal(this.mTooltip);
+        return StatCollector.translateToLocal(this.tooltip);
     }
 
     public String getUnlocalizedTooltip() {
-        return this.mTooltip;
+        return this.tooltip;
     }
 
     @Override

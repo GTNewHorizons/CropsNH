@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
@@ -32,7 +32,7 @@ public class CropGarnydinia extends NHCropCard {
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetRed, 1L), 2_50);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetYellow, 1L), 2_50);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.garnetGem);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.garnetGem);
 
         this.addDuplicationCatalyst("dustGarnetRed", 1);
         this.addDuplicationCatalyst("dustGarnetYellow", 1);

@@ -75,51 +75,51 @@ public class MTECropManager extends MTETieredMachineBlock {
     private final static int CACHE_REFRESH_ANY = GLOBAL_UPDATE_RATE * 12;
 
     /** Whether the crop manager is allowed to harvest crops. */
-    public boolean mHarvestEnabled = true;
+    public boolean harvestEnabled = true;
     /** Whether the crop manager is allowed to apply Weed-EX to crops. */
-    public boolean mWeedEXEnabled = false;
+    public boolean weedEXEnabled = false;
     /** Whether the crop manager is allowed to fertilize crops. */
-    public boolean mFertilizerEnabled = false;
+    public boolean fertilizerEnabled = false;
     /** Whether the crop manager is allowed to water crops. */
-    public boolean mWaterEnabled = false;
+    public boolean waterEnabled = false;
 
-    public boolean mCharge = false;
-    public boolean mDecharge = false;
+    public boolean charge = false;
+    public boolean decharge = false;
 
     /** Water potency stored in the crop manager. */
-    private int mWater = 0;
+    private int waterStored = 0;
     /** The maximum amount of water potency that can be stored in the crop manager. */
-    private final int mWaterCap;
+    private final int waterCap;
     /** Weed-EX potency stored in the crop manager. */
-    private int mWeedEX = 0;
+    private int weedEXStored = 0;
     /** The maximum amount of Weed-EX potency that can be stored in the crop manager. */
-    private final int mWeedEXCap;
+    private final int weedEXCap;
     /** Liquid fertilizer potency stored in the crop manager. */
-    private int mLiquidFertilizer = 0;
+    private int liquidFertilizerStored = 0;
     /** The maximum amount of liquid fertilizer potency that can be stored in the crop manager. */
-    private final int mLiquidFertilizerCap;
+    private final int liquidFertilizerCap;
 
     /** A cache of all known crops within the crop manager's range. */
-    private final HashSet<ICropStickTile> mCropCache = new HashSet<>();
+    private final HashSet<ICropStickTile> cropCache = new HashSet<>();
     /** Whether the crop cache appears to contain invalid data. */
-    private boolean mInvalidCache = false;
+    private boolean isCacheInvalid = false;
     /** A holder for drops when a single harvest cycle would overflow the manager's inventory. */
-    private final ItemStackMap<Integer> mDropOverflow = new ItemStackMap<>(true);
+    private final ItemStackMap<Integer> dropOverflow = new ItemStackMap<>(true);
     /** A cache holding synchronized tank information for waila. */
-    private final FluidTankInfo[] mWailaFluidTankInfos;
+    private final FluidTankInfo[] wailaFluidTankInfos;
 
-    public MTECropManager(final int aID, final int aTier) {
+    public MTECropManager(final int id, final int tier) {
         super(
-            aID,
-            String.format("basicmachine.cropManager.tier.%02d", aTier),
-            StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropManager.name." + aTier),
-            aTier,
+            id,
+            String.format("basicmachine.cropManager.tier.%02d", tier),
+            StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.cropManager.name." + tier),
+            tier,
             TOTAL_SLOT_COUNT,
             StatCollector.translateToLocal("cropsnh_tooltip.cropManager.description"));
-        this.mWaterCap = calcWaterCap();
-        this.mWeedEXCap = calcWeedEXCap();
-        this.mLiquidFertilizerCap = calcLiquidFertilizerCap();
-        this.mWailaFluidTankInfos = getDefaultWailaFluidTankInfos();
+        this.waterCap = calcWaterCap();
+        this.weedEXCap = calcWeedEXCap();
+        this.liquidFertilizerCap = calcLiquidFertilizerCap();
+        this.wailaFluidTankInfos = getDefaultWailaFluidTankInfos();
     }
 
     private int calcWaterCap() {
@@ -136,30 +136,30 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     private FluidTankInfo[] getDefaultWailaFluidTankInfos() {
         return new FluidTankInfo[] {
-            new FluidTankInfo(new FluidStack(FluidRegistry.WATER, this.mWater), this.mWaterCap),
-            new FluidTankInfo(CropsNHUtils.getWeedEXFluid(this.mWeedEX), this.mWeedEXCap),
-            new FluidTankInfo(new FluidStack(CropsNHFluids.fertilizer, this.mWeedEX), this.mLiquidFertilizerCap) };
+            new FluidTankInfo(new FluidStack(FluidRegistry.WATER, this.waterStored), this.waterCap),
+            new FluidTankInfo(CropsNHUtils.getWeedEXFluid(this.weedEXStored), this.weedEXCap),
+            new FluidTankInfo(new FluidStack(CropsNHFluids.fertilizer, this.weedEXStored), this.liquidFertilizerCap) };
     }
 
     // region TE creation
 
-    private MTECropManager(final String aName, final int aTier, final String[] aDescription,
-        final ITexture[][][] aTextures) {
-        super(aName, aTier, TOTAL_SLOT_COUNT, aDescription, aTextures);
-        this.mWaterCap = calcWaterCap();
-        this.mWeedEXCap = calcWeedEXCap();
-        this.mLiquidFertilizerCap = calcLiquidFertilizerCap();
-        this.mWailaFluidTankInfos = getDefaultWailaFluidTankInfos();
+    private MTECropManager(final String name, final int tier, final String[] description,
+        final ITexture[][][] textures) {
+        super(name, tier, TOTAL_SLOT_COUNT, description, textures);
+        this.waterCap = calcWaterCap();
+        this.weedEXCap = calcWeedEXCap();
+        this.liquidFertilizerCap = calcLiquidFertilizerCap();
+        this.wailaFluidTankInfos = getDefaultWailaFluidTankInfos();
     }
 
     private void updateFluidTanksForWaila() {
-        this.mWailaFluidTankInfos[0].fluid.amount = this.mWater;
-        this.mWailaFluidTankInfos[1].fluid.amount = this.mWeedEX;
-        this.mWailaFluidTankInfos[2].fluid.amount = this.mLiquidFertilizer;
+        this.wailaFluidTankInfos[0].fluid.amount = this.waterStored;
+        this.wailaFluidTankInfos[1].fluid.amount = this.weedEXStored;
+        this.wailaFluidTankInfos[2].fluid.amount = this.liquidFertilizerStored;
     }
 
     @Override
-    public MetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public MetaTileEntity newMetaEntity(IGregTechTileEntity tileEntity) {
         return new MTECropManager(this.mName, this.mTier, this.mDescriptionArray, this.mTextures);
     }
 
@@ -199,16 +199,16 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     @Override
     public int getFluidAmount() {
-        return this.mWater;
+        return this.waterStored;
     }
 
     @Override
-    public boolean allowCoverOnSide(ForgeDirection side, ItemStack aStack) {
+    public boolean allowCoverOnSide(ForgeDirection side, ItemStack stack) {
         return true;
     }
 
     @Override
-    public boolean isAccessAllowed(EntityPlayer aPlayer) {
+    public boolean isAccessAllowed(EntityPlayer player) {
         return true;
     }
 
@@ -239,12 +239,12 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     @Override
     public int rechargerSlotCount() {
-        return mCharge ? BATTERY_SLOT_COUNT : 0;
+        return charge ? BATTERY_SLOT_COUNT : 0;
     }
 
     @Override
     public int dechargerSlotCount() {
-        return mDecharge ? BATTERY_SLOT_COUNT : 0;
+        return decharge ? BATTERY_SLOT_COUNT : 0;
     }
 
     // endregion Base MTE Params
@@ -260,11 +260,11 @@ public class MTECropManager extends MTETieredMachineBlock {
     }
 
     private int getHorizontalRadius() {
-        return this.getHorizontalRadius(this.mTier);
+        return getHorizontalRadius(this.mTier);
     }
 
-    public static int getHorizontalRadius(int aTier) {
-        return 3 + Math.max(0, 2 * aTier);
+    public static int getHorizontalRadius(int tier) {
+        return 3 + Math.max(0, 2 * tier);
     }
 
     private int getHorizontalDiameter() {
@@ -288,46 +288,46 @@ public class MTECropManager extends MTETieredMachineBlock {
     // region event handlers
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
-        this.updateCropCache();
+    public void onFirstTick(IGregTechTileEntity baseMetaTileEntity) {
+        super.onFirstTick(baseMetaTileEntity);
+        this.updateCropCache(baseMetaTileEntity);
     }
 
     @Override
-    public boolean onRightclick(final IGregTechTileEntity aBaseMetaTileEntity, final EntityPlayer aPlayer) {
-        if (super.onRightclick(aBaseMetaTileEntity, aPlayer)) return true;
-        this.openGui(aPlayer);
+    public boolean onRightclick(final IGregTechTileEntity baseMetaTileEntity, final EntityPlayer player) {
+        if (super.onRightclick(baseMetaTileEntity, player)) return true;
+        this.openGui(player);
         return true;
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
+    public void onPostTick(IGregTechTileEntity baseMetaTileEntity, long tick) {
+        super.onPostTick(baseMetaTileEntity, tick);
 
-        if (getBaseMetaTileEntity().isServerSide()) {
-            mCharge = getBaseMetaTileEntity().getStoredEU() / 2 > getBaseMetaTileEntity().getEUCapacity() / 3;
-            mDecharge = getBaseMetaTileEntity().getStoredEU() < getBaseMetaTileEntity().getEUCapacity() / 3;
+        boolean isServerSide = CropsNHUtils.isServer();
+        if (isServerSide) {
+            charge = baseMetaTileEntity.getStoredEU() / 2 > baseMetaTileEntity.getEUCapacity() / 3;
+            decharge = baseMetaTileEntity.getStoredEU() < baseMetaTileEntity.getEUCapacity() / 3;
         }
 
-        if (!getBaseMetaTileEntity().isServerSide() || !getBaseMetaTileEntity().isAllowedToWork()
-            || (!getBaseMetaTileEntity().hasWorkJustBeenEnabled() && aTick % GLOBAL_UPDATE_RATE != 0)) return;
+        if (!isServerSide || !baseMetaTileEntity.isAllowedToWork()
+            || (!baseMetaTileEntity.hasWorkJustBeenEnabled() && tick % GLOBAL_UPDATE_RATE != 0)) return;
 
-        if (this.getBaseMetaTileEntity()
-            .getUniversalEnergyStored() < this.maxEUInput()) return;
+        if (baseMetaTileEntity.getUniversalEnergyStored() < this.maxEUInput()) return;
 
         // update crop cache when needed or once per minute
-        int cacheRefreshRate = this.mCropCache.isEmpty() ? CACHE_REFRESH_EMPTY : CACHE_REFRESH_ANY;
-        if (aTick % cacheRefreshRate == 0 || this.mInvalidCache) {
-            this.updateCropCache();
+        int cacheRefreshRate = this.cropCache.isEmpty() ? CACHE_REFRESH_EMPTY : CACHE_REFRESH_ANY;
+        if (tick % cacheRefreshRate == 0 || this.isCacheInvalid) {
+            this.updateCropCache(baseMetaTileEntity);
         }
-        processSecondaryFunctions();
-        harvest();
+        processSecondaryFunctions(baseMetaTileEntity);
+        harvest(baseMetaTileEntity);
     }
 
-    private void updateCropCache() {
+    private void updateCropCache(IGregTechTileEntity baseMetaTileEntity) {
         // empty out the cache before we do anything
-        if (!this.mCropCache.isEmpty()) {
-            this.mCropCache.clear();
+        if (!this.cropCache.isEmpty()) {
+            this.cropCache.clear();
         }
         final int v = this.getVerticalRadius();
         final int h = this.getHorizontalRadius();
@@ -335,15 +335,15 @@ public class MTECropManager extends MTETieredMachineBlock {
         for (int y = -v; y <= v; y++) {
             for (int x = -h; x <= h; x++) {
                 for (int z = -h; z <= h; z++) {
-                    TileEntity tTileEntity = getBaseMetaTileEntity().getTileEntityOffset(x, y, z);
-                    if (tTileEntity instanceof ICropStickTile) {
-                        this.mCropCache.add((ICropStickTile) tTileEntity);
+                    TileEntity tileEntity = baseMetaTileEntity.getTileEntityOffset(x, y, z);
+                    if (tileEntity instanceof ICropStickTile cropTE) {
+                        this.cropCache.add(cropTE);
                     }
                 }
             }
         }
 
-        this.mInvalidCache = false;
+        this.isCacheInvalid = false;
     }
 
     // endregion event handlers
@@ -359,42 +359,41 @@ public class MTECropManager extends MTETieredMachineBlock {
         return false;
     }
 
-    private void harvest() {
+    private void harvest(IGregTechTileEntity baseMetaTileEntity) {
         // if harvest isn't enabled, don't
-        if (!this.mHarvestEnabled || !doesInventoryHaveSpace()) return;
+        if (!this.harvestEnabled || !doesInventoryHaveSpace()) return;
 
         // first attempt to empty the drop overflow back into the machine
         // is empty and size, work around it
-        if (!this.mDropOverflow.isEmpty()) {
-            this.mDropOverflow.entrySet()
+        if (!this.dropOverflow.isEmpty()) {
+            this.dropOverflow.entrySet()
                 .removeIf((overflowEntry) -> {
-                    overflowEntry.setValue(tryInsertOutputStack(overflowEntry.getKey(), overflowEntry.getValue()));
+                    overflowEntry.setValue(
+                        tryInsertOutputStack(baseMetaTileEntity, overflowEntry.getKey(), overflowEntry.getValue()));
                     return overflowEntry.getValue() <= 0;
                 });
         }
 
         // if anything remains in the drop queue skip harvesting
-        if (!this.mDropOverflow.isEmpty()) return;
+        if (!this.dropOverflow.isEmpty()) return;
 
         // else collect all the drops
         Map<ItemStack, Integer> dropTracker = new ItemStackMap<>(true);
-        for (ICropStickTile crop : this.mCropCache) {
+        for (ICropStickTile crop : this.cropCache) {
             if (crop == null) {
-                this.mInvalidCache = true;
+                this.isCacheInvalid = true;
                 continue;
             }
             // skip if we don't have enough power
-            if (this.getBaseMetaTileEntity()
-                .getUniversalEnergyStored() < this.powerUsage()) break;
+            if (baseMetaTileEntity.getUniversalEnergyStored() < this.powerUsage()) break;
             if (!crop.canHarvest()) continue;
-            ArrayList<ItemStack> tHarvest = crop.harvest(1.0d + this.getHarvestBonusChance());
-            if (tHarvest == null) continue;
-            for (ItemStack aStack : tHarvest) {
-                if (GTUtility.isStackInvalid(aStack)) continue;
-                dropTracker.merge(aStack, aStack.stackSize, Integer::sum);
+            ArrayList<ItemStack> harvestDrops = crop.harvest(1.0d + this.getHarvestBonusChance());
+            if (harvestDrops == null) continue;
+            for (ItemStack stack : harvestDrops) {
+                if (GTUtility.isStackInvalid(stack)) continue;
+                dropTracker.merge(stack, stack.stackSize, Integer::sum);
             }
-            this.getBaseMetaTileEntity()
-                .decreaseStoredEnergyUnits(this.powerUsage(), false);
+            baseMetaTileEntity.decreaseStoredEnergyUnits(this.powerUsage(), false);
         }
 
         // dump everything we can into the inventory
@@ -405,31 +404,30 @@ public class MTECropManager extends MTETieredMachineBlock {
             // how this can happen, idk
             if (dropItem == null) continue;
 
-            remaining = tryInsertOutputStack(dropItem, remaining);
+            remaining = tryInsertOutputStack(baseMetaTileEntity, dropItem, remaining);
             if (remaining > 0) {
-                this.mDropOverflow.merge(dropEntry.getKey(), remaining, Integer::sum);
+                this.dropOverflow.merge(dropEntry.getKey(), remaining, Integer::sum);
             }
         }
     }
 
-    private int tryInsertOutputStack(ItemStack aDropItem, int remaining) {
+    private int tryInsertOutputStack(IGregTechTileEntity baseMetaTileEntity, ItemStack dropItem, int remaining) {
         for (int slot = SLOT_OUTPUT_START; slot <= SLOT_OUTPUT_END && remaining > 0; slot++) {
             // compute the max we can transfer at once.
             ItemStack invStack = mInventory[slot];
-            int maxStackSize = Math.min(aDropItem.getMaxStackSize(), this.getInventoryStackLimit());
+            int maxStackSize = Math.min(dropItem.getMaxStackSize(), this.getInventoryStackLimit());
             int maxConsume = Math.min(maxStackSize, remaining);
             if (maxConsume <= 0) return remaining;
 
             // If the slot is empty or invalid just override the slot with a stack of what ever we are carrying.
             if (GTUtility.isStackInvalid(invStack)) {
-                ItemStack newStack = aDropItem.copy();
+                ItemStack newStack = dropItem.copy();
                 remaining -= newStack.stackSize = maxConsume;
-                this.getBaseMetaTileEntity()
-                    .setInventorySlotContents(slot, newStack);
+                baseMetaTileEntity.setInventorySlotContents(slot, newStack);
             }
             // else if it's the same item type and it has space remaining, increase the existsing stack by what ever we
             // need
-            else if (invStack.stackSize < maxStackSize && GTUtility.areStacksEqual(invStack, aDropItem, false)) {
+            else if (invStack.stackSize < maxStackSize && GTUtility.areStacksEqual(invStack, dropItem, false)) {
                 int toConsume = Math.max(0, Math.min(maxConsume, maxStackSize - invStack.stackSize));
                 invStack.stackSize += toConsume;
                 remaining -= toConsume;
@@ -446,38 +444,32 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region secondary actions
 
-    private void processSecondaryFunctions() {
-        for (ICropStickTile crop : this.mCropCache) {
+    private void processSecondaryFunctions(IGregTechTileEntity baseMetaTileEntity) {
+        for (ICropStickTile crop : this.cropCache) {
             if (crop == null) {
-                this.mInvalidCache = true;
+                this.isCacheInvalid = true;
                 continue;
             }
             // hydration
-            if (this.getBaseMetaTileEntity()
-                .getUniversalEnergyStored() < this.powerUsageSecondary()) break;
-            if (this.mWaterEnabled && this.applyHydration(crop, true)
-                && this.getBaseMetaTileEntity()
-                    .decreaseStoredEnergyUnits(powerUsageSecondary(), false)) {
+            if (baseMetaTileEntity.getUniversalEnergyStored() < this.powerUsageSecondary()) break;
+            if (this.waterEnabled && this.applyHydration(crop, true)
+                && baseMetaTileEntity.decreaseStoredEnergyUnits(powerUsageSecondary(), false)) {
                 this.applyHydration(crop, false);
             }
             // weedex
-            if (this.getBaseMetaTileEntity()
-                .getUniversalEnergyStored() < this.powerUsageSecondary()) break;
-            if (this.mWeedEXEnabled) {
+            if (baseMetaTileEntity.getUniversalEnergyStored() < this.powerUsageSecondary()) break;
+            if (this.weedEXEnabled) {
                 this.refillWeedEX();
-                if (this.applyWeedEX(crop, true) && this.getBaseMetaTileEntity()
-                    .decreaseStoredEnergyUnits(this.powerUsageSecondary(), false)) {
+                if (this.applyWeedEX(crop, true)
+                    && baseMetaTileEntity.decreaseStoredEnergyUnits(this.powerUsageSecondary(), false)) {
                     this.applyWeedEX(crop, false);
                 }
             }
             // fertilizer
-            if (this.getBaseMetaTileEntity()
-                .getUniversalEnergyStored() < this.powerUsageSecondary()) break;
-            if (this.mFertilizerEnabled && this.getBaseMetaTileEntity()
-                .getUniversalEnergyStored() >= this.powerUsageSecondary()
+            if (baseMetaTileEntity.getUniversalEnergyStored() < this.powerUsageSecondary()) break;
+            if (this.fertilizerEnabled && baseMetaTileEntity.getUniversalEnergyStored() >= this.powerUsageSecondary()
                 && this.applyFertilizer(crop, true)
-                && this.getBaseMetaTileEntity()
-                    .decreaseStoredEnergyUnits(powerUsageSecondary(), false)) {
+                && baseMetaTileEntity.decreaseStoredEnergyUnits(powerUsageSecondary(), false)) {
                 applyFertilizer(crop, false);
             }
         }
@@ -493,14 +485,14 @@ public class MTECropManager extends MTETieredMachineBlock {
     /** The minimum threshold at which a crop manager is allowed to start adding water to a crop. */
     private final static int WATER_THRESHOLD = 180;
 
-    private boolean applyHydration(ICropStickTile aCrop, boolean simulate) {
-        if (this.getFluidAmount() == 0 || aCrop.getWaterStorage() > WATER_THRESHOLD) return false;
+    private boolean applyHydration(ICropStickTile crop, boolean simulate) {
+        if (this.getFluidAmount() == 0 || crop.getWaterStorage() > WATER_THRESHOLD) return false;
 
-        int drain = Math.min(this.getFluidAmount(), WATER_CAP - aCrop.getWaterStorage());
+        int drain = Math.min(this.getFluidAmount(), WATER_CAP - crop.getWaterStorage());
         if (!simulate) {
-            this.mWater -= drain;
+            this.waterStored -= drain;
         }
-        return aCrop.addWater(drain, WATER_THRESHOLD, WATER_CAP, simulate);
+        return crop.addWater(drain, WATER_THRESHOLD, WATER_CAP, simulate);
     }
 
     // endregion water apply
@@ -512,7 +504,7 @@ public class MTECropManager extends MTETieredMachineBlock {
         for (int i = SLOT_WEEDEX_START; i <= SLOT_WEEDEX_END; i++) {
             if (isWeedEXCan(this.mInventory[i])) {
                 // consume the weed-ex from the can
-                this.mWeedEX += consumeWeedexFromStack(
+                this.weedEXStored += consumeWeedexFromStack(
                     this.mInventory[i],
                     this.getWeedEXCapacity() - this.getWeedEXAmount());
                 // if we damaged the item beyond its limits, remove it from the mortal realm.
@@ -541,14 +533,14 @@ public class MTECropManager extends MTETieredMachineBlock {
     /** The amount of liquid Weed-EX consumed per application. */
     private static final int WEEDEX_COST = 10;
 
-    public boolean applyWeedEX(ICropStickTile aCrop, boolean aSimulate) {
-        if (aCrop.getWeedExStorage() > WEEDEX_THRESHOLD || this.mWeedEX < WEEDEX_COST) return false;
+    public boolean applyWeedEX(ICropStickTile crop, boolean simulate) {
+        if (crop.getWeedExStorage() > WEEDEX_THRESHOLD || this.weedEXStored < WEEDEX_COST) return false;
 
-        if (!aSimulate) {
-            this.mWeedEX -= WEEDEX_COST;
+        if (!simulate) {
+            this.weedEXStored -= WEEDEX_COST;
         }
 
-        return aCrop.addWeedEx(75, WEEDEX_THRESHOLD, WEEDEX_CAP, aSimulate);
+        return crop.addWeedEx(75, WEEDEX_THRESHOLD, WEEDEX_CAP, simulate);
     }
 
     // endregion weed ex consumption
@@ -562,19 +554,19 @@ public class MTECropManager extends MTETieredMachineBlock {
     /** The minimum threshold at which a crop manager is allowed to start adding liquid fertilizers to a crop. */
     private static final int FERTILIZER_LIQUID_THRESHOLD = 180;
 
-    private boolean applyFertilizer(ICropStickTile aCrop, boolean aSimulate) {
-        int storedFert = aCrop.getFertilizerStorage();
+    private boolean applyFertilizer(ICropStickTile crop, boolean simulate) {
+        int storedFert = crop.getFertilizerStorage();
         int amount = 0;
         int threshold = FERTILIZER_LIQUID_THRESHOLD;
         // always try liquid fertilizer first
         if (this.getLiquidFertilizerAmount() > 0) {
             if (storedFert > FERTILIZER_LIQUID_THRESHOLD) return false;
             // get max to consume
-            int maxConsume = FERTILIZER_CAP - aCrop.getFertilizerStorage();
-            amount = Math.min(this.mLiquidFertilizer, maxConsume);
+            int maxConsume = FERTILIZER_CAP - crop.getFertilizerStorage();
+            amount = Math.min(this.liquidFertilizerStored, maxConsume);
             // consume if we aren't simulating
-            if (!aSimulate) {
-                this.mLiquidFertilizer -= amount;
+            if (!simulate) {
+                this.liquidFertilizerStored -= amount;
             }
         } else {
             for (int i = SLOT_FERT_START; i <= SLOT_FERT_END; i++) {
@@ -594,7 +586,7 @@ public class MTECropManager extends MTETieredMachineBlock {
                 threshold = Math.max(FERTILIZER_ITEM_THRESHOLD_MIN, FERTILIZER_CAP - (fertPotency / 2));
                 if (storedFert > threshold) continue;
                 // consume if we aren't simulating
-                if (!aSimulate) {
+                if (!simulate) {
                     stack.stackSize--;
                     if (stack.stackSize <= 0) {
                         this.mInventory[i] = null;
@@ -608,7 +600,7 @@ public class MTECropManager extends MTETieredMachineBlock {
         // fail if we didn't find anything
         if (amount <= 0) return false;
         // the add fertilizer call should always be a success if it reaches this point.
-        return aCrop.addFertilizer(amount, threshold, FERTILIZER_CAP, aSimulate);
+        return crop.addFertilizer(amount, threshold, FERTILIZER_CAP, simulate);
     }
 
     // endregion fertilizer apply
@@ -624,16 +616,16 @@ public class MTECropManager extends MTETieredMachineBlock {
     }
 
     public int getWaterCapacity() {
-        return Math.max(1, this.mWaterCap);
+        return Math.max(1, this.waterCap);
     }
 
     public int getWaterAmount() {
-        return this.mWater;
+        return this.waterStored;
     }
 
     public void setWaterAmount(int amount) {
-        this.mWater = amount;
-        this.mWailaFluidTankInfos[0].fluid.amount = amount;
+        this.waterStored = amount;
+        this.wailaFluidTankInfos[0].fluid.amount = amount;
     }
 
     // endregion water status
@@ -646,16 +638,16 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     public int getWeedEXCapacity() {
         // tier * 2 cans of weed-ex
-        return this.mWeedEXCap;
+        return this.weedEXCap;
     }
 
     public int getWeedEXAmount() {
-        return this.mWeedEX;
+        return this.weedEXStored;
     }
 
     public void setWeedEXAmount(int a) {
-        this.mWeedEX = a;
-        this.mWailaFluidTankInfos[1].fluid.amount = a;
+        this.weedEXStored = a;
+        this.wailaFluidTankInfos[1].fluid.amount = a;
     }
 
     // endregion weed ex status
@@ -667,16 +659,16 @@ public class MTECropManager extends MTETieredMachineBlock {
     }
 
     public int getLiquidFertilizerCapacity() {
-        return this.mLiquidFertilizerCap;
+        return this.liquidFertilizerCap;
     }
 
     public int getLiquidFertilizerAmount() {
-        return this.mLiquidFertilizer;
+        return this.liquidFertilizerStored;
     }
 
     public void setLiquidFertilizerAmount(int a) {
-        this.mLiquidFertilizer = a;
-        this.mWailaFluidTankInfos[2].fluid.amount = a;
+        this.liquidFertilizerStored = a;
+        this.wailaFluidTankInfos[2].fluid.amount = a;
     }
 
     // endregion liquid fertilizer status
@@ -688,43 +680,43 @@ public class MTECropManager extends MTETieredMachineBlock {
     // region item IO
 
     @Override
-    public boolean isItemValidForSlot(int aIndex, ItemStack aStack) {
-        return allowPutStack(aIndex, aStack);
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        return allowPutStack(index, stack);
     }
 
-    public static boolean isFertilizerStack(ItemStack aStack) {
-        return FertilizerRegistry.instance.isRegistered(aStack);
+    public static boolean isFertilizerStack(ItemStack stack) {
+        return FertilizerRegistry.instance.isRegistered(stack);
     }
 
-    public static boolean isWeedEXCan(ItemStack aStack) {
-        if (aStack == null || aStack.getItem() == null) return false;
-        return CropsNHItemList.weedEX.getItem() == aStack.getItem();
+    public static boolean isWeedEXCan(ItemStack stack) {
+        if (stack == null || stack.getItem() == null) return false;
+        return CropsNHItemList.weedEX.getItem() == stack.getItem();
     }
 
-    public static boolean isBattery(ItemStack aStack) {
-        return GTModHandler.isElectricItem(aStack);
-    }
-
-    @Override
-    public boolean allowPullStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return aStack != null && aIndex >= SLOT_OUTPUT_START && aIndex <= SLOT_OUTPUT_END;
+    public static boolean isBattery(ItemStack stack) {
+        return GTModHandler.isElectricItem(stack);
     }
 
     @Override
-    public boolean allowPutStack(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        return allowPutStack(aIndex, aStack);
+    public boolean allowPullStack(IGregTechTileEntity baseMetaTileEntity, int index, ForgeDirection side,
+        ItemStack stack) {
+        return stack != null && index >= SLOT_OUTPUT_START && index <= SLOT_OUTPUT_END;
     }
 
-    public static boolean allowPutStack(int aIndex, ItemStack aStack) {
-        if (aStack != null) {
-            if (isFertilizerStack(aStack)) {
-                return aIndex >= SLOT_FERT_START && aIndex <= SLOT_FERT_END;
-            } else if (isWeedEXCan(aStack)) {
-                return aIndex >= SLOT_WEEDEX_START && aIndex <= SLOT_WEEDEX_END;
-            } else if (isBattery(aStack)) {
-                return aIndex == SLOT_BATTERY;
+    @Override
+    public boolean allowPutStack(IGregTechTileEntity baseMetaTileEntity, int index, ForgeDirection side,
+        ItemStack stack) {
+        return allowPutStack(index, stack);
+    }
+
+    public static boolean allowPutStack(int index, ItemStack stack) {
+        if (stack != null) {
+            if (isFertilizerStack(stack)) {
+                return index >= SLOT_FERT_START && index <= SLOT_FERT_END;
+            } else if (isWeedEXCan(stack)) {
+                return index >= SLOT_WEEDEX_START && index <= SLOT_WEEDEX_END;
+            } else if (isBattery(stack)) {
+                return index == SLOT_BATTERY;
             }
         }
         return false;
@@ -808,7 +800,7 @@ public class MTECropManager extends MTETieredMachineBlock {
     }
 
     @Override
-    public boolean canDrain(ForgeDirection side, Fluid aFluid) {
+    public boolean canDrain(ForgeDirection side, Fluid fluid) {
         return false;
     }
 
@@ -818,7 +810,7 @@ public class MTECropManager extends MTETieredMachineBlock {
     }
 
     @Override
-    public FluidStack drain(ForgeDirection side, FluidStack aFluid, boolean doDrain) {
+    public FluidStack drain(ForgeDirection side, FluidStack fluid, boolean doDrain) {
         return null;
     }
 
@@ -831,7 +823,7 @@ public class MTECropManager extends MTETieredMachineBlock {
     // each tank only accepts a fixed set of fluids, so a representative fluid is used for display.
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection side) {
-        return this.mWailaFluidTankInfos;
+        return this.wailaFluidTankInfos;
     }
 
     // endregion fluid io
@@ -840,72 +832,56 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region rendering
 
-    /*
-     * @Override public int getTextureIndex(byte aSide, byte aFacing, boolean aActive, boolean aRedstone) { if (aSide ==
-     * aFacing) return 118+(aRedstone?8:0); if (GT_Utility.getOppositeSide(aSide) == aFacing) return
-     * 113+(aRedstone?8:0); int tIndex = 128+(aRedstone?8:0); switch (aFacing) { case 0: return tIndex+64; case 1:
-     * return tIndex+32; case 2: switch (aSide) { case 0: return tIndex+32; case 1: return tIndex+32; case 4: return
-     * tIndex+16; case 5: return tIndex+48; } case 3: switch (aSide) { case 0: return tIndex+64; case 1: return
-     * tIndex+64; case 4: return tIndex+48; case 5: return tIndex+16; } case 4: switch (aSide) { case 0: return
-     * tIndex+16; case 1: return tIndex+16; case 2: return tIndex+48; case 3: return tIndex+16; } case 5: switch (aSide)
-     * { case 0: return tIndex+48; case 1: return tIndex+48; case 2: return tIndex+16; case 3: return tIndex+48; } }
-     * return tIndex; }
-     */
-
     @Override
-    public ITexture[][][] getTextureSet(final ITexture[] aTextures) {
-        final ITexture[][][] rTextures = new ITexture[10][17][];
+    public ITexture[][][] getTextureSet(final ITexture[] textures) {
+        final ITexture[][][] newTextures = new ITexture[10][17][];
         for (byte i = -1; i < 16; i++) {
-            rTextures[0][i + 1] = this.getFront(i);
-            rTextures[1][i + 1] = this.getBack(i);
-            rTextures[2][i + 1] = this.getBottom(i);
-            rTextures[3][i + 1] = this.getTop(i);
-            rTextures[4][i + 1] = this.getSides(i);
-            rTextures[5][i + 1] = this.getFront(i);
-            rTextures[6][i + 1] = this.getBack(i);
-            rTextures[7][i + 1] = this.getBottom(i);
-            rTextures[8][i + 1] = this.getTop(i);
-            rTextures[9][i + 1] = this.getSides(i);
+            newTextures[0][i + 1] = this.getFront(i);
+            newTextures[1][i + 1] = this.getBack(i);
+            newTextures[2][i + 1] = this.getBottom(i);
+            newTextures[3][i + 1] = this.getTop(i);
+            newTextures[4][i + 1] = this.getSides(i);
+            newTextures[5][i + 1] = this.getFront(i);
+            newTextures[6][i + 1] = this.getBack(i);
+            newTextures[7][i + 1] = this.getBottom(i);
+            newTextures[8][i + 1] = this.getTop(i);
+            newTextures[9][i + 1] = this.getSides(i);
         }
-        return rTextures;
+        return newTextures;
     }
 
     @Override
-    public ITexture[] getTexture(final IGregTechTileEntity aBaseMetaTileEntity, final ForgeDirection side,
-        final ForgeDirection facing, final int aColorIndex, final boolean aActive, final boolean aRedstone) {
+    public ITexture[] getTexture(final IGregTechTileEntity baseMetaTileEntity, final ForgeDirection side,
+        final ForgeDirection facing, final int colorIndex, final boolean active, final boolean redstone) {
         if (side == ForgeDirection.DOWN || side == ForgeDirection.UP) {
-            return this.mTextures[3][aColorIndex + 1];
+            return this.mTextures[3][colorIndex + 1];
         } else {
-            return this.mTextures[4][aColorIndex + 1];
+            return this.mTextures[4][colorIndex + 1];
         }
-        /*
-         * return this.mTextures[(aActive ? 5 : 0) + (side == facing ? 0 : aSide == GT_Utility.getOppositeSide(aFacing)
-         * ? 1 : side == ForgeDirection.DOWN ? 2 : side == ForgeDirection.UP ? 3 : 4)][aColorIndex + 1];
-         */
     }
 
-    public ITexture[] getFront(final byte aColor) {
-        return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][aColor + 1],
+    public ITexture[] getFront(final byte color) {
+        return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][color + 1],
             TextureFactory.of(CropsNHBlockTextures.Casing_CropHarvester_Cutter) };
     }
 
-    public ITexture[] getBack(final byte aColor) {
-        return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][aColor + 1],
+    public ITexture[] getBack(final byte color) {
+        return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][color + 1],
             TextureFactory.of(CropsNHBlockTextures.Casing_CropHarvester_Cutter) };
     }
 
-    public ITexture[] getBottom(final byte aColor) {
-        return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][aColor + 1],
+    public ITexture[] getBottom(final byte color) {
+        return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][color + 1],
             TextureFactory.of(CropsNHBlockTextures.Casing_CropHarvester_Boxes) };
     }
 
-    public ITexture[] getTop(final byte aColor) {
-        return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][aColor + 1],
+    public ITexture[] getTop(final byte color) {
+        return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][color + 1],
             TextureFactory.of(CropsNHBlockTextures.Casing_CropHarvester_Boxes) };
     }
 
-    public ITexture[] getSides(final byte aColor) {
-        return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][aColor + 1],
+    public ITexture[] getSides(final byte color) {
+        return new ITexture[] { Textures.BlockIcons.MACHINE_CASINGS[this.mTier][color + 1],
             TextureFactory.of(CropsNHBlockTextures.Casing_CropHarvester_Cutter) };
     }
 
@@ -914,44 +890,44 @@ public class MTECropManager extends MTETieredMachineBlock {
     // region nbt
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
+    public void saveNBTData(NBTTagCompound nbt) {
         // save fluid tanks
-        aNBT.setInteger("mWater", this.mWater);
-        aNBT.setInteger("mWeedEx", this.mWeedEX);
-        aNBT.setInteger("mLiquidFertilizer", this.mLiquidFertilizer);
+        nbt.setInteger("mWater", this.waterStored);
+        nbt.setInteger("mWeedEx", this.weedEXStored);
+        nbt.setInteger("mLiquidFertilizer", this.liquidFertilizerStored);
         // save modes
-        aNBT.setBoolean("mHarvestEnabled", this.mHarvestEnabled);
-        aNBT.setBoolean("mWeedExEnabled", this.mWeedEXEnabled);
-        aNBT.setBoolean("mWaterEnabled", this.mWaterEnabled);
-        aNBT.setBoolean("mFertilizerEnabled", this.mFertilizerEnabled);
+        nbt.setBoolean("mHarvestEnabled", this.harvestEnabled);
+        nbt.setBoolean("mWeedExEnabled", this.weedEXEnabled);
+        nbt.setBoolean("mWaterEnabled", this.waterEnabled);
+        nbt.setBoolean("mFertilizerEnabled", this.fertilizerEnabled);
         // save the item overflow queue
-        if (!this.mDropOverflow.isEmpty()) {
-            aNBT.setTag("mDropOverflow", NBTHelper.saveItemStackMap(this.mDropOverflow));
+        if (!this.dropOverflow.isEmpty()) {
+            nbt.setTag("mDropOverflow", NBTHelper.saveItemStackMap(this.dropOverflow));
         }
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
+    public void loadNBTData(NBTTagCompound nbt) {
         // load tanks
-        this.setWaterAmount(NBTHelper.getInteger(aNBT, "mWater", 0));
-        this.setWeedEXAmount(NBTHelper.getInteger(aNBT, "mWeedEx", 0));
-        this.setLiquidFertilizerAmount(NBTHelper.getInteger(aNBT, "mLiquidFertilizer", 0));
+        this.setWaterAmount(NBTHelper.getInteger(nbt, "mWater", 0));
+        this.setWeedEXAmount(NBTHelper.getInteger(nbt, "mWeedEx", 0));
+        this.setLiquidFertilizerAmount(NBTHelper.getInteger(nbt, "mLiquidFertilizer", 0));
         // load modes
-        this.mHarvestEnabled = NBTHelper.getBoolean(aNBT, "mHarvestEnabled", true);
+        this.harvestEnabled = NBTHelper.getBoolean(nbt, "mHarvestEnabled", true);
         // versioning for upgrade to new system
-        if (NBTHelper.getBoolean(aNBT, "mModeAlternative", false)) {
-            this.mWeedEXEnabled = NBTHelper.getBoolean(aNBT, "mModeAlternative", false);
-            this.mWaterEnabled = NBTHelper.getBoolean(aNBT, "mModeAlternative", false);
-            this.mFertilizerEnabled = NBTHelper.getBoolean(aNBT, "mModeAlternative", false);
+        if (NBTHelper.getBoolean(nbt, "mModeAlternative", false)) {
+            this.weedEXEnabled = NBTHelper.getBoolean(nbt, "mModeAlternative", false);
+            this.waterEnabled = NBTHelper.getBoolean(nbt, "mModeAlternative", false);
+            this.fertilizerEnabled = NBTHelper.getBoolean(nbt, "mModeAlternative", false);
         }
-        this.mWeedEXEnabled = NBTHelper.getBoolean(aNBT, "mWeedExEnabled", false);
-        this.mWaterEnabled = NBTHelper.getBoolean(aNBT, "mWaterEnabled", false);
-        this.mFertilizerEnabled = NBTHelper.getBoolean(aNBT, "mFertilizerEnabled", false);
+        this.weedEXEnabled = NBTHelper.getBoolean(nbt, "mWeedExEnabled", false);
+        this.waterEnabled = NBTHelper.getBoolean(nbt, "mWaterEnabled", false);
+        this.fertilizerEnabled = NBTHelper.getBoolean(nbt, "mFertilizerEnabled", false);
         // load the item overflow queue
-        if (aNBT.hasKey("mDropOverflow", Constants.NBT.TAG_LIST)) {
+        if (nbt.hasKey("mDropOverflow", Constants.NBT.TAG_LIST)) {
             NBTHelper.loadItemStackMap(
-                this.mDropOverflow,
-                aNBT.getTagList("mDropOverflow", Constants.NBT.TAG_COMPOUND),
+                this.dropOverflow,
+                nbt.getTagList("mDropOverflow", Constants.NBT.TAG_COMPOUND),
                 Integer::sum);
         }
     }

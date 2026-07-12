@@ -54,22 +54,22 @@ public class CropsNHBlockTextures {
 
     public static class CustomIcon implements IIconContainer, Runnable {
 
-        protected IIcon mIcon;
-        protected String mIconName;
-        protected String mModID;
+        protected IIcon icon;
+        protected final String iconName;
+        protected final String modID;
 
-        public CustomIcon(String aIconName) {
-            this(Reference.MOD_ID, aIconName);
+        public CustomIcon(String iconName) {
+            this(Reference.MOD_ID, iconName);
         }
 
-        public CustomIcon(String aModID, String aIconName) {
-            this.mIconName = aIconName;
-            this.mModID = aModID;
+        public CustomIcon(String modID, String iconName) {
+            this.iconName = iconName;
+            this.modID = modID;
             GregTechAPI.sGTBlockIconload.add(this);
         }
 
         public IIcon getIcon() {
-            return this.mIcon;
+            return this.icon;
         }
 
         public IIcon getOverlayIcon() {
@@ -77,7 +77,7 @@ public class CropsNHBlockTextures {
         }
 
         public void run() {
-            this.mIcon = GregTechAPI.sBlockIcons.registerIcon(this.mModID + ":" + this.mIconName);
+            this.icon = GregTechAPI.sBlockIcons.registerIcon(this.modID + ":" + this.iconName);
         }
 
         public ResourceLocation getTextureFile() {

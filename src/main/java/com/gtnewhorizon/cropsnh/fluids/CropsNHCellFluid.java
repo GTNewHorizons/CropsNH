@@ -19,34 +19,34 @@ import gtPlusPlus.core.item.base.BaseItemComponent;
 
 public class CropsNHCellFluid extends Fluid implements Runnable {
 
-    private final int mColor;
+    private final int color;
 
-    public CropsNHCellFluid(String aName, Color aColor, String aCellItemName, IItemContainer aCellContainer) {
-        super(aName);
-        this.mColor = aColor.getRGB();
+    public CropsNHCellFluid(String name, Color color, String cellItemName, IItemContainer cellContainer) {
+        super(name);
+        this.color = color.getRGB();
 
         // register the fluid
         FluidRegistry.registerFluid(this);
         GregTechAPI.sGTBlockIconload.add(this);
 
         // create cell item
-        short[] cellRGBA = new short[] { (short) aColor.getRed(), (short) aColor.getGreen(), (short) aColor.getBlue(),
-            (short) aColor.getAlpha() };
+        short[] cellRGBA = new short[] { (short) color.getRed(), (short) color.getGreen(), (short) color.getBlue(),
+            (short) color.getAlpha() };
         Item cellItem = new BaseItemComponent(
-            aCellItemName,
+            cellItemName,
             this,
             StatCollector.translateToLocal(this.getUnlocalizedName()),
             cellRGBA);
-        aCellContainer.set(new ItemStack(cellItem, 1, 0));
+        cellContainer.set(new ItemStack(cellItem, 1, 0));
 
         // register it as a fluid container
         FluidContainerRegistry
-            .registerFluidContainer(new FluidStack(this, 1000), aCellContainer.get(1), ItemList.Cell_Empty.get(1));
+            .registerFluidContainer(new FluidStack(this, 1000), cellContainer.get(1), ItemList.Cell_Empty.get(1));
     }
 
     @Override
     public int getColor() {
-        return this.mColor;
+        return this.color;
     }
 
     @Override

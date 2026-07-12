@@ -27,22 +27,22 @@ public class CropsNHNEICropBreederHandler extends GTNEIDefaultHandler {
     }
 
     @Override
-    public void loadUsageRecipes(ItemStack aInput) {
-        this.findValidRecipe(aInput, super::loadUsageRecipes, true);
+    public void loadUsageRecipes(ItemStack input) {
+        this.findValidRecipe(input, super::loadUsageRecipes, true);
     }
 
     @Override
-    public void loadCraftingRecipes(ItemStack aResult) {
-        this.findValidRecipe(aResult, super::loadCraftingRecipes, false);
+    public void loadCraftingRecipes(ItemStack result) {
+        this.findValidRecipe(result, super::loadCraftingRecipes, false);
     }
 
-    private void findValidRecipe(ItemStack aStack, Consumer<ItemStack> superCall, boolean isUsage) {
-        ICropCard cc = CropRegistry.instance.get(aStack, false);
+    private void findValidRecipe(ItemStack stack, Consumer<ItemStack> superCall, boolean isUsage) {
+        ICropCard cc = CropRegistry.instance.get(stack, false);
         if (cc == null) {
-            superCall.accept(aStack);
+            superCall.accept(stack);
             return;
         }
-        SeedStats seedStats = SeedStats.getStatsFromStack(aStack);
+        SeedStats seedStats = SeedStats.getStatsFromStack(stack);
         if (seedStats == null || !seedStats.isAnalyzed()) {
             return;
         }

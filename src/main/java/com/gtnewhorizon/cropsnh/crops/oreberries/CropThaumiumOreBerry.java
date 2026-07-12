@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 
@@ -18,7 +18,7 @@ public class CropThaumiumOreBerry extends CropOreBerry {
 
         this.addDrop(Materials.Thaumium.getNuggets(1), 100_00);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.thaumium);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.thaumium);
 
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
 

@@ -27,7 +27,7 @@ public interface ICropMutation {
 
     /**
      * Checks if the crop can breed in the world.
-     * 
+     *
      * @param parents The parents that surround the crop.
      * @param world   The world in which the destination crop stick is in.
      * @param tile    The tile entity for the destination crop stick.
@@ -40,7 +40,7 @@ public interface ICropMutation {
 
     /**
      * Checks if the crop can breed in the breeding machine.
-     * 
+     *
      * @param parents   The parents that can be used for a mutation.
      * @param te        The base tile entity of the breeding machine.
      * @param catalysts The catalysts that can be consumed from the breeding machine's inventory.
@@ -56,16 +56,16 @@ public interface ICropMutation {
     List<IBreedingRequirement> getRequirements();
 
     /**
-     * Gets the list of usable underblocks for this mutation.
-     * 
-     * @param useCache True to used the result of the last succesful request.
+     * Gets the list of usable sub-soils for this mutation.
+     *
+     * @param useCache True to use the result of the last successful request.
      */
-    List<ItemStack> getBlocksUnderForNEI(boolean useCache);
+    List<ItemStack> getSubSoilsForNEI(boolean useCache);
 
     /**
      * Gets the list of catalysts needed to breed using the breeding machine.
-     * 
-     * @param useCache True to used the result of the last succesful request.
+     *
+     * @param useCache True to use the result of the last successful request.
      */
     public List<List<ItemStack>> getBreedingMachineCatalystsForNEI(boolean useCache);
 

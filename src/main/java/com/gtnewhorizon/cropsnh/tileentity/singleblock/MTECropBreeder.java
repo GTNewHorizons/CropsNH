@@ -87,7 +87,7 @@ public class MTECropBreeder extends MTEBasicMachine {
         ALLOWED_LIQUID_FERTILIZER.putIfAbsent(CropsNHFluids.enrichedFertilizer, 1.0f);
     }
 
-    private static String[] getToolTip(int aTier) {
+    private static String[] getToolTip(int tier) {
         List<String> tt = new ArrayList<>();
         tt.add(CropsNHUtils.getMachineTypeText("cropBreeder"));
         tt.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropBreeder.0"));
@@ -103,26 +103,26 @@ public class MTECropBreeder extends MTEBasicMachine {
         tt.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.cropBreeder.4",
-                formatNumber(getOutputChance(aTier))));
+                formatNumber(getOutputChance(tier))));
         tt.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.cropBreeder.5",
-                TooltipHelper.fluidText(getCustomFluidCapacity(aTier))));
-        if (aTier <= VoltageIndex.MV) {
+                TooltipHelper.fluidText(getCustomFluidCapacity(tier))));
+        if (tier <= VoltageIndex.MV) {
             tt.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropBreeder.mv_warn"));
         }
         return tt.toArray(new String[0]);
     }
 
-    public MTECropBreeder(int aID, int aTier) {
+    public MTECropBreeder(int id, int tier) {
         super(
-            aID,
-            String.format("basicmachine.cropbreeder.tier.%02d", aTier),
-            StatCollector.translateToLocal("cropsnh_tooltip.cropBreeder.name." + aTier),
-            aTier,
+            id,
+            String.format("basicmachine.cropbreeder.tier.%02d", tier),
+            StatCollector.translateToLocal("cropsnh_tooltip.cropBreeder.name." + tier),
+            tier,
             AMPERAGE,
-            getToolTip(aTier),
-            getInputSlotCount(aTier),
+            getToolTip(tier),
+            getInputSlotCount(tier),
             OUTPUT_SLOT_COUNT,
             TextureFactory.of(
                 TextureFactory.of(OVERLAY_SIDE_SCANNER_ACTIVE),
@@ -174,8 +174,8 @@ public class MTECropBreeder extends MTEBasicMachine {
                     .build()));
     }
 
-    public MTECropBreeder(String mName, byte mTier, String[] mDescriptionArray, ITexture[][][] mTextures) {
-        super(mName, mTier, AMPERAGE, mDescriptionArray, mTextures, getInputSlotCount(mTier), OUTPUT_SLOT_COUNT);
+    public MTECropBreeder(String name, byte tier, String[] descriptionArray, ITexture[][][] textures) {
+        super(name, tier, AMPERAGE, descriptionArray, textures, getInputSlotCount(tier), OUTPUT_SLOT_COUNT);
     }
 
     @Override
@@ -205,15 +205,15 @@ public class MTECropBreeder extends MTEBasicMachine {
         HashMap<ICropCard, SeedData> breedingParents = new HashMap<>(4);
         ItemStack[] catalystSlots = new ItemStack[this.mInputSlotCount];
         for (int i = 0; i < this.mInputSlotCount; i++) {
-            ItemStack tStack = this.getInputAt(i);
-            var seedData = isValidSeeds(tStack);
+            ItemStack stack = this.getInputAt(i);
+            var seedData = isValidSeeds(stack);
             if (seedData != null) {
                 if (!breedingParents.containsKey(seedData.crop)) {
                     breedingParents.put(seedData.crop, seedData);
                 }
                 catalystSlots[i] = null;
             } else {
-                catalystSlots[i] = tStack;
+                catalystSlots[i] = stack;
             }
         }
 
@@ -298,9 +298,9 @@ public class MTECropBreeder extends MTEBasicMachine {
             + Math.max(1, (int) ((gr + ga + re) * FERTILIZER_PER_STAT * multiplier));
     }
 
-    private static int getOutputChance(int aTier) {
+    private static int getOutputChance(int tier) {
         // lv is 40%, every tier after is 10% more chance.
-        return Math.min(MAX_CHANCE, MIN_CHANCE + (aTier - MIN_TIER) * CHANCE_INCREASE_PER_TIER);
+        return Math.min(MAX_CHANCE, MIN_CHANCE + (tier - MIN_TIER) * CHANCE_INCREASE_PER_TIER);
     }
 
     private static ISeedStats getNewSeedStats(ICropMutation mutation, HashMap<ICropCard, SeedData> breedingParents) {
@@ -321,22 +321,22 @@ public class MTECropBreeder extends MTEBasicMachine {
             true);
     }
 
-    private static SeedData isValidSeeds(ItemStack aStack) {
-        if (GTUtility.isStackInvalid(aStack) || !(aStack.getItem() instanceof ItemGenericSeed)) return null;
+    private static SeedData isValidSeeds(ItemStack stack) {
+        if (GTUtility.isStackInvalid(stack) || !(stack.getItem() instanceof ItemGenericSeed)) return null;
         // check that it's a crop card and that it can cross.
-        ICropCard cc = CropRegistry.instance.get(aStack);
+        ICropCard cc = CropRegistry.instance.get(stack);
         if (cc == null) return null;
         // fail if the crop isn't analyzed
-        SeedStats stats = SeedStats.getStatsFromStack(aStack);
+        SeedStats stats = SeedStats.getStatsFromStack(stack);
         if (stats == null || !stats.isAnalyzed()) return null;
-        return new SeedData(cc, stats, aStack);
+        return new SeedData(cc, stats, stack);
     }
 
     @Override
-    public void startSoundLoop(byte aIndex, double aX, double aY, double aZ) {
-        super.startSoundLoop(aIndex, aX, aY, aZ);
-        if (aIndex == 1) {
-            GTUtility.doSoundAtClient(SoundResource.GTCEU_LOOP_REPLICATOR, 10, 1.0F, aX, aY, aZ);
+    public void startSoundLoop(byte index, double x, double y, double z) {
+        super.startSoundLoop(index, x, y, z);
+        if (index == 1) {
+            GTUtility.doSoundAtClient(SoundResource.GTCEU_LOOP_REPLICATOR, 10, 1.0F, x, y, z);
         }
     }
 
@@ -346,8 +346,8 @@ public class MTECropBreeder extends MTEBasicMachine {
     }
 
     @Override
-    public boolean isFluidInputAllowed(FluidStack aFluid) {
-        return super.isFluidInputAllowed(aFluid) && aFluid.getFluid() == CropsNHFluids.enrichedFertilizer;
+    public boolean isFluidInputAllowed(FluidStack fluid) {
+        return super.isFluidInputAllowed(fluid) && fluid.getFluid() == CropsNHFluids.enrichedFertilizer;
     }
 
     @Override
@@ -356,8 +356,8 @@ public class MTECropBreeder extends MTEBasicMachine {
         return getCustomFluidCapacity(this.mTier);
     }
 
-    public static int getCustomFluidCapacity(int aTier) {
-        return aTier < VoltageIndex.IV ? getCapacityForTier(aTier) / 5 : getCapacityForTier(aTier);
+    public static int getCustomFluidCapacity(int tier) {
+        return tier < VoltageIndex.IV ? getCapacityForTier(tier) / 5 : getCapacityForTier(tier);
     }
 
     @Override

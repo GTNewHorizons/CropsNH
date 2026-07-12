@@ -65,91 +65,90 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
         }
     }
 
-    public static int getWaterConsumption(int aTier) {
-        if (aTier < MIN_TIER || MAX_TIER < aTier) {
+    public static int getWaterConsumption(int tier) {
+        if (tier < MIN_TIER || MAX_TIER < tier) {
             throw new IndexOutOfBoundsException(
-                String.format("tier should be between %d and %d (was %d)", MIN_TIER, MAX_TIER, aTier));
+                String.format("tier should be between %d and %d (was %d)", MIN_TIER, MAX_TIER, tier));
         }
-        return WATER_CONSUMPTION_LOOKUP[aTier - MIN_TIER];
+        return WATER_CONSUMPTION_LOOKUP[tier - MIN_TIER];
     }
 
-    public static int getFertilizerConsumption(int aTier) {
-        return getWaterConsumption(aTier);
+    public static int getFertilizerConsumption(int tier) {
+        return getWaterConsumption(tier);
     }
 
-    public static int getCapacity(int aTier) {
-        int ret = MTECropManager.getHorizontalRadius(aTier) * 2 + 1;
+    public static int getCapacity(int tier) {
+        int ret = MTECropManager.getHorizontalRadius(tier) * 2 + 1;
         return (int) ((ret * ret) * SLOT_MULTIPLIER);
     }
 
-    public static int getMultiLength(int aTier) {
-        return aTier - MIN_TIER + 1;
+    public static int getMultiLength(int tier) {
+        return tier - MIN_TIER + 1;
     }
 
-    public static double getHarvestRoundBonus(int aTier) {
-        return aTier * HARVEST_ROUND_BONUS;
+    public static double getHarvestRoundBonus(int tier) {
+        return tier * HARVEST_ROUND_BONUS;
     }
 
     public static long getBaseEUt(int tier) {
         return GTValues.VP[tier];
     }
 
-    public void addInformation(ItemStack aStack, EntityPlayer aPlayer, List<String> aTooltip,
-        boolean aAdvancedTooltips) {
-        super.addInformation(aStack, aPlayer, aTooltip, aAdvancedTooltips);
-        int tMeta = CropsNHUtils.getItemMeta(aStack);
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advancedTooltips) {
+        super.addInformation(stack, player, tooltip, advancedTooltips);
+        int meta = CropsNHUtils.getItemMeta(stack);
 
         String roundIncreaseText = TooltipHelper
-            .coloredText(TooltipHelper.percentageFormat.format(getHarvestRoundBonus(tMeta)), TooltipHelper.EFF_COLOR);
+            .coloredText(TooltipHelper.percentageFormat.format(getHarvestRoundBonus(meta)), TooltipHelper.EFF_COLOR);
 
-        aTooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedBed.0"));
-        aTooltip.add(
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedBed.0"));
+        tooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.1",
-                TooltipHelper.euRateText(getBaseEUt(tMeta)),
-                TooltipHelper.voltageTierText(tMeta, false)));
-        aTooltip.add(
+                TooltipHelper.euRateText(getBaseEUt(meta)),
+                TooltipHelper.voltageTierText(meta, false)));
+        tooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.2",
-                TooltipHelper.parallelText(getCapacity(tMeta))));
-        aTooltip.add(
+                TooltipHelper.parallelText(getCapacity(meta))));
+        tooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.3",
-                TooltipHelper.fluidText(getWaterConsumption(tMeta))));
-        aTooltip.add(
+                TooltipHelper.fluidText(getWaterConsumption(meta))));
+        tooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.4",
-                TooltipHelper.fluidText(getFertilizerConsumption(tMeta))));
-        if (aAdvancedTooltips) {
-            aTooltip.add(
+                TooltipHelper.fluidText(getFertilizerConsumption(meta))));
+        if (advancedTooltips) {
+            tooltip.add(
                 StatCollector
                     .translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.5.adv", roundIncreaseText));
         } else {
-            aTooltip.add(
+            tooltip.add(
                 StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.5", roundIncreaseText));
         }
 
-        int length = getMultiLength(tMeta);
+        int length = getMultiLength(meta);
         String lengthText = TooltipHelper.tierText(formatNumber(length));
         if (length == 1) {
-            aTooltip.add(
+            tooltip.add(
                 StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.6.single", lengthText));
         } else {
-            aTooltip.add(
+            tooltip.add(
                 StatCollector.translateToLocalFormatted(Reference.MOD_ID + "_tooltip.seedBed.6.plural", lengthText));
         }
 
     }
 
     @Override
-    public IIcon getIcon(int aSide, int aMeta) {
-        if (aSide == 1) return this.mTopIcons[0];
-        return super.getIcon(2, aMeta);
+    public IIcon getIcon(int side, int meta) {
+        if (side == 1) return this.topIcons[0];
+        return super.getIcon(2, meta);
     }
 
     @Override
-    public void registerBlockIcons(IIconRegister aIconRegister) {
-        super.registerBlockIcons(aIconRegister);
-        this.mTopIcons[0] = aIconRegister.registerIcon(Reference.MOD_ID + ":industrialFarm/seedBed");
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        super.registerBlockIcons(iconRegister);
+        this.topIcons[0] = iconRegister.registerIcon(Reference.MOD_ID + ":industrialFarm/seedBed");
     }
 }

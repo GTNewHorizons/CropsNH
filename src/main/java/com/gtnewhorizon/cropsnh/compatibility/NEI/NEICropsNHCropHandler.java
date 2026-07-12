@@ -21,7 +21,7 @@ import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
-import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.SubSoilRequirement;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizons.modularui.api.GlStateManager;
@@ -94,10 +94,10 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
             // get list of soils
             this.ingredients.add(new PositionedStack(crop.getSoilsForNEI(true), X_seed, Y_soil, true));
 
-            // get list of all block under reqs
-            List<ItemStack> blockUnderList = crop.getBlocksUnderForNEI(true);
-            if (!blockUnderList.isEmpty()) {
-                this.ingredients.add(new PositionedStack(blockUnderList, X_seed, Y_base, true));
+            // get list of all sub-soil reqs
+            List<ItemStack> subSoilList = crop.getSubSoilsForNEI(true);
+            if (!subSoilList.isEmpty()) {
+                this.ingredients.add(new PositionedStack(subSoilList, X_seed, Y_base, true));
             }
 
             // register lines
@@ -115,8 +115,8 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
             //spotless:on
 
             for (IGrowthRequirement req : crop.getGrowthRequirements()) {
-                // skip block under reqs since those are already displayed via the items
-                if (req instanceof BlockUnderRequirement) continue;
+                // skip sub-soil requirements since those are already displayed via the items
+                if (req instanceof SubSoilRequirement) continue;
                 this.textLines.add(req.getDescriptionForNEI());
             }
         }
@@ -168,14 +168,14 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
 
     // loads the crop product recipes for a given product
     @Override
-    protected void loadCraftingRecipesDo(String pId, Object... results) {
-        if (pId.equalsIgnoreCase(id)) {
+    protected void loadCraftingRecipesDo(String id, Object... results) {
+        if (id.equalsIgnoreCase(NEICropsNHCropHandler.id)) {
             for (ICropCard cc : CropRegistry.instance.getAllInRegistrationOrder()) {
                 // no reason to display weeds
                 if (cc.hideFromNEI()) continue;
                 arecipes.add(new CachedCropRecipe(null, cc));
             }
-        } else if (pId.equalsIgnoreCase("item")) {
+        } else if (id.equalsIgnoreCase("item")) {
             for (Object object : results) {
                 if (object instanceof ItemStack) {
                     ItemStack stack = ((ItemStack) object).copy();
@@ -226,7 +226,7 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
         // bail if the block isn't found
         if (block == null) return;
 
-        // find crops it's a soil or under-block for.
+        // find crops it's a soil or sub-soil for.
         outer: for (ICropCard cropCard : CropRegistry.instance.getAllInRegistrationOrder()) {
             if (cropCard.hideFromNEI()) continue;
             if (cropCard.getSoilTypes()
@@ -235,10 +235,10 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
                 // crops shouldn't be getting registered more than once
                 continue;
             }
-            // register mutations for which this is a block under.
+            // register mutations for which this is a sub-soil.
             for (IGrowthRequirement req : cropCard.getGrowthRequirements()) {
-                if (!(req instanceof BlockUnderRequirement)) continue;
-                if (((BlockUnderRequirement) req).canGrow(block, CropsNHUtils.getItemMeta(item), null)) {
+                if (!(req instanceof SubSoilRequirement subSoilRequirement)) continue;
+                if (subSoilRequirement.canGrow(block, CropsNHUtils.getItemMeta(item), null)) {
                     arecipes.add(new CachedCropRecipe(null, cropCard));
                     // crops shouldn't be getting registered more than once
                     continue outer;

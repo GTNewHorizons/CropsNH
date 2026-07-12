@@ -21,14 +21,14 @@ public class BlockCasingsCropsNH1 extends BlockCasingsAbstract {
     }
 
     @Override
-    public int getTextureIndex(int aMeta) {
+    public int getTextureIndex(int meta) {
         // Page 20, 0-15 (only using 0 rn)
-        return (Constants.GT_CASING_PAGE << 7) | (aMeta);
+        return (Constants.GT_CASING_PAGE << 7) | (meta);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int aSide, int aMeta) {
+    public IIcon getIcon(int side, int meta) {
         return CropsNHBlockTextures.Casing_Bricked_Agricultural_Casing.getIcon();
     }
 

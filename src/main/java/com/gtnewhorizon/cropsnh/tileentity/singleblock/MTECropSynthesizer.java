@@ -62,12 +62,12 @@ public class MTECropSynthesizer extends MTEBasicMachine {
 
     public static void init() {}
 
-    public MTECropSynthesizer(int aID, int aTier) {
+    public MTECropSynthesizer(int id, int tier) {
         super(
-            aID,
-            String.format("basicmachine.cropsynthesizer.tier.%02d", aTier),
-            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropSynthesizer.name." + aTier),
-            aTier,
+            id,
+            String.format("basicmachine.cropsynthesizer.tier.%02d", tier),
+            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropSynthesizer.name." + tier),
+            tier,
             AMPERAGE,
             new String[] {
                 // spotless:off
@@ -136,8 +136,8 @@ public class MTECropSynthesizer extends MTEBasicMachine {
                     .build()));
     }
 
-    public MTECropSynthesizer(String mName, byte mTier, String[] mDescriptionArray, ITexture[][][] mTextures) {
-        super(mName, mTier, AMPERAGE, mDescriptionArray, mTextures, INPUT_SLOT_COUNT, OUTPUT_SLOT_COUNT);
+    public MTECropSynthesizer(String name, byte tier, String[] descriptionArray, ITexture[][][] textures) {
+        super(name, tier, AMPERAGE, descriptionArray, textures, INPUT_SLOT_COUNT, OUTPUT_SLOT_COUNT);
     }
 
     @Override
@@ -161,27 +161,27 @@ public class MTECropSynthesizer extends MTEBasicMachine {
         ICropCard cc = null;
         byte growth = -1, gain = -1, resistance = -1;
         for (int i = 0; i < INPUT_SLOT_COUNT; i++) {
-            ItemStack tStack = this.getInputAt(i);
-            if (!ItemList.Tool_DataOrb.isStackEqual(tStack, false, true)) continue;
-            String key = BehaviourDataOrb.getDataTitle(tStack);
+            ItemStack stack = this.getInputAt(i);
+            if (!ItemList.Tool_DataOrb.isStackEqual(stack, false, true)) continue;
+            String key = BehaviourDataOrb.getDataTitle(stack);
             switch (key) {
                 case Names.DataOrb.specimen -> {
                     if (cc != null) continue;
-                    cc = CropRegistry.instance.get(BehaviourDataOrb.getDataName(tStack));
+                    cc = CropRegistry.instance.get(BehaviourDataOrb.getDataName(stack));
                 }
                 case Names.DataOrb.growth -> {
                     if (growth >= 1) continue;
-                    Byte stat = getOrbStat(tStack);
+                    Byte stat = getOrbStat(stack);
                     if (stat != null) growth = stat;
                 }
                 case Names.DataOrb.gain -> {
                     if (gain >= 1) continue;
-                    Byte stat = getOrbStat(tStack);
+                    Byte stat = getOrbStat(stack);
                     if (stat != null) gain = stat;
                 }
                 case Names.DataOrb.resistance -> {
                     if (resistance >= 1) continue;
-                    Byte stat = getOrbStat(tStack);
+                    Byte stat = getOrbStat(stack);
                     if (stat != null) resistance = stat;
                 }
             }
@@ -225,9 +225,9 @@ public class MTECropSynthesizer extends MTEBasicMachine {
         return FOUND_AND_SUCCESSFULLY_USED_RECIPE;
     }
 
-    public static Byte getOrbStat(ItemStack aStack) {
+    public static Byte getOrbStat(ItemStack stack) {
         try {
-            return Byte.parseByte(BehaviourDataOrb.getDataName(aStack));
+            return Byte.parseByte(BehaviourDataOrb.getDataName(stack));
         } catch (NumberFormatException nfe) {
             return null;
         }
@@ -252,10 +252,10 @@ public class MTECropSynthesizer extends MTEBasicMachine {
     }
 
     @Override
-    public void startSoundLoop(byte aIndex, double aX, double aY, double aZ) {
-        super.startSoundLoop(aIndex, aX, aY, aZ);
-        if (aIndex == 1) {
-            GTUtility.doSoundAtClient(SoundResource.GTCEU_LOOP_REPLICATOR, 10, 1.0F, aX, aY, aZ);
+    public void startSoundLoop(byte index, double x, double y, double z) {
+        super.startSoundLoop(index, x, y, z);
+        if (index == 1) {
+            GTUtility.doSoundAtClient(SoundResource.GTCEU_LOOP_REPLICATOR, 10, 1.0F, x, y, z);
         }
     }
 
@@ -265,8 +265,8 @@ public class MTECropSynthesizer extends MTEBasicMachine {
     }
 
     @Override
-    public boolean isFluidInputAllowed(FluidStack aFluid) {
-        return aFluid != null && aFluid.getFluid() == Materials.UUMatter.mFluid;
+    public boolean isFluidInputAllowed(FluidStack fluid) {
+        return fluid != null && fluid.getFluid() == Materials.UUMatter.mFluid;
     }
 
     @Override

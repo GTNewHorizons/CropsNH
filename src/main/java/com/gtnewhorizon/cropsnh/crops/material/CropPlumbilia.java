@@ -4,9 +4,9 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
@@ -19,7 +19,7 @@ public class CropPlumbilia extends NHCropCard {
 
         this.addDrop(CropsNHItemList.plumbiliaLeaf.get(1), 100_00);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.lead);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.lead);
 
         this.addDuplicationCatalyst("dustLead", 1);
         // I was going to choose plums as a basis, but the stuff will literally grow everywhere

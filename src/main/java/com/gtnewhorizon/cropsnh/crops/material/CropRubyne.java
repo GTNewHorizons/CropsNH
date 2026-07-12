@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
@@ -26,7 +26,7 @@ public class CropRubyne extends NHCropCard {
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ruby, 1L), 75_00);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Ruby, 1L), 25_00);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.ruby);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.ruby);
 
         this.addDuplicationCatalyst("gemRuby", 1);
         this.addDuplicationCatalyst("dustRuby", 1);

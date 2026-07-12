@@ -46,16 +46,16 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 /**
- * Used to prevent a crop from growing unless there is a specific block under it.
+ * Used to prevent a crop from growing unless there is a specific type of block(s) is directly under its soil.
  */
-public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBreedingRequirement,
+public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedingRequirement,
     IMachineBreedingRequirement, IMachineGrowthRequirement {
 
-    private static final Object2ObjectOpenHashMap<String, BlockUnderRequirement> registrations = new Object2ObjectOpenHashMap<>();
+    private static final Object2ObjectOpenHashMap<String, SubSoilRequirement> registrations = new Object2ObjectOpenHashMap<>();
 
-    public static BlockUnderRequirement get(String name) {
+    public static SubSoilRequirement get(String name) {
         if (!registrations.containsKey(name)) {
-            registrations.put(name, new BlockUnderRequirement(name));
+            registrations.put(name, new SubSoilRequirement(name));
         }
         return registrations.get(name);
     }
@@ -66,35 +66,35 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
     private final MetaSet<Block> blocks = new MetaSet<>();
     private final Pair<String, String[]> unlocalizedDesc;
 
-    private BlockUnderRequirement(String materialDescription) {
+    private SubSoilRequirement(String materialDescription) {
         this.materialDescription = materialDescription;
-        this.unlocalizedDesc = Pair.of(Reference.MOD_ID + "_growthReq.blockUnder." + this.materialDescription, null);
+        this.unlocalizedDesc = Pair.of(Reference.MOD_ID + "_growthReq.subSoil." + this.materialDescription, null);
     }
 
-    public BlockUnderRequirement addMaterial(Materials... args) {
+    public SubSoilRequirement addMaterial(Materials... args) {
         this.materials.addAll(Arrays.asList(args));
         return this;
     }
 
-    public BlockUnderRequirement addOreDict(String... args) {
+    public SubSoilRequirement addOreDict(String... args) {
         this.oreDictionaries.addAll(Arrays.asList(args));
         return this;
     }
 
-    public BlockUnderRequirement addBlockAndOreDict() {
+    public SubSoilRequirement addBlockAndOreDict() {
         // just capitalize the mat description
         return this
             .addOreDict(Character.toUpperCase(this.materialDescription.charAt(0)) + materialDescription.substring(1));
     }
 
-    public BlockUnderRequirement addBlockAndOreDict(String... names) {
+    public SubSoilRequirement addBlockAndOreDict(String... names) {
         for (String name : names) {
             this.addOreDict("block" + name, "ore" + name);
         }
         return this;
     }
 
-    public BlockUnderRequirement addBlock(BlockWithMeta... args) {
+    public SubSoilRequirement addBlock(BlockWithMeta... args) {
         for (BlockWithMeta arg : args) {
             this.blocks.add(arg.getBlock(), arg.ignoreMeta() ? OreDictionary.WILDCARD_VALUE : arg.getMeta());
         }
@@ -115,7 +115,7 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
     @Override
     public boolean canGrow(World world, ICropStickTile tile, int x, int y, int z) {
         // pre-flight checks
-        BlockUnderTarget target = getBlockUnder(world, x, y, z);
+        SubSoilTarget target = getSubSoil(world, x, y, z);
         if (target == null) return false;
         return canGrow(target.block, target.meta, target.te);
     }
@@ -130,33 +130,33 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
         return canGrow(world, tile, x, y, z);
     }
 
-    public static BlockUnderTarget getBlockUnder(IBlockAccess world, int x, int y, int z) {
+    public static SubSoilTarget getSubSoil(IBlockAccess world, int x, int y, int z) {
         // pre-flight check
         y -= 2;
         if (y < 0) return null;
         if (world.isAirBlock(x, y, z)) return null;
 
-        // get the block under
+        // get the sub-soil
         Block block = world.getBlock(x, y, z);
         if (block.getMaterial() == Material.air) return null;
         int meta = world.getBlockMetadata(x, y, z);
         TileEntity te = world.getTileEntity(x, y, z);
-        return new BlockUnderTarget(block, meta, te);
+        return new SubSoilTarget(block, meta, te);
     }
 
     @Override
     public boolean canGrow(ISeedData seedData, IGregTechTileEntity te, ItemStack[] catalysts) {
         return Arrays.stream(catalysts)
-            .anyMatch(this::isValidBlockUnder);
+            .anyMatch(this::isValidSubSoil);
     }
 
-    public static class BlockUnderTarget {
+    public static class SubSoilTarget {
 
         public final Block block;
         public final int meta;
         public final TileEntity te;
 
-        public BlockUnderTarget(Block block, int meta, TileEntity te) {
+        public SubSoilTarget(Block block, int meta, TileEntity te) {
             this.block = block;
             this.meta = meta;
             this.te = te;
@@ -171,7 +171,7 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
             ItemStack stack = catalysts[i];
             if (GTUtility.isStackInvalid(stack) || stack.stackSize - consumptionTracker[i] <= 0) continue;
             // consume if valid
-            if (isValidBlockUnder(stack)) {
+            if (isValidSubSoil(stack)) {
                 consumptionTracker[i] += 1;
                 return true;
             }
@@ -183,8 +183,8 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
         for (ItemStack stack : catalysts) {
             // if stack is bad or if we can't consume it, abort early
             if (GTUtility.isStackInvalid(stack) || stack.stackSize <= 0) continue;
-            // else check if it's a valid block under
-            if (isValidBlockUnder(stack)) {
+            // else check if it's a valid sub-soil
+            if (isValidSubSoil(stack)) {
                 return stack;
             }
         }
@@ -192,32 +192,30 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
     }
 
     /**
-     * Checks if an item stack contains a valid under block for this requirement.
-     *
-     * @param stack The stack to validate
-     * @return True if the stack contains a valid under block.
+     * @param toValidate The stack to validate
+     * @return True if the stack contains a valid sub-soil.
      */
-    public boolean isValidBlockUnder(ItemStack stack) {
+    public boolean isValidSubSoil(ItemStack toValidate) {
         // ensure valid stack
-        if (CropsNHUtils.isStackInvalid(stack)) return false;
+        if (CropsNHUtils.isStackInvalid(toValidate)) return false;
 
         // GT Material check
         for (Materials material : this.materials) {
-            if (checkGTBlockOrOreMaterial(stack, material)) {
+            if (checkGTBlockOrOreMaterial(toValidate, material)) {
                 return true;
             }
         }
 
         // Ore dict check
         for (String oreDict : this.oreDictionaries) {
-            if (checkOreDict(stack, oreDict)) {
+            if (checkOreDict(toValidate, oreDict)) {
                 return true;
             }
         }
 
         // Block conversion
-        Block block = CropsNHUtils.getBlockFromItem(stack);
-        return block.getMaterial() != Material.air && blocks.contains(block, CropsNHUtils.getItemMeta(stack));
+        Block block = CropsNHUtils.getBlockFromItem(toValidate);
+        return block.getMaterial() != Material.air && blocks.contains(block, CropsNHUtils.getItemMeta(toValidate));
     }
 
     public boolean canGrow(Block block, int meta, TileEntity te) {
@@ -227,8 +225,9 @@ public class BlockUnderRequirement implements IWorldGrowthRequirement, IWorldBre
         // gt material check
         for (Materials material : this.materials) {
             if (block instanceof GTBlockOre && te instanceof TileEntityOres) {
-                Materials tMaterial = GregTechAPI.sGeneratedMaterials[((TileEntityOres) te).mMetaData % 1000];
-                if (tMaterial != null && tMaterial != Materials._NULL && tMaterial == material) {
+                Materials generatedMaterial = GregTechAPI.sGeneratedMaterials[((TileEntityOres) te).mMetaData % 1000];
+                if (generatedMaterial != null && generatedMaterial != Materials._NULL
+                    && generatedMaterial == material) {
                     return true;
                 }
             } else if (checkGTBlockOrOreMaterial(stack, material)) {

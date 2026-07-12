@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
@@ -30,7 +30,7 @@ public class CropAndesiteLily extends CropBaseStoneLily {
             }
         }
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.modernAndesite);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.modernAndesite);
 
         this.addLikedBiomes(BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HILLS);
     }

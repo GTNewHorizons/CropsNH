@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import bartworks.system.material.WerkstoffLoader;
@@ -12,12 +12,12 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 
-public class BlockUnderRequirementLoader {
+public class SubSoilRequirementLoader {
 
     public static void postInit() {
         // spotless:off
         // Vanilla Stone Lilies
-        CropsNHBlockUnderTypes.stone
+        CropsNHSubSoilTypes.stone
             .addBlock(
                 new BlockWithMeta(Blocks.stone),
                 new BlockWithMeta(Blocks.cobblestone),
@@ -25,116 +25,116 @@ public class BlockUnderRequirementLoader {
                 new BlockWithMeta(Blocks.mossy_cobblestone)
             )
             .addOreDict("bricksStone");
-        CropsNHBlockUnderTypes.sand.addBlock(new BlockWithMeta(Blocks.sand), new BlockWithMeta(Blocks.sandstone));
-        CropsNHBlockUnderTypes.clay.addOreDict("hardenedClay","blockStainedHardenedClay").addBlock(new BlockWithMeta(Blocks.clay), new BlockWithMeta(Blocks.hardened_clay), new BlockWithMeta(Blocks.stained_hardened_clay));
-        CropsNHBlockUnderTypes.soulSand.addBlock(new BlockWithMeta(Blocks.soul_sand)).addOreDict("soulSand", "soulsand");
-        CropsNHBlockUnderTypes.netherrack.addBlock(new BlockWithMeta(Blocks.netherrack));
-        CropsNHBlockUnderTypes.endStone.addBlock(new BlockWithMeta(Blocks.end_stone));
+        CropsNHSubSoilTypes.sand.addBlock(new BlockWithMeta(Blocks.sand), new BlockWithMeta(Blocks.sandstone));
+        CropsNHSubSoilTypes.clay.addOreDict("hardenedClay","blockStainedHardenedClay").addBlock(new BlockWithMeta(Blocks.clay), new BlockWithMeta(Blocks.hardened_clay), new BlockWithMeta(Blocks.stained_hardened_clay));
+        CropsNHSubSoilTypes.soulSand.addBlock(new BlockWithMeta(Blocks.soul_sand)).addOreDict("soulSand", "soulsand");
+        CropsNHSubSoilTypes.netherrack.addBlock(new BlockWithMeta(Blocks.netherrack));
+        CropsNHSubSoilTypes.endStone.addBlock(new BlockWithMeta(Blocks.end_stone));
         // GT Stone Lilies
-        CropsNHBlockUnderTypes.redGranite.addOreDict("stoneGraniteRed");
-        CropsNHBlockUnderTypes.blackGranite.addOreDict("stoneGraniteBlack");
-        CropsNHBlockUnderTypes.marble.addOreDict("stoneMarble");
-        CropsNHBlockUnderTypes.basalt.addOreDict("stoneBasalt");
+        CropsNHSubSoilTypes.redGranite.addOreDict("stoneGraniteRed");
+        CropsNHSubSoilTypes.blackGranite.addOreDict("stoneGraniteBlack");
+        CropsNHSubSoilTypes.marble.addOreDict("stoneMarble");
+        CropsNHSubSoilTypes.basalt.addOreDict("stoneBasalt");
         // Modern Stone Lilies
-        CropsNHBlockUnderTypes.modernAndesite.addOreDict("stoneAndesite", "stoneAndesitePolished", "stoneAndesiteBricks", "stoneAndesiteChiseled");
-        CropsNHBlockUnderTypes.modernDiorite.addOreDict("stoneDiorite", "stoneDioritePolished", "stoneDioriteBricks", "stoneDioriteChiseled");
-        CropsNHBlockUnderTypes.modernGranite.addOreDict("stoneGranite", "stoneGranitePolished", "stoneGraniteBricks", "stoneGraniteChiseled");
+        CropsNHSubSoilTypes.modernAndesite.addOreDict("stoneAndesite", "stoneAndesitePolished", "stoneAndesiteBricks", "stoneAndesiteChiseled");
+        CropsNHSubSoilTypes.modernDiorite.addOreDict("stoneDiorite", "stoneDioritePolished", "stoneDioriteBricks", "stoneDioriteChiseled");
+        CropsNHSubSoilTypes.modernGranite.addOreDict("stoneGranite", "stoneGranitePolished", "stoneGraniteBricks", "stoneGraniteChiseled");
         // Et Futurum Stone Lilies
         if (ModUtils.EtFuturumRequiem.isModLoaded()) {
-            CropsNHBlockUnderTypes.tuff.addBlock(new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("tuff")));
-            CropsNHBlockUnderTypes.deepslate
+            CropsNHSubSoilTypes.tuff.addBlock(new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("tuff")));
+            CropsNHSubSoilTypes.deepslate
                 .addBlock(new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("deepslate")))
                 .addBlock(new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("cobbled_deepslate")))
                 .addBlock(new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("polished_deepslate")))
                 .addBlock(new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("deepslate_bricks")));
         }
         // vanilla ores
-        CropsNHBlockUnderTypes.coal.addBlockAndOreDict().addMaterial(Materials.Coal);
-        CropsNHBlockUnderTypes.iron.addBlockAndOreDict().addMaterial(Materials.Iron);
-        CropsNHBlockUnderTypes.gold.addBlockAndOreDict().addMaterial(Materials.Gold);
-        CropsNHBlockUnderTypes.diamond.addBlockAndOreDict().addMaterial(Materials.Diamond);
-        CropsNHBlockUnderTypes.emerald.addBlockAndOreDict().addMaterial(Materials.Emerald);
-        CropsNHBlockUnderTypes.redstone.addBlockAndOreDict().addMaterial(Materials.Redstone);
-        CropsNHBlockUnderTypes.lapis.addBlockAndOreDict().addMaterial(Materials.Lapis);
+        CropsNHSubSoilTypes.coal.addBlockAndOreDict().addMaterial(Materials.Coal);
+        CropsNHSubSoilTypes.iron.addBlockAndOreDict().addMaterial(Materials.Iron);
+        CropsNHSubSoilTypes.gold.addBlockAndOreDict().addMaterial(Materials.Gold);
+        CropsNHSubSoilTypes.diamond.addBlockAndOreDict().addMaterial(Materials.Diamond);
+        CropsNHSubSoilTypes.emerald.addBlockAndOreDict().addMaterial(Materials.Emerald);
+        CropsNHSubSoilTypes.redstone.addBlockAndOreDict().addMaterial(Materials.Redstone);
+        CropsNHSubSoilTypes.lapis.addBlockAndOreDict().addMaterial(Materials.Lapis);
         // modded ores
-        CropsNHBlockUnderTypes.aluminium.addBlockAndOreDict("aluminium", "aluminum").addMaterial(Materials.Aluminium);
-        CropsNHBlockUnderTypes.aluminiumBauxite.addBlockAndOreDict("aluminium", "aluminum","bauxite").addMaterial(Materials.Aluminium, Materials.Bauxite);
-        CropsNHBlockUnderTypes.copper.addBlockAndOreDict().addMaterial(Materials.Copper);
-        CropsNHBlockUnderTypes.chrome.addBlockAndOreDict().addMaterial(Materials.Chrome);
-        CropsNHBlockUnderTypes.iridium.addBlockAndOreDict().addMaterial(Materials.Iridium);
-        CropsNHBlockUnderTypes.lead.addBlockAndOreDict().addMaterial(Materials.Lead, Materials.Galena);
-        CropsNHBlockUnderTypes.magnesium.addBlockAndOreDict().addMaterial(Materials.Magnesium);
-        CropsNHBlockUnderTypes.manganese.addBlockAndOreDict().addMaterial(Materials.Manganese, Materials.Pyrolusite);
-        CropsNHBlockUnderTypes.mica.addBlockAndOreDict().addMaterial(Materials.Mica)
+        CropsNHSubSoilTypes.aluminium.addBlockAndOreDict("aluminium", "aluminum").addMaterial(Materials.Aluminium);
+        CropsNHSubSoilTypes.aluminiumBauxite.addBlockAndOreDict("aluminium", "aluminum","bauxite").addMaterial(Materials.Aluminium, Materials.Bauxite);
+        CropsNHSubSoilTypes.copper.addBlockAndOreDict().addMaterial(Materials.Copper);
+        CropsNHSubSoilTypes.chrome.addBlockAndOreDict().addMaterial(Materials.Chrome);
+        CropsNHSubSoilTypes.iridium.addBlockAndOreDict().addMaterial(Materials.Iridium);
+        CropsNHSubSoilTypes.lead.addBlockAndOreDict().addMaterial(Materials.Lead, Materials.Galena);
+        CropsNHSubSoilTypes.magnesium.addBlockAndOreDict().addMaterial(Materials.Magnesium);
+        CropsNHSubSoilTypes.manganese.addBlockAndOreDict().addMaterial(Materials.Manganese, Materials.Pyrolusite);
+        CropsNHSubSoilTypes.mica.addBlockAndOreDict().addMaterial(Materials.Mica)
             // Cupronickel coil
             .addBlock(new BlockWithMeta(GregTechAPI.sBlockCasings5, 0));
-        CropsNHBlockUnderTypes.naquadah.addBlockAndOreDict().addMaterial(Materials.Naquadah, Materials.NaquadahEnriched, Materials.Naquadria);
-        CropsNHBlockUnderTypes.netherStar.addBlockAndOreDict().addMaterial(Materials.NetherStar);
-        CropsNHBlockUnderTypes.nickel.addBlockAndOreDict().addMaterial(Materials.Nickel);
-        CropsNHBlockUnderTypes.osmium.addBlockAndOreDict().addMaterial(Materials.Osmium);
-        CropsNHBlockUnderTypes.platinum.addBlockAndOreDict().addMaterial(Materials.Platinum, Materials.Cooperite);
-        CropsNHBlockUnderTypes.silver.addBlockAndOreDict().addMaterial(Materials.Silver);
-        CropsNHBlockUnderTypes.thorium.addBlockAndOreDict().addMaterial(Materials.Thorium, WerkstoffLoader.Thorianit.getBridgeMaterial());
-        CropsNHBlockUnderTypes.tin.addBlockAndOreDict().addMaterial(Materials.Tin);
-        CropsNHBlockUnderTypes.titanium.addBlockAndOreDict().addMaterial(Materials.Titanium, Materials.Ilmenite, Materials.Rutile);
-        CropsNHBlockUnderTypes.tungsten.addBlockAndOreDict().addMaterial(Materials.Tungsten, Materials.Scheelite, Materials.Tungstate);
-        CropsNHBlockUnderTypes.uranium.addBlockAndOreDict().addBlockAndOreDict("Uranium235", "Uranium238").addMaterial(Materials.Uranium, Materials.Uranium235, Materials.Uraninite, Materials.Pitchblende);
-        CropsNHBlockUnderTypes.zinc.addBlockAndOreDict().addMaterial(Materials.Zinc, Materials.Sphalerite);
-        CropsNHBlockUnderTypes.sulfur.addBlockAndOreDict().addMaterial(Materials.Sulfur, Materials.Sphalerite, Materials.Galena);
+        CropsNHSubSoilTypes.naquadah.addBlockAndOreDict().addMaterial(Materials.Naquadah, Materials.NaquadahEnriched, Materials.Naquadria);
+        CropsNHSubSoilTypes.netherStar.addBlockAndOreDict().addMaterial(Materials.NetherStar);
+        CropsNHSubSoilTypes.nickel.addBlockAndOreDict().addMaterial(Materials.Nickel);
+        CropsNHSubSoilTypes.osmium.addBlockAndOreDict().addMaterial(Materials.Osmium);
+        CropsNHSubSoilTypes.platinum.addBlockAndOreDict().addMaterial(Materials.Platinum, Materials.Cooperite);
+        CropsNHSubSoilTypes.silver.addBlockAndOreDict().addMaterial(Materials.Silver);
+        CropsNHSubSoilTypes.thorium.addBlockAndOreDict().addMaterial(Materials.Thorium, WerkstoffLoader.Thorianit.getBridgeMaterial());
+        CropsNHSubSoilTypes.tin.addBlockAndOreDict().addMaterial(Materials.Tin);
+        CropsNHSubSoilTypes.titanium.addBlockAndOreDict().addMaterial(Materials.Titanium, Materials.Ilmenite, Materials.Rutile);
+        CropsNHSubSoilTypes.tungsten.addBlockAndOreDict().addMaterial(Materials.Tungsten, Materials.Scheelite, Materials.Tungstate);
+        CropsNHSubSoilTypes.uranium.addBlockAndOreDict().addBlockAndOreDict("Uranium235", "Uranium238").addMaterial(Materials.Uranium, Materials.Uranium235, Materials.Uraninite, Materials.Pitchblende);
+        CropsNHSubSoilTypes.zinc.addBlockAndOreDict().addMaterial(Materials.Zinc, Materials.Sphalerite);
+        CropsNHSubSoilTypes.sulfur.addBlockAndOreDict().addMaterial(Materials.Sulfur, Materials.Sphalerite, Materials.Galena);
         if (ModUtils.Natura.isModLoaded()) {
-            CropsNHBlockUnderTypes.sulfur.addBlock(new BlockWithMeta(ModUtils.Natura.getBlock("Cloud"), 3));
+            CropsNHSubSoilTypes.sulfur.addBlock(new BlockWithMeta(ModUtils.Natura.getBlock("Cloud"), 3));
         }
         // gem ores
-        CropsNHBlockUnderTypes.garnetGem.addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow, Materials.GarnetSand);
-        CropsNHBlockUnderTypes.olivine.addBlockAndOreDict().addMaterial(Materials.Olivine);
-        CropsNHBlockUnderTypes.sapphire.addBlockAndOreDict().addMaterial(Materials.Sapphire);
-        CropsNHBlockUnderTypes.ruby.addBlockAndOreDict().addMaterial(Materials.Ruby);
+        CropsNHSubSoilTypes.garnetGem.addBlockAndOreDict().addMaterial(Materials.GarnetRed, Materials.GarnetYellow, Materials.GarnetSand);
+        CropsNHSubSoilTypes.olivine.addBlockAndOreDict().addMaterial(Materials.Olivine);
+        CropsNHSubSoilTypes.sapphire.addBlockAndOreDict().addMaterial(Materials.Sapphire);
+        CropsNHSubSoilTypes.ruby.addBlockAndOreDict().addMaterial(Materials.Ruby);
         // non-gt ores
-        CropsNHBlockUnderTypes.knightmetal.addBlockAndOreDict().addMaterial(Materials.Knightmetal);
-        CropsNHBlockUnderTypes.steeleaf.addBlockAndOreDict().addMaterial(Materials.Steeleaf);
-        CropsNHBlockUnderTypes.cobalt.addBlockAndOreDict().addMaterial(Materials.Cobalt);
-        CropsNHBlockUnderTypes.ardite.addBlockAndOreDict().addMaterial(Materials.Ardite);
+        CropsNHSubSoilTypes.knightmetal.addBlockAndOreDict().addMaterial(Materials.Knightmetal);
+        CropsNHSubSoilTypes.steeleaf.addBlockAndOreDict().addMaterial(Materials.Steeleaf);
+        CropsNHSubSoilTypes.cobalt.addBlockAndOreDict().addMaterial(Materials.Cobalt);
+        CropsNHSubSoilTypes.ardite.addBlockAndOreDict().addMaterial(Materials.Ardite);
         // magic ores
-        CropsNHBlockUnderTypes.$void.addBlockAndOreDict().addMaterial(Materials.Void);
-        CropsNHBlockUnderTypes.thaumium.addBlockAndOreDict().addMaterial(Materials.Thaumium);
-        CropsNHBlockUnderTypes.thauminite.addOreDict("blockThauminite");
-        CropsNHBlockUnderTypes.shadowmetal.addBlockAndOreDict("Shadow").addMaterial(Materials.Shadow);
+        CropsNHSubSoilTypes.$void.addBlockAndOreDict().addMaterial(Materials.Void);
+        CropsNHSubSoilTypes.thaumium.addBlockAndOreDict().addMaterial(Materials.Thaumium);
+        CropsNHSubSoilTypes.thauminite.addOreDict("blockThauminite");
+        CropsNHSubSoilTypes.shadowmetal.addBlockAndOreDict("Shadow").addMaterial(Materials.Shadow);
         // others
-        CropsNHBlockUnderTypes.snow.addOreDict("blockSnow").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.snow));
-        CropsNHBlockUnderTypes.skull.addOreDict("itemSkull").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.skull));
-        CropsNHBlockUnderTypes.glowstone.addOreDict("stoneGlowstone", "glowstone").addBlock(new BlockWithMeta(Blocks.glowstone));
-        CropsNHBlockUnderTypes.blaze.addOreDict("blockBlaze");
-        CropsNHBlockUnderTypes.quicksilver.addOreDict("blockQuicksilver");
+        CropsNHSubSoilTypes.snow.addOreDict("blockSnow").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.snow));
+        CropsNHSubSoilTypes.skull.addOreDict("itemSkull").addBlock(new BlockWithMeta(net.minecraft.init.Blocks.skull));
+        CropsNHSubSoilTypes.glowstone.addOreDict("stoneGlowstone", "glowstone").addBlock(new BlockWithMeta(Blocks.glowstone));
+        CropsNHSubSoilTypes.blaze.addOreDict("blockBlaze");
+        CropsNHSubSoilTypes.quicksilver.addOreDict("blockQuicksilver");
         if (ModUtils.Thaumcraft.isModLoaded()) {
-            CropsNHBlockUnderTypes.mixedCrystalCluster.addBlock(new BlockWithMeta(ModUtils.Thaumcraft.getBlock("blockCrystal"), 6));
+            CropsNHSubSoilTypes.mixedCrystalCluster.addBlock(new BlockWithMeta(ModUtils.Thaumcraft.getBlock("blockCrystal"), 6));
         }
         // galacticraft
         if (ModUtils.GalacticraftCore.isModLoaded()) {
-            CropsNHBlockUnderTypes.space.addOreDict("rockSpace");
+            CropsNHSubSoilTypes.space.addOreDict("rockSpace");
         }
 
         // mod-specific extensions
         if (ModUtils.Botania.isModLoaded()) {
-            CropsNHBlockUnderTypes.endStone
+            CropsNHSubSoilTypes.endStone
                 .addBlock(new BlockWithMeta(ModUtils.Botania.getBlock("endStoneBrick")));
         }
         if (ModUtils.Chisel.isModLoaded()) {
-            CropsNHBlockUnderTypes.aluminium.addBlock(
+            CropsNHSubSoilTypes.aluminium.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("aluminumblock"))
             );
-            CropsNHBlockUnderTypes.aluminiumBauxite.addBlock(
+            CropsNHSubSoilTypes.aluminiumBauxite.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("aluminumblock"))
             );
-            CropsNHBlockUnderTypes.modernAndesite.addBlock(
+            CropsNHSubSoilTypes.modernAndesite.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("andesite"))
             );
-            CropsNHBlockUnderTypes.modernDiorite.addBlock(
+            CropsNHSubSoilTypes.modernDiorite.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("diorite"))
             );
-            CropsNHBlockUnderTypes.modernGranite.addBlock(
+            CropsNHSubSoilTypes.modernGranite.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("granite"))
             );
-            CropsNHBlockUnderTypes.clay.addBlock(
+            CropsNHSubSoilTypes.clay.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("hardened_clay_white")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("hardened_clay_white2")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("hardened_clay_orange")),
@@ -169,80 +169,80 @@ public class BlockUnderRequirementLoader {
                 new BlockWithMeta(ModUtils.Chisel.getBlock("hardened_clay")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("hardened_clay2"))
             );
-            CropsNHBlockUnderTypes.cobalt.addBlock(
+            CropsNHSubSoilTypes.cobalt.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("cobaltblock"))
             );
-            CropsNHBlockUnderTypes.copper.addBlock(
+            CropsNHSubSoilTypes.copper.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("copperblock"))
             );
-            CropsNHBlockUnderTypes.diamond.addBlock(
+            CropsNHSubSoilTypes.diamond.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("diamond_block"))
             );
-            CropsNHBlockUnderTypes.emerald.addBlock(
+            CropsNHSubSoilTypes.emerald.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("emerald_block"))
             );
-            CropsNHBlockUnderTypes.endStone.addBlock(
+            CropsNHSubSoilTypes.endStone.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("end_Stone"))
             );
-            CropsNHBlockUnderTypes.glowstone.addBlock(
+            CropsNHSubSoilTypes.glowstone.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("glowstone"))
             );
-            CropsNHBlockUnderTypes.gold.addBlock(
+            CropsNHSubSoilTypes.gold.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("gold_block")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("gold2"))
             );
-            CropsNHBlockUnderTypes.iron.addBlock(
+            CropsNHSubSoilTypes.iron.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("iron_block")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("iron2"))
             );
-            CropsNHBlockUnderTypes.lapis.addBlock(
+            CropsNHSubSoilTypes.lapis.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("lapis_block"))
             );
-            CropsNHBlockUnderTypes.lead.addBlock(
+            CropsNHSubSoilTypes.lead.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("leadblock"))
             );
-            CropsNHBlockUnderTypes.marble.addBlock(
+            CropsNHSubSoilTypes.marble.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("marble"))
             );
-            CropsNHBlockUnderTypes.netherrack.addBlock(
+            CropsNHSubSoilTypes.netherrack.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("netherrack"))
             );
-            CropsNHBlockUnderTypes.nickel.addBlock(
+            CropsNHSubSoilTypes.nickel.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("nickelblock"))
             );
-            CropsNHBlockUnderTypes.platinum.addBlock(
+            CropsNHSubSoilTypes.platinum.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("platinumblock"))
             );
-            CropsNHBlockUnderTypes.redstone.addBlock(
+            CropsNHSubSoilTypes.redstone.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("redstone_block"))
             );
-            CropsNHBlockUnderTypes.sand.addBlock(
+            CropsNHSubSoilTypes.sand.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("sandstone")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("sandstone2")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("sandstone_scribbles")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("sand_snakestone"))
             );
-            CropsNHBlockUnderTypes.silver.addBlock(
+            CropsNHSubSoilTypes.silver.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("silverblock"))
             );
-            CropsNHBlockUnderTypes.stone.addBlock(
+            CropsNHSubSoilTypes.stone.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("cobblestone")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("mossy_cobblestone")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("stone_snakestone")),
                 new BlockWithMeta(ModUtils.Chisel.getBlock("stonebricksmooth"))
             );
-            CropsNHBlockUnderTypes.thaumium.addBlock(
+            CropsNHSubSoilTypes.thaumium.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("thaumium"))
             );
-            CropsNHBlockUnderTypes.tin.addBlock(
+            CropsNHSubSoilTypes.tin.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("tinblock"))
             );
-            CropsNHBlockUnderTypes.uranium.addBlock(
+            CropsNHSubSoilTypes.uranium.addBlock(
                 new BlockWithMeta(ModUtils.Chisel.getBlock("uraniumblock"))
             );
         }
         if (ModUtils.EtFuturumRequiem.isModLoaded()) {
-            CropsNHBlockUnderTypes.clay.addBlock(
+            CropsNHSubSoilTypes.clay.addBlock(
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("orange_glazed_terracotta")),
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("light_gray_glazed_terracotta")),
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("gray_glazed_terracotta")),
@@ -260,14 +260,14 @@ public class BlockUnderRequirementLoader {
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("magenta_glazed_terracotta")),
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("blue_glazed_terracotta"))
             );
-            CropsNHBlockUnderTypes.copper.addBlock(
+            CropsNHSubSoilTypes.copper.addBlock(
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("chiseled_copper")),
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("copper_block"))
             );
-            CropsNHBlockUnderTypes.endStone.addBlock(
+            CropsNHSubSoilTypes.endStone.addBlock(
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("end_bricks"))
             );
-            CropsNHBlockUnderTypes.sand.addBlock(
+            CropsNHSubSoilTypes.sand.addBlock(
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("smooth_red_sandstone")),
                 new BlockWithMeta(ModUtils.EtFuturumRequiem.getBlock("red_sandstone"))
             );
@@ -275,44 +275,44 @@ public class BlockUnderRequirementLoader {
             // gotta check if the block was registered since it's a config.
             Block efrStone = GameRegistry.findBlock(ModUtils.EtFuturumRequiem.ID, "stone");
             if (efrStone != null) {
-                CropsNHBlockUnderTypes.modernGranite.addBlock(
+                CropsNHSubSoilTypes.modernGranite.addBlock(
                     new BlockWithMeta(efrStone, 1),
                     new BlockWithMeta(efrStone, 2)
                 );
-                CropsNHBlockUnderTypes.modernDiorite.addBlock(
+                CropsNHSubSoilTypes.modernDiorite.addBlock(
                     new BlockWithMeta(efrStone, 3),
                     new BlockWithMeta(efrStone, 4)
                 );
-                CropsNHBlockUnderTypes.modernAndesite.addBlock(
+                CropsNHSubSoilTypes.modernAndesite.addBlock(
                     new BlockWithMeta(efrStone, 5),
                     new BlockWithMeta(efrStone, 6)
                 );
             }
         }
         if (ModUtils.ExtraUtilities.isModLoaded()) {
-            CropsNHBlockUnderTypes.stone.addBlock(
+            CropsNHSubSoilTypes.stone.addBlock(
                 new BlockWithMeta(ModUtils.ExtraUtilities.getBlock("color_stonebrick")),
                 new BlockWithMeta(ModUtils.ExtraUtilities.getBlock("color_stone"))
             );
         }
         if (ModUtils.TinkerConstruct.isModLoaded()) {
-            CropsNHBlockUnderTypes.ardite.addBlock(
+            CropsNHSubSoilTypes.ardite.addBlock(
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickmetal"), 1),
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickmetal"), 5)
             );
-            CropsNHBlockUnderTypes.cobalt.addBlock(
+            CropsNHSubSoilTypes.cobalt.addBlock(
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickmetal"), 2),
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickmetal"), 6)
             );
-            CropsNHBlockUnderTypes.endStone.addBlock(
+            CropsNHSubSoilTypes.endStone.addBlock(
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrick"), 12),
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 12)
             );
-            CropsNHBlockUnderTypes.netherrack.addBlock(
+            CropsNHSubSoilTypes.netherrack.addBlock(
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrick"), 2),
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 2)
             );
-            CropsNHBlockUnderTypes.stone.addBlock(
+            CropsNHSubSoilTypes.stone.addBlock(
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrick"), 3),
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 3),
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 14),
@@ -320,14 +320,14 @@ public class BlockUnderRequirementLoader {
             );
         }
         if (ModUtils.ThaumicBases.isModLoaded()) {
-            CropsNHBlockUnderTypes.stone.addBlock(
+            CropsNHSubSoilTypes.stone.addBlock(
                 new BlockWithMeta(ModUtils.ThaumicBases.getBlock("oldCobble")),
                 new BlockWithMeta(ModUtils.ThaumicBases.getBlock("oldCobbleMossy"))
             );
         }
         if (ModUtils.TwilightForest.isModLoaded()) {
             // the TF Steeleaf block doesn't have the blockSteeleaf ore dict for some reason
-            CropsNHBlockUnderTypes.steeleaf.addBlock(
+            CropsNHSubSoilTypes.steeleaf.addBlock(
                 new BlockWithMeta(ModUtils.TwilightForest.getBlock("tile.SteeleafBlock"))
             );
         }

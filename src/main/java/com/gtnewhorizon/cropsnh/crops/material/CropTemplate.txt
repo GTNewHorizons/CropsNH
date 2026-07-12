@@ -16,7 +16,7 @@ public class CropTemplate extends NHCropCard {
     public CropTemplate() {
         super(, new Color(0x), new Color(0x));
         this.addDrop(, 100_00);
-        this.addBlockUnderRequirement();
+        this.addSubSoilRequirement();
     }
 
     @Override

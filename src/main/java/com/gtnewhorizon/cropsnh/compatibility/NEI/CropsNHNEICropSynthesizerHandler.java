@@ -30,10 +30,10 @@ public class CropsNHNEICropSynthesizerHandler extends GTNEIDefaultHandler {
     }
 
     @Override
-    public void loadUsageRecipes(ItemStack aInput) {
-        if (ItemList.Tool_DataOrb.isStackEqual(aInput, false, true) && BehaviourDataOrb.getDataTitle(aInput)
+    public void loadUsageRecipes(ItemStack input) {
+        if (ItemList.Tool_DataOrb.isStackEqual(input, false, true) && BehaviourDataOrb.getDataTitle(input)
             .equals(Names.DataOrb.specimen)) {
-            ICropCard cc = CropRegistry.instance.get(BehaviourDataOrb.getDataName(aInput));
+            ICropCard cc = CropRegistry.instance.get(BehaviourDataOrb.getDataName(input));
             if (cc == null) return;
             CropSynthesizerBackend backend = this.getBackend();
             if (backend.cropCacheIndex.containsKey(cc)) {
@@ -41,18 +41,18 @@ public class CropsNHNEICropSynthesizerHandler extends GTNEIDefaultHandler {
             }
             return;
         }
-        super.loadUsageRecipes(aInput);
+        super.loadUsageRecipes(input);
     }
 
     @Override
-    public void loadCraftingRecipes(ItemStack aResult) {
-        this.findValidRecipe(aResult, super::loadCraftingRecipes);
+    public void loadCraftingRecipes(ItemStack result) {
+        this.findValidRecipe(result, super::loadCraftingRecipes);
     }
 
-    private void findValidRecipe(ItemStack aStack, Consumer<ItemStack> superCall) {
-        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(aStack);
+    private void findValidRecipe(ItemStack stack, Consumer<ItemStack> superCall) {
+        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(stack);
         if (seedData == null) {
-            superCall.accept(aStack);
+            superCall.accept(stack);
             return;
         }
 

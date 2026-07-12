@@ -20,7 +20,7 @@ import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.IMachineBreedingRequirement;
 import com.gtnewhorizon.cropsnh.api.IWorldBreedingRequirement;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
-import com.gtnewhorizon.cropsnh.farming.requirements.BlockUnderRequirement;
+import com.gtnewhorizon.cropsnh.farming.requirements.SubSoilRequirement;
 import com.gtnewhorizon.cropsnh.farming.requirements.breeding.MachineOnlyBreedingRequirement;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
@@ -131,20 +131,20 @@ public class CropMutation implements ICropMutation {
     }
 
     /**
-     * Registers an underblock requirement via it's category id
+     * Registers a sub-soil requirement via it's category id
      *
-     * @param name the name of the underblock category
+     * @param name the name of the sub-soil category
      */
-    public CropMutation addBlockUnderRequirement(String name) {
-        this.requirements.add(BlockUnderRequirement.get(name));
+    public CropMutation addSubSoilRequirement(String name) {
+        this.requirements.add(SubSoilRequirement.get(name));
         return this;
     }
 
     /**
-     * Removes the existing blockunder requirements
+     * Removes the existing sub-soil requirements
      */
-    public CropMutation removeExistingBlockUnderRequirements() {
-        this.requirements.removeIf(x -> x instanceof BlockUnderRequirement);
+    public CropMutation removeExistingSubSoilRequirements() {
+        this.requirements.removeIf(x -> x instanceof SubSoilRequirement);
         return this;
     }
 
@@ -229,21 +229,21 @@ public class CropMutation implements ICropMutation {
         return this.requirements;
     }
 
-    private List<ItemStack> cachedBlockUnderForNEI = null;
+    private List<ItemStack> cachedSubSoilsForNEI = null;
 
     @Override
-    public List<ItemStack> getBlocksUnderForNEI(boolean useCache) {
+    public List<ItemStack> getSubSoilsForNEI(boolean useCache) {
         // check cache
-        if (useCache && this.cachedBlockUnderForNEI != null) return this.cachedBlockUnderForNEI;
+        if (useCache && this.cachedSubSoilsForNEI != null) return this.cachedSubSoilsForNEI;
         // generate list
         LinkedList<ItemStack> stacks = new LinkedList<>();
         for (IBreedingRequirement req : this.requirements) {
-            if (!(req instanceof BlockUnderRequirement blockUnderRequirement)) continue;
-            stacks.addAll(blockUnderRequirement.getItemsForNEI());
+            if (!(req instanceof SubSoilRequirement subSoilRequirement)) continue;
+            stacks.addAll(subSoilRequirement.getItemsForNEI());
         }
         CropsNHUtils.deduplicateItemList(stacks);
         // update cache if we didn't hit it
-        return this.cachedBlockUnderForNEI = stacks;
+        return this.cachedSubSoilsForNEI = stacks;
     }
 
     private List<List<ItemStack>> cachedBreedingMachineCatalystsForNEI = null;

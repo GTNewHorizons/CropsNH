@@ -6,9 +6,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
@@ -22,7 +22,7 @@ public class CropBobsYerUncleRanks extends NHCropCard {
         this.addDrop(CropsNHItemList.bobsYerUncleBerry.get(1), 75_00);
         this.addDrop(new ItemStack(Items.emerald, 1, 0), 25_00);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.emerald);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.emerald);
 
         this.addDuplicationCatalyst("gemEmerald", 1);
         this.addDuplicationCatalyst("dustEmerald", 1);

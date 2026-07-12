@@ -25,19 +25,19 @@ public class CropsNHNEICropGeneExtractorHandler extends GTNEIDefaultHandler {
     }
 
     @Override
-    public void loadUsageRecipes(ItemStack aInput) {
-        this.findValidRecipe(aInput, super::loadUsageRecipes);
+    public void loadUsageRecipes(ItemStack input) {
+        this.findValidRecipe(input, super::loadUsageRecipes);
     }
 
     @Override
-    public void loadCraftingRecipes(ItemStack aResult) {
-        this.findValidRecipe(aResult, super::loadCraftingRecipes);
+    public void loadCraftingRecipes(ItemStack result) {
+        this.findValidRecipe(result, super::loadCraftingRecipes);
     }
 
-    private void findValidRecipe(ItemStack aStack, Consumer<ItemStack> superCall) {
-        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(aStack);
+    private void findValidRecipe(ItemStack stack, Consumer<ItemStack> superCall) {
+        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(stack);
         if (seedData == null) {
-            superCall.accept(aStack);
+            superCall.accept(stack);
             return;
         }
 

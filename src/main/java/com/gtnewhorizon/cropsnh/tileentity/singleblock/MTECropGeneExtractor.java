@@ -56,12 +56,12 @@ public class MTECropGeneExtractor extends MTEBasicMachine {
     public static final int DURATION_SPECIMEN = 5 * GTRecipeBuilder.MINUTES;
     public static final int DURATION_STAT = DURATION_SPECIMEN / 2;
 
-    public MTECropGeneExtractor(int aID, int aTier) {
+    public MTECropGeneExtractor(int id, int tier) {
         super(
-            aID,
-            String.format("basicmachine.cropgeneextractor.tier.%02d", aTier),
-            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropGeneExtractor.name." + aTier),
-            aTier,
+            id,
+            String.format("basicmachine.cropgeneextractor.tier.%02d", tier),
+            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.cropGeneExtractor.name." + tier),
+            tier,
             AMPERAGE,
             new String[] {
                 // spotless:off
@@ -123,8 +123,8 @@ public class MTECropGeneExtractor extends MTEBasicMachine {
                     .build()));
     }
 
-    public MTECropGeneExtractor(String mName, byte mTier, String[] mDescriptionArray, ITexture[][][] mTextures) {
-        super(mName, mTier, 1, mDescriptionArray, mTextures, 1, 1);
+    public MTECropGeneExtractor(String name, byte tier, String[] descriptionArray, ITexture[][][] textures) {
+        super(name, tier, 1, descriptionArray, textures, 1, 1);
     }
 
     @Override
@@ -222,10 +222,10 @@ public class MTECropGeneExtractor extends MTEBasicMachine {
         return Math.min(VoltageIndex.UMV, Math.max(VoltageIndex.EV, cc.getMachineBreedingRecipeTier()));
     }
 
-    public void startSoundLoop(byte aIndex, double aX, double aY, double aZ) {
-        super.startSoundLoop(aIndex, aX, aY, aZ);
-        if (aIndex == 1) {
-            GTUtility.doSoundAtClient(SoundResource.GTCEU_LOOP_REPLICATOR, 10, 1.0F, aX, aY, aZ);
+    public void startSoundLoop(byte index, double x, double y, double z) {
+        super.startSoundLoop(index, x, y, z);
+        if (index == 1) {
+            GTUtility.doSoundAtClient(SoundResource.GTCEU_LOOP_REPLICATOR, 10, 1.0F, x, y, z);
         }
     }
 
@@ -239,19 +239,19 @@ public class MTECropGeneExtractor extends MTEBasicMachine {
     }
 
     @Override
-    protected boolean allowPutStackValidated(IGregTechTileEntity aBaseMetaTileEntity, int aIndex, ForgeDirection side,
-        ItemStack aStack) {
-        if (aIndex == this.getSpecialSlotIndex()) {
-            return isDataOrb(aStack);
+    protected boolean allowPutStackValidated(IGregTechTileEntity baseMetaTileEntity, int index, ForgeDirection side,
+        ItemStack stack) {
+        if (index == this.getSpecialSlotIndex()) {
+            return isDataOrb(stack);
         }
-        if (aIndex == this.getInputSlot()) {
-            return CropsNHUtils.getAnalyzedSeedData(aStack) != null;
+        if (index == this.getInputSlot()) {
+            return CropsNHUtils.getAnalyzedSeedData(stack) != null;
         }
-        return super.allowPutStackValidated(aBaseMetaTileEntity, aIndex, side, aStack);
+        return super.allowPutStackValidated(baseMetaTileEntity, index, side, stack);
     }
 
-    private static boolean isDataOrb(ItemStack aStack) {
-        return ItemList.Tool_DataOrb.isStackEqual(aStack, false, true) && aStack.stackSize > 0;
+    private static boolean isDataOrb(ItemStack stack) {
+        return ItemList.Tool_DataOrb.isStackEqual(stack, false, true) && stack.stackSize > 0;
     }
 
     @Override

@@ -6,7 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
-import com.gtnewhorizon.cropsnh.api.CropsNHBlockUnderTypes;
+import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
 import gregtech.api.enums.Materials;
@@ -22,7 +22,7 @@ public class CropEnderbloom extends NHCropCard {
         this.addDrop(Materials.EnderPearl.getDust(1), 62_50);
         this.addDrop(new ItemStack(Items.ender_pearl, 1, 0), 37_50);
 
-        this.addBlockUnderRequirement(CropsNHBlockUnderTypes.endStone);
+        this.addSubSoilRequirement(CropsNHSubSoilTypes.endStone);
 
         this.addDuplicationCatalyst(new ItemStack(Items.ender_pearl, 1, 0));
         this.addDuplicationCatalyst(GTOreDictUnificator.get(OrePrefixes.dust, Materials.EnderPearl, 1));
