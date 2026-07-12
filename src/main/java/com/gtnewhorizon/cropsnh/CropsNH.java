@@ -8,6 +8,7 @@ import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.mclib.MCLibCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.waila.WailaRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
+import com.gtnewhorizon.cropsnh.farming.requirements.SubSoilRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.handler.CropsNHFurnaceFuelHandler;
 import com.gtnewhorizon.cropsnh.handler.MigrationHandler;
@@ -140,6 +141,7 @@ public class CropsNH {
         LogHelper.debug("Starting Load-Complete");
         CropLoader.loadComplete();
         MigrationHandler.loadComplete();
+        SubSoilRequirement.onLoadComplete();
         LogHelper.debug("Load-Complete Complete");
     }
 
