@@ -362,7 +362,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
     public boolean canGrow(ISeedData seedData, IGregTechTileEntity te, ItemStack[] catalysts) {
         if (this.predicate == null) return false;
         return Arrays.stream(catalysts)
-            .anyMatch(this::isValidSubSoil);
+            .anyMatch(x -> this.isValidSubSoil(x, false));
     }
 
     @Override
@@ -374,7 +374,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
             ItemStack stack = catalysts[i];
             if (GTUtility.isStackInvalid(stack) || stack.stackSize - consumptionTracker[i] <= 0) continue;
             // consume if valid
-            if (isValidSubSoil(stack)) {
+            if (isValidSubSoil(stack, false)) {
                 consumptionTracker[i] += 1;
                 return true;
             }
@@ -383,27 +383,31 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
     }
 
     /**
-     * Checks if a block can grow with the following sub-soil.
+     * Checks if a block is a valid sub-soil for this requirement.
      *
      * @param block The sub-soil block.
      * @param meta  The meta of the sub-soil block.
      * @param te    The TE at the position of the block.
+     * @param isNEI True if the request originated from NEI.
      * @return true if it can grow.
      */
-    public boolean canGrow(Block block, int meta, TileEntity te) {
-        return predicate != null && predicate.test(new SubSoilTarget(block, meta, te));
+    public boolean isValidSubSoil(Block block, int meta, TileEntity te, boolean isNEI) {
+        return predicate != null && predicate.test(new SubSoilTarget(block, meta, te, isNEI));
     }
 
     /**
-     * @param toValidate The stack to validate
+     * Checks if a stack contains a valid sub-soil for this requirement.
+     *
+     * @param toValidate The stack to validate.
+     * @param isNEI      True if the request originated from NEI.
      * @return True if the stack contains a valid sub-soil.
      */
-    public boolean isValidSubSoil(ItemStack toValidate) {
+    public boolean isValidSubSoil(ItemStack toValidate, boolean isNEI) {
         if (this.predicate == null) return false;
         // ensure valid stack
         if (CropsNHUtils.isStackInvalid(toValidate)) return false;
 
-        SubSoilTarget query = new SubSoilTarget(toValidate);
+        SubSoilTarget query = new SubSoilTarget(toValidate, isNEI);
         // air as a stack will never be a valid block
         if (query.block != null && query.block.getMaterial() == Material.air) return false;
 
@@ -479,6 +483,11 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
             });
         }
 
+        // run predicates on it to effectively run all potential blacklists
+        if (this.predicate != null) {
+            ret.removeIf(x -> x == null || !this.predicate.test(new SubSoilTarget(x, true)));
+        }
+
         // the nei step will deduplicate stuff later, so we don't have to care about that.
         return ret;
     }
@@ -494,25 +503,40 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
 
         /** The block being validated. */
         public final Block block;
-        /** The meta of the item or block being validated */
+        /** The meta of the item or block being validated. */
         public final int meta;
         /** Values of the stack should never be modified. */
         public final ItemStack stack;
-        /** The tile entity at the position of the block being validated */
+        /** The tile entity at the position of the block being validated. */
         public final TileEntity te;
+        /** True if the request originated from NEI. */
+        public final boolean isNEI;
 
-        public SubSoilTarget(Block block, int meta, TileEntity te) {
+        /**
+         * @param block The block being validated.
+         * @param meta  The meta of the item or block being validated.
+         * @param te    The tile entity at the position of the block being validated.
+         * @param isNEI True if the request originated from NEI.
+         */
+        public SubSoilTarget(Block block, int meta, TileEntity te, boolean isNEI) {
             this.block = block;
             this.meta = meta;
             this.stack = new ItemStack(block, 1, meta);
             this.te = te;
+            this.isNEI = isNEI;
         }
 
-        public SubSoilTarget(ItemStack stack) {
+        /**
+         *
+         * @param stack The stack being validated.
+         * @param isNEI True if the request originated from NEI.
+         */
+        public SubSoilTarget(ItemStack stack, boolean isNEI) {
             this.block = CropsNHUtils.getBlockFromItem(stack);
             this.meta = CropsNHUtils.getItemMeta(stack);
             this.stack = stack;
             this.te = null;
+            this.isNEI = isNEI;
         }
     }
 
@@ -536,7 +560,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         if (block.getMaterial() == Material.air) return null;
         int meta = world.getBlockMetadata(x, y, z);
         TileEntity te = world.getTileEntity(x, y, z);
-        return new SubSoilTarget(block, meta, te);
+        return new SubSoilTarget(block, meta, te, false);
     }
 
     /**

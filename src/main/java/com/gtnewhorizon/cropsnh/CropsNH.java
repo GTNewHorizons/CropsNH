@@ -126,7 +126,7 @@ public class CropsNH {
         CropLoader.postInit();
         MutationLoader.postInit();
         AspectLoader.postInit();
-        GTRecipeLoader.PostInit();
+        GTRecipeLoader.postInit();
         MigrationHandler.postInit();
         ForestryCompatHandler.onPostInit();
         ExUWateringCanHandler.postInit();
@@ -139,9 +139,10 @@ public class CropsNH {
     @SuppressWarnings("unused")
     public void onLoadComplete(FMLLoadCompleteEvent event) {
         LogHelper.debug("Starting Load-Complete");
+        SubSoilRequirement.onLoadComplete();
         CropLoader.loadComplete();
         MigrationHandler.loadComplete();
-        SubSoilRequirement.onLoadComplete();
+        GTRecipeLoader.loadComplete();
         LogHelper.debug("Load-Complete Complete");
     }
 
