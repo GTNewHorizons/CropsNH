@@ -240,18 +240,20 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         if (args.length <= 0) return this;
         // check for nulls
         for (int i = 0; i < args.length; i++) {
-            if (CropsNHUtils.shouldPanicIfNullFound()) {
-                throw new IllegalStateException(
-                    "Attempted to whitelist null block as a sub-soil for " + this.materialDescription + " @ " + i);
-            } else {
-                try {
-                    throw new Exception(
-                        "CROPS NH ATTEMPTED TO WHITELIST NULL BLOCK AS A SUB-SOIL FOR " + this.materialDescription
-                            + " @ "
-                            + i);
-                } catch (Exception e) {
-                    LogHelper.warn(e.getMessage());
-                    e.printStackTrace();
+            if (args[i] == null) {
+                if (CropsNHUtils.shouldPanicIfNullFound()) {
+                    throw new IllegalStateException(
+                        "Attempted to whitelist null block as a sub-soil for " + this.materialDescription + " @ " + i);
+                } else {
+                    try {
+                        throw new Exception(
+                            "CROPS NH ATTEMPTED TO WHITELIST NULL BLOCK AS A SUB-SOIL FOR " + this.materialDescription
+                                + " @ "
+                                + i);
+                    } catch (Exception e) {
+                        LogHelper.warn(e.getMessage());
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -278,18 +280,20 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         if (args.length <= 0) return this;
         // check for nulls
         for (int i = 0; i < args.length; i++) {
-            if (CropsNHUtils.shouldPanicIfNullFound()) {
-                throw new IllegalStateException(
-                    "Attempted to blacklist null block as a sub-soil for " + this.materialDescription + " @ " + i);
-            } else {
-                try {
-                    throw new Exception(
-                        "CROPS NH ATTEMPTED TO BLACKLIST NULL BLOCK AS A SUB-SOIL FOR " + this.materialDescription
-                            + " @ "
-                            + i);
-                } catch (Exception e) {
-                    LogHelper.warn(e.getMessage());
-                    e.printStackTrace();
+            if (args[i] == null) {
+                if (CropsNHUtils.shouldPanicIfNullFound()) {
+                    throw new IllegalStateException(
+                        "Attempted to blacklist null block as a sub-soil for " + this.materialDescription + " @ " + i);
+                } else {
+                    try {
+                        throw new Exception(
+                            "CROPS NH ATTEMPTED TO BLACKLIST NULL BLOCK AS A SUB-SOIL FOR " + this.materialDescription
+                                + " @ "
+                                + i);
+                    } catch (Exception e) {
+                        LogHelper.warn(e.getMessage());
+                        e.printStackTrace();
+                    }
                 }
             }
         }
