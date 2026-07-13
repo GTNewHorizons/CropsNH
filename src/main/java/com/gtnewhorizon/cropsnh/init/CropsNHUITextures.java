@@ -35,6 +35,20 @@ public class CropsNHUITextures {
         .canApplyTheme()
         .build();
 
+    // crop breeder textures
+    public static final UITexture PROGRESSBAR_CROP_BREEDER = UITexture.builder()
+        .location(Reference.MOD_ID, "gui/progressbar/crop_breeder")
+        .canApplyTheme()
+        .fullImage()
+        .build();
+
+    public static final UITexture OVERLAY_SLOT_CROP_STICK_STANDARD = UITexture.builder()
+        .location(Reference.MOD_ID, "gui/overlay_slot/crop_stick")
+        .imageSize(18, 18)
+        .adaptable(1)
+        .canApplyTheme()
+        .build();
+
     // crop manager progress bars
     public static final UITexture PROGRESSBAR_CROP_MANAGER_WATER = UITexture.builder()
         .location(Reference.MOD_ID, "gui/progressbar/cropmanager_water")
@@ -79,4 +93,10 @@ public class CropsNHUITextures {
     // TODO: REMOVE ONCE NEI HANDLERS START USING MUI2 FOR OVERLAY SOURCES
     public static final com.gtnewhorizons.modularui.api.drawable.UITexture OVERLAY_SLOT_SEED_MUI1 = com.gtnewhorizons.modularui.api.drawable.UITexture
         .fullImage(Reference.MOD_ID, "gui/overlay_slot/seed");
+
+    public static final com.gtnewhorizons.modularui.api.drawable.UITexture OVERLAY_SLOT_CROP_STICK_MUI1 = com.gtnewhorizons.modularui.api.drawable.UITexture
+        .fullImage(Reference.MOD_ID, "gui/overlay_slot/crop_stick");
+
+    public static final com.gtnewhorizons.modularui.api.drawable.UITexture PROGRESSBAR_CROP_BREEDER_MUI1 = com.gtnewhorizons.modularui.api.drawable.UITexture
+        .fullImage(Reference.MOD_ID, "gui/progressbar/crop_breeder");
 }

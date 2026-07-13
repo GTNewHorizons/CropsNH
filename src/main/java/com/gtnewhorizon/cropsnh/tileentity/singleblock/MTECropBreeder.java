@@ -364,8 +364,10 @@ public class MTECropBreeder extends MTEBasicMachine {
     protected BasicUIProperties getUIProperties() {
         return super.getUIProperties().toBuilder()
             .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
-                if (isFluid || isOutput || isSpecial || index != 0) return null;
-                return CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD;
+                if (!isFluid && !isSpecial) {
+                    return CropsNHUITextures.OVERLAY_SLOT_CROP_STICK_STANDARD;
+                }
+                return null;
             })
             .build();
     }
