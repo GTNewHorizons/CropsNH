@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.recipes;
 
+import com.cleanroommc.modularui.widgets.ProgressWidget;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropMutation;
 import com.gtnewhorizon.cropsnh.init.CropsNHUITextures;
@@ -13,6 +14,7 @@ import com.gtnewhorizon.cropsnh.recipes.frontends.CropSynthesizerFrontend;
 import com.gtnewhorizon.cropsnh.recipes.frontends.SeedGeneratorFrontend;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropSynthesizer;
+import com.gtnewhorizons.modularui.common.widget.ProgressBar;
 
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.modularui2.GTGuiTextures;
@@ -54,15 +56,17 @@ public class CropsNHGTRecipeMaps {
         .minInputs(2, 1)
         .frontend(CropBreederFrontend::new)
         .disableRegisterNEI()
+        .progressBar(CropsNHUITextures.PROGRESSBAR_CROP_BREEDER_MUI1, ProgressBar.Direction.RIGHT)
+        .progressBarMUI2(CropsNHUITextures.PROGRESSBAR_CROP_BREEDER, ProgressWidget.Direction.RIGHT)
         .slotOverlays((index, isFluid, isOutput, isSpecial) -> {
-            if (isOutput && !isFluid && index == 0) {
-                return CropsNHUITextures.OVERLAY_SLOT_SEED_MUI1;
+            if (!isFluid) {
+                return CropsNHUITextures.OVERLAY_SLOT_CROP_STICK_MUI1;
             }
             return null;
         })
         .slotOverlaysMUI2((index, isFluid, isOutput, isSpecial) -> {
-            if (isOutput && !isFluid && index == 0) {
-                return CropsNHUITextures.OVERLAY_SLOT_SEED_STANDARD;
+            if (!isFluid) {
+                return CropsNHUITextures.OVERLAY_SLOT_CROP_STICK_STANDARD;
             }
             return null;
         })
