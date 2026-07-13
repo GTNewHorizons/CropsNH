@@ -15,6 +15,7 @@ import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
 import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
 import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
 import static gregtech.api.recipe.RecipeMaps.multiblockChemicalReactorRecipes;
+import static gregtech.api.recipe.RecipeMaps.quantumForceTransformerRecipes;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
@@ -25,7 +26,6 @@ import static gregtech.api.util.GTRecipeConstants.QFT_CATALYST;
 import static gregtech.api.util.GTRecipeConstants.QFT_FOCUS_TIER;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 import static gregtech.common.items.ItemComb.Voltage;
-import static gtPlusPlus.api.recipe.GTPPRecipeMaps.quantumForceTransformerRecipes;
 import static net.minecraftforge.fluids.FluidRegistry.getFluidStack;
 
 import java.util.ArrayList;
