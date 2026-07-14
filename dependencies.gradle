@@ -2,39 +2,39 @@
 
 dependencies {
     // compile and runtime required dependencies
-    api("com.github.GTNewHorizons:GT5-Unofficial:5.09.54.23:dev")
-    api("com.github.GTNewHorizons:GTNHLib:0.11.24:dev")
+    api("com.github.GTNewHorizons:GT5-Unofficial:5.09.54.35:dev")
+    api("com.github.GTNewHorizons:GTNHLib:0.11.29:dev")
     shadowImplementation('com.github.makamys:MCLib:0.3.7.8') {
         exclude group: "codechicken"
     }
 
     // compile required dependencies
     devOnlyNonPublishable("com.github.GTNewHorizons:TinkersConstruct:1.14.93-GTNH:dev") { transitive = false }
-    devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.111-GTNH:dev") { transitive = false }
+    devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.114-GTNH:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:waila:1.19.30:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:ForestryMC:4.11.31:dev") { transitive = false }
     devOnlyNonPublishable("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
-    devOnlyNonPublishable('com.github.GTNewHorizons:Backhand:1.8.11:dev') { transitive = false }
+    devOnlyNonPublishable('com.github.GTNewHorizons:Backhand:1.8.12:dev') { transitive = false }
     devOnlyNonPublishable('com.github.GTNewHorizons:FindIt:1.4.3:dev') { transitive = false }
 
     // // optional runtime dependencies, you'll want to copy over the full pack configs to your dev env or else it will crash.
     // // debugging tools
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NewHorizonsCoreMod:2.9.5:dev")
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NewHorizonsCoreMod:2.9.14:dev")
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:ServerUtilities:2.4.1:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:worldedit-gtnh:v0.0.9:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:WAILAPlugins:0.7.2:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:EnderCore:0.5.14:dev") { transitive = false }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.111-GTNH:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.114-GTNH:dev") { transitive = false }
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Opis:1.4.8-mapless:dev') { transitive = false }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:GTNHLib:0.11.24:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:GTNHLib:0.11.29:dev") { transitive = false }
     // // QOL/creature comforts
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-999-GTNH:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:AE2FluidCraft-Rework:1.5.95-gtnh:dev") { transitive = false }
     // var tasks = project.gradle.startParameter.taskNames
     // if (tasks.contains("runClient17") || tasks.contains("runClient21") || tasks.contains("runClient25")) {
-    //     runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:2.1.52:dev") { transitive = false }
+    //     runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:2.1.53:dev") { transitive = false }
     // }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Hodgepodge:2.7.170:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Hodgepodge:2.7.171:dev") { transitive = false }
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:CoreTweaks:0.3.4.7-GTNH:dev') { transitive = false }
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:StorageDrawers:2.2.26-GTNH:dev') { transitive = false }
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:MouseTweaks:2.5.2-GTNH:dev') { transitive = false }
@@ -48,7 +48,7 @@ dependencies {
     // // bee comparisons
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:BeeBetterAtBees-GTNH:0.4.6-GTNH:dev") { transitive = false }
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Binnie:2.6.34:dev') { transitive = false }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:neiaddons:1.18.2:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:neiaddons:1.18.3:dev") { transitive = false }
     // // for mod specific crops
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Natura:2.8.20:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:twilightforest:2.7.36:dev") { transitive = false }
@@ -66,7 +66,7 @@ dependencies {
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:WitchingGadgets:1.8.48-GTNH:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:ThaumicTinkerer:2.12.27:dev") { transitive = false }
     // // required in order to have pam
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Chisel:2.17.28-GTNH:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Chisel:2.17.30-GTNH:dev") { transitive = false }
     // // mod specific crops and soils
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Galacticraft:3.4.31-GTNH:dev") { transitive = false }
     // // soil debugging
