@@ -669,7 +669,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.0"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.1"));
 
-        tt.beginVariableStructureBlock(2 + MIN_SLICES, 2 + MAX_SLICES, 5, 5, 4, 4, true)
+        tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, true)
             .addController("Front center, 2nd layer")
             .addEnergyHatch("1+", "Any center end casing", 1)
             .addMaintenanceHatch("1", "Any center end casing", 1)
