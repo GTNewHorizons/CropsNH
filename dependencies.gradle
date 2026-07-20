@@ -3,15 +3,15 @@
 dependencies {
     // compile and runtime required dependencies
     api("com.github.GTNewHorizons:GT5-Unofficial:5.09.54.46:dev")
-    api("com.github.GTNewHorizons:GTNHLib:0.11.29:dev")
+    api("com.github.GTNewHorizons:GTNHLib:0.11.30:dev")
     shadowImplementation('com.github.makamys:MCLib:0.3.7.8') {
         exclude group: "codechicken"
     }
 
     // compile required dependencies
-    devOnlyNonPublishable("com.github.GTNewHorizons:TinkersConstruct:1.14.93-GTNH:dev") { transitive = false }
+    devOnlyNonPublishable("com.github.GTNewHorizons:TinkersConstruct:1.14.96-GTNH:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.114-GTNH:dev") { transitive = false }
-    devOnlyNonPublishable("com.github.GTNewHorizons:waila:1.19.30:dev") { transitive = false }
+    devOnlyNonPublishable("com.github.GTNewHorizons:waila:1.19.31:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:ForestryMC:4.11.31:dev") { transitive = false }
     devOnlyNonPublishable("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
     devOnlyNonPublishable('com.github.GTNewHorizons:Backhand:1.8.12:dev') { transitive = false }
@@ -19,22 +19,22 @@ dependencies {
 
     // // optional runtime dependencies, you'll want to copy over the full pack configs to your dev env or else it will crash.
     // // debugging tools
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NewHorizonsCoreMod:2.9.14:dev")
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:ServerUtilities:2.4.1:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NewHorizonsCoreMod:2.9.20:dev")
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:ServerUtilities:2.4.3:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:worldedit-gtnh:v0.0.9:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:WAILAPlugins:0.7.2:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:EnderCore:0.5.14:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.114-GTNH:dev") { transitive = false }
-    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Opis:1.4.8-mapless:dev') { transitive = false }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:GTNHLib:0.11.29:dev") { transitive = false }
+    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Opis:1.4.9-mapless:dev') { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:GTNHLib:0.11.30:dev") { transitive = false }
     // // QOL/creature comforts
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-999-GTNH:dev") { transitive = false }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:AE2FluidCraft-Rework:1.5.95-gtnh:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:AE2FluidCraft-Rework:1.5.97-gtnh:dev") { transitive = false }
     // var tasks = project.gradle.startParameter.taskNames
     // if (tasks.contains("runClient17") || tasks.contains("runClient21") || tasks.contains("runClient25")) {
-    //     runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:2.1.53:dev") { transitive = false }
+    //     runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:2.1.54:dev") { transitive = false }
     // }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Hodgepodge:2.7.171:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Hodgepodge:2.7.174:dev") { transitive = false }
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:CoreTweaks:0.3.4.7-GTNH:dev') { transitive = false }
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:StorageDrawers:2.2.26-GTNH:dev') { transitive = false }
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:MouseTweaks:2.5.2-GTNH:dev') { transitive = false }
@@ -44,11 +44,11 @@ dependencies {
     // // to check what counts as food
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:AppleCore:3.3.11:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:SpiceOfLife:2.2.10-carrot:dev") { transitive = false }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Nutrition:0.1.9:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Nutrition:0.1.10:dev") { transitive = false }
     // // bee comparisons
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:BeeBetterAtBees-GTNH:0.4.6-GTNH:dev") { transitive = false }
-    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Binnie:2.6.34:dev') { transitive = false }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:neiaddons:1.18.3:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:BeeBetterAtBees-GTNH:0.4.7-GTNH:dev") { transitive = false }
+    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Binnie:2.6.36:dev') { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:neiaddons:1.18.4:dev") { transitive = false }
     // // for mod specific crops
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Natura:2.8.20:dev") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:twilightforest:2.7.36:dev") { transitive = false }
@@ -57,7 +57,7 @@ dependencies {
     // runtimeOnlyNonPublishable("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
     // runtimeOnlyNonPublishable(deobfCurse('witchery-69673:2234410')) { transitive = false }
     // runtimeOnlyNonPublishable(rfg.deobf("curse.maven:biomes-o-plenty-220318:2499612")) { transitive = false }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Botania:1.13.26-GTNH:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Botania:1.13.27-GTNH:dev") { transitive = false }
     // runtimeOnlyNonPublishable("ganymedes01.etfuturum:Et-Futurum-Requiem:2.6.12-GTNH") { transitive = false }
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:harvestcraft:1.3.11-GTNH:dev") { transitive = false }
     // // testing recipes
@@ -76,7 +76,7 @@ dependencies {
     // // required in order for ztones to load right due to GT5u
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:BuildCraft:7.1.61:dev") { transitive = false }
     // // skull underblock requirement
-    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:EnderIO:2.10.32:dev') { transitive = false }
+    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:EnderIO:2.10.34:dev') { transitive = false }
     // // watering can interactions
     // runtimeOnlyNonPublishable(rfg.deobf("curse.maven:extra-utilities-225561:2264383")) { transitive = false }
 }
