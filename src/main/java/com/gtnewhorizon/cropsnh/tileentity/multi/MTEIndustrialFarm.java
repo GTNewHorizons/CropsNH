@@ -997,7 +997,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                     if (CropsNHUtils.isStackValid(existingSubSoilStack)) {
                         // check if the existing sub-soil matches the new crop.
                         // this shouldn't happen much since sub-soil can't be manually accessed by the player.
-                        if (!subSoilReq.isValidSubSoil(existingSubSoilStack)) {
+                        if (!subSoilReq.isValidSubSoil(existingSubSoilStack, false)) {
                             return CHECK_RECIPE_RESULT_SUB_SOIL_MISMATCH_INPUT;
                         }
                         newSubSoilStack = existingSubSoilStack;
@@ -1006,7 +1006,8 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                         for (subSoilIndex = 0; subSoilIndex < inputs.size(); subSoilIndex++) {
                             ItemStack subSoilCandidate = inputs.get(subSoilIndex);
                             // abort early if it's the seed candidate or the not a valid sub-soil.
-                            if (subSoilIndex == seedIndex || !subSoilReq.isValidSubSoil(subSoilCandidate)) continue;
+                            if (subSoilIndex == seedIndex || !subSoilReq.isValidSubSoil(subSoilCandidate, false))
+                                continue;
                             // else save the stack for later.
                             newSubSoilStack = subSoilCandidate.copy();
                             newSubSoilStack.stackSize = 0;

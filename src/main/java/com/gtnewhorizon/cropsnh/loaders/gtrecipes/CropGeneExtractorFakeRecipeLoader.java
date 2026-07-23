@@ -48,7 +48,7 @@ public abstract class CropGeneExtractorFakeRecipeLoader extends BaseGTRecipeLoad
         }
     }
 
-    public static void postInit() {
+    public static void loadComplete() {
         CircuitResult[] recipeCache = new CircuitResult[4];
         for (int circuitNo = 1; circuitNo <= 4; circuitNo++) {
             recipeCache[circuitNo - 1] = new CircuitResult(circuitNo);

@@ -24,7 +24,7 @@ import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 
 public class CropBreederFakeRecipeLoader extends BaseGTRecipeLoader {
 
-    public static void postInit() {
+    public static void loadComplete() {
         for (ICropMutation mutation : MutationRegistry.instance.getDeterministicMutations()) {
             if (mutation.getOutput()
                 .hideFromNEI()) continue;

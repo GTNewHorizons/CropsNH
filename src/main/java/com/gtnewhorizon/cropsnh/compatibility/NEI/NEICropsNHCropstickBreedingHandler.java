@@ -218,7 +218,7 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
             for (IBreedingRequirement req : mutation.getRequirements()) {
                 if (!(req instanceof SubSoilRequirement)) continue;
                 // The canBreed methods are more for machines and dim checks, canGrow fits our use-case better here.
-                if (((SubSoilRequirement) req).canGrow(block, CropsNHUtils.getItemMeta(item), null)) {
+                if (((SubSoilRequirement) req).isValidSubSoil(block, CropsNHUtils.getItemMeta(item), null, true)) {
                     arecipes.add(new CachedBreedingRecipe(mutation));
                     // mutations shouldn't be getting registered more than once
                     continue outer;

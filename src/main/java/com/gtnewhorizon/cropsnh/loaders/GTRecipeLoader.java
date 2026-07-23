@@ -43,14 +43,10 @@ import gregtech.api.util.GTUtility;
 
 public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
 
-    public static void PostInit() {
+    public static void postInit() {
         CropRecipes.postInit();
         FertilizerRecipes.postInit();
         CropsPlusPlusRecipes.postInit();
-        SeedGeneratorFakeRecipeLoader.postInit();
-        CropBreederFakeRecipeLoader.postInit();
-        CropGeneExtractorFakeRecipeLoader.postInit();
-        CropSynthesizerFakeRecipeLoader.postInit();
         ScannerLoader.postInit();
 
         addPlantLensRecipe();
@@ -72,6 +68,13 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         addFertilizerUnitRecipes();
         addGrowthAccelerationUnits();
         addOverclockedGrowthAccelerationUnits();
+    }
+
+    public static void loadComplete() {
+        SeedGeneratorFakeRecipeLoader.loadComplete();
+        CropGeneExtractorFakeRecipeLoader.loadComplete();
+        CropSynthesizerFakeRecipeLoader.loadComplete();
+        CropBreederFakeRecipeLoader.loadComplete();
     }
 
     private static void addPlantLensRecipe() {

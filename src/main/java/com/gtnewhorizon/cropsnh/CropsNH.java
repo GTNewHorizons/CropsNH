@@ -8,6 +8,7 @@ import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.mclib.MCLibCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.waila.WailaRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
+import com.gtnewhorizon.cropsnh.farming.requirements.SubSoilRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.handler.CropsNHFurnaceFuelHandler;
 import com.gtnewhorizon.cropsnh.handler.MigrationHandler;
@@ -22,7 +23,7 @@ import com.gtnewhorizon.cropsnh.loaders.MTELoader;
 import com.gtnewhorizon.cropsnh.loaders.MutationLoader;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
 import com.gtnewhorizon.cropsnh.loaders.SoilLoader;
-import com.gtnewhorizon.cropsnh.loaders.SubSoilRequirementLoader;
+import com.gtnewhorizon.cropsnh.loaders.SubSoilLoader;
 import com.gtnewhorizon.cropsnh.proxy.IProxy;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -121,11 +122,11 @@ public class CropsNH {
         LogHelper.debug("Starting Post-Initialization");
         FertilizerLoader.postInit();
         SoilLoader.postInit();
-        SubSoilRequirementLoader.postInit();
+        SubSoilLoader.postInit();
         CropLoader.postInit();
         MutationLoader.postInit();
         AspectLoader.postInit();
-        GTRecipeLoader.PostInit();
+        GTRecipeLoader.postInit();
         MigrationHandler.postInit();
         ForestryCompatHandler.onPostInit();
         ExUWateringCanHandler.postInit();
@@ -138,8 +139,10 @@ public class CropsNH {
     @SuppressWarnings("unused")
     public void onLoadComplete(FMLLoadCompleteEvent event) {
         LogHelper.debug("Starting Load-Complete");
+        SubSoilRequirement.onLoadComplete();
         CropLoader.loadComplete();
         MigrationHandler.loadComplete();
+        GTRecipeLoader.loadComplete();
         LogHelper.debug("Load-Complete Complete");
     }
 
