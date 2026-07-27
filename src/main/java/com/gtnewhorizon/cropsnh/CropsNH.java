@@ -125,9 +125,9 @@ public class CropsNH {
         CropLoader.postInit();
         MutationLoader.postInit();
         AspectLoader.postInit();
-        GTRecipeLoader.PostInit();
+        GTRecipeLoader.postInit();
         MigrationHandler.postInit();
-        ForestryCompatHandler.onPostInit();
+        ForestryCompatHandler.postInit();
         ExUWateringCanHandler.postInit();
         FindItCompatHandler.postInit();
 

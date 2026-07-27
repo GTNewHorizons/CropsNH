@@ -74,6 +74,8 @@ public class MetaMap<K, V> {
     /**
      * Gets the value for an item in the map
      *
+     * @implSpec returns null if not found.
+     *
      * @param key  The item or block to insert.
      * @param meta The metadata of the block or item.
      * @return The value ot insert.
