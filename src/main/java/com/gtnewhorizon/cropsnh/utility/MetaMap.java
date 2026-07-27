@@ -74,18 +74,17 @@ public class MetaMap<K, V> {
     /**
      * Gets the value for an item in the map
      *
-     * @implSpec returns null if not found.
+     * @apiNote returns null if not found.
      *
      * @param key  The item or block to insert.
      * @param meta The metadata of the block or item.
      * @return The value ot insert.
      */
     public V get(final K key, final int meta) {
-        if (isWildCard(meta)) {
+        // if the meta is a wildcard or it just not in the layered registry, check wildcards.
+        if (isWildCard(meta) || !this.map.containsKey(key)) {
             return this.wildcards.get(key);
         }
-        // check if the key is
-        if (!this.map.containsKey(key)) return null;
         Int2ObjectOpenHashMap<V> metaMap = this.map.get(key);
         if (metaMap.containsKey(meta)) {
             return metaMap.get(meta);
@@ -102,12 +101,8 @@ public class MetaMap<K, V> {
      * @return The value ot insert.
      */
     public V getOrDefault(final K key, final int meta, final V defaultValue) {
-        // check if the key is
-        if (isWildCard(meta)) {
-            return this.wildcards.getOrDefault(key, defaultValue);
-        }
-        // if key not found in meta map, check wildcards
-        if (!this.map.containsKey(key)) {
+        // if the meta is a wildcard or it just not in the layered registry, check wildcards.
+        if (isWildCard(meta) || !this.map.containsKey(key)) {
             return this.wildcards.getOrDefault(key, defaultValue);
         }
         // fetch the meta map
