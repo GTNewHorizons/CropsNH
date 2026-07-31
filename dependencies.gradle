@@ -2,8 +2,9 @@
 
 dependencies {
     // compile and runtime required dependencies
-    api("com.github.GTNewHorizons:GT5-Unofficial:5.09.54.75:dev")
+    api("com.github.GTNewHorizons:GT5-Unofficial:5.99.99-mu2:dev")
     api("com.github.GTNewHorizons:GTNHLib:0.11.36:dev")
+    devOnlyNonPublishable("com.ruling_0:MaterialLib:0.2.0-mu:dev")
     shadowImplementation('com.github.makamys:MCLib:0.3.7.8') {
         exclude group: "codechicken"
     }
