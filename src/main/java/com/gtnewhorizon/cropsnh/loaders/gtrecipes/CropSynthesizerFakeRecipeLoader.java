@@ -12,7 +12,8 @@ import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropSynthesizer;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.material.MaterialUtils;
 import gregtech.common.items.behaviors.BehaviourDataOrb;
 
 public abstract class CropSynthesizerFakeRecipeLoader extends BaseGTRecipeLoader {
@@ -37,7 +38,7 @@ public abstract class CropSynthesizerFakeRecipeLoader extends BaseGTRecipeLoader
             GTValues.RA.stdBuilder()
                 .metadata(CropsNHGTRecipeMaps.CROPSNH_CROP_METADATAKEY, cc)
                 .itemInputs(specimenOrb, growthOrb, gainOrb, resistanceOrb)
-                .fluidInputs(Materials.UUMatter.getFluid(fluidAmount))
+                .fluidInputs(MaterialUtils.fluid(Materials.UUMatter, fluidAmount))
                 .itemOutputs(cc.getSeedItem(SeedStats.DEFAULT_ANALYZED))
                 .eut(MTECropSynthesizer.getRecipeEUt(cc))
                 .duration(MTECropSynthesizer.getRecipeDuration(cc))

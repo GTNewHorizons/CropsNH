@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import gregtech.api.enums.Materials;
+import com.ruling_0.materiallib.api.Material;
+
+import gregtech.api.material.MaterialUtils;
 
 public class CropConversionRecipe {
 
@@ -29,13 +31,13 @@ public class CropConversionRecipe {
         return this;
     }
 
-    public CropConversionRecipe withFluidInput(Materials mat, long amount) {
-        fluidOutputs.add(mat.getFluid(amount));
+    public CropConversionRecipe withFluidInput(Material mat, long amount) {
+        fluidOutputs.add(MaterialUtils.fluid(mat, amount));
         return this;
     }
 
-    public CropConversionRecipe withFluidOutput(Materials mat, long amount) {
-        fluidOutputs.add(mat.getFluid(amount));
+    public CropConversionRecipe withFluidOutput(Material mat, long amount) {
+        fluidOutputs.add(MaterialUtils.fluid(mat, amount));
         return this;
     }
 }

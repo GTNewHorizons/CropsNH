@@ -9,13 +9,15 @@ import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.util.GTOreDictUnificator;
 
 public class CropCassitine extends NHCropCard {
 
     public CropCassitine() {
         super("cassitine", new Color(0x6C6C6C), new Color(0x7F7F7F));
-        this.addDrop(Materials.Tin.getDustTiny(1), 100_00);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.Tin, 1), 100_00);
         this.addGrowthRequirement(CropsNHSubSoilTypes.tin);
         this.addDuplicationCatalyst("dustTin", 1);
         // going by the word stagnate, something cold and un-changing.

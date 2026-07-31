@@ -14,9 +14,9 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.enums.materials.Materials;
 import gregtech.api.util.GTOreDictUnificator;
 
 public class CropTrollplant extends NHCropCard {
@@ -25,7 +25,7 @@ public class CropTrollplant extends NHCropCard {
         super("trollplant", new Color(0x000000), new Color(0xFFFFFF));
 
         // TODO: WHEN IC2 GETS REMOVED, UPDATE PLANTBALL AND SCRAP DROPS
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Spinel, 1), 62_50);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.FoolsRuby, 1), 62_50);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Plutonium241, 1), 12_50);
         this.addDrop(ItemList.IC2_Plantball.get(1), 12_50);
         this.addDrop(ItemList.IC2_Scrap.get(1), 12_50);

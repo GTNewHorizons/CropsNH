@@ -10,8 +10,10 @@ import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.util.GTOreDictUnificator;
 
 public class CropEvilOre extends NHCropCard {
 
@@ -19,8 +21,8 @@ public class CropEvilOre extends NHCropCard {
         super("evilOre", new Color(0x897B73), new Color(0xEFEBE7));
 
         // TODO: CHECK IF WE WANT TO KEEP THE RAW QUARTS DROPS
-        this.addDrop(Materials.NetherQuartz.getDust(1), 66_66);
-        this.addDrop(Materials.CertusQuartz.getDust(1), 16_67);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.NetherQuartz, 1), 66_66);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.CertusQuartz, 1), 16_67);
         this.addDrop(new ItemStack(Items.quartz, 1, 0), 16_67);
 
         this.addDuplicationCatalyst("gemNetherQuartz", 1);

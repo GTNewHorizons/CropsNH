@@ -14,7 +14,8 @@ import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.material.MaterialUtils;
 import gregtech.api.util.GTModHandler;
 import kubatech.tileentity.gregtech.multiblock.MTEExtremeIndustrialGreenhouse;
 
@@ -41,7 +42,7 @@ public class FertilizerLoader {
     private static void registerWeedEXLiquids() {
         // the strong poisonous brew is the stuff contained in weed-ex cans
         WeedEXRegistry.instance.register(CropsNHUtils.getWeedEXFluid(), WEEDEX_POTENCY);
-        WeedEXRegistry.instance.register(Materials.WeedEX9000.mFluid, 10);
+        WeedEXRegistry.instance.register(MaterialUtils.fluidOf(Materials.WeedEX9000), 10);
     }
 
     private static void registerLiquidFertilizers() {

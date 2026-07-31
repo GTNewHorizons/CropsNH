@@ -7,9 +7,12 @@ import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.ruling_0.materiallib.api.Material;
 
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.TCAspects;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.material.AspectRefStack;
+import gregtech.api.material.MaterialUtils;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -245,10 +248,10 @@ public class AspectLoader {
         // spotless:on
     }
 
-    private static void addCropAspectsBasedOnMaterial(ItemStack stack, Materials material, AspectList extraAspects) {
+    private static void addCropAspectsBasedOnMaterial(ItemStack stack, Material material, AspectList extraAspects) {
         AspectList aspects = new AspectList().add(extraAspects);
-        for (TCAspects.TC_AspectStack aspect : material.mAspects) {
-            aspects.add((Aspect) aspect.mAspect.mAspect, (int) aspect.mAmount);
+        for (AspectRefStack aspect : MaterialUtils.aspects(material)) {
+            aspects.add((Aspect) TCAspects.valueOf(aspect.name()).mAspect, aspect.amount());
         }
         ThaumcraftApi.registerObjectTag(stack, aspects);
     }

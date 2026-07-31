@@ -1,11 +1,15 @@
 package com.gtnewhorizon.cropsnh.api;
 
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
+import com.ruling_0.materiallib.api.Material;
+
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
+import gregtech.api.material.MaterialUtils;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
 
@@ -17,15 +21,15 @@ public class CropOreDuplicationRecipe {
     /** Additional items used as inputs for the conversion. */
     public final FluidStack additionalFluid;
 
-    public CropOreDuplicationRecipe(Materials ore) {
+    public CropOreDuplicationRecipe(Material ore) {
         this(ore, null, 0);
     }
 
-    public CropOreDuplicationRecipe(Materials ore, Materials additionalFluid) {
+    public CropOreDuplicationRecipe(Material ore, Material additionalFluid) {
         this(ore, additionalFluid, 144);
     }
 
-    public CropOreDuplicationRecipe(Materials ore, Materials additionalFluid, int amount) {
+    public CropOreDuplicationRecipe(Material ore, Material additionalFluid, int amount) {
         if (ore == null) {
             throw new IllegalArgumentException("mat is null");
         }
@@ -39,19 +43,21 @@ public class CropOreDuplicationRecipe {
         }
         FluidStack _additionalFluid = null;
         if (additionalFluid != null && amount > 0) {
-            _additionalFluid = additionalFluid.getMolten(amount);
+            _additionalFluid = MaterialUtils.molten(additionalFluid, amount);
             if (_additionalFluid == null) {
-                _additionalFluid = additionalFluid.getFluid(amount);
+                _additionalFluid = MaterialUtils.fluid(additionalFluid, amount);
                 if (_additionalFluid == null) {
-                    _additionalFluid = additionalFluid.getGas(amount);
+                    _additionalFluid = MaterialUtils.gas(additionalFluid, amount);
                     if (_additionalFluid == null) {
                         throw new IllegalArgumentException("Additional fluid material doesn't have a fluid.");
                     }
                 }
             }
-        } else if (!ore.mOreByProducts.isEmpty()) {
-            _additionalFluid = ore.mOreByProducts.get(0)
-                .getMolten(amount);
+        } else {
+            List<Material> byProducts = MaterialUtils.oreByProducts(ore);
+            if (!byProducts.isEmpty()) {
+                _additionalFluid = MaterialUtils.molten(byProducts.get(0), amount);
+            }
         }
         this.additionalFluid = _additionalFluid;
     }

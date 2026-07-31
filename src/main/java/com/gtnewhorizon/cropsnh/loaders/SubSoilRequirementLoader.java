@@ -10,7 +10,7 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.materials.Materials;
 
 public class SubSoilRequirementLoader {
 

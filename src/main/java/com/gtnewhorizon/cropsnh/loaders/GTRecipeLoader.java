@@ -31,10 +31,11 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import gregtech.api.enums.Circuits;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.enums.materials.Materials;
 import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
@@ -85,7 +86,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         GTModHandler.addCraftingRecipe(
             CropsNHItemList.plantLens.get(1),
             GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
-            new Object[] { " fL", " Sr", "S  ", 'L', OrePrefixes.lens.get(Materials.Glass), 'S', "stickWood" });
+            new Object[] { " fL", " Sr", "S  ", 'L', OrePrefixes.lens.ingredient(Materials.Glass), 'S', "stickWood" });
     }
 
     private static void addSpadeRecipes() {
@@ -388,9 +389,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         final int duractionSecs = 15;
         final int durationFrac = 0;
         mvRecipe(duractionSecs, durationFrac)
-            .itemInputs(
-                CropsNHItemList.BrickedAgriculturalCasing.get(4),
-                GTOreDictUnificator.get(OrePrefixes.circuit, Materials.MV, 1))
+            .itemInputs(CropsNHItemList.BrickedAgriculturalCasing.get(4), Circuits.MV.get(1))
             .itemOutputs(CropsNHItemList.environmentalModule_base.get(1))
             .addTo(RecipeMaps.assemblerRecipes);;
 
@@ -762,46 +761,46 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
 
     private static Object getCircuit(int tier) {
         return switch (tier) {
-            case VoltageIndex.UEV -> OrePrefixes.circuit.get(Materials.UEV);
-            case VoltageIndex.UIV -> OrePrefixes.circuit.get(Materials.UIV);
-            case VoltageIndex.UMV -> OrePrefixes.circuit.get(Materials.UMV);
-            case VoltageIndex.UXV -> OrePrefixes.circuit.get(Materials.UXV);
+            case VoltageIndex.UEV -> Circuits.UEV.getIngredient();
+            case VoltageIndex.UIV -> Circuits.UIV.getIngredient();
+            case VoltageIndex.UMV -> Circuits.UMV.getIngredient();
+            case VoltageIndex.UXV -> Circuits.UXV.getIngredient();
             default -> MTEBasicMachineWithRecipe.X.CIRCUIT;
         };
     }
 
     private static Object getBetterCircuit(int tier) {
         return switch (tier) {
-            case VoltageIndex.UHV -> OrePrefixes.circuit.get(Materials.UEV);
-            case VoltageIndex.UEV -> OrePrefixes.circuit.get(Materials.UIV);
-            case VoltageIndex.UIV -> OrePrefixes.circuit.get(Materials.UMV);
-            case VoltageIndex.UMV -> OrePrefixes.circuit.get(Materials.UXV);
+            case VoltageIndex.UHV -> Circuits.UEV.getIngredient();
+            case VoltageIndex.UEV -> Circuits.UIV.getIngredient();
+            case VoltageIndex.UIV -> Circuits.UMV.getIngredient();
+            case VoltageIndex.UMV -> Circuits.UXV.getIngredient();
             default -> MTEBasicMachineWithRecipe.X.CIRCUIT;
         };
     }
 
     private static Object getPipe(int tier) {
         return switch (tier) {
-            case VoltageIndex.LuV -> OrePrefixes.pipeMedium.get(Materials.Enderium);
-            case VoltageIndex.ZPM -> OrePrefixes.pipeMedium.get(Materials.Naquadah);
-            case VoltageIndex.UV, VoltageIndex.UHV -> OrePrefixes.pipeMedium.get(Materials.Neutronium);
-            case VoltageIndex.UEV -> OrePrefixes.pipeMedium.get(Materials.Infinity);
-            case VoltageIndex.UIV -> OrePrefixes.pipeMedium.get(Materials.TranscendentMetal);
-            case VoltageIndex.UMV, VoltageIndex.UXV -> OrePrefixes.pipeMedium.get(Materials.SpaceTime);
+            case VoltageIndex.LuV -> OrePrefixes.pipeMedium.ingredient(Materials.Enderium);
+            case VoltageIndex.ZPM -> OrePrefixes.pipeMedium.ingredient(Materials.Naquadah);
+            case VoltageIndex.UV, VoltageIndex.UHV -> OrePrefixes.pipeMedium.ingredient(Materials.Neutronium);
+            case VoltageIndex.UEV -> OrePrefixes.pipeMedium.ingredient(Materials.Infinity);
+            case VoltageIndex.UIV -> OrePrefixes.pipeMedium.ingredient(Materials.TranscendentMetal);
+            case VoltageIndex.UMV, VoltageIndex.UXV -> OrePrefixes.pipeMedium.ingredient(Materials.SpaceTime);
             default -> MTEBasicMachineWithRecipe.X.PIPE;
         };
     }
 
     private static Object getCable(int tier) {
         return switch (tier) {
-            case VoltageIndex.LuV -> OrePrefixes.cableGt01.get(Materials.VanadiumGallium);
-            case VoltageIndex.ZPM -> OrePrefixes.cableGt01.get(Materials.Naquadah);
-            case VoltageIndex.UV -> OrePrefixes.cableGt01.get(Materials.ElectrumFlux);
-            case VoltageIndex.UHV -> OrePrefixes.cableGt01.get(Materials.Bedrockium);
-            case VoltageIndex.UEV -> OrePrefixes.cableGt01.get(Materials.Draconium);
-            case VoltageIndex.UIV -> OrePrefixes.cableGt01.get(Materials.NetherStar);
-            case VoltageIndex.UMV -> OrePrefixes.cableGt01.get(Materials.Quantium);
-            case VoltageIndex.UXV -> OrePrefixes.wireGt01.get(Materials.SpaceTime);
+            case VoltageIndex.LuV -> OrePrefixes.cableGt01.ingredient(Materials.VanadiumGallium);
+            case VoltageIndex.ZPM -> OrePrefixes.cableGt01.ingredient(Materials.Naquadah);
+            case VoltageIndex.UV -> OrePrefixes.cableGt01.ingredient(Materials.ElectrumFlux);
+            case VoltageIndex.UHV -> OrePrefixes.cableGt01.ingredient(Materials.Bedrockium);
+            case VoltageIndex.UEV -> OrePrefixes.cableGt01.ingredient(Materials.Draconium);
+            case VoltageIndex.UIV -> OrePrefixes.cableGt01.ingredient(Materials.NetherStar);
+            case VoltageIndex.UMV -> OrePrefixes.cableGt01.ingredient(Materials.Quantium);
+            case VoltageIndex.UXV -> OrePrefixes.wireGt01.ingredient(Materials.SpaceTime);
             default -> MTEBasicMachineWithRecipe.X.WIRE;
         };
     }
@@ -818,14 +817,14 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
 
     private static Object getPlate(int tier) {
         return switch (tier) {
-            case VoltageIndex.LuV -> OrePrefixes.plate.get(Materials.get("Rhodium-PlatedPalladium"));
-            case VoltageIndex.ZPM -> OrePrefixes.plate.get(Materials.Iridium);
-            case VoltageIndex.UV -> OrePrefixes.plate.get(Materials.Osmium);
-            case VoltageIndex.UHV -> OrePrefixes.plate.get(Materials.Neutronium);
-            case VoltageIndex.UEV -> OrePrefixes.plate.get(Materials.Bedrockium);
-            case VoltageIndex.UIV -> OrePrefixes.plate.get(Materials.CosmicNeutronium);
-            case VoltageIndex.UMV -> OrePrefixes.plate.get(Materials.TranscendentMetal);
-            case VoltageIndex.UXV -> OrePrefixes.plate.get(Materials.SpaceTime);
+            case VoltageIndex.LuV -> OrePrefixes.plate.ingredient(Materials.RhodiumPlatedPalladium);
+            case VoltageIndex.ZPM -> OrePrefixes.plate.ingredient(Materials.Iridium);
+            case VoltageIndex.UV -> OrePrefixes.plate.ingredient(Materials.Osmium);
+            case VoltageIndex.UHV -> OrePrefixes.plate.ingredient(Materials.Neutronium);
+            case VoltageIndex.UEV -> OrePrefixes.plate.ingredient(Materials.Bedrockium);
+            case VoltageIndex.UIV -> OrePrefixes.plate.ingredient(Materials.CosmicNeutronium);
+            case VoltageIndex.UMV -> OrePrefixes.plate.ingredient(Materials.TranscendentMetal);
+            case VoltageIndex.UXV -> OrePrefixes.plate.ingredient(Materials.SpaceTime);
             default -> MTEBasicMachineWithRecipe.X.PLATE;
         };
     }

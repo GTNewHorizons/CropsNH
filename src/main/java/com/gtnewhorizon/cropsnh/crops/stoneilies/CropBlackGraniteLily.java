@@ -7,13 +7,15 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.util.GTOreDictUnificator;
 
 public class CropBlackGraniteLily extends CropBaseStoneLily {
 
     public CropBlackGraniteLily() {
         super("blackGranite", new Color(0, 0, 0), new Color(10, 10, 10));
-        this.addDrop(Materials.GraniteBlack.getDust(9), 100_00);
+        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.GraniteBlack, 9), 100_00);
         this.addSubSoilRequirement(CropsNHSubSoilTypes.blackGranite);
 
         this.addLikedBiomes(BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.HILLS);

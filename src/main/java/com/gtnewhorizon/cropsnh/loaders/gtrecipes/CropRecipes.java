@@ -15,7 +15,6 @@ import static gregtech.api.recipe.RecipeMaps.fluidExtractionRecipes;
 import static gregtech.api.recipe.RecipeMaps.hammerRecipes;
 import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
 import static gregtech.api.recipe.RecipeMaps.multiblockChemicalReactorRecipes;
-import static gregtech.api.recipe.RecipeMaps.quantumForceTransformerRecipes;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.STACKS;
@@ -26,6 +25,7 @@ import static gregtech.api.util.GTRecipeConstants.QFT_CATALYST;
 import static gregtech.api.util.GTRecipeConstants.QFT_FOCUS_TIER;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 import static gregtech.common.items.ItemComb.Voltage;
+import static gtPlusPlus.api.recipe.GTPPRecipeMaps.quantumForceTransformerRecipes;
 import static net.minecraftforge.fluids.FluidRegistry.getFluidStack;
 
 import java.util.ArrayList;
@@ -46,6 +46,7 @@ import com.gtnewhorizon.cropsnh.items.produce.ItemMaterialLeaf;
 import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.ruling_0.materiallib.api.Material;
 
 import bartworks.API.enums.BioCultureEnum;
 import bartworks.common.loaders.BioCultureLoader;
@@ -55,10 +56,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
+import gregtech.api.enums.materials.Materials;
 import gregtech.api.interfaces.IRecipeMap;
+import gregtech.api.material.MaterialUtils;
 import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
@@ -139,13 +141,13 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         TierAcid.distilWater.set(GTModHandler.getDistilledWater(250L));
         TierAcid.regWater.set(new FluidStack(FluidRegistry.WATER, 1000));
         // load tier acid enum
-        TierAcid.t1.set(Materials.SulfuricAcid.getFluid(384));
-        TierAcid.t2.set(Materials.HydrochloricAcid.getFluid(384 * 2));
+        TierAcid.t1.set(MaterialUtils.fluid(Materials.SulfuricAcid, 384));
+        TierAcid.t2.set(MaterialUtils.fluid(Materials.HydrochloricAcidGT5U, 384 * 2));
         TierAcid.t3.set(WerkstoffLoader.FormicAcid.getFluidOrGas(384 * 3));
-        TierAcid.t4.set(Materials.HydrofluoricAcid.getFluid(384 * 4));
-        TierAcid.t5.set(Materials.NitricAcid.getFluid(384 * 5));
+        TierAcid.t4.set(MaterialUtils.fluid(Materials.HydrofluoricAcidGT5U, 384 * 4));
+        TierAcid.t5.set(MaterialUtils.fluid(Materials.NitricAcid, 384 * 5));
         // amount is same as tier 5 on purpose
-        TierAcid.t6.set(Materials.PhthalicAcid.getFluid(384 * 5));
+        TierAcid.t6.set(MaterialUtils.fluid(Materials.phtalicacid, 384 * 5));
         // load them recipes
         addOreConversionRecipes();
         addOreMultiplicationRecipes();
@@ -213,7 +215,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     }
 
     private static void addResidueConversionRecipe(GTRecipeBuilder builder, ItemStack mainLeaf, ItemStack extraLeaf,
-        ItemStack residue, FluidStack chemBathAcid, Materials mainMaterial, Materials sideMaterial, int[] outputChances,
+        ItemStack residue, FluidStack chemBathAcid, Material mainMaterial, Material sideMaterial, int[] outputChances,
         FluidStack digesterAcid) {
         // leaves to residue
         builder.copy()
@@ -248,7 +250,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         GTRecipeBuilder digesterBuilder = builder.copy()
             .fluidInputs(digesterAcid.copy())
             .itemInputs(extraLeaf.copy(), mainLeaf.copy())
-            .fluidOutputs(sideMaterial.getMolten(1 * INGOTS))
+            .fluidOutputs(MaterialUtils.molten(sideMaterial, 1 * INGOTS))
             .metadata(COIL_HEAT, 800);
 
         digesterBuilder.copy()
@@ -310,7 +312,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     private static void addGaiaWartRecipes() {
         recipe(5, 14, 40).itemInputs(CropsNHItemList.gaiaWart.get(1))
             .circuit(1)
-            .fluidOutputs(Materials.Methane.getGas(36))
+            .fluidOutputs(MaterialUtils.gas(Materials.Methane, 36))
             .addTo(centrifugeRecipes);
     }
 
@@ -410,7 +412,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
                     GTOreDictUnificator.get(OrePrefixes.crushed, Materials.Tantalite, 1))
                 .circuit(variation.leftInt())
                 // meant to mirror however much the usual tantalite persulfate recipe uses.
-                .fluidInputs(Materials.SodiumPersulfate.getFluid(100))
+                .fluidInputs(MaterialUtils.fluid(Materials.SodiumPersulfate, 100))
                 .itemOutputs(
                     GTOreDictUnificator.get(variation.right(), Materials.Tantalite, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT),
                     GTOreDictUnificator.get(OrePrefixes.ingotHot, Materials.Tantalum, 1))
@@ -639,9 +641,9 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .fluidOutputs(
                 // same values as the comb for now might want to lower it
                 // if too strong
-                Materials.Platinum.getMolten(1 * STACKS),
-                Materials.Osmium.getMolten(1 * STACKS),
-                Materials.Iridium.getMolten(1 * STACKS))
+                MaterialUtils.molten(Materials.Platinum, 1 * STACKS),
+                MaterialUtils.molten(Materials.Osmium, 1 * STACKS),
+                MaterialUtils.molten(Materials.Iridium, 1 * STACKS))
             .metadata(QFT_CATALYST, GregtechItemList.PlatinumGroupCatalyst.get(0))
             .metadata(QFT_FOCUS_TIER, 1)
             .addTo(quantumForceTransformerRecipes);
@@ -679,7 +681,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     private static void addCanolaRecipes() {
         // canola oil extraction
         recipe(2, 1, 60).itemInputs(MaterialLeafLoader.canolaFLower.get(1))
-            .fluidOutputs(Materials.SeedOil.getFluid(125))
+            .fluidOutputs(MaterialUtils.fluid(Materials.SeedOil, 125))
             .addTo(fluidExtractionRecipes);
     }
 
@@ -769,8 +771,8 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         if (ModUtils.GalacticraftCore.isModLoaded()) {
             ivRecipe(90, 0).itemInputs(CropsNHItemList.spaceFlower.get(16), CropsNHItemList.magicEssence.get(4))
                 .fluidInputs(
-                    Materials.Platinum.getMolten(1 * INGOTS),
-                    Materials.MeteoricIron.getMolten(1 * INGOTS),
+                    MaterialUtils.molten(Materials.Platinum, 1 * INGOTS),
+                    MaterialUtils.molten(Materials.MeteoricIron, 1 * INGOTS),
                     TierAcid.t5.get(64_000))
                 .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Mytryl, 1))
                 .addTo(multiblockChemicalReactorRecipes);
@@ -778,14 +780,14 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
         // Magic essence from salis
         hvRecipe(7, 50).itemInputs(new ItemStack(thaumResourceItem, 64, 14))
-            .fluidInputs(Materials.Void.getMolten(16 * INGOTS))
+            .fluidInputs(MaterialUtils.molten(Materials.Void, 16 * INGOTS))
             .itemOutputs(CropsNHItemList.magicEssence.get(1))
             .addTo(autoclaveRecipes);
 
         // inert prim perl crafting recipe
         if (ModUtils.NewHorizonsCoreMod.isModLoaded() && ModUtils.WitchingGadgets.isModLoaded()) {
             evRecipe(5 * 60, 0).itemInputs(CropsNHItemList.magicEssence.get(64))
-                .fluidInputs(Materials.Ichorium.getMolten(INGOTS * 3))
+                .fluidInputs(MaterialUtils.molten(Materials.Ichorium, INGOTS * 3))
                 .itemOutputs(CropsNHUtils.getModItem(ModUtils.NewHorizonsCoreMod, "PrimordialPearlFragment", 3))
                 .addTo(autoclaveRecipes);
         }
@@ -804,15 +806,17 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         // milk fluid extraction
         GTValues.RA.stdBuilder()
             .itemInputs(MaterialLeafLoader.milkWart.get(1))
-            .itemOutputs(new ItemStack[] { Materials.Milk.getDust(1) }, new int[] { 10_00 })
-            .fluidOutputs(Materials.Milk.getFluid(150))
+            .itemOutputs(
+                new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.dust, Materials.Milk, 1) },
+                new int[] { 10_00 })
+            .fluidOutputs(GTModHandler.getMilk(150))
             .duration(6 * SECONDS + 8 * TICKS)
             .eut(4)
             .addTo(fluidExtractionRecipes);
         // milk powder extraction
         GTValues.RA.stdBuilder()
             .itemInputs(MaterialLeafLoader.milkWart.get(1))
-            .itemOutputs(Materials.Milk.getDust(1))
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Milk, 1))
             .eut(4)
             .duration(6 * GTRecipeBuilder.SECONDS + 8 * GTRecipeBuilder.TICKS)
             .addTo(RecipeMaps.extractorRecipes);
@@ -831,13 +835,14 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
         // fluid extraction
         lvRecipe(1, 00).itemInputs(MaterialLeafLoader.oilBerry.get(1))
-            .fluidOutputs(Materials.Oil.getFluid(100))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Oil, 100))
             .addTo(fluidExtractionRecipes);
 
         // density modification recipes
-        FluidStack[] fluids = new FluidStack[] { Materials.OilLight.getFluid(100), Materials.Oil.getFluid(100),
+        FluidStack[] fluids = new FluidStack[] { MaterialUtils.fluid(Materials.OilLight, 100),
+            MaterialUtils.fluid(Materials.Oil, 100),
             // raw oil
-            Materials.OilMedium.getFluid(100), Materials.OilHeavy.getFluid(100) };
+            MaterialUtils.fluid(Materials.OilMedium, 100), MaterialUtils.fluid(Materials.OilHeavy, 100) };
         for (int i = 0; i < fluids.length; i++) {
             FluidStack sourceFluid = fluids[i];
 
@@ -890,11 +895,11 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(1)
             .fluidOutputs(
-                Materials.SulfuricHeavyFuel.getFluid(70),
-                Materials.SulfuricLightFuel.getFluid(130),
-                Materials.SulfuricNaphtha.getFluid(200),
-                Materials.NaphthenicAcid.getFluid(15),
-                Materials.SulfuricGas.getGas(1600))
+                MaterialUtils.fluid(Materials.SulfuricHeavyFuel, 70),
+                MaterialUtils.fluid(Materials.SulfuricLightFuel, 130),
+                MaterialUtils.fluid(Materials.SulfuricNaphtha, 200),
+                MaterialUtils.fluid(Materials.NaphthenicAcid, 15),
+                MaterialUtils.gas(Materials.SulfuricGas, 1600))
             .addTo(distillationTowerRecipes);
 
         // oil
@@ -902,11 +907,11 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(2)
             .fluidOutputs(
-                Materials.SulfuricHeavyFuel.getFluid(300),
-                Materials.SulfuricLightFuel.getFluid(1_000),
-                Materials.SulfuricNaphtha.getFluid(400),
-                Materials.NaphthenicAcid.getFluid(50),
-                Materials.SulfuricGas.getGas(1_200))
+                MaterialUtils.fluid(Materials.SulfuricHeavyFuel, 300),
+                MaterialUtils.fluid(Materials.SulfuricLightFuel, 1_000),
+                MaterialUtils.fluid(Materials.SulfuricNaphtha, 400),
+                MaterialUtils.fluid(Materials.NaphthenicAcid, 50),
+                MaterialUtils.gas(Materials.SulfuricGas, 1_200))
             .addTo(distillationTowerRecipes);
 
         // raw oil
@@ -914,11 +919,11 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(3)
             .fluidOutputs(
-                Materials.SulfuricHeavyFuel.getFluid(100),
-                Materials.SulfuricLightFuel.getFluid(500),
-                Materials.SulfuricNaphtha.getFluid(1_500),
-                Materials.NaphthenicAcid.getFluid(25),
-                Materials.SulfuricGas.getGas(600))
+                MaterialUtils.fluid(Materials.SulfuricHeavyFuel, 100),
+                MaterialUtils.fluid(Materials.SulfuricLightFuel, 500),
+                MaterialUtils.fluid(Materials.SulfuricNaphtha, 1_500),
+                MaterialUtils.fluid(Materials.NaphthenicAcid, 25),
+                MaterialUtils.gas(Materials.SulfuricGas, 600))
             .addTo(distillationTowerRecipes);
 
         // heavy oil
@@ -926,11 +931,11 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(4)
             .fluidOutputs(
-                Materials.SulfuricHeavyFuel.getFluid(1_000),
-                Materials.SulfuricLightFuel.getFluid(450),
-                Materials.SulfuricNaphtha.getFluid(150),
-                Materials.NaphthenicAcid.getFluid(50),
-                Materials.SulfuricGas.getGas(600))
+                MaterialUtils.fluid(Materials.SulfuricHeavyFuel, 1_000),
+                MaterialUtils.fluid(Materials.SulfuricLightFuel, 450),
+                MaterialUtils.fluid(Materials.SulfuricNaphtha, 150),
+                MaterialUtils.fluid(Materials.NaphthenicAcid, 50),
+                MaterialUtils.gas(Materials.SulfuricGas, 600))
             .addTo(distillationTowerRecipes);
     }
 
@@ -944,13 +949,13 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     private static void addUUABerryRecipes() {
         recipe(4, 6, 40).itemInputs(MaterialLeafLoader.uuaBerry.get(1))
-            .fluidOutputs(Materials.UUAmplifier.getFluid(4))
+            .fluidOutputs(MaterialUtils.fluid(Materials.UUAmplifier, 4))
             .addTo(fluidExtractionRecipes);
     }
 
     private static void addUUMBerryRecipes() {
         recipe(4, 6, 40).itemInputs(MaterialLeafLoader.uumBerry.get(1))
-            .fluidOutputs(Materials.UUMatter.getFluid(4))
+            .fluidOutputs(MaterialUtils.fluid(Materials.UUMatter, 4))
             .addTo(fluidExtractionRecipes);
     }
 
@@ -985,7 +990,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         }
         // glowing coral to sunnarium
         ivRecipe(60 * 5 + 16, 0).itemInputs(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "coral1", 32, 15))
-            .fluidInputs(Materials.UUMatter.getFluid(1))
+            .fluidInputs(MaterialUtils.fluid(Materials.UUMatter, 1))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sunnarium, 2))
             .requiresCleanRoom()
             .addTo(RecipeMaps.autoclaveRecipes);
@@ -995,22 +1000,22 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         if (!ModUtils.Natura.isModLoaded()) return;
 
         ulvRecipe(3, 40).itemInputs(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 0))
-            .fluidInputs(Materials.Water.getFluid(750))
+            .fluidInputs(GTUtility.getWater(750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.regen"), 750))
             .addTo(brewingRecipes);
 
         ulvRecipe(3, 40).itemInputs(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 1))
-            .fluidInputs(Materials.Water.getFluid(750))
+            .fluidInputs(GTUtility.getWater(750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.nightvision"), 750))
             .addTo(brewingRecipes);
 
         ulvRecipe(3, 40).itemInputs(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 2))
-            .fluidInputs(Materials.Water.getFluid(750))
+            .fluidInputs(GTUtility.getWater(750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.speed"), 750))
             .addTo(brewingRecipes);
 
         ulvRecipe(3, 40).itemInputs(CropsNHUtils.getModItem(ModUtils.Natura, "berry.nether", 16, 3))
-            .fluidInputs(Materials.Water.getFluid(750))
+            .fluidInputs(GTUtility.getWater(750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.strength"), 750))
             .addTo(brewingRecipes);
     }
@@ -1020,7 +1025,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         // space flower to uum
         recipe(4, 6, 40).itemInputs(MaterialLeafLoader.spaceFlower.get(1))
             // it's growth time should make it worse than using uum berries
-            .fluidOutputs(Materials.UUMatter.getFluid(4))
+            .fluidOutputs(MaterialUtils.fluid(Materials.UUMatter, 4))
             .addTo(fluidExtractionRecipes);
 
         // iron to meteoric iron
@@ -1105,7 +1110,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         ulvRecipe(0, 80).itemInputs(CropsNHItemList.goldfish.get(1))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Mercury, 1))
             .outputChances(1_00)
-            .fluidOutputs(Materials.FishOil.getFluid(100))
+            .fluidOutputs(MaterialUtils.fluid(Materials.FishOil, 100))
             .addTo(fluidExtractionRecipes);
 
         // maceration
@@ -1182,7 +1187,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreConversionRecipe(voltage, duration, leaf, acid, null, null, new FluidStack[] { outputFluid });
     }
 
-    public static void createOreConversionRecipe(IMaterialLeafVariant variant, Voltage voltage, Materials ore,
+    public static void createOreConversionRecipe(IMaterialLeafVariant variant, Voltage voltage, Material ore,
         TierAcid catalyst) {
         createOreConversionRecipe(
             variant,
@@ -1194,7 +1199,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             -1);
     }
 
-    public static void createOreConversionRecipe(IMaterialLeafVariant variant, Voltage voltage, Materials ore,
+    public static void createOreConversionRecipe(IMaterialLeafVariant variant, Voltage voltage, Material ore,
         TierAcid catalyst, int purifiedCircuit, int impureCircuit) {
         createOreConversionRecipe(
             variant,
@@ -1209,12 +1214,12 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     }
 
     public static void createOreConversionRecipe(IMaterialLeafVariant variant, int amount, Voltage voltage,
-        Materials ore, TierAcid catalyst, int duration) {
+        Material ore, TierAcid catalyst, int duration) {
         createOreConversionRecipe(variant, amount, voltage, ore, amount, catalyst, duration);
     }
 
     public static void createOreConversionRecipe(IMaterialLeafVariant variant, int leafAmount, Voltage voltage,
-        Materials ore, int oreAmount, TierAcid catalyst, int duration) {
+        Material ore, int oreAmount, TierAcid catalyst, int duration) {
         createOreConversionRecipe(
             variant,
             leafAmount,
@@ -1228,7 +1233,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     }
 
     public static void createOreConversionRecipe(IMaterialLeafVariant variant, int leafAmount, Voltage voltage,
-        Materials ore, int oreAmount, TierAcid catalyst, int duration, int purifiedCircuit, int impureCircuit) {
+        Material ore, int oreAmount, TierAcid catalyst, int duration, int purifiedCircuit, int impureCircuit) {
         if (variant == null || voltage == null || ore == null) {
             throw new IllegalArgumentException("variant, voltage and outputFluid cannot be null.");
         }
@@ -1360,20 +1365,20 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(variant, oreType.getBridgeMaterial(), voltage, null);
     }
 
-    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType) {
+    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Material oreType) {
         createOreDuplicationRecipe(variant, oreType, Voltage.LV, null);
     }
 
-    public static void createOreDuplicationRecipe(ItemStack leaf, Materials oreType) {
+    public static void createOreDuplicationRecipe(ItemStack leaf, Material oreType) {
         createOreDuplicationRecipe(leaf, oreType, Voltage.LV, null);
     }
 
-    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType,
+    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Material oreType,
         FluidStack fluidByproduct) {
         createOreDuplicationRecipe(variant, oreType, Voltage.LV, fluidByproduct);
     }
 
-    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType,
+    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Material oreType,
         FluidStack fluidByproduct, ItemStack impureDust) {
         if (variant == null || oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
@@ -1387,7 +1392,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             impureDust);
     }
 
-    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType, Voltage voltage,
+    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Material oreType, Voltage voltage,
         FluidStack fluidByproduct) {
         if (variant == null || oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
@@ -1396,7 +1401,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(leaf, oreType, voltage, fluidByproduct);
     }
 
-    public static void createOreDuplicationRecipe(ItemStack leaf, Materials oreType, Voltage voltage,
+    public static void createOreDuplicationRecipe(ItemStack leaf, Material oreType, Voltage voltage,
         FluidStack fluidByproduct) {
         if (leaf == null || oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
@@ -1405,12 +1410,12 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(leaf, crushed, oreType, voltage, fluidByproduct);
     }
 
-    public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, Materials oreType, Voltage voltage,
+    public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, Material oreType, Voltage voltage,
         FluidStack fluidByproduct) {
         createOreDuplicationRecipe(leaf, crushed, oreType, voltage, fluidByproduct, null);
     }
 
-    public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, Materials oreType, Voltage voltage,
+    public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, Material oreType, Voltage voltage,
         FluidStack fluidByproduct, ItemStack impureDust) {
         if (leaf == null || crushed == null || oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
@@ -1476,13 +1481,13 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(recipeMap);
     }
 
-    private static FluidStack getOreByproduct(Materials oreType) {
+    private static FluidStack getOreByproduct(Material oreType) {
         if (oreType == Materials.Naquadah) return GGMaterial.enrichedNaquadahGoo.getFluidOrGas(2 * INGOTS);
         if (oreType == Materials.NaquadahEnriched) return GGMaterial.naquadahGoo.getFluidOrGas(2 * INGOTS);
         if (oreType == Materials.Naquadria) return GGMaterial.naquadriaGoo.getFluidOrGas(2 * INGOTS);
-        if (oreType.mOreByProducts.isEmpty()) return null;
-        return oreType.mOreByProducts.get(0)
-            .getMolten(1 * INGOTS);
+        List<Material> byProducts = MaterialUtils.oreByProducts(oreType);
+        if (byProducts.isEmpty()) return null;
+        return MaterialUtils.molten(byProducts.get(0), 1 * INGOTS);
     }
 
     // endregion ore duplication helpers
