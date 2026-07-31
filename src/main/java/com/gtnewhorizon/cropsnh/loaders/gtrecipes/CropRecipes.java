@@ -47,17 +47,16 @@ import com.gtnewhorizon.cropsnh.loaders.MaterialLeafLoader;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.ruling_0.materiallib.api.Material;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
 import bartworks.API.enums.BioCultureEnum;
 import bartworks.common.loaders.BioCultureLoader;
-import bartworks.system.material.Werkstoff;
-import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
-import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
+import gregtech.api.enums.materials.FluidShapes;
 import gregtech.api.enums.materials.Materials;
 import gregtech.api.interfaces.IRecipeMap;
 import gregtech.api.material.MaterialUtils;
@@ -143,7 +142,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         // load tier acid enum
         TierAcid.t1.set(MaterialUtils.fluid(Materials.SulfuricAcid, 384));
         TierAcid.t2.set(MaterialUtils.fluid(Materials.HydrochloricAcidGT5U, 384 * 2));
-        TierAcid.t3.set(WerkstoffLoader.FormicAcid.getFluidOrGas(384 * 3));
+        TierAcid.t3.set(MaterialLibAPI.getFluidStack(Materials.FormicAcid, FluidShapes.fluidLiquid, 384 * 3));
         TierAcid.t4.set(MaterialUtils.fluid(Materials.HydrofluoricAcidGT5U, 384 * 4));
         TierAcid.t5.set(MaterialUtils.fluid(Materials.NitricAcid, 384 * 5));
         // amount is same as tier 5 on purpose
@@ -434,27 +433,27 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             MaterialLeafLoader.platinaLeaf,
             Materials.Platinum,
             null,
-            WerkstoffLoader.PTMetallicPowder.get(OrePrefixes.dust, 8));
+            GTOreDictUnificator.get(OrePrefixes.dust, Materials.PlatinumMetallicPowder, 8));
         createOreDuplicationRecipe(MaterialLeafLoader.platinaLeaf, Materials.Cooperite);
         createOreDuplicationRecipe(
             MaterialLeafLoader.platinaLeaf,
             Materials.Palladium,
             null,
-            WerkstoffLoader.PDMetallicPowder.get(OrePrefixes.dust, 8));
+            GTOreDictUnificator.get(OrePrefixes.dust, Materials.PalladiumMetallicPowder, 8));
         createOreDuplicationRecipe(MaterialLeafLoader.platinaLeaf, Materials.Neodymium);
         createOreDuplicationRecipe(MaterialLeafLoader.platinaLeaf, Materials.Bastnasite);
 
         createOreDuplicationRecipe(
             MaterialLeafLoader.iridineFlower,
             Materials.Iridium,
-            WerkstoffLoader.PTConcentrate.getFluidOrGas(2000),
-            WerkstoffLoader.IrLeachResidue.get(OrePrefixes.dust, 8));
+            MaterialLibAPI.getFluidStack(Materials.PlatinumConcentrate, FluidShapes.fluidLiquid, 2000),
+            GTOreDictUnificator.get(OrePrefixes.dust, Materials.IridiumMetalResidue, 8));
 
         createOreDuplicationRecipe(
             MaterialLeafLoader.osmianthFlower,
             Materials.Osmium,
-            WerkstoffLoader.AcidicIridiumSolution.getFluidOrGas(1000),
-            WerkstoffLoader.IrOsLeachResidue.get(OrePrefixes.dust, 8));
+            MaterialLibAPI.getFluidStack(Materials.AcidicIridiumSolution, FluidShapes.fluidLiquid, 1000),
+            GTOreDictUnificator.get(OrePrefixes.dust, Materials.RarestMetalResidue, 8));
 
         createOreDuplicationRecipe(MaterialLeafLoader.reactoriaLeaf, Materials.Pitchblende);
 
@@ -464,7 +463,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.reactoriaStem, Materials.Uranium235);
 
         createOreDuplicationRecipe(MaterialLeafLoader.thunderFlower, Materials.Thorium);
-        createOreDuplicationRecipe(MaterialLeafLoader.thunderFlower, WerkstoffLoader.Thorianit);
+        createOreDuplicationRecipe(MaterialLeafLoader.thunderFlower, Materials.Thorianite);
 
         createOreDuplicationRecipe(MaterialLeafLoader.stargatiumLeaf, Materials.Naquadah);
         createOreDuplicationRecipe(MaterialLeafLoader.stargatiumLeaf, Materials.NaquadahEnriched);
@@ -586,14 +585,23 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             IMPURE_DUST_RECIPE_CIRCUIT);
 
         for (PlatinaRecipeVariation variation : new PlatinaRecipeVariation[] {
-            new PlatinaRecipeVariation(1, 3, WerkstoffLoader.PTResidue.get(OrePrefixes.dustTiny, 1)),
-            new PlatinaRecipeVariation(9, 9, WerkstoffLoader.PTResidue.get(OrePrefixes.dust, 1)) }) {
+            new PlatinaRecipeVariation(
+                1,
+                3,
+                GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.PlatinumResidue, 1)),
+            new PlatinaRecipeVariation(
+                9,
+                9,
+                GTOreDictUnificator.get(OrePrefixes.dust, Materials.PlatinumResidue, 1)) }) {
             lvRecipe((12 * SECONDS + 10 * TICKS) * variation.mult)
                 .itemInputs(CropsNHItemList.platinaLeaf.get(4 * variation.mult))
                 .circuit(variation.circuit)
-                .fluidInputs(WerkstoffLoader.AquaRegia.getFluidOrGas(2000 * variation.mult))
+                .fluidInputs(
+                    MaterialLibAPI.getFluidStack(Materials.AquaRegia, FluidShapes.fluidLiquid, 2000 * variation.mult))
                 .itemOutputs(variation.residue)
-                .fluidOutputs(WerkstoffLoader.PTConcentrate.getFluidOrGas(2000 * variation.mult))
+                .fluidOutputs(
+                    MaterialLibAPI
+                        .getFluidStack(Materials.PlatinumConcentrate, FluidShapes.fluidLiquid, 2000 * variation.mult))
                 .addTo(UniversalChemical);
         }
 
@@ -619,14 +627,14 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             MaterialLeafLoader.osmianthFlower,
             DEFAULT_ORE_CONVERSION_LEAF_AMOUNT * 2,
             Voltage.IV,
-            WerkstoffLoader.AcidicOsmiumSolution.getFluidOrGas(1000),
+            MaterialLibAPI.getFluidStack(Materials.AcidicOsmiumSolution, FluidShapes.fluidLiquid, 1000),
             TierAcid.t6,
             Voltage.IV.getComplexTime() * 13);
         createOreConversionRecipe(
             MaterialLeafLoader.iridineFlower,
             DEFAULT_ORE_CONVERSION_LEAF_AMOUNT * 2,
             Voltage.IV,
-            WerkstoffLoader.AcidicIridiumSolution.getFluidOrGas(1000),
+            MaterialLibAPI.getFluidStack(Materials.AcidicIridiumSolution, FluidShapes.fluidLiquid, 1000),
             TierAcid.t6,
             Voltage.IV.getComplexTime() * 9);
         createOreConversionRecipe(MaterialLeafLoader.stargatiumLeaf, Voltage.IV, Materials.Naquadah, TierAcid.t6);
@@ -1148,14 +1156,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     // region ore conversion helpers
 
-    public static void createOreConversionRecipe(IMaterialLeafVariant variant, Voltage voltage, Werkstoff ore,
-        TierAcid catalyst) {
-        if (ore == null) {
-            throw new IllegalArgumentException("ore cannot be null.");
-        }
-        createOreConversionRecipe(variant, voltage, ore.getBridgeMaterial(), catalyst);
-    }
-
     public static void createOreConversionRecipe(IMaterialLeafVariant variant, Voltage voltage, FluidStack outputFluid,
         TierAcid catalyst) {
         createOreConversionRecipe(variant, voltage, outputFluid, catalyst, -1);
@@ -1351,20 +1351,6 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     // region ore duplication helpers
 
-    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Werkstoff oreType) {
-        if (oreType == null) {
-            throw new IllegalArgumentException("no argument can be null");
-        }
-        createOreDuplicationRecipe(variant, oreType.getBridgeMaterial());
-    }
-
-    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Werkstoff oreType, Voltage voltage) {
-        if (oreType == null) {
-            throw new IllegalArgumentException("no argument can be null");
-        }
-        createOreDuplicationRecipe(variant, oreType.getBridgeMaterial(), voltage, null);
-    }
-
     public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Material oreType) {
         createOreDuplicationRecipe(variant, oreType, Voltage.LV, null);
     }
@@ -1482,9 +1468,12 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     }
 
     private static FluidStack getOreByproduct(Material oreType) {
-        if (oreType == Materials.Naquadah) return GGMaterial.enrichedNaquadahGoo.getFluidOrGas(2 * INGOTS);
-        if (oreType == Materials.NaquadahEnriched) return GGMaterial.naquadahGoo.getFluidOrGas(2 * INGOTS);
-        if (oreType == Materials.Naquadria) return GGMaterial.naquadriaGoo.getFluidOrGas(2 * INGOTS);
+        if (oreType == Materials.Naquadah)
+            return MaterialLibAPI.getFluidStack(Materials.EnrichedNaquadahGoo, FluidShapes.fluidLiquid, 2 * INGOTS);
+        if (oreType == Materials.NaquadahEnriched)
+            return MaterialLibAPI.getFluidStack(Materials.NaquadahGoo, FluidShapes.fluidLiquid, 2 * INGOTS);
+        if (oreType == Materials.Naquadria)
+            return MaterialLibAPI.getFluidStack(Materials.NaquadriaGoo, FluidShapes.fluidLiquid, 2 * INGOTS);
         List<Material> byProducts = MaterialUtils.oreByProducts(oreType);
         if (byProducts.isEmpty()) return null;
         return MaterialUtils.molten(byProducts.get(0), 1 * INGOTS);

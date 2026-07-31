@@ -7,7 +7,6 @@ import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
-import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.materials.Materials;
@@ -74,7 +73,7 @@ public class SubSoilRequirementLoader {
         CropsNHSubSoilTypes.osmium.addBlockAndOreDict().addMaterial(Materials.Osmium);
         CropsNHSubSoilTypes.platinum.addBlockAndOreDict().addMaterial(Materials.Platinum, Materials.Cooperite);
         CropsNHSubSoilTypes.silver.addBlockAndOreDict().addMaterial(Materials.Silver);
-        CropsNHSubSoilTypes.thorium.addBlockAndOreDict().addMaterial(Materials.Thorium, WerkstoffLoader.Thorianit.getBridgeMaterial());
+        CropsNHSubSoilTypes.thorium.addBlockAndOreDict().addMaterial(Materials.Thorium, Materials.Thorianite);
         CropsNHSubSoilTypes.tin.addBlockAndOreDict().addMaterial(Materials.Tin);
         CropsNHSubSoilTypes.titanium.addBlockAndOreDict().addMaterial(Materials.Titanium, Materials.Ilmenite, Materials.Rutile);
         CropsNHSubSoilTypes.tungsten.addBlockAndOreDict().addMaterial(Materials.Tungsten, Materials.Scheelite, Materials.Tungstate);
