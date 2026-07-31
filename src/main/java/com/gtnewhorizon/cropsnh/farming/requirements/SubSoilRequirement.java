@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -32,16 +31,14 @@ import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.MetaSet;
+import com.ruling_0.materiallib.api.Material;
 
-import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.objects.ItemData;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
-import gregtech.common.blocks.GTBlockOre;
-import gregtech.common.blocks.TileEntityOres;
+import gregtech.common.ores.OreManager;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
@@ -61,7 +58,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
     }
 
     private final String materialDescription;
-    private final Set<Materials> materials = new ObjectOpenHashSet<>();
+    private final Set<Material> materials = new ObjectOpenHashSet<>();
     private final Set<String> oreDictionaries = new ObjectOpenHashSet<>();
     private final MetaSet<Block> blocks = new MetaSet<>();
     private final Pair<String, String[]> unlocalizedDesc;
@@ -71,7 +68,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         this.unlocalizedDesc = Pair.of(Reference.MOD_ID + "_growthReq.subSoil." + this.materialDescription, null);
     }
 
-    public SubSoilRequirement addMaterial(Materials... args) {
+    public SubSoilRequirement addMaterial(Material... args) {
         this.materials.addAll(Arrays.asList(args));
         return this;
     }
@@ -117,7 +114,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         // pre-flight checks
         SubSoilTarget target = getSubSoil(world, x, y, z);
         if (target == null) return false;
-        return canGrow(target.block, target.meta, target.te);
+        return canGrow(target.block, target.meta);
     }
 
     @Override
@@ -138,7 +135,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
 
         // get the sub-soil
         Block block = world.getBlock(x, y, z);
-        if (block.getMaterial() == Material.air) return null;
+        if (block.getMaterial() == net.minecraft.block.material.Material.air) return null;
         int meta = world.getBlockMetadata(x, y, z);
         TileEntity te = world.getTileEntity(x, y, z);
         return new SubSoilTarget(block, meta, te);
@@ -200,7 +197,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         if (CropsNHUtils.isStackInvalid(toValidate)) return false;
 
         // GT Material check
-        for (Materials material : this.materials) {
+        for (Material material : this.materials) {
             if (checkGTBlockOrOreMaterial(toValidate, material)) {
                 return true;
             }
@@ -215,22 +212,20 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
 
         // Block conversion
         Block block = CropsNHUtils.getBlockFromItem(toValidate);
-        return block.getMaterial() != Material.air && blocks.contains(block, CropsNHUtils.getItemMeta(toValidate));
+        return block.getMaterial() != net.minecraft.block.material.Material.air
+            && blocks.contains(block, CropsNHUtils.getItemMeta(toValidate));
     }
 
-    public boolean canGrow(Block block, int meta, TileEntity te) {
+    public boolean canGrow(Block block, int meta) {
+        Material oreMaterial = OreManager.getMaterial(block, meta);
+        if (oreMaterial != null && this.materials.contains(oreMaterial)) return true;
+
         // non-world dependent check for the GoBlyn
         ItemStack stack = new ItemStack(Item.getItemFromBlock(block), 1, meta);
 
         // gt material check
-        for (Materials material : this.materials) {
-            if (block instanceof GTBlockOre && te instanceof TileEntityOres) {
-                Materials generatedMaterial = GregTechAPI.sGeneratedMaterials[((TileEntityOres) te).mMetaData % 1000];
-                if (generatedMaterial != null && generatedMaterial != Materials._NULL
-                    && generatedMaterial == material) {
-                    return true;
-                }
-            } else if (checkGTBlockOrOreMaterial(stack, material)) {
+        for (Material material : this.materials) {
+            if (checkGTBlockOrOreMaterial(stack, material)) {
                 return true;
             }
         }
@@ -244,7 +239,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         return blocks.contains(block, meta);
     }
 
-    private boolean checkGTBlockOrOreMaterial(ItemStack stack, Materials toMatch) {
+    private boolean checkGTBlockOrOreMaterial(ItemStack stack, Material toMatch) {
         ItemData association = GTOreDictUnificator.getAssociation(stack);
         // spotless:off
         return association != null
@@ -284,7 +279,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         }
 
         // load up materials
-        for (Materials mat : this.materials) {
+        for (Material mat : this.materials) {
             // all the ore variations!
             ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.ore, mat));
             ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreNetherrack, mat));
