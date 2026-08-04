@@ -33,32 +33,52 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
         float hitX, float hitY, float hitZ) {
-        // check if we are targeting the top side of a valid soil block
-        if (side != 1 || !SoilRegistry.instance.isRegistered(world, x, y, z)
-            || world.getHeight() <= y + 1
-            || !world.canPlaceEntityOnSide(CropsNHBlocks.blockCropSticks, x, y + 1, z, false, 0, player, stack)) {
+        // fix placement side
+        switch (side) {
+            case 0:
+                --y;
+                break;
+            case 1:
+                ++y;
+                break;
+            case 2:
+                --z;
+                break;
+            case 3:
+                ++z;
+                break;
+            case 4:
+                --x;
+                break;
+            case 5:
+                ++x;
+                break;
+        }
+        // check if we are targeting a valid soil block
+        if (!SoilRegistry.instance.isRegistered(world, x, y - 1, z) || world.getHeight() <= y
+            || !world.canPlaceEntityOnSide(CropsNHBlocks.blockCropSticks, x, y, z, false, 0, player, stack)) {
             return false;
         }
 
         // you can shift-right-click to place a cross.
         boolean isPlacingCross = player.isSneaking() && (player.capabilities.isCreativeMode || stack.stackSize >= 2);
 
-        world.setBlock(x, y + 1, z, CropsNHBlocks.blockCropSticks);
+        world.setBlock(x, y, z, CropsNHBlocks.blockCropSticks);
 
         if (!player.capabilities.isCreativeMode) {
             stack.stackSize -= isPlacingCross ? 2 : 1;
         }
 
         // upgrade it if necessary
-        if (isPlacingCross && world.getTileEntity(x, y + 1, z) instanceof ICropStickTile crop) {
+        if (isPlacingCross && world.getTileEntity(x, y, z) instanceof ICropStickTile crop) {
             crop.setCrossCrop(true);
-            world.markBlockForUpdate(x, y + 1, z);
+            world.markBlockForUpdate(x, y, z);
         }
 
         // play placement sound
         world.playSoundEffect(
             ((float) x + 0.5F),
-            ((float) y + 1.5F),
+            ((float) y + 0.5F),
             ((float) z + 0.5F),
             Blocks.planks.stepSound.func_150496_b(),
             (Blocks.planks.stepSound.getVolume() + 1.0F) / 2.0F,
