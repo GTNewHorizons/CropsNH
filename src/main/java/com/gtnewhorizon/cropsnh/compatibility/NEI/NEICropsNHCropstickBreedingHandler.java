@@ -80,7 +80,10 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
             int i = 0;
             for (ICropCard parent : mutation.getParents()) {
                 if (i >= X_parent.length) {
-                    this.reqLines.add("More than " + X_parent.length + " parents detected, this shouldn't happen!");
+                    this.reqLines.add(
+                        StatCollector.translateToLocalFormatted(
+                            Reference.MOD_ID + "_nei.breeding.tooManyParents",
+                            X_parent.length));
                     break;
                 }
                 ItemStack stack = parent.getSeedItem(SeedStats.DEFAULT_ANALYZED);

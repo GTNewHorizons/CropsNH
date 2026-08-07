@@ -132,19 +132,34 @@ public abstract class CropsNHUtils {
         return new SeedData(cc, stats, stack);
     }
 
-    private static IIcon MISSING_TEXTURE = null;
+    private static IIcon MISSING_BLOCK_TEXTURE = null;
 
     /**
      * @return A default texture icon to be used for all missing textures.
      */
     @SideOnly(Side.CLIENT)
-    public static IIcon getMissingTexture() {
-        if (MISSING_TEXTURE == null) {
-            MISSING_TEXTURE = ((TextureMap) Minecraft.getMinecraft()
+    public static IIcon getMissingBlockTexture() {
+        if (MISSING_BLOCK_TEXTURE == null) {
+            MISSING_BLOCK_TEXTURE = ((TextureMap) Minecraft.getMinecraft()
                 .getTextureManager()
                 .getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
         }
-        return MISSING_TEXTURE;
+        return MISSING_BLOCK_TEXTURE;
+    }
+
+    private static IIcon MISSING_ITEM_TEXTURE = null;
+
+    /**
+     * @return A default texture icon to be used for all missing textures.
+     */
+    @SideOnly(Side.CLIENT)
+    public static IIcon getMissingItemTexture() {
+        if (MISSING_ITEM_TEXTURE == null) {
+            MISSING_ITEM_TEXTURE = ((TextureMap) Minecraft.getMinecraft()
+                .getTextureManager()
+                .getTexture(TextureMap.locationItemsTexture)).getAtlasSprite("missingno");
+        }
+        return MISSING_ITEM_TEXTURE;
     }
 
     /**

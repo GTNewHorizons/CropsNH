@@ -89,12 +89,12 @@ public abstract class CropsNHBlockIndustrialFarmTiredComponent extends BlockCasi
     public IIcon getIcon(int side, int meta) {
         // default handler + basic bricks
         if (meta < this.minTier || this.maxTier < meta) {
-            return CropsNHUtils.getMissingTexture();
+            return CropsNHUtils.getMissingBlockTexture();
         }
         return switch (side) {
-            case 0 -> this.bottomIcons[meta] == null ? CropsNHUtils.getMissingTexture() : this.bottomIcons[meta];
-            case 1 -> this.topIcons[meta] == null ? CropsNHUtils.getMissingTexture() : this.topIcons[meta];
-            default -> this.sideIcons[meta] == null ? CropsNHUtils.getMissingTexture() : this.sideIcons[meta];
+            case 0 -> this.bottomIcons[meta] == null ? CropsNHUtils.getMissingBlockTexture() : this.bottomIcons[meta];
+            case 1 -> this.topIcons[meta] == null ? CropsNHUtils.getMissingBlockTexture() : this.topIcons[meta];
+            default -> this.sideIcons[meta] == null ? CropsNHUtils.getMissingBlockTexture() : this.sideIcons[meta];
         };
     }
 }

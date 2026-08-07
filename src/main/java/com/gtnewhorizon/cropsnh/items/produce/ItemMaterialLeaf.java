@@ -10,9 +10,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -22,7 +24,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemMaterialLeaf extends Item {
 
     private final static HashMap<Integer, IMaterialLeafVariant> variants = new HashMap<>();
-    private IIcon missingIcon = null;
 
     public static void registerVariant(IMaterialLeafVariant variant) {
         if (variants.containsKey(variant.getId())) {
@@ -58,6 +59,8 @@ public class ItemMaterialLeaf extends Item {
         if (variants.containsKey(CropsNHUtils.getItemMeta(stack))) {
             variants.get(CropsNHUtils.getItemMeta(stack))
                 .getTooltip(list);
+        } else {
+            list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.material_leaf_error"));
         }
     }
 
@@ -67,7 +70,7 @@ public class ItemMaterialLeaf extends Item {
             return variants.get(CropsNHUtils.getItemMeta(stack))
                 .getUnlocalizedName();
         }
-        return "unknown leaf";
+        return "item." + Reference.MOD_ID + ":materialLeaf.error";
     }
 
     @Override
@@ -77,13 +80,12 @@ public class ItemMaterialLeaf extends Item {
             return variants.get(damage)
                 .getIcon();
         }
-        return this.missingIcon;
+        return CropsNHUtils.getMissingItemTexture();
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister register) {
-        this.missingIcon = register.registerIcon("missingno");
         for (IMaterialLeafVariant variant : variants.values()) {
             variant.RegisterIcon(register);
         }
