@@ -214,7 +214,7 @@ public abstract class CropCard implements ICropCard {
     @SideOnly(Side.CLIENT)
     public void render(IBlockAccess world, int x, int y, int z, ICropStickTile te, RenderBlocks renderer) {
         IIcon icon = this.getSprite(te);
-        if (icon == null) icon = CropsNHUtils.getMissingTexture();
+        if (icon == null) icon = CropsNHUtils.getMissingBlockTexture();
         PlantRenderer.renderPlantLayer(world, x, y, z, this.getRenderShape(), icon, te.isSick());
     }
 
