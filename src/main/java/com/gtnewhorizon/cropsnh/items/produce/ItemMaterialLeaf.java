@@ -24,7 +24,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemMaterialLeaf extends Item {
 
     private final static HashMap<Integer, IMaterialLeafVariant> variants = new HashMap<>();
-    private IIcon missingIcon = null;
 
     public static void registerVariant(IMaterialLeafVariant variant) {
         if (variants.containsKey(variant.getId())) {
@@ -81,13 +80,12 @@ public class ItemMaterialLeaf extends Item {
             return variants.get(damage)
                 .getIcon();
         }
-        return this.missingIcon;
+        return CropsNHUtils.getMissingItemTexture();
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister register) {
-        this.missingIcon = register.registerIcon("missingno");
         for (IMaterialLeafVariant variant : variants.values()) {
             variant.RegisterIcon(register);
         }
