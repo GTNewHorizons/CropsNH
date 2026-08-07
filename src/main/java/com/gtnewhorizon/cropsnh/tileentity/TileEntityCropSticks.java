@@ -21,13 +21,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -1346,8 +1344,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             } else if (result == SeedPlantingResult.WRONG_SOIL) {
                 if (player instanceof EntityPlayerMP mpPlayer) {
                     mpPlayer.addChatComponentMessage(
-                        new ChatComponentText(
-                            StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.planting.wrongSoil")));
+                        new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.planting.wrongSoil"));
                 }
                 return true;
             }

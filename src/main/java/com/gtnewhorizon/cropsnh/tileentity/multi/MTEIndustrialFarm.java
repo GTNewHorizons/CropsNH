@@ -669,17 +669,23 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.0"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.1"));
 
+        final String endCasing = StatCollector
+            .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.endCasing");
+        final String glass = StatCollector
+            .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.glass");
+
         tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, true)
-            .addController("Front center, 2nd layer")
-            .addEnergyHatch("1+", "Any center end casing", 1)
-            .addMaintenanceHatch("1", "Any center end casing", 1)
-            .addInputBus("0+", "Any center end casing", 1)
-            .addInputHatch("1+", "Any center end casing", 1)
-            .addOutputBus("1+", "Any center end casing", 1)
+            .addController(
+                StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.controller"))
+            .addEnergyHatch("1+", endCasing, 1)
+            .addMaintenanceHatch("1", endCasing, 1)
+            .addInputBus("0+", endCasing, 1)
+            .addInputHatch("1+", endCasing, 1)
+            .addOutputBus("1+", endCasing, 1)
             .addStructureInfo("")
             .addStructureInfo(StatCollector.translateToLocal("GT5U.MBTT.Structure.Base"))
             .addCasing("16-27", StatCollector.translateToLocal(Reference.MOD_ID + ".casings1.0.name"), false)
-            .addCasing("4", "Any Tiered Glass", true)
+            .addCasing("4", glass, true)
             .addCasing(
                 "3",
                 StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.seedBed"),
@@ -696,7 +702,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 2)
             .addStructureInfo("")
             .addStructureInfo(StatCollector.translateToLocal("GT5U.MBTT.Structure.Slice"))
-            .addCasing("4", "Any Tiered Glass", true)
+            .addCasing("4", glass, true)
             .addCasing(
                 "3",
                 StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.seedBed"),
