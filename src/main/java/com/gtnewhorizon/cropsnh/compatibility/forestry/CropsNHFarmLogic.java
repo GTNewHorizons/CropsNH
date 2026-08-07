@@ -7,12 +7,14 @@ import java.util.HashMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.google.common.collect.ImmutableList;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilRegistry;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -266,7 +268,7 @@ public class CropsNHFarmLogic extends FarmLogic {
 
     @Override
     public String getName() {
-        return "Crops";
+        return StatCollector.translateToLocal(Reference.MOD_ID + "_forestry.farmLogic.name");
     }
 
     private boolean isCrop(World world, IVect position, TileEntity te) {

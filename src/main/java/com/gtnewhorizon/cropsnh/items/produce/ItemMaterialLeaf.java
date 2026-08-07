@@ -13,6 +13,7 @@ import net.minecraft.util.IIcon;
 
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -67,7 +68,7 @@ public class ItemMaterialLeaf extends Item {
             return variants.get(CropsNHUtils.getItemMeta(stack))
                 .getUnlocalizedName();
         }
-        return "unknown leaf";
+        return "item." + Reference.MOD_ID + ":materialLeaf.unknown";
     }
 
     @Override
