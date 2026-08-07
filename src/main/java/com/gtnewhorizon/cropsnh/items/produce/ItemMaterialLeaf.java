@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 
 import com.gtnewhorizon.cropsnh.api.IMaterialLeafVariant;
 import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
@@ -59,6 +60,8 @@ public class ItemMaterialLeaf extends Item {
         if (variants.containsKey(CropsNHUtils.getItemMeta(stack))) {
             variants.get(CropsNHUtils.getItemMeta(stack))
                 .getTooltip(list);
+        } else {
+            list.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.material_leaf_error"));
         }
     }
 
@@ -68,7 +71,7 @@ public class ItemMaterialLeaf extends Item {
             return variants.get(CropsNHUtils.getItemMeta(stack))
                 .getUnlocalizedName();
         }
-        return "item." + Reference.MOD_ID + ":materialLeaf.unknown";
+        return "item." + Reference.MOD_ID + ":materialLeaf.error";
     }
 
     @Override
