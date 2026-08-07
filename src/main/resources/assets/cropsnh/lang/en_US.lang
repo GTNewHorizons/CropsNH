@@ -554,6 +554,9 @@ nei.options.tools.dump.cropsnh.soilRegistry=Soils
 nei.options.tools.dump.cropsnh.weedEXFluids=WeedEX
 
 
+# Forestry compat
+cropsnh_forestry.farmLogic.name=Crops NH
+
 # Generic Seeds
 cropsnh_genericSeeds.unknown=Unknown
 cropsnh_genericSeeds.invalid=Invalid
@@ -895,6 +898,3 @@ cropsnh_mutationPool.wheat=Wheat
 cropsnh_mutationPool.white=White
 cropsnh_mutationPool.wood=Wood
 cropsnh_mutationPool.yellow=Yellow
-
-# Forestry compat
-cropsnh_forestry.farmLogic.name=Crops
