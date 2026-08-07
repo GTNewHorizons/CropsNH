@@ -58,6 +58,7 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.TierEU;
 import gregtech.api.interfaces.IRecipeMap;
+import gregtech.api.objects.OreDictItemStack;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
@@ -1001,45 +1002,45 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         if (!ModUtils.GalacticraftCore.isModLoaded()) return;
         // space flower to uum
         recipe(4, 6, 40).itemInputs(MaterialLeafLoader.spaceFlower.get(1))
-            // it's growth time should make it worst than using uum berries
+            // it's growth time should make it worse than using uum berries
             .fluidOutputs(Materials.UUMatter.getFluid(4))
             .addTo(fluidExtractionRecipes);
 
         // iron to meteoric iron
-        hvRecipe(12, 0).itemInputs(new Object[] { "dustIron", 4 }, MaterialLeafLoader.spaceFlower.get(1))
-            .fluidInputs(TierAcid.t2.get())
+        hvRecipe(12, 0).itemInputs(new OreDictItemStack("dustIron", 4), MaterialLeafLoader.spaceFlower.get(1))
+            .fluidInputs(TierAcid.t3.get())
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.MeteoricIron, 4))
             .addTo(UniversalChemical);
 
         // steel to meteoric steel
-        hvRecipe(12, 0).itemInputs(new Object[] { "dustSteel", 4 }, MaterialLeafLoader.spaceFlower.get(1))
-            .fluidInputs(TierAcid.t2.get())
-            .itemOutputs(Materials.MeteoricSteel.getDust(4))
+        hvRecipe(12, 0).itemInputs(new OreDictItemStack("dustSteel", 4), MaterialLeafLoader.spaceFlower.get(1))
+            .fluidInputs(TierAcid.t3.get())
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.MeteoricSteel, 4))
             .addTo(UniversalChemical);
 
         if (ModUtils.GalacticraftMars.isModLoaded()) {
             // titanium to desh
-            hvRecipe(12, 0).itemInputs(new Object[] { "dustTitanium", 4 }, MaterialLeafLoader.spaceFlower.get(4))
+            hvRecipe(12, 0).itemInputs(new OreDictItemStack("dustTitanium", 4), MaterialLeafLoader.spaceFlower.get(4))
                 .fluidInputs(TierAcid.t4.get())
-                .itemOutputs(Materials.Oriharukon.getDust(4))
+                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Desh, 4))
                 .addTo(UniversalChemical);
         }
 
         if (ModUtils.GalaxySpace.isModLoaded()) {
             // bismuth to oriharukon
-            hvRecipe(12, 0).itemInputs(new Object[] { "dustBismuth", 4 }, MaterialLeafLoader.spaceFlower.get(8))
+            hvRecipe(12, 0).itemInputs(new OreDictItemStack("dustBismuth", 4), MaterialLeafLoader.spaceFlower.get(8))
                 .fluidInputs(TierAcid.t4.get())
-                .itemOutputs(Materials.Oriharukon.getDust(4))
+                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Oriharukon, 4))
                 .addTo(UniversalChemical);
 
             // ice to callistoIce
-            ivRecipe(12, 0).itemInputs(new Object[] { "dustIce", 4 }, MaterialLeafLoader.spaceFlower.get(8))
+            ivRecipe(12, 0).itemInputs(new OreDictItemStack("dustIce", 4), MaterialLeafLoader.spaceFlower.get(8))
                 .fluidInputs(TierAcid.t5.get())
                 .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.CallistoIce, 4))
                 .addTo(UniversalChemical);
 
             // lead to ledox
-            ivRecipe(12, 0).itemInputs(new Object[] { "dustLead", 4 }, MaterialLeafLoader.spaceFlower.get(8))
+            ivRecipe(12, 0).itemInputs(new OreDictItemStack("dustLead", 4), MaterialLeafLoader.spaceFlower.get(8))
                 .fluidInputs(TierAcid.t5.get())
                 .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ledox, 4))
                 .addTo(UniversalChemical);
@@ -1056,13 +1057,15 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             }
 
             // meteoric iron to deep iron
-            zpmRecipe(6, 0).itemInputs(new Object[] { "dustMeteoricIron", 4 }, MaterialLeafLoader.spaceFlower.get(16))
+            zpmRecipe(6, 0)
+                .itemInputs(new OreDictItemStack("dustMeteoricIron", 4), MaterialLeafLoader.spaceFlower.get(16))
                 .fluidInputs(TierAcid.t6.get())
                 .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.DeepIron, 4))
                 .addTo(UniversalChemical);
 
             // pu241 to black plutonium
-            zpmRecipe(6, 0).itemInputs(new Object[] { "dustPlutonium241", 4 }, MaterialLeafLoader.spaceFlower.get(64))
+            zpmRecipe(6, 0)
+                .itemInputs(new OreDictItemStack("dustPlutonium241", 4), MaterialLeafLoader.spaceFlower.get(64))
                 .fluidInputs(TierAcid.t6.get())
                 .itemOutputs(GTOreDictUnificator.get(OrePrefixes.dust, Materials.BlackPlutonium, 4))
                 .addTo(UniversalChemical);
