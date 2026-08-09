@@ -7,11 +7,29 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.function.IntConsumer;
 
+import com.gtnewhorizon.cropsnh.utility.XYZConsumer;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.render.ISBRWorldContext;
+import gregtech.common.render.IMTERenderer;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -48,8 +66,10 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
+import org.lwjgl.opengl.GL11;
 
-public class MTECropManager extends MTETieredMachineBlock {
+public class MTECropManager extends MTETieredMachineBlock implements IMTERenderer
+{
 
     public static final int WEEDEX_SLOT_COUNT = 2;
     public static final int FERTILIZER_SLOT_COUNT = 4;
@@ -98,6 +118,20 @@ public class MTECropManager extends MTETieredMachineBlock {
     private int liquidFertilizerStored = 0;
     /** The maximum amount of liquid fertilizer potency that can be stored in the crop manager. */
     private final int liquidFertilizerCap;
+    /** Whether the crop manager is harvesting and planting in a circular radius.*/
+    public boolean isCircular = false;
+
+    /** Radii of the circular mode. The corresponding values of tiles that are available are as follows:
+     * These radii were chosen so that the difference between the basic square mode and the circular mode is minimized.
+     * Some circular configurations may be slightly more efficient than non-circular configurations and vice versa.
+     * Circular: 137, 225, 349, 489, 749, 973, 1201, 1597, 1885, 2217, 2561, 2933
+     * vs
+     * Square:   121, 225, 361, 529, 729, 961, 1225, 1529, 1849, 2209, 2601, 3025
+     */
+    private final static int[] circularRadii = {0, 6, 8, 10, 12, 15, 17, 19, 22, 24, 26, 28, 30};
+
+    /** Toggles the harvesting overlay of what is in range of harvesting */
+    public boolean showManagedArea = false;
 
     /** A cache of all known crops within the crop manager's range. */
     private final HashSet<ICropStickTile> cropCache = new HashSet<>();
@@ -271,6 +305,16 @@ public class MTECropManager extends MTETieredMachineBlock {
         return this.getHorizontalRadius() * 2 + 1;
     }
 
+    public static int getCircularRadius(int tier)
+    {
+        return circularRadii[tier];
+    }
+
+    private int getCircularRadius()
+    {
+        return getCircularRadius(this.mTier);
+    }
+
     private int getVerticalRadius() {
         return 2;
     }
@@ -324,26 +368,50 @@ public class MTECropManager extends MTETieredMachineBlock {
         harvest(baseMetaTileEntity);
     }
 
-    private void updateCropCache(IGregTechTileEntity baseMetaTileEntity) {
-        // empty out the cache before we do anything
+    private void updateCropCache(IGregTechTileEntity baseMetaTileEntity)
+    {
         if (!this.cropCache.isEmpty()) {
             this.cropCache.clear();
         }
+
+        forEachInRange((x, y, z) -> {
+            TileEntity tileEntity = baseMetaTileEntity.getTileEntityOffset(x, y, z);
+
+            if (tileEntity instanceof ICropStickTile cropTE) {
+                this.cropCache.add(cropTE);
+            }
+        });
+
+        this.isCacheInvalid = false;
+    }
+
+    private void forEachInRange(XYZConsumer consumer) {
         final int v = this.getVerticalRadius();
-        final int h = this.getHorizontalRadius();
-        // get to registering
-        for (int y = -v; y <= v; y++) {
-            for (int x = -h; x <= h; x++) {
-                for (int z = -h; z <= h; z++) {
-                    TileEntity tileEntity = baseMetaTileEntity.getTileEntityOffset(x, y, z);
-                    if (tileEntity instanceof ICropStickTile cropTE) {
-                        this.cropCache.add(cropTE);
+
+        if (isCircular) {
+            final int r = this.getCircularRadius();
+
+            for (int y = -v; y <= v; y++) {
+                for (int x = -r; x <= r; x++) {
+                    for (int z = -r; z <= r; z++)
+                    {
+                        if (x * x + z * z <= (r + 0.5) * (r + 0.5)) {
+                            consumer.accept(x, y, z);
+                        }
+                    }
+                }
+            }
+        } else {
+            final int h = this.getHorizontalRadius();
+
+            for (int y = -v; y <= v; y++) {
+                for (int x = -h; x <= h; x++) {
+                    for (int z = -h; z <= h; z++) {
+                        consumer.accept(x, y, z);
                     }
                 }
             }
         }
-
-        this.isCacheInvalid = false;
     }
 
     // endregion event handlers
@@ -885,9 +953,169 @@ public class MTECropManager extends MTETieredMachineBlock {
             TextureFactory.of(CropsNHBlockTextures.Casing_CropHarvester_Cutter) };
     }
 
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void renderTESR(double blockX, double blockY, double blockZ, float timeSinceLastTick) {
+        if (!this.showManagedArea) {
+            return;
+        }
+
+        Tessellator tes = Tessellator.instance;
+        IIcon icon = CropsNHBlockTextures.MANAGED_AREA_OVERLAY.getIcon();
+
+        GL11.glPushMatrix();
+
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0.01F);
+
+        GL11.glDisable(GL11.GL_CULL_FACE);
+        GL11.glDepthMask(false);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(
+            TextureMap.locationBlocksTexture
+        );
+
+        tes.setColorRGBA_F(1.0F, 1.0F, 1.0F, 0.35F);
+        tes.setBrightness(15728880);
+
+        tes.startDrawingQuads();
+
+        forEachInRange((x, y, z) -> {
+            renderGhostBlock(
+                blockX + x,
+                blockY + y,
+                blockZ + z,
+                x, y, z,
+                icon.getMinU(), icon.getMaxU(),
+                icon.getMinV(), icon.getMaxV()
+            );
+        });
+
+        tes.draw();
+
+        GL11.glEnable(GL11.GL_CULL_FACE);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glDepthMask(true);
+        GL11.glPopMatrix();
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox(int x, int y, int z) {
+        int h;
+        if (isCircular)
+        {
+            h = getCircularRadius();
+        }
+        else
+        {
+            h = getHorizontalRadius();
+        }
+
+        int v = getVerticalRadius();
+
+        return AxisAlignedBB.getBoundingBox(
+            x - h,
+            y - v,
+            z - h,
+            x + h + 1,
+            y + v + 1,
+            z + h + 1
+        );
+    }
+
+    private boolean isInManagedArea(int x, int y, int z) {
+        final int v = this.getVerticalRadius();
+
+        if (Math.abs(y) > v) {
+            return false;
+        }
+
+        if (isCircular) {
+            final int r = this.getCircularRadius();
+            return x * x + z * z <= (r + 0.5) * (r + 0.5);
+        }
+
+        final int h = this.getHorizontalRadius();
+        return Math.abs(x) <= h && Math.abs(z) <= h;
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void renderGhostBlock(double x, double y, double z, int rX, int rY, int rZ,
+                                  double minU, double maxU, double minV, double maxV) {
+        Tessellator tes = Tessellator.instance;
+
+        // Anti-Z-fighting stuff
+        double eps = 0.001;
+
+        double x1 = x;
+        double x2 = x + 1.0;
+        double y1 = y;
+        double y2 = y + 1.0;
+        double z1 = z;
+        double z2 = z + 1.0;
+
+        // Bottom
+        if (!isInManagedArea(rX, rY - 1, rZ))
+        {
+            tes.addVertexWithUV(x1, y1 + eps, z1, minU, minV);
+            tes.addVertexWithUV(x2, y1 + eps, z1, maxU, minV);
+            tes.addVertexWithUV(x2, y1 + eps, z2, maxU, maxV);
+            tes.addVertexWithUV(x1, y1 + eps, z2, minU, maxV);
+        }
+
+        // Top
+        if (!isInManagedArea(rX, rY + 1, rZ))
+        {
+            tes.addVertexWithUV(x1, y2 - eps, z2, minU, maxV);
+            tes.addVertexWithUV(x2, y2 - eps, z2, maxU, maxV);
+            tes.addVertexWithUV(x2, y2 - eps, z1, maxU, minV);
+            tes.addVertexWithUV(x1, y2 - eps, z1, minU, minV);
+        }
+
+        // North
+        if (!isInManagedArea(rX, rY, rZ - 1))
+        {
+            tes.addVertexWithUV(x1, y1, z1 + eps, minU, maxV);
+            tes.addVertexWithUV(x1, y2, z1 + eps, minU, minV);
+            tes.addVertexWithUV(x2, y2, z1 + eps, maxU, minV);
+            tes.addVertexWithUV(x2, y1, z1 + eps, maxU, maxV);
+        }
+
+        // South
+        if (!isInManagedArea(rX, rY, rZ + 1))
+        {
+            tes.addVertexWithUV(x2, y1, z2 - eps, minU, maxV);
+            tes.addVertexWithUV(x2, y2, z2 - eps, minU, minV);
+            tes.addVertexWithUV(x1, y2, z2 - eps, maxU, minV);
+            tes.addVertexWithUV(x1, y1, z2 - eps, maxU, maxV);
+        }
+
+        // West
+        if (!isInManagedArea(rX - 1, rY, rZ))
+        {
+
+            tes.addVertexWithUV(x1 + eps, y1, z2, minU, maxV);
+            tes.addVertexWithUV(x1 + eps, y2, z2, minU, minV);
+            tes.addVertexWithUV(x1 + eps, y2, z1, maxU, minV);
+            tes.addVertexWithUV(x1 + eps, y1, z1, maxU, maxV);
+        }
+
+        // East
+        if (!isInManagedArea(rX + 1, rY, rZ))
+        {
+            tes.addVertexWithUV(x2 - eps, y1, z1, minU, maxV);
+            tes.addVertexWithUV(x2 - eps, y2, z1, minU, minV);
+            tes.addVertexWithUV(x2 - eps, y2, z2, maxU, minV);
+            tes.addVertexWithUV(x2 - eps, y1, z2, maxU, maxV);
+        }
+    }
+
     // endregion rendering
 
-    // region nbt
+    // region nbt and syncing
 
     @Override
     public void saveNBTData(NBTTagCompound nbt) {
@@ -900,6 +1128,9 @@ public class MTECropManager extends MTETieredMachineBlock {
         nbt.setBoolean("mWeedExEnabled", this.weedEXEnabled);
         nbt.setBoolean("mWaterEnabled", this.waterEnabled);
         nbt.setBoolean("mFertilizerEnabled", this.fertilizerEnabled);
+        nbt.setBoolean("mCircular", this.isCircular);
+        nbt.setBoolean("mAreaOverlay", this.showManagedArea);
+
         // save the item overflow queue
         if (!this.dropOverflow.isEmpty()) {
             nbt.setTag("mDropOverflow", NBTHelper.saveItemStackMap(this.dropOverflow));
@@ -923,6 +1154,9 @@ public class MTECropManager extends MTETieredMachineBlock {
         this.weedEXEnabled = NBTHelper.getBoolean(nbt, "mWeedExEnabled", false);
         this.waterEnabled = NBTHelper.getBoolean(nbt, "mWaterEnabled", false);
         this.fertilizerEnabled = NBTHelper.getBoolean(nbt, "mFertilizerEnabled", false);
+        this.isCircular = NBTHelper.getBoolean(nbt, "mCircular", false);
+        this.showManagedArea = NBTHelper.getBoolean(nbt, "mAreaOverlay", false);
+
         // load the item overflow queue
         if (nbt.hasKey("mDropOverflow", Constants.NBT.TAG_LIST)) {
             NBTHelper.loadItemStackMap(
@@ -932,7 +1166,32 @@ public class MTECropManager extends MTETieredMachineBlock {
         }
     }
 
-    // endregion nbt
+
+    @Override
+    public NBTTagCompound getDescriptionData() {
+        NBTTagCompound data = new NBTTagCompound();
+        data.setTag("renderState", new NBTTagByte((byte) ((this.showManagedArea ? 1 : 0) | ((this.isCircular ? 1 : 0) << 1))));
+        return data;
+    }
+
+    @Override
+    public void onDescriptionPacket(NBTTagCompound data) {
+        super.onDescriptionPacket(data);
+        if (data.hasKey("renderState"))
+        {
+            byte renderState = data.getByte("renderState");
+            if ((renderState & 1) == 1)
+            {
+                this.showManagedArea = true;
+            }
+            if ((renderState & 2) == 2)
+            {
+                this.isCircular = true;
+            }
+        }
+    }
+
+    // endregion nbt and syncing
 
     // region ui
 
@@ -954,7 +1213,8 @@ public class MTECropManager extends MTETieredMachineBlock {
             StatCollector.translateToLocalFormatted(
                 "cropsnh_tooltip.cropManager.tooltip.4",
                 TooltipHelper.tierText(formatNumber(this.getHorizontalDiameter())),
-                TooltipHelper.tierText(formatNumber(this.getVerticalDiameter()))),
+                TooltipHelper.tierText(formatNumber(this.getVerticalDiameter())),
+                TooltipHelper.tierText(formatNumber((this.getCircularRadius() * 2) + 1))),
             StatCollector.translateToLocalFormatted(
                 "cropsnh_tooltip.cropManager.tooltip.5",
                 TooltipHelper.coloredText(

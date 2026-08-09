@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.init;
 
 import com.cleanroommc.modularui.drawable.UITexture;
 import com.gtnewhorizon.cropsnh.reference.Reference;
+import gregtech.api.enums.Mods;
 
 public class CropsNHUITextures {
 
@@ -86,6 +87,16 @@ public class CropsNHUITextures {
         .build();
     public static final UITexture BUTTON_OVERLAY_TOGGLE_HARVEST = UITexture.builder()
         .location(Reference.MOD_ID, "gui/overlay_button/harvest_toggle")
+        .canApplyTheme()
+        .fullImage()
+        .build();
+    public static final UITexture BUTTON_OVERLAY_MANAGED_AREA_CYCLE = UITexture.builder()
+        .location(Reference.MOD_ID, "gui/overlay_button/managed_area_cycle")
+        .canApplyTheme()
+        .fullImage()
+        .build();
+    public static final UITexture BUTTON_OVERLAY_TOGGLE_MANAGED_AREA_OVERLAY = UITexture.builder()
+        .location(Mods.GregTech.ID, "gui/overlay_button/bounding_box")
         .canApplyTheme()
         .fullImage()
         .build();
