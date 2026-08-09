@@ -7,25 +7,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.function.IntConsumer;
 
-import com.gtnewhorizon.cropsnh.utility.XYZConsumer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
-import gregtech.api.render.ISBRWorldContext;
-import gregtech.common.render.IMTERenderer;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
@@ -39,6 +27,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.lwjgl.opengl.GL11;
 
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
@@ -54,8 +43,11 @@ import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
+import com.gtnewhorizon.cropsnh.utility.XYZConsumer;
 import com.gtnewhorizon.gtnhlib.util.map.ItemStackMap;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
@@ -66,10 +58,9 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.tooltip.TooltipHelper;
-import org.lwjgl.opengl.GL11;
+import gregtech.common.render.IMTERenderer;
 
-public class MTECropManager extends MTETieredMachineBlock implements IMTERenderer
-{
+public class MTECropManager extends MTETieredMachineBlock implements IMTERenderer {
 
     public static final int WEEDEX_SLOT_COUNT = 2;
     public static final int FERTILIZER_SLOT_COUNT = 4;
@@ -118,17 +109,18 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
     private int liquidFertilizerStored = 0;
     /** The maximum amount of liquid fertilizer potency that can be stored in the crop manager. */
     private final int liquidFertilizerCap;
-    /** Whether the crop manager is harvesting and planting in a circular radius.*/
+    /** Whether the crop manager is harvesting and planting in a circular radius. */
     public boolean isCircular = false;
 
-    /** Radii of the circular mode. The corresponding values of tiles that are available are as follows:
+    /**
+     * Radii of the circular mode. The corresponding values of tiles that are available are as follows:
      * These radii were chosen so that the difference between the basic square mode and the circular mode is minimized.
      * Some circular configurations may be slightly more efficient than non-circular configurations and vice versa.
      * Circular: 137, 225, 349, 489, 749, 973, 1201, 1597, 1885, 2217, 2561, 2933
      * vs
-     * Square:   121, 225, 361, 529, 729, 961, 1225, 1529, 1849, 2209, 2601, 3025
+     * Square: 121, 225, 361, 529, 729, 961, 1225, 1529, 1849, 2209, 2601, 3025
      */
-    private final static int[] circularRadii = {0, 6, 8, 10, 12, 15, 17, 19, 22, 24, 26, 28, 30};
+    private final static int[] circularRadii = { 0, 6, 8, 10, 12, 15, 17, 19, 22, 24, 26, 28, 30 };
 
     /** Toggles the harvesting overlay of what is in range of harvesting */
     public boolean showManagedArea = false;
@@ -305,13 +297,11 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
         return this.getHorizontalRadius() * 2 + 1;
     }
 
-    public static int getCircularRadius(int tier)
-    {
+    public static int getCircularRadius(int tier) {
         return circularRadii[tier];
     }
 
-    private int getCircularRadius()
-    {
+    private int getCircularRadius() {
         return getCircularRadius(this.mTier);
     }
 
@@ -368,8 +358,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
         harvest(baseMetaTileEntity);
     }
 
-    private void updateCropCache(IGregTechTileEntity baseMetaTileEntity)
-    {
+    private void updateCropCache(IGregTechTileEntity baseMetaTileEntity) {
         if (!this.cropCache.isEmpty()) {
             this.cropCache.clear();
         }
@@ -393,8 +382,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
 
             for (int y = -v; y <= v; y++) {
                 for (int x = -r; x <= r; x++) {
-                    for (int z = -r; z <= r; z++)
-                    {
+                    for (int z = -r; z <= r; z++) {
                         if (x * x + z * z <= (r + 0.5) * (r + 0.5)) {
                             consumer.accept(x, y, z);
                         }
@@ -973,9 +961,9 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glDepthMask(false);
         GL11.glDisable(GL11.GL_LIGHTING);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(
-            TextureMap.locationBlocksTexture
-        );
+        Minecraft.getMinecraft()
+            .getTextureManager()
+            .bindTexture(TextureMap.locationBlocksTexture);
 
         tes.setColorRGBA_F(1.0F, 1.0F, 1.0F, 0.35F);
         tes.setBrightness(15728880);
@@ -987,10 +975,13 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
                 blockX + x,
                 blockY + y,
                 blockZ + z,
-                x, y, z,
-                icon.getMinU(), icon.getMaxU(),
-                icon.getMinV(), icon.getMaxV()
-            );
+                x,
+                y,
+                z,
+                icon.getMinU(),
+                icon.getMaxU(),
+                icon.getMinV(),
+                icon.getMaxV());
         });
 
         tes.draw();
@@ -1005,25 +996,15 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
     @Override
     public AxisAlignedBB getRenderBoundingBox(int x, int y, int z) {
         int h;
-        if (isCircular)
-        {
+        if (isCircular) {
             h = getCircularRadius();
-        }
-        else
-        {
+        } else {
             h = getHorizontalRadius();
         }
 
         int v = getVerticalRadius();
 
-        return AxisAlignedBB.getBoundingBox(
-            x - h,
-            y - v,
-            z - h,
-            x + h + 1,
-            y + v + 1,
-            z + h + 1
-        );
+        return AxisAlignedBB.getBoundingBox(x - h, y - v, z - h, x + h + 1, y + v + 1, z + h + 1);
     }
 
     private boolean isInManagedArea(int x, int y, int z) {
@@ -1043,8 +1024,8 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
     }
 
     @SideOnly(Side.CLIENT)
-    private void renderGhostBlock(double x, double y, double z, int rX, int rY, int rZ,
-                                  double minU, double maxU, double minV, double maxV) {
+    private void renderGhostBlock(double x, double y, double z, int rX, int rY, int rZ, double minU, double maxU,
+        double minV, double maxV) {
         Tessellator tes = Tessellator.instance;
 
         // Anti-Z-fighting stuff
@@ -1058,8 +1039,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
         double z2 = z + 1.0;
 
         // Bottom
-        if (!isInManagedArea(rX, rY - 1, rZ))
-        {
+        if (!isInManagedArea(rX, rY - 1, rZ)) {
             tes.addVertexWithUV(x1, y1 + eps, z1, minU, minV);
             tes.addVertexWithUV(x2, y1 + eps, z1, maxU, minV);
             tes.addVertexWithUV(x2, y1 + eps, z2, maxU, maxV);
@@ -1067,8 +1047,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
         }
 
         // Top
-        if (!isInManagedArea(rX, rY + 1, rZ))
-        {
+        if (!isInManagedArea(rX, rY + 1, rZ)) {
             tes.addVertexWithUV(x1, y2 - eps, z2, minU, maxV);
             tes.addVertexWithUV(x2, y2 - eps, z2, maxU, maxV);
             tes.addVertexWithUV(x2, y2 - eps, z1, maxU, minV);
@@ -1076,8 +1055,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
         }
 
         // North
-        if (!isInManagedArea(rX, rY, rZ - 1))
-        {
+        if (!isInManagedArea(rX, rY, rZ - 1)) {
             tes.addVertexWithUV(x1, y1, z1 + eps, minU, maxV);
             tes.addVertexWithUV(x1, y2, z1 + eps, minU, minV);
             tes.addVertexWithUV(x2, y2, z1 + eps, maxU, minV);
@@ -1085,8 +1063,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
         }
 
         // South
-        if (!isInManagedArea(rX, rY, rZ + 1))
-        {
+        if (!isInManagedArea(rX, rY, rZ + 1)) {
             tes.addVertexWithUV(x2, y1, z2 - eps, minU, maxV);
             tes.addVertexWithUV(x2, y2, z2 - eps, minU, minV);
             tes.addVertexWithUV(x1, y2, z2 - eps, maxU, minV);
@@ -1094,8 +1071,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
         }
 
         // West
-        if (!isInManagedArea(rX - 1, rY, rZ))
-        {
+        if (!isInManagedArea(rX - 1, rY, rZ)) {
 
             tes.addVertexWithUV(x1 + eps, y1, z2, minU, maxV);
             tes.addVertexWithUV(x1 + eps, y2, z2, minU, minV);
@@ -1104,8 +1080,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
         }
 
         // East
-        if (!isInManagedArea(rX + 1, rY, rZ))
-        {
+        if (!isInManagedArea(rX + 1, rY, rZ)) {
             tes.addVertexWithUV(x2 - eps, y1, z1, minU, maxV);
             tes.addVertexWithUV(x2 - eps, y2, z1, minU, minV);
             tes.addVertexWithUV(x2 - eps, y2, z2, maxU, minV);
@@ -1166,26 +1141,24 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
         }
     }
 
-
     @Override
     public NBTTagCompound getDescriptionData() {
         NBTTagCompound data = new NBTTagCompound();
-        data.setTag("renderState", new NBTTagByte((byte) ((this.showManagedArea ? 1 : 0) | ((this.isCircular ? 1 : 0) << 1))));
+        data.setTag(
+            "renderState",
+            new NBTTagByte((byte) ((this.showManagedArea ? 1 : 0) | ((this.isCircular ? 1 : 0) << 1))));
         return data;
     }
 
     @Override
     public void onDescriptionPacket(NBTTagCompound data) {
         super.onDescriptionPacket(data);
-        if (data.hasKey("renderState"))
-        {
+        if (data.hasKey("renderState")) {
             byte renderState = data.getByte("renderState");
-            if ((renderState & 1) == 1)
-            {
+            if ((renderState & 1) == 1) {
                 this.showManagedArea = true;
             }
-            if ((renderState & 2) == 2)
-            {
+            if ((renderState & 2) == 2) {
                 this.isCircular = true;
             }
         }

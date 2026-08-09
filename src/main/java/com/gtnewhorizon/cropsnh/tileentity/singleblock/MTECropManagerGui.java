@@ -5,7 +5,6 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.ge
 
 import java.util.function.IntSupplier;
 
-import com.cleanroommc.modularui.widgets.CycleButtonWidget;
 import net.minecraft.util.StatCollector;
 
 import com.cleanroommc.modularui.api.drawable.IKey;
@@ -17,6 +16,7 @@ import com.cleanroommc.modularui.value.sync.DoubleSyncValue;
 import com.cleanroommc.modularui.value.sync.IntSyncValue;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.widget.ParentWidget;
+import com.cleanroommc.modularui.widgets.CycleButtonWidget;
 import com.cleanroommc.modularui.widgets.ProgressWidget;
 import com.cleanroommc.modularui.widgets.ToggleButton;
 import com.cleanroommc.modularui.widgets.layout.Flow;
@@ -179,9 +179,8 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
         BooleanSyncValue harvestSync = new BooleanSyncValue(
             () -> machine.harvestEnabled,
             (v) -> machine.harvestEnabled = v).allowC2S();
-        BooleanSyncValue circularSync = new BooleanSyncValue(
-            () -> machine.isCircular,
-            (v) -> machine.isCircular = v).allowC2S();
+        BooleanSyncValue circularSync = new BooleanSyncValue(() -> machine.isCircular, (v) -> machine.isCircular = v)
+            .allowC2S();
         BooleanSyncValue managedAreaOverlaySync = new BooleanSyncValue(
             () -> machine.showManagedArea,
             (v) -> machine.showManagedArea = v).allowC2S();
@@ -247,7 +246,8 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
                     .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_MANAGED_AREA_OVERLAY))
             .child(
                 new CycleButtonWidget().value(circularSync)
-                    .tooltip(0,
+                    .tooltip(
+                        0,
                         tooltip -> tooltip
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.cycle.managedAreaShape"))
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.cycle.square")))
@@ -257,8 +257,7 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.cycle.managedAreaShape"))
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.cycle.circular")))
                     .stateOverlay(CropsNHUITextures.BUTTON_OVERLAY_MANAGED_AREA_CYCLE))
-            .child(createSlot(MTECropManager.SLOT_BATTERY)
-                .marginLeft(MTETieredMachineBlockBaseGui.SLOT_SIZE));
+            .child(createSlot(MTECropManager.SLOT_BATTERY).marginLeft(MTETieredMachineBlockBaseGui.SLOT_SIZE));
     }
 
 }
