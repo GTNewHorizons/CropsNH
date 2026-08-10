@@ -28,7 +28,6 @@ import com.gtnewhorizon.cropsnh.farming.SeedData;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
-import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -122,13 +121,13 @@ public abstract class CropsNHUtils {
      * @return Null if nothing was found else the seed data for the stack.
      */
     public static @Nullable ISeedData getSeedData(ItemStack stack, boolean allowAltSeeds, boolean analyzedOnly) {
-        if (CropsNHUtils.isStackInvalid(stack) || !(stack.getItem() instanceof ItemGenericSeed)) return null;
+        if (CropsNHUtils.isStackInvalid(stack)) return null;
         // check that it's a crop card and that it can cross.
         ICropCard cc = CropRegistry.instance.get(stack, allowAltSeeds);
         if (cc == null) return null;
         // fail if the crop isn't analyzed
         SeedStats stats = SeedStats.getStatsFromStack(stack);
-        if (stats == null || (analyzedOnly && !stats.isAnalyzed())) return null;
+        if (stats == null || (!allowAltSeeds && analyzedOnly && !stats.isAnalyzed())) return null;
         return new SeedData(cc, stats, stack);
     }
 
