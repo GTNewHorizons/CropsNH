@@ -96,7 +96,7 @@ public abstract class CropsNHUtils {
     /**
      * Attempts to get the seed data for a given stack.
      *
-     * @apiNote Alt seeds are treated as analyzed seeds with default stats when found.
+     * @apiNote Alt seeds are treated as analyzed seeds with default analyzed stats when allowed and found.
      *
      * @param stack         The stack to validate
      * @param allowAltSeeds True to allow alt seeds to be parsed.
