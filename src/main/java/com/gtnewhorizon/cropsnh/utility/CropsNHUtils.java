@@ -94,7 +94,7 @@ public abstract class CropsNHUtils {
     }
 
     /**
-     * Attempts to detect if the stack contains analyzed seeds or an alternative seed if allowed.
+     * Attempts to get the seed data for a given stack.
      *
      * @param stack         The stack to validate
      * @param allowAltSeeds True to allow alt seeds to be parsed.
