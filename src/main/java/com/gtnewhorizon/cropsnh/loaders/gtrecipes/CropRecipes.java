@@ -427,15 +427,31 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.scheeliniumLeaf, Materials.Lithium);
         createOreDuplicationRecipe(MaterialLeafLoader.scheeliniumLeaf, Materials.Tungsten);
 
-        createOreDuplicationRecipe(MaterialLeafLoader.platinaLeaf, Materials.Platinum);
+        createOreDuplicationRecipe(
+            MaterialLeafLoader.platinaLeaf,
+            Materials.Platinum,
+            null,
+            WerkstoffLoader.PTMetallicPowder.get(OrePrefixes.dust, 8));
         createOreDuplicationRecipe(MaterialLeafLoader.platinaLeaf, Materials.Cooperite);
-        createOreDuplicationRecipe(MaterialLeafLoader.platinaLeaf, Materials.Palladium);
+        createOreDuplicationRecipe(
+            MaterialLeafLoader.platinaLeaf,
+            Materials.Palladium,
+            null,
+            WerkstoffLoader.PDMetallicPowder.get(OrePrefixes.dust, 8));
         createOreDuplicationRecipe(MaterialLeafLoader.platinaLeaf, Materials.Neodymium);
         createOreDuplicationRecipe(MaterialLeafLoader.platinaLeaf, Materials.Bastnasite);
 
-        createOreDuplicationRecipe(MaterialLeafLoader.iridineFlower, Materials.Iridium);
+        createOreDuplicationRecipe(
+            MaterialLeafLoader.iridineFlower,
+            Materials.Iridium,
+            WerkstoffLoader.PTConcentrate.getFluidOrGas(2000),
+            WerkstoffLoader.IrLeachResidue.get(OrePrefixes.dust, 8));
 
-        createOreDuplicationRecipe(MaterialLeafLoader.osmianthFlower, Materials.Osmium);
+        createOreDuplicationRecipe(
+            MaterialLeafLoader.osmianthFlower,
+            Materials.Osmium,
+            WerkstoffLoader.AcidicIridiumSolution.getFluidOrGas(1000),
+            WerkstoffLoader.IrOsLeachResidue.get(OrePrefixes.dust, 8));
 
         createOreDuplicationRecipe(MaterialLeafLoader.reactoriaLeaf, Materials.Pitchblende);
 
@@ -1356,6 +1372,20 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(variant, oreType, Voltage.LV, fluidByproduct);
     }
 
+    public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType,
+        FluidStack fluidByproduct, ItemStack impureDust) {
+        if (variant == null || oreType == null) {
+            throw new IllegalArgumentException("no argument can be null");
+        }
+        createOreDuplicationRecipe(
+            variant.get(1),
+            GTOreDictUnificator.get(OrePrefixes.crushed, oreType, 1),
+            oreType,
+            Voltage.LV,
+            fluidByproduct,
+            impureDust);
+    }
+
     public static void createOreDuplicationRecipe(IMaterialLeafVariant variant, Materials oreType, Voltage voltage,
         FluidStack fluidByproduct) {
         if (variant == null || oreType == null) {
@@ -1376,13 +1406,19 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
 
     public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, Materials oreType, Voltage voltage,
         FluidStack fluidByproduct) {
+        createOreDuplicationRecipe(leaf, crushed, oreType, voltage, fluidByproduct, null);
+    }
+
+    public static void createOreDuplicationRecipe(ItemStack leaf, ItemStack crushed, Materials oreType, Voltage voltage,
+        FluidStack fluidByproduct, ItemStack impureDust) {
         if (leaf == null || crushed == null || oreType == null) {
             throw new IllegalArgumentException("no argument can be null");
         }
         ItemStack purified = GTOreDictUnificator
             .get(OrePrefixes.crushedPurified, oreType, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT);
-        ItemStack impureDust = GTOreDictUnificator
-            .get(OrePrefixes.dustImpure, oreType, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT);
+        if (impureDust == null) {
+            impureDust = GTOreDictUnificator.get(OrePrefixes.dustImpure, oreType, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT);
+        }
         if (fluidByproduct == null && !oreType.mOreByProducts.isEmpty()) {
             fluidByproduct = oreType.mOreByProducts.get(0)
                 .getMolten(1 * INGOTS);
