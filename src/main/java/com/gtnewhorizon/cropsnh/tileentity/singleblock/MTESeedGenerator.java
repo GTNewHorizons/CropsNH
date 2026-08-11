@@ -183,7 +183,7 @@ public class MTESeedGenerator extends MTEBasicMachine {
         int fluidToConsume = 0;
         outer: for (int i = 0; i < this.mInputSlotCount; i++) {
             ItemStack stackInSlot = this.getInputAt(i);
-            seedData = CropsNHUtils.getAnalyzedSeedData(stackInSlot);
+            seedData = CropsNHUtils.getSeedData(stackInSlot, false, true);
             if (seedData != null) {
                 // don't replicate seeds that require the synthesizer in the seed generator
                 if (seedData.getCrop()

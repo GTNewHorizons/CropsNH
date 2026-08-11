@@ -37,7 +37,7 @@ public class MTEIndustrialFarmItemStackHandler extends ItemStackHandler {
 
         switch (slot) {
             case MTEIndustrialFarm.SLOT_SEED -> {
-                ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(stack);
+                ISeedData seedData = CropsNHUtils.getSeedData(stack, false, true);
                 if (seedData == null) return false;
                 if (seedData.getCrop()
                     .getMinSeedBedTier() > this.multiblock.upgradeTier) return false;
