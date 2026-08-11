@@ -104,7 +104,7 @@ public abstract class CropsNHUtils {
      * @return Null if nothing was found else the seed data for the stack.
      */
     public static @Nullable ISeedData getSeedData(ItemStack stack, boolean allowAltSeeds, boolean analyzedOnly) {
-        final boolean isAltSeed = stack.getItem() instanceof ItemGenericSeed;
+        final boolean isAltSeed = !(stack.getItem() instanceof ItemGenericSeed);
         if (CropsNHUtils.isStackInvalid(stack) || (isAltSeed && !allowAltSeeds)) return null;
         // check that it's a crop card and that it can cross.
         ICropCard cc = CropRegistry.instance.get(stack, allowAltSeeds);
