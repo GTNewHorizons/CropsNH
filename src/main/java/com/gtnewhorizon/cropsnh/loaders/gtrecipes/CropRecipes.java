@@ -52,6 +52,7 @@ import bartworks.common.loaders.BioCultureLoader;
 import bartworks.system.material.Werkstoff;
 import bartworks.system.material.WerkstoffLoader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import goodgenerator.items.GGMaterial;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -1419,10 +1420,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         if (impureDust == null) {
             impureDust = GTOreDictUnificator.get(OrePrefixes.dustImpure, oreType, DEFAULT_ORE_DUPLICATION_ORE_AMOUNT);
         }
-        if (fluidByproduct == null && !oreType.mOreByProducts.isEmpty()) {
-            fluidByproduct = oreType.mOreByProducts.get(0)
-                .getMolten(1 * INGOTS);
-        }
+        if (fluidByproduct == null) fluidByproduct = getOreByproduct(oreType);
 
         createOreDuplicationRecipe(
             new ItemStack[] { leaf, crushed },
@@ -1476,6 +1474,15 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         builder.duration(Math.max(1, builder.getDuration() / 4))
             .fluidInputs(TierAcid.distilWater.get())
             .addTo(recipeMap);
+    }
+
+    private static FluidStack getOreByproduct(Materials oreType) {
+        if (oreType == Materials.Naquadah) return GGMaterial.enrichedNaquadahGoo.getFluidOrGas(2 * INGOTS);
+        if (oreType == Materials.NaquadahEnriched) return GGMaterial.naquadahGoo.getFluidOrGas(2 * INGOTS);
+        if (oreType == Materials.Naquadria) return GGMaterial.naquadriaGoo.getFluidOrGas(2 * INGOTS);
+        if (oreType.mOreByProducts.isEmpty()) return null;
+        return oreType.mOreByProducts.get(0)
+            .getMolten(1 * INGOTS);
     }
 
     // endregion ore duplication helpers
