@@ -91,7 +91,7 @@ public class NEICropsNHAlternateSeedHandler extends CropsNHNEIHandler {
 
     @Override
     protected void loadCraftingRecipesDo(ItemStack stack) {
-        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(stack);
+        ISeedData seedData = CropsNHUtils.getSeedData(stack, false, true);
         if (seedData == null || isBadArg(stack)) {
             return;
         }

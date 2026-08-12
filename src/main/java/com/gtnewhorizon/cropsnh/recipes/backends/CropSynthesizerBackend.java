@@ -37,7 +37,7 @@ public class CropSynthesizerBackend extends RecipeMapBackend {
 
     @Override
     public boolean containsInput(ItemStack item) {
-        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(item);
+        ISeedData seedData = CropsNHUtils.getSeedData(item, false, true);
         return (seedData != null && cropIndex.containsKey(seedData.getCrop())) || super.containsInput(item);
     }
 }

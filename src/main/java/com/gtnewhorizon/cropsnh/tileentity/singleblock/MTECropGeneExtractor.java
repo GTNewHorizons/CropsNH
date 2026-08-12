@@ -139,7 +139,7 @@ public class MTECropGeneExtractor extends MTEBasicMachine {
 
     @Override
     public int checkRecipe(boolean skipOC) {
-        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(getInputAt(0));
+        ISeedData seedData = CropsNHUtils.getSeedData(getInputAt(0), false, true);
         ItemStack circuitStack = getStackInSlot(getCircuitSlot());
         ItemStack dataOrb = getSpecialSlot();
 
@@ -245,7 +245,7 @@ public class MTECropGeneExtractor extends MTEBasicMachine {
             return isDataOrb(stack);
         }
         if (index == this.getInputSlot()) {
-            return CropsNHUtils.getAnalyzedSeedData(stack) != null;
+            return CropsNHUtils.getSeedData(stack, false, true) != null;
         }
         return super.allowPutStackValidated(baseMetaTileEntity, index, side, stack);
     }
