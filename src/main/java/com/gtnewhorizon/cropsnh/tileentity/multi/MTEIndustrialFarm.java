@@ -764,7 +764,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 formatNumber(this.getFertilizerPotencyNeededPerCycle()) + getFluidUnit(),
                 formatNumber(CYCLE_DURATION)));
         // nutrient score
-        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(this.getSeedStack());
+        ISeedData seedData = CropsNHUtils.getSeedData(this.getSeedStack(), false, true);
         if (seedData != null) {
             ret.add(
                 StatCollector.translateToLocalFormatted(
@@ -984,7 +984,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             // the seed must be a valid item and an analyzed seed.
             final ItemStack seedCandidate = inputs.get(seedIndex);
             // check if it's an analyzed crop
-            final ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(seedCandidate);
+            final ISeedData seedData = CropsNHUtils.getSeedData(seedCandidate, false, true);
             if (seedData == null) continue;
             if (seedData.getCrop()
                 .getMinSeedBedTier() > this.upgradeTier) return CHECK_RECIPE_RESULT_SEED_BED_TIER_TOO_LOW;
@@ -1203,7 +1203,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         if (this.upgradeTier < MIN_CASING_TIER) return CheckRecipeResultRegistry.INTERNAL_ERROR;
 
         // get seed
-        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(this.getSeedStack());
+        ISeedData seedData = CropsNHUtils.getSeedData(this.getSeedStack(), false, true);
         if (seedData == null) return CheckRecipeResultRegistry.NO_RECIPE;
 
         // check if the seed can grow in the machine.
