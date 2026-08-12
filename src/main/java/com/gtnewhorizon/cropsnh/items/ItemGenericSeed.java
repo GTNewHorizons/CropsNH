@@ -105,7 +105,7 @@ public class ItemGenericSeed extends ItemCropsNH {
     @Override
     public EnumRarity getRarity(ItemStack stack) {
         // load the crop card
-        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(stack);
+        ISeedData seedData = CropsNHUtils.getSeedData(stack, false, true);
         if (seedData == null) return super.getRarity(stack);
 
         return seedData.getCrop()

@@ -50,7 +50,7 @@ public class CropsNHNEICropSynthesizerHandler extends GTNEIDefaultHandler {
     }
 
     private void findValidRecipe(ItemStack stack, Consumer<ItemStack> superCall) {
-        ISeedData seedData = CropsNHUtils.getAnalyzedSeedData(stack);
+        ISeedData seedData = CropsNHUtils.getSeedData(stack, false, true);
         if (seedData == null) {
             superCall.accept(stack);
             return;
