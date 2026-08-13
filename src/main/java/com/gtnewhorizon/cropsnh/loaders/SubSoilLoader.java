@@ -1,10 +1,13 @@
 package com.gtnewhorizon.cropsnh.loaders;
 
+import java.util.function.Predicate;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
+import com.gtnewhorizon.cropsnh.farming.requirements.SubSoilRequirement;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
 import bartworks.system.material.WerkstoffLoader;
@@ -12,7 +15,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 
-public class SubSoilRequirementLoader {
+public class SubSoilLoader {
 
     public static void postInit() {
         // spotless:off
@@ -318,6 +321,15 @@ public class SubSoilRequirementLoader {
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 14),
                 new BlockWithMeta(ModUtils.TinkerConstruct.getBlock("decoration.multibrickfancy"), 15)
             );
+            // alu gravel gets replaced with zinc gravel when in full pack via a postea transformer. Because of some nei
+            // shenanigans all stacks displayed in nei also get hit by postea, so this effectively hides it from nei
+            // while still actually allowing it if it somehow doesn't get migrated (eg we add it back in the future)
+            if (ModUtils.NewHorizonsCoreMod.isModLoaded()) {
+                Block gravelOre = ModUtils.TinkerConstruct.getBlock("GravelOre");
+                Predicate<SubSoilRequirement.SubSoilTarget> predicate = (target) -> !(target.isNEI && target.block == gravelOre && target.meta == 4);
+                CropsNHSubSoilTypes.aluminiumBauxite.addAndPredicate(predicate);
+                CropsNHSubSoilTypes.aluminium.addAndPredicate(predicate);
+            }
         }
         if (ModUtils.ThaumicBases.isModLoaded()) {
             CropsNHSubSoilTypes.stone.addBlock(
