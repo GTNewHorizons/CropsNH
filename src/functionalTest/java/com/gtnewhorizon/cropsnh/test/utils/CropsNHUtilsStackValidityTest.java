@@ -22,7 +22,6 @@ public class CropsNHUtilsStackValidityTest {
     private static final ItemStack ITEM_NULL = null;
     private static final FluidStack FLUID_NULL = null;
     private static final ItemStack ITEM_ITEM_BAD_COUNT_GOOD = new ItemStack((Item) null, 1, 0);
-    private static final FluidStack FLUID_FLUID_BAD_COUNT_GOOD = new FluidStack((Fluid) null, 1);
     private static ItemStack ITEM_GOOD;
     private static FluidStack FLUID_GOOD;
 
@@ -130,45 +129,45 @@ public class CropsNHUtilsStackValidityTest {
 
     @Test
     public void isStackValidIgnoreStackSize_nullItemStackIsInvalid() {
-        assertFalse(CropsNHUtils.isStackValid(ITEM_NULL));
+        assertFalse(CropsNHUtils.isStackValidIgnoreStackSize(ITEM_NULL));
     }
 
     @Test
     public void isStackValidIgnoreStackSize_nullFluidStackIsInvalid() {
-        assertFalse(CropsNHUtils.isStackValid(FLUID_NULL));
+        assertFalse(CropsNHUtils.isStackValidIgnoreStackSize(FLUID_NULL));
     }
 
     @Test
     public void isStackValidIgnoreStackSize_ItemStackWithNullItemIsInvalid() {
-        assertFalse(CropsNHUtils.isStackValid(ITEM_ITEM_BAD_COUNT_GOOD));
+        assertFalse(CropsNHUtils.isStackValidIgnoreStackSize(ITEM_ITEM_BAD_COUNT_GOOD));
     }
 
     @ParameterizedTest
     @ValueSource(ints = { -1, 0 })
     public void isStackValidIgnoreStackSize_ItemStackWithNullItemAndZeroOrLessIsInvalid(int count) {
-        assertFalse(CropsNHUtils.isStackValid(new ItemStack((Item) null, count, 0)));
+        assertFalse(CropsNHUtils.isStackValidIgnoreStackSize(new ItemStack((Item) null, count, 0)));
     }
 
     @ParameterizedTest
     @ValueSource(ints = { -1, 0 })
     public void isStackValidIgnoreStackSize_ItemStackWithZeroOrLessIsValid(int count) {
-        assertTrue(CropsNHUtils.isStackValid(new ItemStack(Items.feather, count, 0)));
+        assertTrue(CropsNHUtils.isStackValidIgnoreStackSize(new ItemStack(Items.feather, count, 0)));
     }
 
     @ParameterizedTest
     @ValueSource(ints = { -1, 0 })
     public void isStackValidIgnoreStackSize_FluidStackWithZeroOrLessIsValid(int count) {
-        assertTrue(CropsNHUtils.isStackValid(new FluidStack(FluidRegistry.WATER, count)));
+        assertTrue(CropsNHUtils.isStackValidIgnoreStackSize(new FluidStack(FluidRegistry.WATER, count)));
     }
 
     @Test
     public void isStackValidIgnoreStackSize_ValidItemStackIsValid() {
-        assertTrue(CropsNHUtils.isStackValid(ITEM_GOOD));
+        assertTrue(CropsNHUtils.isStackValidIgnoreStackSize(ITEM_GOOD));
     }
 
     @Test
     public void isStackValidIgnoreStackSize_ValidFluidStackIsValid() {
-        assertTrue(CropsNHUtils.isStackValid(FLUID_GOOD));
+        assertTrue(CropsNHUtils.isStackValidIgnoreStackSize(FLUID_GOOD));
     }
 
     // endregion isStackValidIgnoreStackSize
