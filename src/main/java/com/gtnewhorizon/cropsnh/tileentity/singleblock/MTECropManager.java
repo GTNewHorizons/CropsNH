@@ -737,7 +737,7 @@ public class MTECropManager extends MTETieredMachineBlock implements IMTERendere
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return allowPutStack(index, stack);
+        return index == SLOT_BATTERY || allowPutStack(index, stack);
     }
 
     public static boolean isFertilizerStack(ItemStack stack) {
