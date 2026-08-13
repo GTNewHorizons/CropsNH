@@ -59,6 +59,11 @@ public class CropGoldfish extends NHCropCard {
 
     @Override
     public void onEntityCollision(ICropStickTile crop, Entity entity) {
+        if (entity.worldObj.isRemote) return;
+        // Wearing armored shoes won't reduce the amount of screams.
+        // If anything it should increase them, but I'm not that mean.
+        // Just don't step on em or use an IF and they won't need to scream much ;)
+        // also screaming probably shouldn't be breaking boots.
         if (ConfigurationHandler.goldfishScreamWhenSteppedOn && entity instanceof EntityPlayer
             && crop instanceof TileEntityCropSticks) {
             this.scream((TileEntityCropSticks) crop);

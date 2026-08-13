@@ -15,6 +15,7 @@ import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.loaders.AspectLoader;
+import com.gtnewhorizon.cropsnh.loaders.BootProtectionLoader;
 import com.gtnewhorizon.cropsnh.loaders.CropLoader;
 import com.gtnewhorizon.cropsnh.loaders.FertilizerLoader;
 import com.gtnewhorizon.cropsnh.loaders.GTRecipeLoader;
@@ -125,9 +126,10 @@ public class CropsNH {
         CropLoader.postInit();
         MutationLoader.postInit();
         AspectLoader.postInit();
-        GTRecipeLoader.PostInit();
+        GTRecipeLoader.postInit();
+        BootProtectionLoader.postInit();
         MigrationHandler.postInit();
-        ForestryCompatHandler.onPostInit();
+        ForestryCompatHandler.postInit();
         ExUWateringCanHandler.postInit();
         FindItCompatHandler.postInit();
 
