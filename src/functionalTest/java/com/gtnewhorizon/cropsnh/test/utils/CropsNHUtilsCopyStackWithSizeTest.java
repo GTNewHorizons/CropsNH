@@ -11,7 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -32,8 +31,8 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     @BeforeAll
     public static void beforeAll() {
         VALID_STACK = new ItemStack(Items.feather, 1, 0);
-        VALID_STACK_IGNORE_STACKSIZE = new ItemStack(Items.feather, 1, 0);
-        VALID_STACK_TEST_META = new ItemStack(Items.feather, TEST_INVALID_COUNT, TEST_META);
+        VALID_STACK_IGNORE_STACKSIZE = new ItemStack(Items.feather, TEST_INVALID_COUNT, 0);
+        VALID_STACK_TEST_META = new ItemStack(Items.feather, 1, TEST_META);
         VALID_STACK_TEST_META_IGNORE_STACKSIZE = new ItemStack(Items.feather, TEST_INVALID_COUNT, TEST_META);
     }
 
@@ -69,14 +68,14 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     @Test
     public void copyStackWithSize_copyHasExpectedItem() {
         final ItemStack copied = CropsNHUtils.copyStackWithSize(VALID_STACK, 1);
-        Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
+        assertNotNull(copied, "copied item was null, test cannot continue.");
         assertSame(VALID_STACK.getItem(), copied.getItem());
     }
 
     @Test
     public void copyStackWithSize_copyHasExpectedCount() {
         final ItemStack copied = CropsNHUtils.copyStackWithSize(VALID_STACK, TEST_COUNT);
-        Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
+        assertNotNull(copied, "copied item was null, test cannot continue.");
         assertEquals(TEST_COUNT, copied.stackSize);
     }
 
@@ -84,14 +83,14 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     @ValueSource(ints = { 0, -1 })
     public void copyStackWithSize_copyCanHaveZeroOrLess(int count) {
         final ItemStack copied = CropsNHUtils.copyStackWithSize(VALID_STACK, count);
-        Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
+        assertNotNull(copied, "copied item was null, test cannot continue.");
         assertEquals(count, copied.stackSize);
     }
 
     @Test
     public void copyStackWithSize_copyHasExpectedMeta() {
         final ItemStack copied = CropsNHUtils.copyStackWithSize(VALID_STACK_TEST_META, 1);
-        Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
+        assertNotNull(copied, "copied item was null, test cannot continue.");
         assertEquals(TEST_META, CropsNHUtils.getItemMeta(copied));
     }
 
@@ -106,7 +105,7 @@ public class CropsNHUtilsCopyStackWithSizeTest {
         original.setTagCompound(originalTag);
 
         final ItemStack copied = CropsNHUtils.copyStackWithSize(original, 1);
-        Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
+        assertNotNull(copied, "copied item was null, test cannot continue.");
         assertTrue(copied.hasTagCompound(), "copied should have a compound tag!");
         assertEquals(originalTag, copied.getTagCompound());
     }
@@ -144,7 +143,7 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     @Test
     public void copyStackWithSizeIgnoreInvalidStackSize_copyHasExpectedItem() {
         final ItemStack copied = CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_IGNORE_STACKSIZE, 1);
-        Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
+        assertNotNull(copied, "copied item was null, test cannot continue.");
         assertSame(VALID_STACK_IGNORE_STACKSIZE.getItem(), copied.getItem());
     }
 
@@ -152,7 +151,7 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     public void copyStackWithSizeIgnoreInvalidStackSize_copyHasExpectedCount() {
         final ItemStack copied = CropsNHUtils
             .copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_IGNORE_STACKSIZE, TEST_COUNT);
-        Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
+        assertNotNull(copied, "copied item was null, test cannot continue.");
         assertSame(TEST_COUNT, copied.stackSize);
     }
 
@@ -161,7 +160,7 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     public void copyStackWithSizeIgnoreInvalidStackSize_copyCanHaveZeroOrLess(int count) {
         final ItemStack copied = CropsNHUtils
             .copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_IGNORE_STACKSIZE, count);
-        Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
+        assertNotNull(copied, "copied item was null, test cannot continue.");
         assertEquals(count, copied.stackSize);
     }
 
@@ -169,7 +168,7 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     public void copyStackWithSizeIgnoreInvalidStackSize_copyHasExpectedMeta() {
         final ItemStack copied = CropsNHUtils
             .copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_TEST_META_IGNORE_STACKSIZE, 1);
-        Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
+        assertNotNull(copied, "copied item was null, test cannot continue.");
         assertEquals(TEST_META, CropsNHUtils.getItemMeta(copied));
     }
 
@@ -184,7 +183,7 @@ public class CropsNHUtilsCopyStackWithSizeTest {
         original.setTagCompound(originalTag);
 
         final ItemStack copied = CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(original, 1);
-        Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
+        assertNotNull(copied, "copied item was null, test cannot continue.");
         assertTrue(copied.hasTagCompound(), "copied should have a compound tag!");
         assertEquals(originalTag, copied.getTagCompound());
     }

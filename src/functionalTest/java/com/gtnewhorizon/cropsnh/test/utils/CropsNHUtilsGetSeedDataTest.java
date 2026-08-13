@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.util.Optional;
@@ -11,7 +12,6 @@ import java.util.stream.Stream;
 
 import net.minecraft.item.ItemStack;
 
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -41,7 +41,7 @@ public class CropsNHUtilsGetSeedDataTest {
         Optional<ItemStack> altSeed = CROP_ALT_SEED.getAlternateSeeds()
             .stream()
             .findFirst();
-        Assumptions.assumeTrue(altSeed.isPresent());
+        assertTrue(altSeed.isPresent());
         STACK_ALT_SEED = CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(altSeed.get(), 1);
 
         CROP_ANALYZED = CropsNHCrops.Potato;
@@ -74,7 +74,7 @@ public class CropsNHUtilsGetSeedDataTest {
     @ValueSource(booleans = { true, false })
     public void getSeedData_AcceptedAltSeedHasDefaultAnalyzedStats(boolean analyzedOnly) {
         ISeedData seedData = CropsNHUtils.getSeedData(STACK_ALT_SEED, true, analyzedOnly);
-        Assumptions.assumeTrue(seedData != null, "Seed data should not be null, test cannot proceed");
+        assertNotNull(seedData, "Seed data should not be null, test cannot proceed");
         assertEquals(SeedStats.DEFAULT_ANALYZED, seedData.getStats());
     }
 
@@ -82,7 +82,7 @@ public class CropsNHUtilsGetSeedDataTest {
     @ValueSource(booleans = { true, false })
     public void getSeedData_AcceptedAltSeedResolvesToExpectedCrop(boolean analyzedOnly) {
         ISeedData seedData = CropsNHUtils.getSeedData(STACK_ALT_SEED, true, analyzedOnly);
-        Assumptions.assumeTrue(seedData != null, "Seed data should not be null, test cannot proceed");
+        assertNotNull(seedData, "Seed data should not be null, test cannot proceed");
         assertSame(CROP_ALT_SEED, seedData.getCrop());
     }
 
@@ -106,7 +106,7 @@ public class CropsNHUtilsGetSeedDataTest {
     @ValueSource(booleans = { true, false })
     public void getSeedData_NotAnalyzedSeedHasExpectedStats(boolean allowAltSeed) {
         ISeedData seedData = CropsNHUtils.getSeedData(STACK_NOT_ANALYZED, allowAltSeed, false);
-        Assumptions.assumeTrue(seedData != null, "Seed data should not be null, test cannot proceed");
+        assertNotNull(seedData, "Seed data should not be null, test cannot proceed");
         assertEquals(STATS_NOT_ANALYZED, seedData.getStats());
     }
 
@@ -114,7 +114,7 @@ public class CropsNHUtilsGetSeedDataTest {
     @ValueSource(booleans = { true, false })
     public void getSeedData_NotAnalyzedSeedHasExpectedCrop(boolean allowAltSeed) {
         ISeedData seedData = CropsNHUtils.getSeedData(STACK_NOT_ANALYZED, allowAltSeed, false);
-        Assumptions.assumeTrue(seedData != null, "Seed data should not be null, test cannot proceed");
+        assertNotNull(seedData, "Seed data should not be null, test cannot proceed");
         assertSame(CROP_NOT_ANALYZED, seedData.getCrop());
     }
 
@@ -132,7 +132,7 @@ public class CropsNHUtilsGetSeedDataTest {
     @MethodSource("altSeedOnlyAnalyzedOnlyPermutations")
     public void getSeedData_AnalyzedSeedHasExpectedStats(boolean allowAltSeed, boolean analyzedOnly) {
         ISeedData seedData = CropsNHUtils.getSeedData(STACK_ANALYZED, allowAltSeed, analyzedOnly);
-        Assumptions.assumeTrue(seedData != null, "Seed data should not be null, test cannot proceed");
+        assertNotNull(seedData, "Seed data should not be null, test cannot proceed");
         assertEquals(STATS_ANALYZED, seedData.getStats());
     }
 
@@ -140,7 +140,7 @@ public class CropsNHUtilsGetSeedDataTest {
     @MethodSource("altSeedOnlyAnalyzedOnlyPermutations")
     public void getSeedData_AnalyzedSeedHasExpectedCrop(boolean allowAltSeed, boolean analyzedOnly) {
         ISeedData seedData = CropsNHUtils.getSeedData(STACK_ANALYZED, allowAltSeed, analyzedOnly);
-        Assumptions.assumeTrue(seedData != null, "Seed data should not be null, test cannot proceed");
+        assertNotNull(seedData, "Seed data should not be null, test cannot proceed");
         assertSame(CROP_ANALYZED, seedData.getCrop());
     }
 
