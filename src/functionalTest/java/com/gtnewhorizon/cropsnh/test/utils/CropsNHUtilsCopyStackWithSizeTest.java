@@ -92,7 +92,7 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     public void copyStackWithSize_copyHasExpectedMeta() {
         final ItemStack copied = CropsNHUtils.copyStackWithSize(VALID_STACK_TEST_META, 1);
         Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
-        assertEquals(TEST_META, copied.stackSize);
+        assertEquals(TEST_META, CropsNHUtils.getItemMeta(copied));
     }
 
     @Test
@@ -170,7 +170,7 @@ public class CropsNHUtilsCopyStackWithSizeTest {
         final ItemStack copied = CropsNHUtils
             .copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_TEST_META_IGNORE_STACKSIZE, 1);
         Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
-        assertEquals(TEST_META, copied.stackSize);
+        assertEquals(TEST_META, CropsNHUtils.getItemMeta(copied));
     }
 
     @Test
