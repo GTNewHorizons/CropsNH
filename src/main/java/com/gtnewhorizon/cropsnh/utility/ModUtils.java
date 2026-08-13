@@ -22,6 +22,9 @@ public enum ModUtils implements IMod {
     Botania(ModIDs.Botania),
     Chisel(ModIDs.Chisel),
     CropsPlusPlus(ModIDs.CropsPlusPlus),
+    DraconicEvolution(ModIDs.DraconicEvolution),
+    ElectroMagicTools(ModIDs.ElectroMagicTools),
+    EnderIO(ModIDs.EnderIO),
     EtFuturumRequiem(ModIDs.EtFuturumRequiem),
     ExtraUtilities(ModIDs.ExtraUtilities),
     FindIt(ModIDs.FindIt),
@@ -46,6 +49,7 @@ public enum ModUtils implements IMod {
     TaintedMagic(ModIDs.TaintedMagic),
     Thaumcraft(ModIDs.Thaumcraft),
     ThaumicBases(ModIDs.ThaumicBases),
+    ThaumicBoots(ModIDs.ThaumicBoots),
     ThaumicTinkerer(ModIDs.ThaumicTinkerer),
     TinkerConstruct(ModIDs.TinkerConstruct),
     TwilightForest(ModIDs.TwilightForest),
@@ -153,6 +157,9 @@ public enum ModUtils implements IMod {
         public static final String Botania = "Botania";
         public static final String Chisel = "chisel";
         public static final String CropsPlusPlus = "berriespp";
+        public static final String DraconicEvolution = "DraconicEvolution";
+        public static final String ElectroMagicTools = "EMT";
+        public static final String EnderIO = "EnderIO";
         public static final String EtFuturumRequiem = "etfuturum";
         public static final String ExtraUtilities = "ExtraUtilities";
         public static final String FindIt = "findit";
@@ -177,6 +184,7 @@ public enum ModUtils implements IMod {
         public static final String TaintedMagic = "TaintedMagic";
         public static final String Thaumcraft = "Thaumcraft";
         public static final String ThaumicBases = "thaumicbases";
+        public static final String ThaumicBoots = "thaumicboots";
         public static final String ThaumicTinkerer = "ThaumicTinkerer";
         public static final String TinkerConstruct = "TConstruct";
         public static final String TwilightForest = "TwilightForest";
