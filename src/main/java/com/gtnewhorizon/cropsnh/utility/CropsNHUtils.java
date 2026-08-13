@@ -20,6 +20,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
@@ -311,7 +312,7 @@ public abstract class CropsNHUtils {
      * @param stack The stack to get the meta of.
      * @return The raw meta value of the stack.
      */
-    public static int getItemMeta(ItemStack stack) {
+    public static int getItemMeta(@NotNull ItemStack stack) {
         return Items.feather.getDamage(stack);
     }
 

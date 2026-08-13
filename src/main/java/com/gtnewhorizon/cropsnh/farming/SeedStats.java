@@ -89,9 +89,19 @@ public class SeedStats implements ISeedStats {
     }
 
     @Override
+    public String toString() {
+        return String.format("gr:%d ga:%d re:%d A:%b", this.growth, this.gain, this.resistance, this.analyzed);
+    }
+
+    @Override
     public boolean equals(ISeedStats o) {
         return growth == o.getGrowth() && gain == o.getGain()
             && resistance == o.getResistance()
             && analyzed == o.isAnalyzed();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ISeedStats ss && this.equals(ss);
     }
 }
