@@ -1,40 +1,41 @@
 package com.gtnewhorizon.cropsnh.test.utils;
 
-import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
+
 public class CropsNHUtilsCopyStackWithSizeTest {
 
-    private static int TEST_COUNT = 23;
-    private static int TEST_META = 5;
-    private static int TEST_INVALID_COUNT = -1;
+    private static final int TEST_COUNT = 23;
+    private static final int TEST_META = 5;
+    private static final int TEST_INVALID_COUNT = -1;
     private static ItemStack VALID_STACK = null;
     private static ItemStack VALID_STACK_IGNORE_STACKSIZE = null;
     private static ItemStack VALID_STACK_TEST_META = null;
     private static ItemStack VALID_STACK_TEST_META_IGNORE_STACKSIZE = null;
 
     @BeforeAll
-    public void beforeAll() {
+    public static void beforeAll() {
         VALID_STACK = new ItemStack(Items.feather, 1, 0);
         VALID_STACK_IGNORE_STACKSIZE = new ItemStack(Items.feather, 1, 0);
         VALID_STACK_TEST_META = new ItemStack(Items.feather, TEST_INVALID_COUNT, TEST_META);
         VALID_STACK_TEST_META_IGNORE_STACKSIZE = new ItemStack(Items.feather, TEST_INVALID_COUNT, TEST_META);
     }
-
 
     // region copyStackWithSize
 
@@ -49,13 +50,13 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {0, -1})
+    @ValueSource(ints = { 0, -1 })
     public void copyStackWithSize_StackWithNullItemAndZeroOrLessNotCopied(int count) {
         assertNull(CropsNHUtils.copyStackWithSize(new ItemStack((Item) null, count, 0), 1));
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {0, -1})
+    @ValueSource(ints = { 0, -1 })
     public void copyStackWithSize_StackWithZeroOrLessNotCopied(int count) {
         assertNull(CropsNHUtils.copyStackWithSize(new ItemStack(Items.feather, count, 0), 1));
     }
@@ -67,10 +68,9 @@ public class CropsNHUtilsCopyStackWithSizeTest {
 
     @Test
     public void copyStackWithSize_copyHasExpectedItem() {
-        final Item expected = Items.feather;
         final ItemStack copied = CropsNHUtils.copyStackWithSize(VALID_STACK, 1);
         Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
-        assertEquals(TEST_COUNT, copied.stackSize);
+        assertSame(VALID_STACK.getItem(), copied.getItem());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {0, -1})
+    @ValueSource(ints = { 0, -1 })
     public void copyStackWithSize_copyCanHaveZeroOrLess(int count) {
         final ItemStack copied = CropsNHUtils.copyStackWithSize(VALID_STACK, count);
         Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
@@ -126,14 +126,13 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {0, -1})
+    @ValueSource(ints = { 0, -1 })
     public void copyStackWithSizeIgnoreInvalidStackSize_StackWithNullItemAndZeroOrLessNotCopied(int count) {
         assertNull(CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(new ItemStack((Item) null, count, 0), 1));
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = {0, -1})
-    public void copyStackWithSizeIgnoreInvalidStackSize_StackWithZeroOrLessCopied(int count) {
+    @Test
+    public void copyStackWithSizeIgnoreInvalidStackSize_StackWithZeroOrLessCopied() {
         assertNotNull(CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_IGNORE_STACKSIZE, 1));
     }
 
@@ -144,30 +143,32 @@ public class CropsNHUtilsCopyStackWithSizeTest {
 
     @Test
     public void copyStackWithSizeIgnoreInvalidStackSize_copyHasExpectedItem() {
-        final Item expected = Items.feather;
         final ItemStack copied = CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_IGNORE_STACKSIZE, 1);
         Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
-        assertEquals(TEST_COUNT, copied.stackSize);
+        assertSame(VALID_STACK_IGNORE_STACKSIZE.getItem(), copied.getItem());
     }
 
     @Test
     public void copyStackWithSizeIgnoreInvalidStackSize_copyHasExpectedCount() {
-        final ItemStack copied = CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_IGNORE_STACKSIZE, TEST_COUNT);
+        final ItemStack copied = CropsNHUtils
+            .copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_IGNORE_STACKSIZE, TEST_COUNT);
         Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
-        assertEquals(TEST_COUNT, copied.stackSize);
+        assertSame(TEST_COUNT, copied.stackSize);
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {0, -1})
+    @ValueSource(ints = { 0, -1 })
     public void copyStackWithSizeIgnoreInvalidStackSize_copyCanHaveZeroOrLess(int count) {
-        final ItemStack copied = CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_IGNORE_STACKSIZE, count);
+        final ItemStack copied = CropsNHUtils
+            .copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_IGNORE_STACKSIZE, count);
         Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
         assertEquals(count, copied.stackSize);
     }
 
     @Test
     public void copyStackWithSizeIgnoreInvalidStackSize_copyHasExpectedMeta() {
-        final ItemStack copied = CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_TEST_META_IGNORE_STACKSIZE, 1);
+        final ItemStack copied = CropsNHUtils
+            .copyStackWithSizeIgnoreInvalidStackSize(VALID_STACK_TEST_META_IGNORE_STACKSIZE, 1);
         Assumptions.assumeTrue(copied != null, "copied item was null, test cannot continue.");
         assertEquals(TEST_META, copied.stackSize);
     }
