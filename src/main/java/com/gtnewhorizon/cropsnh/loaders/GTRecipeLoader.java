@@ -43,7 +43,7 @@ import gregtech.api.util.GTUtility;
 
 public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
 
-    public static void PostInit() {
+    public static void postInit() {
         CropRecipes.postInit();
         FertilizerRecipes.postInit();
         CropsPlusPlusRecipes.postInit();

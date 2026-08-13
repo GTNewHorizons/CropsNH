@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -15,6 +16,7 @@ import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.ISeedShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.gtnewhorizon.cropsnh.farming.registries.BootProtectionRegistry;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
 
 public class CropNecrobloom extends NHCropCard {
@@ -54,9 +56,26 @@ public class CropNecrobloom extends NHCropCard {
 
     @Override
     public void onEntityCollision(ICropStickTile te, Entity entity) {
-        if (te.isMature() && entity instanceof EntityLivingBase) {
+        if (entity.worldObj.isRemote) return;
+        if (te.isMature() && entity instanceof EntityLivingBase elb) {
+            // creative players don't get affected
+            if ((entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.disableDamage)) {
+                return;
+            }
+
+            // check if the entity's boots protect them
+            final float protection = te.getBootProtection(elb);
+            if (protection >= BootProtectionRegistry.FULL_PROTECTION) return;
+
+            // reduce the duration by the multiplier
             int duration = (XSTR.XSTR_INSTANCE.nextInt(10) + 5) * 20;
-            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, duration, 0));
+            float multiplier = 1 - (protection / BootProtectionRegistry.FULL_PROTECTION);
+            // explicit casting because intellij be dumb
+            duration = (int) (duration * multiplier);
+            if (duration <= 0) return;
+
+            // add potion effect of defined duration
+            elb.addPotionEffect(new PotionEffect(Potion.poison.id, duration, 0));
         }
     }
 }
