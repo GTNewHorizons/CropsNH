@@ -104,18 +104,24 @@ public abstract class CropsNHUtils {
      * @param analyzedOnly  True to block unanalyzed seeds from being parsed.
      * @return Null if nothing was found else the seed data for the stack.
      */
-    public static @Nullable ISeedData getSeedData(ItemStack stack, boolean allowAltSeeds, boolean analyzedOnly) {
+    @Contract("null,_,_->null")
+    public static @Nullable ISeedData getSeedData(@Nullable ItemStack stack, boolean allowAltSeeds,
+        boolean analyzedOnly) {
+        // null check the params
+        if (CropsNHUtils.isStackInvalid(stack)) return null;
+        // All crop seed items should either be instances of ItemGenericSeed or inherit from it.
         final boolean isAltSeed = !(stack.getItem() instanceof ItemGenericSeed);
-        if (CropsNHUtils.isStackInvalid(stack) || (isAltSeed && !allowAltSeeds)) return null;
-        // check that it's a crop card and that it can cross.
-        ICropCard cc = CropRegistry.instance.get(stack, allowAltSeeds);
+        if (isAltSeed && !allowAltSeeds) return null;
+        // Check if the stack has an associated crop card
+        final ICropCard cc = CropRegistry.instance.get(stack, allowAltSeeds);
         if (cc == null) return null;
-        // fail if the crop isn't analyzed
+        // if we found an alt seeds return it as a default-stat analyzed seed.
         if (isAltSeed) {
-            // if it's an alt seed no need to check for stats
             return new SeedData(cc, SeedStats.DEFAULT_ANALYZED, stack);
         }
-        SeedStats stats = SeedStats.getStatsFromStack(stack);
+        // fail if the crop doesn't have stats (no alt seeds should reach this) or if the crop isn't analyzed and we're
+        // only allowing analyzed seeds
+        final SeedStats stats = SeedStats.getStatsFromStack(stack);
         if (stats == null || (analyzedOnly && !stats.isAnalyzed())) return null;
         return new SeedData(cc, stats, stack);
     }
