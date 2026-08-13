@@ -49,6 +49,7 @@ import com.gtnewhorizon.cropsnh.crops.CropMigrator;
 import com.gtnewhorizon.cropsnh.crops.CropWeed;
 import com.gtnewhorizon.cropsnh.farming.SeedData;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
+import com.gtnewhorizon.cropsnh.farming.registries.BootProtectionRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
@@ -1415,6 +1416,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
      * @implNote will return false if no crop is planted, it's a weed or a migrator crop
      */
     private boolean canTrample() {
+        if (this.worldObj.isRemote) return false;
         // abort if no crop is planted, it's a weed or a migrator crop
         if (!this.hasCrop() || this.hasWeed() || this.seed.getCrop() instanceof CropMigrator) return false;
         // max resil crops can't be trampled
@@ -1498,7 +1500,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     @Override
     public void onEntityCollision(Entity target) {
         // abort if it isn't on the server side and not colliding with an alive thing
-        if (CropsNHUtils.isClient() || !(target instanceof EntityLivingBase entity)) return;
+        if (!(target instanceof EntityLivingBase entity)) return;
 
         // only on living entities plz
         if (this.canTrample() && (this.shouldTrampleFromRunning(entity) || this.shouldTrampleFromFalling(entity))) {
@@ -1513,16 +1515,29 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
 
         // always prevent collision events if the entity is sneaking
         if (this.hasCrop() && !entity.isSneaking()) {
-            if (this.seed.getCrop()
-                .getEntityDamage() > 0) {
-                damageEntity(
-                    entity,
-                    this.seed.getCrop()
-                        .getEntityDamage());
+            // check if boots provide protection.
+            float damage = this.seed.getCrop()
+                .getEntityDamage();
+            if (damage > 0.0f) {
+                // something in the pack is preventing partial damage ticks, IDK what it is so just use partial hits
+                // to simulate lower damage, and effectively just reduce the likely-hood for a damage hit by what ever
+                // protection the boots give. We don't want to just do a random check here since the real thing
+                // controlling the damage flow is the small hit immunity window that players are given, so we just rely
+                // on the mini hits that don't damage the player to reduce the likely-hood of damage.
+                final float protection = this.getBootProtection(entity);
+                if (protection < BootProtectionRegistry.FULL_PROTECTION) {
+                    damageEntity(entity, XSTR.XSTR_INSTANCE.nextFloat() < protection ? 0.01f : damage);
+                }
             }
             seed.getCrop()
                 .onEntityCollision(this, target);
         }
+    }
+
+    @Override
+    public float getBootProtection(EntityLivingBase entity) {
+        final ItemStack boots = entity.getEquipmentInSlot(1);
+        return BootProtectionRegistry.instance.getProtection(boots, entity, this);
     }
 
     /**
@@ -1531,7 +1546,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
      * @param entity The entity to damage.
      * @param damage The damage to apply.
      */
-    private void damageEntity(EntityLivingBase entity, float damage) {
+    protected void damageEntity(EntityLivingBase entity, float damage) {
         // don't damage immune targets
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.disableDamage) {
             return;

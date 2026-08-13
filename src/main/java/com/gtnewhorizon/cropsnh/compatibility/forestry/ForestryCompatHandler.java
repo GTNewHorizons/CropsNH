@@ -15,7 +15,7 @@ import forestry.plugins.PluginManager;
 
 public abstract class ForestryCompatHandler {
 
-    public static void onPostInit() {
+    public static void postInit() {
         if (!ModUtils.Forestry.isModLoaded()) return;
         addMultifarmCompat();
     }
