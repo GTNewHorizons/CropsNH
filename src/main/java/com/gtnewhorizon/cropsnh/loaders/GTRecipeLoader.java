@@ -178,7 +178,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (int i = 0; i < CROP_MANAGERS.length; i++) {
             GTModHandler.addMachineCraftingRecipe(
                 CROP_MANAGERS[i].get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // spotless:off
                     "ASA",
@@ -202,7 +202,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (CropsNHItemList cropsNHItemList : SEED_GENERATOR) {
             GTModHandler.addMachineCraftingRecipe(
                 cropsNHItemList.get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // spotless:off
                     "SAW",
@@ -228,7 +228,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (CropsNHItemList cropsNHItemList : CROP_BREEDER) {
             GTModHandler.addMachineCraftingRecipe(
                 cropsNHItemList.get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // spotless:off
                     "SAS",
@@ -255,7 +255,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (CropsNHItemList geneExtractor : CROP_GENE_EXTRACTORS) {
             GTModHandler.addMachineCraftingRecipe(
                 geneExtractor.get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // spotless:off
                     // TODO: remove this anti-collision stuff when crops++ gets the boot
@@ -281,7 +281,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (CropsNHItemList cropSynthesizer : CROP_SYNTHESIZERS) {
             GTModHandler.addMachineCraftingRecipe(
                 cropSynthesizer.get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // spotless:off
                     // TODO: remove this anti-collision stuff when crops++ gets the boot
@@ -303,7 +303,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
 
         GTModHandler.addMachineCraftingRecipe(
             CropsNHItemList.IndustrialFarmController.get(1),
-            GTModHandler.RecipeBits.BITSD,
+            GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] {
                 // TODO: remove this anti-collision stuff when crops++ gets the boot
                 "PWS", "CMC", "ICI", 'P', MTEBasicMachineWithRecipe.X.ROBOT_ARM, 'W', getWateringCan(), 'S',
@@ -325,7 +325,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (CropsNHItemList output : SEED_BEDS) {
             GTModHandler.addMachineCraftingRecipe(
                 output.get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // TODO: remove this anti-collision stuff when crops++ gets the boot
                     "DDD", "CHC", "PIP", 'D', dirt, 'C', getCircuit(tier), 'H', getHull(tier), 'P', getPipe(tier), 'I',
@@ -342,7 +342,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (CropsNHItemList output : ADV_HARVESTING_UNITS) {
             GTModHandler.addMachineCraftingRecipe(
                 output.get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // spotless:off
                     "RSR",
@@ -366,7 +366,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (CropsNHItemList output : ENVIRONMENTAL_ENHANCEMENT_UNITS) {
             GTModHandler.addMachineCraftingRecipe(
                 output.get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // spotless:off
                     "EEE",
@@ -567,7 +567,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (CropsNHItemList output : FERTILIZER_UNITS) {
             GTModHandler.addMachineCraftingRecipe(
                 output.get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // spotless:off
                     "RPS",
@@ -592,7 +592,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (CropsNHItemList output : GROWTH_ACCEL_UNITS) {
             GTModHandler.addMachineCraftingRecipe(
                 output.get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // spotless:off
                     "RPE",
@@ -617,7 +617,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         for (CropsNHItemList output : OC_GROWTH_ACCEL_UNITS) {
             GTModHandler.addMachineCraftingRecipe(
                 output.get(1),
-                GTModHandler.RecipeBits.BITSD,
+                GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
                 new Object[] {
                     // spotless:off
                     "FAF",
