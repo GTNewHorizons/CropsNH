@@ -84,7 +84,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
 
         GTModHandler.addCraftingRecipe(
             CropsNHItemList.plantLens.get(1),
-            GTModHandler.RecipeBits.BITSD,
+            GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] { " fL", " Sr", "S  ", 'L', OrePrefixes.lens.get(Materials.Glass), 'S', "stickWood" });
     }
 
@@ -92,7 +92,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         // steel locked
         GTModHandler.addCraftingRecipe(
             CropsNHItemList.spade.get(1),
-            GTModHandler.RecipeBits.BITSD,
+            GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] {
                 // spotless:off
                 "fPh",
@@ -106,7 +106,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         // mv-bender locked
         GTModHandler.addCraftingRecipe(
             CropsNHItemList.reinforcedSpade.get(1),
-            GTModHandler.RecipeBits.BITSD,
+            GTModHandler.RecipeBits.BITSD | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] {
                 // spotless:off
                 "fPh",
@@ -130,7 +130,8 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
     private static void addMugRecipe() {
         GTModHandler.addCraftingRecipe(
             CropsNHItemList.emptyMug.get(1),
-            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED,
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED
+                | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] { "PhP", " P ", 'P', "plateStone" });
     }
 
@@ -161,7 +162,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
 
         GTModHandler.addCraftingRecipe(
             CropsNHItemList.cropSticks.get(ConfigurationHandler.cropsPerCraft),
-            GTModHandler.RecipeBits.BITS,
+            GTModHandler.RecipeBits.BITS | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] { "S S", "S S", 'S', "stickLongWood" });
 
         ulvRecipe(2, 0)
