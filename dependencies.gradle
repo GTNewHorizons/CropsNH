@@ -18,6 +18,11 @@ dependencies {
     devOnlyNonPublishable('com.github.GTNewHorizons:FindIt:1.4.4:dev') { transitive = false }
 
     testImplementation('junit:junit:4.12')
+    testImplementation(platform('org.junit:junit-bom:5.14.1'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("it.unimi.dsi:fastutil:8.5.18")
+
     functionalTestImplementation(platform('org.junit:junit-bom:5.9.2'))
     functionalTestImplementation('org.junit.jupiter:junit-jupiter')
     functionalTestImplementation('org.junit.platform:junit-platform-engine')
