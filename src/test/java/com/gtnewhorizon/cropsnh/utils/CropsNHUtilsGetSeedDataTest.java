@@ -28,10 +28,10 @@ public class CropsNHUtilsGetSeedDataTest {
 
     private static final Item ITEM_ALT_SEED = new Item();
     private static final ItemStack STACK_ALT_SEED = new ItemStack(ITEM_ALT_SEED, 1, 0);
-    private static final CropCard CROP_ALT_SEED = new TestCrop("testing_with_alt_seed");
-    private static final CropCard CROP_ANALYZED = new TestCrop("testing_analyzed");
+    private static final CropCard CROP_ALT_SEED = new TestCrop("CropsNHUtilsGetSeedDataTest_testing_with_alt_seed");
+    private static final CropCard CROP_ANALYZED = new TestCrop("CropsNHUtilsGetSeedDataTest_testing_analyzed");
     private static final SeedStats STATS_ANALYZED = new SeedStats((byte) 10, (byte) 15, (byte) 20, true);
-    private static final CropCard CROP_NOT_ANALYZED = new TestCrop("testing_not_analyzed");
+    private static final CropCard CROP_NOT_ANALYZED = new TestCrop("CropsNHUtilsGetSeedDataTest_testing_not_analyzed");
     private static final SeedStats STATS_NOT_ANALYZED = new SeedStats((byte) 11, (byte) 16, (byte) 21, false);
     private static final ItemStack STACK_ANALYZED = CROP_ANALYZED.getSeedItem(STATS_ANALYZED);
     private static final ItemStack STACK_NOT_ANALYZED = CROP_NOT_ANALYZED.getSeedItem(STATS_NOT_ANALYZED);
