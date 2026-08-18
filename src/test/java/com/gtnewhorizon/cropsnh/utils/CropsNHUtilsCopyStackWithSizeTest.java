@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.test.utils;
+package com.gtnewhorizon.cropsnh.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,6 +19,7 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 public class CropsNHUtilsCopyStackWithSizeTest {
 
+    private static final Item ITEM = new Item();
     private static final int TEST_COUNT = 23;
     private static final int TEST_META = 5;
     private static final int TEST_INVALID_COUNT = -1;
@@ -30,10 +30,10 @@ public class CropsNHUtilsCopyStackWithSizeTest {
 
     @BeforeAll
     public static void beforeAll() {
-        VALID_STACK = new ItemStack(Items.feather, 1, 0);
-        VALID_STACK_IGNORE_STACKSIZE = new ItemStack(Items.feather, TEST_INVALID_COUNT, 0);
-        VALID_STACK_TEST_META = new ItemStack(Items.feather, 1, TEST_META);
-        VALID_STACK_TEST_META_IGNORE_STACKSIZE = new ItemStack(Items.feather, TEST_INVALID_COUNT, TEST_META);
+        VALID_STACK = new ItemStack(ITEM, 1, 0);
+        VALID_STACK_IGNORE_STACKSIZE = new ItemStack(ITEM, TEST_INVALID_COUNT, 0);
+        VALID_STACK_TEST_META = new ItemStack(ITEM, 1, TEST_META);
+        VALID_STACK_TEST_META_IGNORE_STACKSIZE = new ItemStack(ITEM, TEST_INVALID_COUNT, TEST_META);
     }
 
     // region copyStackWithSize
@@ -57,12 +57,12 @@ public class CropsNHUtilsCopyStackWithSizeTest {
     @ParameterizedTest
     @ValueSource(ints = { 0, -1 })
     public void copyStackWithSize_StackWithZeroOrLessNotCopied(int count) {
-        assertNull(CropsNHUtils.copyStackWithSize(new ItemStack(Items.feather, count, 0), 1));
+        assertNull(CropsNHUtils.copyStackWithSize(new ItemStack(ITEM, count, 0), 1));
     }
 
     @Test
     public void copyStackWithSize_ValidStackCopied() {
-        assertNotNull(CropsNHUtils.copyStackWithSize(new ItemStack(Items.feather, 1, 0), 1));
+        assertNotNull(CropsNHUtils.copyStackWithSize(new ItemStack(ITEM, 1, 0), 1));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class CropsNHUtilsCopyStackWithSizeTest {
 
     @Test
     public void copyStackWithSizeIgnoreInvalidStackSize_ValidStackCopied() {
-        assertNotNull(CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(new ItemStack(Items.feather, 1, 0), 1));
+        assertNotNull(CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(new ItemStack(ITEM, 1, 0), 1));
     }
 
     @Test

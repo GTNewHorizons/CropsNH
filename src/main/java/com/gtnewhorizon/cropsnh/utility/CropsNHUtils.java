@@ -312,6 +312,8 @@ public abstract class CropsNHUtils {
         return CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(ret, amount);
     }
 
+    private static final Item BLANK_ITEM = new Item();
+
     /**
      * Gets the damage/meta value of an item directly, bypassing any item specific getDamage logic.
      *
@@ -319,7 +321,7 @@ public abstract class CropsNHUtils {
      * @return The raw meta value of the stack.
      */
     public static int getItemMeta(@NotNull ItemStack stack) {
-        return Items.feather.getDamage(stack);
+        return BLANK_ITEM.getDamage(stack);
     }
 
     /**
