@@ -27,7 +27,7 @@ public abstract class SeedGeneratorFakeRecipeLoader extends BaseGTRecipeLoader {
     public static void postInit() {
         for (ICropCard cc : CropRegistry.instance.getAllInRegistrationOrder()) {
             if (cc.hideFromNEI()) continue;
-            ItemStack seedStack = cc.getSeedItem(SeedStats.DEFAULT_ANALYZED);
+            ItemStack seedStack = cc.getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY);
             seedStack.stackSize = 0;
             seedStack.getTagCompound()
                 .removeTag(Names.NBT.gain);

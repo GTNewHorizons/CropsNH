@@ -13,7 +13,19 @@ import com.gtnewhorizon.cropsnh.reference.Names;
 
 public class SeedStats implements ISeedStats {
 
-    public final static SeedStats DEFAULT_ANALYZED = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
+    /**
+     * the default values for an analyzed crop. Considered Readonly in terms of contents. <b>Do not call set analyzed on
+     * this.</b>
+     */
+    public final static SeedStats DEFAULT_ANALYZED_READONLY = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
+
+    public static SeedStats getDefaultAnalyzed() {
+        return new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
+    }
+
+    public static SeedStats getDefaultNotAnalyzed() {
+        return new SeedStats((byte) 1, (byte) 1, (byte) 1, false);
+    }
 
     private final byte growth;
     private final byte gain;

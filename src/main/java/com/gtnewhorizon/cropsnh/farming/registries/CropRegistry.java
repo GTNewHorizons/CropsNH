@@ -98,7 +98,7 @@ public class CropRegistry implements ICropRegistry {
         this.registrationOrder.add(crop);
         // register the ore dict while we're at it
         if (Reference.IS_GAME_LOADED) {
-            OreDictLoader.register(crop.getSeedItem(SeedStats.DEFAULT_ANALYZED), "listAllSeed");
+            OreDictLoader.register(crop.getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY), "listAllSeed");
         }
         crop.setNumericId(cropIdCounter++);
         registerAlternateSeeds(alternateSeedList, crop);

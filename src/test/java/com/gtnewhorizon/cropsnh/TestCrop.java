@@ -24,4 +24,10 @@ public class TestCrop extends NHCropCard {
         seed.setTagCompound(writeNBT(this, stats));
         return seed;
     }
+
+    @Override
+    public boolean hideFromNEI() {
+        // if these were to leak to live gameplay they shouldn't appear in nei.
+        return true;
+    }
 }

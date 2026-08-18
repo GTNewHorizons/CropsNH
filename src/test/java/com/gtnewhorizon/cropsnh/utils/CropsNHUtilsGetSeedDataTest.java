@@ -1,5 +1,13 @@
 package com.gtnewhorizon.cropsnh.utils;
 
+import static com.gtnewhorizon.cropsnh.BeforeAllHook.CROP_ALT_SEED;
+import static com.gtnewhorizon.cropsnh.BeforeAllHook.CROP_ANALYZED;
+import static com.gtnewhorizon.cropsnh.BeforeAllHook.CROP_NOT_ANALYZED;
+import static com.gtnewhorizon.cropsnh.BeforeAllHook.STACK_ALT_SEED;
+import static com.gtnewhorizon.cropsnh.BeforeAllHook.STACK_ANALYZED;
+import static com.gtnewhorizon.cropsnh.BeforeAllHook.STACK_NOT_ANALYZED;
+import static com.gtnewhorizon.cropsnh.BeforeAllHook.STATS_ANALYZED;
+import static com.gtnewhorizon.cropsnh.BeforeAllHook.STATS_NOT_ANALYZED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -8,41 +16,16 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.util.stream.Stream;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import com.gtnewhorizon.cropsnh.TestCrop;
-import com.gtnewhorizon.cropsnh.api.CropCard;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
-import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 public class CropsNHUtilsGetSeedDataTest {
-
-    private static final Item ITEM_ALT_SEED = new Item();
-    private static final ItemStack STACK_ALT_SEED = new ItemStack(ITEM_ALT_SEED, 1, 0);
-    private static final CropCard CROP_ALT_SEED = new TestCrop("CropsNHUtilsGetSeedDataTest_testing_with_alt_seed");
-    private static final CropCard CROP_ANALYZED = new TestCrop("CropsNHUtilsGetSeedDataTest_testing_analyzed");
-    private static final SeedStats STATS_ANALYZED = new SeedStats((byte) 10, (byte) 15, (byte) 20, true);
-    private static final CropCard CROP_NOT_ANALYZED = new TestCrop("CropsNHUtilsGetSeedDataTest_testing_not_analyzed");
-    private static final SeedStats STATS_NOT_ANALYZED = new SeedStats((byte) 11, (byte) 16, (byte) 21, false);
-    private static final ItemStack STACK_ANALYZED = CROP_ANALYZED.getSeedItem(STATS_ANALYZED);
-    private static final ItemStack STACK_NOT_ANALYZED = CROP_NOT_ANALYZED.getSeedItem(STATS_NOT_ANALYZED);
-
-    @BeforeAll
-    public static void beforeAll() {
-        CROP_ALT_SEED.addAlternateSeed(STACK_ALT_SEED);
-        CropRegistry.instance.register(CROP_ALT_SEED);
-        CropRegistry.instance.register(CROP_NOT_ANALYZED);
-        CropRegistry.instance.register(CROP_ANALYZED);
-    }
 
     public static Stream<Arguments> altSeedOnlyAnalyzedOnlyPermutations() {
         return Stream
@@ -68,7 +51,7 @@ public class CropsNHUtilsGetSeedDataTest {
     public void getSeedData_AcceptedAltSeedHasDefaultAnalyzedStats(boolean analyzedOnly) {
         ISeedData seedData = CropsNHUtils.getSeedData(STACK_ALT_SEED, true, analyzedOnly);
         assertNotNull(seedData, "Seed data should not be null, test cannot proceed");
-        assertEquals(SeedStats.DEFAULT_ANALYZED, seedData.getStats());
+        assertEquals(SeedStats.DEFAULT_ANALYZED_READONLY, seedData.getStats());
     }
 
     @ParameterizedTest

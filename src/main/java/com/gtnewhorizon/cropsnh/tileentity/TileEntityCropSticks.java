@@ -966,7 +966,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             return;
         }
         // else weed this thing
-        ISeedData seedData = new SeedData(CropsNHCrops.Weed, SeedStats.DEFAULT_ANALYZED);
+        ISeedData seedData = new SeedData(CropsNHCrops.Weed, SeedStats.getDefaultAnalyzed());
         this.plantSeed(seedData);
         this.isDirty = true;
     }
