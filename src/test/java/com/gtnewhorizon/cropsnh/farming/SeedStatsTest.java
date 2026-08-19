@@ -25,7 +25,7 @@ import com.gtnewhorizon.cropsnh.reference.Names;
 
 import junit.framework.AssertionFailedError;
 
-public class SeedStatsTests {
+public class SeedStatsTest {
 
     private static final byte EXPECTED_GROWTH = 10;
     private static final byte EXPECTED_GAIN = 20;
@@ -179,7 +179,7 @@ public class SeedStatsTests {
     }
 
     /**
-     * TgetStatsFromStack isn't intended to care about the type of item, that's something left to the calling method.
+     * getStatsFromStack isn't intended to care about the type of item, that's something left to the calling method.
      */
     @Test
     public void getStatsFromStack_DoesNotCareWhatTheItemIs() {
@@ -274,9 +274,7 @@ public class SeedStatsTests {
                 // set analyzed if needed
                 nbt.setBoolean(Names.NBT.analyzed, ctor == 3 || ctor == 5);
                 switch (ctor) {
-                    case 3, 5 -> {
-                        clamped = SeedStats.readFromNBT(nbt);
-                    }
+                    case 3, 5 -> clamped = SeedStats.readFromNBT(nbt);
                     case 4, 6 -> {
                         final ItemStack stack = new ItemStack(TestCrop.ITEM, 1, 0);
                         stack.setTagCompound(nbt);
