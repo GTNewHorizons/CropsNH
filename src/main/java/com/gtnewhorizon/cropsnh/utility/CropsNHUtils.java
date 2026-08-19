@@ -119,7 +119,7 @@ public abstract class CropsNHUtils {
         if (cc == null) return null;
         // if we found an alt seeds return it as a default-stat analyzed seed.
         if (isAltSeed) {
-            return new SeedData(cc, SeedStats.getDefaultAnalyzed(), stack);
+            return new SeedData(cc, new SeedStats(true), stack);
         }
         // fail if the crop doesn't have stats (no alt seeds should reach this) or if the crop isn't analyzed and we're
         // only allowing analyzed seeds

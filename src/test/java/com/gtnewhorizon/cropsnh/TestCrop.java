@@ -11,7 +11,7 @@ import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 
 public class TestCrop extends NHCropCard {
 
-    private static final Item ITEM = new ItemGenericSeed(false);
+    public static final Item ITEM = new ItemGenericSeed(false);
 
     public TestCrop(String id) {
         super(id, Color.MAGENTA, Color.BLACK);
