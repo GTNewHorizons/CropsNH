@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.utils;
+package com.gtnewhorizon.cropsnh.farming;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -20,7 +20,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import com.gtnewhorizon.cropsnh.IntRangeBounds;
 import com.gtnewhorizon.cropsnh.IntRangeValueSource;
 import com.gtnewhorizon.cropsnh.TestCrop;
-import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
 
