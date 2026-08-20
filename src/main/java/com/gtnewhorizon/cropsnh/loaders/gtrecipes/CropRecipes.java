@@ -142,7 +142,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         // load tier acid enum
         TierAcid.t1.set(MaterialUtils.fluid(Materials.SulfuricAcid, 384));
         TierAcid.t2.set(MaterialUtils.fluid(Materials.HydrochloricAcidGT5U, 384 * 2));
-        TierAcid.t3.set(MaterialLibAPI.getFluidStack(Materials.FormicAcid, FluidShapes.fluidLiquid, 384 * 3));
+        TierAcid.t3.set(liquid(Materials.FormicAcid, 384 * 3));
         TierAcid.t4.set(MaterialUtils.fluid(Materials.HydrofluoricAcidGT5U, 384 * 4));
         TierAcid.t5.set(MaterialUtils.fluid(Materials.NitricAcid, 384 * 5));
         // amount is same as tier 5 on purpose
@@ -446,13 +446,13 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(
             MaterialLeafLoader.iridineFlower,
             Materials.Iridium,
-            MaterialLibAPI.getFluidStack(Materials.PlatinumConcentrate, FluidShapes.fluidLiquid, 2000),
+            liquid(Materials.PlatinumConcentrate, 2000),
             GTOreDictUnificator.get(OrePrefixes.dust, Materials.IridiumMetalResidue, 8));
 
         createOreDuplicationRecipe(
             MaterialLeafLoader.osmianthFlower,
             Materials.Osmium,
-            MaterialLibAPI.getFluidStack(Materials.AcidicIridiumSolution, FluidShapes.fluidLiquid, 1000),
+            liquid(Materials.AcidicIridiumSolution, 1000),
             GTOreDictUnificator.get(OrePrefixes.dust, Materials.RarestMetalResidue, 8));
 
         createOreDuplicationRecipe(MaterialLeafLoader.reactoriaLeaf, Materials.Pitchblende);
@@ -596,12 +596,9 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             lvRecipe((12 * SECONDS + 10 * TICKS) * variation.mult)
                 .itemInputs(CropsNHItemList.platinaLeaf.get(4 * variation.mult))
                 .circuit(variation.circuit)
-                .fluidInputs(
-                    MaterialLibAPI.getFluidStack(Materials.AquaRegia, FluidShapes.fluidLiquid, 2000 * variation.mult))
+                .fluidInputs(liquid(Materials.AquaRegia, 2000 * variation.mult))
                 .itemOutputs(variation.residue)
-                .fluidOutputs(
-                    MaterialLibAPI
-                        .getFluidStack(Materials.PlatinumConcentrate, FluidShapes.fluidLiquid, 2000 * variation.mult))
+                .fluidOutputs(liquid(Materials.PlatinumConcentrate, 2000 * variation.mult))
                 .addTo(UniversalChemical);
         }
 
@@ -627,14 +624,14 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             MaterialLeafLoader.osmianthFlower,
             DEFAULT_ORE_CONVERSION_LEAF_AMOUNT * 2,
             Voltage.IV,
-            MaterialLibAPI.getFluidStack(Materials.AcidicOsmiumSolution, FluidShapes.fluidLiquid, 1000),
+            liquid(Materials.AcidicOsmiumSolution, 1000),
             TierAcid.t6,
             Voltage.IV.getComplexTime() * 13);
         createOreConversionRecipe(
             MaterialLeafLoader.iridineFlower,
             DEFAULT_ORE_CONVERSION_LEAF_AMOUNT * 2,
             Voltage.IV,
-            MaterialLibAPI.getFluidStack(Materials.AcidicIridiumSolution, FluidShapes.fluidLiquid, 1000),
+            liquid(Materials.AcidicIridiumSolution, 1000),
             TierAcid.t6,
             Voltage.IV.getComplexTime() * 9);
         createOreConversionRecipe(MaterialLeafLoader.stargatiumLeaf, Voltage.IV, Materials.Naquadah, TierAcid.t6);
@@ -1468,16 +1465,17 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
     }
 
     private static FluidStack getOreByproduct(Material oreType) {
-        if (oreType == Materials.Naquadah)
-            return MaterialLibAPI.getFluidStack(Materials.EnrichedNaquadahGoo, FluidShapes.fluidLiquid, 2 * INGOTS);
-        if (oreType == Materials.NaquadahEnriched)
-            return MaterialLibAPI.getFluidStack(Materials.NaquadahGoo, FluidShapes.fluidLiquid, 2 * INGOTS);
-        if (oreType == Materials.Naquadria)
-            return MaterialLibAPI.getFluidStack(Materials.NaquadriaGoo, FluidShapes.fluidLiquid, 2 * INGOTS);
+        if (oreType == Materials.Naquadah) return liquid(Materials.EnrichedNaquadahGoo, 2 * INGOTS);
+        if (oreType == Materials.NaquadahEnriched) return liquid(Materials.NaquadahGoo, 2 * INGOTS);
+        if (oreType == Materials.Naquadria) return liquid(Materials.NaquadriaGoo, 2 * INGOTS);
         List<Material> byProducts = MaterialUtils.oreByProducts(oreType);
         if (byProducts.isEmpty()) return null;
         return MaterialUtils.molten(byProducts.get(0), 1 * INGOTS);
     }
 
     // endregion ore duplication helpers
+
+    private static FluidStack liquid(Material material, int amount) {
+        return MaterialLibAPI.getFluidStack(material, FluidShapes.fluidLiquid, amount);
+    }
 }
