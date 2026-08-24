@@ -3,7 +3,9 @@ package com.gtnewhorizon.cropsnh.crops.abstracts;
 import java.awt.Color;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
+import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
+import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public abstract class CropBaseStoneLily extends NHCropCard {
@@ -33,6 +35,11 @@ public abstract class CropBaseStoneLily extends NHCropCard {
     @Override
     public ISoilList getSoilTypes() {
         return CropsNHSoilTypes.stone;
+    }
+
+    @Override
+    public IPlantRenderShape getRenderShape() {
+        return PlantRenderShape.X;
     }
 
     @Override
