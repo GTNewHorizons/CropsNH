@@ -37,6 +37,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -857,6 +858,12 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.mode.output");
             default -> StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.mode.input");
         };
+    }
+
+    @Override
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ, ItemStack aTool) {
+        this.setMachineMode(this.nextMachineMode());
+        GTUtility.sendChatTrans(aPlayer, Reference.MOD_ID + "_chat.industrialFarm.mode.set", this.getMachineModeName());
     }
 
     // endregion machine mode
