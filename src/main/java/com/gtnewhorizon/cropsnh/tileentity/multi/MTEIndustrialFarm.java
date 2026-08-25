@@ -861,7 +861,8 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     }
 
     @Override
-    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ, ItemStack aTool) {
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
+        ItemStack aTool) {
         this.setMachineMode(this.nextMachineMode());
         GTUtility.sendChatTrans(aPlayer, Reference.MOD_ID + "_chat.industrialFarm.mode.set", this.getMachineModeName());
     }
