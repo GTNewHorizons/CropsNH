@@ -801,7 +801,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
             case VoltageIndex.UEV -> OrePrefixes.cableGt01.get(Materials.Draconium);
             case VoltageIndex.UIV -> OrePrefixes.cableGt01.get(Materials.NetherStar);
             case VoltageIndex.UMV -> OrePrefixes.cableGt01.get(Materials.Quantium);
-            case VoltageIndex.UXV -> OrePrefixes.wireGt01.get(Materials.SpaceTime);
+            case VoltageIndex.UXV -> OrePrefixes.cableGt01.get(Materials.BlackPlutonium);
             default -> MTEBasicMachineWithRecipe.X.WIRE;
         };
     }
@@ -822,10 +822,10 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
             case VoltageIndex.ZPM -> OrePrefixes.plate.get(Materials.Iridium);
             case VoltageIndex.UV -> OrePrefixes.plate.get(Materials.Osmium);
             case VoltageIndex.UHV -> OrePrefixes.plate.get(Materials.Neutronium);
-            case VoltageIndex.UEV -> OrePrefixes.plate.get(Materials.Bedrockium);
-            case VoltageIndex.UIV -> OrePrefixes.plate.get(Materials.CosmicNeutronium);
-            case VoltageIndex.UMV -> OrePrefixes.plate.get(Materials.TranscendentMetal);
-            case VoltageIndex.UXV -> OrePrefixes.plate.get(Materials.SpaceTime);
+            case VoltageIndex.UEV -> OrePrefixes.plate.get(Materials.Infinity);
+            case VoltageIndex.UIV -> OrePrefixes.plate.get(Materials.TranscendentMetal);
+            case VoltageIndex.UMV -> OrePrefixes.plate.get(Materials.SpaceTime);
+            case VoltageIndex.UXV -> OrePrefixes.plate.get(Materials.MHDCSM);
             default -> MTEBasicMachineWithRecipe.X.PLATE;
         };
     }
