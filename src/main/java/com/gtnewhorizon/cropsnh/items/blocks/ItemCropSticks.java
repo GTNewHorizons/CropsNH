@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 
 import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
-import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 
 public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickHandler {
 
@@ -37,7 +36,7 @@ public class ItemCropSticks extends ItemBlockCropsNH implements ICropRightClickH
         boolean isPlacingCross = player.isSneaking() && (player.capabilities.isCreativeMode || stack.stackSize >= 2);
 
         // place the stick
-        world.setBlock(x, y, z, CropsNHBlocks.blockCropSticks);
+        if (!world.setBlock(x, y, z, field_150939_a, metadata, 3)) return false;
 
         // upgrade it if necessary
         if (isPlacingCross && world.getTileEntity(x, y, z) instanceof ICropStickTile crop) {
