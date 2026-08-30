@@ -1,6 +1,5 @@
 package com.gtnewhorizon.cropsnh.compatibility.betterbuilderswands;
 
-import net.minecraft.item.Item;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.blocks.BlockCropSticks;
@@ -20,22 +19,16 @@ public class BetterBuildersWandsCompatHandler {
         BlockCropSticks.BLOCK_INTERACTION_WITH
             .add(ModUtils.BetterBuildersWands.getItem("wandUnbreakable"), OreDictionary.WILDCARD_VALUE);
 
-        // diamond wand, can be disabled
-        Item item = ModUtils.BetterBuildersWands.getItemAllowNull("wandDiamond");
-        if (item != null) {
-            BlockCropSticks.BLOCK_INTERACTION_WITH.add(item, OreDictionary.WILDCARD_VALUE);
-        }
+        // diamond wand
+        BlockCropSticks.BLOCK_INTERACTION_WITH
+            .add(ModUtils.BetterBuildersWands.getItem("wandDiamond"), OreDictionary.WILDCARD_VALUE);
 
-        // stone wand, can be disabled
-        item = ModUtils.BetterBuildersWands.getItemAllowNull("wandStone");
-        if (item != null) {
-            BlockCropSticks.BLOCK_INTERACTION_WITH.add(item, OreDictionary.WILDCARD_VALUE);
-        }
+        // stone wand
+        BlockCropSticks.BLOCK_INTERACTION_WITH
+            .add(ModUtils.BetterBuildersWands.getItem("wandStone"), OreDictionary.WILDCARD_VALUE);
 
-        // iron wand, can be disabled
-        item = ModUtils.BetterBuildersWands.getItemAllowNull("wandIron");
-        if (item != null) {
-            BlockCropSticks.BLOCK_INTERACTION_WITH.add(item, OreDictionary.WILDCARD_VALUE);
-        }
+        // iron wand
+        BlockCropSticks.BLOCK_INTERACTION_WITH
+            .add(ModUtils.BetterBuildersWands.getItem("wandIron"), OreDictionary.WILDCARD_VALUE);
     }
 }
