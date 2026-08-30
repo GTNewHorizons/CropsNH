@@ -800,7 +800,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
             case VoltageIndex.UEV -> OrePrefixes.cableGt01.ingredient(Materials.Draconium);
             case VoltageIndex.UIV -> OrePrefixes.cableGt01.ingredient(Materials.NetherStar);
             case VoltageIndex.UMV -> OrePrefixes.cableGt01.ingredient(Materials.Quantium);
-            case VoltageIndex.UXV -> OrePrefixes.wireGt01.ingredient(Materials.SpaceTime);
+            case VoltageIndex.UXV -> OrePrefixes.cableGt01.ingredient(Materials.BlackPlutonium);
             default -> MTEBasicMachineWithRecipe.X.WIRE;
         };
     }
@@ -821,10 +821,10 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
             case VoltageIndex.ZPM -> OrePrefixes.plate.ingredient(Materials.Iridium);
             case VoltageIndex.UV -> OrePrefixes.plate.ingredient(Materials.Osmium);
             case VoltageIndex.UHV -> OrePrefixes.plate.ingredient(Materials.Neutronium);
-            case VoltageIndex.UEV -> OrePrefixes.plate.ingredient(Materials.Bedrockium);
-            case VoltageIndex.UIV -> OrePrefixes.plate.ingredient(Materials.CosmicNeutronium);
-            case VoltageIndex.UMV -> OrePrefixes.plate.ingredient(Materials.TranscendentMetal);
-            case VoltageIndex.UXV -> OrePrefixes.plate.ingredient(Materials.SpaceTime);
+            case VoltageIndex.UEV -> OrePrefixes.plate.ingredient(Materials.Infinity);
+            case VoltageIndex.UIV -> OrePrefixes.plate.ingredient(Materials.TranscendentMetal);
+            case VoltageIndex.UMV -> OrePrefixes.plate.ingredient(Materials.SpaceTime);
+            case VoltageIndex.UXV -> OrePrefixes.plate.ingredient(Materials.MagnetohydrodynamicallyConstrainedStarMatter);
             default -> MTEBasicMachineWithRecipe.X.PLATE;
         };
     }

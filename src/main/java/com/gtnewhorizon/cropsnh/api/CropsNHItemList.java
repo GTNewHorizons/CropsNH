@@ -452,7 +452,7 @@ public enum CropsNHItemList implements IItemContainer {
 
     private void sanityCheck() {
         if (this.hasNotBeenSet)
-            throw new IllegalAccessError("The Enum '" + name() + "' has not been set to an Item at this time!");
+            throw new IllegalAccessError("The Enum '" + this.name() + "' has not been set to an Item at this time!");
         if (this.deprecated && !this.warned) {
             GT_FML_LOGGER.error(new Exception(this + " is now deprecated"));
             // warn only once
