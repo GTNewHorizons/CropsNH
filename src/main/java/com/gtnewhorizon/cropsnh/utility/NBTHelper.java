@@ -84,7 +84,7 @@ public abstract class NBTHelper {
         for (Map.Entry<ItemStack, Integer> entry : map.entrySet()) {
             NBTTagCompound entryNBT = new NBTTagCompound();
             entryNBT.setTag(NBT_ITEM_STACK_MAP_KEY, writeItemStackToNBT(entry.getKey()));
-            entryNBT.setDouble(NBT_ITEM_STACK_MAP_VALUE, entry.getValue());
+            entryNBT.setInteger(NBT_ITEM_STACK_MAP_VALUE, entry.getValue());
             nbt.appendTag(entryNBT);
         }
         return nbt;
@@ -97,7 +97,7 @@ public abstract class NBTHelper {
             if (entry.hasNoTags()) continue;
             ItemStack stack = ItemStack.loadItemStackFromNBT(entry.getCompoundTag(NBT_ITEM_STACK_MAP_KEY));
             if (stack == null) continue;
-            int value = getInteger(entry, NBT_ITEM_STACK_MAP_VALUE, 1);
+            int value = (int) getFloatingNumber(entry, NBT_ITEM_STACK_MAP_VALUE, 1);
             map.merge(stack, value, merger);
         }
     }
