@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
@@ -77,7 +78,7 @@ public abstract class NBTHelper {
             if (entry.hasNoTags()) continue;
             ItemStack stack = ItemStack.loadItemStackFromNBT(entry.getCompoundTag(NBT_ITEM_STACK_MAP_KEY));
             if (stack == null) continue;
-            int value = getIntegerNumber(entry, NBT_ITEM_STACK_MAP_VALUE, 1);
+            int value = (int) NBTHelper.getIntegerNumber(entry, NBT_ITEM_STACK_MAP_VALUE, 1);
             map.merge(stack, value, merger);
         }
     }
