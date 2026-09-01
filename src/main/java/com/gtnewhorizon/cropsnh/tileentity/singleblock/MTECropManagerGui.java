@@ -11,12 +11,12 @@ import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.api.widget.IWidget;
 import com.cleanroommc.modularui.drawable.UITexture;
 import com.cleanroommc.modularui.screen.ModularPanel;
-import com.cleanroommc.modularui.utils.Alignment;
 import com.cleanroommc.modularui.value.sync.BooleanSyncValue;
 import com.cleanroommc.modularui.value.sync.DoubleSyncValue;
 import com.cleanroommc.modularui.value.sync.IntSyncValue;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.widget.ParentWidget;
+import com.cleanroommc.modularui.widgets.CycleButtonWidget;
 import com.cleanroommc.modularui.widgets.ProgressWidget;
 import com.cleanroommc.modularui.widgets.ToggleButton;
 import com.cleanroommc.modularui.widgets.layout.Flow;
@@ -103,7 +103,7 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
                         getFluidUnit())))
             .direction(ProgressWidget.Direction.UP)
             .texture(GTGuiTextures.SLOT_ITEM_STANDARD, texture, height)
-            .size(10, height);
+            .size(8, height);
     }
 
     @Override
@@ -114,11 +114,6 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
 
     @Override
     protected boolean supportsMuffler() {
-        return false;
-    }
-
-    @Override
-    protected boolean supportsTopRightCornerFlow() {
         return false;
     }
 
@@ -162,9 +157,8 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
                 ($x, $y, i) -> createSlot(i + RIGHT_GRID_SLOT_START));
 
         Flow topLayer = Flow.row()
-            .horizontalCenter()
             .coverChildren()
-            .childPadding(3)
+            .childPadding(1)
             .child(leftGrid)
             .child(indicators)
             .child(rightGrid);
@@ -185,6 +179,11 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
         BooleanSyncValue harvestSync = new BooleanSyncValue(
             () -> machine.harvestEnabled,
             (v) -> machine.harvestEnabled = v).allowC2S();
+        BooleanSyncValue circularSync = new BooleanSyncValue(() -> machine.isCircular, (v) -> machine.isCircular = v)
+            .allowC2S();
+        BooleanSyncValue managedAreaOverlaySync = new BooleanSyncValue(
+            () -> machine.showManagedArea,
+            (v) -> machine.showManagedArea = v).allowC2S();
 
         return super.createBottomLeftCornerFlow(panel, syncManager).child(
             new ToggleButton().value(waterSync)
@@ -233,17 +232,32 @@ public class MTECropManagerGui extends MTETieredMachineBlockBaseGui<MTECropManag
                             .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
                     .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_HARVEST))
             .child(
-                Flow.row()
-                    .width(MTETieredMachineBlockBaseGui.SLOT_SIZE)
-                    .marginLeft(MTETieredMachineBlockBaseGui.SLOT_SIZE)
-                    .mainAxisAlignment(Alignment.MainAxis.CENTER)
-                    .childIf(this.supportsMuffler(), this::createMufflerButton))
-            .child(createSlot(MTECropManager.SLOT_BATTERY))
+                new ToggleButton().value(managedAreaOverlaySync)
+                    .tooltip(
+                        true,
+                        tooltip -> tooltip
+                            .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.managedAreaOverlay"))
+                            .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.enabled")))
+                    .tooltip(
+                        false,
+                        tooltip -> tooltip
+                            .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.managedAreaOverlay"))
+                            .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.toggle.disabled")))
+                    .overlay(CropsNHUITextures.BUTTON_OVERLAY_TOGGLE_MANAGED_AREA_OVERLAY))
             .child(
-                Flow.row()
-                    .width(MTETieredMachineBlockBaseGui.SLOT_SIZE)
-                    .mainAxisAlignment(Alignment.MainAxis.CENTER)
-                    .childIf(this.supportsPowerSwitch(), this::createPowerSwitchButton));
+                new CycleButtonWidget().value(circularSync)
+                    .tooltip(
+                        0,
+                        tooltip -> tooltip
+                            .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.cycle.managedAreaShape"))
+                            .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.cycle.square")))
+                    .tooltip(
+                        1,
+                        tooltip -> tooltip
+                            .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.cycle.managedAreaShape"))
+                            .addLine(IKey.lang(Reference.MOD_ID + "_tooltip.cropManager.cycle.circular")))
+                    .stateOverlay(CropsNHUITextures.BUTTON_OVERLAY_MANAGED_AREA_CYCLE))
+            .child(createSlot(MTECropManager.SLOT_BATTERY).marginLeft(MTETieredMachineBlockBaseGui.SLOT_SIZE));
     }
 
 }
