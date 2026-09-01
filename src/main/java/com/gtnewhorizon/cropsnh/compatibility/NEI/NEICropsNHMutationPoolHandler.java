@@ -147,7 +147,7 @@ public class NEICropsNHMutationPoolHandler extends CropsNHNEIHandler {
         }
 
         // resolve the array
-        ItemStack[] members = stream.map(x -> x.getSeedItem(SeedStats.DEFAULT_ANALYZED))
+        ItemStack[] members = stream.map(x -> x.getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY))
             .toArray(ItemStack[]::new);
 
         // if we passed in a crop card and a stack, override the stack iwth a copy of the passed stack

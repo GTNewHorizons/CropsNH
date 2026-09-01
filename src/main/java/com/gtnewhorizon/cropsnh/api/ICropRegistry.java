@@ -4,8 +4,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
 
-import com.gtnewhorizon.cropsnh.utility.exception.DuplicateCropPlantException;
-
 public interface ICropRegistry {
 
     /**
@@ -43,17 +41,19 @@ public interface ICropRegistry {
     /**
      * Gets the crop card who registered the item as it's alternate seed.
      *
-     * @param stack
-     * @return
+     * @param stack A stack of some alternate seed.
+     * @return The crop card associated with the stack
      */
     public @Nullable ICropCard fromAlternateSeed(ItemStack stack);
 
     /**
      * Registers the crop.
      *
+     * @throws IllegalArgumentException if a duplicate ID is inserted.
+     *
      * @param crop The crop to register.
      */
-    void register(ICropCard crop) throws DuplicateCropPlantException;
+    void register(ICropCard crop);
 
     /**
      * Updates the known item seed list for stuff like vanilla seeds.

@@ -22,6 +22,7 @@ import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
 import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.DebugHelper;
 import com.gtnewhorizon.cropsnh.utility.MetaMap;
@@ -96,7 +97,9 @@ public class CropRegistry implements ICropRegistry {
         this.cropRegistry.put(crop.getId(), crop);
         this.registrationOrder.add(crop);
         // register the ore dict while we're at it
-        OreDictLoader.register(crop.getSeedItem(SeedStats.DEFAULT_ANALYZED), "listAllSeed");
+        if (Reference.IS_GAME_LOADED) {
+            OreDictLoader.register(crop.getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY), "listAllSeed");
+        }
         crop.setNumericId(cropIdCounter++);
         registerAlternateSeeds(alternateSeedList, crop);
     }
