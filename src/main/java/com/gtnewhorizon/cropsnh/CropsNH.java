@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh;
 
 import com.gtnewhorizon.cropsnh.compatibility.StructureLib.StructureLibCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.TiC.TiCCompatHandler;
+import com.gtnewhorizon.cropsnh.compatibility.betterbuilderswands.BetterBuildersWandsCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.extrautils.ExUWateringCanHandler;
 import com.gtnewhorizon.cropsnh.compatibility.findit.FindItCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryCompatHandler;
@@ -67,6 +68,7 @@ import gregtech.api.util.GTUtility;
     + "after:" + ModUtils.ModIDs.TwilightForest + "; "
     + "after:" + ModUtils.ModIDs.StructureLib + "; "
     + "after:" + ModUtils.ModIDs.PamsHarvestCraft + "; "
+    + "after:" + ModUtils.ModIDs.BetterBuildersWands + "; "
 // spotless:on
 )
 public class CropsNH {
@@ -132,6 +134,7 @@ public class CropsNH {
         ForestryCompatHandler.postInit();
         ExUWateringCanHandler.postInit();
         FindItCompatHandler.postInit();
+        BetterBuildersWandsCompatHandler.postInit();
 
         LogHelper.debug("Post-Initialization Complete");
     }

@@ -16,6 +16,7 @@ dependencies {
     devOnlyNonPublishable("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
     devOnlyNonPublishable('com.github.GTNewHorizons:Backhand:1.8.14:dev') { transitive = false }
     devOnlyNonPublishable('com.github.GTNewHorizons:FindIt:1.4.6:dev') { transitive = false }
+    devOnlyNonPublishable('com.github.GTNewHorizons:BetterBuildersWands:0.13.12-GTNH:dev') { transitive = false }
 
     testImplementation('junit:junit:4.12')
     testImplementation(platform('org.junit:junit-bom:5.14.1'))
