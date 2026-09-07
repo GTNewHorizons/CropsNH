@@ -18,7 +18,7 @@ public class CropPinkTulip extends CropVanillaFlower {
 
         this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 7));
 
-        this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.WET);
+        this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.WET);
     }
 
     @Override
