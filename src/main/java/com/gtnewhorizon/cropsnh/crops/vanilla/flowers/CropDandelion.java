@@ -18,7 +18,7 @@ public class CropDandelion extends CropVanillaFlower {
 
         this.addAlternateSeed(new ItemStack(Blocks.yellow_flower, 1, 0));
 
-        this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST);
+        this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST);
     }
 
     @Override

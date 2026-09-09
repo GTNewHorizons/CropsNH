@@ -18,7 +18,7 @@ public class CropOxeyeDaisy extends CropVanillaFlower {
 
         this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 8));
 
-        this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST);
+        this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.FOREST);
     }
 
     @Override

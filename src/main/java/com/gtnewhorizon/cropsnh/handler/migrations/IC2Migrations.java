@@ -61,18 +61,18 @@ public class IC2Migrations {
                             Constants.MIN_SEED_STAT,
                             Math.min(
                                 Constants.MAX_SEED_STAT,
-                                NBTHelper.getIntgegerNumber(oldNBT, "statGrowth", Constants.MIN_SEED_STAT))),
+                                NBTHelper.getIntegerNumber(oldNBT, "statGrowth", Constants.MIN_SEED_STAT))),
                         (byte) Math.max(
                             Constants.MIN_SEED_STAT,
                             Math.min(
                                 Constants.MAX_SEED_STAT,
-                                NBTHelper.getIntgegerNumber(oldNBT, "statGain", Constants.MIN_SEED_STAT))),
+                                NBTHelper.getIntegerNumber(oldNBT, "statGain", Constants.MIN_SEED_STAT))),
                         (byte) Math.max(
                             Constants.MIN_SEED_STAT,
                             Math.min(
                                 Constants.MAX_SEED_STAT,
-                                NBTHelper.getIntgegerNumber(oldNBT, "statResistance", Constants.MIN_SEED_STAT))),
-                        NBTHelper.getIntgegerNumber(oldNBT, "scanLevel", 0) >= 1);
+                                NBTHelper.getIntegerNumber(oldNBT, "statResistance", Constants.MIN_SEED_STAT))),
+                        NBTHelper.getIntegerNumber(oldNBT, "scanLevel", 0) >= 1);
                     IAdditionalCropData extra = null;
                     // check if the crop can grow on the current farmland.
                     if (ConfigurationHandler.alwaysMigrateUsingMigrationCrop) {
@@ -108,18 +108,18 @@ public class IC2Migrations {
                     Constants.MIN_SEED_STAT,
                     Math.min(
                         Constants.MAX_SEED_STAT,
-                        NBTHelper.getIntgegerNumber(oldTag, "growth", Constants.MIN_SEED_STAT))),
+                        NBTHelper.getIntegerNumber(oldTag, "growth", Constants.MIN_SEED_STAT))),
                 (byte) Math.max(
                     Constants.MIN_SEED_STAT,
                     Math.min(
                         Constants.MAX_SEED_STAT,
-                        NBTHelper.getIntgegerNumber(oldTag, "gain", Constants.MIN_SEED_STAT))),
+                        NBTHelper.getIntegerNumber(oldTag, "gain", Constants.MIN_SEED_STAT))),
                 (byte) Math.max(
                     Constants.MIN_SEED_STAT,
                     Math.min(
                         Constants.MAX_SEED_STAT,
-                        NBTHelper.getIntgegerNumber(oldTag, "resistance", Constants.MIN_SEED_STAT))),
-                NBTHelper.getIntgegerNumber(oldTag, "scan", 0) >= 1);
+                        NBTHelper.getIntegerNumber(oldTag, "resistance", Constants.MIN_SEED_STAT))),
+                NBTHelper.getIntegerNumber(oldTag, "scan", 0) >= 1);
             // update the stack
             stack.setShort("id", (short) Item.getIdFromItem(CropsNHItems.genericSeed));
             stack.setShort("Damage", (short) 0);

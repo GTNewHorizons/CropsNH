@@ -9,6 +9,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.blocks.BlockCropSticks;
@@ -36,6 +37,13 @@ public class ExUWateringCanHandler {
         BlockCropSticks.BLOCK_INTERACTION_WITH.add(EXTRA_UTILS_WATERING_CAN, 0);
         // reinforced
         BlockCropSticks.BLOCK_INTERACTION_WITH.add(EXTRA_UTILS_WATERING_CAN, 3);
+
+        // building wands
+        BlockCropSticks.BLOCK_INTERACTION_WITH
+            .add(ModUtils.ExtraUtilities.getItem("builderswand"), OreDictionary.WILDCARD_VALUE);
+        BlockCropSticks.BLOCK_INTERACTION_WITH
+            .add(ModUtils.ExtraUtilities.getItem("creativebuilderswand"), OreDictionary.WILDCARD_VALUE);
+
     }
 
     @SubscribeEvent

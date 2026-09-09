@@ -18,8 +18,8 @@ public class CropTearstalks extends NHCropCard {
         this.addDrop(new ItemStack(Items.ghast_tear, 1, 0), 66_66);
 
         this.addDuplicationCatalyst(new ItemStack(Items.ghast_tear, 1, 0));
-        // Ghasts look like they are dead on the inside
-        this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.DEAD);
+        // Ghasts are spooky ghosts
+        this.addLikedBiomes(BiomeDictionary.Type.NETHER, BiomeDictionary.Type.SPOOKY);
     }
 
     @Override

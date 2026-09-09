@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
@@ -32,20 +33,12 @@ public abstract class NBTHelper {
      * @param def The default value.
      * @return the value or default if it wasn't found.
      */
-    public static long getIntgegerNumber(NBTTagCompound tag, String key, long def) {
+    public static long getIntegerNumber(NBTTagCompound tag, String key, long def) {
         if (tag == null) return def;
-        switch (tag.func_150299_b(key)) {
-            case Constants.NBT.TAG_BYTE:
-                return tag.getByte(key);
-            case Constants.NBT.TAG_SHORT:
-                return tag.getShort(key);
-            case Constants.NBT.TAG_INT:
-                return tag.getInteger(key);
-            case Constants.NBT.TAG_LONG:
-                return tag.getLong(key);
-            default:
-                return def;
+        if (tag.getTag(key) instanceof NBTBase.NBTPrimitive primitive) {
+            return primitive.func_150291_c();
         }
+        return def;
     }
 
     /**
@@ -58,22 +51,10 @@ public abstract class NBTHelper {
      */
     public static double getFloatingNumber(NBTTagCompound tag, String key, double def) {
         if (tag == null) return def;
-        switch (tag.func_150299_b(key)) {
-            case Constants.NBT.TAG_BYTE:
-                return tag.getByte(key);
-            case Constants.NBT.TAG_SHORT:
-                return tag.getShort(key);
-            case Constants.NBT.TAG_INT:
-                return tag.getInteger(key);
-            case Constants.NBT.TAG_LONG:
-                return tag.getLong(key);
-            case Constants.NBT.TAG_FLOAT:
-                return tag.getFloat(key);
-            case Constants.NBT.TAG_DOUBLE:
-                return tag.getDouble(key);
-            default:
-                return def;
+        if (tag.getTag(key) instanceof NBTBase.NBTPrimitive primitive) {
+            return primitive.func_150286_g();
         }
+        return def;
     }
 
     private static final String NBT_ITEM_STACK_MAP_KEY = "key";
@@ -84,7 +65,7 @@ public abstract class NBTHelper {
         for (Map.Entry<ItemStack, Integer> entry : map.entrySet()) {
             NBTTagCompound entryNBT = new NBTTagCompound();
             entryNBT.setTag(NBT_ITEM_STACK_MAP_KEY, writeItemStackToNBT(entry.getKey()));
-            entryNBT.setDouble(NBT_ITEM_STACK_MAP_VALUE, entry.getValue());
+            entryNBT.setInteger(NBT_ITEM_STACK_MAP_VALUE, entry.getValue());
             nbt.appendTag(entryNBT);
         }
         return nbt;
@@ -97,7 +78,7 @@ public abstract class NBTHelper {
             if (entry.hasNoTags()) continue;
             ItemStack stack = ItemStack.loadItemStackFromNBT(entry.getCompoundTag(NBT_ITEM_STACK_MAP_KEY));
             if (stack == null) continue;
-            int value = getInteger(entry, NBT_ITEM_STACK_MAP_VALUE, 1);
+            int value = (int) NBTHelper.getIntegerNumber(entry, NBT_ITEM_STACK_MAP_VALUE, 1);
             map.merge(stack, value, merger);
         }
     }

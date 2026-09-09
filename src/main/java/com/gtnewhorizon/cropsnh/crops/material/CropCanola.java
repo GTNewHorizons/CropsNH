@@ -15,7 +15,7 @@ public class CropCanola extends NHCropCard {
         this.addDrop(CropsNHItemList.canolaFlower.get(1), 100_00);
 
         // canada.jpg
-        this.addLikedBiomes(BiomeDictionary.Type.COLD, BiomeDictionary.Type.PLAINS);
+        this.addLikedBiomes(BiomeDictionary.Type.COLD, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SPARSE);
     }
 
     @Override

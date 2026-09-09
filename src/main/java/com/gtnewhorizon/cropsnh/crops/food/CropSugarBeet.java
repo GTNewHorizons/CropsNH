@@ -23,7 +23,8 @@ public class CropSugarBeet extends NHCropCard {
 
         this.addDuplicationCatalyst("dustSugar", 1);
         // tends to prefer cold and wet environments like most of europe.
-        this.addLikedBiomes(BiomeDictionary.Type.COLD, BiomeDictionary.Type.WET);
+        // no biome has cold wet, so cold forest it is.
+        this.addLikedBiomes(BiomeDictionary.Type.COLD, BiomeDictionary.Type.WET, BiomeDictionary.Type.FOREST);
     }
 
     @Override
