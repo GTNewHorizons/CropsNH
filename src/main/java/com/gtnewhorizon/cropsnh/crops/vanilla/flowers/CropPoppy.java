@@ -18,7 +18,7 @@ public class CropPoppy extends CropVanillaFlower {
 
         this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 0));
         // half tempted to add dead, but that just feels like a bad taste joke.
-        this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.HILLS);
+        this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.HILLS);
     }
 
     @Override

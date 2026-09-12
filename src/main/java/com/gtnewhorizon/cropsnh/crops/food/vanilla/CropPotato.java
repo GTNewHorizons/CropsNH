@@ -15,7 +15,7 @@ public class CropPotato extends CropFood {
         this.addDrop(new ItemStack(Items.potato, 1), 10_000);
         this.addAlternateSeed(new ItemStack(Items.potato, 1));
         // tends to be a staple crop for more northern/cold countries.
-        this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.COLD);
+        this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.COLD, BiomeDictionary.Type.CONIFEROUS);
     }
 
     @Override
