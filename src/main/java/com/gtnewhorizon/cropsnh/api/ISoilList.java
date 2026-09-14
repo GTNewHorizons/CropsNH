@@ -43,4 +43,14 @@ public interface ISoilList {
      * @return A stream of item stacks for this soil list.
      */
     Stream<ItemStack> getNEIItemList();
+
+    /**
+     * @return A lang key that is displayed in the crop's tooltip.
+     */
+    String getUnlocalizedItemTooltip();
+
+    /**
+     * @return A lang key that is displayed in the crop's tooltip.
+     */
+    String getUnlocalizedWrongSoilMessage();
 }
