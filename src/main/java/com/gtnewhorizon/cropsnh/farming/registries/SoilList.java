@@ -13,6 +13,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.MetaSet;
 
@@ -147,5 +148,15 @@ public class SoilList implements ISoilList {
                 return new ItemStack(item, 1, meta);
             })
             .filter(Objects::nonNull);
+    }
+
+    @Override
+    public String getUnlocalizedItemTooltip() {
+        return Reference.MOD_ID + "_soilList." + this.name + ".tooltip";
+    }
+
+    @Override
+    public String getUnlocalizedWrongSoilMessage() {
+        return Reference.MOD_ID + "_soilList." + this.name + ".wrongSoil";
     }
 }

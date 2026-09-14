@@ -142,6 +142,11 @@ public class ItemGenericSeed extends ItemCropsNH {
                     formatNumber(stats.getResistance())));
 
             if (crop != null) {
+                toolTip.add(
+                    StatCollector.translateToLocal(
+                        crop.getSoilTypes()
+                            .getUnlocalizedItemTooltip()));
+
                 if (crop.getCrossingThreshold() < 0.0f) {
                     toolTip.add(
                         StatCollector.translateToLocal(
