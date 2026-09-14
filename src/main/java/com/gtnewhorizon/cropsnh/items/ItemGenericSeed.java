@@ -150,10 +150,17 @@ public class ItemGenericSeed extends ItemCropsNH {
                     formatNumber(stats.getResistance())));
 
             if (crop != null) {
+                if (crop.getBreedingThreshold() < 0.0f) {
+                    toolTip.add(
+                        StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.genericSeed.cannotBreedOnSticks"));
+                }
                 if (crop.getCrossingThreshold() < 0.0f) {
                     toolTip.add(
-                        StatCollector.translateToLocal(
-                            Reference.MOD_ID + "_tooltip.genericSeed.mustUseSeedSynthesizerToReplicate"));
+                        StatCollector
+                            .translateToLocal(Reference.MOD_ID + "_tooltip.genericSeed.cannotSpreadToOtherSticks.0"));
+                    toolTip.add(
+                        StatCollector
+                            .translateToLocal(Reference.MOD_ID + "_tooltip.genericSeed.cannotSpreadToOtherSticks.1"));
                 }
 
                 Collection<ICropMutation> mutations = MutationRegistry.instance.getDeterministicMutationsForCrop(crop);

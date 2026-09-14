@@ -151,7 +151,7 @@ public class CropNetherwart extends NHCropCard {
         }
 
         public void increaseChance() {
-            this.conversionChance = Math.max(MAX_CONVERSION_CHANCE, this.conversionChance + CONVERSION_INCREASE);
+            this.conversionChance = Math.min(MAX_CONVERSION_CHANCE, this.conversionChance + CONVERSION_INCREASE);
         }
 
         @Override
