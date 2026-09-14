@@ -20,8 +20,10 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.farming.SeedData;
@@ -29,6 +31,7 @@ import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -116,13 +119,25 @@ public abstract class CropsNHUtils {
         if (cc == null) return null;
         // if we found an alt seeds return it as a default-stat analyzed seed.
         if (isAltSeed) {
-            return new SeedData(cc, SeedStats.DEFAULT_ANALYZED, stack);
+            return new SeedData(cc, new SeedStats(true), stack);
         }
         // fail if the crop doesn't have stats (no alt seeds should reach this) or if the crop isn't analyzed and we're
         // only allowing analyzed seeds
         final SeedStats stats = SeedStats.getStatsFromStack(stack);
         if (stats == null || (analyzedOnly && !stats.isAnalyzed())) return null;
         return new SeedData(cc, stats, stack);
+    }
+
+    /**
+     * Set when running unit tests without a game instance loaded.
+     */
+    public static ICropCard DEBUG_FALLBACK_CROP = null;
+
+    /**
+     * @return The crop to fall back to when encountering an unknown crop ID.
+     */
+    public static ICropCard getFallbackCrop() {
+        return Reference.IS_GAME_LOADED ? CropsNHCrops.Carrot : DEBUG_FALLBACK_CROP;
     }
 
     private static IIcon MISSING_BLOCK_TEXTURE = null;
@@ -311,14 +326,16 @@ public abstract class CropsNHUtils {
         return CropsNHUtils.copyStackWithSizeIgnoreInvalidStackSize(ret, amount);
     }
 
+    private static final Item BLANK_ITEM = new Item();
+
     /**
      * Gets the damage/meta value of an item directly, bypassing any item specific getDamage logic.
      *
      * @param stack The stack to get the meta of.
      * @return The raw meta value of the stack.
      */
-    public static int getItemMeta(ItemStack stack) {
-        return Items.feather.getDamage(stack);
+    public static int getItemMeta(@NotNull ItemStack stack) {
+        return BLANK_ITEM.getDamage(stack);
     }
 
     /**
