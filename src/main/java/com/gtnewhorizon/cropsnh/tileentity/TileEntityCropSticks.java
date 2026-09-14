@@ -25,7 +25,6 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
@@ -64,9 +63,6 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStickTile {
 
@@ -847,21 +843,6 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
 
     // endregion neighbour checking
 
-    // region rendering stuff
-
-    // get the plant icon
-    @SideOnly(Side.CLIENT)
-    public IIcon getPlantIcon() {
-        IIcon icon = null;
-        if (this.hasCrop()) {
-            icon = this.seed.getCrop()
-                .getSprite(this);
-        }
-        return icon;
-    }
-
-    // endregion rendering stuff
-
     // region growth rate calc
 
     @Override
@@ -1372,7 +1353,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     }
 
     @Override
-    public ItemStack getSeedDrop() {
+    public @Nullable ItemStack getSeedDrop() {
         if (this.hasCrop() && !this.hasWeed() && this.passesResistanceCheck()) {
             return this.getSeedStack();
         }
