@@ -332,6 +332,9 @@ GT5U.gui.text.recipe_result.cropsnh.industrialFarm.cannotGrow=This seed cannot g
 GT5U.gui.text.recipe_result.cropsnh.industrialFarm.notEnoughWater=Not enough water
 GT5U.gui.text.recipe_result.cropsnh.industrialFarm.notEnoughEnrichedFertilizer=Not enough Enriched Fertilizer
 
+# Industrial Farm Chat messages
+cropsnh_chat.industrialFarm.mode.set=Changed mode to %1$s
+
 # Industrial Farm Scanner Tooltips
 cropsnh_tooltip.industrialFarm.scanner.0=Tier: §e%1$s§r
 cropsnh_tooltip.industrialFarm.scanner.1=Capacity: §e%1$s§r
@@ -901,5 +904,3 @@ cropsnh_mutationPool.white=White
 cropsnh_mutationPool.wood=Wood
 cropsnh_mutationPool.yellow=Yellow
 
-# Chat Messages
-cropsnh_chat.industrialFarm.mode.set=Changed mode to %1$s
