@@ -2,7 +2,7 @@
 
 dependencies {
     // compile and runtime required dependencies
-    api("com.github.GTNewHorizons:GT5-Unofficial:5.09.54.152:dev")
+    api("com.github.GTNewHorizons:GT5-Unofficial:5.09.54.154:dev")
     api("com.github.GTNewHorizons:GTNHLib:0.11.48:dev")
     shadowImplementation('com.github.makamys:MCLib:0.3.7.8') {
         exclude group: "codechicken"
@@ -30,7 +30,7 @@ dependencies {
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:GTNHLib:0.11.48:dev") { transitive = false }
     // // QOL/creature comforts
     // runtimeOnlyNonPublishable("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-999-GTNH:dev") { transitive = false }
-    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:AE2FluidCraft-Rework:1.5.108-gtnh:dev") { transitive = false }
+    // runtimeOnlyNonPublishable("com.github.GTNewHorizons:AE2FluidCraft-Rework:1.5.109-gtnh:dev") { transitive = false }
     // var tasks = project.gradle.startParameter.taskNames
     // if (tasks.contains("runClient17") || tasks.contains("runClient21") || tasks.contains("runClient25")) {
     //     runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:2.2.13:dev") { transitive = false }
