@@ -60,6 +60,7 @@ First, check the [planning tracker issue](https://github.com/GTNewHorizons/Crops
   - Since Crops NH isn't intended to be used outside the GTNH modpack, all mod integrations for Crops NH should be added directly to Crops NH.
   - If you need to modify another mod to allow Crops NH to better integrate with it, feel free to do so. The GTNH organization maintains custom forks of most mods included in GTNH for that very reason.
 
+If you want to run your development environment with every optional dependency enabled, uncomment the commented out dependencies in `dependencies.gradle` and unzip the contents of the `optional_runtime_dep_configs.zip` archive into `/run/client/config` and `/run/server/config`. It contains a trimmed down version of the GTNH configs, and should allow you to start a development environment with every optional dependency enabled.
 
 ---
 

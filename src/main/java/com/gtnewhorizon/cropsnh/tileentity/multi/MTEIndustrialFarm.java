@@ -76,6 +76,7 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.IFDropTable;
+import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.AutoPlaceEnvironment;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -783,6 +784,24 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
     @Override
     public IItemHandlerModifiable getInventoryHandler() {
         return this.invWrapper;
+    }
+
+    @Override
+    public void onBlockDestroyed() {
+        super.onBlockDestroyed();
+        IGregTechTileEntity tileEntity = getBaseMetaTileEntity();
+        for (int slot = 0; slot < this.ifStackHandler.getSlots(); slot++) {
+            ItemStack stack = this.ifStackHandler.getStackInSlot(slot);
+            if (GTUtility.isStackValid(stack)) {
+                WorldUtils.dropItem(
+                    tileEntity.getWorld(),
+                    tileEntity.getXCoord(),
+                    tileEntity.getYCoord(),
+                    tileEntity.getZCoord(),
+                    stack);
+                this.ifStackHandler.setStackInSlot(slot, null);
+            }
+        }
     }
 
     public ItemStack getSeedStack() {
