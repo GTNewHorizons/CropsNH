@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -102,6 +103,7 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
 
             // get list of all sub-soil
             List<ItemStack> subSoilList = mutation.getSubSoilsForNEI(true);
+            subSoilList.removeIf(subSoil -> CropsNHUtils.getBlockFromItem(subSoil) == Blocks.air);
             if (!subSoilList.isEmpty()) {
                 this.others.add(new PositionedStack(subSoilList, X_seed, Y_base, true));
             }
