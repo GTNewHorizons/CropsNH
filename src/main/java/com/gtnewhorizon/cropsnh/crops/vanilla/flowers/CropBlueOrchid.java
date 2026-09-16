@@ -20,7 +20,7 @@ public class CropBlueOrchid extends CropVanillaFlower {
 
         this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 1));
 
-        this.addLikedBiomes(BiomeDictionary.Type.WET, BiomeDictionary.Type.SWAMP);
+        this.addLikedBiomes(BiomeDictionary.Type.WET, BiomeDictionary.Type.LUSH, BiomeDictionary.Type.SWAMP);
     }
 
     @Override

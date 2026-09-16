@@ -22,7 +22,7 @@ import com.gtnewhorizon.cropsnh.utility.XSTR;
 public class CropNecrobloom extends NHCropCard {
 
     public CropNecrobloom() {
-        super("necrobloom", new Color(0x440F69), new Color(0x8921CC));
+        super("necrobloom", new Color(0x1D1225), new Color(0x4D4D4D));
         this.addDrop(CropsNHItemList.poisonPowder.get(1), 95_00);
         this.addDrop(new ItemStack(Items.dye, 1, 5), 5_00);
         // brings ruin
