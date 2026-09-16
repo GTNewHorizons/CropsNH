@@ -72,7 +72,7 @@ public abstract class CropsNHUtils {
      * @param stack The stack containing the item to convert.
      * @return The block or {@link Blocks#air} if none is found.
      */
-    public static @NotNull Block getBlockFromItem(ItemStack stack) {
+    public static @NotNull Block getBlockFromItem(@Nullable ItemStack stack) {
         if (stack == null) return Blocks.air;
         return getBlockFromItem(stack.getItem());
     }
@@ -83,7 +83,7 @@ public abstract class CropsNHUtils {
      * @param item the block to convert
      * @return The block or {@link Blocks#air} if none is found.
      */
-    public static @NotNull Block getBlockFromItem(Item item) {
+    public static @NotNull Block getBlockFromItem(@Nullable Item item) {
         if (item == null) {
             return Blocks.air;
         } else if (item instanceof ItemSkull) {
