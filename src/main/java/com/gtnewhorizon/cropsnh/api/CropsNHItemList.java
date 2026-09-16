@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.api;
 
+import static gregtech.GTLoggers.GT_FML_LOGGER;
 import static gregtech.api.enums.GTValues.NI;
 import static gregtech.api.util.GTRecipeBuilder.WILDCARD;
 
@@ -15,7 +16,6 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import gregtech.GTMod;
 import gregtech.api.interfaces.IItemContainer;
-import gregtech.api.util.GTLog;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
@@ -335,7 +335,7 @@ public enum CropsNHItemList implements IItemContainer {
     @Override
     public boolean isStackEqual(Object stack, boolean wildcard, boolean ignoreNBT) {
         if (this.deprecated && !this.warned) {
-            new Exception(this + " is now deprecated").printStackTrace(GTLog.err);
+            GT_FML_LOGGER.error(new Exception(this + " is now deprecated"));
             // warn only once
             this.warned = true;
         }
@@ -347,8 +347,8 @@ public enum CropsNHItemList implements IItemContainer {
     public ItemStack get(long amount, Object... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(this.stack)) {
-            GTLog.out.println("Object in the ItemList is null at:");
-            new NullPointerException().printStackTrace(GTLog.out);
+            GT_FML_LOGGER.debug("Object in the ItemList is null at:");
+            GT_FML_LOGGER.debug(new NullPointerException());
             return GTUtility.copyAmount(amount, replacements);
         }
         return CropsNHUtils.copyStackWithSize(this.stack, (int) amount);
@@ -452,9 +452,9 @@ public enum CropsNHItemList implements IItemContainer {
 
     private void sanityCheck() {
         if (this.hasNotBeenSet)
-            throw new IllegalAccessError("The Enum '" + name() + "' has not been set to an Item at this time!");
+            throw new IllegalAccessError("The Enum '" + this.name() + "' has not been set to an Item at this time!");
         if (this.deprecated && !this.warned) {
-            new Exception(this + " is now deprecated").printStackTrace(GTLog.err);
+            GT_FML_LOGGER.error(new Exception(this + " is now deprecated"));
             // warn only once
             this.warned = true;
         }

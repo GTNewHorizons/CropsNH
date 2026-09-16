@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh.compatibility.NEI;
 
 import com.gtnewhorizon.cropsnh.CropsNH;
 import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.AlternateSeedDumper;
+import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.BootProtectionDumper;
 import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.CropRegistryDumper;
 import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.DeterministicMutationRegistryDumper;
 import com.gtnewhorizon.cropsnh.compatibility.NEI.dumpers.FertilizerFluidsRegistryDumper;
@@ -46,6 +47,7 @@ public class NEIConfig implements IConfigureNEI {
         API.addOption(new MutationPoolRegistryDumper());
         API.addOption(new SoilRegistryDumper());
         API.addOption(new WeedEXFluidsRegistryDumper());
+        API.addOption(new BootProtectionDumper());
     }
 
     private static void registerNEITabs() {

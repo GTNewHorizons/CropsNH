@@ -7,6 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.gtnewhorizon.gtnhlib.util.data.IMod;
 
 import cpw.mods.fml.common.Loader;
@@ -17,11 +19,15 @@ public enum ModUtils implements IMod {
     Angelica(ModIDs.Angelica),
     Avaritia(ModIDs.Avaritia),
     Backhand(ModIDs.Backhand),
+    BetterBuildersWands(ModIDs.BetterBuildersWands),
     BiomesOPlenty(ModIDs.BiomesOPlenty),
     BloodMagic(ModIDs.BloodMagic),
     Botania(ModIDs.Botania),
     Chisel(ModIDs.Chisel),
     CropsPlusPlus(ModIDs.CropsPlusPlus),
+    DraconicEvolution(ModIDs.DraconicEvolution),
+    ElectroMagicTools(ModIDs.ElectroMagicTools),
+    EnderIO(ModIDs.EnderIO),
     EtFuturumRequiem(ModIDs.EtFuturumRequiem),
     ExtraUtilities(ModIDs.ExtraUtilities),
     FindIt(ModIDs.FindIt),
@@ -46,6 +52,7 @@ public enum ModUtils implements IMod {
     TaintedMagic(ModIDs.TaintedMagic),
     Thaumcraft(ModIDs.Thaumcraft),
     ThaumicBases(ModIDs.ThaumicBases),
+    ThaumicBoots(ModIDs.ThaumicBoots),
     ThaumicTinkerer(ModIDs.ThaumicTinkerer),
     TinkerConstruct(ModIDs.TinkerConstruct),
     TwilightForest(ModIDs.TwilightForest),
@@ -120,6 +127,10 @@ public enum ModUtils implements IMod {
         return item;
     }
 
+    public @Nullable Item getItemAllowNull(String name) {
+        return GameRegistry.findItem(this.ID, name);
+    }
+
     public Block getBlock(String name) {
         Block block = GameRegistry.findBlock(this.ID, name);
 
@@ -139,6 +150,10 @@ public enum ModUtils implements IMod {
         return block;
     }
 
+    public @Nullable Block getBlockAllowNull(String name) {
+        return GameRegistry.findBlock(this.ID, name);
+    }
+
     public ItemStack getStack(String name, int amount, int meta) {
         return CropsNHUtils.getModItem(this, name, amount, meta);
     }
@@ -148,11 +163,15 @@ public enum ModUtils implements IMod {
         public static final String Angelica = "angelica";
         public static final String Avaritia = "Avaritia";
         public static final String Backhand = "backhand";
+        public static final String BetterBuildersWands = "betterbuilderswands";
         public static final String BiomesOPlenty = "BiomesOPlenty";
         public static final String BloodMagic = "AWWayofTime";
         public static final String Botania = "Botania";
         public static final String Chisel = "chisel";
         public static final String CropsPlusPlus = "berriespp";
+        public static final String DraconicEvolution = "DraconicEvolution";
+        public static final String ElectroMagicTools = "EMT";
+        public static final String EnderIO = "EnderIO";
         public static final String EtFuturumRequiem = "etfuturum";
         public static final String ExtraUtilities = "ExtraUtilities";
         public static final String FindIt = "findit";
@@ -177,6 +196,7 @@ public enum ModUtils implements IMod {
         public static final String TaintedMagic = "TaintedMagic";
         public static final String Thaumcraft = "Thaumcraft";
         public static final String ThaumicBases = "thaumicbases";
+        public static final String ThaumicBoots = "thaumicboots";
         public static final String ThaumicTinkerer = "ThaumicTinkerer";
         public static final String TinkerConstruct = "TConstruct";
         public static final String TwilightForest = "TwilightForest";

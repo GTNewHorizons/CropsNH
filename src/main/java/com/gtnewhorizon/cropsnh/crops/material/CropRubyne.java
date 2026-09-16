@@ -33,7 +33,7 @@ public class CropRubyne extends NHCropCard {
 
         // Rhubarb is native to the mountains in Central Asia (Tibet, Siberia, etc.). It was originally cutltivated by
         // Russians along the Volga River.
-        this.addLikedBiomes(BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.RIVER);
+        this.addLikedBiomes(BiomeDictionary.Type.MOUNTAIN, BiomeDictionary.Type.RIVER, BiomeDictionary.Type.COLD);
     }
 
     @Override

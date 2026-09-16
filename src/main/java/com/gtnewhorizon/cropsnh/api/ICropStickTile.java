@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -338,6 +339,12 @@ public interface ICropStickTile {
      * @param entity The entity that collided with the block.
      */
     void onEntityCollision(Entity entity);
+
+    /**
+     * @param entity The entity colliding with the TE.
+     * @return The boot protection value of the entity's boots.
+     */
+    float getBootProtection(EntityLivingBase entity);
 
     /**
      * Fired when the neighbour blocks change but the crop sticks don't break.

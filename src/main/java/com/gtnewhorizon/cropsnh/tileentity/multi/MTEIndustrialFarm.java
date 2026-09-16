@@ -37,6 +37,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -75,6 +76,7 @@ import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.IFDropTable;
+import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.AutoPlaceEnvironment;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -784,6 +786,24 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         return this.invWrapper;
     }
 
+    @Override
+    public void onBlockDestroyed() {
+        super.onBlockDestroyed();
+        IGregTechTileEntity tileEntity = getBaseMetaTileEntity();
+        for (int slot = 0; slot < this.ifStackHandler.getSlots(); slot++) {
+            ItemStack stack = this.ifStackHandler.getStackInSlot(slot);
+            if (GTUtility.isStackValid(stack)) {
+                WorldUtils.dropItem(
+                    tileEntity.getWorld(),
+                    tileEntity.getXCoord(),
+                    tileEntity.getYCoord(),
+                    tileEntity.getZCoord(),
+                    stack);
+                this.ifStackHandler.setStackInSlot(slot, null);
+            }
+        }
+    }
+
     public ItemStack getSeedStack() {
         return this.ifStackHandler.getStackInSlot(SLOT_SEED);
     }
@@ -857,6 +877,13 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.mode.output");
             default -> StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.mode.input");
         };
+    }
+
+    @Override
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
+        ItemStack aTool) {
+        this.setMachineMode(this.nextMachineMode());
+        GTUtility.sendChatTrans(aPlayer, Reference.MOD_ID + "_chat.industrialFarm.mode.set", this.getMachineModeName());
     }
 
     // endregion machine mode

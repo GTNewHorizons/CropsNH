@@ -55,7 +55,8 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
     private static void addBerryToSugarRecipes() {
         GTModHandler.addShapelessCraftingRecipe(
             new ItemStack(Items.sugar, 4, 0),
-            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED,
+            GTModHandler.RecipeBits.NOT_REMOVABLE | GTModHandler.RecipeBits.BUFFERED
+                | GTModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS,
             new Object[] { ToolDictNames.craftingToolMortar, CropsNHItemList.sugarBeet.get(1) });
     }
 

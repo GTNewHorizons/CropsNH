@@ -2,6 +2,7 @@ package com.gtnewhorizon.cropsnh;
 
 import com.gtnewhorizon.cropsnh.compatibility.StructureLib.StructureLibCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.TiC.TiCCompatHandler;
+import com.gtnewhorizon.cropsnh.compatibility.betterbuilderswands.BetterBuildersWandsCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.extrautils.ExUWateringCanHandler;
 import com.gtnewhorizon.cropsnh.compatibility.findit.FindItCompatHandler;
 import com.gtnewhorizon.cropsnh.compatibility.forestry.ForestryCompatHandler;
@@ -16,6 +17,7 @@ import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
 import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.loaders.AspectLoader;
+import com.gtnewhorizon.cropsnh.loaders.BootProtectionLoader;
 import com.gtnewhorizon.cropsnh.loaders.CropLoader;
 import com.gtnewhorizon.cropsnh.loaders.FertilizerLoader;
 import com.gtnewhorizon.cropsnh.loaders.GTRecipeLoader;
@@ -67,6 +69,7 @@ import gregtech.api.util.GTUtility;
     + "after:" + ModUtils.ModIDs.TwilightForest + "; "
     + "after:" + ModUtils.ModIDs.StructureLib + "; "
     + "after:" + ModUtils.ModIDs.PamsHarvestCraft + "; "
+    + "after:" + ModUtils.ModIDs.BetterBuildersWands + "; "
 // spotless:on
 )
 public class CropsNH {
@@ -127,10 +130,12 @@ public class CropsNH {
         MutationLoader.postInit();
         AspectLoader.postInit();
         GTRecipeLoader.postInit();
+        BootProtectionLoader.postInit();
         MigrationHandler.postInit();
-        ForestryCompatHandler.onPostInit();
+        ForestryCompatHandler.postInit();
         ExUWateringCanHandler.postInit();
         FindItCompatHandler.postInit();
+        BetterBuildersWandsCompatHandler.postInit();
 
         LogHelper.debug("Post-Initialization Complete");
     }
