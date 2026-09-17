@@ -14,4 +14,7 @@ public final class Reference {
     public static final String AUTHOR = "InfinityRaider & C0bra5";
     public static final String CLIENT_PROXY_CLASS = "com.gtnewhorizon.cropsnh.proxy.ClientProxy";
     public static final String SERVER_PROXY_CLASS = "com.gtnewhorizon.cropsnh.proxy.ServerProxy";
+
+    /** Set to false when running test harnesses, should not be used in runtime code, only in loading code. */
+    public static boolean IS_GAME_LOADED = true;
 }

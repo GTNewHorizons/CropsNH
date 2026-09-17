@@ -5,6 +5,8 @@ import java.util.stream.Stream;
 
 import net.minecraftforge.oredict.OreDictionary;
 
+import org.jetbrains.annotations.Nullable;
+
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
 public class MetaMap<K, V> {
@@ -15,11 +17,13 @@ public class MetaMap<K, V> {
     /**
      * Inserts an item into meta map.
      *
+     * @apiNote When using a meta value that is considered a wildcard, existing set values are not overwritten.
+     *
      * @param key   The item or block to insert.
-     * @param meta  The metadata of the block or item, -1 for any.
+     * @param meta  The metadata of the block or item. Use {@link OreDictionary#WILDCARD_VALUE} or -1 for wildcards.
      * @param value The value ot insert.
      */
-    public void put(final K key, final int meta, final V value) {
+    public void put(final @Nullable K key, final int meta, final V value) {
         // if adding if a wildcard is already registered
         if (isWildCard(meta)) {
             this.putWildcard(key, value, false);
@@ -30,7 +34,14 @@ public class MetaMap<K, V> {
             .put(meta, value);
     }
 
-    public void putWildcard(final K key, final V value, final boolean clearNonWildcards) {
+    /**
+     * Inserts a wildcard directly into the meta map.
+     *
+     * @param key               The item or block to insert.
+     * @param value             The value to insert.
+     * @param clearNonWildcards Set to true to remove any key-value entries related to the key being inserted.
+     */
+    public void putWildcard(final @Nullable K key, final V value, final boolean clearNonWildcards) {
         if (clearNonWildcards) {
             this.map.remove(key);
         }
@@ -40,11 +51,15 @@ public class MetaMap<K, V> {
     /**
      * Inserts an item only if none were already present.
      *
+     * @apiNote When using a meta value that is considered a wildcard, existing set values are not overwritten.
+     *
      * @param key   The item or block to insert.
-     * @param meta  The metadata of the block or item, -1 for any.
+     * @param meta  The metadata of the block or item. Use {@link OreDictionary#WILDCARD_VALUE} or -1 for wildcards.
      * @param value The value ot insert.
+     * @return True if the value was inserted
      */
-    public boolean putIfAbsent(final K key, final int meta, final V value, final boolean ignoreExistingWildcard) {
+    public boolean putIfAbsent(final @Nullable K key, final int meta, final V value,
+        final boolean ignoreExistingWildcard) {
         // wildcard goes first
         if (isWildCard(meta)) {
             if (!this.wildcards.containsKey(key)) {
@@ -78,17 +93,19 @@ public class MetaMap<K, V> {
      *
      * @param key  The item or block to insert.
      * @param meta The metadata of the block or item.
-     * @return The value ot insert.
+     * @return Either the value set for the key-meta pair, the wild card for the key, or the null if not found.
      */
-    public V get(final K key, final int meta) {
+    public @Nullable V get(final @Nullable K key, final int meta) {
         // if the meta is a wildcard or it just not in the layered registry, check wildcards.
         if (isWildCard(meta) || !this.map.containsKey(key)) {
             return this.wildcards.get(key);
         }
+        // check if we have a meta map for this value and that it contains the meta key
         Int2ObjectOpenHashMap<V> metaMap = this.map.get(key);
         if (metaMap.containsKey(meta)) {
             return metaMap.get(meta);
         }
+        // else return the wildcard value
         return this.wildcards.get(key);
     }
 
@@ -98,16 +115,73 @@ public class MetaMap<K, V> {
      * @param key          The item or block to insert.
      * @param meta         The metadata of the block or item.
      * @param defaultValue The default value if the key isn't set.
-     * @return The value ot insert.
+     * @return Either the value set for the key-meta pair, the wild card for the key, or the default value if not found.
      */
-    public V getOrDefault(final K key, final int meta, final V defaultValue) {
+    public @Nullable V getOrDefault(final @Nullable K key, final int meta, final @Nullable V defaultValue) {
         // if the meta is a wildcard or it just not in the layered registry, check wildcards.
         if (isWildCard(meta) || !this.map.containsKey(key)) {
             return this.wildcards.getOrDefault(key, defaultValue);
         }
-        // fetch the meta map
+        // check if we have a meta map for this value and that it contains the meta key
+        Int2ObjectOpenHashMap<V> metaMap = this.map.get(key);
+        if (metaMap.containsKey(meta)) {
+            return metaMap.get(meta);
+        }
+        // else check wildcards or return default
+        return wildcards.getOrDefault(key, defaultValue);
+    }
+
+    /**
+     * Removes entries from this meta map.
+     *
+     * @param key                    The key to remove.
+     * @param meta                   The metadata of the block or item. Use {@link OreDictionary#WILDCARD_VALUE} or -1
+     *                               for wildcards.
+     * @param removeValuesIfWildcard Set to true to remove all existing Key-Meta Entries when removing with a wildcard.
+     * @return True if something was removed.
+     */
+    public boolean remove(final @Nullable K key, final int meta, final boolean removeValuesIfWildcard) {
+        if (isWildCard(meta)) {
+            return this.removeWildcard(key, removeValuesIfWildcard);
+        }
+        // check if the map contains an entry for this key.
+        if (!this.map.containsKey(key)) return false;
         Int2ObjectOpenHashMap<V> metaMap = map.get(key);
-        return metaMap.getOrDefault(meta, defaultValue);
+        // check if the meta map has a value for this meta.
+        if (!metaMap.containsKey(meta)) return false;
+        metaMap.remove(meta);
+        // remove the meta map if it's now empty.
+        if (metaMap.isEmpty()) {
+            this.map.remove(key);
+        }
+        return true;
+    }
+
+    /**
+     * Removes entries from this meta map.
+     *
+     * @param key                      The key to remove.
+     * @param alsoRemoveExistingValues Set to true to remove all existing Key-Meta entries along with the wildcard.
+     * @return True if something was removed.
+     */
+    public boolean removeWildcard(final @Nullable K key, final boolean alsoRemoveExistingValues) {
+        boolean success = false;
+        if (this.wildcards.containsKey(key)) {
+            this.wildcards.remove(key);
+            success = true;
+        }
+        if (alsoRemoveExistingValues && this.map.containsKey(key)) {
+            this.map.remove(key);
+            success = true;
+        }
+        return success;
+    }
+
+    /**
+     * Trims the maps for to reduce memory footprint and reduce runtime queries.
+     */
+    public void trim() {
+        this.map.forEach((k, v) -> v.trim());
     }
 
     // both -1 and the ore dict can be used as wildcards for compatibility reasons.

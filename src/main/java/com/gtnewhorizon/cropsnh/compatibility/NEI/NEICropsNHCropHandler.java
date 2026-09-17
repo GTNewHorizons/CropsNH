@@ -69,7 +69,7 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
 
         // constructor
         public CachedCropRecipe(ItemStack seed, ICropCard crop) {
-            seed = seed == null ? crop.getSeedItem(SeedStats.DEFAULT_ANALYZED) : seed;
+            seed = seed == null ? crop.getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY) : seed;
             this.ingredients.add(new PositionedStack(seed, X_seed, Y_seed));
             this.cropCard = crop;
             // sort drops from most likely to least likely.
