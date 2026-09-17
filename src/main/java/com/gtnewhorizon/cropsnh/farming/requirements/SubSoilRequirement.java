@@ -135,7 +135,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
 
         // get the sub-soil
         Block block = world.getBlock(x, y, z);
-        if (block.getMaterial() == net.minecraft.block.material.Material.air) return null;
+        if (CropsNHUtils.isAirBlock(block)) return null;
         int meta = world.getBlockMetadata(x, y, z);
         TileEntity te = world.getTileEntity(x, y, z);
         return new SubSoilTarget(block, meta, te);
@@ -212,8 +212,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
 
         // Block conversion
         Block block = CropsNHUtils.getBlockFromItem(toValidate);
-        return block.getMaterial() != net.minecraft.block.material.Material.air
-            && blocks.contains(block, CropsNHUtils.getItemMeta(toValidate));
+        return !CropsNHUtils.isAirBlock(block) && blocks.contains(block, CropsNHUtils.getItemMeta(toValidate));
     }
 
     public boolean canGrow(Block block, int meta) {

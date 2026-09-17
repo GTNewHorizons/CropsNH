@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -103,7 +102,7 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
 
             // get list of all sub-soil
             List<ItemStack> subSoilList = mutation.getSubSoilsForNEI(true);
-            subSoilList.removeIf(subSoil -> CropsNHUtils.getBlockFromItem(subSoil) == Blocks.air);
+            subSoilList.removeIf(subSoil -> CropsNHUtils.isAirBlock(CropsNHUtils.getBlockFromItem(subSoil)));
             if (!subSoilList.isEmpty()) {
                 this.others.add(new PositionedStack(subSoilList, X_seed, Y_base, true));
             }
@@ -207,7 +206,7 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
         // try fetching the block associated with the item
         Block block = CropsNHUtils.getBlockFromItem(item);
         // bail if the block isn't found
-        if (block == null) return;
+        if (CropsNHUtils.isAirBlock(block)) return;
 
         // find crops it's a soil or sub-soil for.
         outer: for (ICropMutation mutation : MutationRegistry.instance.getDeterministicMutations()) {

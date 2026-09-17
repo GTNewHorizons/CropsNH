@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -101,8 +100,7 @@ public abstract class ItemSpadeNH extends ItemTool
             return true;
         }
 
-        if (side != 0 && world.getBlock(x, y + 1, z)
-            .getMaterial() == Material.air) {
+        if (side != 0 && CropsNHUtils.isAirBlock(world.getBlock(x, y + 1, z))) {
             Block interactingWith = world.getBlock(x, y, z);
             Block transformTo = TILLABLE_BLOCKS.get(interactingWith);
             if (transformTo != null) {
