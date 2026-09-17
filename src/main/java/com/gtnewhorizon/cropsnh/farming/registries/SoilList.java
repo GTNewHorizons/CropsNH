@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -96,7 +95,7 @@ public class SoilList implements ISoilList {
                 // Check if candidate can be translated to block, and that the translated block isn't an air block
                 // since crop sticks are explicitly not allowed on those.
                 Block block = CropsNHUtils.getBlockFromItem(stack);
-                if (block == null || block.getMaterial() == Material.air) continue;
+                if (CropsNHUtils.isAirBlock(block)) continue;
                 // all good, register as soil
                 this.registerBlock(new BlockWithMeta(block, CropsNHUtils.getItemMeta(stack)));
                 foundBlock = true;

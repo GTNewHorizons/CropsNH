@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -138,7 +137,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
 
         // get the sub-soil
         Block block = world.getBlock(x, y, z);
-        if (block.getMaterial() == Material.air) return null;
+        if (CropsNHUtils.isAirBlock(block)) return null;
         int meta = world.getBlockMetadata(x, y, z);
         TileEntity te = world.getTileEntity(x, y, z);
         return new SubSoilTarget(block, meta, te);
@@ -215,7 +214,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
 
         // Block conversion
         Block block = CropsNHUtils.getBlockFromItem(toValidate);
-        return block.getMaterial() != Material.air && blocks.contains(block, CropsNHUtils.getItemMeta(toValidate));
+        return !CropsNHUtils.isAirBlock(block) && blocks.contains(block, CropsNHUtils.getItemMeta(toValidate));
     }
 
     public boolean canGrow(Block block, int meta, TileEntity te) {
