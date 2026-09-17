@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
@@ -20,6 +21,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
@@ -68,10 +70,10 @@ public abstract class CropsNHUtils {
      * Does its best to turn a block into an item.
      *
      * @param stack The stack containing the item to convert.
-     * @return The block or null if none is found.
+     * @return The block or {@link Blocks#air} if none is found.
      */
-    public static Block getBlockFromItem(ItemStack stack) {
-        if (stack == null) return null;
+    public static @NotNull Block getBlockFromItem(@Nullable ItemStack stack) {
+        if (stack == null) return Blocks.air;
         return getBlockFromItem(stack.getItem());
     }
 
@@ -79,11 +81,11 @@ public abstract class CropsNHUtils {
      * Does its best to turn a block into an item.
      *
      * @param item the block to convert
-     * @return The block or null if none is found.
+     * @return The block or {@link Blocks#air} if none is found.
      */
-    public static Block getBlockFromItem(Item item) {
+    public static @NotNull Block getBlockFromItem(@Nullable Item item) {
         if (item == null) {
-            return null;
+            return Blocks.air;
         } else if (item instanceof ItemSkull) {
             return Blocks.skull;
         } else if (item instanceof ItemBlock) {
@@ -91,6 +93,20 @@ public abstract class CropsNHUtils {
         } else {
             return Block.getBlockFromItem(item);
         }
+    }
+
+    /**
+     * Detects if a block is classified as air.
+     *
+     * @apiNote If the block parameter is null, it will be counted as air.
+     *
+     * @param block The block to check against.
+     * @return True if the block is considered air.
+     */
+    @Contract("null -> true")
+    public static boolean isAirBlock(@Nullable Block block) {
+        // checking the material should also catch modded air blocks like the one from galacticraft.
+        return block == null || block.getMaterial() == Material.air;
     }
 
     /**
