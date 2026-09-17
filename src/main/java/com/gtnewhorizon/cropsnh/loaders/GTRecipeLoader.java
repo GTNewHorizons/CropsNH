@@ -150,7 +150,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
         recipe(4, 6, 40).itemInputs(CropsNHItemList.poisonPowder.get(1))
             .fluidInputs(
                 new SubstituteFluidStack(
-                    Materials.Water.getFluid(Constants.WEEDEX_CAPACITY),
+                    GTUtility.getWater(Constants.WEEDEX_CAPACITY),
                     GTModHandler.getDistilledWater(Constants.WEEDEX_CAPACITY)))
             .fluidOutputs(CropsNHUtils.getWeedEXFluid(Constants.WEEDEX_CAPACITY))
             .addTo(RecipeMaps.brewingRecipes);
