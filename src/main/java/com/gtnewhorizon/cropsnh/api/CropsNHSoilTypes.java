@@ -14,7 +14,7 @@ public final class CropsNHSoilTypes {
     /** For wart and oil related crops */
     public static final ISoilList soulsand = SoilRegistry.instance.get("soulsand");
     /** For flowers, trees and any grass-like item that is generally only on grass or dirt */
-    public static final ISoilList dirtGrass = SoilRegistry.instance.get("dirt");
+    public static final ISoilList dirtGrass = SoilRegistry.instance.get("dirtGrass");
     /** For mushrooms */
     public static final ISoilList mycelium = SoilRegistry.instance.get("mycelium");
     /** For end related crops */
@@ -36,16 +36,10 @@ public final class CropsNHSoilTypes {
     /** contains oil Sand ores */
     public static final ISoilList oilSands = SoilRegistry.instance.get("oilSands");
 
-    public static final ISoilList mushroom = new CompoundSoilList(stone, dirtGrass, mycelium);
-    public static final ISoilList netherMushroom = new CompoundSoilList(
-        CropsNHSoilTypes.mushroom,
-        CropsNHSoilTypes.netherrack);
-    public static final ISoilList sugarcane = new CompoundSoilList(sand, dirtGrass);
-    public static final ISoilList slimyDirt = new CompoundSoilList(CropsNHSoilTypes.dirtGrass, CropsNHSoilTypes.slimy);
-    public static final ISoilList oil = new CompoundSoilList(
-        CropsNHSoilTypes.sand,
-        CropsNHSoilTypes.gravel,
-        CropsNHSoilTypes.soulsand,
-        CropsNHSoilTypes.oilSands);
+    public static final ISoilList mushroom = new CompoundSoilList("mushroom", stone, dirtGrass, mycelium);
+    public static final ISoilList netherMushroom = new CompoundSoilList("netherMushroom", mushroom, netherrack);
+    public static final ISoilList sugarcane = new CompoundSoilList("sugarcane", sand, dirtGrass);
+    public static final ISoilList slimyDirt = new CompoundSoilList("slimyDirt", dirtGrass, slimy);
+    public static final ISoilList oil = new CompoundSoilList("oil", sand, gravel, soulsand, oilSands);
 
 }
