@@ -38,12 +38,15 @@ import com.gtnewhorizon.cropsnh.utility.MetaSet;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.StoneType;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.objects.ItemData;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.blocks.GTBlockOre;
 import gregtech.common.blocks.TileEntityOres;
+import gregtech.common.ores.GTOreAdapter;
+import gregtech.common.ores.OreInfo;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
@@ -459,12 +462,12 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
             for (Materials mat : this.materialWhitelist) {
                 // all the ore variations!
                 ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.ore, mat));
-                ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreNetherrack, mat));
-                ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreEndstone, mat));
-                ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreBlackgranite, mat));
-                ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreRedgranite, mat));
-                ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreMarble, mat));
-                ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreBasalt, mat));
+                for (var type : StoneType.values()) {
+                    if (!type.isEnabled()) continue;
+                    ArrayList<ItemStack> ores = GTOreDictUnificator.getOres(type.getPrefix(), mat);
+                    if (ores == null || ores.isEmpty()) continue;
+                    ret.addAll(ores);
+                }
                 // compressed storage block
                 ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.block, mat));
             }
@@ -614,23 +617,26 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
      */
     private boolean isWhitelistedMaterial(SubSoilTarget target) {
         assert this.materialWhitelist != null;
-        for (Materials material : this.materialWhitelist) {
-            if (target.block instanceof GTBlockOre && target.te instanceof TileEntityOres teOre) {
-                Materials generatedMaterial = GregTechAPI.sGeneratedMaterials[teOre.mMetaData % 1000];
-                if (generatedMaterial != null && generatedMaterial != Materials._NULL
-                    && generatedMaterial == material) {
-                    return true;
-                }
-            } else {
-                ItemData association = GTOreDictUnificator.getAssociation(target.stack);
-                if (association != null && (association.mPrefix.toString()
-                    .startsWith("ore") || association.mPrefix == OrePrefixes.block)
-                    && (association.mMaterial.mMaterial == material)) {
-                    return true;
-                }
+        if (CropsNHUtils.isAirBlock(target.block)) return false;
+        // check ore TEs
+        // TODO: check if we still use those, iirc we transitioned away from those types of ores not that long ago.
+        if (target.block instanceof GTBlockOre && target.te instanceof TileEntityOres teOre) {
+            Materials generatedMaterial = GregTechAPI.sGeneratedMaterials[teOre.mMetaData % 1000];
+            if (generatedMaterial != null && generatedMaterial != Materials._NULL
+                && this.materialWhitelist.contains(generatedMaterial)) {
+                return true;
             }
         }
-        return false;
+        // check item data association (full block + non-natural ores)
+        ItemData association = GTOreDictUnificator.getAssociation(target.stack);
+        if (association != null && (association.mPrefix.toString()
+            .startsWith("ore") || association.mPrefix == OrePrefixes.block)
+            && this.materialWhitelist.contains(association.mMaterial.mMaterial)) {
+            return true;
+        }
+        // check ore association (natural GT ores and placed ores)
+        OreInfo<Materials> oreInfo = GTOreAdapter.INSTANCE.getOreInfo(target.block, target.meta);
+        return oreInfo != null && !oreInfo.isSmall && this.materialWhitelist.contains(oreInfo.material);
     }
 
     // endregion runtime searching
