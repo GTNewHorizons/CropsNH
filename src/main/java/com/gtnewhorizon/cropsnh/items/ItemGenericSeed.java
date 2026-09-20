@@ -128,14 +128,15 @@ public class ItemGenericSeed extends ItemCropsNH {
             return;
         }
         ICropCard crop = CropRegistry.instance.get(stack);
-        // if (crop == null) return;
 
+        // Crops must be analyzed in order to show any kind of information.
         ISeedStats stats = SeedStats.readFromNBT(stack.getTagCompound());
         if (stats.isAnalyzed()) {
             if (crop != null && crop.getFlavourText() != null) {
                 toolTip.add(StatCollector.translateToLocal(crop.getFlavourText()));
             }
 
+            // add crop stats
             toolTip.add(
                 StatCollector.translateToLocalFormatted(
                     Reference.MOD_ID + "_tooltip.genericSeed.growth",
@@ -150,10 +151,19 @@ public class ItemGenericSeed extends ItemCropsNH {
                     formatNumber(stats.getResistance())));
 
             if (crop != null) {
+                // add soil tooltip
+                toolTip.add(
+                    StatCollector.translateToLocal(
+                        crop.getSoilTypes()
+                            .getUnlocalizedItemTooltip()));
+
+                // add cannot breed tooltip if needed
                 if (crop.getBreedingThreshold() < 0.0f) {
                     toolTip.add(
                         StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.genericSeed.cannotBreedOnSticks"));
                 }
+
+                // add cannot spread tooltip if needed
                 if (crop.getCrossingThreshold() < 0.0f) {
                     toolTip.add(
                         StatCollector
@@ -163,6 +173,7 @@ public class ItemGenericSeed extends ItemCropsNH {
                             .translateToLocal(Reference.MOD_ID + "_tooltip.genericSeed.cannotSpreadToOtherSticks.1"));
                 }
 
+                // add mutation requirement tooltips
                 Collection<ICropMutation> mutations = MutationRegistry.instance.getDeterministicMutationsForCrop(crop);
                 if (mutations != null && mutations.stream()
                     .allMatch(
@@ -174,12 +185,15 @@ public class ItemGenericSeed extends ItemCropsNH {
                             .translateToLocal(Reference.MOD_ID + "_tooltip.genericSeed.mustUseBreederMachine"));
                 }
 
+                // add growth requirement tooltips
                 Iterable<IGrowthRequirement> reqs = crop.getGrowthRequirements();
                 if (reqs != null) {
                     for (IGrowthRequirement req : reqs) {
                         toolTip.add(req.getDescription());
                     }
                 }
+
+                // add min seed-bed tooltips
                 int minSeedBedTier = crop.getMinSeedBedTier();
                 if (minSeedBedTier >= 0) {
                     toolTip.add(
