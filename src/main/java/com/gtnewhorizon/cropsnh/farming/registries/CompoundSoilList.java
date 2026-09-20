@@ -2,7 +2,6 @@ package com.gtnewhorizon.cropsnh.farming.registries;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -13,21 +12,17 @@ import org.apache.commons.lang3.NotImplementedException;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 
 public class CompoundSoilList implements ISoilList {
 
+    private final String name;
     private final ArrayList<ISoilList> soils;
 
-    CompoundSoilList(Collection<ISoilList> soilList) {
-        this.soils = new ArrayList<>(soilList);
-    }
-
-    public CompoundSoilList(ISoilList... soilList) {
+    public CompoundSoilList(String name, ISoilList... soilList) {
+        if (name == null || name.length() <= 0) throw new IllegalArgumentException("Name cannot be null or empty");
+        this.name = name;
         this.soils = new ArrayList<>(Arrays.asList(soilList));
-    }
-
-    CompoundSoilList(int initialCapacity) {
-        this.soils = new ArrayList<>(initialCapacity);
     }
 
     public void add(ISoilList soilList) {
@@ -36,9 +31,11 @@ public class CompoundSoilList implements ISoilList {
 
     @Override
     public String getId() {
-        return soils.stream()
-            .map(s -> s.getId())
-            .collect(Collectors.joining("+"));
+        return this.name + "("
+            + soils.stream()
+                .map(ISoilList::getId)
+                .collect(Collectors.joining("+"))
+            + ")";
     }
 
     @Override
@@ -88,5 +85,15 @@ public class CompoundSoilList implements ISoilList {
     public Stream<ItemStack> getNEIItemList() {
         return this.soils.stream()
             .flatMap(ISoilList::getNEIItemList);
+    }
+
+    @Override
+    public String getUnlocalizedItemTooltip() {
+        return Reference.MOD_ID + "_soilList." + this.name + ".tooltip";
+    }
+
+    @Override
+    public String getUnlocalizedWrongSoilMessage() {
+        return Reference.MOD_ID + "_soilList." + this.name + ".wrongSoil";
     }
 }

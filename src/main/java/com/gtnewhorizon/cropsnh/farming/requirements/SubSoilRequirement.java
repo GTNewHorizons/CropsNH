@@ -35,12 +35,15 @@ import com.gtnewhorizon.cropsnh.utility.MetaSet;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.StoneType;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.objects.ItemData;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.blocks.GTBlockOre;
 import gregtech.common.blocks.TileEntityOres;
+import gregtech.common.ores.GTOreAdapter;
+import gregtech.common.ores.OreInfo;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
@@ -198,11 +201,12 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         // ensure valid stack
         if (CropsNHUtils.isStackInvalid(toValidate)) return false;
 
+        Block block = CropsNHUtils.getBlockFromItem(toValidate);
+        int meta = CropsNHUtils.getItemMeta(toValidate);
+
         // GT Material check
-        for (Materials material : this.materials) {
-            if (checkGTBlockOrOreMaterial(toValidate, material)) {
-                return true;
-            }
+        if (this.checkGTOreDictAssociation(toValidate) || this.checkGTOreAssociation(block, meta)) {
+            return true;
         }
 
         // Ore dict check
@@ -213,8 +217,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         }
 
         // Block conversion
-        Block block = CropsNHUtils.getBlockFromItem(toValidate);
-        return !CropsNHUtils.isAirBlock(block) && blocks.contains(block, CropsNHUtils.getItemMeta(toValidate));
+        return !CropsNHUtils.isAirBlock(block) && blocks.contains(block, meta);
     }
 
     public boolean canGrow(Block block, int meta, TileEntity te) {
@@ -222,16 +225,9 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         ItemStack stack = new ItemStack(Item.getItemFromBlock(block), 1, meta);
 
         // gt material check
-        for (Materials material : this.materials) {
-            if (block instanceof GTBlockOre && te instanceof TileEntityOres) {
-                Materials generatedMaterial = GregTechAPI.sGeneratedMaterials[((TileEntityOres) te).mMetaData % 1000];
-                if (generatedMaterial != null && generatedMaterial != Materials._NULL
-                    && generatedMaterial == material) {
-                    return true;
-                }
-            } else if (checkGTBlockOrOreMaterial(stack, material)) {
-                return true;
-            }
+        if (this.checkGTOreTE(block, te) || this.checkGTOreDictAssociation(stack)
+            || this.checkGTOreAssociation(block, meta)) {
+            return true;
         }
 
         // ore dict checks
@@ -243,13 +239,31 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         return blocks.contains(block, meta);
     }
 
-    private boolean checkGTBlockOrOreMaterial(ItemStack stack, Materials toMatch) {
+    private boolean checkGTOreTE(Block block, TileEntity te) {
+        if (block instanceof GTBlockOre && te instanceof TileEntityOres oreTE) {
+            Materials generatedMaterial = GregTechAPI.sGeneratedMaterials[oreTE.mMetaData % 1000];
+            if (generatedMaterial != null && generatedMaterial != Materials._NULL
+                && this.materials.contains(generatedMaterial)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkGTOreDictAssociation(ItemStack stack) {
         ItemData association = GTOreDictUnificator.getAssociation(stack);
         // spotless:off
         return association != null
             && (association.mPrefix.toString().startsWith("ore") || association.mPrefix == OrePrefixes.block)
-            && (association.mMaterial.mMaterial == toMatch);
+            && (this.materials.contains(association.mMaterial.mMaterial));
         //spotless:on
+    }
+
+    private boolean checkGTOreAssociation(Block block, int meta) {
+        if (CropsNHUtils.isAirBlock(block)) return false;
+        OreInfo<Materials> oreInfo = GTOreAdapter.INSTANCE.getOreInfo(block, meta);
+        if (oreInfo == null) return false;
+        return !oreInfo.isSmall && this.materials.contains(oreInfo.material);
     }
 
     private boolean checkOreDict(ItemStack stack, String oreDict) {
@@ -284,14 +298,13 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
 
         // load up materials
         for (Materials mat : this.materials) {
-            // all the ore variations!
             ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.ore, mat));
-            ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreNetherrack, mat));
-            ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreEndstone, mat));
-            ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreBlackgranite, mat));
-            ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreRedgranite, mat));
-            ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreMarble, mat));
-            ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.oreBasalt, mat));
+            for (var type : StoneType.values()) {
+                if (!type.isEnabled()) continue;
+                ArrayList<ItemStack> ores = GTOreDictUnificator.getOres(type.getPrefix(), mat);
+                if (ores == null || ores.isEmpty()) continue;
+                ret.addAll(ores);
+            }
             // compressed storage block
             ret.addAll(GTOreDictUnificator.getOres(OrePrefixes.block, mat));
         }
