@@ -45,12 +45,14 @@ public interface ISoilList {
     Stream<ItemStack> getNEIItemList();
 
     /**
-     * @return A lang key that is displayed in the crop's tooltip.
+     * @return A lang key used to describe the soils a crop can grow on.<br>
+     *         <b>Shown in the tooltips of analyzed seeds.</b>
      */
     String getUnlocalizedItemTooltip();
 
     /**
-     * @return A lang key that is displayed in the crop's tooltip.
+     * @return A lang key used inform the player about the proper soil when planting a seed on an incorrect soil.<br>
+     *         <b>Communicated as a chat message.</b>
      */
     String getUnlocalizedWrongSoilMessage();
 }
