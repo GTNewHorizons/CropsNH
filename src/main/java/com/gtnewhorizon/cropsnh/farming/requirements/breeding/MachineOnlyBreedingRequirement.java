@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IWorldBreedingRequirement;
@@ -18,7 +21,12 @@ public class MachineOnlyBreedingRequirement implements IWorldBreedingRequirement
     }
 
     @Override
-    public String getDescription() {
+    public @Nullable String getDescription() {
+        return this.getDescriptionForMutationDump();
+    }
+
+    @Override
+    public @NotNull String getDescriptionForMutationDump() {
         return StatCollector.translateToLocal(Reference.MOD_ID + "_breedingReq.lockout.machineOnly");
     }
 

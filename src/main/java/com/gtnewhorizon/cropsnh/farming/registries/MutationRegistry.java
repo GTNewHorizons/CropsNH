@@ -249,7 +249,7 @@ public class MutationRegistry implements IMutationRegistry {
                 if (reqs != null && !reqs.isEmpty()) {
                     for (IBreedingRequirement req : reqs) {
                         sbm.append(",");
-                        sbm.append(DebugHelper.sanitizeCSVString(req.getDescription()));
+                        sbm.append(DebugHelper.sanitizeCSVString(req.getDescriptionForMutationDump()));
                     }
                 }
                 sbm.append(System.lineSeparator());
