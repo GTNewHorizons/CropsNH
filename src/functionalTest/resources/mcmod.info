@@ -1,0 +1,21 @@
+{
+  "modListVersion": 2,
+  "modList": [
+    {
+      "modid": "cropsnhtestmod",
+      "name": "CropsNH Dev Tests",
+      "description": "CropsNH Tests to run in the development environment",
+      "version": "${modVersion}",
+      "mcversion": "${minecraftVersion}",
+      "url": "https://github.com/GTNewHorizons/CropsNH",
+      "updateUrl": "https://github.com/GTNewHorizons/CropsNH",
+      "authorList": [
+        "C0bra5",
+        "GTNH Team"
+      ],
+      "credits": "Code: C0bra5, Agricraft Team | Inspiration: IC2 | Textures: C0bra5, Prez, GTNH Team",
+      "logoFile": "",
+      "screenshots": []
+    }
+  ]
+}

@@ -71,7 +71,7 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
             // register the output first
             this.output = new PositionedStack(
                 mutation.getOutput()
-                    .getSeedItem(SeedStats.DEFAULT_ANALYZED),
+                    .getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY),
                 X_seed,
                 Y_seed,
                 false);
@@ -86,7 +86,7 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
                             X_parent.length));
                     break;
                 }
-                ItemStack stack = parent.getSeedItem(SeedStats.DEFAULT_ANALYZED);
+                ItemStack stack = parent.getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY);
                 this.ingredients.add(new PositionedStack(stack, X_parent[i++], Y_seed, false));
             }
             this.background = i > 2 ? background4 : background2;

@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 
 import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
 
@@ -16,17 +17,30 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class ItemCropsNH extends Item {
 
     public ItemCropsNH(String name) {
-        super();
-        this.setCreativeTab(CropsNHTab.cropsNHTab);
-        this.setMaxStackSize(64);
-        RegisterHelper.registerItem(this, name);
+        this(name, true);
     }
 
     public ItemCropsNH() {
+        this(true);
+    }
+
+    public ItemCropsNH(String name, boolean doInit) {
         super();
+        this.init(name, doInit);
+    }
+
+    public ItemCropsNH(boolean doInit) {
+        super();
+        this.init(this.getInternalName(), doInit);
+    }
+
+    private void init(String name, boolean doInit) {
+        if (!doInit) return;
         this.setCreativeTab(CropsNHTab.cropsNHTab);
         this.setMaxStackSize(64);
-        RegisterHelper.registerItem(this, getInternalName());
+        if (Reference.IS_GAME_LOADED) {
+            RegisterHelper.registerItem(this, name);
+        }
     }
 
     protected abstract String getInternalName();

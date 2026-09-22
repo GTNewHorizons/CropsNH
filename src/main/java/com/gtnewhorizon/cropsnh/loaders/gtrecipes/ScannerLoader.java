@@ -30,7 +30,7 @@ public class ScannerLoader extends BaseGTRecipeLoader {
     public static final int SEED_SCAN_DURATION = 8 * SECONDS;
 
     public static void postInit() {
-        ItemStack output = CropsNHCrops.Carrot.getSeedItem(SeedStats.DEFAULT_ANALYZED);
+        ItemStack output = CropsNHCrops.Carrot.getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY);
         output.stackSize = 1;
         output.setStackDisplayName(StatCollector.translateToLocal(Reference.MOD_ID + "_nei.scanned_seed"));
         // add fake recipe
