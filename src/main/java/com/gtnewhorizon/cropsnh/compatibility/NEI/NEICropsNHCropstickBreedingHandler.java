@@ -110,7 +110,9 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
             for (IBreedingRequirement req : mutation.getRequirements()) {
                 // skip sub-soil reqs since those are already displayed via the items
                 if (req instanceof SubSoilRequirement) continue;
-                this.reqLines.add(req.getDescription());
+                String line = req.getDescription();
+                if (line == null) continue;
+                this.reqLines.add(line);
             }
         }
 

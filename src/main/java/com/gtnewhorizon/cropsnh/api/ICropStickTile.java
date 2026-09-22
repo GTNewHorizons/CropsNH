@@ -3,12 +3,14 @@ package com.gtnewhorizon.cropsnh.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The basic interface for a crop that is on a crop stick.
@@ -106,7 +108,7 @@ public interface ICropStickTile {
      *
      * @param seedStack The seed being planted.
      */
-    SeedPlantingResult tryPlantSeed(ItemStack seedStack);
+    Pair<@NotNull SeedPlantingResult, @Nullable ISeedData> tryPlantSeed(ItemStack seedStack);
 
     /**
      * Attempts to plant a crop.

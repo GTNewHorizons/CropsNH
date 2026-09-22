@@ -177,8 +177,10 @@ public interface ICropCard {
     /**
      * Called during game load to register the sprites.
      *
+     * @implSpec Crops should always have at the bare minimum have 2 sprites or else it won't be able to visually
+     *           indicate its growth progress.
+     *
      * @param register The sprite register.
-     * @return The list of icons for this sprites, min of 2 sprites required;
      */
     void registerSprites(IIconRegister register);
 

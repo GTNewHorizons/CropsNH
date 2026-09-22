@@ -107,6 +107,11 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
     }
 
     @Override
+    public @NotNull String getDescriptionForMutationDump() {
+        return this.getDescription();
+    }
+
+    @Override
     public @NotNull Pair<@NotNull String, @Nullable String[]> getUnlocalizedDescription() {
         return this.unlocalizedDesc;
     }

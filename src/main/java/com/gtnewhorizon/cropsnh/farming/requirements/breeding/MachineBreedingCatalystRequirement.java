@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
+import java.util.stream.Stream;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.IMachineBreedingRequirement;
@@ -49,7 +51,25 @@ public class MachineBreedingCatalystRequirement implements IMachineBreedingRequi
     }
 
     @Override
-    public String getDescription() {
+    public @NotNull String getDescriptionForMutationDump() {
+        // TODO: localize the breeding catalyst req for 2.10, probably with a better tooltip or something
+        String contents = Stream.concat(
+            this.items.entrySet()
+                .stream()
+                .map(
+                    x -> x.getKey()
+                        .getDisplayName() + " x "
+                        + x.getValue()),
+            this.oreDictionaries.entrySet()
+                .stream()
+                .map(x -> "ore:" + x.getKey() + " x " + x.getValue()))
+            .collect(Collectors.joining(" | "));
+        return "MachineCatalyst(" + contents + ")";
+    }
+
+    @Override
+    public @Nullable String getDescription() {
+        // shown in NEI via items in breeder tab
         return null;
     }
 
