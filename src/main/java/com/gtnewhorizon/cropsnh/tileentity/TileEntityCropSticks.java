@@ -876,7 +876,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
      * @param biomeHumidity       The humidity of the current biome.
      * @param canSeeSky           True if the crop can see the sky.
      * @param waterStorage        How much water is stored in the crop stick.
-     * @param fertilizerStorage   How much water is stored in the crop stick.
+     * @param fertilizerStorage   How much fertilizer is stored in the crop stick.
      * @return The number of nutrients available to the crop in the crop stick.
      */
     public static int getNutrientsPerCycle(int likedBiomeTagsCount, float biomeHumidity, boolean canSeeSky,
