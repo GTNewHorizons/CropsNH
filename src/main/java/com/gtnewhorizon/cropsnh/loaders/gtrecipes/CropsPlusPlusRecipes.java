@@ -31,7 +31,7 @@ import com.ruling_0.materiallib.api.MaterialLibAPI;
 import bartworks.API.enums.BioCultureEnum;
 import bartworks.common.loaders.BioCultureLoader;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.ItemList;
 import gregtech.api.enums.ToolDictNames;
 import gregtech.api.enums.materials.CellShapes;
 import gregtech.api.enums.materials.Materials;
@@ -39,7 +39,6 @@ import gregtech.api.enums.materials.Shapes;
 import gregtech.api.material.MaterialUtils;
 import gregtech.api.objects.SubstituteFluidStack;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTUtility;
 
@@ -407,7 +406,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 4, 11),
                 new ItemStack(Items.dye, 4, 2),
                 MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 4))
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 4))
+            .itemOutputs(ItemList.Cell_Empty.get(4))
             .fluidInputs(new FluidStack(CropsNHFluids.GHP, 375))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 4375))
             .duration(10 * TICKS)
@@ -421,7 +420,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 1, 11),
                 new ItemStack(Items.dye, 1, 2),
                 MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
+            .itemOutputs(ItemList.Cell_Empty.get(1))
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 500))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 1500))
             .duration(10 * TICKS)
@@ -435,7 +434,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 1, 11),
                 new ItemStack(Items.dye, 1, 2),
                 MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
+            .itemOutputs(ItemList.Cell_Empty.get(1))
             .fluidInputs(new FluidStack(CropsNHFluids.Korn, 1000))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 2000))
             .duration(10 * TICKS)
@@ -449,7 +448,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 1, 11),
                 new ItemStack(Items.dye, 1, 2),
                 MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
+            .itemOutputs(ItemList.Cell_Empty.get(1))
             .fluidInputs(new FluidStack(CropsNHFluids.DKorn, 750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 1750))
             .duration(10 * TICKS)
@@ -464,7 +463,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                     new Object[] { "cropGinger", 1 },
                     new ItemStack(Items.dye, 1, 2),
                     MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
-                .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
+                .itemOutputs(ItemList.Cell_Empty.get(1))
                 .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 4000))
                 .fluidOutputs(new FluidStack(CropsNHFluids.njagi, 5000))
                 .duration(10 * TICKS)
@@ -486,7 +485,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
 
         GTValues.RA.stdBuilder()
             .itemInputs(MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
+            .itemOutputs(ItemList.Cell_Empty.get(1))
             .fluidInputs(MaterialUtils.fluid(Materials.Ethanol, 1000))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 2500))
             .duration(10 * TICKS)
@@ -495,7 +494,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
 
         GTValues.RA.stdBuilder()
             .itemInputs(MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1), new ItemStack(Items.sugar))
-            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
+            .itemOutputs(ItemList.Cell_Empty.get(1))
             .fluidInputs(new FluidStack(CropsNHFluids.SWhine, 5000))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.rum"), 6000))
             .duration(10 * TICKS)

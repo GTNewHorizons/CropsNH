@@ -6,11 +6,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.ruling_0.materiallib.api.Material;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.materials.Shapes;
 import gregtech.api.material.MaterialUtils;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
 
 public class CropOreDuplicationRecipe {
@@ -33,14 +33,14 @@ public class CropOreDuplicationRecipe {
         if (ore == null) {
             throw new IllegalArgumentException("mat is null");
         }
-        this.input = GTOreDictUnificator.get(OrePrefixes.crushed, ore, 1);
-        if (this.input == null) {
+        if (!ore.hasShape(Shapes.crushed)) {
             throw new IllegalArgumentException("mat doesn't have a crushed ore form.");
         }
-        this.output = GTOreDictUnificator.get(OrePrefixes.crushedPurified, ore, 4);
-        if (this.output == null) {
+        this.input = MaterialLibAPI.getStack(ore, Shapes.crushed, 1);
+        if (!ore.hasShape(Shapes.crushedPurified)) {
             throw new IllegalArgumentException("mat doesn't have a purified crushed ore form.");
         }
+        this.output = MaterialLibAPI.getStack(ore, Shapes.crushedPurified, 4);
         FluidStack _additionalFluid = null;
         if (additionalFluid != null && amount > 0) {
             _additionalFluid = MaterialUtils.molten(additionalFluid, amount);
