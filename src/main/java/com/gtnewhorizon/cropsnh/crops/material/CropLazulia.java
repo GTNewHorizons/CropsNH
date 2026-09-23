@@ -10,18 +10,18 @@ import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.enums.materials.Materials;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropLazulia extends NHCropCard {
 
     public CropLazulia() {
         super("lazulia", new Color(0x142EAF), new Color(0x7497EA));
 
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Lapis, 1), 66_67);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Lapis, Shapes.dust, 1), 66_67);
         this.addDrop(new ItemStack(Items.dye, 1, 4), 33_33);
 
         this.addSubSoilRequirement(CropsNHSubSoilTypes.lapis);

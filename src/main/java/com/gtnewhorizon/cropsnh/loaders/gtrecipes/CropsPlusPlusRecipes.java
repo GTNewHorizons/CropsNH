@@ -26,13 +26,16 @@ import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
 import bartworks.API.enums.BioCultureEnum;
 import bartworks.common.loaders.BioCultureLoader;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.ToolDictNames;
+import gregtech.api.enums.materials.CellShapes;
 import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 import gregtech.api.material.MaterialUtils;
 import gregtech.api.objects.SubstituteFluidStack;
 import gregtech.api.util.GTModHandler;
@@ -403,7 +406,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 4, 1),
                 new ItemStack(Items.dye, 4, 11),
                 new ItemStack(Items.dye, 4, 2),
-                GTOreDictUnificator.get(OrePrefixes.cell, Materials.Water, 4))
+                MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 4))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 4))
             .fluidInputs(new FluidStack(CropsNHFluids.GHP, 375))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 4375))
@@ -417,7 +420,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 1, 1),
                 new ItemStack(Items.dye, 1, 11),
                 new ItemStack(Items.dye, 1, 2),
-                GTOreDictUnificator.get(OrePrefixes.cell, Materials.Water, 1))
+                MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 500))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 1500))
@@ -431,7 +434,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 1, 1),
                 new ItemStack(Items.dye, 1, 11),
                 new ItemStack(Items.dye, 1, 2),
-                GTOreDictUnificator.get(OrePrefixes.cell, Materials.Water, 1))
+                MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
             .fluidInputs(new FluidStack(CropsNHFluids.Korn, 1000))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 2000))
@@ -445,7 +448,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 1, 1),
                 new ItemStack(Items.dye, 1, 11),
                 new ItemStack(Items.dye, 1, 2),
-                GTOreDictUnificator.get(OrePrefixes.cell, Materials.Water, 1))
+                MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
             .fluidInputs(new FluidStack(CropsNHFluids.DKorn, 750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 1750))
@@ -460,7 +463,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                     new Object[] { "cropSpiceleaf", 1 },
                     new Object[] { "cropGinger", 1 },
                     new ItemStack(Items.dye, 1, 2),
-                    GTOreDictUnificator.get(OrePrefixes.cell, Materials.Water, 1))
+                    MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
                 .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
                 .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 4000))
                 .fluidOutputs(new FluidStack(CropsNHFluids.njagi, 5000))
@@ -472,7 +475,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         luvRecipe(0, 1)
             .itemInputs(
                 OreDictHelper.getCopiedOreStack("cropChilipepper", 1),
-                GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.CosmicNeutronium, 1),
+                MaterialLibAPI.getStack(Materials.CosmicNeutronium, Shapes.dustTiny, 1),
                 OreDictHelper.getCopiedOreStack("cropLemon", 64),
                 OreDictHelper.getCopiedOreStack("cropTea", 64),
                 CropsNHItemList.magicEssence.get(8),
@@ -482,7 +485,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
             .addTo(mixerRecipes);
 
         GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Water, 1))
+            .itemInputs(MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
             .fluidInputs(MaterialUtils.fluid(Materials.Ethanol, 1000))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 2500))
@@ -491,7 +494,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
             .addTo(mixerRecipes);
 
         GTValues.RA.stdBuilder()
-            .itemInputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Water, 1), new ItemStack(Items.sugar))
+            .itemInputs(MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1), new ItemStack(Items.sugar))
             .itemOutputs(GTOreDictUnificator.get(OrePrefixes.cell, Materials.Empty, 1))
             .fluidInputs(new FluidStack(CropsNHFluids.SWhine, 5000))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.rum"), 6000))
@@ -590,7 +593,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
     // region helpers
 
     private static void addDyeConversionRecipe(ItemStack input, Fluid dyeFluid) {
-        mvRecipe(12, 0).itemInputs(input, GTOreDictUnificator.get(OrePrefixes.dust, Materials.Salt, 2))
+        mvRecipe(12, 0).itemInputs(input, MaterialLibAPI.getStack(Materials.Salt, Shapes.dust, 2))
             .fluidInputs(MaterialUtils.fluid(Materials.SulfuricAcid, 432))
             .fluidOutputs(new FluidStack(dyeFluid, 288))
             .addTo(UniversalChemical);

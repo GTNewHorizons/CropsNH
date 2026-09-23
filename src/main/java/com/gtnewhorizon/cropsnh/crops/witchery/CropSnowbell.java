@@ -12,10 +12,10 @@ import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.materials.Materials;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropSnowbell extends NHCropCard {
 
@@ -28,7 +28,7 @@ public class CropSnowbell extends NHCropCard {
 
         this.addDrop(new ItemStack(Items.snowball, 1, 0), 10_00);
 
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Cryolite, 1), 2_50);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Cryolite, Shapes.dust, 1), 2_50);
 
         this.addLikedBiomes(BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD);
     }

@@ -8,16 +8,16 @@ import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.materials.Materials;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropMalaxia extends NHCropCard {
 
     public CropMalaxia() {
         super("malaxia", new Color(0xB26003), new Color(0xD77106));
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dustTiny, Materials.Copper, 1), 100_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Copper, Shapes.dustTiny, 1), 100_00);
         this.addGrowthRequirement(CropsNHSubSoilTypes.copper);
         this.addDuplicationCatalyst("dustCopper", 1);
         this.addLikedBiomes(BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.LUSH);

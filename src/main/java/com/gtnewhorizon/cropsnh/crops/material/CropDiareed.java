@@ -14,11 +14,11 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.enums.materials.Materials;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropDiareed extends NHCropCard {
 
@@ -27,7 +27,7 @@ public class CropDiareed extends NHCropCard {
 
         // TODO: PONDER IF DIAREED SHOULD STILL BE ALLOWED TO DROP STRAIGHT DIAMONDS
         this.addDrop(new ItemStack(Items.diamond, 1, 0), 75_00);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Diamond, 1), 25_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Diamond, Shapes.dust, 1), 25_00);
 
         this.addSubSoilRequirement(CropsNHSubSoilTypes.diamond);
 

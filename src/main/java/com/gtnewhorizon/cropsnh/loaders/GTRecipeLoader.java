@@ -27,6 +27,7 @@ import com.gtnewhorizon.cropsnh.loaders.gtrecipes.SeedGeneratorFakeRecipeLoader;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.Circuits;
@@ -34,11 +35,11 @@ import gregtech.api.enums.ItemList;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe;
 import gregtech.api.objects.SubstituteFluidStack;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 
 public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
@@ -77,7 +78,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
     private static void addPlantLensRecipe() {
         // early game glass lens recipe
         GTModHandler.addCraftingRecipe(
-            GTOreDictUnificator.get(OrePrefixes.lens, Materials.Glass, 1L),
+            MaterialLibAPI.getStack(Materials.Glass, Shapes.lens, 1),
             GTModHandler.RecipeBits.NOT_REMOVABLE,
             new Object[] { "FfF", "FGF", "FDF", 'F', new ItemStack(Items.flint), 'G', new ItemStack(Blocks.glass), 'D',
                 new ItemStack(Items.diamond) });
@@ -98,9 +99,9 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
                 "fPh",
                 "PSP",
                 " T ",
-                'P', GTOreDictUnificator.get(OrePrefixes.plateTriple, Materials.Steel, 1),
+                'P', MaterialLibAPI.getStack(Materials.Steel, Shapes.plateTriple, 1),
                 'S', new ItemStack(Items.iron_shovel, 1, 0),
-                'T', GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.Wood, 1)
+                'T', MaterialLibAPI.getStack(Materials.Wood, Shapes.stickLong, 1)
                 // spotless:on
             });
         // mv-bender locked
@@ -112,9 +113,9 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
                 "fPh",
                 "PHP",
                 "RSR",
-                'P', GTOreDictUnificator.get(OrePrefixes.plateDense, Materials.Steel, 1),
+                'P', MaterialLibAPI.getStack(Materials.Steel, Shapes.plateDense, 1),
                 'H', CropsNHItemList.spade.get(1),
-                'S', GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.Wood, 1),
+                'S', MaterialLibAPI.getStack(Materials.Wood, Shapes.stickLong, 1),
                 'R', "plateAnyRubber"
                 // spotless:on
             });
@@ -165,9 +166,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
             new Object[] { "S S", "S S", 'S', "stickLongWood" });
 
         ulvRecipe(2, 0)
-            .itemInputs(
-                GTUtility.getIntegratedCircuit(2),
-                GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.Wood, 8))
+            .itemInputs(GTUtility.getIntegratedCircuit(2), MaterialLibAPI.getStack(Materials.Wood, Shapes.stickLong, 8))
             .itemOutputs(CropsNHItemList.cropSticks.get(ConfigurationHandler.cropsPerCraft * 4L))
             .addTo(RecipeMaps.assemblerRecipes);
     }

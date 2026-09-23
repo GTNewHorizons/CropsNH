@@ -17,14 +17,14 @@ import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 import gregtech.api.objects.SubstituteFluidStack;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.GTUtility;
 import gregtech.loaders.misc.GTBeeDefinition;
@@ -91,8 +91,8 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
     private static void addRecyclingRecipes() {
         lvRecipe(5, 0).itemInputs(CropsNHItemList.fertilizer.get(1))
             .itemOutputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Carbon, 1))
+                MaterialLibAPI.getStack(Materials.Calcite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Carbon, Shapes.dust, 1))
             .fluidOutputs(new FluidStack(FluidRegistry.WATER, 1000))
             .addTo(RecipeMaps.electrolyzerRecipes);
     }
@@ -154,7 +154,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
         lvRecipe(5, 0)
             .itemInputs(
                 new ItemStack(Blocks.dirt, 1, 0),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Wood, 2L),
+                MaterialLibAPI.getStack(Materials.Wood, Shapes.dust, 2),
                 new ItemStack(Blocks.sand, 4, 0))
             .itemOutputs(CropsNHItemList.fertilizer.get(4))
             .fluidInputs(new FluidStack(FluidRegistry.WATER, 1000))
@@ -175,200 +175,200 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
 
         lvRecipe(10, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1))
+                MaterialLibAPI.getStack(Materials.Calcite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Sulfur, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(2))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(15, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.TricalciumPhosphate, 1))
+                MaterialLibAPI.getStack(Materials.Calcite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.TricalciumPhosphate, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(3))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(10, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Phosphate, 1))
+                MaterialLibAPI.getStack(Materials.Calcite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Phosphate, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(2))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(5, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ash, 3))
+                MaterialLibAPI.getStack(Materials.Calcite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Ash, Shapes.dust, 3))
             .itemOutputs(CropsNHItemList.fertilizer.get(1))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(5, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.DarkAsh, 1))
+                MaterialLibAPI.getStack(Materials.Calcite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.DarkAsh, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(1))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(15, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1))
+                MaterialLibAPI.getStack(Materials.Calcium, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Sulfur, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(3))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(20, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.TricalciumPhosphate, 1))
+                MaterialLibAPI.getStack(Materials.Calcium, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.TricalciumPhosphate, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(4))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(15, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Phosphate, 1))
+                MaterialLibAPI.getStack(Materials.Calcium, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Phosphate, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(3))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(10, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ash, 3))
+                MaterialLibAPI.getStack(Materials.Calcium, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Ash, Shapes.dust, 3))
             .itemOutputs(CropsNHItemList.fertilizer.get(2))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(10, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Calcium, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.DarkAsh, 1))
+                MaterialLibAPI.getStack(Materials.Calcium, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.DarkAsh, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(2))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(15, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1))
+                MaterialLibAPI.getStack(Materials.Apatite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Sulfur, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(3))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(20, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.TricalciumPhosphate, 1))
+                MaterialLibAPI.getStack(Materials.Apatite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.TricalciumPhosphate, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(4))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(15, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Phosphate, 1))
+                MaterialLibAPI.getStack(Materials.Apatite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Phosphate, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(3))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(10, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ash, 3))
+                MaterialLibAPI.getStack(Materials.Apatite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Ash, Shapes.dust, 3))
             .itemOutputs(CropsNHItemList.fertilizer.get(2))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(10, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.DarkAsh, 1))
+                MaterialLibAPI.getStack(Materials.Apatite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.DarkAsh, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(2))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(15, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Glauconite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1))
+                MaterialLibAPI.getStack(Materials.Glauconite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Sulfur, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(3))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(20, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Glauconite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.TricalciumPhosphate, 1))
+                MaterialLibAPI.getStack(Materials.Glauconite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.TricalciumPhosphate, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(4))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(15, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Glauconite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Phosphate, 1))
+                MaterialLibAPI.getStack(Materials.Glauconite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Phosphate, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(3))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(10, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Glauconite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ash, 3))
+                MaterialLibAPI.getStack(Materials.Glauconite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Ash, Shapes.dust, 3))
             .itemOutputs(CropsNHItemList.fertilizer.get(2))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(10, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Glauconite, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.DarkAsh, 1))
+                MaterialLibAPI.getStack(Materials.Glauconite, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.DarkAsh, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(2))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(15, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.GlauconiteSand, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1))
+                MaterialLibAPI.getStack(Materials.GlauconiteSand, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Sulfur, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(3))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(20, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.GlauconiteSand, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.TricalciumPhosphate, 1))
+                MaterialLibAPI.getStack(Materials.GlauconiteSand, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.TricalciumPhosphate, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(4))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(15, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.GlauconiteSand, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Phosphate, 1))
+                MaterialLibAPI.getStack(Materials.GlauconiteSand, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Phosphate, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(3))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(10, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.GlauconiteSand, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ash, 3))
+                MaterialLibAPI.getStack(Materials.GlauconiteSand, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.Ash, Shapes.dust, 3))
             .itemOutputs(CropsNHItemList.fertilizer.get(2))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
         lvRecipe(10, 0)
             .itemInputs(
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.GlauconiteSand, 1),
-                GTOreDictUnificator.get(OrePrefixes.dust, Materials.DarkAsh, 1))
+                MaterialLibAPI.getStack(Materials.GlauconiteSand, Shapes.dust, 1),
+                MaterialLibAPI.getStack(Materials.DarkAsh, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(2))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
@@ -378,19 +378,19 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
             mvRecipe(10, 0)
                 .itemInputs(
                     CropsNHUtils.getModItem(ModUtils.Natura, "florasapling", 2, 6),
-                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1L))
+                    MaterialLibAPI.getStack(Materials.Apatite, Shapes.dust, 1))
                 .itemOutputs(
                     CropsNHItemList.fertilizer.get(2),
-                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1L))
+                    MaterialLibAPI.getStack(Materials.Sulfur, Shapes.dust, 1))
                 .fluidInputs(waterSubstitutions)
                 .addTo(GTRecipeConstants.UniversalChemical);
 
             for (int meta = 0; meta <= 2; meta++) {
                 ItemStack leafStack = CropsNHUtils.getModItem(ModUtils.Natura, "Dark Leaves", 2, meta);
-                mvRecipe(10, 0).itemInputs(leafStack, GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1L))
+                mvRecipe(10, 0).itemInputs(leafStack, MaterialLibAPI.getStack(Materials.Apatite, Shapes.dust, 1))
                     .itemOutputs(
                         CropsNHItemList.fertilizer.get(2),
-                        GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1L))
+                        MaterialLibAPI.getStack(Materials.Sulfur, Shapes.dust, 1))
                     .fluidInputs(waterSubstitutions)
                     .addTo(GTRecipeConstants.UniversalChemical);
             }
@@ -398,20 +398,20 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
             mvRecipe(10, 0)
                 .itemInputs(
                     CropsNHUtils.getModItem(ModUtils.Natura, "Dark Tree", 2, 0),
-                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1L))
+                    MaterialLibAPI.getStack(Materials.Apatite, Shapes.dust, 1))
                 .itemOutputs(
                     CropsNHItemList.fertilizer.get(8),
-                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.TricalciumPhosphate, 1L))
+                    MaterialLibAPI.getStack(Materials.TricalciumPhosphate, Shapes.dust, 1))
                 .fluidInputs(waterSubstitutions)
                 .addTo(GTRecipeConstants.UniversalChemical);
 
             mvRecipe(10, 0)
                 .itemInputs(
                     CropsNHUtils.getModItem(ModUtils.Natura, "Natura.netherfood", 1, 0),
-                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.Apatite, 1L))
+                    MaterialLibAPI.getStack(Materials.Apatite, Shapes.dust, 1))
                 .itemOutputs(
                     CropsNHItemList.fertilizer.get(32),
-                    GTOreDictUnificator.get(OrePrefixes.dust, Materials.TricalciumPhosphate, 1L))
+                    MaterialLibAPI.getStack(Materials.TricalciumPhosphate, Shapes.dust, 1))
                 .fluidInputs(waterSubstitutions)
                 .addTo(GTRecipeConstants.UniversalChemical);
         }

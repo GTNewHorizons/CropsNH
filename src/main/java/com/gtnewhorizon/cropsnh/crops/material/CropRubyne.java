@@ -10,11 +10,11 @@ import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.enums.materials.Materials;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropRubyne extends NHCropCard {
 
@@ -23,8 +23,8 @@ public class CropRubyne extends NHCropCard {
     public CropRubyne() {
         super("rubyne", new Color(0x931212), new Color(0xA64747));
 
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Ruby, 1L), 75_00);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Ruby, 1L), 25_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Ruby, Shapes.dust, 1), 75_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Ruby, Shapes.gem, 1), 25_00);
 
         this.addSubSoilRequirement(CropsNHSubSoilTypes.ruby);
 

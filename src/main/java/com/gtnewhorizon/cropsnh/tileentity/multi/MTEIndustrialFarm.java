@@ -83,13 +83,14 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.Textures;
 import gregtech.api.enums.VoidingMode;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.TEBlockShapes;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.ICasingTextureProvider;
@@ -104,7 +105,6 @@ import gregtech.api.structure.error.StructureError;
 import gregtech.api.structure.error.StructureErrorRegistry;
 import gregtech.api.structure.error.StructureErrors;
 import gregtech.api.structure.error.TranslatableText;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.ItemEjectionHelper;
 import gregtech.api.util.MultiblockTooltipBuilder;
@@ -694,7 +694,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 true)
             .addCasing(
                 "0-1",
-                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Wood, 1)
+                MaterialLibAPI.getStack(Materials.Wood, TEBlockShapes.frameGt, 1)
                     .getDisplayName(),
                 false)
             .addMiscHatch(
@@ -712,7 +712,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addCasing("2", StatCollector.translateToLocal(Reference.MOD_ID + ".casings1.0.name"), false)
             .addCasing(
                 "0-1",
-                GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Wood, 1)
+                MaterialLibAPI.getStack(Materials.Wood, TEBlockShapes.frameGt, 1)
                     .getDisplayName(),
                 false)
             .addMiscHatch(

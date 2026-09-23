@@ -7,18 +7,18 @@ import net.minecraftforge.common.BiomeDictionary;
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.enums.materials.Materials;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropThaumiumOreBerry extends CropOreBerry {
 
     public CropThaumiumOreBerry() {
         super("thaumium", new Color(0x67458A), new Color(0x9664C8));
 
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Thaumium, 1), 100_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Thaumium, Shapes.nugget, 1), 100_00);
 
         this.addSubSoilRequirement(CropsNHSubSoilTypes.thaumium);
 

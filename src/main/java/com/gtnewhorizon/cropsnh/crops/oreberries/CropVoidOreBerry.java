@@ -10,18 +10,18 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.CropOreBerry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MaxLightLevelGrowthRequirement;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.enums.materials.Materials;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropVoidOreBerry extends CropOreBerry {
 
     public CropVoidOreBerry() {
         super("void", new Color(0x130426), new Color(0x1C0639));
 
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Void, 1), 100_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Void, Shapes.nugget, 1), 100_00);
 
         ItemStack voidSeed = CropsNHUtils.getModItem(ModUtils.Thaumcraft, "ItemResource", 1, 17);
         this.addAlternateSeed(voidSeed);
@@ -30,7 +30,7 @@ public class CropVoidOreBerry extends CropOreBerry {
 
         this.addGrowthRequirement(new MaxLightLevelGrowthRequirement(10));
 
-        this.addDuplicationCatalyst(GTOreDictUnificator.get(OrePrefixes.nugget, Materials.Void, 1));
+        this.addDuplicationCatalyst(MaterialLibAPI.getStack(Materials.Void, Shapes.nugget, 1));
 
         // tainted land (this makes me feel evil)
         this.addLikedBiomes(BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.WASTELAND);
