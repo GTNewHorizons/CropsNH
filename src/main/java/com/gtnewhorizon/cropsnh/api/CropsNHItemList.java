@@ -358,22 +358,21 @@ public enum CropsNHItemList implements IItemContainer {
     public ItemStack getWildcard(long amount, Object... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
-        return GTUtility.copyAmountAndMetaData(amount, WILDCARD, GTOreDictUnificator.get(this.stack));
+        return GTUtility.copyAmountAndMetaData(amount, WILDCARD, this.stack);
     }
 
     @Override
     public ItemStack getUndamaged(long amount, Object... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
-        return GTUtility.copyAmountAndMetaData(amount, 0, GTOreDictUnificator.get(this.stack));
+        return GTUtility.copyAmountAndMetaData(amount, 0, this.stack);
     }
 
     @Override
     public ItemStack getAlmostBroken(long amount, Object... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
-        return GTUtility
-            .copyAmountAndMetaData(amount, this.stack.getMaxDamage() - 1, GTOreDictUnificator.get(this.stack));
+        return GTUtility.copyAmountAndMetaData(amount, this.stack.getMaxDamage() - 1, this.stack);
     }
 
     @Override
@@ -416,7 +415,7 @@ public enum CropsNHItemList implements IItemContainer {
     public ItemStack getWithDamage(long amount, long metaValue, Object... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
-        return GTUtility.copyAmountAndMetaData(amount, metaValue, GTOreDictUnificator.get(this.stack));
+        return GTUtility.copyAmountAndMetaData(amount, metaValue, this.stack);
     }
 
     @Override
