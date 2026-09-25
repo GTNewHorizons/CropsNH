@@ -15,6 +15,8 @@ import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.IBreedingRequirement;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropMutation;
+import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
@@ -110,6 +112,17 @@ public class NEICropsNHCropstickBreedingHandler extends CropsNHNEIHandler {
             for (IBreedingRequirement req : mutation.getRequirements()) {
                 // skip sub-soil reqs since those are already displayed via the items
                 if (req instanceof SubSoilRequirement) continue;
+                String line = req.getDescription();
+                if (line == null) continue;
+                this.reqLines.add(line);
+            }
+
+            for (IGrowthRequirement req : mutation.getOutput()
+                .getGrowthRequirements()) {
+                // skip sub-soil reqs since those are already displayed via the items
+                if (req instanceof SubSoilRequirement) continue;
+                // skip non-world growth reqs as those don't matter for this tab
+                if (!(req instanceof IWorldGrowthRequirement)) continue;
                 String line = req.getDescription();
                 if (line == null) continue;
                 this.reqLines.add(line);
