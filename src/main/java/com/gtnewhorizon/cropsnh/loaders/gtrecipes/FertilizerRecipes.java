@@ -273,7 +273,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);
 
-        lvRecipe(amountDarkAsh * amountDarkAsh, 0)
+        lvRecipe(amountDarkAsh * SECONDS_PER_FERTILIZER, 0)
             .itemInputs(
                 GTOreDictUnificator.get(OrePrefixes.dust, mat, 1),
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.AshDark, 1))
