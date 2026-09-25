@@ -238,7 +238,7 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
             // register mutations for which this is a sub-soil.
             for (IGrowthRequirement req : cropCard.getGrowthRequirements()) {
                 if (!(req instanceof SubSoilRequirement subSoilRequirement)) continue;
-                if (subSoilRequirement.canGrow(block, CropsNHUtils.getItemMeta(item), null)) {
+                if (subSoilRequirement.isValidSubSoil(block, CropsNHUtils.getItemMeta(item), null, true)) {
                     arecipes.add(new CachedCropRecipe(null, cropCard));
                     // crops shouldn't be getting registered more than once
                     continue outer;

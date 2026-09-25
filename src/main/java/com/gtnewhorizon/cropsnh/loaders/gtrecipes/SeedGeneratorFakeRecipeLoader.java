@@ -24,7 +24,7 @@ import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 
 public abstract class SeedGeneratorFakeRecipeLoader extends BaseGTRecipeLoader {
 
-    public static void postInit() {
+    public static void loadComplete() {
         for (ICropCard cc : CropRegistry.instance.getAllInRegistrationOrder()) {
             if (cc.hideFromNEI()) continue;
             ItemStack seedStack = cc.getSeedItem(SeedStats.DEFAULT_ANALYZED);
