@@ -5,8 +5,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
@@ -36,6 +34,7 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.metatileentity.implementations.MTEBasicMachineWithRecipe;
+import gregtech.api.objects.SubstituteFluidStack;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
@@ -148,11 +147,10 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
 
         // poison powder to weed-ex fluid
         recipe(4, 6, 40).itemInputs(CropsNHItemList.poisonPowder.get(1))
-            .fluidInputs(new FluidStack(FluidRegistry.WATER, Constants.WEEDEX_CAPACITY))
-            .fluidOutputs(CropsNHUtils.getWeedEXFluid(Constants.WEEDEX_CAPACITY))
-            .addTo(RecipeMaps.brewingRecipes);
-        recipe(4, 6, 40).itemInputs(CropsNHItemList.poisonPowder.get(1))
-            .fluidInputs(GTModHandler.getDistilledWater(Constants.WEEDEX_CAPACITY))
+            .fluidInputs(
+                new SubstituteFluidStack(
+                    Materials.Water.getFluid(Constants.WEEDEX_CAPACITY),
+                    GTModHandler.getDistilledWater(Constants.WEEDEX_CAPACITY)))
             .fluidOutputs(CropsNHUtils.getWeedEXFluid(Constants.WEEDEX_CAPACITY))
             .addTo(RecipeMaps.brewingRecipes);
     }

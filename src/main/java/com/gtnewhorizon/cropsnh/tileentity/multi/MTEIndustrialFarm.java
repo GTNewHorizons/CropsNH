@@ -538,7 +538,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                     break;
                 }
                 // hatch tier must be <= to glass tier
-                if (this.glassTier < VoltageIndex.UMV && hatch.mTier > this.glassTier) {
+                if (this.glassTier < VoltageIndex.UMV && hatch.getTierForStructure() > this.glassTier) {
                     errors.add(StructureErrorRegistry.ENERGY_TIER_EXCEED_GLASS);
                     break;
                 }
@@ -556,7 +556,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 break;
             }
             // hatch tier must be <= to glass tier
-            if (this.glassTier < VoltageIndex.UMV && hatch.mTier > this.glassTier) {
+            if (this.glassTier < VoltageIndex.UMV && hatch.getTierForStructure() > this.glassTier) {
                 errors.add(StructureErrorRegistry.ENERGY_TIER_EXCEED_GLASS);
                 break;
             }

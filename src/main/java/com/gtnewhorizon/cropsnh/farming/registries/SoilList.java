@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
+import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.MetaSet;
 
@@ -95,7 +95,7 @@ public class SoilList implements ISoilList {
                 // Check if candidate can be translated to block, and that the translated block isn't an air block
                 // since crop sticks are explicitly not allowed on those.
                 Block block = CropsNHUtils.getBlockFromItem(stack);
-                if (block == null || block.getMaterial() == Material.air) continue;
+                if (CropsNHUtils.isAirBlock(block)) continue;
                 // all good, register as soil
                 this.registerBlock(new BlockWithMeta(block, CropsNHUtils.getItemMeta(stack)));
                 foundBlock = true;
@@ -147,5 +147,15 @@ public class SoilList implements ISoilList {
                 return new ItemStack(item, 1, meta);
             })
             .filter(Objects::nonNull);
+    }
+
+    @Override
+    public String getUnlocalizedItemTooltip() {
+        return Reference.MOD_ID + "_soilList." + this.name + ".tooltip";
+    }
+
+    @Override
+    public String getUnlocalizedWrongSoilMessage() {
+        return Reference.MOD_ID + "_soilList." + this.name + ".wrongSoil";
     }
 }

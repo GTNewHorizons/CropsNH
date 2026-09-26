@@ -4,12 +4,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
 
 import com.gtnewhorizon.cropsnh.api.BlockWithMeta;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.ISoilRegistry;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
@@ -46,7 +46,7 @@ public class SoilRegistry implements ISoilRegistry {
     @Override
     public boolean isRegistered(IBlockAccess world, int x, int y, int z) {
         Block block = world.getBlock(x, y, z);
-        if (block.getMaterial() == Material.air) return false;
+        if (CropsNHUtils.isAirBlock(block)) return false;
         int meta = world.getBlockMetadata(x, y, z);
         return isRegistered(block, meta);
     }

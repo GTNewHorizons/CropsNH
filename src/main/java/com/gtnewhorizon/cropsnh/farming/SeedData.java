@@ -77,4 +77,16 @@ public class SeedData implements ISeedData {
         this.stats.writeToNBT(tag);
         return tag;
     }
+
+    @Override
+    public @NotNull ItemStack getCropSeeds() {
+        return this.getCropSeeds(this.stack.stackSize);
+    }
+
+    @Override
+    public @NotNull ItemStack getCropSeeds(int amount) {
+        ItemStack ret = this.crop.getSeedItem(this.stats);
+        ret.stackSize = amount;
+        return ret;
+    }
 }

@@ -25,11 +25,14 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHCrops;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
@@ -50,23 +53,18 @@ import com.gtnewhorizon.cropsnh.crops.CropWeed;
 import com.gtnewhorizon.cropsnh.farming.SeedData;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.farming.registries.BootProtectionRegistry;
-import com.gtnewhorizon.cropsnh.farming.registries.CropRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.MutationRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.SoilTramplingResistanceRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.growth.MachineOnlyGrowthRequirement;
 import com.gtnewhorizon.cropsnh.handler.ConfigurationHandler;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
-import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.reference.Reference;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStickTile {
 
@@ -410,29 +408,22 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
     // region seed planting
 
     @Override
-    public SeedPlantingResult tryPlantSeed(ItemStack seedStack) {
+    public Pair<@NotNull SeedPlantingResult, @Nullable ISeedData> tryPlantSeed(ItemStack seedStack) {
         // can't plant nothing
         if (!this.canPlantSeed() || seedStack == null || seedStack.getItem() == null || seedStack.stackSize <= 0)
-            return SeedPlantingResult.CANNOT_PLANT;
+            return Pair.of(SeedPlantingResult.CANNOT_PLANT, null);
 
         // check if it's a valid seed
-        ICropCard cc = CropRegistry.instance.get(seedStack);
-        if (cc == null) {
-            return SeedPlantingResult.NOT_A_SEED;
-        }
-
-        // alternate seeds get 1/1/1 analyzed seeds
-        ISeedStats stats = seedStack.getItem() instanceof ItemGenericSeed ? SeedStats.getStatsFromStack(seedStack)
-            : new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
+        ISeedData data = CropsNHUtils.getSeedData(CropsNHUtils.copyStackWithSize(seedStack, 1), true, false);
 
         // run the crop specific checks next
-        return this.tryPlantSeed(new SeedData(cc, stats));
+        return Pair.of(this.tryPlantSeed(data), data);
     }
 
     @Override
     public SeedPlantingResult tryPlantSeed(ISeedData seedData) {
         // check if it can be planted on this soil.
-        if (seedData == null || seedData.getCrop() == null) return SeedPlantingResult.NOT_A_SEED;
+        if (seedData == null) return SeedPlantingResult.NOT_A_SEED;
         if (!isValidSoilForCrop(seedData.getCrop())) return SeedPlantingResult.WRONG_SOIL;
         // all good we can plant the seed
         this.plantSeed(seedData);
@@ -714,8 +705,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (!this.hasCrop() || this.seed.getCrop() instanceof CropMigrator) return null;
 
         // save crop info
-        return this.seed.getStack()
-            .copy();
+        return this.seed.getCropSeeds(1);
     }
 
     // endregion harvesting
@@ -847,21 +837,6 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
 
     // endregion neighbour checking
 
-    // region rendering stuff
-
-    // get the plant icon
-    @SideOnly(Side.CLIENT)
-    public IIcon getPlantIcon() {
-        IIcon icon = null;
-        if (this.hasCrop()) {
-            icon = this.seed.getCrop()
-                .getSprite(this);
-        }
-        return icon;
-    }
-
-    // endregion rendering stuff
-
     // region growth rate calc
 
     @Override
@@ -900,7 +875,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
      * @param biomeHumidity       The humidity of the current biome.
      * @param canSeeSky           True if the crop can see the sky.
      * @param waterStorage        How much water is stored in the crop stick.
-     * @param fertilizerStorage   How much water is stored in the crop stick.
+     * @param fertilizerStorage   How much fertilizer is stored in the crop stick.
      * @return The number of nutrients available to the crop in the crop stick.
      */
     public static int getNutrientsPerCycle(int likedBiomeTagsCount, float biomeHumidity, boolean canSeeSky,
@@ -1086,7 +1061,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         // find all matching mutations
         List<ICropMutation> deterministicMutations = MutationRegistry.instance
             .getPossibleDeterministicMutations(breedingParents);
-        if (deterministicMutations != null && deterministicMutations.size() > 0) {
+        if (deterministicMutations != null && !deterministicMutations.isEmpty()) {
             // pick a random matching mutation
             ICropMutation chosenMutation = deterministicMutations
                 .get(XSTR.XSTR_INSTANCE.nextInt(deterministicMutations.size()));
@@ -1251,7 +1226,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             this.seed.getCrop()
                 .onGrowthTick(this);
             // increase growth progress
-            this.growthProgress += growthRate * ConfigurationHandler.growthMultiplier;
+            this.growthProgress += (int) (growthRate * ConfigurationHandler.growthMultiplier);
             if (this.growthProgress > this.seed.getCrop()
                 .getGrowthDuration()) {
                 this.growthProgress = this.seed.getCrop()
@@ -1333,8 +1308,8 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 }
             }
             // try planting it
-            SeedPlantingResult result = tryPlantSeed(heldItem);
-            if (result == SeedPlantingResult.SUCCESS) {
+            Pair<SeedPlantingResult, ISeedData> result = tryPlantSeed(heldItem);
+            if (result.getLeft() == SeedPlantingResult.SUCCESS) {
                 if (!player.capabilities.isCreativeMode) {
                     heldItem.stackSize--;
                 }
@@ -1342,10 +1317,10 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 // run a check to see if the growth reqs are met
                 this.areGrowthRequirementsMet();
                 return true;
-            } else if (result == SeedPlantingResult.WRONG_SOIL) {
+            } else if (result.getLeft() == SeedPlantingResult.WRONG_SOIL) {
                 if (player instanceof EntityPlayerMP mpPlayer) {
-                    mpPlayer.addChatComponentMessage(
-                        new ChatComponentTranslation(Reference.MOD_ID + "_tooltip.planting.wrongSoil"));
+                    final String key = getWrongSoilMessage(result.getRight());
+                    mpPlayer.addChatComponentMessage(new ChatComponentTranslation(key));
                 }
                 return true;
             }
@@ -1371,8 +1346,21 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         return true;
     }
 
+    private static String getWrongSoilMessage(final ISeedData seedData) {
+        if (seedData == null || !seedData.getStats()
+            .isAnalyzed()) {
+            // un-analyzed seeds can't reveal their actual soil
+            return Reference.MOD_ID + "_tooltip.planting.wrongSoil";
+        }
+        // analyzed seeds and alt-seeds can reveal their soil types
+        // (alt seeds count as default stat analyzed seeds)
+        return seedData.getCrop()
+            .getSoilTypes()
+            .getUnlocalizedWrongSoilMessage();
+    }
+
     @Override
-    public ItemStack getSeedDrop() {
+    public @Nullable ItemStack getSeedDrop() {
         if (this.hasCrop() && !this.hasWeed() && this.passesResistanceCheck()) {
             return this.getSeedStack();
         }

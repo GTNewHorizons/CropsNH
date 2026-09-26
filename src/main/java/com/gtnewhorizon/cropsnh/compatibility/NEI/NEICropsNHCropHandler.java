@@ -224,7 +224,7 @@ public class NEICropsNHCropHandler extends CropsNHNEIHandler {
         // try fetching the block associated with the item
         Block block = CropsNHUtils.getBlockFromItem(item);
         // bail if the block isn't found
-        if (block == null) return;
+        if (CropsNHUtils.isAirBlock(block)) return;
 
         // find crops it's a soil or sub-soil for.
         outer: for (ICropCard cropCard : CropRegistry.instance.getAllInRegistrationOrder()) {
