@@ -17,8 +17,8 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import gregtech.GTMod;
 import gregtech.api.interfaces.IItemContainer;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
+import gregtech.api.util.OreDictUtils;
 
 public enum CropsNHItemList implements IItemContainer {
 
@@ -421,14 +421,14 @@ public enum CropsNHItemList implements IItemContainer {
     @Override
     public IItemContainer registerOre(Object... oreNames) {
         sanityCheck();
-        for (Object oreName : oreNames) GTOreDictUnificator.registerOre(oreName, get(1));
+        for (Object oreName : oreNames) OreDictUtils.registerOre(oreName, get(1));
         return this;
     }
 
     @Override
     public IItemContainer registerWildcardAsOre(Object... oreNames) {
         sanityCheck();
-        for (Object tOreName : oreNames) GTOreDictUnificator.registerOre(tOreName, getWildcard(1));
+        for (Object tOreName : oreNames) OreDictUtils.registerOre(tOreName, getWildcard(1));
         return this;
     }
 
