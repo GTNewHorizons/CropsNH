@@ -36,6 +36,7 @@ import com.ruling_0.materiallib.api.Material;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.StoneType;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.material.MaterialData;
 import gregtech.api.objects.ItemData;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
@@ -241,7 +242,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
     }
 
     private boolean checkGTOreDictAssociation(ItemStack stack) {
-        ItemData association = GTOreDictUnificator.getAssociation(stack);
+        ItemData association = MaterialData.getAssociation(stack);
         // spotless:off
         return association != null
             && (association.mPrefix.toString().startsWith("ore") || association.mPrefix == OrePrefixes.block)
