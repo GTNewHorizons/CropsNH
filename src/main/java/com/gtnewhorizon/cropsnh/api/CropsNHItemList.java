@@ -340,7 +340,7 @@ public enum CropsNHItemList implements IItemContainer {
             this.warned = true;
         }
         if (GTUtility.isStackInvalid(stack)) return false;
-        return GTUtility.areUnificationsEqual((ItemStack) stack, wildcard ? getWildcard(1) : get(1), ignoreNBT);
+        return GTUtility.areStacksEqual((ItemStack) stack, wildcard ? getWildcard(1) : get(1), ignoreNBT);
     }
 
     @Override
