@@ -39,7 +39,6 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.material.MaterialData;
 import gregtech.api.objects.ItemData;
 import gregtech.api.util.GTUtility;
-import gregtech.api.util.OreDictUtils;
 import gregtech.common.ores.OreInfo;
 import gregtech.common.ores.OreManager;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -290,15 +289,17 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
 
         // load up materials
         for (Material mat : this.materials) {
-            ret.addAll(OreDictUtils.getOres(OrePrefixes.ore, mat));
+            ret.addAll(OreDictionary.getOres(OrePrefixes.ore.oreDictName(mat)));
             for (var type : StoneType.values()) {
                 if (!type.isEnabled()) continue;
-                ArrayList<ItemStack> ores = OreDictUtils.getOres(type.getPrefix(), mat);
+                List<ItemStack> ores = OreDictionary.getOres(
+                    type.getPrefix()
+                        .oreDictName(mat));
                 if (ores == null || ores.isEmpty()) continue;
                 ret.addAll(ores);
             }
             // compressed storage block
-            ret.addAll(OreDictUtils.getOres(OrePrefixes.block, mat));
+            ret.addAll(OreDictionary.getOres(OrePrefixes.block.oreDictName(mat)));
         }
 
         // load up ore dicts
