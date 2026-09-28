@@ -380,7 +380,7 @@ public class MTECropManager extends MTETieredMachineBlock {
         // else collect all the drops
         Map<ItemStack, Integer> dropTracker = new ItemStackMap<>(true);
         for (ICropStickTile crop : this.cropCache) {
-            if (crop == null) {
+            if (!(crop instanceof TileEntity tile) || tile.isInvalid()) {
                 this.isCacheInvalid = true;
                 continue;
             }
@@ -446,7 +446,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     private void processSecondaryFunctions(IGregTechTileEntity baseMetaTileEntity) {
         for (ICropStickTile crop : this.cropCache) {
-            if (crop == null) {
+            if (!(crop instanceof TileEntity tile) || tile.isInvalid()) {
                 this.isCacheInvalid = true;
                 continue;
             }

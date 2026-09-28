@@ -414,7 +414,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             return Pair.of(SeedPlantingResult.CANNOT_PLANT, null);
 
         // check if it's a valid seed
-        ISeedData data = CropsNHUtils.getSeedData(seedStack, true, false);
+        ISeedData data = CropsNHUtils.getSeedData(CropsNHUtils.copyStackWithSize(seedStack, 1), true, false);
 
         // run the crop specific checks next
         return Pair.of(this.tryPlantSeed(data), data);
@@ -705,8 +705,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (!this.hasCrop() || this.seed.getCrop() instanceof CropMigrator) return null;
 
         // save crop info
-        return this.seed.getStack()
-            .copy();
+        return this.seed.getCropSeeds(1);
     }
 
     // endregion harvesting

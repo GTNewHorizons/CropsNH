@@ -19,4 +19,10 @@ public interface ISeedData {
 
     @NotNull
     NBTTagCompound writeToNBT();
+
+    @NotNull
+    ItemStack getCropSeeds();
+
+    @NotNull
+    ItemStack getCropSeeds(int count);
 }
