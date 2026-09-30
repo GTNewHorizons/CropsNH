@@ -14,7 +14,6 @@ dependencies {
     devOnlyNonPublishable("com.github.GTNewHorizons:waila:1.19.34:dev") { transitive = false }
     devOnlyNonPublishable("com.github.GTNewHorizons:ForestryMC:4.11.37:dev") { transitive = false }
     devOnlyNonPublishable("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") { transitive = false }
-    devOnlyNonPublishable('com.github.GTNewHorizons:Backhand:1.8.15:dev') { transitive = false }
     devOnlyNonPublishable('com.github.GTNewHorizons:FindIt:1.4.6:dev') { transitive = false }
     devOnlyNonPublishable('com.github.GTNewHorizons:BetterBuildersWands:0.13.12-GTNH:dev') { transitive = false }
 
@@ -81,6 +80,7 @@ dependencies {
     // runtimeOnlyNonPublishable('com.github.GTNewHorizons:EnderIO:2.10.45:dev') { transitive = false }
     // // watering can interactions
     // runtimeOnlyNonPublishable(rfg.deobf("curse.maven:extra-utilities-225561:2264383")) { transitive = false }
+    // runtimeOnlyNonPublishable('com.github.GTNewHorizons:Backhand:1.8.15:dev') { transitive = false }
 }
 
 project.getConfigurations()
