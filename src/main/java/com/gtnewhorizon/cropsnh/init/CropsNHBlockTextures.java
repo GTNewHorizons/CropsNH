@@ -13,6 +13,7 @@ public class CropsNHBlockTextures {
 
     public static final IIconContainer Casing_CropHarvester_Cutter = new CustomIcon("tileEntities/gt4/OVERLAY_CROP");
     public static final IIconContainer Casing_CropHarvester_Boxes = new CustomIcon("tileEntities/gt4/OVERLAY_BOXES");
+    public static final IIconContainer MANAGED_AREA_OVERLAY = new CustomIcon("tileEntities/gt4/managed_area_overlay");
     public static final IIconContainer Casing_Bricked_Agricultural_Casing = new CustomIcon(
         "industrialFarm/brickedAgriculturalCasing");
 
