@@ -28,15 +28,15 @@ public class CropTrollplant extends NHCropCard {
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Spinel, 1), 62_50);
         this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Plutonium241, 1), 12_50);
         this.addDrop(ItemList.IC2_Plantball.get(1), 12_50);
-        this.addDrop(ItemList.IC2_Scrap.get(1), 12_50);
+        this.addDrop(ItemList.Scrap.get(1), 12_50);
 
         // all of these are intended to be a bit trollish in one way or another
         // just because it requires bricks as a soil
         this.addDuplicationCatalyst(new ItemStack(Items.brick, 2));
         // one more than the extruder number of bolts you get for one extruder recipe
         this.addDuplicationCatalyst("screwFoolsRuby", 5);
-        // A somewhat easier "streamed-lined" output since they make a lot o fthis stuff.
-        this.addDuplicationCatalyst(ItemList.IC2_Scrap.get(8));
+        // A somewhat easier "streamed-lined" output since they make a lot of this stuff.
+        this.addDuplicationCatalyst(ItemList.Scrap.get(8));
 
         // a certain ogre really likes this place
         this.addLikedBiomes(BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.SPOOKY);
