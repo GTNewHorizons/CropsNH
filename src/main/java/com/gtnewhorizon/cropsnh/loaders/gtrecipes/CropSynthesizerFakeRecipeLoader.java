@@ -17,7 +17,7 @@ import gregtech.common.items.behaviors.BehaviourDataOrb;
 
 public abstract class CropSynthesizerFakeRecipeLoader extends BaseGTRecipeLoader {
 
-    public static void postInit() {
+    public static void loadComplete() {
         // generate base inputs
         ItemStack growthOrb = ItemList.Tool_DataOrb.get(0L);
         BehaviourDataOrb.setDataTitle(growthOrb, Names.DataOrb.growth);
