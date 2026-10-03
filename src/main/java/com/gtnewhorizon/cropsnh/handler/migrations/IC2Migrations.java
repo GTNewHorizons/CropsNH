@@ -26,6 +26,7 @@ import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
 import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.NBTHelper;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
@@ -54,7 +55,7 @@ public class IC2Migrations {
 
                 if (!isCrossCrop && oldNBT.hasKey("cropOwner") && oldNBT.hasKey("cropName")) {
                     ICropCard cc = getMigratedCrop(oldNBT.getString("cropOwner"), oldNBT.getString("cropName"));
-                    if (cc == null) cc = CropsNHCrops.Carrot;
+                    if (cc == null) cc = CropsNHUtils.getFallbackCrop();
 
                     ISeedStats stats = new SeedStats(
                         (byte) Math.max(
@@ -101,7 +102,7 @@ public class IC2Migrations {
             String name = oldTag.getString("name");
             // if crop can't be found default to carrot to keep stat progression.
             ICropCard cc = getMigratedCrop(owner, name);
-            if (cc == null) cc = CropsNHCrops.Carrot;
+            if (cc == null) cc = CropsNHUtils.getFallbackCrop();
             // load the stats
             ISeedStats stats = new SeedStats(
                 (byte) Math.max(
