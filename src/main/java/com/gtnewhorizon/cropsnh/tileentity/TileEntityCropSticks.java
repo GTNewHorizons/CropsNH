@@ -44,6 +44,7 @@ import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.IHarvestDropModifier;
 import com.gtnewhorizon.cropsnh.api.IMutationPool;
+import com.gtnewhorizon.cropsnh.api.IPotencyData;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
@@ -1309,17 +1310,26 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (this.waterStorage > 0) this.waterStorage--;
     }
 
+    private static final int MANUAL_FERTILIZER_MAX_STORAGE = 100;
+    private static final int MANUAL_FERTILIZER_MIN_THRESHOLD = 10;
+
     @Override
     public boolean onRightClick(EntityPlayer player, ItemStack heldItem) {
         if (worldObj.isRemote) return true;
         // items that implement ICropRightClickHandler will be able to
         if (CropsNHUtils.isStackValid(heldItem)) {
             // check if it's a fertilizer
-            int fertilizerPotency = FertilizerRegistry.instance.getPotency(heldItem);
-            if (fertilizerPotency > 0) {
-                if (this.addFertilizer(fertilizerPotency, Math.max(90, 100 - fertilizerPotency), 100, false)) {
+            IPotencyData fertilizerData = FertilizerRegistry.instance.getPotency(heldItem);
+            if (fertilizerData != null && fertilizerData.getUnitsConsumedPerApplication() <= heldItem.stackSize) {
+                int potency = fertilizerData.getPotency();
+                int maxStorage = fertilizerData.getMaxStorage(MANUAL_FERTILIZER_MAX_STORAGE);
+                if (this.addFertilizer(
+                    potency,
+                    Math.max(maxStorage - MANUAL_FERTILIZER_MIN_THRESHOLD, maxStorage - potency),
+                    maxStorage,
+                    false)) {
                     if (!player.capabilities.isCreativeMode) {
-                        heldItem.stackSize--;
+                        heldItem.stackSize -= fertilizerData.getUnitsConsumedPerApplication();
                     }
                     this.playFertilizationSound();
                     return true;

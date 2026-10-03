@@ -6,7 +6,10 @@ import java.util.stream.Collectors;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.gtnewhorizon.cropsnh.api.IItemPotencyRegistry;
+import com.gtnewhorizon.cropsnh.api.IPotencyData;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.DebugHelper;
 import com.gtnewhorizon.cropsnh.utility.MetaMap;
@@ -18,12 +21,14 @@ public class ItemPotencyRegistry implements IItemPotencyRegistry {
     /**
      * A list of fertilizers along with their potency.
      */
-    public MetaMap<Item, Integer> registry = new MetaMap<>();
+    public MetaMap<Item, IPotencyData> registry = new MetaMap<>();
 
     @Override
-    public void register(Item item, int meta, int potency) {
-        if (potency <= 0) throw new IllegalArgumentException("potency must be greater then 0");
-        this.registry.putIfAbsent(item, meta, potency, true);
+    public void register(Item item, int meta, IPotencyData data) {
+        if (data.getPotency() <= 0) throw new IllegalArgumentException("potency must be greater then 0");
+        if (data.getUnitsConsumedPerApplication() <= 0)
+            throw new IllegalArgumentException("Units per application must be greater than 0");
+        this.registry.putIfAbsent(item, meta, data, true);
     }
 
     @Override
@@ -39,18 +44,18 @@ public class ItemPotencyRegistry implements IItemPotencyRegistry {
     }
 
     @Override
-    public int getPotency(ItemStack item) {
-        return this.registry.getOrDefault(item.getItem(), CropsNHUtils.getItemMeta(item), 0);
+    public @Nullable IPotencyData getPotency(ItemStack item) {
+        return this.registry.getOrDefault(item.getItem(), CropsNHUtils.getItemMeta(item), null);
     }
 
     @Override
-    public int getPotency(Item item, int meta) {
-        return this.registry.getOrDefault(item, meta, 0);
+    public @Nullable IPotencyData getPotency(Item item, int meta) {
+        return this.registry.getOrDefault(item, meta, null);
     }
 
     public String dumpCSV() {
         StringBuilder sb = new StringBuilder();
-        sb.append(DebugHelper.makeCSVLine("Potency", "Item"));
+        sb.append(DebugHelper.makeCSVLine("Item", "Potency", "Max Storage", "Consumed per Application"));
         sb.append(System.lineSeparator());
         sb.append(
             this.registry.getStream()

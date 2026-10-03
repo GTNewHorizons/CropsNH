@@ -6,6 +6,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
+import com.gtnewhorizon.cropsnh.farming.PotencyData;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.WeedEXRegistry;
@@ -18,7 +19,7 @@ import gregtech.api.enums.Materials;
 import gregtech.api.util.GTModHandler;
 import kubatech.tileentity.gregtech.multiblock.MTEExtremeIndustrialGreenhouse;
 
-public class FertilizerLoader {
+public class PotencyLoader {
 
     public static final int FERTILIZER_ITEM_POTENCY = 100;
     public static final int WEEDEX_POTENCY = 1;
@@ -31,38 +32,39 @@ public class FertilizerLoader {
     }
 
     private static void registerHydrationLiquids() {
-        HydrationRegistry.instance.register(FluidRegistry.WATER, 1);
+        HydrationRegistry.instance.register(FluidRegistry.WATER, new PotencyData(1));
         HydrationRegistry.instance.register(
             GTModHandler.getDistilledWater(1L)
                 .getFluid(),
-            2);
+            new PotencyData(2));
     }
 
     private static void registerWeedEXLiquids() {
         // the strong poisonous brew is the stuff contained in weed-ex cans
-        WeedEXRegistry.instance.register(CropsNHUtils.getWeedEXFluid(), WEEDEX_POTENCY);
-        WeedEXRegistry.instance.register(Materials.WeedEX9000.mFluid, 10);
+        WeedEXRegistry.instance.register(CropsNHUtils.getWeedEXFluid(), new PotencyData(WEEDEX_POTENCY));
+        WeedEXRegistry.instance.register(Materials.WeedEX9000.mFluid, new PotencyData(10));
     }
 
     private static void registerLiquidFertilizers() {
-        FertilizerRegistry.instance.register(CropsNHFluids.fertilizer, 1);
-        FertilizerRegistry.instance.register(CropsNHFluids.enrichedFertilizer, 10);
+        FertilizerRegistry.instance.register(CropsNHFluids.fertilizer, new PotencyData(1));
+        FertilizerRegistry.instance.register(CropsNHFluids.enrichedFertilizer, new PotencyData(10));
+        FertilizerRegistry.fertilizerUnitInstance.register(CropsNHFluids.enrichedFertilizer, new PotencyData(1));
     }
 
     private static void registerItemFertilizers() {
         // vanilla bonemeal
-        FertilizerRegistry.instance.register(Items.dye, 15, 5);
+        FertilizerRegistry.instance.register(Items.dye, 15, new PotencyData(5, 30));
 
         // cropsNH
         FertilizerRegistry.instance
-            .register(CropsNHItems.fertilizer, OreDictionary.WILDCARD_VALUE, FERTILIZER_ITEM_POTENCY);
+            .register(CropsNHItems.fertilizer, OreDictionary.WILDCARD_VALUE, new PotencyData(FERTILIZER_ITEM_POTENCY));
 
         // forestry fertilizer
         if (ModUtils.Forestry.isModLoaded()) {
             Item fertCompound = ModUtils.Forestry.getItem("fertilizerCompound");
             Item fertBio = ModUtils.Forestry.getItem("fertilizerBio");
-            FertilizerRegistry.instance.register(fertCompound, OreDictionary.WILDCARD_VALUE, 25);
-            FertilizerRegistry.instance.register(fertBio, OreDictionary.WILDCARD_VALUE, 50);
+            FertilizerRegistry.instance.register(fertCompound, OreDictionary.WILDCARD_VALUE, new PotencyData(25));
+            FertilizerRegistry.instance.register(fertBio, OreDictionary.WILDCARD_VALUE, new PotencyData(50));
         }
 
         // add crops nh fert to EIG
