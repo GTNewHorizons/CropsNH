@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.handler;
 
 import java.io.File;
+import java.util.Arrays;
 
 import net.minecraftforge.common.config.Configuration;
 
@@ -39,8 +40,10 @@ public class ConfigurationHandler {
     public static String goldfishScream;
     public static boolean goldfishScreamWhenSteppedOn;
     public static int breedingChance;
-    public static int breedingLow;
-    public static int breedingHigh;
+    public static int[] fertilizedSpreadingVariations;
+    public static int[] spreadingVariations;
+    public static int[] fertilizedBreedingVariations;
+    public static int[] breedingVariations;
     // weeds
     public static boolean enableWeeds;
     public static boolean weedsWipePlants;
@@ -134,22 +137,6 @@ public class ConfigurationHandler {
             true,
             "If you are fine with the random screams but not with the EXTREME HOWL that comes with walking on them, turn this off.");
 
-        breedingLow = config.getInt(
-            "Breeding Range Low",
-            Categories.CATEGORY_CROPS,
-            -2,
-            -31,
-            31,
-            "The lowest bound of the stat variation while breeding.");
-
-        breedingHigh = config.getInt(
-            "Breeding Range High",
-            Categories.CATEGORY_CROPS,
-            4,
-            -31,
-            31,
-            "The highest bound of the stat variation while breeding.");
-
         breedingChance = config.getInt(
             "Breeding Chance",
             Categories.CATEGORY_CROPS,
@@ -157,6 +144,26 @@ public class ConfigurationHandler {
             1,
             Integer.MAX_VALUE,
             "Lower values increase the speed at which crops attempt to breed themselves. actual chance is measured as 1 / value every growth tick.");
+
+        fertilizedSpreadingVariations = getStatVariationRange(
+            "Fertilized Spreading Stat Variations",
+            "The possible stat variations while spreading a crop with fertilizer",
+            new int[] { 0, 0, 1 });
+
+        spreadingVariations = getStatVariationRange(
+            "Spreading Stat Variations",
+            "The possible stat variations while spreading a crop without fertilizer",
+            new int[] { -1, 0, 0 });
+
+        fertilizedBreedingVariations = getStatVariationRange(
+            "Fertilized Breeding Stat Variations",
+            "The possible stat variations while breeding with fertilized crops (added on top of the average of the parents)",
+            new int[] { 0, 0, 1 });
+
+        breedingVariations = getStatVariationRange(
+            "Breeding Stat Variations",
+            "The possible stat variations while breeding crops without fertilizer (added on top of the average of the parents)",
+            new int[] { -2, -1, 0, 1, 2 });
 
         // endregion CATEGORY_CROPS
 
@@ -221,6 +228,24 @@ public class ConfigurationHandler {
 
         if (config.hasChanged()) {
             config.save();
+        }
+    }
+
+    private static int[] getStatVariationRange(String name, String description, int[] defaultValues) {
+        String[] unparsed = config.getStringList(
+            name,
+            Categories.CATEGORY_CROPS,
+            Arrays.stream(defaultValues)
+                .mapToObj(Integer::toString)
+                .toArray(String[]::new),
+            description);
+
+        try {
+            return Arrays.stream(unparsed)
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        } catch (NumberFormatException nfe) {
+            return defaultValues;
         }
     }
 

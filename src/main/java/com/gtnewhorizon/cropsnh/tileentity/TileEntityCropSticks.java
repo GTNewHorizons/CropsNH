@@ -66,6 +66,9 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
 
+import it.unimi.dsi.fastutil.booleans.BooleanObjectImmutablePair;
+import it.unimi.dsi.fastutil.booleans.BooleanObjectPair;
+
 public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStickTile {
 
     public final static int TICK_RATE = 256;
@@ -1003,15 +1006,18 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (neighbours == null) return false;
         neighbours.removeIf(n -> n == null || !n.hasCrop() || n.hasWeed());
         if (neighbours.isEmpty()) return false;
-        ICropCard result = this.getBreedingResult(neighbours);
+        BooleanObjectPair<ICropCard> outcome = this.getBreedingResult(neighbours);
+        if (outcome == null) return false;
+        ICropCard result = outcome.right();
         if (result == null || neighbours.isEmpty()
             || !this.isValidSoilForCrop(result)
             || !this.wouldCropBeAbleToGrow(result)) {
             return false;
         }
+        boolean isSpreading = outcome.firstBoolean();
 
         // if all parents have fertilizer in them, stats cannot go down.
-        boolean onlyGoUp = neighbours.stream()
+        boolean isFertilized = neighbours.stream()
             .allMatch(x -> x.getFertilizerStorage() > 0);
         // find all the parent's stats.
         Collection<ISeedStats> parentStats = neighbours.stream()
@@ -1019,16 +1025,28 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 t -> t.getSeed()
                     .getStats())
             .collect(Collectors.toList());
-        byte ga = variateStat(onlyGoUp, parentStats, ISeedStats::getGain);
-        byte re = variateStat(onlyGoUp, parentStats, ISeedStats::getResistance);
-        byte gr = variateStat(onlyGoUp, parentStats, ISeedStats::getGrowth);
+
+        int[] variations = getStatVariation(isSpreading, isFertilized);
+
+        byte ga = variateStat(variations, parentStats, ISeedStats::getGain);
+        byte re = variateStat(variations, parentStats, ISeedStats::getResistance);
+        byte gr = variateStat(variations, parentStats, ISeedStats::getGrowth);
 
         // plant it
         this.plantSeed(new SeedData(result, new SeedStats(gr, ga, re, false)));
         return true;
     }
 
-    private ICropCard getBreedingResult(List<ICropStickTile> neighbours) {
+    private static int[] getStatVariation(boolean isSpreading, boolean isFertilized) {
+        if (isSpreading) {
+            return isFertilized ? ConfigurationHandler.fertilizedSpreadingVariations
+                : ConfigurationHandler.spreadingVariations;
+        }
+        return isFertilized ? ConfigurationHandler.fertilizedBreedingVariations
+            : ConfigurationHandler.breedingVariations;
+    }
+
+    private BooleanObjectPair<ICropCard> getBreedingResult(List<ICropStickTile> neighbours) {
         // 50% chance it will attempt to cross instead of breeding
         if (XSTR.XSTR_INSTANCE.nextBoolean()) {
             ArrayList<ICropStickTile> crossingParents = new ArrayList<>(neighbours);
@@ -1044,7 +1062,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                         .getCrop() != chosen);
                 neighbours.clear();
                 neighbours.addAll(crossingParents);
-                return chosen;
+                return BooleanObjectImmutablePair.of(true, chosen);
             }
             // if it fails to coss try breeding instead.
         }
@@ -1067,12 +1085,12 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 .get(XSTR.XSTR_INSTANCE.nextInt(deterministicMutations.size()));
             if (chosenMutation.canBreed(breedingParents, this.worldObj, this, this.xCoord, this.yCoord, this.zCoord)) {
                 Collection<ICropCard> chosenMutationParents = chosenMutation.getParents();
-                // Ensure only crops that participated in the mutation contrinute to the new baseline stats
+                // Ensure only crops that participated in the mutation contribute to the new baseline stats
                 neighbours.removeIf(
                     s -> !chosenMutationParents.contains(
                         s.getSeed()
                             .getCrop()));
-                return chosenMutation.getOutput();
+                return BooleanObjectImmutablePair.of(false, chosenMutation.getOutput());
             }
         }
 
@@ -1081,14 +1099,15 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (pooledMutations != null && !pooledMutations.isEmpty()) {
             // pick a random matching pool
             IMutationPool chosenPool = pooledMutations.get(XSTR.XSTR_INSTANCE.nextInt(pooledMutations.size()));
-            // Ensure only crops that participated in the mutation contrinute to the new baseline stats
+            // Ensure only crops that participated in the mutation contribute to the new baseline stats
             neighbours.removeIf(
                 s -> !chosenPool.contains(
                     s.getSeed()
                         .getCrop()));
             // pick a random crop in the pool.
             ArrayList<ICropCard> potentialResults = new ArrayList<>(chosenPool.getMembers());
-            return potentialResults.get(XSTR.XSTR_INSTANCE.nextInt(potentialResults.size()));
+            ICropCard result = potentialResults.get(XSTR.XSTR_INSTANCE.nextInt(potentialResults.size()));
+            return BooleanObjectImmutablePair.of(false, result);
         }
 
         return null;
@@ -1112,16 +1131,15 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 .getBreedingThreshold();
     }
 
-    public static byte variateStat(boolean onlyGoUp, Collection<ISeedStats> parentStats,
+    public static byte variateStat(int[] variations, Collection<ISeedStats> parentStats,
         ToIntFunction<ISeedStats> collector) {
         // average parents
         int newValue = parentStats.stream()
             .mapToInt(collector)
             .reduce(0, Integer::sum) / parentStats.size();
+
         // variate
-        int variation = ConfigurationHandler.breedingHigh + 1 - ConfigurationHandler.breedingLow;
-        variation = XSTR.XSTR_INSTANCE.nextInt(variation) + ConfigurationHandler.breedingLow;
-        if (onlyGoUp && variation < 0) variation = 0;
+        int variation = variations[XSTR.XSTR_INSTANCE.nextInt(variations.length)];
 
         // clamp
         return (byte) Math.max(Constants.MIN_SEED_STAT, Math.min(Constants.MAX_SEED_STAT, newValue + variation));
