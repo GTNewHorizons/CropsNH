@@ -557,6 +557,7 @@ public class MTECropManager extends MTETieredMachineBlock {
     private boolean applyFertilizer(ICropStickTile crop, boolean simulate) {
         int storedFert = crop.getFertilizerStorage();
         int amount = 0;
+        int applyCap = FERTILIZER_CAP;
         int threshold = FERTILIZER_LIQUID_THRESHOLD;
         // always try liquid fertilizer first
         if (this.getLiquidFertilizerAmount() > 0) {
@@ -595,13 +596,14 @@ public class MTECropManager extends MTETieredMachineBlock {
                 }
                 // set amount to add and bail
                 amount = potencyData.getPotency();
+                applyCap = cap;
                 break;
             }
         }
         // fail if we didn't find anything
         if (amount <= 0) return false;
         // the add fertilizer call should always be a success if it reaches this point.
-        return crop.addFertilizer(amount, threshold, FERTILIZER_CAP, simulate);
+        return crop.addFertilizer(amount, threshold, applyCap, simulate);
     }
 
     // endregion fertilizer apply
