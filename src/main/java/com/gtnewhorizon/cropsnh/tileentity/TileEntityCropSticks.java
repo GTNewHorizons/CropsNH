@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
@@ -1018,8 +1019,9 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         boolean isSpreading = outcome.firstBoolean();
 
         // if all parents have fertilizer in them, stats cannot go down.
-        boolean isFertilized = neighbours.stream()
-            .allMatch(x -> x.getFertilizerStorage() > 0);
+        OptionalInt minFertilizer = neighbours.stream()
+            .mapToInt(ICropStickTile::getFertilizerStorage)
+            .min();
         // find all the parent's stats.
         Collection<ISeedStats> parentStats = neighbours.stream()
             .map(
@@ -1027,7 +1029,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                     .getStats())
             .collect(Collectors.toList());
 
-        int[] variations = getStatVariation(isSpreading, isFertilized);
+        int[] variations = getStatVariation(isSpreading, minFertilizer.orElse(0));
 
         byte ga = variateStat(variations, parentStats, ISeedStats::getGain);
         byte re = variateStat(variations, parentStats, ISeedStats::getResistance);
@@ -1038,13 +1040,24 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         return true;
     }
 
-    private static int[] getStatVariation(boolean isSpreading, boolean isFertilized) {
+    private static int[] getStatVariation(boolean isSpreading, int minFertilizer) {
         if (isSpreading) {
-            return isFertilized ? ConfigurationHandler.fertilizedSpreadingVariations
-                : ConfigurationHandler.spreadingVariations;
+            if (minFertilizer >= ConfigurationHandler.highFertilizerSpreadingThreshold) {
+                return ConfigurationHandler.highFertilizerSpreadingVariations;
+            }
+            if (minFertilizer >= ConfigurationHandler.medFertilizerSpreadingThreshold) {
+                return ConfigurationHandler.medFertilizerSpreadingVariations;
+            }
+            return ConfigurationHandler.lowFertilizerSpreadingVariations;
         }
-        return isFertilized ? ConfigurationHandler.fertilizedBreedingVariations
-            : ConfigurationHandler.breedingVariations;
+
+        if (minFertilizer >= ConfigurationHandler.highFertilizerBreedingThreshold) {
+            return ConfigurationHandler.highFertilizerBreedingVariations;
+        }
+        if (minFertilizer >= ConfigurationHandler.medFertilizerBreedingThreshold) {
+            return ConfigurationHandler.medFertilizerBreedingVariations;
+        }
+        return ConfigurationHandler.lowFertilizerBreedingVariations;
     }
 
     private BooleanObjectPair<ICropCard> getBreedingResult(List<ICropStickTile> neighbours) {
@@ -1310,7 +1323,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (this.waterStorage > 0) this.waterStorage--;
     }
 
-    private static final int MANUAL_FERTILIZER_MAX_STORAGE = 100;
+    public static final int MANUAL_FERTILIZER_MAX_STORAGE = 100;
     private static final int MANUAL_FERTILIZER_MIN_THRESHOLD = 10;
 
     @Override
