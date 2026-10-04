@@ -1,10 +1,13 @@
 package com.gtnewhorizon.cropsnh.handler;
 
 import java.io.File;
+import java.util.Arrays;
 
 import net.minecraftforge.common.config.Configuration;
 
 import com.gtnewhorizon.cropsnh.reference.Reference;
+import com.gtnewhorizon.cropsnh.tileentity.TileEntityCropSticks;
+import com.gtnewhorizon.cropsnh.tileentity.singleblock.MTECropManager;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -39,8 +42,18 @@ public class ConfigurationHandler {
     public static String goldfishScream;
     public static boolean goldfishScreamWhenSteppedOn;
     public static int breedingChance;
-    public static int breedingLow;
-    public static int breedingHigh;
+
+    public static int[] lowFertilizerSpreadingVariations;
+    public static int medFertilizerSpreadingThreshold;
+    public static int[] medFertilizerSpreadingVariations;
+    public static int highFertilizerSpreadingThreshold;
+    public static int[] highFertilizerSpreadingVariations;
+
+    public static int[] lowFertilizerBreedingVariations;
+    public static int medFertilizerBreedingThreshold;
+    public static int[] medFertilizerBreedingVariations;
+    public static int highFertilizerBreedingThreshold;
+    public static int[] highFertilizerBreedingVariations;
     // weeds
     public static boolean enableWeeds;
     public static boolean weedsWipePlants;
@@ -134,22 +147,6 @@ public class ConfigurationHandler {
             true,
             "If you are fine with the random screams but not with the EXTREME HOWL that comes with walking on them, turn this off.");
 
-        breedingLow = config.getInt(
-            "Breeding Range Low",
-            Categories.CATEGORY_CROPS,
-            -2,
-            -31,
-            31,
-            "The lowest bound of the stat variation while breeding.");
-
-        breedingHigh = config.getInt(
-            "Breeding Range High",
-            Categories.CATEGORY_CROPS,
-            4,
-            -31,
-            31,
-            "The highest bound of the stat variation while breeding.");
-
         breedingChance = config.getInt(
             "Breeding Chance",
             Categories.CATEGORY_CROPS,
@@ -157,6 +154,73 @@ public class ConfigurationHandler {
             1,
             Integer.MAX_VALUE,
             "Lower values increase the speed at which crops attempt to breed themselves. actual chance is measured as 1 / value every growth tick.");
+
+        medFertilizerSpreadingThreshold = config.getInt(
+            "Medium Fertilizer Spreading Threshold",
+            Categories.CATEGORY_CROPS,
+            50,
+            1,
+            MTECropManager.FERTILIZER_CAP - 1,
+            "The minimum amount of fertilizer needed to use the medium stat variation while spreading.");
+        highFertilizerSpreadingThreshold = config.getInt(
+            "High Fertilizer Spreading Threshold",
+            Categories.CATEGORY_CROPS,
+            TileEntityCropSticks.MANUAL_FERTILIZER_MAX_STORAGE + 1,
+            1,
+            MTECropManager.FERTILIZER_CAP - 1,
+            "The minimum amount of fertilizer needed to use the high stat variation while spreading.");
+        // Never improves, so you have to either be manually breeding crops in order to do your initial statting run.
+        lowFertilizerSpreadingVariations = getStatVariationRange(
+            "Low Fertilizer Spreading Stat Variations",
+            "The possible stat variations while spreading a crop with an amount of fertilizer below the medium spreading threshold.",
+            Categories.CATEGORY_CROPS,
+            new int[] { -1, 0, 0 });
+        // Keeps stats identical to help with making fields with a given template.
+        medFertilizerSpreadingVariations = getStatVariationRange(
+            "Medium Fertilizer Spreading Stat Variations",
+            "The possible stat variations while spreading a crop with a medium amount of fertilizer.",
+            Categories.CATEGORY_CROPS,
+            new int[] { 0 });
+        // Allows the crop manager to be used to stat crops passively. It's a lot slower than before so you'll probably
+        // need a couple runs depending on your setup before you reach max stats this way.
+        highFertilizerSpreadingVariations = getStatVariationRange(
+            "High Fertilizer Spreading Stat Variations",
+            "The possible stat variations while spreading a crop with a high amount of fertilizer.",
+            Categories.CATEGORY_CROPS,
+            new int[] { 0, 0, 1 });
+
+        medFertilizerBreedingThreshold = config.getInt(
+            "Medium Fertilizer Breeding Threshold",
+            Categories.CATEGORY_CROPS,
+            50,
+            1,
+            MTECropManager.FERTILIZER_CAP - 1,
+            "The minimum amount of fertilizer needed to use the medium stat variation while breeding.");
+        highFertilizerBreedingThreshold = config.getInt(
+            "High Fertilizer Breeding Threshold",
+            Categories.CATEGORY_CROPS,
+            TileEntityCropSticks.MANUAL_FERTILIZER_MAX_STORAGE + 1,
+            1,
+            MTECropManager.FERTILIZER_CAP - 1,
+            "The minimum amount of fertilizer needed to use the high stat variation while breeding.");
+        // Low chance for variation and 1/5 for it to go up
+        lowFertilizerBreedingVariations = getStatVariationRange(
+            "Low Fertilizer Breeding Stat Variations",
+            "The possible stat variations while breeding a crop without fertilizer.",
+            Categories.CATEGORY_CROPS,
+            new int[] { -1, 0, 0, 0, 1 });
+        // Manual fertilizer increases the chance for variation chance for variation
+        lowFertilizerBreedingVariations = getStatVariationRange(
+            "Medium Fertilizer Breeding Stat Variations",
+            "The possible stat variations while breeding a crop with a medium amount of fertilizer.",
+            Categories.CATEGORY_CROPS,
+            new int[] { -1, -1, 0, 1, 1 });
+        // Allows the crop manager to be used to stat crops passively
+        lowFertilizerBreedingVariations = getStatVariationRange(
+            "High Fertilizer Breeding Stat Variations",
+            "The possible stat variations while breeding a crop with a high amount of fertilizer.",
+            Categories.CATEGORY_CROPS,
+            new int[] { 0, 1 });
 
         // endregion CATEGORY_CROPS
 
@@ -221,6 +285,24 @@ public class ConfigurationHandler {
 
         if (config.hasChanged()) {
             config.save();
+        }
+    }
+
+    private static int[] getStatVariationRange(String name, String description, String category, int[] defaultValues) {
+        String[] unparsed = config.getStringList(
+            name,
+            category,
+            Arrays.stream(defaultValues)
+                .mapToObj(Integer::toString)
+                .toArray(String[]::new),
+            description);
+
+        try {
+            return Arrays.stream(unparsed)
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        } catch (NumberFormatException nfe) {
+            return defaultValues;
         }
     }
 
