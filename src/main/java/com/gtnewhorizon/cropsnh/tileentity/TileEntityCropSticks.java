@@ -68,9 +68,6 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.WorldUtils;
 import com.gtnewhorizon.cropsnh.utility.XSTR;
 
-import it.unimi.dsi.fastutil.booleans.BooleanObjectImmutablePair;
-import it.unimi.dsi.fastutil.booleans.BooleanObjectPair;
-
 public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStickTile {
 
     public final static int TICK_RATE = 256;
@@ -1008,20 +1005,13 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (neighbours == null) return false;
         neighbours.removeIf(n -> n == null || !n.hasCrop() || n.hasWeed());
         if (neighbours.isEmpty()) return false;
-        BooleanObjectPair<ICropCard> outcome = this.getBreedingResult(neighbours);
-        if (outcome == null) return false;
-        ICropCard result = outcome.right();
+        ICropCard result = this.getBreedingResult(neighbours);
         if (result == null || neighbours.isEmpty()
             || !this.isValidSoilForCrop(result)
             || !this.wouldCropBeAbleToGrow(result)) {
             return false;
         }
-        boolean isSpreading = outcome.firstBoolean();
 
-        // if all parents have fertilizer in them, stats cannot go down.
-        OptionalInt minFertilizer = neighbours.stream()
-            .mapToInt(ICropStickTile::getFertilizerStorage)
-            .min();
         // find all the parent's stats.
         Collection<ISeedStats> parentStats = neighbours.stream()
             .map(
@@ -1029,7 +1019,11 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                     .getStats())
             .collect(Collectors.toList());
 
-        int[] variations = getStatVariation(isSpreading, minFertilizer.orElse(0));
+        // stat variation depends on the number of parents and the amount of fert in the sticks
+        OptionalInt minFertilizer = neighbours.stream()
+            .mapToInt(ICropStickTile::getFertilizerStorage)
+            .min();
+        int[] variations = getStatVariation(neighbours.size() <= 1, minFertilizer.orElse(0));
 
         byte ga = variateStat(variations, parentStats, ISeedStats::getGain);
         byte re = variateStat(variations, parentStats, ISeedStats::getResistance);
@@ -1040,8 +1034,8 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         return true;
     }
 
-    private static int[] getStatVariation(boolean isSpreading, int minFertilizer) {
-        if (isSpreading) {
+    private static int[] getStatVariation(boolean hasSingleParent, int minFertilizer) {
+        if (hasSingleParent) {
             if (minFertilizer >= ConfigurationHandler.highFertilizerSpreadingThreshold) {
                 return ConfigurationHandler.highFertilizerSpreadingVariations;
             }
@@ -1060,7 +1054,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         return ConfigurationHandler.lowFertilizerBreedingVariations;
     }
 
-    private BooleanObjectPair<ICropCard> getBreedingResult(List<ICropStickTile> neighbours) {
+    private ICropCard getBreedingResult(List<ICropStickTile> neighbours) {
         // 50% chance it will attempt to cross instead of breeding
         if (XSTR.XSTR_INSTANCE.nextBoolean()) {
             ArrayList<ICropStickTile> crossingParents = new ArrayList<>(neighbours);
@@ -1076,7 +1070,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                         .getCrop() != chosen);
                 neighbours.clear();
                 neighbours.addAll(crossingParents);
-                return BooleanObjectImmutablePair.of(true, chosen);
+                return chosen;
             }
             // if it fails to coss try breeding instead.
         }
@@ -1104,7 +1098,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                     s -> !chosenMutationParents.contains(
                         s.getSeed()
                             .getCrop()));
-                return BooleanObjectImmutablePair.of(false, chosenMutation.getOutput());
+                return chosenMutation.getOutput();
             }
         }
 
@@ -1121,7 +1115,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             // pick a random crop in the pool.
             ArrayList<ICropCard> potentialResults = new ArrayList<>(chosenPool.getMembers());
             ICropCard result = potentialResults.get(XSTR.XSTR_INSTANCE.nextInt(potentialResults.size()));
-            return BooleanObjectImmutablePair.of(false, result);
+            return result;
         }
 
         return null;
