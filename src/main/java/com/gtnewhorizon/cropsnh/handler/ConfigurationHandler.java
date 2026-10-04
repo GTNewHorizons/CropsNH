@@ -203,18 +203,18 @@ public class ConfigurationHandler {
             1,
             MTECropManager.FERTILIZER_CAP - 1,
             "The minimum amount of fertilizer needed to use the high stat variation while breeding.");
-        // Not controlled, intended for the initial stating if starting crop in the steam age
+        // Low chance for variation and 1/5 for it to go up
         lowFertilizerBreedingVariations = getStatVariationRange(
             "Low Fertilizer Breeding Stat Variations",
             "The possible stat variations while breeding a crop without fertilizer.",
             Categories.CATEGORY_CROPS,
-            new int[] { -2, -1, 0, 1, 2 });
-        // Keeps the stat while breeding new species to lock your template
+            new int[] { -1, 0, 0, 0, 1 });
+        // Manual fertilizer increases the chance for variation chance for variation
         lowFertilizerBreedingVariations = getStatVariationRange(
             "Medium Fertilizer Breeding Stat Variations",
             "The possible stat variations while breeding a crop with a medium amount of fertilizer.",
             Categories.CATEGORY_CROPS,
-            new int[] { 0 });
+            new int[] { -1, -1, 0, 1, 1 });
         // Allows the crop manager to be used to stat crops passively
         lowFertilizerBreedingVariations = getStatVariationRange(
             "High Fertilizer Breeding Stat Variations",
