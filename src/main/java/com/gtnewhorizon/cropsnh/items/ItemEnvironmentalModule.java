@@ -29,7 +29,7 @@ public class ItemEnvironmentalModule extends Item {
     private final static String NAME_TEMPLATE = NAME_BASE + ".template";
     private final static String NAME_BLANK = NAME_BASE + ".blank";
     private IIcon missingIcon = null;
-    private IIcon cardIcon = null;
+    private IIcon blankIcon = null;
 
     private static class ModuleData {
 
@@ -110,36 +110,19 @@ public class ItemEnvironmentalModule extends Item {
         return tag.unlocalizedName;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
-    public boolean requiresMultipleRenderPasses() {
-        return true;
-    }
-
-    @Override
-    public int getRenderPasses(int metadata) {
-        return metadata == 0 ? 1 : 2;
-    }
-
-    @Override
-    public IIcon getIcon(ItemStack stack, int pass) {
-        // load the crop card
-        if (pass == 0) {
-            return cardIcon;
-        }
-        ModuleData data = VARIANTS.getOrDefault(CropsNHUtils.getItemMeta(stack), null);
+    public IIcon getIconFromDamage(int meta) {
+        if (meta == 0) return this.blankIcon;
+        ModuleData data = VARIANTS.getOrDefault(meta, null);
         return data == null ? missingIcon : data.icon;
-    }
-
-    @Override
-    public IIcon getIconIndex(ItemStack stack) {
-        return getIcon(stack, 0);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister register) {
         this.missingIcon = register.registerIcon("missingno");
-        this.cardIcon = register.registerIcon(Reference.MOD_ID + ":environmentalModule/blank");
+        this.blankIcon = register.registerIcon(Reference.MOD_ID + ":environmentalModule/blank");
         for (ModuleData data : VARIANTS.values()) {
             data.registerIcon(register);
         }
