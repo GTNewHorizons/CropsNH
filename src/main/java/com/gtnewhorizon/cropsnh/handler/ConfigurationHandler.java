@@ -210,13 +210,13 @@ public class ConfigurationHandler {
             Categories.CATEGORY_CROPS,
             new int[] { -1, 0, 0, 0, 1 });
         // Manual fertilizer increases the chance for variation chance for variation
-        lowFertilizerBreedingVariations = getStatVariationRange(
+        medFertilizerBreedingVariations = getStatVariationRange(
             "Medium Fertilizer Breeding Stat Variations",
             "The possible stat variations while breeding a crop with a medium amount of fertilizer.",
             Categories.CATEGORY_CROPS,
             new int[] { -1, -1, 0, 1, 1 });
         // Allows the crop manager to be used to stat crops passively
-        lowFertilizerBreedingVariations = getStatVariationRange(
+        highFertilizerBreedingVariations = getStatVariationRange(
             "High Fertilizer Breeding Stat Variations",
             "The possible stat variations while breeding a crop with a high amount of fertilizer.",
             Categories.CATEGORY_CROPS,
@@ -289,6 +289,12 @@ public class ConfigurationHandler {
     }
 
     private static int[] getStatVariationRange(String name, String description, String category, int[] defaultValues) {
+        // writing code at 2am fail-safe
+        if (defaultValues == null || defaultValues.length <= 0) {
+            throw new IllegalArgumentException("The default variations are empty");
+        }
+
+        // parse the config
         String[] unparsed = config.getStringList(
             name,
             category,
@@ -296,6 +302,9 @@ public class ConfigurationHandler {
                 .mapToObj(Integer::toString)
                 .toArray(String[]::new),
             description);
+
+        // if the config read returns nothing, default
+        if (unparsed == null || unparsed.length <= 0) return defaultValues;
 
         try {
             return Arrays.stream(unparsed)
