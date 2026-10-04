@@ -69,7 +69,11 @@ public class ItemPotencyRegistry implements IItemPotencyRegistry {
                         sbm.append(":");
                         sbm.append(e.meta);
                     }
-                    return DebugHelper.makeCSVLine(e.value, sbm.toString());
+                    return DebugHelper.makeCSVLine(
+                        sbm.toString(),
+                        e.value.getPotency(),
+                        e.value.getMaxStorage(),
+                        e.value.getUnitsConsumedPerApplication());
                 })
                 .collect(Collectors.joining(System.lineSeparator())));
         return sb.toString();

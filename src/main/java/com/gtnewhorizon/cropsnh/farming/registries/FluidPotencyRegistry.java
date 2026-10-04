@@ -76,9 +76,14 @@ public class FluidPotencyRegistry implements IFluidPotencyRegistry {
                             .thenComparingInt(IPotencyData::getUnitsConsumedPerApplication)))
                 .map(
                     e -> DebugHelper.makeCSVLine(
-                        e.getValue(),
                         e.getKey()
-                            .getName()))
+                            .getName(),
+                        e.getValue()
+                            .getPotency(),
+                        e.getValue()
+                            .getMaxStorage(),
+                        e.getValue()
+                            .getUnitsConsumedPerApplication()))
                 .collect(Collectors.joining(System.lineSeparator())));
         return sb.toString();
     }
