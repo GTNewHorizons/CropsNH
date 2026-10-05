@@ -222,7 +222,7 @@ public class ConfigurationHandler {
             "High Fertilizer Breeding Stat Variations",
             "The possible stat variations while breeding a crop with a high amount of fertilizer.",
             Categories.CATEGORY_CROPS,
-            new int[] { 0, 0, 1, 1, 2 });
+            new int[] { 0, 0, 0, 1, 2, 3, 4 });
 
         // endregion CATEGORY_CROPS
 
