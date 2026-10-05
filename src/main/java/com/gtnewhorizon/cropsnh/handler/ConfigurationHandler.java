@@ -203,24 +203,26 @@ public class ConfigurationHandler {
             1,
             MTECropManager.FERTILIZER_CAP - 1,
             "The minimum amount of fertilizer needed to use the high stat variation while breeding.");
-        // Low chance for variation and 1/5 for it to go up
+        // Low chance for variation and most variations are minimal.
         lowFertilizerBreedingVariations = getStatVariationRange(
             "Low Fertilizer Breeding Stat Variations",
             "The possible stat variations while breeding a crop without fertilizer.",
             Categories.CATEGORY_CROPS,
-            new int[] { -1, 0, 0, 0, 1 });
-        // Manual fertilizer increases the chance for variation chance for variation
+            new int[] { -1, -1, 0, -1, 1 });
+        // Manual fertilizer increases the chance for variations to go up by +-2, which makes stating a lot more
+        // palatable assuming you get your hand on fertilia or apatite in the early stages.
         medFertilizerBreedingVariations = getStatVariationRange(
             "Medium Fertilizer Breeding Stat Variations",
             "The possible stat variations while breeding a crop with a medium amount of fertilizer.",
             Categories.CATEGORY_CROPS,
-            new int[] { -1, -1, 0, 1, 1 });
-        // Allows the crop manager to be used to stat crops passively
+            new int[] { -2, -1, 0, 1, 2 });
+        // Using a crop manager prevents stat loss while breeding and also gives a higher chance for stats to go up most
+        // of the time
         highFertilizerBreedingVariations = getStatVariationRange(
             "High Fertilizer Breeding Stat Variations",
             "The possible stat variations while breeding a crop with a high amount of fertilizer.",
             Categories.CATEGORY_CROPS,
-            new int[] { 0, 1 });
+            new int[] { 0, 0, 1, 1, 2 });
 
         // endregion CATEGORY_CROPS
 
