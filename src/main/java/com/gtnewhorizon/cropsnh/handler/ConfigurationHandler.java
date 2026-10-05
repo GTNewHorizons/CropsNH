@@ -208,7 +208,7 @@ public class ConfigurationHandler {
             "Low Fertilizer Breeding Stat Variations",
             "The possible stat variations while breeding a crop without fertilizer.",
             Categories.CATEGORY_CROPS,
-            new int[] { -1, -1, 0, -1, 1 });
+            new int[] { -1, -1, 0, 1, 1 });
         // Manual fertilizer increases the chance for variations to go up by +-2, which makes stating a lot more
         // palatable assuming you get your hand on fertilia or apatite in the early stages.
         medFertilizerBreedingVariations = getStatVariationRange(
