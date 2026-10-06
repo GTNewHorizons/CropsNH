@@ -827,7 +827,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         }
 
         // fluid extraction
-        lvRecipe(1, 00).itemInputs(MaterialLeafLoader.oilBerry.get(1))
+        lvRecipe(2, 00).itemInputs(MaterialLeafLoader.oilBerry.get(1))
             .fluidOutputs(Materials.Oil.getFluid(100))
             .addTo(fluidExtractionRecipes);
 
