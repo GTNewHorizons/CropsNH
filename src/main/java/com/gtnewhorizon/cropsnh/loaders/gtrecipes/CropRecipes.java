@@ -889,7 +889,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         final float BERRY_DT_RECIPE_MULT = 1.5f;
         final int EXTRACTION_BY_PASS_ADDITION = (1 * SECONDS * 10) / 4;
         // light oil
-        hvRecipe((int) ((1 * SECONDS + 1 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
+        hvRecipe((int) ((2 * SECONDS + 1 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(1)
             .fluidOutputs(
@@ -901,7 +901,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // oil
-        hvRecipe((int) ((3 * SECONDS + 4 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
+        hvRecipe((int) ((4 * SECONDS + 4 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(2)
             .fluidOutputs(
@@ -913,7 +913,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // raw oil
-        hvRecipe((int) ((1 * SECONDS + 12 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
+        hvRecipe((int) ((2 * SECONDS + 12 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(3)
             .fluidOutputs(
@@ -925,7 +925,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // heavy oil
-        hvRecipe((int) ((5 * SECONDS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
+        hvRecipe((int) ((6 * SECONDS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(4)
             .fluidOutputs(
