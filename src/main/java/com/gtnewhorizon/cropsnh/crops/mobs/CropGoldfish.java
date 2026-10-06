@@ -37,7 +37,7 @@ public class CropGoldfish extends NHCropCard {
 
     @Override
     public int getGrowthDuration() {
-        return 450;
+        return 600;
     }
 
     @Override
