@@ -141,6 +141,7 @@ public class CropsNHItems {
         CropsNHItemList.hops.set(MaterialLeafLoader.hops.get());
         CropsNHItemList.hempStem.set(MaterialLeafLoader.hempStem.get());
         CropsNHItemList.thiosulfineFlower.set(MaterialLeafLoader.thiosulfineFlower.get());
+        CropsNHItemList.diareed.set(MaterialLeafLoader.diareed.get());
         //spotless:on
 
         environmentalModule = new ItemEnvironmentalModule();

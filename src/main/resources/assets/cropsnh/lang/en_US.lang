@@ -73,6 +73,7 @@ item.cropsnh:materialLeaf.starWart.name=Star Wart
 item.cropsnh:materialLeaf.hops.name=Hops
 item.cropsnh:materialLeaf.hempStem.name=Hemp Stem
 item.cropsnh:materialLeaf.thiosulfineFlower.name=Thiosulfine Flower
+item.cropsnh:materialLeaf.diareed.name=Diareed
 # Environmental Module Items
 item.cropsnh:environmentalModule.blank=Blank Environmental Module
 item.cropsnh:environmentalModule.template=Environmental Module (%1$s)
@@ -526,6 +527,7 @@ cropsnh_tooltip.leaf.uranium=A source of uranium
 cropsnh_tooltip.leaf.zinc=A source of zinc
 cropsnh_tooltip.leaf.beer=A source of beer
 cropsnh_tooltip.leaf.sulfur=A source of sulfur
+cropsnh_tooltip.leaf.diamond=A source of diamond
 # Merial Leaf Berries
 cropsnh_tooltip.leaf.oil=Oil in Berry Form
 cropsnh_tooltip.leaf.uua=UUA in Berry Form

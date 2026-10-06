@@ -350,6 +350,11 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.plumbiliaLeaf, Materials.Lead);
         createOreDuplicationRecipe(MaterialLeafLoader.plumbiliaLeaf, Materials.Galena);
 
+        createOreDuplicationRecipe(MaterialLeafLoader.diareed, Materials.Diamond);
+        createOreDuplicationRecipe(MaterialLeafLoader.diareed, Materials.Graphite);
+        createOreDuplicationRecipe(MaterialLeafLoader.diareed, Materials.Coal);
+        createOreDuplicationRecipe(MaterialLeafLoader.diareed, Materials.Lignite);
+
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.Iron);
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.Magnetite);
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.BrownLimonite);
@@ -568,6 +573,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreConversionRecipe(MaterialLeafLoader.argentiaLeaf, Voltage.LV, Materials.Silver, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.ferrofernLeaf, Voltage.LV, Materials.Iron, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.thiosulfineFlower, Voltage.LV, Materials.Sulfur, TierAcid.t1);
+        createOreConversionRecipe(MaterialLeafLoader.diareed, Voltage.LV, Materials.Diamond, TierAcid.t2);
 
         createOreConversionRecipe(MaterialLeafLoader.auroniaLeaf, Voltage.LV, Materials.Gold, TierAcid.t2);
         // emeralds are needed for mv sensors/emitters so slightly higher reqs
