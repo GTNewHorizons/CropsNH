@@ -48,7 +48,7 @@ public class CropRubyne extends NHCropCard {
 
     @Override
     public int getGrowthDuration() {
-        return 800;
+        return 1200;
     }
 
     @Override
