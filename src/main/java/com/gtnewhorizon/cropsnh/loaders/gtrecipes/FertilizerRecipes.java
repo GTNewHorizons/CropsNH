@@ -53,6 +53,13 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
     }
 
     private static void addEnrichedFertilizerRecipes() {
+        // ez logistics puzzle where you either flood both with fertilizer items or use a solution with system like
+        // function like item conduits
+        mvRecipe(1, 0).itemInputs(CropsNHItemList.fertilizer.get(4))
+            .fluidInputs(new FluidStack(CropsNHFluids.fertilizer, 1000))
+            .fluidOutputs(new FluidStack(CropsNHFluids.enrichedFertilizer, 1000))
+            .addTo(GTRecipeConstants.UniversalChemical);
+
         mvRecipe(5, 0).fluidInputs(new FluidStack(CropsNHFluids.fertilizer, 1000))
             .itemInputs(
                 // marble lily, (centrifuge marble) olivine (electrolyze olivine)
