@@ -70,7 +70,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.Saltpeter, 1),
                 // thiosulfine (extractor/HSO via processing)
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1))
-            //.circuit(1)
+            // .circuit(1)
             .fluidOutputs(new FluidStack(CropsNHFluids.enrichedFertilizer, 1000))
             .addTo(mixerRecipes);
 
@@ -84,7 +84,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.Saltpeter, 1),
                 // thiosulfine (extractor/HSO via processing)
                 GTOreDictUnificator.get(OrePrefixes.dust, Materials.Sulfur, 1))
-            //.circuit(2)
+            // .circuit(2)
             .fluidOutputs(new FluidStack(CropsNHFluids.enrichedFertilizer, 1000))
             .addTo(mixerRecipes);
     }
