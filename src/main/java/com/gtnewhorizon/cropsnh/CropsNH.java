@@ -18,11 +18,11 @@ import com.gtnewhorizon.cropsnh.init.CropsNHItems;
 import com.gtnewhorizon.cropsnh.loaders.AspectLoader;
 import com.gtnewhorizon.cropsnh.loaders.BootProtectionLoader;
 import com.gtnewhorizon.cropsnh.loaders.CropLoader;
-import com.gtnewhorizon.cropsnh.loaders.FertilizerLoader;
 import com.gtnewhorizon.cropsnh.loaders.GTRecipeLoader;
 import com.gtnewhorizon.cropsnh.loaders.MTELoader;
 import com.gtnewhorizon.cropsnh.loaders.MutationLoader;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
+import com.gtnewhorizon.cropsnh.loaders.PotencyLoader;
 import com.gtnewhorizon.cropsnh.loaders.SoilLoader;
 import com.gtnewhorizon.cropsnh.loaders.SubSoilRequirementLoader;
 import com.gtnewhorizon.cropsnh.proxy.IProxy;
@@ -122,7 +122,7 @@ public class CropsNH {
     @SuppressWarnings("unused")
     public static void postInit(FMLPostInitializationEvent event) {
         LogHelper.debug("Starting Post-Initialization");
-        FertilizerLoader.postInit();
+        PotencyLoader.postInit();
         SoilLoader.postInit();
         SubSoilRequirementLoader.postInit();
         CropLoader.postInit();
