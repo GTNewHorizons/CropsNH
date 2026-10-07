@@ -181,13 +181,12 @@ public class ConfigurationHandler {
             "The possible stat variations while spreading a crop with a medium amount of fertilizer.",
             Categories.CATEGORY_CROPS,
             new int[] { 0 });
-        // Allows the crop manager to be used to stat crops passively. It's a lot slower than before so you'll probably
-        // need a couple runs depending on your setup before you reach max stats this way.
+        // Should be just about the right speed for people not to fall asleep while stating.
         highFertilizerSpreadingVariations = getStatVariationRange(
             "High Fertilizer Spreading Stat Variations",
             "The possible stat variations while spreading a crop with a high amount of fertilizer.",
             Categories.CATEGORY_CROPS,
-            new int[] { 0, 0, 1 });
+            new int[] { 0, 0, 0, 1, 2, 3, 4 });
 
         medFertilizerBreedingThreshold = config.getInt(
             "Medium Fertilizer Breeding Threshold",
