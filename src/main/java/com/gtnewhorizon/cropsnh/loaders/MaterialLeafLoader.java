@@ -46,6 +46,7 @@ public class MaterialLeafLoader {
     public final static MaterialLeafVariant hops              = new MaterialLeafVariant(  31, "hops",              "beer");
     public final static MaterialLeafVariant hempStem          = new MaterialLeafVariant(  32, "hempStem",          "string");
     public final static MaterialLeafVariant thiosulfineFlower = new MaterialLeafVariant(  33, "thiosulfineFlower", "sulfur");
+    public final static MaterialLeafVariant diareed           = new MaterialLeafVariant(  34, "diareed",           "diamond");
     //spotless:on
 
     public static void preInit() {

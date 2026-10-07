@@ -21,6 +21,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.Nullable;
 
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
@@ -28,6 +29,7 @@ import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
+import com.gtnewhorizon.cropsnh.api.IPotencyData;
 import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.WeedEXRegistry;
@@ -549,14 +551,13 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     /** The maximum amount of fertilizer the crop manager is allowed to set in a crop. */
     public static final int FERTILIZER_CAP = 200;
-    /** The minimum threshold at which a crop manager is allowed to start adding item fertilizers to a crop. */
-    private static final int FERTILIZER_ITEM_THRESHOLD_MIN = FERTILIZER_CAP / 2;
     /** The minimum threshold at which a crop manager is allowed to start adding liquid fertilizers to a crop. */
     private static final int FERTILIZER_LIQUID_THRESHOLD = 180;
 
     private boolean applyFertilizer(ICropStickTile crop, boolean simulate) {
         int storedFert = crop.getFertilizerStorage();
         int amount = 0;
+        int applyCap = FERTILIZER_CAP;
         int threshold = FERTILIZER_LIQUID_THRESHOLD;
         // always try liquid fertilizer first
         if (this.getLiquidFertilizerAmount() > 0) {
@@ -579,28 +580,30 @@ public class MTECropManager extends MTETieredMachineBlock {
                     continue;
                 }
                 // check if it's a valid fertilizer
-                int fertPotency = FertilizerRegistry.instance.getPotency(stack);
-                if (fertPotency <= 0) continue;
+                IPotencyData potencyData = FertilizerRegistry.instance.getPotency(stack);
+                if (potencyData == null || stack.stackSize < potencyData.getUnitsConsumedPerApplication()) continue;
                 // don't apply unless at least half the fertilizer given by the item can be applied.
                 // or half the max of the manager's application limit, which ever is higher
-                threshold = Math.max(FERTILIZER_ITEM_THRESHOLD_MIN, FERTILIZER_CAP - (fertPotency / 2));
+                int cap = potencyData.getMaxStorage(FERTILIZER_CAP);
+                threshold = Math.max(cap / 2, cap - (potencyData.getPotency() / 2));
                 if (storedFert > threshold) continue;
                 // consume if we aren't simulating
                 if (!simulate) {
-                    stack.stackSize--;
+                    stack.stackSize -= potencyData.getUnitsConsumedPerApplication();
                     if (stack.stackSize <= 0) {
                         this.mInventory[i] = null;
                     }
                 }
                 // set amount to add and bail
-                amount = fertPotency;
+                amount = potencyData.getPotency();
+                applyCap = cap;
                 break;
             }
         }
         // fail if we didn't find anything
         if (amount <= 0) return false;
         // the add fertilizer call should always be a success if it reaches this point.
-        return crop.addFertilizer(amount, threshold, FERTILIZER_CAP, simulate);
+        return crop.addFertilizer(amount, threshold, applyCap, simulate);
     }
 
     // endregion fertilizer apply
@@ -611,7 +614,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region water status
 
-    public int getWaterPotency(Fluid fluid) {
+    public @Nullable IPotencyData getWaterPotency(Fluid fluid) {
         return HydrationRegistry.instance.getPotency(fluid);
     }
 
@@ -632,7 +635,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region weed ex status
 
-    public int getWeedEXPotency(Fluid fluid) {
+    public @Nullable IPotencyData getWeedEXPotency(Fluid fluid) {
         return WeedEXRegistry.instance.getPotency(fluid);
     }
 
@@ -654,7 +657,7 @@ public class MTECropManager extends MTETieredMachineBlock {
 
     // region liquid fertilizer status
 
-    public int getLiquidFertilizerPotency(Fluid fluid) {
+    public IPotencyData getLiquidFertilizerPotency(Fluid fluid) {
         return FertilizerRegistry.instance.getPotency(fluid);
     }
 
@@ -730,29 +733,30 @@ public class MTECropManager extends MTETieredMachineBlock {
 
         public final int cur;
         public final int cap;
-        public final int potency;
+        public final IPotencyData potencyData;
         public final IntConsumer setter;
 
-        public FluidCheckResult(int cur, int cap, int potency, IntConsumer setter) {
+        public FluidCheckResult(int cur, int cap, IPotencyData potencyData, IntConsumer setter) {
             this.cur = cur;
             this.cap = cap;
-            this.potency = potency;
+            this.potencyData = potencyData;
             this.setter = setter;
         }
     }
 
     private FluidCheckResult canFill(Fluid fluid) {
-        int potency, cur, cap;
+        IPotencyData potencyData;
+        int cur, cap;
         IntConsumer setter;
-        if ((potency = this.getWaterPotency(fluid)) > 0) {
+        if ((potencyData = this.getWaterPotency(fluid)) != null) {
             cur = this.getWaterAmount();
             cap = this.getWaterCapacity();
             setter = this::setWaterAmount;
-        } else if ((potency = this.getWeedEXPotency(fluid)) > 0) {
+        } else if ((potencyData = this.getWeedEXPotency(fluid)) != null) {
             cur = this.getWeedEXAmount();
             cap = this.getWeedEXCapacity();
             setter = this::setWeedEXAmount;
-        } else if ((potency = this.getLiquidFertilizerPotency(fluid)) > 0) {
+        } else if ((potencyData = this.getLiquidFertilizerPotency(fluid)) != null) {
             cur = this.getLiquidFertilizerAmount();
             cap = this.getLiquidFertilizerCapacity();
             setter = this::setLiquidFertilizerAmount;
@@ -760,10 +764,10 @@ public class MTECropManager extends MTETieredMachineBlock {
             return null;
         }
         // abort if overflow would occur
-        if (cur > cap - potency) {
+        if (cur > cap - potencyData.getPotency()) {
             return null;
         }
-        return new FluidCheckResult(cur, cap, potency, setter);
+        return new FluidCheckResult(cur, cap, potencyData, setter);
     }
 
     @Override
@@ -785,9 +789,12 @@ public class MTECropManager extends MTETieredMachineBlock {
         if (result == null) return 0;
 
         // calc how much we need to transfer
-        int toConsume = Math.min(resource.amount, (result.cap - result.cur) / result.potency);
+        int maxConsumptionsToFill = (result.cap - result.cur) / result.potencyData.getPotency();
+        int maxAvailableConsumptions = resource.amount / result.potencyData.getUnitsConsumedPerApplication();
+        int applicationCount = Math.min(maxAvailableConsumptions, maxConsumptionsToFill);
+        int toConsume = applicationCount * result.potencyData.getUnitsConsumedPerApplication();
         if (doFill) {
-            result.setter.accept(result.cur + toConsume * result.potency);
+            result.setter.accept(result.cur + applicationCount * result.potencyData.getPotency());
             this.markDirty();
         }
         return toConsume;
