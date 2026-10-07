@@ -2,10 +2,9 @@ package com.gtnewhorizon.cropsnh.crops.material;
 
 import java.awt.Color;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
+import com.gtnewhorizon.cropsnh.api.CropsNHItemList;
 import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
@@ -15,7 +14,6 @@ import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.SeedShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
 
 public class CropDiareed extends NHCropCard {
@@ -23,9 +21,7 @@ public class CropDiareed extends NHCropCard {
     public CropDiareed() {
         super("diareed", new Color(0x34BFA8), new Color(0x8CF4E2));
 
-        // TODO: PONDER IF DIAREED SHOULD STILL BE ALLOWED TO DROP STRAIGHT DIAMONDS
-        this.addDrop(new ItemStack(Items.diamond, 1, 0), 75_00);
-        this.addDrop(Materials.Diamond.getDust(1), 25_00);
+        this.addDrop(CropsNHItemList.diareed.get(1), 100_00);
 
         this.addSubSoilRequirement(CropsNHSubSoilTypes.diamond);
 
@@ -53,7 +49,7 @@ public class CropDiareed extends NHCropCard {
 
     @Override
     public int getGrowthDuration() {
-        return 7200;
+        return 10_800;
     }
 
     @Override

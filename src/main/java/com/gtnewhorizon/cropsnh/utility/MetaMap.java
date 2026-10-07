@@ -105,9 +105,13 @@ public class MetaMap<K, V> {
         if (isWildCard(meta) || !this.map.containsKey(key)) {
             return this.wildcards.getOrDefault(key, defaultValue);
         }
-        // fetch the meta map
-        Int2ObjectOpenHashMap<V> metaMap = map.get(key);
-        return metaMap.getOrDefault(meta, defaultValue);
+        // check if we have a meta map for this value and that it contains the meta key
+        Int2ObjectOpenHashMap<V> metaMap = this.map.get(key);
+        if (metaMap.containsKey(meta)) {
+            return metaMap.get(meta);
+        }
+        // else check wildcards or return default
+        return wildcards.getOrDefault(key, defaultValue);
     }
 
     // both -1 and the ore dict can be used as wildcards for compatibility reasons.
