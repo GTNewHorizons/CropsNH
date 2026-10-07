@@ -554,6 +554,7 @@ nei.options.tools.dump.cropsnh.alternateSeed=Alternate Seeds
 nei.options.tools.dump.cropsnh.cropRegistry=Crops
 nei.options.tools.dump.cropsnh.deterministicMutations=Deterministic Mutations
 nei.options.tools.dump.cropsnh.fertilizerFluids=Fertilizer Fluids
+nei.options.tools.dump.cropsnh.fertilizerUnitFluids=Fertilizer Unit Fluids
 nei.options.tools.dump.cropsnh.fertilizerItems=Fertilizer Items
 nei.options.tools.dump.cropsnh.hydrationFluids=Hydration
 nei.options.tools.dump.cropsnh.mutationPools=Mutation Pools
