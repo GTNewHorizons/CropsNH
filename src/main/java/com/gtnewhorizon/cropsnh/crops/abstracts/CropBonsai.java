@@ -57,7 +57,7 @@ public class CropBonsai extends NHCropCard {
 
     @Override
     public int getGrowthDuration() {
-        return 1200;
+        return 1600;
     }
 
     @Override

@@ -5,9 +5,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
+import org.jetbrains.annotations.Nullable;
+
+import com.gtnewhorizon.cropsnh.api.IPotencyData;
 import com.gtnewhorizon.cropsnh.api.IPotencyRegistry;
 
 public class FertilizerRegistry implements IPotencyRegistry {
+
+    public static final FluidPotencyRegistry fertilizerUnitInstance = new FluidPotencyRegistry();
 
     public static final FertilizerRegistry instance = new FertilizerRegistry();
 
@@ -16,7 +21,7 @@ public class FertilizerRegistry implements IPotencyRegistry {
     private final FluidPotencyRegistry fluidRegistry = new FluidPotencyRegistry();
 
     @Override
-    public void register(Item item, int meta, int potency) {
+    public void register(Item item, int meta, IPotencyData potency) {
         this.itemRegistry.register(item, meta, potency);
     }
 
@@ -31,17 +36,17 @@ public class FertilizerRegistry implements IPotencyRegistry {
     }
 
     @Override
-    public int getPotency(ItemStack stack) {
+    public @Nullable IPotencyData getPotency(ItemStack stack) {
         return this.itemRegistry.getPotency(stack);
     }
 
     @Override
-    public int getPotency(Item item, int meta) {
+    public @Nullable IPotencyData getPotency(Item item, int meta) {
         return this.itemRegistry.getPotency(item, meta);
     }
 
     @Override
-    public void register(Fluid fluid, int potency) {
+    public void register(Fluid fluid, IPotencyData potency) {
         this.fluidRegistry.register(fluid, potency);
     }
 
@@ -56,12 +61,12 @@ public class FertilizerRegistry implements IPotencyRegistry {
     }
 
     @Override
-    public int getPotency(FluidStack stack) {
+    public @Nullable IPotencyData getPotency(FluidStack stack) {
         return this.fluidRegistry.getPotency(stack);
     }
 
     @Override
-    public int getPotency(Fluid fluid) {
+    public @Nullable IPotencyData getPotency(Fluid fluid) {
         return this.fluidRegistry.getPotency(fluid);
     }
 

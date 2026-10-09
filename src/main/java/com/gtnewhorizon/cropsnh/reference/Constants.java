@@ -45,4 +45,8 @@ public final class Constants {
      * The gt casing texture page used by CropsNH casings.
      */
     public static final int GT_CASING_PAGE = 20;
+
+    // vanilla flower drop ratios
+    public static final int FLOWER_DYE_DROP_CHANCE = 75_00;
+    public static final int FLOWER_ITEM_DROP_CHANCE = 25_00;
 }

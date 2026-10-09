@@ -25,7 +25,7 @@ public class CropCanola extends NHCropCard {
 
     @Override
     public int getGrowthDuration() {
-        return 450;
+        return 900;
     }
 
     @Override

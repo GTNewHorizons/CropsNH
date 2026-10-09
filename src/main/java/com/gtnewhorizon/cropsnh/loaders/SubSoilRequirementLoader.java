@@ -329,6 +329,9 @@ public class SubSoilRequirementLoader {
             CropsNHSubSoilTypes.steeleaf.addBlock(
                 new BlockWithMeta(ModUtils.TwilightForest.getBlock("tile.SteeleafBlock"))
             );
+            CropsNHSubSoilTypes.knightmetal.addBlock(
+                new BlockWithMeta(ModUtils.TwilightForest.getBlock("tile.KnightmetalBlock"))
+            );
         }
         // spotless:on
     }

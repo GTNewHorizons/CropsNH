@@ -8,7 +8,6 @@ import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -56,22 +55,31 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
     }
 
     private static void addEnrichedFertilizerRecipes() {
-        // enriched fertilizer
-        // ez logistics puzzle where you either flood both with fertilizer items or use a solution with system like
-        // function like item conduits
-        lvRecipe(1, 0).itemInputs(CropsNHItemList.fertilizer.get(4))
-            .fluidInputs(new FluidStack(CropsNHFluids.fertilizer, 1000))
-            .fluidOutputs(new FluidStack(CropsNHFluids.enrichedFertilizer, 1000))
-            .addTo(GTRecipeConstants.UniversalChemical);
-
-        // cell only recipe for sb
-        lvRecipe(1, 0)
+        mvRecipe(5, 0).fluidInputs(new FluidStack(CropsNHFluids.fertilizer, 1000))
             .itemInputs(
-                CropsNHItemList.fertilizer.get(4),
-                FluidContainerRegistry
-                    .fillFluidContainer(new FluidStack(CropsNHFluids.fertilizer, 1000), ItemList.Cell_Empty.get(1)))
-            .itemOutputs(CropsNHItemList.enrichedFertilizerCell.get(1))
-            .addTo(RecipeMaps.chemicalReactorRecipes);
+                // marble lily, (centrifuge marble) olivine (electrolyze olivine)
+                MaterialLibAPI.getStack(Materials.Magnesium, Shapes.dust, 3),
+                // marble lily, fertilia (centrifuge marble then electrolyze calcide and apatite)
+                MaterialLibAPI.getStack(Materials.Calcium, Shapes.dust, 2),
+                // salty root (chem bath)
+                MaterialLibAPI.getStack(Materials.Saltpeter, Shapes.dust, 1),
+                // thiosulfine (extractor/HSO via processing)
+                MaterialLibAPI.getStack(Materials.Sulfur, Shapes.dust, 1))
+            .fluidOutputs(new FluidStack(CropsNHFluids.enrichedFertilizer, 1000))
+            .addTo(mixerRecipes);
+
+        mvRecipe(5, 0).fluidInputs(new FluidStack(CropsNHFluids.fertilizer, 1000))
+            .itemInputs(
+                // marble lily, (centrifuge marble) olivine (electrolyze olivine)
+                MaterialLibAPI.getStack(Materials.Phosphate, Shapes.dust, 3),
+                // marble lily, fertilia (centrifuge marble then electrolyze calcide and apatite)
+                MaterialLibAPI.getStack(Materials.Calcium, Shapes.dust, 2),
+                // salty root (chem bath)
+                MaterialLibAPI.getStack(Materials.Saltpeter, Shapes.dust, 1),
+                // thiosulfine (extractor/HSO via processing)
+                MaterialLibAPI.getStack(Materials.Sulfur, Shapes.dust, 1))
+            .fluidOutputs(new FluidStack(CropsNHFluids.enrichedFertilizer, 1000))
+            .addTo(mixerRecipes);
     }
 
     private static void addFluidConversionRecipes() {

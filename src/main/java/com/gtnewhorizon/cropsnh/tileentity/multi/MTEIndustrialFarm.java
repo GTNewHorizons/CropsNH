@@ -57,6 +57,7 @@ import com.cleanroommc.modularui.utils.item.IItemHandlerModifiable;
 import com.gtnewhorizon.cropsnh.api.CropsNHStructureChannels;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.IMachineGrowthRequirement;
+import com.gtnewhorizon.cropsnh.api.IPotencyData;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.blocks.BlockAdvancedHarvestingUnit;
 import com.gtnewhorizon.cropsnh.blocks.BlockEnvironmentalEnhancementUnit;
@@ -69,7 +70,6 @@ import com.gtnewhorizon.cropsnh.farming.registries.FertilizerRegistry;
 import com.gtnewhorizon.cropsnh.farming.registries.HydrationRegistry;
 import com.gtnewhorizon.cropsnh.farming.requirements.SubSoilRequirement;
 import com.gtnewhorizon.cropsnh.init.CropsNHBlocks;
-import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.items.ItemEnvironmentalModule;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Reference;
@@ -1218,11 +1218,13 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             (long) Math.ceil(BlockSeedBed.getFertilizerConsumption(this.upgradeTier) * this.getOCPotencyMultiplier()));
     }
 
-    private int getAmountToConsumeBasedOnPotency(int missingPotency, int inputPotency, int inputAmount) {
-        if (missingPotency <= 0 || inputPotency <= 0 || inputAmount <= 0) return 0;
+    private int getApplicationCountBasedOnPotency(int missingPotency, IPotencyData potencyData, int inputAmount) {
+        if (missingPotency <= 0 || potencyData.getPotency() <= 0
+            || inputAmount < potencyData.getUnitsConsumedPerApplication()) return 0;
         // Prefer over-consuming in case something with a stupid high potency gets introduced.
-        int maxConsume = missingPotency / inputPotency + ((missingPotency % inputPotency) > 0 ? 1 : 0);
-        return Math.min(maxConsume, inputAmount);
+        int maxApplications = missingPotency / potencyData.getPotency()
+            + ((missingPotency % potencyData.getPotency()) > 0 ? 1 : 0);
+        return Math.min(maxApplications, inputAmount / potencyData.getUnitsConsumedPerApplication());
     }
 
     private CheckRecipeResult checkProcessingFarmMode() {
@@ -1274,15 +1276,16 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             if (CropsNHUtils.isStackInvalid(fluidStack)) continue;
             Fluid fluid = fluidStack.getFluid();
             int remaining = fluidStack.amount;
-            int potency;
+            IPotencyData potencyData;
             // consume water if needed
             if (waterPotencyMissing > 0 && remaining > 0
-                && (potency = HydrationRegistry.instance.getPotency(fluid)) > 0) {
-                int amountToConsume = getAmountToConsumeBasedOnPotency(waterPotencyMissing, potency, remaining);
-                if (amountToConsume > 0) {
-                    remaining -= amountToConsume;
-                    waterPotencyMissing -= amountToConsume * potency;
-                    waterFluidsToConsume.add(Pair.of(fluidStack, amountToConsume));
+                && (potencyData = HydrationRegistry.instance.getPotency(fluid)) != null) {
+                int applicationCount = getApplicationCountBasedOnPotency(waterPotencyMissing, potencyData, remaining);
+                if (applicationCount > 0) {
+                    int toConsume = applicationCount * potencyData.getUnitsConsumedPerApplication();
+                    remaining -= toConsume;
+                    waterPotencyMissing -= applicationCount * potencyData.getPotency();
+                    waterFluidsToConsume.add(Pair.of(fluidStack, toConsume));
                 }
             }
             // consume fertilizer if needed
@@ -1290,21 +1293,22 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
                 if (this.fertilizerUnitCount > 0) {
                     // when a fertilizer unit is installed, it can only consume enriched fert,
                     // and there is no potency bonus applied.
-                    potency = fluidStack.getFluid() == CropsNHFluids.enrichedFertilizer ? 1 : 0;
+                    potencyData = FertilizerRegistry.fertilizerUnitInstance.getPotency(fluidStack.getFluid());
                 } else {
                     // else you can use any liquid fertilizer you want.
-                    potency = FertilizerRegistry.instance.getPotency(fluid);
+                    potencyData = FertilizerRegistry.instance.getPotency(fluid);
                 }
-                if (potency > 0) {
-                    int amountToConsume = getAmountToConsumeBasedOnPotency(
+                if (potencyData != null) {
+                    int applicationCount = getApplicationCountBasedOnPotency(
                         fertilizerPotencyMissing,
-                        potency,
+                        potencyData,
                         remaining);
-                    if (amountToConsume > 0) {
+                    if (applicationCount > 0) {
+                        int toConsume = applicationCount * potencyData.getUnitsConsumedPerApplication();
                         // uncomment if we ever add other types of liquid inputs
                         // remaining -= amountToConsume;
-                        fertilizerPotencyMissing -= amountToConsume * potency;
-                        fertilizerFluidsToConsume.add(Pair.of(fluidStack, amountToConsume));
+                        fertilizerPotencyMissing -= applicationCount * potencyData.getPotency();
+                        fertilizerFluidsToConsume.add(Pair.of(fluidStack, toConsume));
                     }
                 }
             }
