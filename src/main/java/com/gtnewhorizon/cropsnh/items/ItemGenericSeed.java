@@ -128,6 +128,14 @@ public class ItemGenericSeed extends ItemCropsNH {
                 toolTip.add(StatCollector.translateToLocal(crop.getFlavourText()));
             }
 
+            // add crop tier
+            if (crop != null) {
+                toolTip.add(
+                    StatCollector.translateToLocalFormatted(
+                        Reference.MOD_ID + "_tooltip.genericSeed.tier",
+                        formatNumber(crop.getTier())));
+            }
+
             // add crop stats
             toolTip.add(
                 StatCollector.translateToLocalFormatted(
