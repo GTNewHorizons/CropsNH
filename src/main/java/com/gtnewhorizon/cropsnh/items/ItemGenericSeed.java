@@ -143,6 +143,12 @@ public class ItemGenericSeed extends ItemCropsNH {
                     formatNumber(stats.getResistance())));
 
             if (crop != null) {
+                // add crop tier
+                toolTip.add(
+                    StatCollector.translateToLocalFormatted(
+                        Reference.MOD_ID + "_tooltip.genericSeed.tier",
+                        formatNumber(crop.getTier())));
+
                 // add soil tooltip
                 toolTip.add(
                     StatCollector.translateToLocal(
