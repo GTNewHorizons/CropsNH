@@ -89,7 +89,7 @@ public final class CropFamilies {
             .soil(CropsNHSoilTypes.dirtGrass)
             .seedShape(SeedShape.bonsai)
             .stages(1, 3)
-            .growth(1200)
+            .growth(1600)
             .renderShape(PlantRenderShape.X);
     }
 
