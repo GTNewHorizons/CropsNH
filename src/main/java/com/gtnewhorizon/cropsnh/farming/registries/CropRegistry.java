@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.farming.registries;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -11,6 +12,7 @@ import javax.annotation.Nullable;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.Constants;
@@ -18,6 +20,7 @@ import net.minecraftforge.common.util.Constants;
 import com.gtnewhorizon.cropsnh.api.ICropCard;
 import com.gtnewhorizon.cropsnh.api.ICropRegistry;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
+import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.farming.SeedStats;
 import com.gtnewhorizon.cropsnh.items.ItemGenericSeed;
 import com.gtnewhorizon.cropsnh.loaders.OreDictLoader;
@@ -186,7 +189,11 @@ public class CropRegistry implements ICropRegistry {
                 "Drop Count Multiplier",
                 "Drop Table",
                 // alternate seeds
-                "Alternate Seeds"));
+                "Alternate Seeds",
+                // breeding and textures
+                "Machine Breeding Tier",
+                "Growth Stages",
+                "Textures"));
         csv.append(System.lineSeparator());
         // If it's empty at least say so.
         if (this.cropRegistry.isEmpty()) {
@@ -228,7 +235,11 @@ public class CropRegistry implements ICropRegistry {
                             cc.getDropChance(),
                             dumpDropTable(cc.getDropTable()),
                             // alternate seeds
-                            dumpAltSeeds(cc.getAlternateSeeds())
+                            dumpAltSeeds(cc.getAlternateSeeds()),
+                            // breeding and textures
+                            cc.getMachineBreedingRecipeTier(),
+                            dumpGrowthStages(cc),
+                            dumpTextures(cc)
                         );
                         //spotless:on
                     })
@@ -241,6 +252,19 @@ public class CropRegistry implements ICropRegistry {
     private static String dumpGrowthReqs(Collection<IGrowthRequirement> reqs) {
         return reqs.stream()
             .map(IGrowthRequirement::getDescription)
+            .collect(Collectors.joining(" | "));
+    }
+
+    private static String dumpGrowthStages(ICropCard cc) {
+        if (!(cc instanceof NHCropCard nhCrop)) return "";
+        return nhCrop.getMinGrowthStage() + "-" + nhCrop.getMaxGrowthStage();
+    }
+
+    private static String dumpTextures(ICropCard cc) {
+        IIcon[] sprites = cc.getSprites();
+        if (sprites == null) return "";
+        return Arrays.stream(sprites)
+            .map(icon -> icon == null ? "null" : icon.getIconName())
             .collect(Collectors.joining(" | "));
     }
 
