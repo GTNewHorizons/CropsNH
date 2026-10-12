@@ -245,7 +245,7 @@ public class SubSoilRequirement implements IWorldGrowthRequirement, IWorldBreedi
         // spotless:off
         return association != null
             && (association.prefix.toString().startsWith("ore") || association.prefix == OrePrefixes.block)
-            && (this.materials.contains(association.material.mMaterial));
+            && (this.materials.contains(association.material.material));
         //spotless:on
     }
 
