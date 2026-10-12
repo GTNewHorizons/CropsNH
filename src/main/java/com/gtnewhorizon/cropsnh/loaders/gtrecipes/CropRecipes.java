@@ -148,7 +148,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         TierAcid.t4.set(MaterialUtils.fluid(Materials.HydrofluoricAcidGT5U, 384 * 4));
         TierAcid.t5.set(MaterialUtils.fluid(Materials.NitricAcid, 384 * 5));
         // amount is same as tier 5 on purpose
-        TierAcid.t6.set(MaterialUtils.fluid(Materials.phtalicacid, 384 * 5));
+        TierAcid.t6.set(MaterialUtils.fluid(Materials.PhthalicAcid, 384 * 5));
         // load them recipes
         addOreConversionRecipes();
         addOreMultiplicationRecipes();
