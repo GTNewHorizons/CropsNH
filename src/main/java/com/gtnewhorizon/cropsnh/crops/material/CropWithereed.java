@@ -12,18 +12,18 @@ import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropWithereed extends NHCropCard {
 
     public CropWithereed() {
         super("withereed", new Color(0x161616), new Color(0x2C2C2C));
 
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coal, 1), 66_67);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Coal, Shapes.dust, 1), 66_67);
         this.addDrop(new ItemStack(Items.coal, 1, 0), 33_33);
 
         // wither skull: sqrt(6.66) / 2

@@ -8,19 +8,19 @@ import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropOlivia extends NHCropCard {
 
     public CropOlivia() {
         super("olivia", new Color(0x79CD79), new Color(0x96FF96));
 
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Olivine, 1L), 75_00);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Olivine, 1L), 25_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Olivine, Shapes.dust, 1), 75_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Olivine, Shapes.gem, 1), 25_00);
 
         this.addSubSoilRequirement(CropsNHSubSoilTypes.olivine);
 
