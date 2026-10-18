@@ -667,7 +667,7 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.1"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.2"))
             .addSeparator()
-            .addGlassEnergyLimitInfo()
+            .addEnergyHatchGlassTier()
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.0"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.1"));
 
