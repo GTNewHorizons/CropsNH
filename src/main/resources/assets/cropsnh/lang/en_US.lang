@@ -349,7 +349,6 @@ cropsnh_tooltip.industrialFarm.scanner.5.enriched=Enriched Fertilizer Usage: §e
 cropsnh_tooltip.industrialFarm.scanner.6=Nutrient Score: §e%1$s§r out of §e%2$s§r
 
 # Seed Bed
-cropsnh_tooltip.seedBed.name=Seed Bed (%1$s)
 cropsnh_tooltip.seedBed.0=Determines the §ctier§7, §ccosts§7, §ccapacity§7 of the entire Industrial Farm
 cropsnh_tooltip.seedBed.1=§cCapacity§7 and §ccosts§7 does not scale with the number of Seed Beds
 cropsnh_tooltip.seedBed.2=Base Power Cost: %1$s (%2$s)
