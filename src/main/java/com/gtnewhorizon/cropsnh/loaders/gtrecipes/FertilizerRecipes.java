@@ -286,7 +286,7 @@ public abstract class FertilizerRecipes extends BaseGTRecipeLoader {
         lvRecipe(amountDarkAsh * SECONDS_PER_FERTILIZER, 0)
             .itemInputs(
                 MaterialLibAPI.getStack(mat, Shapes.dust, 1),
-                MaterialLibAPI.getStack(Materials.DarkAsh, Shapes.dust, 1))
+                MaterialLibAPI.getStack(Materials.AshDark, Shapes.dust, 1))
             .itemOutputs(CropsNHItemList.fertilizer.get(amountDarkAsh))
             .fluidInputs(waterSubstitutions)
             .addTo(GTRecipeConstants.UniversalChemical);

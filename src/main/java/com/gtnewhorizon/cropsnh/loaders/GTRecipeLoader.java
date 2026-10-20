@@ -821,8 +821,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
             case VoltageIndex.UEV -> OrePrefixes.plate.ingredient(Materials.Infinity);
             case VoltageIndex.UIV -> OrePrefixes.plate.ingredient(Materials.TranscendentMetal);
             case VoltageIndex.UMV -> OrePrefixes.plate.ingredient(Materials.SpaceTime);
-            case VoltageIndex.UXV -> OrePrefixes.plate
-                .ingredient(Materials.MagnetohydrodynamicallyConstrainedStarMatter);
+            case VoltageIndex.UXV -> OrePrefixes.plate.ingredient(Materials.MHDCSM);
             default -> MTEBasicMachineWithRecipe.X.PLATE;
         };
     }

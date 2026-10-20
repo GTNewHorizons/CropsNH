@@ -143,9 +143,9 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         TierAcid.regWater.set(new FluidStack(FluidRegistry.WATER, 1000));
         // load tier acid enum
         TierAcid.t1.set(MaterialUtils.fluid(Materials.SulfuricAcid, 384));
-        TierAcid.t2.set(MaterialUtils.fluid(Materials.HydrochloricAcidGT5U, 384 * 2));
+        TierAcid.t2.set(MaterialUtils.fluid(Materials.HydrochloricAcid, 384 * 2));
         TierAcid.t3.set(liquid(Materials.FormicAcid, 384 * 3));
-        TierAcid.t4.set(MaterialUtils.fluid(Materials.HydrofluoricAcidGT5U, 384 * 4));
+        TierAcid.t4.set(MaterialUtils.fluid(Materials.HydrofluoricAcid, 384 * 4));
         TierAcid.t5.set(MaterialUtils.fluid(Materials.NitricAcid, 384 * 5));
         // amount is same as tier 5 on purpose
         TierAcid.t6.set(MaterialUtils.fluid(Materials.PhthalicAcid, 384 * 5));
