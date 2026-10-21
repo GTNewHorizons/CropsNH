@@ -1,6 +1,5 @@
 package com.gtnewhorizon.cropsnh.utility;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -37,11 +36,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.GTMod;
 import gregtech.api.util.GTRecipeBuilder;
-import gregtech.api.util.GTUtility;
-import gregtech.api.util.StringUtils;
-import gregtech.common.GTProxy;
 
 public abstract class CropsNHUtils {
 
@@ -392,44 +387,5 @@ public abstract class CropsNHUtils {
             + EnumChatFormatting.YELLOW
             + StatCollector.translateToLocal("cropsnh.recipes." + machineType)
             + EnumChatFormatting.RESET;
-    }
-
-    private static final char[] CONTINUOUS_LINE_START = (GTUtility.FORMAT_PUSH_STACK + EnumChatFormatting.STRIKETHROUGH)
-        .toCharArray();
-    private static final char[] CONTINUOUS_LINE_END = GTUtility.FORMAT_POP_STACK.toCharArray();
-    private static final int CONTINUOUS_LINE_MIN_LENGTH = CONTINUOUS_LINE_START.length + CONTINUOUS_LINE_END.length;
-
-    /**
-     * Creates a line separator styled like the ones from GT5u with the default style and a length of 41.
-     *
-     * @return The formatted line separator
-     */
-    public static String getGTSeparator() {
-        return getGTSeparator(41, GTMod.proxy.getSeparatorStyle());
-    }
-
-    /**
-     * Creates a line separator styled like the ones from GT5u
-     *
-     * @apiNote Does not check if length is less than zero for since this is optimisation reasons.
-     *
-     * @param length The length of the separator (ignored if style is {@link GTProxy.SeparatorStyle#Empty})
-     * @param style  The separator style to use for the tooltip.
-     * @return The formatted line separator.
-     */
-    public static String getGTSeparator(int length, GTProxy.SeparatorStyle style) {
-        return switch (style) {
-            case Dashes -> StringUtils.getRepetitionOf('-', length);
-            case ContinuousLine -> {
-                // should be faster and more memory efficient than using a string builder
-                char[] ret = Arrays.copyOf(CONTINUOUS_LINE_START, CONTINUOUS_LINE_MIN_LENGTH + length);
-                // does the same thing as Arrays.fill(arr, from, to, value) but with fewer checks
-                int end = ret.length - CONTINUOUS_LINE_END.length;
-                for (int i = CONTINUOUS_LINE_START.length; i < end; i++) ret[i] = '-';
-                System.arraycopy(CONTINUOUS_LINE_END, 0, ret, end, CONTINUOUS_LINE_END.length);
-                yield new String(ret);
-            }
-            case Empty -> " ";
-        };
     }
 }
