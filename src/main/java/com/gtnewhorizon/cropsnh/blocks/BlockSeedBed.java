@@ -102,6 +102,7 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
             .coloredText(TooltipHelper.percentageFormat.format(getHarvestRoundBonus(meta)), TooltipHelper.EFF_COLOR);
 
         tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedBed.0"));
+        tooltip.add(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.seedBed.7"));
         tooltip.add(
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.1",
@@ -119,6 +120,7 @@ public class BlockSeedBed extends CropsNHBlockIndustrialFarmTiredComponent {
             StatCollector.translateToLocalFormatted(
                 Reference.MOD_ID + "_tooltip.seedBed.4",
                 TooltipHelper.fluidText(getFertilizerConsumption(meta))));
+
         if (advancedTooltips) {
             tooltip.add(
                 StatCollector

@@ -667,7 +667,6 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.1"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.2"))
             .addSeparator()
-            .addGlassEnergyLimitInfo()
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.0"))
             .addInfo(StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.MBTT.multiAmpsWithUpgrade.1"));
 
@@ -676,7 +675,8 @@ public class MTEIndustrialFarm extends MTEExtendedPowerMultiBlockBase<MTEIndustr
         final String glass = StatCollector
             .translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.glass");
 
-        tt.beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, true)
+        tt.addEnergyHatchGlassTier()
+            .beginVariableStructureBlock(5, 5, 4, 4, 2 + MIN_SLICES, 2 + MAX_SLICES, true)
             .addController(
                 StatCollector.translateToLocal(Reference.MOD_ID + "_tooltip.industrialFarm.structure.controller"))
             .addEnergyHatch("1+", endCasing, 1)
