@@ -26,12 +26,17 @@ import com.gtnewhorizon.cropsnh.init.CropsNHFluids;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 import com.gtnewhorizon.cropsnh.utility.OreDictHelper;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
 import bartworks.API.enums.BioCultureEnum;
 import bartworks.common.loaders.BioCultureLoader;
 import gregtech.api.enums.GTValues;
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.ItemList;
 import gregtech.api.enums.ToolDictNames;
+import gregtech.api.enums.materials.CellShapes;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
+import gregtech.api.material.MaterialUtils;
 import gregtech.api.objects.SubstituteFluidStack;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTRecipeBuilder;
@@ -152,98 +157,98 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.rum"), 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(580), Materials.Water.getFluid(420))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 580), GTUtility.getWater(420))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.piratebrew"), 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(800), Materials.Water.getFluid(200))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 800), GTUtility.getWater(200))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.beer"), 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(45), Materials.Water.getFluid(955))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 45), GTUtility.getWater(955))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.darkbeer"), 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(75), Materials.Water.getFluid(925))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 75), GTUtility.getWater(925))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.cider"), 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(100), Materials.Water.getFluid(900))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 100), GTUtility.getWater(900))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.wine"), 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(120), Materials.Water.getFluid(880))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 120), GTUtility.getWater(880))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(400), Materials.Water.getFluid(600))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 400), GTUtility.getWater(600))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(160), Materials.Water.getFluid(840))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 160), GTUtility.getWater(840))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(CropsNHFluids.Korn, 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(320), Materials.Water.getFluid(680))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 320), GTUtility.getWater(680))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(CropsNHFluids.DKorn, 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(380), Materials.Water.getFluid(620))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 380), GTUtility.getWater(620))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(CropsNHFluids.SWhine, 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(700), Materials.Water.getFluid(300))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 700), GTUtility.getWater(300))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(CropsNHFluids.GHP, 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(750), Materials.Water.getFluid(250))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 750), GTUtility.getWater(250))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(CropsNHFluids.jagi, 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(350), Materials.Water.getFluid(650))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 350), GTUtility.getWater(650))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
 
         GTValues.RA.stdBuilder()
             .fluidInputs(new FluidStack(CropsNHFluids.njagi, 1000))
-            .fluidOutputs(Materials.Ethanol.getFluid(350), Materials.Water.getFluid(650))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 350), GTUtility.getWater(650))
             .duration(4 * SECONDS)
             .eut(180)
             .addTo(distillationTowerRecipes);
@@ -251,7 +256,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         GTValues.RA.stdBuilder()
             .itemInputs(GTUtility.getIntegratedCircuit(1))
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.rum"), 100))
-            .fluidOutputs(Materials.Ethanol.getFluid(50))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 50))
             .duration(16 * TICKS)
             .eut(24)
             .addTo(distilleryRecipes);
@@ -259,7 +264,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         GTValues.RA.stdBuilder()
             .itemInputs(GTUtility.getIntegratedCircuit(2))
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.rum"), 100))
-            .fluidOutputs(Materials.Water.getFluid(42))
+            .fluidOutputs(GTUtility.getWater(42))
             .duration(16 * TICKS)
             .eut(24)
             .addTo(distilleryRecipes);
@@ -267,7 +272,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         GTValues.RA.stdBuilder()
             .itemInputs(GTUtility.getIntegratedCircuit(1))
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 100))
-            .fluidOutputs(Materials.Ethanol.getFluid(35))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 35))
             .duration(16 * TICKS)
             .eut(24)
             .addTo(distilleryRecipes);
@@ -275,7 +280,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         GTValues.RA.stdBuilder()
             .itemInputs(GTUtility.getIntegratedCircuit(2))
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 100))
-            .fluidOutputs(Materials.Water.getFluid(60))
+            .fluidOutputs(GTUtility.getWater(60))
             .duration(16 * TICKS)
             .eut(24)
             .addTo(distilleryRecipes);
@@ -283,7 +288,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         GTValues.RA.stdBuilder()
             .itemInputs(GTUtility.getIntegratedCircuit(1))
             .fluidInputs(new FluidStack(CropsNHFluids.Korn, 100))
-            .fluidOutputs(Materials.Ethanol.getFluid(25))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 25))
             .duration(16 * TICKS)
             .eut(24)
             .addTo(distilleryRecipes);
@@ -291,7 +296,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         GTValues.RA.stdBuilder()
             .itemInputs(GTUtility.getIntegratedCircuit(2))
             .fluidInputs(new FluidStack(CropsNHFluids.Korn, 100))
-            .fluidOutputs(Materials.Water.getFluid(68))
+            .fluidOutputs(GTUtility.getWater(68))
             .duration(16 * TICKS)
             .eut(24)
             .addTo(distilleryRecipes);
@@ -299,7 +304,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         GTValues.RA.stdBuilder()
             .itemInputs(GTUtility.getIntegratedCircuit(1))
             .fluidInputs(new FluidStack(CropsNHFluids.DKorn, 100))
-            .fluidOutputs(Materials.Ethanol.getFluid(30))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 30))
             .duration(16 * TICKS)
             .eut(24)
             .addTo(distilleryRecipes);
@@ -307,7 +312,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         GTValues.RA.stdBuilder()
             .itemInputs(GTUtility.getIntegratedCircuit(2))
             .fluidInputs(new FluidStack(CropsNHFluids.DKorn, 100))
-            .fluidOutputs(Materials.Water.getFluid(62))
+            .fluidOutputs(GTUtility.getWater(62))
             .duration(16 * TICKS)
             .eut(24)
             .addTo(distilleryRecipes);
@@ -346,7 +351,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
 
         mvRecipe(2, 75).itemInputs(GTUtility.getIntegratedCircuit(5))
             .fluidInputs(new FluidStack(CropsNHFluids.FWheat, 250))
-            .fluidOutputs(Materials.Ethanol.getFluid(1))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 1))
             .addTo(distilleryRecipes);
 
         GTValues.RA.stdBuilder()
@@ -367,7 +372,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
 
         mvRecipe(2, 20).itemInputs(GTUtility.getIntegratedCircuit(5))
             .fluidInputs(new FluidStack(CropsNHFluids.FReed, 200))
-            .fluidOutputs(Materials.Ethanol.getFluid(1))
+            .fluidOutputs(MaterialUtils.fluid(Materials.Ethanol, 1))
             .addTo(distilleryRecipes);
 
         GTValues.RA.stdBuilder()
@@ -400,8 +405,8 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 4, 1),
                 new ItemStack(Items.dye, 4, 11),
                 new ItemStack(Items.dye, 4, 2),
-                Materials.Water.getCells(4))
-            .itemOutputs(Materials.Empty.getCells(4))
+                MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 4))
+            .itemOutputs(ItemList.Cell_Empty.get(4))
             .fluidInputs(new FluidStack(CropsNHFluids.GHP, 375))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 4375))
             .duration(10 * TICKS)
@@ -414,8 +419,8 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 1, 1),
                 new ItemStack(Items.dye, 1, 11),
                 new ItemStack(Items.dye, 1, 2),
-                Materials.Water.getCells(1))
-            .itemOutputs(Materials.Empty.getCells(1))
+                MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
+            .itemOutputs(ItemList.Cell_Empty.get(1))
             .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 500))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 1500))
             .duration(10 * TICKS)
@@ -428,8 +433,8 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 1, 1),
                 new ItemStack(Items.dye, 1, 11),
                 new ItemStack(Items.dye, 1, 2),
-                Materials.Water.getCells(1))
-            .itemOutputs(Materials.Empty.getCells(1))
+                MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
+            .itemOutputs(ItemList.Cell_Empty.get(1))
             .fluidInputs(new FluidStack(CropsNHFluids.Korn, 1000))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 2000))
             .duration(10 * TICKS)
@@ -442,8 +447,8 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                 new ItemStack(Items.dye, 1, 1),
                 new ItemStack(Items.dye, 1, 11),
                 new ItemStack(Items.dye, 1, 2),
-                Materials.Water.getCells(1))
-            .itemOutputs(Materials.Empty.getCells(1))
+                MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
+            .itemOutputs(ItemList.Cell_Empty.get(1))
             .fluidInputs(new FluidStack(CropsNHFluids.DKorn, 750))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.alcopops"), 1750))
             .duration(10 * TICKS)
@@ -457,8 +462,8 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
                     new Object[] { "cropSpiceleaf", 1 },
                     new Object[] { "cropGinger", 1 },
                     new ItemStack(Items.dye, 1, 2),
-                    Materials.Water.getCells(1))
-                .itemOutputs(Materials.Empty.getCells(1))
+                    MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
+                .itemOutputs(ItemList.Cell_Empty.get(1))
                 .fluidInputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 4000))
                 .fluidOutputs(new FluidStack(CropsNHFluids.njagi, 5000))
                 .duration(10 * TICKS)
@@ -469,7 +474,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         luvRecipe(0, 1)
             .itemInputs(
                 OreDictHelper.getCopiedOreStack("cropChilipepper", 1),
-                Materials.CosmicNeutronium.getDustTiny(1),
+                MaterialLibAPI.getStack(Materials.CosmicNeutronium, Shapes.dustTiny, 1),
                 OreDictHelper.getCopiedOreStack("cropLemon", 64),
                 OreDictHelper.getCopiedOreStack("cropTea", 64),
                 CropsNHItemList.magicEssence.get(8),
@@ -479,17 +484,17 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
             .addTo(mixerRecipes);
 
         GTValues.RA.stdBuilder()
-            .itemInputs(Materials.Water.getCells(1))
-            .itemOutputs(Materials.Empty.getCells(1))
-            .fluidInputs(Materials.Ethanol.getFluid(1000))
+            .itemInputs(MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1))
+            .itemOutputs(ItemList.Cell_Empty.get(1))
+            .fluidInputs(MaterialUtils.fluid(Materials.Ethanol, 1000))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.vodka"), 2500))
             .duration(10 * TICKS)
             .eut(8)
             .addTo(mixerRecipes);
 
         GTValues.RA.stdBuilder()
-            .itemInputs(Materials.Water.getCells(1), new ItemStack(Items.sugar))
-            .itemOutputs(Materials.Empty.getCells(1))
+            .itemInputs(MaterialLibAPI.getStack(Materials.Water, CellShapes.cell, 1), new ItemStack(Items.sugar))
+            .itemOutputs(ItemList.Cell_Empty.get(1))
             .fluidInputs(new FluidStack(CropsNHFluids.SWhine, 5000))
             .fluidOutputs(new FluidStack(FluidRegistry.getFluid("potion.rum"), 6000))
             .duration(10 * TICKS)
@@ -500,7 +505,7 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
         for (ItemStack itemStack : OreDictionary.getOres("listAllberry")) {
             GTValues.RA.stdBuilder()
                 .itemInputs(itemStack.splitStack(16))
-                .fluidInputs(Materials.Water.getFluid(750))
+                .fluidInputs(GTUtility.getWater(750))
                 .fluidOutputs(new FluidStack(CropsNHFluids.Mash, 750))
                 .duration(6 * SECONDS + 8 * TICKS)
                 .eut(4)
@@ -587,8 +592,8 @@ public abstract class CropsPlusPlusRecipes extends BaseGTRecipeLoader {
     // region helpers
 
     private static void addDyeConversionRecipe(ItemStack input, Fluid dyeFluid) {
-        mvRecipe(12, 0).itemInputs(input, Materials.Salt.getDust(2))
-            .fluidInputs(Materials.SulfuricAcid.getFluid(432))
+        mvRecipe(12, 0).itemInputs(input, MaterialLibAPI.getStack(Materials.Salt, Shapes.dust, 2))
+            .fluidInputs(MaterialUtils.fluid(Materials.SulfuricAcid, 432))
             .fluidOutputs(new FluidStack(dyeFluid, 288))
             .addTo(UniversalChemical);
     }

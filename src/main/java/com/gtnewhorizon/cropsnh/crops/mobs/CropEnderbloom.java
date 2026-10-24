@@ -8,24 +8,24 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropEnderbloom extends NHCropCard {
 
     public CropEnderbloom() {
         super("enderbloom", new Color(0x085245), new Color(0x1B7B6B));
 
-        this.addDrop(Materials.EnderPearl.getDust(1), 62_50);
+        this.addDrop(MaterialLibAPI.getStack(Materials.EnderPearl, Shapes.dust, 1), 62_50);
         this.addDrop(new ItemStack(Items.ender_pearl, 1, 0), 37_50);
 
         this.addSubSoilRequirement(CropsNHSubSoilTypes.endStone);
 
         this.addDuplicationCatalyst(new ItemStack(Items.ender_pearl, 1, 0));
-        this.addDuplicationCatalyst(GTOreDictUnificator.get(OrePrefixes.dust, Materials.EnderPearl, 1));
+        this.addDuplicationCatalyst(MaterialLibAPI.getStack(Materials.EnderPearl, Shapes.dust, 1));
 
         this.addLikedBiomes(BiomeDictionary.Type.END, BiomeDictionary.Type.COLD);
     }

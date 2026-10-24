@@ -17,8 +17,8 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import gregtech.GTMod;
 import gregtech.api.interfaces.IItemContainer;
 import gregtech.api.util.GTModHandler;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
+import gregtech.api.util.OreDictUtils;
 
 public enum CropsNHItemList implements IItemContainer {
 
@@ -341,7 +341,7 @@ public enum CropsNHItemList implements IItemContainer {
             this.warned = true;
         }
         if (GTUtility.isStackInvalid(stack)) return false;
-        return GTUtility.areUnificationsEqual((ItemStack) stack, wildcard ? getWildcard(1) : get(1), ignoreNBT);
+        return GTUtility.areStacksEqual((ItemStack) stack, wildcard ? getWildcard(1) : get(1), ignoreNBT);
     }
 
     @Override
@@ -359,22 +359,21 @@ public enum CropsNHItemList implements IItemContainer {
     public ItemStack getWildcard(long amount, Object... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
-        return GTUtility.copyAmountAndMetaData(amount, WILDCARD, GTOreDictUnificator.get(this.stack));
+        return GTUtility.copyAmountAndMetaData(amount, WILDCARD, this.stack);
     }
 
     @Override
     public ItemStack getUndamaged(long amount, Object... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
-        return GTUtility.copyAmountAndMetaData(amount, 0, GTOreDictUnificator.get(this.stack));
+        return GTUtility.copyAmountAndMetaData(amount, 0, this.stack);
     }
 
     @Override
     public ItemStack getAlmostBroken(long amount, Object... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
-        return GTUtility
-            .copyAmountAndMetaData(amount, this.stack.getMaxDamage() - 1, GTOreDictUnificator.get(this.stack));
+        return GTUtility.copyAmountAndMetaData(amount, this.stack.getMaxDamage() - 1, this.stack);
     }
 
     @Override
@@ -417,20 +416,20 @@ public enum CropsNHItemList implements IItemContainer {
     public ItemStack getWithDamage(long amount, long metaValue, Object... replacements) {
         sanityCheck();
         if (GTUtility.isStackInvalid(this.stack)) return GTUtility.copyAmount(amount, replacements);
-        return GTUtility.copyAmountAndMetaData(amount, metaValue, GTOreDictUnificator.get(this.stack));
+        return GTUtility.copyAmountAndMetaData(amount, metaValue, this.stack);
     }
 
     @Override
     public IItemContainer registerOre(Object... oreNames) {
         sanityCheck();
-        for (Object oreName : oreNames) GTOreDictUnificator.registerOre(oreName, get(1));
+        for (Object oreName : oreNames) OreDictUtils.registerOre(oreName, get(1));
         return this;
     }
 
     @Override
     public IItemContainer registerWildcardAsOre(Object... oreNames) {
         sanityCheck();
-        for (Object tOreName : oreNames) GTOreDictUnificator.registerOre(tOreName, getWildcard(1));
+        for (Object tOreName : oreNames) OreDictUtils.registerOre(tOreName, getWildcard(1));
         return this;
     }
 
