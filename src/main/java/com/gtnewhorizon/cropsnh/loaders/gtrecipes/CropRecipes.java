@@ -1,6 +1,7 @@
 package com.gtnewhorizon.cropsnh.loaders.gtrecipes;
 
 import static bartworks.API.recipe.BartWorksRecipeMaps.bacterialVatRecipes;
+import static gregtech.api.recipe.RecipeEnvironment.CLEANROOM;
 import static gregtech.api.recipe.RecipeMaps.alloySmelterRecipes;
 import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
 import static gregtech.api.recipe.RecipeMaps.autoclaveRecipes;
@@ -993,7 +994,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         ivRecipe(60 * 5 + 16, 0).itemInputs(CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "coral1", 32, 15))
             .fluidInputs(MaterialUtils.fluid(Materials.UUMatter, 1))
             .itemOutputs(MaterialLibAPI.getStack(Materials.Sunnarium, Shapes.dust, 2))
-            .requiresCleanRoom()
+            .requiresEnvironment(CLEANROOM)
             .addTo(RecipeMaps.autoclaveRecipes);
     }
 
