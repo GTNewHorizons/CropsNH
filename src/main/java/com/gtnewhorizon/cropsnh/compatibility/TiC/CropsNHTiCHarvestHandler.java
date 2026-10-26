@@ -1,5 +1,6 @@
 package com.gtnewhorizon.cropsnh.compatibility.TiC;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -13,12 +14,14 @@ public class CropsNHTiCHarvestHandler implements CropHarvestHandler {
 
     @Override
     public boolean couldHarvest(World world, int x, int y, int z) {
-        return world.getTileEntity(x, y, z) instanceof ICropStickTile;
+        return !Minecraft.getMinecraft().gameSettings.keyBindAttack.getIsKeyPressed()
+            && world.getTileEntity(x, y, z) instanceof ICropStickTile;
     }
 
     @Override
     public boolean tryHarvest(ItemStack stack, EntityPlayer player, World world, int x, int y, int z) {
-        if (!(world.getTileEntity(x, y, z) instanceof ICropStickTile crop)) return false;
+        if (Minecraft.getMinecraft().gameSettings.keyBindAttack.getIsKeyPressed()
+            || !(world.getTileEntity(x, y, z) instanceof ICropStickTile crop)) return false;
         // allow weed removal just like a spade would.
         if (crop.hasWeed()) {
             if (crop.isMature()) {
