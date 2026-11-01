@@ -326,7 +326,7 @@ public class MutationLoader {
             new CropMutation(FloweringVine, OxeyeDaisy, Ivy)
                 .register();
 
-            MutationRegistry.instance.register(Glowflower, BLUE, NETHER, EMISSIVE, SHINY, POTION_INGREDIENT);
+            MutationRegistry.instance.register(Glowflower, NETHER, EMISSIVE, SHINY, POTION_INGREDIENT);
             new CropMutation(Glowflower, NetherStoneLily, Dandelion)
                 .register();
 
