@@ -30,6 +30,7 @@ public enum ModUtils implements IMod {
     EnderIO(ModIDs.EnderIO),
     EtFuturumRequiem(ModIDs.EtFuturumRequiem),
     ExtraUtilities(ModIDs.ExtraUtilities),
+    Fether(ModIDs.Fether),
     FindIt(ModIDs.FindIt),
     ForbiddenMagic(ModIDs.ForbiddenMagic),
     Forestry(ModIDs.Forestry),
@@ -174,6 +175,7 @@ public enum ModUtils implements IMod {
         public static final String EnderIO = "EnderIO";
         public static final String EtFuturumRequiem = "etfuturum";
         public static final String ExtraUtilities = "ExtraUtilities";
+        public static final String Fether = "fether";
         public static final String FindIt = "findit";
         public static final String ForbiddenMagic = "ForbiddenMagic";
         public static final String Forestry = "Forestry";

@@ -17,11 +17,11 @@ import com.gtnewhorizon.cropsnh.crops.abstracts.CropBonsai;
 import com.gtnewhorizon.cropsnh.crops.biomesoplenty.CropBamboo;
 import com.gtnewhorizon.cropsnh.crops.biomesoplenty.CropEyebulb;
 import com.gtnewhorizon.cropsnh.crops.biomesoplenty.CropFloweringVine;
-import com.gtnewhorizon.cropsnh.crops.biomesoplenty.CropGlowflower;
 import com.gtnewhorizon.cropsnh.crops.biomesoplenty.CropGlowingCoral;
 import com.gtnewhorizon.cropsnh.crops.biomesoplenty.CropGlowshroom;
 import com.gtnewhorizon.cropsnh.crops.biomesoplenty.CropIvy;
 import com.gtnewhorizon.cropsnh.crops.biomesoplenty.CropMoss;
+import com.gtnewhorizon.cropsnh.crops.fether.CropGlowflower;
 import com.gtnewhorizon.cropsnh.crops.food.CropChilly;
 import com.gtnewhorizon.cropsnh.crops.food.CropCoffee;
 import com.gtnewhorizon.cropsnh.crops.food.CropCucumber;
@@ -202,6 +202,7 @@ public class CropLoader {
         registerBonsais();
         registerBoPCrops();
         registerNaturaCrops();
+        registerFetherCrops();
         registerFoodCrops();
         registerMaterialCrops();
         registerOreBerries();
@@ -334,7 +335,6 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.BoPBerry = new CropBoPBerry());
         CropRegistry.instance.register(CropsNHCrops.Eyebulb = new CropEyebulb());
         CropRegistry.instance.register(CropsNHCrops.FloweringVine = new CropFloweringVine());
-        CropRegistry.instance.register(CropsNHCrops.Glowflower = new CropGlowflower());
         CropRegistry.instance.register(CropsNHCrops.GlowingCoral = new CropGlowingCoral());
         CropRegistry.instance.register(CropsNHCrops.Glowshroom = new CropGlowshroom());
         CropRegistry.instance.register(CropsNHCrops.Ivy = new CropIvy());
@@ -359,6 +359,11 @@ public class CropLoader {
         CropRegistry.instance.register(CropsNHCrops.Raspberry = new CropRaspberry());
         CropRegistry.instance.register(CropsNHCrops.Maloberry = new CropMaloberry());
         CropRegistry.instance.register(CropsNHCrops.SaguaroCactus = new CropSaguaroCactus());
+    }
+
+    private static void registerFetherCrops() {
+        if (!ModUtils.Fether.isModLoaded()) return;
+        CropRegistry.instance.register(CropsNHCrops.Glowflower = new CropGlowflower());
     }
 
     private static void registerFoodCrops() {

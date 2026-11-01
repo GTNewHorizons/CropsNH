@@ -1,4 +1,4 @@
-package com.gtnewhorizon.cropsnh.crops.biomesoplenty;
+package com.gtnewhorizon.cropsnh.crops.fether;
 
 import java.awt.Color;
 
@@ -16,20 +16,17 @@ import com.gtnewhorizon.cropsnh.utility.ModUtils;
 public class CropGlowflower extends NHCropCard {
 
     public CropGlowflower() {
-        super("glowflower", new Color(0x004D4C), new Color(0x12A4A2));
+        super("glowflower", new Color(0xA23e00), new Color(0xF59a00));
 
-        ItemStack glowflower = CropsNHUtils.getModItem(ModUtils.BiomesOPlenty, "flowers", 2, 3);
+        ItemStack glowflower = CropsNHUtils.getModItem(ModUtils.Fether, "glow_flower", 2);
+        ItemStack glowaltseed = CropsNHUtils.getModItem(ModUtils.Fether, "glow_flower_seeds", 1);
         this.addDrop(glowflower.copy(), 100_00);
 
-        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(glowflower, 1));
+        this.addAlternateSeed(CropsNHUtils.copyStackWithSize(glowaltseed, 1));
 
         this.addDuplicationCatalyst("dustGlowstone", 1);
-        // mystic grove tags
-        this.addLikedBiomes(
-            BiomeDictionary.Type.WET,
-            BiomeDictionary.Type.LUSH,
-            BiomeDictionary.Type.MAGICAL,
-            BiomeDictionary.Type.FOREST);
+        // hell tags
+        this.addLikedBiomes(BiomeDictionary.Type.HOT, BiomeDictionary.Type.DRY, BiomeDictionary.Type.NETHER);
     }
 
     @Override
@@ -39,7 +36,7 @@ public class CropGlowflower extends NHCropCard {
 
     @Override
     public ISoilList getSoilTypes() {
-        return CropsNHSoilTypes.dirtGrass;
+        return CropsNHSoilTypes.netherrack;
     }
 
     @Override
