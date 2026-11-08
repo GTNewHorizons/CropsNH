@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import com.gtnewhorizon.cropsnh.api.ICropRightClickHandler;
 import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.creativetab.CropsNHTab;
-import com.gtnewhorizon.cropsnh.loaders.FertilizerLoader;
+import com.gtnewhorizon.cropsnh.loaders.PotencyLoader;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.utility.LogHelper;
 import com.gtnewhorizon.cropsnh.utility.RegisterHelper;
@@ -22,7 +22,7 @@ public class ItemWeedEX extends Item implements ICropRightClickHandler {
     private final static int POTENCY_PER_USE = 10;
     private final static int THRESHOLD = 90;
     private final static int MAX_STORAGE = 100;
-    public final static int MAX_USES = Constants.WEEDEX_CAPACITY / FertilizerLoader.WEEDEX_POTENCY / POTENCY_PER_USE;
+    public final static int MAX_USES = Constants.WEEDEX_CAPACITY / PotencyLoader.WEEDEX_POTENCY / POTENCY_PER_USE;
 
     public ItemWeedEX() {
         this.setCreativeTab(CropsNHTab.cropsNHTab);

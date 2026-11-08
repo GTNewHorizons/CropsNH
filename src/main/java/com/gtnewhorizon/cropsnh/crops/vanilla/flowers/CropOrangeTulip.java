@@ -8,13 +8,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropVanillaFlower;
+import com.gtnewhorizon.cropsnh.reference.Constants;
 
 public class CropOrangeTulip extends CropVanillaFlower {
 
     public CropOrangeTulip() {
         super("orangeTulip", new Color(0x92460C), new Color(0xF4B33F));
 
-        this.addDrop(new ItemStack(Items.dye, 1, 14), 10_000);
+        this.addDrop(new ItemStack(Items.dye, 1, 14), Constants.FLOWER_DYE_DROP_CHANCE);
+        this.addDrop(new ItemStack(Blocks.red_flower, 1, 5), Constants.FLOWER_ITEM_DROP_CHANCE);
 
         this.addAlternateSeed(new ItemStack(Blocks.red_flower, 1, 5));
 

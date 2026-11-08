@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalInt;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,7 @@ import com.gtnewhorizon.cropsnh.api.ICropStickTile;
 import com.gtnewhorizon.cropsnh.api.IGrowthRequirement;
 import com.gtnewhorizon.cropsnh.api.IHarvestDropModifier;
 import com.gtnewhorizon.cropsnh.api.IMutationPool;
+import com.gtnewhorizon.cropsnh.api.IPotencyData;
 import com.gtnewhorizon.cropsnh.api.ISeedData;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.api.IWorldGrowthRequirement;
@@ -1010,22 +1012,46 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
             return false;
         }
 
-        // if all parents have fertilizer in them, stats cannot go down.
-        boolean onlyGoUp = neighbours.stream()
-            .allMatch(x -> x.getFertilizerStorage() > 0);
         // find all the parent's stats.
         Collection<ISeedStats> parentStats = neighbours.stream()
             .map(
                 t -> t.getSeed()
                     .getStats())
             .collect(Collectors.toList());
-        byte ga = variateStat(onlyGoUp, parentStats, ISeedStats::getGain);
-        byte re = variateStat(onlyGoUp, parentStats, ISeedStats::getResistance);
-        byte gr = variateStat(onlyGoUp, parentStats, ISeedStats::getGrowth);
+
+        // stat variation depends on the number of parents and the amount of fert in the sticks
+        OptionalInt minFertilizer = neighbours.stream()
+            .mapToInt(ICropStickTile::getFertilizerStorage)
+            .min();
+        int[] variations = getStatVariation(neighbours.size() <= 1, minFertilizer.orElse(0));
+
+        byte ga = variateStat(variations, parentStats, ISeedStats::getGain);
+        byte re = variateStat(variations, parentStats, ISeedStats::getResistance);
+        byte gr = variateStat(variations, parentStats, ISeedStats::getGrowth);
 
         // plant it
         this.plantSeed(new SeedData(result, new SeedStats(gr, ga, re, false)));
         return true;
+    }
+
+    private static int[] getStatVariation(boolean hasSingleParent, int minFertilizer) {
+        if (hasSingleParent) {
+            if (minFertilizer >= ConfigurationHandler.highFertilizerSpreadingThreshold) {
+                return ConfigurationHandler.highFertilizerSpreadingVariations;
+            }
+            if (minFertilizer >= ConfigurationHandler.medFertilizerSpreadingThreshold) {
+                return ConfigurationHandler.medFertilizerSpreadingVariations;
+            }
+            return ConfigurationHandler.lowFertilizerSpreadingVariations;
+        }
+
+        if (minFertilizer >= ConfigurationHandler.highFertilizerBreedingThreshold) {
+            return ConfigurationHandler.highFertilizerBreedingVariations;
+        }
+        if (minFertilizer >= ConfigurationHandler.medFertilizerBreedingThreshold) {
+            return ConfigurationHandler.medFertilizerBreedingVariations;
+        }
+        return ConfigurationHandler.lowFertilizerBreedingVariations;
     }
 
     private ICropCard getBreedingResult(List<ICropStickTile> neighbours) {
@@ -1067,7 +1093,7 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 .get(XSTR.XSTR_INSTANCE.nextInt(deterministicMutations.size()));
             if (chosenMutation.canBreed(breedingParents, this.worldObj, this, this.xCoord, this.yCoord, this.zCoord)) {
                 Collection<ICropCard> chosenMutationParents = chosenMutation.getParents();
-                // Ensure only crops that participated in the mutation contrinute to the new baseline stats
+                // Ensure only crops that participated in the mutation contribute to the new baseline stats
                 neighbours.removeIf(
                     s -> !chosenMutationParents.contains(
                         s.getSeed()
@@ -1081,14 +1107,15 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (pooledMutations != null && !pooledMutations.isEmpty()) {
             // pick a random matching pool
             IMutationPool chosenPool = pooledMutations.get(XSTR.XSTR_INSTANCE.nextInt(pooledMutations.size()));
-            // Ensure only crops that participated in the mutation contrinute to the new baseline stats
+            // Ensure only crops that participated in the mutation contribute to the new baseline stats
             neighbours.removeIf(
                 s -> !chosenPool.contains(
                     s.getSeed()
                         .getCrop()));
             // pick a random crop in the pool.
             ArrayList<ICropCard> potentialResults = new ArrayList<>(chosenPool.getMembers());
-            return potentialResults.get(XSTR.XSTR_INSTANCE.nextInt(potentialResults.size()));
+            ICropCard result = potentialResults.get(XSTR.XSTR_INSTANCE.nextInt(potentialResults.size()));
+            return result;
         }
 
         return null;
@@ -1112,16 +1139,15 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
                 .getBreedingThreshold();
     }
 
-    public static byte variateStat(boolean onlyGoUp, Collection<ISeedStats> parentStats,
+    public static byte variateStat(int[] variations, Collection<ISeedStats> parentStats,
         ToIntFunction<ISeedStats> collector) {
         // average parents
         int newValue = parentStats.stream()
             .mapToInt(collector)
             .reduce(0, Integer::sum) / parentStats.size();
+
         // variate
-        int variation = ConfigurationHandler.breedingHigh + 1 - ConfigurationHandler.breedingLow;
-        variation = XSTR.XSTR_INSTANCE.nextInt(variation) + ConfigurationHandler.breedingLow;
-        if (onlyGoUp && variation < 0) variation = 0;
+        int variation = variations[XSTR.XSTR_INSTANCE.nextInt(variations.length)];
 
         // clamp
         return (byte) Math.max(Constants.MIN_SEED_STAT, Math.min(Constants.MAX_SEED_STAT, newValue + variation));
@@ -1291,17 +1317,26 @@ public class TileEntityCropSticks extends TileEntityCropsNH implements ICropStic
         if (this.waterStorage > 0) this.waterStorage--;
     }
 
+    public static final int MANUAL_FERTILIZER_MAX_STORAGE = 100;
+    private static final int MANUAL_FERTILIZER_MIN_THRESHOLD = 10;
+
     @Override
     public boolean onRightClick(EntityPlayer player, ItemStack heldItem) {
         if (worldObj.isRemote) return true;
         // items that implement ICropRightClickHandler will be able to
         if (CropsNHUtils.isStackValid(heldItem)) {
             // check if it's a fertilizer
-            int fertilizerPotency = FertilizerRegistry.instance.getPotency(heldItem);
-            if (fertilizerPotency > 0) {
-                if (this.addFertilizer(fertilizerPotency, Math.max(90, 100 - fertilizerPotency), 100, false)) {
+            IPotencyData fertilizerData = FertilizerRegistry.instance.getPotency(heldItem);
+            if (fertilizerData != null && fertilizerData.getUnitsConsumedPerApplication() <= heldItem.stackSize) {
+                int potency = fertilizerData.getPotency();
+                int maxStorage = fertilizerData.getMaxStorage(MANUAL_FERTILIZER_MAX_STORAGE);
+                if (this.addFertilizer(
+                    potency,
+                    Math.max(maxStorage - MANUAL_FERTILIZER_MIN_THRESHOLD, maxStorage - potency),
+                    maxStorage,
+                    false)) {
                     if (!player.capabilities.isCreativeMode) {
-                        heldItem.stackSize--;
+                        heldItem.stackSize -= fertilizerData.getUnitsConsumedPerApplication();
                     }
                     this.playFertilizationSound();
                     return true;

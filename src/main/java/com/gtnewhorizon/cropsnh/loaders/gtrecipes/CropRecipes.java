@@ -350,6 +350,11 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreDuplicationRecipe(MaterialLeafLoader.plumbiliaLeaf, Materials.Lead);
         createOreDuplicationRecipe(MaterialLeafLoader.plumbiliaLeaf, Materials.Galena);
 
+        createOreDuplicationRecipe(MaterialLeafLoader.diareed, Materials.Diamond);
+        createOreDuplicationRecipe(MaterialLeafLoader.diareed, Materials.Graphite);
+        createOreDuplicationRecipe(MaterialLeafLoader.diareed, Materials.Coal);
+        createOreDuplicationRecipe(MaterialLeafLoader.diareed, Materials.Lignite);
+
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.Iron);
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.Magnetite);
         createOreDuplicationRecipe(MaterialLeafLoader.ferrofernLeaf, Materials.BrownLimonite);
@@ -568,6 +573,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         createOreConversionRecipe(MaterialLeafLoader.argentiaLeaf, Voltage.LV, Materials.Silver, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.ferrofernLeaf, Voltage.LV, Materials.Iron, TierAcid.t1);
         createOreConversionRecipe(MaterialLeafLoader.thiosulfineFlower, Voltage.LV, Materials.Sulfur, TierAcid.t1);
+        createOreConversionRecipe(MaterialLeafLoader.diareed, Voltage.LV, Materials.Diamond, TierAcid.t2);
 
         createOreConversionRecipe(MaterialLeafLoader.auroniaLeaf, Voltage.LV, Materials.Gold, TierAcid.t2);
         // emeralds are needed for mv sensors/emitters so slightly higher reqs
@@ -827,7 +833,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         }
 
         // fluid extraction
-        lvRecipe(1, 00).itemInputs(MaterialLeafLoader.oilBerry.get(1))
+        lvRecipe(2, 00).itemInputs(MaterialLeafLoader.oilBerry.get(1))
             .fluidOutputs(Materials.Oil.getFluid(100))
             .addTo(fluidExtractionRecipes);
 
@@ -883,7 +889,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
         final float BERRY_DT_RECIPE_MULT = 1.5f;
         final int EXTRACTION_BY_PASS_ADDITION = (1 * SECONDS * 10) / 4;
         // light oil
-        hvRecipe((int) ((1 * SECONDS + 1 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
+        hvRecipe((int) ((2 * SECONDS + 1 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(1)
             .fluidOutputs(
@@ -895,7 +901,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // oil
-        hvRecipe((int) ((3 * SECONDS + 4 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
+        hvRecipe((int) ((4 * SECONDS + 4 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(2)
             .fluidOutputs(
@@ -907,7 +913,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // raw oil
-        hvRecipe((int) ((1 * SECONDS + 12 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
+        hvRecipe((int) ((2 * SECONDS + 12 * TICKS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(3)
             .fluidOutputs(
@@ -919,7 +925,7 @@ public abstract class CropRecipes extends BaseGTRecipeLoader {
             .addTo(distillationTowerRecipes);
 
         // heavy oil
-        hvRecipe((int) ((5 * SECONDS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
+        hvRecipe((int) ((6 * SECONDS) * BERRY_DT_RECIPE_MULT) + EXTRACTION_BY_PASS_ADDITION)
             .itemInputs(MaterialLeafLoader.oilBerry.get(10))
             .circuit(4)
             .fluidOutputs(

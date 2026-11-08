@@ -28,7 +28,7 @@ public class CropOilBerry extends NHCropCard {
 
     @Override
     public int getTier() {
-        return 4;
+        return 8;
     }
 
     @Override

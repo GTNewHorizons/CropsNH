@@ -122,7 +122,7 @@ public abstract class GTRecipeLoader extends BaseGTRecipeLoader {
     private static void addPlantCureRecipe() {
         GTModHandler.addShapelessCraftingRecipe(
             CropsNHItemList.plantCure.get(1),
-            new Object[] { ItemList.Spray_Empty.get(1), CropsNHItemList.enrichedFertilizerCell.get(1),
+            new Object[] { ItemList.Spray_Empty.get(1), CropsNHItemList.fertilizerCell.get(1),
                 CropsNHItemList.fertilizer.get(1), new ItemStack(Items.dye, 1, 15) });
     }
 

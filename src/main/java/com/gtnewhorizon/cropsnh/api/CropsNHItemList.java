@@ -240,6 +240,7 @@ public enum CropsNHItemList implements IItemContainer {
     hops,
     hempStem,
     thiosulfineFlower,
+    diareed,
 
     environmentalModule_base,
     environmentalModule_HOT,
