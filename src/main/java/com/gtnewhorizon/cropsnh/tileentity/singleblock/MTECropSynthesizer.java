@@ -36,11 +36,12 @@ import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.SoundResource;
+import gregtech.api.enums.materials.Materials;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.material.MaterialUtils;
 import gregtech.api.metatileentity.implementations.MTEBasicMachine;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.recipe.BasicUIProperties;
@@ -153,7 +154,7 @@ public class MTECropSynthesizer extends MTEBasicMachine {
     @Override
     public int checkRecipe(boolean skipOC) {
         // check if the fluid is correct.
-        if (this.mFluid == null || Materials.UUMatter.mFluid != this.mFluid.getFluid()) {
+        if (this.mFluid == null || MaterialUtils.fluidOf(Materials.UUMatter) != this.mFluid.getFluid()) {
             return DID_NOT_FIND_RECIPE;
         }
 
@@ -266,7 +267,7 @@ public class MTECropSynthesizer extends MTEBasicMachine {
 
     @Override
     public boolean isFluidInputAllowed(FluidStack fluid) {
-        return fluid != null && fluid.getFluid() == Materials.UUMatter.mFluid;
+        return fluid != null && fluid.getFluid() == MaterialUtils.fluidOf(Materials.UUMatter);
     }
 
     @Override

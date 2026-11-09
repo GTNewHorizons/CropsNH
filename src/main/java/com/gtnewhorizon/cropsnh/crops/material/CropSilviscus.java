@@ -8,14 +8,16 @@ import com.gtnewhorizon.cropsnh.api.CropsNHSoilTypes;
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropSilviscus extends NHCropCard {
 
     public CropSilviscus() {
         super("silviscus", new Color(0xB3B3D0), new Color(0xD0D0F1));
-        this.addDrop(Materials.Silver.getDustTiny(1), 100_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Silver, Shapes.dustTiny, 1), 100_00);
         this.addGrowthRequirement(CropsNHSubSoilTypes.silver);
         this.addDuplicationCatalyst("dustSilver", 1);
         // movie reference

@@ -10,18 +10,18 @@ import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
 import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropSteeleafranks extends NHCropCard {
 
     public CropSteeleafranks() {
         super("steeleafranks", new Color(0x163916), new Color(0x327F32));
 
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Steeleaf, 1L), 25_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Steeleaf, Shapes.dust, 1), 25_00);
         this.addDrop(CropsNHUtils.getModItem(ModUtils.TwilightForest, "item.steeleafIngot", 1, 0), 25_00);
 
         this.addDuplicationCatalyst("dustSteeleaf", 1);

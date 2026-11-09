@@ -6,16 +6,18 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import com.gtnewhorizon.cropsnh.api.CropsNHSubSoilTypes;
 import com.gtnewhorizon.cropsnh.crops.abstracts.CropBaseStoneLily;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropEndStoneLily extends CropBaseStoneLily {
 
     public CropEndStoneLily() {
         super("endStone", new Color(0xABA67E), new Color(0xDFD9A5));
 
-        this.addDrop(Materials.Endstone.getDust(2), 100_00);
+        this.addDrop(MaterialLibAPI.getStack(Materials.Endstone, Shapes.dust, 2), 100_00);
 
         this.addSubSoilRequirement(CropsNHSubSoilTypes.endStone);
 

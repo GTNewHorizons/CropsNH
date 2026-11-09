@@ -10,27 +10,27 @@ import com.gtnewhorizon.cropsnh.api.IPlantRenderShape;
 import com.gtnewhorizon.cropsnh.api.ISoilList;
 import com.gtnewhorizon.cropsnh.api.PlantRenderShape;
 import com.gtnewhorizon.cropsnh.crops.abstracts.NHCropCard;
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
-import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 
 public class CropGarnydinia extends NHCropCard {
 
     public CropGarnydinia() {
         super("garnydinia", new Color(0xA24141), new Color(0xA3A341));
         // 45% garnet dust
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.GarnetRed, 1L), 22_50);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.dust, Materials.GarnetYellow, 1L), 22_50);
+        this.addDrop(MaterialLibAPI.getStack(Materials.GarnetRed, Shapes.dust, 1), 22_50);
+        this.addDrop(MaterialLibAPI.getStack(Materials.GarnetYellow, Shapes.dust, 1), 22_50);
         // 45% garnet gem dust
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.GarnetRed, 1L), 22_50);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gem, Materials.GarnetYellow, 1L), 22_50);
+        this.addDrop(MaterialLibAPI.getStack(Materials.GarnetRed, Shapes.gem, 1), 22_50);
+        this.addDrop(MaterialLibAPI.getStack(Materials.GarnetYellow, Shapes.gem, 1), 22_50);
         // 5% garnet exquisite gem
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gemExquisite, Materials.GarnetRed, 1L), 2_50);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.gemExquisite, Materials.GarnetYellow, 1L), 2_50);
+        this.addDrop(MaterialLibAPI.getStack(Materials.GarnetRed, Shapes.gemExquisite, 1), 2_50);
+        this.addDrop(MaterialLibAPI.getStack(Materials.GarnetYellow, Shapes.gemExquisite, 1), 2_50);
         // 5$ crushed pure ore
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetRed, 1L), 2_50);
-        this.addDrop(GTOreDictUnificator.get(OrePrefixes.crushedPurified, Materials.GarnetYellow, 1L), 2_50);
+        this.addDrop(MaterialLibAPI.getStack(Materials.GarnetRed, Shapes.crushedPurified, 1), 2_50);
+        this.addDrop(MaterialLibAPI.getStack(Materials.GarnetYellow, Shapes.crushedPurified, 1), 2_50);
 
         this.addSubSoilRequirement(CropsNHSubSoilTypes.garnetGem);
 
