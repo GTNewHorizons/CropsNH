@@ -31,7 +31,7 @@ public class CropBreederFakeRecipeLoader extends BaseGTRecipeLoader {
             List<Object> inputs = mutation.getParents()
                 .stream()
                 .map(parent -> {
-                    ItemStack seedStack = parent.getSeedItem(SeedStats.DEFAULT_ANALYZED);
+                    ItemStack seedStack = parent.getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY);
                     seedStack.stackSize = 1;
                     seedStack.getTagCompound()
                         .removeTag(Names.NBT.gain);
@@ -52,7 +52,7 @@ public class CropBreederFakeRecipeLoader extends BaseGTRecipeLoader {
                 .duration(mutation.getBreedingMachineRecipeDuration())
                 .itemOutputs(
                     mutation.getOutput()
-                        .getSeedItem(SeedStats.DEFAULT_ANALYZED))
+                        .getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY))
                 .nbtSensitive();
 
             // find sub-soil stuff

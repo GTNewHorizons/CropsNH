@@ -38,7 +38,7 @@ public abstract class CropSynthesizerFakeRecipeLoader extends BaseGTRecipeLoader
                 .metadata(CropsNHGTRecipeMaps.CROPSNH_CROP_METADATAKEY, cc)
                 .itemInputs(specimenOrb, growthOrb, gainOrb, resistanceOrb)
                 .fluidInputs(Materials.UUMatter.getFluid(fluidAmount))
-                .itemOutputs(cc.getSeedItem(SeedStats.DEFAULT_ANALYZED))
+                .itemOutputs(cc.getSeedItem(SeedStats.DEFAULT_ANALYZED_READONLY))
                 .eut(MTECropSynthesizer.getRecipeEUt(cc))
                 .duration(MTECropSynthesizer.getRecipeDuration(cc))
                 .fake()

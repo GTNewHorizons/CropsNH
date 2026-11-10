@@ -10,10 +10,22 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.gtnewhorizon.cropsnh.api.ISeedStats;
 import com.gtnewhorizon.cropsnh.reference.Constants;
 import com.gtnewhorizon.cropsnh.reference.Names;
+import com.gtnewhorizon.cropsnh.utility.CropsNHUtils;
 
 public class SeedStats implements ISeedStats {
 
-    public final static SeedStats DEFAULT_ANALYZED = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
+    /**
+     * The default stats for an analyzed crop. Considered read-only in terms of contents. <b>Do not call set analyzed on
+     * this.</b>
+     */
+    public final static SeedStats DEFAULT_ANALYZED_READONLY = new SeedStats((byte) 1, (byte) 1, (byte) 1, true);
+
+    /**
+     * The default stats for a not analyzed crop. Considered read-only in terms of contents. <b>Do not call set analyzed
+     * on
+     * this.</b>
+     */
+    public final static SeedStats DEFAULT_NOT_ANALYZED_READONLY = new SeedStats((byte) 1, (byte) 1, (byte) 1, false);
 
     private final byte growth;
     private final byte gain;
@@ -21,7 +33,11 @@ public class SeedStats implements ISeedStats {
     private boolean analyzed;
 
     public SeedStats() {
-        this(Constants.MIN_SEED_STAT, Constants.MIN_SEED_STAT, Constants.MIN_SEED_STAT);
+        this(false);
+    }
+
+    public SeedStats(boolean analyzed) {
+        this(Constants.MIN_SEED_STAT, Constants.MIN_SEED_STAT, Constants.MIN_SEED_STAT, analyzed);
     }
 
     public SeedStats(byte growth, byte gain, byte resistance) {
@@ -37,25 +53,30 @@ public class SeedStats implements ISeedStats {
 
     @Override
     public byte getGrowth() {
-        return growth;
+        return this.growth;
     }
 
     @Override
     public byte getGain() {
-        return gain;
+        return this.gain;
     }
 
     @Override
     public byte getResistance() {
-        return resistance;
+        return this.resistance;
     }
 
     public SeedStats copy() {
-        return new SeedStats(this.getGrowth(), this.getGain(), this.getResistance(), analyzed);
+        return new SeedStats(this.growth, this.gain, this.resistance, this.analyzed);
     }
 
+    /**
+     * @implNote doesn't care what type of item it is, so it can be something other than a generic seed.
+     * @param stack The stack to get the stats from.
+     * @return The stats associated with the item or null if the stack is null, or it's item is null.
+     */
     public static @Nullable SeedStats getStatsFromStack(ItemStack stack) {
-        if (stack == null || stack.getItem() == null) {
+        if (CropsNHUtils.isStackInvalidIgnoreStackSize(stack)) {
             return null;
         }
         return readFromNBT(stack.getTagCompound());
@@ -89,9 +110,19 @@ public class SeedStats implements ISeedStats {
     }
 
     @Override
+    public String toString() {
+        return String.format("gr:%d ga:%d re:%d A:%b", this.growth, this.gain, this.resistance, this.analyzed);
+    }
+
+    @Override
     public boolean equals(ISeedStats o) {
         return growth == o.getGrowth() && gain == o.getGain()
             && resistance == o.getResistance()
             && analyzed == o.isAnalyzed();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ISeedStats ss && this.equals(ss);
     }
 }
