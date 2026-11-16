@@ -37,6 +37,14 @@ import gregtech.api.enums.GTValues;
 
 public class ItemGenericSeed extends ItemCropsNH {
 
+    public ItemGenericSeed() {
+        super();
+    }
+
+    public ItemGenericSeed(boolean doInit) {
+        super(doInit);
+    }
+
     @Override
     protected String getInternalName() {
         return Names.Objects.genericSeed;
