@@ -5,12 +5,18 @@ import net.minecraftforge.oredict.OreDictionary;
 import com.gtnewhorizon.cropsnh.blocks.BlockCropSticks;
 import com.gtnewhorizon.cropsnh.utility.ModUtils;
 
+import cpw.mods.fml.common.Optional;
 import portablejim.bbw.BetterBuildersWandsMod;
 
 public class BetterBuildersWandsCompatHandler {
 
     public static void postInit() {
         if (!ModUtils.BetterBuildersWands.isModLoaded()) return;
+        registerHandlers();
+    }
+
+    @Optional.Method(modid = ModUtils.ModIDs.BetterBuildersWands)
+    public static void registerHandlers() {
 
         BetterBuildersWandsMod.instance.mappingManager
             .setMapping(new CropsNHBetterBuildersWandsCropStickCustomMapping());
